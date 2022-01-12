@@ -1,0 +1,202 @@
+@font-face {
+  font-family: "superstar";
+  src: local("superstar"),
+   url("./fonts/superstar.ttf") format("truetype");
+  }
+  
+
+body,
+html,
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-family: 'MONOSPACE', sans-serif;
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif; */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+  overflow-y: auto;
+  height: 100%;
+}
+
+/* .makeStyles-paper-11, */
+/* .makeStyles-paper-11 h2, */
+/* .MuiTypography-body1,
+.MuiPaper-root, */
+h2 {
+  color: #930993 !important;
+  font-size:2.5em;
+}
+
+body {
+  font-size: 1em;
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-position: center center !important;
+  background-attachment: fixed !important;
+  background-size: cover !important;
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "superstar", 'monospace';
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.MuiToolbar-regular {
+  color: #000;
+}
+
+.MuiButton-containedPrimary,
+.MuiButton-containedPrimary:hover,
+.MuiListItem-button:hover,
+.MuiButtonBase-root:hover {
+  color: #000 !important;
+}
+
+code {
+  font-family: 'monospace', monospace;
+}
+
+.wallet-button {
+  color: #fff;
+  font-family: 'monospace', sans-serif !important;
+  font-size: 1.2rem !important;
+  text-align: left !important;
+  justify-content: flex-start !important;
+  text-transform: none !important;
+}
+.wallet-button:hover {
+  color: #930993 !important;
+}
+
+.navLink {
+  color: #fff !important;
+}
+
+.navLink:hover {
+  color: #930993 !important;
+}
+
+.shinyButton {
+  margin-top: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: #930993 !important;
+  border-radius: 15px;
+  font-size: 1rem !important;
+  padding-left: 5px;
+  color: #fff !important;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 1);
+}
+
+.shinyButtonDisabled {
+  border-radius: 15px;
+  color: grey !important;
+  box-shadow: 0px 0px 5px 0px grey;
+}
+
+.shinyButton:hover {
+  background-color: #72046D !important;
+  color: #fff !important;
+}
+
+/*
+#930993 light
+#72046D dark
+#322f32 black/grey
+#FFD2D1 background highlight
+#D19AFF background
+*/
+
+.shinyButtonSecondary {
+  padding-top: 5px;
+  padding-bottom: 5px;
+
+  border-radius: 15px;
+  font-size: 1rem !important;
+  padding-left: 5px;
+  background-color: #930993 !important;
+  color: #fff !important;
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,1);
+}
+
+.shinyButtonDisabledSecondary {
+  border-radius: 15px;
+
+  color: grey !important;
+  box-shadow: 0px 0px 5px 0px grey;
+}
+
+.shinyButtonSecondary:hover {
+  background-color: #72046D !important;
+  color: #fff !important;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 1);
+}
+
+.navTokenPrice {
+  padding-top: 5px;
+  padding-right: 15px;
+  color: #fff;
+}
+
+.navTokenIcon {
+  height: 30px !important;
+  width: 30px !important;
+  padding-right: 12px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  overflow: hidden;
+}
+
+.bomb {
+  background-image: url('/grape.png');
+  top:-20px;
+}
+
+.bshare {
+  background-image: url('/gshare.png');
+}
+
+.btc {
+  background-image: url('/bomb3.png');
+}
+
+.MuiPaper-root{
+  color:#322f32 !important;
+  background-color: rgba(255,255,255,0.8) !important;
+}
+
+.MuiAppBar-positionSticky{
+  position: relative !important;
+}
+.ijwpow{
+  background-color: rgba(255,255,255,0.1) !important;
+}
+.makeStyles-appBar-2{
+  background-color: rgba(255,255,255,0.0) !important;
+}
+.walletconnecttitle{
+  color: #322f32;
+}
+.walletconnecttitle:hover{
+  color: #930993;
+}
