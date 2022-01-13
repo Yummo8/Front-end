@@ -7,6 +7,7 @@ import config from '../config';
 const useEarnings = (poolName: ContractName, earnTokenName: String, poolId: Number) => {
   const [balance, setBalance] = useState(BigNumber.from(0));
   const bombFinance = useBombFinance();
+  
   const isUnlocked = bombFinance?.isUnlocked;
 
   const fetchBalance = useCallback(async () => {
