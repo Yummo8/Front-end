@@ -1,7 +1,7 @@
 {
   "name": "Grape-font",
   "version": "1.0.0",
-  "homepage": ".",
+  "homepage": "https://naturalvitamins.us",
   "license": "MIT",
   "dependencies": {
     "@ethersproject/providers": "^5.4.1",

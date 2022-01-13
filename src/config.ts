@@ -24,11 +24,11 @@ const configurations: {[env: string]: Configuration} = {
   //   boardroomLaunchesAt: new Date('2020-12-11T00:00:00Z'),
   //   refreshInterval: 10000,
   // },
-  development: {
-    chainId: 43114,
+  /*development: {
+    chainId: 97,
     networkName: 'Avalanche Mainnet C-Chain',
     ftmscanUrl: 'https://snowtrace.io/',
-    defaultProvider: 'https://api.avax.network/ext/bc/C/rpc',
+    defaultProvider: 'https://data-seed-prebsc-1-s1.binance.org:8545/',
     deployments: require('./bomb-finance/deployments/deployments.mainnet.json'),
     externalTokens: {
       WAVAX: ['0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7', 18],
@@ -45,6 +45,37 @@ const configurations: {[env: string]: Configuration} = {
       'USDT-BTCB-LP': ['0x3f803ec2b816ea7f06ec76aa2b6f2532f9892d62', 18],
       'BOMB-BTCB-LP': ['0x84392649eb0bC1c1532F2180E58Bae4E1dAbd8D6', 18],
       'BOMB-BNB-LP': ['0x107CDC0c46615C63EE4abC4E1e264D3BD12390e6', 18],
+      'BSHARE-BNB-LP': ['0x130966628846bfd36ff31a822705796e8cb8c18d', 18],
+      'BSHARE-BNB-APELP': ['0x0dE2a71b2f43CF588A00422d41E1C02D0E08D552', 18],
+      'BOMB-BTCB-APELP': ['0xB6E85031F313563bF12ea414118978C8BD78db5D', 18],
+    },
+    baseLaunchDate: new Date('2022-1-13 17:00:00Z'),
+    bondLaunchesAt: new Date('2020-01-03T15:00:00Z'),
+    boardroomLaunchesAt: new Date('2022-1-18T00:00:00Z'),
+    refreshInterval: 10000,
+  },*/
+  development: {
+    chainId: 43114,
+    networkName: 'Avalanche',
+    ftmscanUrl: 'https://snowtrace.io/',
+    defaultProvider: 'https://api.avax.network/ext/bc/C/rpc',
+    deployments: require('./bomb-finance/deployments/deployments.mainnet.json'),
+    externalTokens: {
+      WBNB: ['0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c', 18],
+      WAVAX: ['0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7', 18],
+      FUSDT: ['0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56', 18], // This is actually BUSD on mainnet not fusdt
+      BTCB: ['0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c', 18],
+      MIM: ['0x130966628846bfd36ff31a822705796e8cb8c18d', 18],
+      SBTC: ['0x1d28cd41fc594232D05F2AbdAFBb556E7F78Dc2a', 18],
+      SVL: ['0x37F14E7c2FadC2A01dBD93b8a1F69D41c6c3d554', 18],
+      SUSD: ['0x12017c89444624C0268A1053467e22954F4fd362', 18],
+      CAKE: ['0x130966628846bfd36ff31a822705796e8cb8c18d', 18],
+      ZOO: ['0x09e145a1d53c0045f41aeef25d8ff982ae74dd56', 0],
+      SHIBA: ['0x9ba3e4f84a34df4e08c112e1a0ff148b81655615', 9],
+      'USDT-BNB-LP': ['0x58F876857a02D6762E0101bb5C46A8c1ED44Dc16', 18],
+      'USDT-BTCB-LP': ['0x3f803ec2b816ea7f06ec76aa2b6f2532f9892d62', 18],
+      'BOMB-BTCB-LP': ['0x2A651563C9d3Af67aE0388a5c8F89b867038089e', 18],
+      'BOMB-BNB-LP': ['0x107CDC0c46615C63EE4abC4E1e264D3BD12390e6', 18],
       'BSHARE-BNB-LP': ['0x1303246855b5B5EbC71F049Fdb607494e97218f8', 18],
       'BSHARE-BNB-APELP': ['0x0dE2a71b2f43CF588A00422d41E1C02D0E08D552', 18],
       'BOMB-BTCB-APELP': ['0xB6E85031F313563bF12ea414118978C8BD78db5D', 18],
@@ -56,23 +87,25 @@ const configurations: {[env: string]: Configuration} = {
   },
   production: {
     chainId: 43114,
-    networkName: 'Avalanche Mainnet C-Chain',
+    networkName: 'Avalanche',
     ftmscanUrl: 'https://snowtrace.io/',
     defaultProvider: 'https://api.avax.network/ext/bc/C/rpc',
     deployments: require('./bomb-finance/deployments/deployments.mainnet.json'),
     externalTokens: {
       WBNB: ['0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c', 18],
+      WAVAX: ['0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7', 18],
       FUSDT: ['0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56', 18], // This is actually BUSD on mainnet not fusdt
       BTCB: ['0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c', 18],
+      MIM: ['0x130966628846bfd36ff31a822705796e8cb8c18d', 18],
       SBTC: ['0x1d28cd41fc594232D05F2AbdAFBb556E7F78Dc2a', 18],
       SVL: ['0x37F14E7c2FadC2A01dBD93b8a1F69D41c6c3d554', 18],
       SUSD: ['0x12017c89444624C0268A1053467e22954F4fd362', 18],
-      CAKE: ['0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82', 18],
+      CAKE: ['0x130966628846bfd36ff31a822705796e8cb8c18d', 18],
       ZOO: ['0x09e145a1d53c0045f41aeef25d8ff982ae74dd56', 0],
       SHIBA: ['0x9ba3e4f84a34df4e08c112e1a0ff148b81655615', 9],
       'USDT-BNB-LP': ['0x58F876857a02D6762E0101bb5C46A8c1ED44Dc16', 18],
       'USDT-BTCB-LP': ['0x3f803ec2b816ea7f06ec76aa2b6f2532f9892d62', 18],
-      'BOMB-BTCB-LP': ['0x84392649eb0bC1c1532F2180E58Bae4E1dAbd8D6', 18],
+      'BOMB-BTCB-LP': ['0x130966628846bfd36ff31a822705796e8cb8c18d', 18],
       'BOMB-BNB-LP': ['0x107CDC0c46615C63EE4abC4E1e264D3BD12390e6', 18],
       'BSHARE-BNB-LP': ['0x1303246855b5B5EbC71F049Fdb607494e97218f8', 18],
       'BSHARE-BNB-APELP': ['0x0dE2a71b2f43CF588A00422d41E1C02D0E08D552', 18],
@@ -122,17 +155,19 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
   //   sort: 7,
   //   closedForStaking: true,
   // },
-  // BombCakeRewardPool: {
-  //   name: 'Earn BOMB by CAKE',
-  //   poolId: 0,
-  //   sectionInUI: 0,
-  //   contract: 'BombCAKERewardPool',
-  //   depositTokenName: 'CAKE',
-  //   earnTokenName: 'BOMB',
-  //   finished: true,
-  //   sort: 3,
-  //   closedForStaking: true,
-  // },
+  /*
+  BombCakeRewardPool: {
+     name: 'Earn BOMB by CAKE',
+     poolId: 0,
+     sectionInUI: 0,
+     contract: 'GrapeMimRewardPool',
+     depositTokenName: 'MIM',
+     earnTokenName: 'GRAPE',
+     finished: false,
+     sort: 3,
+     closedForStaking: false,
+   },*/
+  
   GrapeMimRewardPool: {
     name: 'Earn GRAPE with MIM',
     poolId: 0,
@@ -269,17 +304,6 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
   //   closedForStaking: true,
   // },
   /*
-  BshareBnbLPBShareRewardPool: {
-    name: 'Earn BSHARE by BSHARE-BNB LP',
-    poolId: 0,
-    sectionInUI: 2,
-    contract: 'BshareBnbLPBShareRewardPool',
-    depositTokenName: 'BSHARE-BNB-LP',
-    earnTokenName: 'BSHARE',
-    finished: false,
-    sort: 2,
-    closedForStaking: true,
-  },
   BombBtcbLPBShareRewardPool: {
     name: 'Earn BSHARE by BOMB-BTCB LP',
     poolId: 1,
@@ -289,8 +313,8 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     earnTokenName: 'BSHARE',
     finished: false,
     sort: 1,
-    closedForStaking: true,
+    closedForStaking: false,
   },*/
 };
 
-export default configurations[process.env.NODE_ENV || 'development'];
+export default configurations[process.env.NODE_ENV || 'production'];

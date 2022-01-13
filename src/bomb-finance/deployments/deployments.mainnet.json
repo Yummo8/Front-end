@@ -2100,13 +2100,18 @@
   },
 
   "BshareBnbLPBShareRewardPool": {
-    "address": "0x1083926054069AaD75d7238E9B809b0eF9d94e5B",
+    "address": "0x5AC71BAd7DCc7A94EFb4704b21A85B58FaCb5633",
     "abi": [
       {
         "inputs": [
           {
             "internalType": "address",
-            "name": "_bshare",
+            "name": "_grape",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "_mim",
             "type": "address"
           },
           {
@@ -2254,19 +2259,6 @@
         "type": "function"
       },
       {
-        "inputs": [],
-        "name": "bshare",
-        "outputs": [
-          {
-            "internalType": "contract IERC20",
-            "name": "",
-            "type": "address"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
         "inputs": [
           {
             "internalType": "uint256",
@@ -2346,9 +2338,48 @@
       },
       {
         "inputs": [],
+        "name": "grape",
+        "outputs": [
+          {
+            "internalType": "contract IERC20",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "grapePerSecond",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
         "name": "massUpdatePools",
         "outputs": [],
         "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "mim",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "view",
         "type": "function"
       },
       {
@@ -2377,7 +2408,7 @@
             "type": "address"
           }
         ],
-        "name": "pendingShare",
+        "name": "pendingGRAPE",
         "outputs": [
           {
             "internalType": "uint256",
@@ -2428,7 +2459,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "accBSharePerShare",
+            "name": "accGrapePerShare",
             "type": "uint256"
           },
           {
@@ -2495,19 +2526,6 @@
         "name": "setOperator",
         "outputs": [],
         "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [],
-        "name": "tSharePerSecond",
-        "outputs": [
-          {
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "stateMutability": "view",
         "type": "function"
       },
       {
@@ -3559,7 +3577,7 @@
     ]
   },
   "BombBtcbLPBShareRewardPool": {
-    "address": "0x1083926054069AaD75d7238E9B809b0eF9d94e5B",
+    "address": "0x5AC71BAd7DCc7A94EFb4704b21A85B58FaCb5633",
     "abi": [
       {
         "inputs": [
@@ -5520,511 +5538,6 @@
       }
     ]
   },
-
-  "GrapeMimRewardPool": {
-    "address": "0x5AC71BAd7DCc7A94EFb4704b21A85B58FaCb5633",
-    "abi": [
-      {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "_grape",
-            "type": "address"
-          },
-          {
-            "internalType": "address",
-            "name": "_mim",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "_poolStartTime",
-            "type": "uint256"
-          }
-        ],
-        "stateMutability": "nonpayable",
-        "type": "constructor"
-      },
-      {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": true,
-            "internalType": "address",
-            "name": "user",
-            "type": "address"
-          },
-          {
-            "indexed": true,
-            "internalType": "uint256",
-            "name": "pid",
-            "type": "uint256"
-          },
-          {
-            "indexed": false,
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256"
-          }
-        ],
-        "name": "Deposit",
-        "type": "event"
-      },
-      {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": true,
-            "internalType": "address",
-            "name": "user",
-            "type": "address"
-          },
-          {
-            "indexed": true,
-            "internalType": "uint256",
-            "name": "pid",
-            "type": "uint256"
-          },
-          {
-            "indexed": false,
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256"
-          }
-        ],
-        "name": "EmergencyWithdraw",
-        "type": "event"
-      },
-      {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": true,
-            "internalType": "address",
-            "name": "user",
-            "type": "address"
-          },
-          {
-            "indexed": false,
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256"
-          }
-        ],
-        "name": "RewardPaid",
-        "type": "event"
-      },
-      {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": true,
-            "internalType": "address",
-            "name": "user",
-            "type": "address"
-          },
-          {
-            "indexed": true,
-            "internalType": "uint256",
-            "name": "pid",
-            "type": "uint256"
-          },
-          {
-            "indexed": false,
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256"
-          }
-        ],
-        "name": "Withdraw",
-        "type": "event"
-      },
-      {
-        "inputs": [],
-        "name": "TOTAL_REWARDS",
-        "outputs": [
-          {
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "uint256",
-            "name": "_allocPoint",
-            "type": "uint256"
-          },
-          {
-            "internalType": "contract IERC20",
-            "name": "_token",
-            "type": "address"
-          },
-          {
-            "internalType": "bool",
-            "name": "_withUpdate",
-            "type": "bool"
-          },
-          {
-            "internalType": "uint256",
-            "name": "_lastRewardTime",
-            "type": "uint256"
-          }
-        ],
-        "name": "add",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "uint256",
-            "name": "_pid",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "_amount",
-            "type": "uint256"
-          }
-        ],
-        "name": "deposit",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "uint256",
-            "name": "_pid",
-            "type": "uint256"
-          }
-        ],
-        "name": "emergencyWithdraw",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "uint256",
-            "name": "_fromTime",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "_toTime",
-            "type": "uint256"
-          }
-        ],
-        "name": "getGeneratedReward",
-        "outputs": [
-          {
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "contract IERC20",
-            "name": "_token",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256"
-          },
-          {
-            "internalType": "address",
-            "name": "to",
-            "type": "address"
-          }
-        ],
-        "name": "governanceRecoverUnsupported",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [],
-        "name": "grape",
-        "outputs": [
-          {
-            "internalType": "contract IERC20",
-            "name": "",
-            "type": "address"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [],
-        "name": "grapePerSecond",
-        "outputs": [
-          {
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [],
-        "name": "massUpdatePools",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [],
-        "name": "mim",
-        "outputs": [
-          {
-            "internalType": "address",
-            "name": "",
-            "type": "address"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [],
-        "name": "operator",
-        "outputs": [
-          {
-            "internalType": "address",
-            "name": "",
-            "type": "address"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "uint256",
-            "name": "_pid",
-            "type": "uint256"
-          },
-          {
-            "internalType": "address",
-            "name": "_user",
-            "type": "address"
-          }
-        ],
-        "name": "pendingGRAPE",
-        "outputs": [
-          {
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [],
-        "name": "poolEndTime",
-        "outputs": [
-          {
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "name": "poolInfo",
-        "outputs": [
-          {
-            "internalType": "contract IERC20",
-            "name": "token",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "allocPoint",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "lastRewardTime",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "accGrapePerShare",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "isStarted",
-            "type": "bool"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [],
-        "name": "poolStartTime",
-        "outputs": [
-          {
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [],
-        "name": "runningTime",
-        "outputs": [
-          {
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "uint256",
-            "name": "_pid",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "_allocPoint",
-            "type": "uint256"
-          }
-        ],
-        "name": "set",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "_operator",
-            "type": "address"
-          }
-        ],
-        "name": "setOperator",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [],
-        "name": "totalAllocPoint",
-        "outputs": [
-          {
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "uint256",
-            "name": "_pid",
-            "type": "uint256"
-          }
-        ],
-        "name": "updatePool",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-          },
-          {
-            "internalType": "address",
-            "name": "",
-            "type": "address"
-          }
-        ],
-        "name": "userInfo",
-        "outputs": [
-          {
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "rewardDebt",
-            "type": "uint256"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "uint256",
-            "name": "_pid",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "_amount",
-            "type": "uint256"
-          }
-        ],
-        "name": "withdraw",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      }
-    ]
-  },
   "GrapeWavaxRewardPool": {
     "address": "0x5AC71BAd7DCc7A94EFb4704b21A85B58FaCb5633",
     "abi": [
@@ -7541,18 +7054,18 @@
   },
 
   "BombSVLRewardPool": {
-    "address": "0xB7e1E341b2CBCc7d1EdF4DC6E5e962aE5C621ca5",
+    "address": "0x5AC71BAd7DCc7A94EFb4704b21A85B58FaCb5633",
     "abi": [
       {
         "inputs": [
           {
             "internalType": "address",
-            "name": "_bomb",
+            "name": "_grape",
             "type": "address"
           },
           {
             "internalType": "address",
-            "name": "_cake",
+            "name": "_mim",
             "type": "address"
           },
           {
@@ -7701,7 +7214,7 @@
       },
       {
         "inputs": [],
-        "name": "bomb",
+        "name": "grape",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -7714,7 +7227,7 @@
       },
       {
         "inputs": [],
-        "name": "bombPerSecond",
+        "name": "grapePerSecond",
         "outputs": [
           {
             "internalType": "uint256",
@@ -7727,7 +7240,7 @@
       },
       {
         "inputs": [],
-        "name": "cake",
+        "name": "mim",
         "outputs": [
           {
             "internalType": "address",
@@ -7849,7 +7362,7 @@
             "type": "address"
           }
         ],
-        "name": "pendingBOMB",
+        "name": "pendingGRAPE",
         "outputs": [
           {
             "internalType": "uint256",
@@ -7900,7 +7413,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "accBombPerShare",
+            "name": "accGrapePerShare",
             "type": "uint256"
           },
           {
@@ -8044,19 +7557,19 @@
       }
     ]
   },
-  "BombCAKERewardPool": {
-    "address": "0xB7e1E341b2CBCc7d1EdF4DC6E5e962aE5C621ca5",
+  "GrapeMimRewardPool": {
+    "address": "0x5AC71BAd7DCc7A94EFb4704b21A85B58FaCb5633",
     "abi": [
       {
         "inputs": [
           {
             "internalType": "address",
-            "name": "_bomb",
+            "name": "_grape",
             "type": "address"
           },
           {
             "internalType": "address",
-            "name": "_cake",
+            "name": "_mim",
             "type": "address"
           },
           {
@@ -8205,7 +7718,7 @@
       },
       {
         "inputs": [],
-        "name": "bomb",
+        "name": "grape",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -8218,7 +7731,7 @@
       },
       {
         "inputs": [],
-        "name": "bombPerSecond",
+        "name": "grapePerSecond",
         "outputs": [
           {
             "internalType": "uint256",
@@ -8231,7 +7744,7 @@
       },
       {
         "inputs": [],
-        "name": "cake",
+        "name": "mim",
         "outputs": [
           {
             "internalType": "address",
@@ -8353,7 +7866,7 @@
             "type": "address"
           }
         ],
-        "name": "pendingBOMB",
+        "name": "pendingGRAPE",
         "outputs": [
           {
             "internalType": "uint256",
@@ -8404,7 +7917,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "accBombPerShare",
+            "name": "accGrapePerShare",
             "type": "uint256"
           },
           {

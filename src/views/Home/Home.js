@@ -62,7 +62,7 @@ const Home = () => {
 
   let bomb;
   let bShare;
-  if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+  if (!process.env.NODE_ENV || process.env.NODE_ENV === 'production') {
     bomb = bombTesting;
     bShare = bShareTesting;
   } else {
