@@ -4,6 +4,7 @@
   "homepage": "https://grapefinance.app",
   "license": "MIT",
   "dependencies": {
+    "@davatar/react": "^1.8.1",
     "@ethersproject/providers": "^5.4.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
