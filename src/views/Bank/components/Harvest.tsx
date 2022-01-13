@@ -23,11 +23,10 @@ interface HarvestProps {
 
 const Harvest: React.FC<HarvestProps> = ({bank}) => {
   const earnings = useEarnings(bank.contract, bank.earnTokenName, bank.poolId);
-  console.log(earnings);
+  
   const {onReward} = useHarvest(bank);
   const bombStats = useBombStats();
   const tShareStats = useShareStats();
-
   const tokenName = bank.earnTokenName === 'GRAPE' ? 'GRAPE' : 'WINE';
   const tokenStats = bank.earnTokenName === 'WINE' ? tShareStats : bombStats;
 

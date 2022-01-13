@@ -38,7 +38,7 @@ const Bank: React.FC = () => {
 
   const {account} = useWallet();
   const {onRedeem} = useRedeem(bank);
-  {/*const statsOnPool = useStatsForPool(bank);*/}
+  const statsOnPool = useStatsForPool(bank);
 
  {/* let vaultUrl: string;
   if (bank.depositTokenName.includes('BOMB')) {
@@ -66,8 +66,8 @@ const Bank: React.FC = () => {
 
   </Alert>*/}</Grid>
         </Box>
-        {/*<Box>
-        <Grid container justify="center" spacing={3} style={{marginBottom: '50px'}}>
+        <Box>
+        {/*<Grid container justify="center" spacing={3} style={{marginBottom: '50px'}}>
           <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
             <Card className={classes.gridItem}>
               <CardContent style={{textAlign: 'center'}}>
@@ -92,8 +92,8 @@ const Bank: React.FC = () => {
               </CardContent>
             </Card>
           </Grid>
-        </Grid>
-        </Box>*/}
+</Grid>*/}
+        </Box>
    
       <Box mt={5}>
         <StyledBank>

@@ -47,7 +47,7 @@ export class BombFinance {
     for (const [symbol, [address, decimal]] of Object.entries(externalTokens)) {
       this.externalTokens[symbol] = new ERC20(address, provider, symbol, decimal);
     }
-    this.BOMB = new ERC20(deployments.Bomb.address, provider, 'BOMB');
+    this.BOMB = new ERC20(deployments.Bomb.address, provider, 'BOMB'); 
     this.BSHARE = new ERC20(deployments.BShare.address, provider, 'BSHARE');
     this.BBOND = new ERC20(deployments.BBond.address, provider, 'BBOND');
     this.BNB = this.externalTokens['WBNB'];
@@ -99,23 +99,25 @@ export class BombFinance {
     const {BombRewardPool, BombGenesisRewardPool} = this.contracts;
     const supply = await this.BOMB.totalSupply();
     const bombRewardPoolSupply = await this.BOMB.balanceOf(BombGenesisRewardPool.address);
-    const bombRewardPoolSupply2 = await this.BOMB.balanceOf(BombRewardPool.address);
-    const bombCirculatingSupply = supply.sub(bombRewardPoolSupply).sub(bombRewardPoolSupply2);
-    const priceInBNB = await this.getTokenPriceFromPancakeswap(this.BOMB);
-    const priceInBNBstring = priceInBNB.toString();
-    const priceInBTC = await this.getTokenPriceFromPancakeswapBTC(this.BOMB);
-    const priceOfOneBNB = await this.getWBNBPriceFromPancakeswap();
-    const priceOfOneBTC = await this.getBTCBPriceFromPancakeswap();
-    const priceInDollars = await this.getTokenPriceFromPancakeswapBOMBUSD();
-    const priceOfBombInDollars = ((Number(priceInBTC) * Number(priceOfOneBTC)) / 10000).toFixed(2);
-    //console.log('priceOfBombInDollars', priceOfBombInDollars);
+    
+    //const bombRewardPoolSupply2 = await this.BOMB.balanceOf(BombRewardPool.address);
+    //const bombCirculatingSupply = supply.sub(bombRewardPoolSupply).sub(bombRewardPoolSupply2);
+   // const priceInBNB = await this.getTokenPriceFromPancakeswap(this.BOMB);
+   // const priceInBNBstring = priceInBNB.toString();
+   const priceInBTC = 0;
+   // const priceOfOneBNB = await this.getWBNBPriceFromPancakeswap();
+   const priceOfOneBTC = 0;
+   const priceInDollars = 0;
+   const priceOfBombInDollars = '1';
+    
 
     return {
       //  tokenInFtm: (Number(priceInBNB) * 100).toString(),
+      
       tokenInFtm: priceInBTC.toString(),
       priceInDollars: priceOfBombInDollars,
       totalSupply: getDisplayBalance(supply, this.BOMB.decimal, 0),
-      circulatingSupply: getDisplayBalance(bombCirculatingSupply, this.BOMB.decimal, 0),
+      circulatingSupply: getDisplayBalance(bombRewardPoolSupply, this.BOMB.decimal, 0),
     };
   }
 
@@ -475,8 +477,8 @@ export class BombFinance {
   ): Promise<BigNumber> {
     const pool = this.contracts[poolName];
     try {
-      if (earnTokenName === 'BOMB') {
-        return await pool.pendingBOMB(poolId, account);
+      if (earnTokenName === 'GRAPE') {
+        return await pool.pendingGRAPE(poolId, account);
       } else {
         return await pool.pendingShare(poolId, account);
       }
