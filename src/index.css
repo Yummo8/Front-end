@@ -1,9 +1,7 @@
 @font-face {
-  font-family: "superstar";
-  src: local("superstar"),
-   url("./fonts/superstar.ttf") format("truetype");
-  }
-  
+  font-family: 'superstar';
+  src: local('superstar'), url('./fonts/superstar.ttf') format('truetype');
+}
 
 body,
 html,
@@ -32,7 +30,7 @@ body {
 .MuiPaper-root, */
 h2 {
   color: #930993 !important;
-  font-size:2.5em;
+  font-size: 2.5em;
 }
 
 body {
@@ -48,14 +46,13 @@ body {
   background-size: cover !important;
 }
 
-
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-family: "superstar", 'monospace';
+  font-family: 'superstar', 'monospace';
   text-transform: uppercase;
   color: #fff;
 }
@@ -121,7 +118,7 @@ code {
 }
 
 .shinyButton:hover {
-  background-color: #72046D !important;
+  background-color: #72046d !important;
   color: #fff !important;
 }
 
@@ -142,7 +139,17 @@ code {
   padding-left: 5px;
   background-color: #930993 !important;
   color: #fff !important;
-  box-shadow: 0px 0px 5px 0px rgba(0,0,0,1);
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 1);
+}
+
+.account {
+  display: flex;
+  align-items: center;
+}
+
+.account > img,
+.account > div {
+  margin-right: 8px;
 }
 
 .shinyButtonDisabledSecondary {
@@ -153,7 +160,7 @@ code {
 }
 
 .shinyButtonSecondary:hover {
-  background-color: #72046D !important;
+  background-color: #72046d !important;
   color: #fff !important;
   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 1);
 }
@@ -176,7 +183,7 @@ code {
 
 .bomb {
   background-image: url('/grape.png');
-  top:-20px;
+  top: -20px;
 }
 
 .bshare {
@@ -187,23 +194,23 @@ code {
   background-image: url('/bomb3.png');
 }
 
-.MuiPaper-root{
-  color:#322f32 !important;
-  background-color: rgba(255,255,255,0.8) !important;
+.MuiPaper-root {
+  color: #322f32 !important;
+  background-color: rgba(255, 255, 255, 0.8) !important;
 }
 
-.MuiAppBar-positionSticky{
+.MuiAppBar-positionSticky {
   position: relative !important;
 }
-.ijwpow{
-  background-color: rgba(255,255,255,0.1) !important;
+.ijwpow {
+  background-color: rgba(255, 255, 255, 0.1) !important;
 }
-.makeStyles-appBar-2{
-  background-color: rgba(255,255,255,0.0) !important;
+.makeStyles-appBar-2 {
+  background-color: rgba(255, 255, 255, 0) !important;
 }
-.walletconnecttitle{
+.walletconnecttitle {
   color: #322f32;
 }
-.walletconnecttitle:hover{
+.walletconnecttitle:hover {
   color: #930993;
 }
