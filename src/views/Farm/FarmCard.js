@@ -13,12 +13,12 @@ const FarmCard = ({bank}) => {
             <Box
               style={{
                 position: 'absolute',
-                right: '0px',
+                right: '5px',
                 top: '-5px',
                 height: '48px',
                 width: '48px',
                 borderRadius: '40px',
-                backgroundColor: '#363746',
+                backgroundColor: 'rgba(255,255,255,0.1)',
                 alignItems: 'center',
                 display: 'flex',
                 justifyContent: 'center',

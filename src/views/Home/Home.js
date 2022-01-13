@@ -194,7 +194,7 @@ const Home = () => {
           <Grid item xs={12} sm={12} justify="center" style={{ margin: '12px', display: 'flex' }}>
 
            <Alert variant="filled" severity="info"> 
-              Genesis Pools launch on the 13th at 5pm GMT. Read our <a link="_blank" href="https://grapefinance.gitbook.io/grape-finance-docs/">docs</a> for more info and to confirm contract addresses.
+              Genesis Pools have launched! Read our <a link="_blank" href="https://grapefinance.gitbook.io/grape-finance-docs/">docs</a> for more info and to confirm contract addresses.
             </Alert>
 
           </Grid>

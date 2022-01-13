@@ -18,7 +18,7 @@ import useRedeem from '../../hooks/useRedeem';
 import {Bank as BankEntity} from '../../bomb-finance';
 import useBombFinance from '../../hooks/useBombFinance';
 import {Alert} from '@material-ui/lab';
-import LaunchCountdown from '../../components/LaunchCountdown';
+
 
 const useStyles = makeStyles((theme) => ({
   gridItem: {
@@ -38,7 +38,7 @@ const Bank: React.FC = () => {
 
   const {account} = useWallet();
   const {onRedeem} = useRedeem(bank);
-  const statsOnPool = useStatsForPool(bank);
+  //const statsOnPool = useStatsForPool(bank);
 
  {/* let vaultUrl: string;
   if (bank.depositTokenName.includes('BOMB')) {
@@ -57,7 +57,7 @@ const Bank: React.FC = () => {
       />
          <Box mt={5}>
                 <Grid container justify="center" spacing={3} style={{ marginBottom: '30px' }}>
-        
+
         {/*<Alert variant="filled" severity="info">
             <h3>Our autocompounding vaults are live!</h3><br />
             We support zapping tokens, and auto-compound every 2 hours!<br />
@@ -144,8 +144,8 @@ const LPTokenHelpText: React.FC<{bank: BankEntity}> = ({bank}) => {
   return (
     <Card>
       <CardContent>
-        <StyledLink href={uniswapUrl} target="_blank">
-          {`Provide liquidity for ${pairName} on Joe`}
+        <StyledLink href="https://traderjoexyz.com/#/pool/0x130966628846bfd36ff31a822705796e8cb8c18d/0x5541d83efad1f281571b343977648b75d95cdac2" target="_blank">
+          <span style={{color: "#000"}}>Provide liquidity for GRAPE-MIM LP on Joe</span>
         </StyledLink>
       </CardContent>
     </Card>

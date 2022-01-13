@@ -29,7 +29,7 @@ const Farm = () => {
   const {path} = useRouteMatch();
   const {account} = useWallet();
   const activeBanks = banks.filter((bank) => !bank.finished);
-  const date = new Date('2022-1-13 17:00:00Z');
+  const date = new Date('2022-1-14 05:00:00Z');
   return (
     <Switch>
       <Page>

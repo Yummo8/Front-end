@@ -41,6 +41,7 @@ const logosBySymbol: {[title: string]: string} = {
   'BSHARE-BNB-LP': bshareFtmLpLogo,
   'BSHARE-BNB-APELP': bshareFtmLpLogo,
   'BOMB-BTCB-APELP': bombFtmLpLogo,
+  'GRAPE-MIM-LP' : bombFtmLpLogo,
 };
 
 type LogoProps = {
@@ -52,8 +53,8 @@ const TokenSymbol: React.FC<LogoProps> = ({symbol}) => {
   if (!logosBySymbol[symbol]) {
     throw new Error(`Invalid Token Logo symbol: ${symbol}`);
   }
-  if(symbol === 'BSHARE-BNB-LP' || symbol === 'BOMB-BTCB-LP'){
-    return <img src={logosBySymbol[symbol]} alt={`${symbol} Logo`} width={105} height={65} />;
+  if(symbol === 'GRAPE-MIM-LP' || symbol === 'BOMB-BTCB-LP'){
+    return <img src={logosBySymbol[symbol]} alt={`${symbol} Logo`} width={95} height={60} />;
   }else if(symbol === 'MIM' || symbol === 'WAVAX'){
     return <img src={logosBySymbol[symbol]} alt={`${symbol} Logo`} width={65} height={65} />;
   }else{

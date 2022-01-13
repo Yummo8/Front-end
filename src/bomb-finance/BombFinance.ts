@@ -99,24 +99,23 @@ export class BombFinance {
     const {BombRewardPool, BombGenesisRewardPool} = this.contracts;
     const supply = await this.BOMB.totalSupply();
     const bombRewardPoolSupply = await this.BOMB.balanceOf(BombGenesisRewardPool.address);
-    
-    //const bombRewardPoolSupply2 = await this.BOMB.balanceOf(BombRewardPool.address);
-    //const bombCirculatingSupply = supply.sub(bombRewardPoolSupply).sub(bombRewardPoolSupply2);
-   // const priceInBNB = await this.getTokenPriceFromPancakeswap(this.BOMB);
-   // const priceInBNBstring = priceInBNB.toString();
-   const priceInBTC = 0;
-   // const priceOfOneBNB = await this.getWBNBPriceFromPancakeswap();
-   const priceOfOneBTC = 0;
-   const priceInDollars = 0;
-   const priceOfBombInDollars = '1';
-    
+    const bombRewardPoolSupply2 = await this.BOMB.balanceOf(BombRewardPool.address);
+    const bombCirculatingSupply = supply.sub(bombRewardPoolSupply).sub(bombRewardPoolSupply2);
+    const priceInBNB = await this.getTokenPriceFromPancakeswap(this.BOMB);
+    const priceInBNBstring = priceInBNB.toString();
+    const priceInBTC = await this.getTokenPriceFromPancakeswapBTC(this.BOMB);
+    const priceOfOneBNB = await this.getWBNBPriceFromPancakeswap();
+    const priceOfOneBTC = await this.getBTCBPriceFromPancakeswap();
+    const priceInDollars = await this.getTokenPriceFromPancakeswapBOMBUSD();
+    const priceOfBombInDollars = ((Number(priceInBTC) * Number(priceOfOneBTC)) / 10000).toFixed(2);
+
 
     return {
       //  tokenInFtm: (Number(priceInBNB) * 100).toString(),
       
       tokenInFtm: priceInBTC.toString(),
       priceInDollars: priceOfBombInDollars,
-      totalSupply: getDisplayBalance(supply, this.BOMB.decimal, 0),
+      totalSupply: getDisplayBalance(supply, 18, 0),
       circulatingSupply: getDisplayBalance(bombRewardPoolSupply, this.BOMB.decimal, 0),
     };
   }
