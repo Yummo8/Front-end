@@ -127,13 +127,14 @@ const Nav = () => {
               <Link to="/" className={'navLink ' + classes.link}>
                 Home
               </Link>
+              
+              <Link to="/farm" className={'navLink ' + classes.link}>
+                Vineyard
+              </Link>
               <a href="https://grapefinance.gitbook.io/grape-finance-docs/" className={'navLink ' + classes.link} rel="noopener" target="_blank">
                 Docs
               </a>
-              {/*<Link to="/farm" className={'navLink ' + classes.link}>
-                Vineyard
-              </Link>
-              <Link to="/boardroom" className={'navLink ' + classes.link}>
+              {/*<Link to="/boardroom" className={'navLink ' + classes.link}>
                 Winery
               </Link>
               <Link to="/bond" className={'navLink ' + classes.link}>
@@ -222,11 +223,12 @@ const Nav = () => {
                   <AccountButton text="Connect" />
                 </ListItem>
                 <ListItemLink primary="Home" to="/" />
+                <ListItemLink primary="Vineyard" to="/farm" />
                 <ListItem button component="a" href="https://grapefinance.gitbook.io/grape-finance-docs/">
                   <ListItemText>Docs</ListItemText>
                   </ListItem>
-                {/*<ListItemLink primary="Farm" to="/farm" />
-                <ListItemLink primary="Boardroom" to="/boardroom" />
+                
+                {/*<ListItemLink primary="Boardroom" to="/boardroom" />
                 <ListItemLink primary="Bond" to="/bond" />
                  <ListItemLink primary="SBS" to="/sbs" /> */}
                 {/* <ListItemLink primary="Liquidity" to="/liquidity" /> */}

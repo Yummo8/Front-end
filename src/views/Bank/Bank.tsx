@@ -18,6 +18,7 @@ import useRedeem from '../../hooks/useRedeem';
 import {Bank as BankEntity} from '../../bomb-finance';
 import useBombFinance from '../../hooks/useBombFinance';
 import {Alert} from '@material-ui/lab';
+import LaunchCountdown from '../../components/LaunchCountdown';
 
 const useStyles = makeStyles((theme) => ({
   gridItem: {
@@ -30,21 +31,22 @@ const useStyles = makeStyles((theme) => ({
 
 const Bank: React.FC = () => {
   useEffect(() => window.scrollTo(0, 0));
+  const date = new Date('2022-1-13 17:00:00Z');
   const classes = useStyles();
   const {bankId} = useParams();
   const bank = useBank(bankId);
 
   const {account} = useWallet();
   const {onRedeem} = useRedeem(bank);
-  const statsOnPool = useStatsForPool(bank);
+  {/*const statsOnPool = useStatsForPool(bank);*/}
 
-  let vaultUrl: string;
+ {/* let vaultUrl: string;
   if (bank.depositTokenName.includes('BOMB')) {
     vaultUrl = 'https://www.bomb.farm/#/bsc/vault/bomb-bomb-btcb';
   } else {
     vaultUrl = 'https://www.bomb.farm/#/bsc/vault/bomb-bshare-wbnb';
 
-  }
+  }*/}
 
   return account && bank ? (
     <>
@@ -55,7 +57,7 @@ const Bank: React.FC = () => {
       />
          <Box mt={5}>
                 <Grid container justify="center" spacing={3} style={{ marginBottom: '30px' }}>
-
+        
         {/*<Alert variant="filled" severity="info">
             <h3>Our autocompounding vaults are live!</h3><br />
             We support zapping tokens, and auto-compound every 2 hours!<br />
@@ -64,13 +66,13 @@ const Bank: React.FC = () => {
 
   </Alert>*/}</Grid>
         </Box>
-      <Box>
+        {/*<Box>
         <Grid container justify="center" spacing={3} style={{marginBottom: '50px'}}>
           <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
             <Card className={classes.gridItem}>
               <CardContent style={{textAlign: 'center'}}>
                 <Typography>APR</Typography>
-                <Typography>{bank.closedForStaking ? '0.00' : statsOnPool?.yearlyAPR}%</Typography>
+                <Typography>{bank.closedForStaking ? '0.00' : statsOnPool?.yearlyAPR}</Typography>
               </CardContent>
             </Card>
           </Grid>
@@ -78,7 +80,7 @@ const Bank: React.FC = () => {
             <Card className={classes.gridItem}>
               <CardContent style={{textAlign: 'center'}}>
                 <Typography>Daily APR</Typography>
-                <Typography>{bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}%</Typography>
+                <Typography>{bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}0%</Typography>
               </CardContent>
             </Card>
           </Grid>
@@ -86,12 +88,12 @@ const Bank: React.FC = () => {
             <Card className={classes.gridItem}>
               <CardContent style={{textAlign: 'center'}}>
                 <Typography>TVL</Typography>
-                <Typography>${statsOnPool?.TVL}</Typography>
+                <Typography>${statsOnPool?.TVL}0</Typography>
               </CardContent>
             </Card>
           </Grid>
         </Grid>
-      </Box>
+        </Box>*/}
    
       <Box mt={5}>
         <StyledBank>
@@ -123,20 +125,20 @@ const Bank: React.FC = () => {
 
 const LPTokenHelpText: React.FC<{bank: BankEntity}> = ({bank}) => {
   const bombFinance = useBombFinance();
-  const bombAddr = bombFinance.BOMB.address;
-  const bshareAddr = bombFinance.BSHARE.address;
+  const bombAddr = 0x5541d83efad1f281571b343977648b75d95cdac2;
+  const bshareAddr = 0x859b0921b783874175701fe06393f736535d5074;
 
   let pairName: string;
   let uniswapUrl: string;
   let vaultUrl: string;
-  if (bank.depositTokenName.includes('BOMB')) {
+  if (bank.depositTokenName.includes('GRAPE')) {
     pairName = 'BOMB-BTCB pair';
-    uniswapUrl = 'https://pancakeswap.finance/add/0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c/' + bombAddr;
-    vaultUrl = 'https://www.bomb.farm/#/bsc/vault/bomb-bomb-btcb';
+    uniswapUrl = 'https://traderjoexyz.com/#/pool/0x130966628846bfd36ff31a822705796e8cb8c18d/0x5541d83efad1f281571b343977648b75d95cdac2';
+    vaultUrl = '#';
   } else {
     pairName = 'BSHARE-BNB pair';
-    uniswapUrl = 'https://pancakeswap.finance/add/BNB/' + bshareAddr;
-    vaultUrl = 'https://www.bomb.farm/#/bsc/vault/bomb-bshare-bnb';
+    uniswapUrl = 'https://traderjoexyz.com/#/pool/0x859b0921b783874175701fe06393f736535d5074/AVAX';
+    vaultUrl = '#';
 
   }
   return (

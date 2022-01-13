@@ -28,24 +28,18 @@ const LaunchCountdown: React.FC<LaunchCountdownProps> = ({deadline, description,
   };
   return (
     <StyledCard>
-      <Dial value={percentage}>
         <StyledCountdownWrapper>
-          <StyledCountdownTitle>Starting In...</StyledCountdownTitle>
+          <StyledCountdownTitle>Genesis Pools Starting In...</StyledCountdownTitle>
           <Countdown date={deadline} renderer={countdownRenderer} />
         </StyledCountdownWrapper>
-      </Dial>
-      <StyledDescriptionButton>
-        <StyledExternalLink href={descriptionLink} target="_blank">
-          {description}
-        </StyledExternalLink>
-      </StyledDescriptionButton>
     </StyledCard>
   );
 };
 
 const StyledCard = styled.div`
   width: 400px;
-  background-color: #271c20;
+  margin:0 auto;
+  background-color: #fff;
   border: 1px solid ${(props) => props.theme.color.grey[900]};
   box-sizing: border-box;
   padding: 36px;

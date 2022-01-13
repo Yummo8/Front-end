@@ -31,10 +31,11 @@ const configurations: {[env: string]: Configuration} = {
     defaultProvider: 'https://api.avax.network/ext/bc/C/rpc',
     deployments: require('./bomb-finance/deployments/deployments.mainnet.json'),
     externalTokens: {
+      WAVAX: ['0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7', 18],
       WBNB: ['0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7', 18],
       FUSDT: ['0x130966628846bfd36ff31a822705796e8cb8c18d', 18], // This is actually mim on mainnet not fusdt
       BTCB: ['0x130966628846bfd36ff31a822705796e8cb8c18d', 18], //mim
-      SBTC: ['0x130966628846bfd36ff31a822705796e8cb8c18d', 18],
+      MIM: ['0x130966628846bfd36ff31a822705796e8cb8c18d', 18],
       SUSD: ['0x12017c89444624C0268A1053467e22954F4fd362', 18],
       SVL: ['0x37F14E7c2FadC2A01dBD93b8a1F69D41c6c3d554', 18],
       CAKE: ['0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82', 18],
@@ -48,9 +49,9 @@ const configurations: {[env: string]: Configuration} = {
       'BSHARE-BNB-APELP': ['0x0dE2a71b2f43CF588A00422d41E1C02D0E08D552', 18],
       'BOMB-BTCB-APELP': ['0xB6E85031F313563bF12ea414118978C8BD78db5D', 18],
     },
-    baseLaunchDate: new Date('2021-12-30 1:00:00Z'),
+    baseLaunchDate: new Date('2022-1-13 17:00:00Z'),
     bondLaunchesAt: new Date('2020-01-03T15:00:00Z'),
-    boardroomLaunchesAt: new Date('2021-12-30T00:00:00Z'),
+    boardroomLaunchesAt: new Date('2022-1-18T00:00:00Z'),
     refreshInterval: 10000,
   },
   production: {
@@ -132,27 +133,27 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
   //   sort: 3,
   //   closedForStaking: true,
   // },
-  BombSBTCRewardPool: {
-    name: 'Earn BOMB by SBTC',
-    poolId: 2,
+  GrapeMimRewardPool: {
+    name: 'Earn GRAPE with MIM',
+    poolId: 0,
     sectionInUI: 0,
-    contract: 'BombSBTCRewardPool',
-    depositTokenName: 'SBTC',
-    earnTokenName: 'BOMB',
-    finished: true,
+    contract: 'GrapeMimRewardPool',
+    depositTokenName: 'MIM',
+    earnTokenName: 'GRAPE',
+    finished: false,
     sort: 4,
-    closedForStaking: true,
+    closedForStaking: false,
   },
-  BombSUSDRewardPool: {
-    name: 'Earn BOMB by SUSD',
+  GrapeWavaxRewardPool: {
+    name: 'Earn GRAPE with WAVAX',
     poolId: 1,
     sectionInUI: 0,
-    contract: 'BombSUSDRewardPool',
-    depositTokenName: 'SUSD',
-    earnTokenName: 'BOMB',
-    finished: true,
+    contract: 'GrapeWavaxRewardPool',
+    depositTokenName: 'WAVAX',
+    earnTokenName: 'GRAPE',
+    finished: false,
     sort: 5,
-    closedForStaking: true,
+    closedForStaking: false,
   },
   // BombSVLRewardPool: {
   //   name: 'Earn BOMB by SVL',
@@ -256,17 +257,6 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
   //   sort: 7,
   //   closedForStaking: false,
   // },
-  BshareBnbApeLPBShareRewardPool: {
-    name: 'Earn BSHARE by BSHARE-BNB Ape LP',
-    poolId: 2,
-    sectionInUI: 1,
-    contract: 'BshareBnbApeLPBShareRewardPool',
-    depositTokenName: 'BSHARE-BNB-APELP',
-    earnTokenName: 'BSHARE',
-    finished: true,
-    sort: 5,
-    closedForStaking: true,
-  },
   // BombBtcbApeLPBShareRewardPool: {
   //   name: 'Earn BSHARE by BOMB-BTCB Ape LP',
   //   poolId: 3,
@@ -278,6 +268,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
   //   sort: 4,
   //   closedForStaking: true,
   // },
+  /*
   BshareBnbLPBShareRewardPool: {
     name: 'Earn BSHARE by BSHARE-BNB LP',
     poolId: 0,
@@ -287,7 +278,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     earnTokenName: 'BSHARE',
     finished: false,
     sort: 2,
-    closedForStaking: false,
+    closedForStaking: true,
   },
   BombBtcbLPBShareRewardPool: {
     name: 'Earn BSHARE by BOMB-BTCB LP',
@@ -298,8 +289,8 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     earnTokenName: 'BSHARE',
     finished: false,
     sort: 1,
-    closedForStaking: false,
-  },
+    closedForStaking: true,
+  },*/
 };
 
 export default configurations[process.env.NODE_ENV || 'development'];

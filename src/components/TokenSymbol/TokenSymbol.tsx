@@ -6,6 +6,8 @@ import tShareLogo from '../../assets/img/gshare.png';
 import bombLogoPNG from '../../assets/img/grape.png';
 import tShareLogoPNG from '../../assets/img/gshare.png';
 import tBondLogo from '../../assets/img/gbond.png';
+import mimLogo from '../../assets/img/mim.png';
+import wavax from '../../assets/img/wavax.png';
 
 import bombFtmLpLogo from '../../assets/img/grape-mim.png';
 import bshareFtmLpLogo from '../../assets/img/gshare-avax.png';
@@ -18,7 +20,9 @@ const logosBySymbol: {[title: string]: string} = {
   //=====================
   BOMB: bombLogo,
   BOMBPNG: bombLogoPNG,
+  WAVAX: wavax,
   BSHAREPNG: tShareLogoPNG,
+  GRAPE: bombLogo,
   BSHARE: tShareLogo,
   BBOND: tBondLogo,
   WBNB: bnbLogo,
@@ -28,6 +32,7 @@ const logosBySymbol: {[title: string]: string} = {
   CAKE: bnbLogo,
   SUSD: bnbLogo,
   SBTC: btcLogo,
+  MIM: mimLogo,
   BTCB: btcLogo,
   BTC: btcLogo,
   SVL: bnbLogo,
@@ -49,6 +54,8 @@ const TokenSymbol: React.FC<LogoProps> = ({symbol}) => {
   }
   if(symbol === 'BSHARE-BNB-LP' || symbol === 'BOMB-BTCB-LP'){
     return <img src={logosBySymbol[symbol]} alt={`${symbol} Logo`} width={105} height={65} />;
+  }else if(symbol === 'MIM' || symbol === 'WAVAX'){
+    return <img src={logosBySymbol[symbol]} alt={`${symbol} Logo`} width={65} height={65} />;
   }else{
     return <img src={logosBySymbol[symbol]} alt={`${symbol} Logo`} width={55} height={68} />;
   }

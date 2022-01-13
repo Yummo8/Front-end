@@ -14,7 +14,7 @@ import FarmImage from '../../assets/img/farm.png';
 import {createGlobalStyle} from 'styled-components';
 
 import useBanks from '../../hooks/useBanks';
-
+import LaunchCountdown from '../../components/LaunchCountdown';
 import HomeImage from '../../assets/img/background.jpg';
 const BackgroundImage = createGlobalStyle`
   body {
@@ -29,6 +29,7 @@ const Farm = () => {
   const {path} = useRouteMatch();
   const {account} = useWallet();
   const activeBanks = banks.filter((bank) => !bank.finished);
+  const date = new Date('2022-1-13 17:00:00Z');
   return (
     <Switch>
       <Page>
@@ -36,23 +37,20 @@ const Farm = () => {
           <BackgroundImage />
           {!!account ? (
             <Container maxWidth="lg">
-              <Typography color="textYellow" align="center" variant="h3" gutterBottom>
-                Vineyard
-              </Typography>
-
+              <h2 style={{ fontSize: '80px', textAlign:'center' }}>Vineyard</h2>             
+              
               <Box mt={5}>
+              <LaunchCountdown deadline={date} description='Countdown' descriptionLink='#'></LaunchCountdown>
                 <div hidden={activeBanks.filter((bank) => bank.sectionInUI === 2).length === 0}>
-                  <Typography color="textYellow" align="center" variant="h4" gutterBottom>
-                    Coming Soon
-                  </Typography>
-                  {/* <Alert variant="filled" severity="info">
+                  
+                  <Alert variant="filled" severity="info">
                     <h4>
                       Farms started November 25th 2021 and will continue running for 1 full year.</h4>
 
 
 
-                  </Alert> */}
-                  {/*<Grid container spacing={3} style={{marginTop: '20px'}}>
+                  </Alert> 
+                  <Grid container spacing={3} style={{marginTop: '20px'}}>
                     {activeBanks
                       .filter((bank) => bank.sectionInUI === 2)
                       .map((bank) => (
@@ -60,7 +58,7 @@ const Farm = () => {
                           <FarmCard bank={bank} />
                         </React.Fragment>
                       ))}
-                      </Grid>*/}
+                      </Grid>
                 </div>
 
                 <div hidden={activeBanks.filter((bank) => bank.sectionInUI === 1).length === 0}>
@@ -81,13 +79,14 @@ const Farm = () => {
                   </Grid>
                 </div>
 
-                <div hidden={activeBanks.filter((bank) => bank.sectionInUI === 0).length === 0}>
-                  <Typography color="textPrimary" variant="h4" gutterBottom style={{marginTop: '20px'}}>
+                <Grid hidden={activeBanks.filter((bank) => bank.sectionInUI === 0).length === 0}>
+                  
+                  <Typography color="textPrimary" variant="h4" gutterBottom style={{marginTop: '20px', color: '#fff'}}>
                     Genesis Pools
                   </Typography>
-                  <Alert variant="filled" severity="warning">
+                  {/*<Alert variant="filled" severity="warning">
                     Genesis pools have ended. Please claim all rewards and remove funds from Genesis pools.
-                  </Alert>
+                      </Alert>*/}
                   <Grid container spacing={3} style={{marginTop: '20px'}}>
                     {activeBanks
                       .filter((bank) => bank.sectionInUI === 0)
@@ -97,7 +96,7 @@ const Farm = () => {
                         </React.Fragment>
                       ))}
                   </Grid>
-                </div>
+                </Grid>
               </Box>
             </Container>
           ) : (

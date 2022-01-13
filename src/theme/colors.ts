@@ -19,8 +19,8 @@ export const yellow = {
 
 export const red = {
   100: '#C1C1FF',
-  200: '#7575FF',
-  500: '#9090FF',
+  200: '#fff',
+  500: '#fff',
 };
 
 export const grey = {

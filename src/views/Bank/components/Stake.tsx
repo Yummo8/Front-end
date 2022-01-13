@@ -41,6 +41,7 @@ const Stake: React.FC<StakeProps> = ({bank}) => {
   const tokenBalance = useTokenBalance(bank.depositToken);
   const stakedBalance = useStakedBalance(bank.contract, bank.poolId);
   const stakedTokenPriceInDollars = useStakedTokenPriceInDollars(bank.depositTokenName, bank.depositToken);
+
   const tokenPriceInDollars = useMemo(
     () => (stakedTokenPriceInDollars ? stakedTokenPriceInDollars : null),
     [stakedTokenPriceInDollars],
@@ -65,7 +66,7 @@ const Stake: React.FC<StakeProps> = ({bank}) => {
     />,
   );
 
-  const [onPresentZap, onDissmissZap] = useModal(
+  {/*const [onPresentZap, onDissmissZap] = useModal(
     <ZapModal
       decimals={bank.depositToken.decimal}
       onConfirm={(zappingToken, tokenName, amount) => {
@@ -75,7 +76,7 @@ const Stake: React.FC<StakeProps> = ({bank}) => {
       }}
       tokenName={bank.depositTokenName}
     />,
-  );
+    );*/}
 
   const [onPresentWithdraw, onDismissWithdraw] = useModal(
     <WithdrawModal
@@ -104,9 +105,9 @@ const Stake: React.FC<StakeProps> = ({bank}) => {
             
             {/* <Label text={`≈ $${earnedInDollars}`} /> */}
 
-                 <Typography style={{textTransform: 'uppercase', color: '#fffff'}}>
+                 {/*<Typography style={{textTransform: 'uppercase', color: '#fffff'}}>
                       {`≈ $${earnedInDollars}`}
-            </Typography>
+  </Typography>*/}
                <Typography style={{textTransform: 'uppercase', color: '#322f32'}}>
               {`${bank.depositTokenName} Staked`}
                     </Typography>
@@ -138,7 +139,7 @@ const Stake: React.FC<StakeProps> = ({bank}) => {
                   <RemoveIcon />
                 </IconButton>
                 <StyledActionSpacer />
-                <IconButton
+                {/*<IconButton
                   disabled={
                     bank.closedForStaking ||
                     bank.depositTokenName === 'BOMB-BTCB-APELP' ||
@@ -147,7 +148,7 @@ const Stake: React.FC<StakeProps> = ({bank}) => {
                   onClick={() => (bank.closedForStaking ? null : onPresentZap())}
                 >
                   <FlashOnIcon style={{color: themeColor.grey[400]}} />
-                </IconButton>
+                </IconButton>*/}
                 <StyledActionSpacer />
                 <IconButton
                   disabled={bank.closedForStaking}

@@ -68,7 +68,14 @@ h6 {
 .MuiButton-containedPrimary:hover,
 .MuiListItem-button:hover,
 .MuiButtonBase-root:hover {
-  color: #000 !important;
+  color: #fff !important;
+}
+.MuiButton-containedPrimary{
+  background: #930993 !important;
+}
+
+.MuiButton-containedPrimary:hover{
+  background: #D19AFF !important;
 }
 
 code {

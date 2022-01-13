@@ -70,12 +70,8 @@ const Home = () => {
     bShare = bShareProd;
   }
 
-  const buyBombAddress =
-
-    '#'; //update
-
-
-  const buyBShareAddress = '#'; //update
+  const buyBombAddress = 'https://traderjoexyz.com/#/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0x5541d83efad1f281571b343977648b75d95cdac2';
+  const buyBShareAddress = 'https://traderjoexyz.com/#/trade?inputCurrency=0x859b0921b783874175701fe06393f736535d5074&outputCurrency=0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7';
   const bombLPStats = useMemo(() => (bombFtmLpStats ? bombFtmLpStats : null), [bombFtmLpStats]);
   const bshareLPStats = useMemo(() => (bShareFtmLpStats ? bShareFtmLpStats : null), [bShareFtmLpStats]);
   const bombPriceInDollars = useMemo(
@@ -198,7 +194,7 @@ const Home = () => {
           <Grid item xs={12} sm={12} justify="center" style={{ margin: '12px', display: 'flex' }}>
 
            <Alert variant="filled" severity="info"> 
-              <strong>Please Note:</strong> We have not launched our contracts yet, join our discord, telegram or follow us on twitter to find out when we do. &nbsp;
+              Genesis Pools launch on the 13th at 5pm GMT. Read our <a link="_blank" href="https://grapefinance.gitbook.io/grape-finance-docs/">docs</a> for more info and to confirm contract addresses.
             </Alert>
 
           </Grid>
@@ -223,7 +219,7 @@ const Home = () => {
               <Button href="#" className="shinyButton" style={{ margin: '10px' }}>
                 Stake Now
               </Button>
-              <Button href="#" className="shinyButton" style={{ margin: '10px' }}>
+              <Button href="/farm" className="shinyButton" style={{ margin: '10px' }}>
                 Farm Now
               </Button>
               <Button
