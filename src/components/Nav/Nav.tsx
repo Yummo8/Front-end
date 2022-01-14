@@ -88,9 +88,9 @@ const Nav = () => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const bombStats = useBombStats();
-  const btcStats = useBtcStats();
-  const shareStats = useShareStats();
+  //const bombStats = useBombStats();
+  //const btcStats = useBtcStats();
+  //const shareStats = useShareStats();
 
   const [connected, setConnected] = React.useState(false);
 
@@ -101,7 +101,7 @@ const Nav = () => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
+/*
   const btcPriceInDollars = useMemo(() => (bombStats ? Number(btcStats).toFixed(2) : null), [bombStats]);
   const bombPriceInDollars = useMemo(
     () => (bombStats ? Number(bombStats.priceInDollars).toFixed(2) : null),
@@ -111,7 +111,7 @@ const Nav = () => {
     () => (bombStats ? Number(shareStats.priceInDollars).toFixed(2) : null),
     [bombStats],
   );
-
+*/
   return (
     <AppBar position="sticky" elevation={0} className={classes.appBar}>
       <Toolbar className={classes.toolbar}>

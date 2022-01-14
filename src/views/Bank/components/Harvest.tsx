@@ -49,7 +49,7 @@ const Harvest: React.FC<HarvestProps> = ({bank}) => {
                           {/*<Typography style={{textTransform: 'uppercase', color: '#fffff'}}>
                       {`≈ $${earnedInDollars}`}
   </Typography>*/}
-            {/* <Label text={`≈ $${earnedInDollars}`} /> */}
+             <Label text={`≈ $${earnedInDollars}`} /> 
                   <Typography style={{textTransform: 'uppercase', color: '#322f32'}}>
               {`${tokenName} Earned`}
                     </Typography>

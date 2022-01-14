@@ -29,7 +29,7 @@ const Farm = () => {
   const {path} = useRouteMatch();
   const {account} = useWallet();
   const activeBanks = banks.filter((bank) => !bank.finished);
-  const date = new Date('2022-1-14 05:00:00Z');
+  const date = new Date('2022-1-14 17:00:00Z');
   return (
     <Switch>
       <Page>
@@ -40,7 +40,7 @@ const Farm = () => {
               <h2 style={{ fontSize: '80px', textAlign:'center' }}>Vineyard</h2>             
               
               <Box mt={5}>
-              <LaunchCountdown deadline={date} description='Countdown' descriptionLink='#'></LaunchCountdown>
+              {/*<LaunchCountdown deadline={date} description='Countdown' descriptionLink='#'></LaunchCountdown>*/}
                 <div hidden={activeBanks.filter((bank) => bank.sectionInUI === 2).length === 0}>
                   
                   <Alert variant="filled" severity="info">
@@ -62,12 +62,10 @@ const Farm = () => {
                 </div>
 
                 <div hidden={activeBanks.filter((bank) => bank.sectionInUI === 1).length === 0}>
-                  <Typography color="textPrimary" variant="h4" gutterBottom style={{marginTop: '20px'}}>
-                    Inactive Farms
+                  <Typography color="textPrimary" variant="h4" gutterBottom style={{marginTop: '20px', color: '#fff'}}>
+                    Grape Reward Farms (Now Open)
                   </Typography>
-                  <Alert variant="filled" severity="warning">
-                    Please remove funds from all farms which are not active.
-                  </Alert>
+                  
                   <Grid container spacing={3} style={{marginTop: '20px', display: 'flex', alignItems: 'center'}}>
                     {activeBanks
                       .filter((bank) => bank.sectionInUI === 1)
@@ -82,8 +80,11 @@ const Farm = () => {
                 <Grid hidden={activeBanks.filter((bank) => bank.sectionInUI === 0).length === 0}>
                   
                   <Typography color="textPrimary" variant="h4" gutterBottom style={{marginTop: '20px', color: '#fff'}}>
-                    Genesis Pools
+                    Genesis Pools are finished
                   </Typography>
+                  <Alert variant="filled" severity="warning">
+                    Please remove funds from genesis farms below and stake into the grape rewards farms above.
+                  </Alert>
                   {/*<Alert variant="filled" severity="warning">
                     Genesis pools have ended. Please claim all rewards and remove funds from Genesis pools.
                       </Alert>*/}

@@ -912,7 +912,7 @@
     ]
   },
   "BShare": {
-    "address": "0x531780FAcE85306877D7e1F05d713D1B50a37F7A",
+    "address": "0x859b0921b783874175701fe06393f736535d5074",
     "abi": [
       {
         "inputs": [
@@ -4615,7 +4615,7 @@
     ]
   },
   "Bomb": {
-    "address": "0x522348779DCb2911539e76A1042aA922F9C47Ee3",
+    "address": "0x5541d83efad1f281571b343977648b75d95cdac2",
     "abi": [
       {
         "inputs": [
@@ -4861,7 +4861,7 @@
       },
       {
         "inputs": [],
-        "name": "bombOracle",
+        "name": "grapeOracle",
         "outputs": [
           {
             "internalType": "address",
@@ -4969,7 +4969,7 @@
           },
           {
             "internalType": "address",
-            "name": "_bombPool",
+            "name": "_grapePool",
             "type": "address"
           },
           {
@@ -5239,11 +5239,11 @@
         "inputs": [
           {
             "internalType": "address",
-            "name": "_bombOracle",
+            "name": "_grapeOracle",
             "type": "address"
           }
         ],
-        "name": "setBombOracle",
+        "name": "setGrapeOracle",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -8061,14 +8061,14 @@
       }
     ]
   },
-  "BombBnbLPRewardPool": {
-    "address": "0x04b79c851ed1A36549C6151189c79EC0eaBca745",
+  "GrapeMimLPRewardPool1": {
+    "address": "0x2B1B0231ea607B59357c46fB5369A260FA1eAC94",
     "abi": [
       {
         "inputs": [
           {
             "internalType": "address",
-            "name": "_bomb",
+            "name": "_grape",
             "type": "address"
           },
           {
@@ -8204,7 +8204,7 @@
       },
       {
         "inputs": [],
-        "name": "bomb",
+        "name": "grape",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -8254,7 +8254,7 @@
             "type": "uint256"
           }
         ],
-        "name": "epochBombPerSecond",
+        "name": "epochGrapePerSecond",
         "outputs": [
           {
             "internalType": "uint256",
@@ -8383,7 +8383,7 @@
             "type": "address"
           }
         ],
-        "name": "pendingBOMB",
+        "name": "pendingGRAPE",
         "outputs": [
           {
             "internalType": "uint256",
@@ -8421,7 +8421,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "accBombPerShare",
+            "name": "accGrapePerShare",
             "type": "uint256"
           },
           {
@@ -8554,13 +8554,13 @@
   },
 
   "BombRewardPool": {
-    "address": "0x04b79c851ed1A36549C6151189c79EC0eaBca745",
+    "address": "0x2B1B0231ea607B59357c46fB5369A260FA1eAC94",
     "abi": [
       {
         "inputs": [
           {
             "internalType": "address",
-            "name": "_bomb",
+            "name": "_grape",
             "type": "address"
           },
           {
@@ -8746,7 +8746,7 @@
             "type": "uint256"
           }
         ],
-        "name": "epochBombPerSecond",
+        "name": "epochGrapePerSecond",
         "outputs": [
           {
             "internalType": "uint256",
@@ -8875,7 +8875,7 @@
             "type": "address"
           }
         ],
-        "name": "pendingBOMB",
+        "name": "pendingGRAPE",
         "outputs": [
           {
             "internalType": "uint256",
@@ -8913,7 +8913,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "accBombPerShare",
+            "name": "accGrapePerShare",
             "type": "uint256"
           },
           {
@@ -9044,14 +9044,14 @@
       }
     ]
   },
-  "BombBTCApeLPBombRewardPool": {
-    "address": "0x04b79c851ed1A36549C6151189c79EC0eaBca745",
+  "GrapeMimRewardPool1": {
+    "address": "0x2B1B0231ea607B59357c46fB5369A260FA1eAC94",
     "abi": [
       {
         "inputs": [
           {
             "internalType": "address",
-            "name": "_bomb",
+            "name": "_grape",
             "type": "address"
           },
           {
@@ -9187,7 +9187,7 @@
       },
       {
         "inputs": [],
-        "name": "bomb",
+        "name": "grape",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -9237,7 +9237,7 @@
             "type": "uint256"
           }
         ],
-        "name": "epochBombPerSecond",
+        "name": "epochGrapePerSecond",
         "outputs": [
           {
             "internalType": "uint256",
@@ -9366,7 +9366,7 @@
             "type": "address"
           }
         ],
-        "name": "pendingBOMB",
+        "name": "pendingGRAPE",
         "outputs": [
           {
             "internalType": "uint256",
@@ -9404,7 +9404,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "accBombPerShare",
+            "name": "accGrapePerShare",
             "type": "uint256"
           },
           {
@@ -9535,14 +9535,14 @@
       }
     ]
   },
-  "BombBTCLPBombRewardPool": {
-    "address": "0x04b79c851ed1A36549C6151189c79EC0eaBca745",
+  "GrapeWavaxRewardPool1": {
+    "address": "0x2B1B0231ea607B59357c46fB5369A260FA1eAC94",
     "abi": [
       {
         "inputs": [
           {
             "internalType": "address",
-            "name": "_bomb",
+            "name": "_grape",
             "type": "address"
           },
           {
@@ -9678,7 +9678,7 @@
       },
       {
         "inputs": [],
-        "name": "bomb",
+        "name": "grape",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -9728,7 +9728,7 @@
             "type": "uint256"
           }
         ],
-        "name": "epochBombPerSecond",
+        "name": "epochGrapePerSecond",
         "outputs": [
           {
             "internalType": "uint256",
@@ -9857,7 +9857,7 @@
             "type": "address"
           }
         ],
-        "name": "pendingBOMB",
+        "name": "pendingGRAPE",
         "outputs": [
           {
             "internalType": "uint256",
@@ -9895,7 +9895,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "accBombPerShare",
+            "name": "accGrapePerShare",
             "type": "uint256"
           },
           {

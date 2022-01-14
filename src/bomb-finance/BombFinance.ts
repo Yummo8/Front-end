@@ -14,6 +14,7 @@ import config, {bankDefinitions} from '../config';
 import moment from 'moment';
 import {parseUnits} from 'ethers/lib/utils';
 import {BNB_TICKER, SPOOKY_ROUTER_ADDR, BOMB_TICKER} from '../utils/constants';
+import { Console } from 'console';
 /**
  * An API module of Bomb Money contracts.
  * All contract-interacting domain logic should be defined in here.
@@ -33,6 +34,8 @@ export class BombFinance {
   BBOND: ERC20;
   BNB: ERC20;
   BTC: ERC20;
+  WAVAX: ERC20;
+  MIM: ERC20;
 
   constructor(cfg: Configuration) {
     const {deployments, externalTokens} = cfg;
@@ -52,6 +55,8 @@ export class BombFinance {
     this.BBOND = new ERC20(deployments.BBond.address, provider, 'BBOND');
     this.BNB = this.externalTokens['WBNB'];
     this.BTC = this.externalTokens['BTCB'];
+    this.WAVAX = this.externalTokens['WAVAX'];
+    this.MIM = this.externalTokens['MIM'];
 
     // Uniswap V2 Pair
     this.BOMBBTCB_LP = new Contract(externalTokens['BOMB-BTCB-LP'][0], IUniswapV2PairABI, provider);
@@ -101,22 +106,29 @@ export class BombFinance {
     const bombRewardPoolSupply = await this.BOMB.balanceOf(BombGenesisRewardPool.address);
     const bombRewardPoolSupply2 = await this.BOMB.balanceOf(BombRewardPool.address);
     const bombCirculatingSupply = supply.sub(bombRewardPoolSupply).sub(bombRewardPoolSupply2);
-    const priceInBNB = await this.getTokenPriceFromPancakeswap(this.BOMB);
-    const priceInBNBstring = priceInBNB.toString();
-    const priceInBTC = await this.getTokenPriceFromPancakeswapBTC(this.BOMB);
-    const priceOfOneBNB = await this.getWBNBPriceFromPancakeswap();
-    const priceOfOneBTC = await this.getBTCBPriceFromPancakeswap();
-    const priceInDollars = await this.getTokenPriceFromPancakeswapBOMBUSD();
-    const priceOfBombInDollars = ((Number(priceInBTC) * Number(priceOfOneBTC)) / 10000).toFixed(2);
 
+    const minusAirdrop = getDisplayBalance(bombCirculatingSupply, this.BOMB.decimal, 0);
+
+    const priceInBNB = await this.getTokenPriceFromPancakeswap(this.BOMB);
+   
+    const priceInBNBstring = priceInBNB.toString();
+
+    const priceInBTC = await this.getTokenPriceFromPancakeswapBTC(this.BOMB);
+  
+    const priceOfOneBNB = await this.getWBNBPriceFromPancakeswap();
+
+    const priceOfOneBTC = 1;
+
+    const priceInDollars = await this.getTokenPriceFromPancakeswapBOMBUSD();
+
+    const priceOfBombInDollars = ((Number(priceInBTC) * Number(priceOfOneBTC))).toFixed(2);
 
     return {
-      //  tokenInFtm: (Number(priceInBNB) * 100).toString(),
       
       tokenInFtm: priceInBTC.toString(),
       priceInDollars: priceOfBombInDollars,
       totalSupply: getDisplayBalance(supply, 18, 0),
-      circulatingSupply: getDisplayBalance(bombRewardPoolSupply, this.BOMB.decimal, 0),
+      circulatingSupply: minusAirdrop,
     };
   }
 
@@ -132,10 +144,12 @@ export class BombFinance {
    */
   async getLPStat(name: string): Promise<LPStat> {
     const lpToken = this.externalTokens[name];
+    
     const lpTokenSupplyBN = await lpToken.totalSupply();
+    
     const lpTokenSupply = getDisplayBalance(lpTokenSupplyBN, 18);
-    const token0 = name.startsWith('BOMB') ? this.BOMB : this.BSHARE;
-    const isBomb = name.startsWith('BOMB');
+    const token0 = name.startsWith('GRAPE') ? this.BOMB : this.BSHARE;
+    const isBomb = name.startsWith('GRAPE');
     const tokenAmountBN = await token0.balanceOf(lpToken.address);
     const tokenAmount = getDisplayBalance(tokenAmountBN, 18);
 
@@ -156,15 +170,22 @@ export class BombFinance {
   }
 
   async getLPStatBTC(name: string): Promise<LPStat> {
+
     const lpToken = this.externalTokens[name];
+
     const lpTokenSupplyBN = await lpToken.totalSupply();
+
     const lpTokenSupply = getDisplayBalance(lpTokenSupplyBN, 18);
-    const token0 = name.startsWith('BOMB') ? this.BOMB : this.BSHARE;
-    const isBomb = name.startsWith('BOMB');
+    
+    const token0 = name.startsWith('GRAPE') ? this.BOMB : this.BSHARE;
+    const isBomb = name.startsWith('GRAPE');
+    
     const tokenAmountBN = await token0.balanceOf(lpToken.address);
+    
     const tokenAmount = getDisplayBalance(tokenAmountBN, 18);
 
-    const btcAmountBN = await this.BTC.balanceOf(lpToken.address);
+    const btcAmountBN = await this.MIM.balanceOf(lpToken.address);
+    
     const btcAmount = getDisplayBalance(btcAmountBN, 18);
     const tokenAmountInOneLP = Number(tokenAmount) / Number(lpTokenSupply);
     const ftmAmountInOneLP = Number(btcAmount) / Number(lpTokenSupply);
@@ -215,18 +236,19 @@ export class BombFinance {
    */
   async getShareStat(): Promise<TokenStat> {
     const {BShareRewardPool} = this.contracts;
-
+    
     const supply = await this.BSHARE.totalSupply();
 
     const priceInBNB = await this.getTokenPriceFromPancakeswap(this.BSHARE);
+
     const bombRewardPoolSupply = await this.BSHARE.balanceOf(BShareRewardPool.address);
     const tShareCirculatingSupply = supply.sub(bombRewardPoolSupply);
     const priceOfOneBNB = await this.getWBNBPriceFromPancakeswap();
-    const priceOfSharesInDollars = (Number(priceInBNB) * Number(priceOfOneBNB)).toFixed(2);
+    //const priceOfSharesInDollars = (Number(priceInBNB) * Number(priceOfOneBNB)).toFixed(2);
 
     return {
       tokenInFtm: priceInBNB,
-      priceInDollars: priceOfSharesInDollars,
+      priceInDollars: priceInBNB,
       totalSupply: getDisplayBalance(supply, this.BSHARE.decimal, 0),
       circulatingSupply: getDisplayBalance(tShareCirculatingSupply, this.BSHARE.decimal, 0),
     };
@@ -274,10 +296,15 @@ export class BombFinance {
     if (this.myAccount === undefined) return;
     const depositToken = bank.depositToken;
     const poolContract = this.contracts[bank.contract];
+
     const depositTokenPrice = await this.getDepositTokenPriceInDollars(bank.depositTokenName, depositToken);
+    
     const stakeInPool = await depositToken.balanceOf(bank.address);
+    
     const TVL = Number(depositTokenPrice) * Number(getDisplayBalance(stakeInPool, depositToken.decimal));
-    const stat = bank.earnTokenName === 'BOMB' ? await this.getBombStat() : await this.getShareStat();
+    
+    const stat = bank.earnTokenName === 'GRAPE' ? await this.getBombStat() : await this.getShareStat();
+    
     const tokenPerSecond = await this.getTokenPerSecond(
       bank.earnTokenName,
       bank.contract,
@@ -285,13 +312,19 @@ export class BombFinance {
       bank.depositTokenName,
     );
 
-    const tokenPerHour = tokenPerSecond.mul(60).mul(60);
+    let tokenPerHour = tokenPerSecond.mul(60).mul(60);
+
     const totalRewardPricePerYear =
       Number(stat.priceInDollars) * Number(getDisplayBalance(tokenPerHour.mul(24).mul(365)));
+
     const totalRewardPricePerDay = Number(stat.priceInDollars) * Number(getDisplayBalance(tokenPerHour.mul(24)));
+
     const totalStakingTokenInPool =
       Number(depositTokenPrice) * Number(getDisplayBalance(stakeInPool, depositToken.decimal));
+  
+
     const dailyAPR = (totalRewardPricePerDay / totalStakingTokenInPool) * 100;
+
     const yearlyAPR = (totalRewardPricePerYear / totalStakingTokenInPool) * 100;
     return {
       dailyAPR: dailyAPR.toFixed(2).toString(),
@@ -313,33 +346,46 @@ export class BombFinance {
     poolContract: Contract,
     depositTokenName: string,
   ) {
-    if (earnTokenName === 'BOMB') {
-      if (!contractName.endsWith('BombRewardPool')) {
-        const rewardPerSecond = await poolContract.tSharePerSecond();
-        if (depositTokenName === 'AVAX') {
-          return rewardPerSecond.mul(6000).div(11000).div(24);
-        } else if (depositTokenName === 'CAKE') {
-          return rewardPerSecond.mul(2500).div(11000).div(24);
-        } else if (depositTokenName === 'SUSD') {
-          return rewardPerSecond.mul(1000).div(11000).div(24);
-        } else if (depositTokenName === 'SVL') {
-          return rewardPerSecond.mul(1500).div(11000).div(24);
-        }
-        return rewardPerSecond.div(24);
+
+    if (earnTokenName === 'GRAPE') {
+      if (!contractName.endsWith('1')) {
+        const rewardPerSecond = await poolContract.grapePerSecond();
+        if (depositTokenName === 'WAVAX') {
+          return rewardPerSecond.mul(720).div(2400).div(24);
+        } else if (depositTokenName === 'MIM') {
+          return rewardPerSecond.mul(720).div(2400).div(24);
+        } 
+        return rewardPerSecond.div(12);
       }
+
+      if (depositTokenName === 'WAVAX') {
+        const rewardPerSecond = await poolContract.epochGrapePerSecond(0);
+        return rewardPerSecond.div(100).mul(5);
+      } else if (depositTokenName === 'MIM') {
+        const rewardPerSecond = await poolContract.epochGrapePerSecond(0);
+        return rewardPerSecond.div(100).mul(5);
+      } 
+
       const poolStartTime = await poolContract.poolStartTime();
+      await poolContract.epochGrapePerSecond(1);
+
       const startDateTime = new Date(poolStartTime.toNumber() * 1000);
       const FOUR_DAYS = 4 * 24 * 60 * 60 * 1000;
       if (Date.now() - startDateTime.getTime() > FOUR_DAYS) {
-        return await poolContract.epochBombPerSecond(1);
+        
+        return await poolContract.epochGrapePerSecond(1);
+
       }
-      return await poolContract.epochBombPerSecond(0);
+      return await poolContract.epochGrapePerSecond(0);
+
+      
     }
-    const rewardPerSecond = await poolContract.tSharePerSecond();
-    if (depositTokenName.startsWith('BOMB')) {
-      return rewardPerSecond.mul(44625).div(59500);
+    const rewardPerSecond = await poolContract.grapePerSecond();
+    
+    if (depositTokenName.startsWith('GRAPE')) {
+      return rewardPerSecond.mul(21000).div(41000);
     } else {
-      return rewardPerSecond.mul(14875).div(59500);
+      return rewardPerSecond.mul(20000).div(41000);
     }
   }
 
@@ -354,20 +400,22 @@ export class BombFinance {
   async getDepositTokenPriceInDollars(tokenName: string, token: ERC20) {
     let tokenPrice;
     const priceOfOneFtmInDollars = await this.getWBNBPriceFromPancakeswap();
-    if (tokenName === 'AVAX') {
+    
+    if (tokenName === 'WAVAX') {
       tokenPrice = priceOfOneFtmInDollars;
     } else {
-      if (tokenName === 'BOMB-BTCB-LP') {
+      if (tokenName === 'GRAPE-MIM-LP') {
         tokenPrice = await this.getLPTokenPrice(token, this.BOMB, true);
-      } else if (tokenName === 'BSHARE-BNB-LP') {
+      } else if (tokenName === 'WINE-AVAX-LP') {
         tokenPrice = await this.getLPTokenPrice(token, this.BSHARE, false);
       } else if (tokenName === 'BSHARE-BNB-APELP') {
         tokenPrice = await this.getApeLPTokenPrice(token, this.BSHARE, false);
-      } else if (tokenName === 'BOMB-BTCB-APELP') {
-        tokenPrice = await this.getApeLPTokenPrice(token, this.BOMB, true);
+      } else if (tokenName === 'MIM') {
+        tokenPrice = '1';
       } else {
         tokenPrice = await this.getTokenPriceFromPancakeswap(token);
         tokenPrice = (Number(tokenPrice) * Number(priceOfOneFtmInDollars)).toString();
+        
       }
     }
     return tokenPrice;
@@ -414,9 +462,13 @@ export class BombFinance {
     for (const bankInfo of Object.values(bankDefinitions)) {
       const pool = this.contracts[bankInfo.contract];
       const token = this.externalTokens[bankInfo.depositTokenName];
+      console.log(bankInfo.depositTokenName);
       const tokenPrice = await this.getDepositTokenPriceInDollars(bankInfo.depositTokenName, token);
+
       const tokenAmountInPool = await token.balanceOf(pool.address);
+
       const value = Number(getDisplayBalance(tokenAmountInPool, token.decimal)) * Number(tokenPrice);
+
       const poolValue = Number.isNaN(value) ? 0 : value;
       totalValue += poolValue;
     }
@@ -440,11 +492,17 @@ export class BombFinance {
     const totalSupply = getFullDisplayBalance(await lpToken.totalSupply(), lpToken.decimal);
     //Get amount of tokenA
     const tokenSupply = getFullDisplayBalance(await token.balanceOf(lpToken.address), token.decimal);
+    
     const stat = isBomb === true ? await this.getBombStat() : await this.getShareStat();
+    
     const priceOfToken = stat.priceInDollars;
+    
     const tokenInLP = Number(tokenSupply) / Number(totalSupply);
+ 
     const tokenPrice = (Number(priceOfToken) * tokenInLP * 2) //We multiply by 2 since half the price of the lp token is the price of each piece of the pair. So twice gives the total
+    
       .toString();
+
     return tokenPrice;
   }
 
@@ -557,15 +615,17 @@ export class BombFinance {
     const ready = await this.provider.ready;
     if (!ready) return;
     //const { chainId } = this.config;
-    const {WBNB} = this.config.externalTokens;
+    const {MIM} = this.config.externalTokens;
 
-    const wftm = new Token(43114, WBNB[0], WBNB[1], 'AVAX');
+    const wftm = new Token(43114, MIM[0], MIM[1], 'MIM');
+
     const token = new Token(43114, tokenContract.address, tokenContract.decimal, tokenContract.symbol);
+
     try {
       const wftmToToken = await Fetcher.fetchPairData(wftm, token, this.provider);
-      console.log(wftmToToken);
+
       const priceInBUSD = new Route([wftmToToken], token);
-      console.log(priceInBUSD.midPrice.toFixed(6) + ' ' + token['symbol']);
+
       return priceInBUSD.midPrice.toFixed(4);
     } catch (err) {
       console.error(`Failed to fetch token price of ${tokenContract.symbol}: ${err}`);
@@ -576,17 +636,17 @@ export class BombFinance {
     const ready = await this.provider.ready;
     if (!ready) return;
     //const { chainId } = this.config;
-    const {BTCB, WBNB} = this.config.externalTokens;
+    const {BTCB, WBNB, MIM} = this.config.externalTokens;
 
-    const wbnb = new Token(43114, WBNB[0], WBNB[1]);
-    const btcb = new Token(43114, this.BTC.address, this.BTC.decimal, 'BTCB', 'BTCB');
+    const wbnb = new Token(43114, MIM[0], MIM[1], 'MIM');
     const token = new Token(43114, tokenContract.address, tokenContract.decimal, tokenContract.symbol);
+    
+    
     try {
-      const wftmToToken = await Fetcher.fetchPairData(btcb, token, this.provider);
+      const wftmToToken = await Fetcher.fetchPairData(wbnb, token, this.provider);
       const priceInBUSD = new Route([wftmToToken], token);
-      console.log('priceInBUSDBTC', priceInBUSD.midPrice.toFixed(12));
 
-      const priceForPeg = Number(priceInBUSD.midPrice.toFixed(12)) * 10000;
+      const priceForPeg = Number(priceInBUSD.midPrice.toFixed(12));
       return priceForPeg.toFixed(4);
     } catch (err) {
       console.error(`Failed to fetch token price of ${tokenContract.symbol}: ${err}`);
@@ -597,20 +657,19 @@ export class BombFinance {
     const ready = await this.provider.ready;
     if (!ready) return;
     //const { chainId } = this.config;
-    const {BOMB, WBNB} = this.config.externalTokens;
+    const {MIM} = this.config.externalTokens;
 
-    const wbnb = new Token(43114, WBNB[0], WBNB[1]);
-    const btcb = new Token(43114, this.BTC.address, this.BTC.decimal, 'BTCB', 'BTCB');
-    const token = new Token(43114, this.BOMB.address, this.BOMB.decimal, this.BOMB.symbol);
+    const mim = new Token(43114, MIM[0], MIM[1]);
+    const token = new Token(43114, this.BOMB.address, this.BOMB.decimal, 'GRAPE');
     try {
-      const wftmToToken = await Fetcher.fetchPairData(btcb, token, this.provider);
+      const wftmToToken = await Fetcher.fetchPairData(mim, token, this.provider);
       const priceInBUSD = new Route([wftmToToken], token);
-      console.log('test', priceInBUSD.midPrice.toFixed(12));
-
-      const priceForPeg = Number(priceInBUSD.midPrice.toFixed(12)) * 10000;
+      
+      const priceForPeg = Number(priceInBUSD.midPrice.toFixed(12));
+      
       return priceForPeg.toFixed(4);
     } catch (err) {
-      console.error(`Failed to fetch token price of ${this.BOMB.symbol}: ${err}`);
+      console.error(`Failed to fetch token price of GRAPE: ${err}`);
     }
   }
 
@@ -641,14 +700,14 @@ export class BombFinance {
   async getWBNBPriceFromPancakeswap(): Promise<string> {
     const ready = await this.provider.ready;
     if (!ready) return;
-    const {WBNB, FUSDT} = this.externalTokens;
+    const {WAVAX, MIM} = this.externalTokens;
     try {
       const fusdt_wftm_lp_pair = this.externalTokens['USDT-BNB-LP'];
-      let ftm_amount_BN = await WBNB.balanceOf(fusdt_wftm_lp_pair.address);
-      let ftm_amount = Number(getFullDisplayBalance(ftm_amount_BN, WBNB.decimal));
-      let fusdt_amount_BN = await FUSDT.balanceOf(fusdt_wftm_lp_pair.address);
-      let fusdt_amount = Number(getFullDisplayBalance(fusdt_amount_BN, FUSDT.decimal));
-      console.log((fusdt_amount / ftm_amount).toString());
+      let ftm_amount_BN = await WAVAX.balanceOf(fusdt_wftm_lp_pair.address);
+      let ftm_amount = Number(getFullDisplayBalance(ftm_amount_BN, WAVAX.decimal));
+      let fusdt_amount_BN = await MIM.balanceOf(fusdt_wftm_lp_pair.address);
+      let fusdt_amount = Number(getFullDisplayBalance(fusdt_amount_BN, MIM.decimal));
+
       return (fusdt_amount / ftm_amount).toString();
     } catch (err) {
       console.error(`Failed to fetch token price of AVAX: ${err}`);
@@ -658,16 +717,14 @@ export class BombFinance {
   async getBTCBPriceFromPancakeswap(): Promise<string> {
     const ready = await this.provider.ready;
     if (!ready) return;
-    const {BTCB} = this.externalTokens;
+    const {MIM} = this.externalTokens;
     try {
-      const btcPriceInBNB = await this.getTokenPriceFromPancakeswap(BTCB);
-      console.log('btcprice1', btcPriceInBNB);
-
+      const btcPriceInBNB = await this.getTokenPriceFromPancakeswap(MIM);
+      
       const wbnbPrice = await this.getWBNBPriceFromPancakeswap();
-      console.log('btcprice2', wbnbPrice);
 
       const btcprice = (Number(btcPriceInBNB) * Number(wbnbPrice)).toFixed(2).toString();
-      console.log('btcprice3', btcprice);
+
       return btcprice;
     } catch (err) {
       console.error(`Failed to fetch token price of BTCB: ${err}`);

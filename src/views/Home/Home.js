@@ -53,8 +53,8 @@ const useStyles = makeStyles((theme) => ({
 const Home = () => {
   const classes = useStyles();
   const TVL = useTotalValueLocked();
-  const bombFtmLpStats = useLpStatsBTC('BOMB-BTCB-LP');
-  const bShareFtmLpStats = useLpStats('BSHARE-BNB-LP');
+  const bombFtmLpStats = useLpStatsBTC('GRAPE-MIM-LP');
+  const bShareFtmLpStats = useLpStats('WINE-AVAX-LP');
   const bombStats = useBombStats();
   const bShareStats = usebShareStats();
   const tBondStats = useBondStats();

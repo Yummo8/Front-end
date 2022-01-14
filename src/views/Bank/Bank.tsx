@@ -38,7 +38,7 @@ const Bank: React.FC = () => {
 
   const {account} = useWallet();
   const {onRedeem} = useRedeem(bank);
-  //const statsOnPool = useStatsForPool(bank);
+  const statsOnPool = useStatsForPool(bank);
 
  {/* let vaultUrl: string;
   if (bank.depositTokenName.includes('BOMB')) {
@@ -67,12 +67,12 @@ const Bank: React.FC = () => {
   </Alert>*/}</Grid>
         </Box>
         <Box>
-        {/*<Grid container justify="center" spacing={3} style={{marginBottom: '50px'}}>
+        <Grid container justify="center" spacing={3} style={{marginBottom: '50px'}}>
           <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
             <Card className={classes.gridItem}>
               <CardContent style={{textAlign: 'center'}}>
                 <Typography>APR</Typography>
-                <Typography>{bank.closedForStaking ? '0.00' : statsOnPool?.yearlyAPR}</Typography>
+                <Typography>{bank.closedForStaking ? '0.00' : statsOnPool?.yearlyAPR}%</Typography>
               </CardContent>
             </Card>
           </Grid>
@@ -80,7 +80,7 @@ const Bank: React.FC = () => {
             <Card className={classes.gridItem}>
               <CardContent style={{textAlign: 'center'}}>
                 <Typography>Daily APR</Typography>
-                <Typography>{bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}0%</Typography>
+                <Typography>{bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}%</Typography>
               </CardContent>
             </Card>
           </Grid>
@@ -88,11 +88,11 @@ const Bank: React.FC = () => {
             <Card className={classes.gridItem}>
               <CardContent style={{textAlign: 'center'}}>
                 <Typography>TVL</Typography>
-                <Typography>${statsOnPool?.TVL}0</Typography>
+                <Typography>${statsOnPool?.TVL}</Typography>
               </CardContent>
             </Card>
           </Grid>
-</Grid>*/}
+</Grid>
         </Box>
    
       <Box mt={5}>
