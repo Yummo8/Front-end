@@ -75,6 +75,8 @@ const configurations: {[env: string]: Configuration} = {
       'USDT-BNB-LP': ['0x781655d802670bba3c89aebaaea59d3182fd755d', 18], //mim avax
       'USDT-BTCB-LP': ['0x3f803ec2b816ea7f06ec76aa2b6f2532f9892d62', 18],
       'GRAPE-MIM-LP': ['0xb382247667fe8ca5327ca1fa4835ae77a9907bc8', 18],
+      'GRAPE-WINE-LP': ['0xd3d477Df7f63A2623464Ff5Be6746981FdeD026F', 18],
+      'WINE-MIM-LP': ['0x00cB5b42684DA62909665d8151fF80D1567722c3', 18],
       'BOMB-BTCB-LP': ['0xb382247667fe8ca5327ca1fa4835ae77a9907bc8', 18], //MIM-GRAPE
       'BOMB-BNB-LP': ['0x107CDC0c46615C63EE4abC4E1e264D3BD12390e6', 18],
       'BSHARE-BNB-LP': ['0x1303246855b5B5EbC71F049Fdb607494e97218f8', 18],
@@ -106,6 +108,8 @@ const configurations: {[env: string]: Configuration} = {
       SHIBA: ['0x9ba3e4f84a34df4e08c112e1a0ff148b81655615', 9],
       'USDT-BNB-LP': ['0x781655d802670bba3c89aebaaea59d3182fd755d', 18], //mim avax
       'GRAPE-MIM-LP': ['0xb382247667fe8ca5327ca1fa4835ae77a9907bc8', 18],
+      'WINE-MIM-LP': ['0x00cB5b42684DA62909665d8151fF80D1567722c3', 18],
+      'GRAPE-WINE-LP': ['0xd3d477Df7f63A2623464Ff5Be6746981FdeD026F', 18],
       'USDT-BTCB-LP': ['0x3f803ec2b816ea7f06ec76aa2b6f2532f9892d62', 18],
       'BOMB-BTCB-LP': ['0xb382247667fe8ca5327ca1fa4835ae77a9907bc8', 18], //MIM GRAPE
       'BOMB-BNB-LP': ['0x107CDC0c46615C63EE4abC4E1e264D3BD12390e6', 18],
@@ -180,6 +184,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     finished: false,
     sort: 3,
     closedForStaking: true,
+    multi: '0x',
   },
   GrapeWavaxRewardPool: {
     name: 'Earn GRAPE with WAVAX',
@@ -191,6 +196,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     finished: false,
     sort: 2,
     closedForStaking: true,
+    multi: '0x',
   },
   GrapeMimLPRewardPool: {
     name: 'Earn GRAPE with GRAPE/MIM LP',
@@ -202,6 +208,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     finished: false,
     sort: 1,
     closedForStaking: true,
+    multi: '0x',
   },
   GrapeMimRewardPool1: {
     name: 'Earn GRAPE with MIM',
@@ -212,7 +219,8 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     earnTokenName: 'GRAPE',
     finished: false,
     sort: 6,
-    closedForStaking: false,
+    closedForStaking: true,
+    multi: '0x',
   },
   GrapeWavaxRewardPool1: {
     name: 'Earn GRAPE with WAVAX',
@@ -223,7 +231,8 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     earnTokenName: 'GRAPE',
     finished: false,
     sort: 5,
-    closedForStaking: false,
+    closedForStaking: true,
+    multi: '0x',
   },
   GrapeMimLPRewardPool1: {
     name: 'Earn GRAPE with GRAPE/MIM LP',
@@ -234,7 +243,8 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     earnTokenName: 'GRAPE',
     finished: false,
     sort: 4,
-    closedForStaking: false,
+    closedForStaking: true,
+    multi: '0x',
   },
   // BombSVLRewardPool: {
   //   name: 'Earn BOMB by SVL',
@@ -350,17 +360,55 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
   //   closedForStaking: true,
   // },
   /*
-  BombBtcbLPBShareRewardPool: {
-    name: 'Earn BSHARE by BOMB-BTCB LP',
+  GrapeMimLPWineRewardPool: {
+    name: 'Earn GRAPE with GRAPE/MIM LP',
+    poolId: 0,
+    sectionInUI: 2,
+    contract: 'GrapeMimLPWineRewardPool',
+    depositTokenName: 'GRAPE-MIM-LP',
+    earnTokenName: 'GRAPE',
+    finished: false,
+    sort: 4,
+    closedForStaking: false,
+  },*/
+ 
+  GrapeMimLPWineRewardPool: {
+    name: 'Earn WINE with GRAPE-MIM LP',
+    poolId: 0,
+    sectionInUI: 2,
+    contract: 'GrapeMimLPWineRewardPool',
+    depositTokenName: 'GRAPE-MIM-LP',
+    earnTokenName: 'WINE',
+    finished: false,
+    sort: 0,
+    closedForStaking: false,
+    multi: '18000x',
+  },
+  
+  WineMimLPWineRewardPool: {
+    name: 'Earn WINE with WINE-MIM LP',
     poolId: 1,
     sectionInUI: 2,
-    contract: 'BombBtcbLPBShareRewardPool',
-    depositTokenName: 'BOMB-BTCB-LP',
-    earnTokenName: 'BSHARE',
+    contract: 'WineMimLPWineRewardPool',
+    depositTokenName: 'WINE-MIM-LP',
+    earnTokenName: 'WINE',
     finished: false,
     sort: 1,
     closedForStaking: false,
-  },*/
+    multi: '17000x',
+  },
+  GrapeWineLPWineRewardPool: {
+    name: 'Earn WINE with GRAPE-WINE LP',
+    poolId: 2,
+    sectionInUI: 2,
+    contract: 'GrapeWineLPWineRewardPool',
+    depositTokenName: 'GRAPE-WINE-LP',
+    earnTokenName: 'WINE',
+    finished: false,
+    sort: 2,
+    closedForStaking: false,
+    multi: '6000X',
+  },
 };
 
 export default configurations[process.env.NODE_ENV || 'production'];

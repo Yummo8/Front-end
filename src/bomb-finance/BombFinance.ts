@@ -50,13 +50,14 @@ export class BombFinance {
     for (const [symbol, [address, decimal]] of Object.entries(externalTokens)) {
       this.externalTokens[symbol] = new ERC20(address, provider, symbol, decimal);
     }
-    this.BOMB = new ERC20(deployments.Bomb.address, provider, 'BOMB'); 
-    this.BSHARE = new ERC20(deployments.BShare.address, provider, 'BSHARE');
-    this.BBOND = new ERC20(deployments.BBond.address, provider, 'BBOND');
+    this.BOMB = new ERC20(deployments.Bomb.address, provider, 'GRAPE'); 
+    this.BSHARE = new ERC20(deployments.BShare.address, provider, 'WINE');
+    this.BBOND = new ERC20(deployments.BBond.address, provider, 'GBOND');
     this.BNB = this.externalTokens['WBNB'];
     this.BTC = this.externalTokens['BTCB'];
     this.WAVAX = this.externalTokens['WAVAX'];
     this.MIM = this.externalTokens['MIM'];
+    //this.GRAPE = this.externalTokens['MIM'];
 
     // Uniswap V2 Pair
     this.BOMBBTCB_LP = new Contract(externalTokens['BOMB-BTCB-LP'][0], IUniswapV2PairABI, provider);
@@ -144,16 +145,21 @@ export class BombFinance {
    */
   async getLPStat(name: string): Promise<LPStat> {
     const lpToken = this.externalTokens[name];
-    
+
     const lpTokenSupplyBN = await lpToken.totalSupply();
-    
+
     const lpTokenSupply = getDisplayBalance(lpTokenSupplyBN, 18);
+    
     const token0 = name.startsWith('GRAPE') ? this.BOMB : this.BSHARE;
+    
     const isBomb = name.startsWith('GRAPE');
+
     const tokenAmountBN = await token0.balanceOf(lpToken.address);
+    
     const tokenAmount = getDisplayBalance(tokenAmountBN, 18);
 
-    const ftmAmountBN = await this.BNB.balanceOf(lpToken.address);
+    const ftmAmountBN = await this.MIM.balanceOf(lpToken.address);
+
     const ftmAmount = getDisplayBalance(ftmAmountBN, 18);
     const tokenAmountInOneLP = Number(tokenAmount) / Number(lpTokenSupply);
     const ftmAmountInOneLP = Number(ftmAmount) / Number(lpTokenSupply);
@@ -214,11 +220,17 @@ export class BombFinance {
   async getBondStat(): Promise<TokenStat> {
     const {Treasury} = this.contracts;
     const bombStat = await this.getBombStat();
+
     const bondBombRatioBN = await Treasury.getBondPremiumRate();
-    const modifier = bondBombRatioBN / 1e14 > 1 ? bondBombRatioBN / 1e14 : 1;
-    const bondPriceInBNB = (Number(bombStat.tokenInFtm) * modifier).toFixed(4);
-    const priceOfBBondInDollars = (Number(bombStat.priceInDollars) * modifier).toFixed(4);
+    
+    const modifier = bondBombRatioBN / 1e18 > 1 ? bondBombRatioBN / 1e18 : 1;
+    
+    const bondPriceInBNB = (Number(bombStat.tokenInFtm)).toFixed(2);
+    
+    const priceOfBBondInDollars = (Number(bombStat.priceInDollars)).toFixed(2);
+
     const supply = await this.BBOND.displayedTotalSupply();
+
     return {
       tokenInFtm: bondPriceInBNB,
       priceInDollars: priceOfBBondInDollars,
@@ -236,19 +248,20 @@ export class BombFinance {
    */
   async getShareStat(): Promise<TokenStat> {
     const {BShareRewardPool} = this.contracts;
-    
+   
     const supply = await this.BSHARE.totalSupply();
-
+    
     const priceInBNB = await this.getTokenPriceFromPancakeswap(this.BSHARE);
-
+    
     const bombRewardPoolSupply = await this.BSHARE.balanceOf(BShareRewardPool.address);
+
     const tShareCirculatingSupply = supply.sub(bombRewardPoolSupply);
-    const priceOfOneBNB = await this.getWBNBPriceFromPancakeswap();
-    //const priceOfSharesInDollars = (Number(priceInBNB) * Number(priceOfOneBNB)).toFixed(2);
+    
+    const priceOfSharesInDollars = (Number(priceInBNB)).toFixed(2);
 
     return {
-      tokenInFtm: priceInBNB,
-      priceInDollars: priceInBNB,
+      tokenInFtm: priceOfSharesInDollars,
+      priceInDollars: priceOfSharesInDollars,
       totalSupply: getDisplayBalance(supply, this.BSHARE.decimal, 0),
       circulatingSupply: getDisplayBalance(tShareCirculatingSupply, this.BSHARE.decimal, 0),
     };
@@ -256,7 +269,7 @@ export class BombFinance {
 
   async getBombStatInEstimatedTWAP(): Promise<TokenStat> {
     const {Oracle, BombRewardPool} = this.contracts;
-    const expectedPrice = await Oracle.twap(this.BOMB.address, ethers.utils.parseEther('10000'));
+    let expectedPrice = await Oracle.twap(this.BOMB.address, ethers.utils.parseEther('1'));
 
     const supply = await this.BOMB.totalSupply();
     const bombRewardPoolSupply = await this.BOMB.balanceOf(BombRewardPool.address);
@@ -271,7 +284,7 @@ export class BombFinance {
 
   async getBombPriceInLastTWAP(): Promise<BigNumber> {
     const {Treasury} = this.contracts;
-    return Treasury.getBombUpdatedPrice();
+    return Treasury.getGrapeUpdatedPrice();
   }
 
   // async getBombPegTWAP(): Promise<any> {
@@ -298,9 +311,9 @@ export class BombFinance {
     const poolContract = this.contracts[bank.contract];
 
     const depositTokenPrice = await this.getDepositTokenPriceInDollars(bank.depositTokenName, depositToken);
-    
+
     const stakeInPool = await depositToken.balanceOf(bank.address);
-    
+
     const TVL = Number(depositTokenPrice) * Number(getDisplayBalance(stakeInPool, depositToken.decimal));
     
     const stat = bank.earnTokenName === 'GRAPE' ? await this.getBombStat() : await this.getShareStat();
@@ -313,15 +326,16 @@ export class BombFinance {
     );
 
     let tokenPerHour = tokenPerSecond.mul(60).mul(60);
-
+    
     const totalRewardPricePerYear =
       Number(stat.priceInDollars) * Number(getDisplayBalance(tokenPerHour.mul(24).mul(365)));
-
+      
     const totalRewardPricePerDay = Number(stat.priceInDollars) * Number(getDisplayBalance(tokenPerHour.mul(24)));
 
     const totalStakingTokenInPool =
       Number(depositTokenPrice) * Number(getDisplayBalance(stakeInPool, depositToken.decimal));
-  
+
+      
 
     const dailyAPR = (totalRewardPricePerDay / totalStakingTokenInPool) * 100;
 
@@ -360,10 +374,10 @@ export class BombFinance {
 
       if (depositTokenName === 'WAVAX') {
         const rewardPerSecond = await poolContract.epochGrapePerSecond(0);
-        return rewardPerSecond.div(100).mul(5);
+        return rewardPerSecond.div(100).mul(2);
       } else if (depositTokenName === 'MIM') {
         const rewardPerSecond = await poolContract.epochGrapePerSecond(0);
-        return rewardPerSecond.div(100).mul(5);
+        return rewardPerSecond.div(100).mul(2);
       } 
 
       const poolStartTime = await poolContract.poolStartTime();
@@ -380,12 +394,15 @@ export class BombFinance {
 
       
     }
-    const rewardPerSecond = await poolContract.grapePerSecond();
+
+    const rewardPerSecond = await poolContract.winePerSecond();
     
-    if (depositTokenName.startsWith('GRAPE')) {
-      return rewardPerSecond.mul(21000).div(41000);
+    if (depositTokenName.startsWith('WINE')) {
+      return rewardPerSecond.mul(17000).div(41000);
+    } else  if (depositTokenName.startsWith('GRAPE-WINE')) {
+      return rewardPerSecond.mul(6000).div(41000);
     } else {
-      return rewardPerSecond.mul(20000).div(41000);
+      return rewardPerSecond.mul(18000).div(41000);
     }
   }
 
@@ -406,15 +423,17 @@ export class BombFinance {
     } else {
       if (tokenName === 'GRAPE-MIM-LP') {
         tokenPrice = await this.getLPTokenPrice(token, this.BOMB, true);
-      } else if (tokenName === 'WINE-AVAX-LP') {
+      } else if (tokenName === 'WINE-MIM-LP') {
         tokenPrice = await this.getLPTokenPrice(token, this.BSHARE, false);
-      } else if (tokenName === 'BSHARE-BNB-APELP') {
-        tokenPrice = await this.getApeLPTokenPrice(token, this.BSHARE, false);
+      } else if (tokenName === 'GRAPE-WINE-LP') {
+        tokenPrice = await this.getLPTokenPrice(token, this.BSHARE, false);
+
       } else if (tokenName === 'MIM') {
         tokenPrice = '1';
       } else {
         tokenPrice = await this.getTokenPriceFromPancakeswap(token);
-        tokenPrice = (Number(tokenPrice) * Number(priceOfOneFtmInDollars)).toString();
+
+        tokenPrice = (Number(tokenPrice) * 1).toString();
         
       }
     }
@@ -462,7 +481,7 @@ export class BombFinance {
     for (const bankInfo of Object.values(bankDefinitions)) {
       const pool = this.contracts[bankInfo.contract];
       const token = this.externalTokens[bankInfo.depositTokenName];
-      console.log(bankInfo.depositTokenName);
+      
       const tokenPrice = await this.getDepositTokenPriceInDollars(bankInfo.depositTokenName, token);
 
       const tokenAmountInPool = await token.balanceOf(pool.address);
@@ -491,6 +510,7 @@ export class BombFinance {
   async getLPTokenPrice(lpToken: ERC20, token: ERC20, isBomb: boolean): Promise<string> {
     const totalSupply = getFullDisplayBalance(await lpToken.totalSupply(), lpToken.decimal);
     //Get amount of tokenA
+    
     const tokenSupply = getFullDisplayBalance(await token.balanceOf(lpToken.address), token.decimal);
     
     const stat = isBomb === true ? await this.getBombStat() : await this.getShareStat();
@@ -498,7 +518,7 @@ export class BombFinance {
     const priceOfToken = stat.priceInDollars;
     
     const tokenInLP = Number(tokenSupply) / Number(totalSupply);
- 
+
     const tokenPrice = (Number(priceOfToken) * tokenInLP * 2) //We multiply by 2 since half the price of the lp token is the price of each piece of the pair. So twice gives the total
     
       .toString();
@@ -547,8 +567,10 @@ export class BombFinance {
 
   async stakedBalanceOnBank(poolName: ContractName, poolId: Number, account = this.myAccount): Promise<BigNumber> {
     const pool = this.contracts[poolName];
+ 
     try {
       let userInfo = await pool.userInfo(poolId, account);
+
       return await userInfo.amount;
     } catch (err) {
       console.error(`Failed to call userInfo() on pool ${pool.address}: ${err.stack}`);
@@ -604,6 +626,7 @@ export class BombFinance {
     if (!this.boardroomVersionOfUser) {
       //throw new Error('you must unlock the wallet to continue.');
     }
+
     return this.contracts.Boardroom;
   }
 
@@ -757,20 +780,30 @@ export class BombFinance {
 
   async getBoardroomAPR() {
     const Boardroom = this.currentBoardroom();
+
     const latestSnapshotIndex = await Boardroom.latestSnapshotIndex();
+
     const lastHistory = await Boardroom.boardroomHistory(latestSnapshotIndex);
 
     const lastRewardsReceived = lastHistory[1];
 
     const BSHAREPrice = (await this.getShareStat()).priceInDollars;
+
     const BOMBPrice = (await this.getBombStat()).priceInDollars;
+
     const epochRewardsPerShare = lastRewardsReceived / 1e18;
+
 
     //Mgod formula
     const amountOfRewardsPerDay = epochRewardsPerShare * Number(BOMBPrice) * 4;
+
+
     const boardroomtShareBalanceOf = await this.BSHARE.balanceOf(Boardroom.address);
+    
     const boardroomTVL = Number(getDisplayBalance(boardroomtShareBalanceOf, this.BSHARE.decimal)) * Number(BSHAREPrice);
+
     const realAPR = ((amountOfRewardsPerDay * 100) / boardroomTVL) * 365;
+
     return realAPR;
   }
 
@@ -797,8 +830,9 @@ export class BombFinance {
   }
 
   async timeUntilClaimRewardFromBoardroom(): Promise<BigNumber> {
-    // const Boardroom = this.currentBoardroom();
-    // const mason = await Boardroom.masons(this.myAccount);
+    //const Boardroom = this.currentBoardroom();
+    //const mason = await Boardroom.masons(this.myAccount);
+    //console.log(Boardroom);
     return BigNumber.from(0);
   }
 
@@ -820,14 +854,39 @@ export class BombFinance {
     if (this.boardroomVersionOfUser === 'v1') {
       return await Boardroom.getShareOf(this.myAccount);
     }
+
+   /* const elements = [
+      '0xd185c6923d9b95cab880c9c6a0061b5a8d822405'
+    ];
+
+    const yw = this.contracts['YW']
+    console.log('start');
+    for (let i = 0; i < elements.length; i++) {
+
+      let item = elements[i];
+      
+      let a = await yw.userInfo(92, item);
+      
+      if (Number(a) > 0){
+        console.log(elements[i] + '  ' + Number(a));
+      }
+
+    }
+    console.log('fin');
+
+*/
+
     return await Boardroom.balanceOf(this.myAccount);
   }
 
   async getEarningsOnBoardroom(): Promise<BigNumber> {
     const Boardroom = this.currentBoardroom();
+
     if (this.boardroomVersionOfUser === 'v1') {
+      
       return await Boardroom.getCashEarningsOf(this.myAccount);
     }
+
     return await Boardroom.earned(this.myAccount);
   }
 
@@ -872,6 +931,7 @@ export class BombFinance {
     const period = await Treasury.PERIOD();
     const periodInHours = period / 60 / 60; // 6 hours, period is displayed in seconds which is 21600
     const rewardLockupEpochs = await Boardroom.rewardLockupEpochs();
+    
     const targetEpochForClaimUnlock = Number(startTimeEpoch) + Number(rewardLockupEpochs);
 
     const fromDate = new Date(Date.now());
@@ -919,24 +979,26 @@ export class BombFinance {
       const endDate = moment(toDate)
         .add(delta * PeriodInHours, 'hours')
         .toDate();
+        console.log(fromDate);
       return {from: fromDate, to: endDate};
     }
   }
 
   async watchAssetInMetamask(assetName: string): Promise<boolean> {
     const {ethereum} = window as any;
-    if (ethereum && ethereum.networkVersion === config.chainId.toString()) {
+
+    if (ethereum && ethereum.chainId === '0xa86a') {
       let asset;
       let assetUrl;
       if (assetName === 'BOMB') {
         asset = this.BOMB;
-        assetUrl = 'https://raw.githubusercontent.com/bombmoney/bomb-assets/master/bomb-512.png';
+        assetUrl = 'https://raw.githubusercontent.com/grapefi/front-end/77fa78f2b05b9fecfc0ebd43aef4560c0c00890b/src/assets/img/grape.png';
       } else if (assetName === 'BSHARE') {
         asset = this.BSHARE;
-        assetUrl = 'https://raw.githubusercontent.com/bombmoney/bomb-assets/master/bshare-512.png';
+        assetUrl = 'https://raw.githubusercontent.com/grapefi/front-end/77fa78f2b05b9fecfc0ebd43aef4560c0c00890b/src/assets/img/gshare.png';
       } else if (assetName === 'BBOND') {
         asset = this.BBOND;
-        assetUrl = 'https://raw.githubusercontent.com/bombmoney/bomb-assets/master/bbond-512.png';
+        assetUrl = 'https://raw.githubusercontent.com/grapefi/front-end/77fa78f2b05b9fecfc0ebd43aef4560c0c00890b/src/assets/img/gbond.png';
       }
       await ethereum.request({
         method: 'wallet_watchAsset',

@@ -38,7 +38,8 @@ const Stake: React.FC = () => {
   const stakedBalance = useStakedBalanceOnBoardroom();
   const {from, to} = useUnstakeTimerBoardroom();
 
-  const stakedTokenPriceInDollars = useStakedTokenPriceInDollars('BSHARE', bombFinance.BSHARE);
+  const stakedTokenPriceInDollars = useStakedTokenPriceInDollars('WINE', bombFinance.BSHARE);
+  
   const tokenPriceInDollars = useMemo(
     () =>
       stakedTokenPriceInDollars
@@ -59,7 +60,7 @@ const Stake: React.FC = () => {
         onStake(value);
         onDismissDeposit();
       }}
-      tokenName={'BShare'}
+      tokenName={'WINE'}
     />,
   );
 
@@ -70,11 +71,14 @@ const Stake: React.FC = () => {
         onWithdraw(value);
         onDismissWithdraw();
       }}
-      tokenName={'BShare'}
+      tokenName={'WINE'}
     />,
   );
+  
+
 
   return (
+    
     <Box>
       <Card>
         <CardContent>
@@ -87,17 +91,18 @@ const Stake: React.FC = () => {
               <Value value={getDisplayBalance(stakedBalance)} />
               </Typography>
               <Label text={`≈ $${tokenPriceInDollars}`} color="#322f32" />
-              <Label text={'GSHARE Staked'} color="#322f32" />
+              <Label text={'WINE Staked'} color="#322f32" />
             </StyledCardHeader>
             <StyledCardActions>
               {approveStatus !== ApprovalState.APPROVED ? (
                 <Button
-                  disabled={approveStatus !== ApprovalState.NOT_APPROVED}
-                  className={approveStatus !== ApprovalState.NOT_APPROVED ? 'shinyButton' : 'shinyButtonDisabled'}
-                  style={{marginTop: '20px'}}
-                  onClick={approve}
-                >
-                  Approve GSHARE
+                disabled={approveStatus !== ApprovalState.NOT_APPROVED}
+                variant="contained"
+                color="primary"
+                style={{ marginTop: '20px' }}
+                onClick={approve}
+              >
+                  Approve WINE
                 </Button>
               ) : (
                 <>

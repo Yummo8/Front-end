@@ -101,9 +101,9 @@ const Nav = () => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-/*
-  const btcPriceInDollars = useMemo(() => (bombStats ? Number(btcStats).toFixed(2) : null), [bombStats]);
-  const bombPriceInDollars = useMemo(
+
+  //const btcPriceInDollars = useMemo(() => (bombStats ? Number(btcStats).toFixed(2) : null), [bombStats]);
+  /*const bombPriceInDollars = useMemo(
     () => (bombStats ? Number(bombStats.priceInDollars).toFixed(2) : null),
     [bombStats],
   );
@@ -120,7 +120,7 @@ const Nav = () => {
             <Typography variant="h6" color="inherit" noWrap style={{flexGrow: '0'}} className={classes.toolbarTitle}>
               {/* <a className={ classes.brandLink } href="/">Bomb Money</a> */}
               <Link to="/" color="inherit" className={classes.brandLink}>
-                <img alt="bomb.money" src={bombLogo} height="60px" />
+                <img alt="Grape Finance" src={bombLogo} height="60px" />
               </Link>
             </Typography>
             <Box style={{paddingLeft: '15px', paddingTop: '10px', fontSize: '1rem', flexGrow: '1'}}>
@@ -131,16 +131,25 @@ const Nav = () => {
               <Link to="/farm" className={'navLink ' + classes.link}>
                 Vineyard
               </Link>
-              <a href="https://grapefinance.gitbook.io/grape-finance-docs/" className={'navLink ' + classes.link} rel="noopener" target="_blank">
-                Docs
-              </a>
-              {/*<Link to="/boardroom" className={'navLink ' + classes.link}>
+              <Link to="/boardroom" className={'navLink ' + classes.link}>
                 Winery
               </Link>
               <Link to="/bond" className={'navLink ' + classes.link}>
                 Bond
               </Link>
-
+              <Link to="/launchpad" className={'navLink ' + classes.link}>
+                Launchpad
+              </Link>
+              <a href="https://yieldwolf.finance/avalanche" className={'navLink ' + classes.link} rel="noopener" target="_blank">
+                Autocompound
+              </a>
+              
+              <a href="https://grapefinance.gitbook.io/grape-finance-docs/" className={'navLink ' + classes.link} rel="noopener" target="_blank">
+                Docs
+              </a>
+              
+              
+{/*
                <Link color="textPrimary" to="/sbs" className={classes.link}>
                 SBS
               </Link>
@@ -168,13 +177,13 @@ const Nav = () => {
                 height: '30px',
                 display: 'flex',
               }}
-            >{/*
+            >{/*}
               <div className="navTokenIcon bomb"></div>{' '}
               <div className="navTokenPrice">${roundAndFormatNumber(Number(bombPriceInDollars), 2)}</div>
               <div className="navTokenIcon bshare"></div>{' '}
               <div className="navTokenPrice">${roundAndFormatNumber(Number(sharePriceInDollars), 2)}</div>
-              <div className="navTokenIcon btc"></div>{' '}
-              <div className="navTokenPrice">${roundAndFormatNumber(Number(btcPriceInDollars), 2)}</div>*/}
+            <div className="navTokenIcon btc"></div>{' '}*/}
+              {/*<div className="navTokenPrice">${roundAndFormatNumber(Number(btcPriceInDollars), 2)}</div>*/}
             </Box>
             <AccountButton text="Connect" />
           </>
@@ -224,13 +233,18 @@ const Nav = () => {
                 </ListItem>
                 <ListItemLink primary="Home" to="/" />
                 <ListItemLink primary="Vineyard" to="/farm" />
+                <ListItemLink primary="Winery" to="/boardroom" />
+                <ListItemLink primary="Bond" to="/bond" />
+                <ListItem button component="a" href="https://yieldwolf.finance/avalanche">
+                  <ListItemText>Autocompound</ListItemText>
+                  </ListItem>
                 <ListItem button component="a" href="https://grapefinance.gitbook.io/grape-finance-docs/">
                   <ListItemText>Docs</ListItemText>
                   </ListItem>
                 
-                {/*<ListItemLink primary="Boardroom" to="/boardroom" />
-                <ListItemLink primary="Bond" to="/bond" />
-                 <ListItemLink primary="SBS" to="/sbs" /> */}
+                
+                
+                {/* <ListItemLink primary="SBS" to="/sbs" /> */}
                 {/* <ListItemLink primary="Liquidity" to="/liquidity" /> */}
                 {/* <ListItemLink primary="Regulations" to="/regulations" /> 
                 <ListItem button component="a" href="#">

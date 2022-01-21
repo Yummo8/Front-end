@@ -25,7 +25,7 @@ const Harvest: React.FC = () => {
     () => (bombStats ? Number(bombStats.priceInDollars).toFixed(2) : null),
     [bombStats],
   );
-
+    
   const earnedInDollars = (Number(tokenPriceInDollars) * Number(getDisplayBalance(earnings))).toFixed(2);
 
   const {from, to} = useClaimRewardTimerBoardroom();

@@ -48,7 +48,7 @@ const Bond: React.FC = () => {
     async (amount: string) => {
       const tx = await bombFinance.buyBonds(amount);
       addTransaction(tx, {
-        summary: `Buy ${Number(amount).toFixed(2)} BBOND with ${amount} BOMB`,
+        summary: `Buy ${Number(amount).toFixed(2)} GBOND with ${amount} GRAPE`,
       });
     },
     [bombFinance, addTransaction],
@@ -57,14 +57,15 @@ const Bond: React.FC = () => {
   const handleRedeemBonds = useCallback(
     async (amount: string) => {
       const tx = await bombFinance.redeemBonds(amount);
-      addTransaction(tx, {summary: `Redeem ${amount} BBOND`});
+      addTransaction(tx, {summary: `Redeem ${amount} GBOND`});
     },
     [bombFinance, addTransaction],
   );
+
   const isBondRedeemable = useMemo(() => cashPrice.gt(BOND_REDEEM_PRICE_BN), [cashPrice]);
   const isBondPurchasable = useMemo(() => Number(bondStat?.tokenInFtm) < 1.01, [bondStat]);
   const isBondPayingPremium = useMemo(() => Number(bondStat?.tokenInFtm) >= 1.1, [bondStat]);
-  const bondScale = (Number(cashPrice) / 100000000000000).toFixed(4); 
+  const bondScale = (Number(cashPrice) / 1000000000000000000).toFixed(2); 
 
   return (
     <Switch>
@@ -94,9 +95,9 @@ const Bond: React.FC = () => {
                 <ExchangeCard
                   action="Purchase"
                   fromToken={bombFinance.BOMB}
-                  fromTokenName="BOMB"
+                  fromTokenName="GRAPE"
                   toToken={bombFinance.BBOND}
-                  toTokenName="BBOND"
+                  toTokenName="GBOND"
                   priceDesc={
                     !isBondPurchasable
                       ? 'GRAPE is over peg'
@@ -118,20 +119,20 @@ const Bond: React.FC = () => {
                 <ExchangeStat
                   tokenName="1 GRAPE"
                   description="Current Price: (GRAPE)^2"
-                  price={Number(bondStat?.tokenInFtm).toFixed(4) || '-'}
+                  price={Number(bondStat?.tokenInFtm).toFixed(2) || '-'}
                 />
               </StyledStatsWrapper>
               <StyledCardWrapper>
                 <ExchangeCard
                   action="Redeem"
                   fromToken={bombFinance.BBOND}
-                  fromTokenName="BBOND"
+                  fromTokenName="GBOND"
                   toToken={bombFinance.BOMB}
-                  toTokenName="BOMB"
+                  toTokenName="GRAPE"
                   priceDesc={`${getDisplayBalance(bondBalance)} GBOND Available in wallet`}
                   onExchange={handleRedeemBonds}
                   disabled={!bondStat || bondBalance.eq(0) || !isBondRedeemable}
-                  disabledDescription={!isBondRedeemable ? `Enabled when 11 GRAPE > $${BOND_REDEEM_PRICE}` : null}
+                  disabledDescription={!isBondRedeemable ? `Enabled when 1 GRAPE > $${BOND_REDEEM_PRICE}` : null}
                 />
               </StyledCardWrapper>
             </StyledBond>

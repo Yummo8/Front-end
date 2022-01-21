@@ -29,7 +29,7 @@ const Farm = () => {
   const {path} = useRouteMatch();
   const {account} = useWallet();
   const activeBanks = banks.filter((bank) => !bank.finished);
-  const date = new Date('2022-1-14 17:00:00Z');
+  
   return (
     <Switch>
       <Page>
@@ -40,15 +40,15 @@ const Farm = () => {
               <h2 style={{ fontSize: '80px', textAlign:'center' }}>Vineyard</h2>             
               
               <Box mt={5}>
-              {/*<LaunchCountdown deadline={date} description='Countdown' descriptionLink='#'></LaunchCountdown>*/}
+              
                 <div hidden={activeBanks.filter((bank) => bank.sectionInUI === 2).length === 0}>
+                <Typography color="textPrimary" variant="h4" gutterBottom style={{marginTop: '20px', color: '#fff'}}>
+                    WINE Reward Farms
+                  </Typography>
+                  <Alert variant="filled" severity="info">             
+                     
+                      WINE rewards start Jan 16th 2022 and will continue running for 370 days.
                   
-                  <Alert variant="filled" severity="info">
-                    <h4>
-                      Farms started November 25th 2021 and will continue running for 1 full year.</h4>
-
-
-
                   </Alert> 
                   <Grid container spacing={3} style={{marginTop: '20px'}}>
                     {activeBanks
@@ -63,9 +63,13 @@ const Farm = () => {
 
                 <div hidden={activeBanks.filter((bank) => bank.sectionInUI === 1).length === 0}>
                   <Typography color="textPrimary" variant="h4" gutterBottom style={{marginTop: '20px', color: '#fff'}}>
-                    Grape Reward Farms (Now Open)
+                    Grape Reward Farms (Now Closed)
                   </Typography>
+                  <Alert variant="filled" severity="warning">             
+                     
+                      GRAPE rewards have finished early to keep GRAPE above peg during our bootstrap, please unstake from these pools. NO REWARDS ARE LOST THEY WILL BE SENT TO YOUR WALLET WHEN YOU UNSTAKE!
                   
+                  </Alert>
                   <Grid container spacing={3} style={{marginTop: '20px', display: 'flex', alignItems: 'center'}}>
                     {activeBanks
                       .filter((bank) => bank.sectionInUI === 1)
@@ -83,7 +87,7 @@ const Farm = () => {
                     Genesis Pools are finished
                   </Typography>
                   <Alert variant="filled" severity="warning">
-                    Please remove funds from genesis farms below and stake into the grape rewards farms above.
+                    Please remove funds from genesis farms below and stake into the reward farms above.
                   </Alert>
                   {/*<Alert variant="filled" severity="warning">
                     Genesis pools have ended. Please claim all rewards and remove funds from Genesis pools.

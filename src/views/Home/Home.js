@@ -23,9 +23,9 @@ import { Alert } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core/styles';
 import useBombFinance from '../../hooks/useBombFinance';
 import { ReactComponent as IconTelegram } from '../../assets/img/telegram.svg';
-
+import kyc from '../../assets/img/kyc.jpg';
 import BombImage from '../../assets/img/grape.png';
-
+import audit from '../../assets/img/audit1.jpg';
 import HomeImage from '../../assets/img/background.jpg';
 const BackgroundImage = createGlobalStyle`
   body {
@@ -54,7 +54,7 @@ const Home = () => {
   const classes = useStyles();
   const TVL = useTotalValueLocked();
   const bombFtmLpStats = useLpStatsBTC('GRAPE-MIM-LP');
-  const bShareFtmLpStats = useLpStats('WINE-AVAX-LP');
+  const bShareFtmLpStats = useLpStats('WINE-MIM-LP');
   const bombStats = useBombStats();
   const bShareStats = usebShareStats();
   const tBondStats = useBondStats();
@@ -71,14 +71,14 @@ const Home = () => {
   }
 
   const buyBombAddress = 'https://traderjoexyz.com/#/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0x5541d83efad1f281571b343977648b75d95cdac2';
-  const buyBShareAddress = 'https://traderjoexyz.com/#/trade?inputCurrency=0x859b0921b783874175701fe06393f736535d5074&outputCurrency=0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7';
+  const buyBShareAddress = 'https://traderjoexyz.com/#/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0xc55036b5348cfb45a932481744645985010d3a44';
   const bombLPStats = useMemo(() => (bombFtmLpStats ? bombFtmLpStats : null), [bombFtmLpStats]);
   const bshareLPStats = useMemo(() => (bShareFtmLpStats ? bShareFtmLpStats : null), [bShareFtmLpStats]);
   const bombPriceInDollars = useMemo(
     () => (bombStats ? Number(bombStats.priceInDollars).toFixed(2) : null),
     [bombStats],
   );
-  const bombPriceInBNB = useMemo(() => (bombStats ? Number(bombStats.tokenInFtm).toFixed(4) : null), [bombStats]);
+  const bombPriceInBNB = useMemo(() => (bombStats ? Number(bombStats.tokenInFtm).toFixed(2) : null), [bombStats]);
   const bombCirculatingSupply = useMemo(() => (bombStats ? String(bombStats.circulatingSupply) : null), [bombStats]);
   const bombTotalSupply = useMemo(() => (bombStats ? String(bombStats.totalSupply) : null), [bombStats]);
 
@@ -106,9 +106,9 @@ const Home = () => {
     [tBondStats],
   );
   const tBondTotalSupply = useMemo(() => (tBondStats ? String(tBondStats.totalSupply) : null), [tBondStats]);
-
-  const bombLpZap = useZap({ depositTokenName: 'BOMB-BTCB-LP' });
-  const bshareLpZap = useZap({ depositTokenName: 'BSHARE-BNB-LP' });
+/*
+  const bombLpZap = useZap({ depositTokenName: 'GRAPE-MIM-LP' });
+  const bshareLpZap = useZap({ depositTokenName: 'WINE-MIM-LP' });
 
   const [onPresentBombZap, onDissmissBombZap] = useModal(
     <ZapModal
@@ -118,7 +118,7 @@ const Home = () => {
         bombLpZap.onZap(zappingToken, tokenName, amount);
         onDissmissBombZap();
       }}
-      tokenName={'BOMB-BTCB-LP'}
+      tokenName={'GRAPE-MIM-LP'}
     />,
   );
 
@@ -130,10 +130,10 @@ const Home = () => {
         bshareLpZap.onZap(zappingToken, tokenName, amount);
         onDissmissBshareZap();
       }}
-      tokenName={'BSHARE-BNB-LP'}
+      tokenName={'WINE-MIM-LP'}
     />,
   );
-
+*/
   return (
     <Page>
       <BackgroundImage />
@@ -194,7 +194,7 @@ const Home = () => {
           <Grid item xs={12} sm={12} justify="center" style={{ margin: '12px', display: 'flex' }}>
 
            <Alert variant="filled" severity="info"> 
-              Genesis Pools have launched! Read our <a link="_blank" href="https://grapefinance.gitbook.io/grape-finance-docs/">docs</a> for more info and to confirm contract addresses.
+              Reward Pools have launched! Read our <a link="_blank" href="https://grapefinance.gitbook.io/grape-finance-docs/">docs</a> for more info and to confirm contract addresses.
             </Alert>
 
           </Grid>
@@ -216,7 +216,7 @@ const Home = () => {
           <Card style={{ height: '100%' }}>
             <CardContent align="center" style={{ marginTop: '2.5%' }}>
               {/* <h2 style={{ marginBottom: '20px' }}>Wallet Balance</h2> */}
-              <Button href="#" className="shinyButton" style={{ margin: '10px' }}>
+              <Button href="/boardroom" className="shinyButton" style={{ margin: '10px' }}>
                 Stake Now
               </Button>
               <Button href="/farm" className="shinyButton" style={{ margin: '10px' }}>
@@ -251,7 +251,7 @@ const Home = () => {
                   <TokenSymbol symbol="BOMB" />
                 </CardIcon>
               </Box>
-              {/*<Button
+              <Button
                 onClick={() => {
                   bombFinance.watchAssetInMetamask('BOMB');
                 }}
@@ -259,8 +259,8 @@ const Home = () => {
               >
                 {' '}
                 <b>+</b>&nbsp;&nbsp;
-                <img alt="metamask fox" style={{ width: '20px', filter: 'grayscale(100%)' }} src={MetamaskFox} />
-              </Button>*/}
+                <img alt="metamask fox" style={{ width: '20px'}} src={MetamaskFox} />
+              </Button>
               <h2 style={{ marginBottom: '10px' }}>GRAPE</h2>
               
               <Box>
@@ -279,7 +279,7 @@ const Home = () => {
         <Grid item xs={12} sm={4}>
           <Card>
             <CardContent align="center" style={{ position: 'relative' }}>
-              {/*<Button
+              <Button
                 onClick={() => {
                   bombFinance.watchAssetInMetamask('BSHARE');
                 }}
@@ -287,8 +287,8 @@ const Home = () => {
               >
                 {' '}
                 <b>+</b>&nbsp;&nbsp;
-                <img alt="metamask fox" style={{ width: '20px', filter: 'grayscale(100%)' }} src={MetamaskFox} />
-              </Button>*/}
+                <img alt="metamask fox" style={{ width: '20px'}} src={MetamaskFox} />
+              </Button>
               <Box mt={2}>
                 <CardIcon>
                   <TokenSymbol symbol="BSHARE" />
@@ -316,7 +316,7 @@ const Home = () => {
         <Grid item xs={12} sm={4}>
           <Card>
             <CardContent align="center" style={{ position: 'relative' }}>
-              {/*<Button
+              <Button
                 onClick={() => {
                   bombFinance.watchAssetInMetamask('BBOND');
                 }}
@@ -324,8 +324,8 @@ const Home = () => {
               >
                 {' '}
                 <b>+</b>&nbsp;&nbsp;
-                <img alt="metamask fox" style={{ width: '20px', filter: 'grayscale(100%)' }} src={MetamaskFox} />
-              </Button>*/}
+                <img alt="metamask fox" style={{ width: '20px'}} src={MetamaskFox} />
+              </Button>
               <Box mt={2}>
                 <CardIcon>
                   <TokenSymbol symbol="BBOND" />
@@ -357,9 +357,9 @@ const Home = () => {
               </Box>
               <h2>GRAPE-MIM TraderJoe LP</h2>
               <Box mt={2}>
-               {/*<Button disabled onClick={onPresentBombZap} className="shinyButtonDisabledSecondary">
+               {/*<Button onClick={onPresentBombZap} className="shinyButtonSecondary">
                   Zap In
-            </Button>*/}
+              </Button>*/}
               </Box>
               <Box mt={2}>
                 <span style={{ fontSize: '26px', color: '#930993'  }}>
@@ -384,16 +384,16 @@ const Home = () => {
                   <TokenSymbol symbol="BSHARE-BNB-LP" style="width:105px;" />
                 </CardIcon>
               </Box>
-              <h2>WINE-AVAX TraderJoe LP</h2>
+              <h2>WINE-MIM TraderJoe LP</h2>
               <Box mt={2}>
-                {/*<Button onClick={onPresentBshareZap} className="shinyButtonSecondary">
+               {/* <Button onClick={onPresentBshareZap} className="shinyButtonSecondary">
                   Zap In
             </Button>*/}
               </Box>
               <Box mt={2}>
                 <span style={{ fontSize: '26px', color: '#930993' }}>
                   {bshareLPStats?.tokenAmount ? bshareLPStats?.tokenAmount : '-.--'} WINE /{' '}
-                  {bshareLPStats?.ftmAmount ? bshareLPStats?.ftmAmount : '-.--'} AVAX
+                  {bshareLPStats?.ftmAmount ? bshareLPStats?.ftmAmount : '-.--'} MIM
                 </span>
               </Box>
               <Box>${bshareLPStats?.priceOfOne ? bshareLPStats.priceOfOne : '-.--'}</Box>
@@ -405,6 +405,27 @@ const Home = () => {
               </span>
             </CardContent>
           </Card>
+          
+        </Grid>
+        <Grid item xs={12} sm={3}>
+        
+        </Grid>
+        <Grid item xs={12} sm={3}>
+        <div style={{width: '150px', margin: '0 auto'}}>
+          <a href='https://twitter.com/0xGuard/status/1480457336082907137' target='_blank'>
+          <img alt="0xGuard KYC" style={{ width: '150px'}} src={kyc} />
+          </a>
+        </div>
+        </Grid>
+        <Grid item xs={12} sm={3}>
+        <div style={{width: '150px', margin: '0 auto'}}>
+          <a href='https://grapefinance.app/audit.pdf' target='_blank'>
+          <img alt="0xGuard Audit" style={{ width: '150px'}} src={audit} />
+          </a>
+        </div>
+        </Grid>
+        <Grid item xs={12} sm={3}>
+        
         </Grid>
       </Grid>
     </Page>

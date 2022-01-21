@@ -17,11 +17,14 @@ import Loader from './components/Loader';
 import Popups from './components/Popups';
 import Regulations from './views/Regulations/Regulations';
 import {RefreshContextProvider} from './contexts/RefreshContext';
+import { Launch } from '@material-ui/icons';
 
 const Home = lazy(() => import('./views/Home'));
 const Farm = lazy(() => import('./views/Farm'));
 const Boardroom = lazy(() => import('./views/Boardroom'));
 const Bond = lazy(() => import('./views/Bond'));
+const Launchpad = lazy(() => import('./views/Launchpad'));
+const Auto = lazy(() => import('./views/Auto'));
 // const SBS = lazy(() => import('./views/Sbs'));
 // const Liquidity = lazy(() => import('./views/Liquidity'));
 
@@ -58,12 +61,18 @@ const App: React.FC = () => {
             <Route path="/bond">
               <Bond />
             </Route>
+            <Route path="/launchpad">
+              <Launchpad />
+            </Route> 
+            <Route path="/auto">
+              <Auto />
+            </Route> 
             {/* <Route path="/sbs">
               <SBS />
-            </Route> */}
+            </Route> 
             <Route path="/regulations">
               <Regulations />
-            </Route>
+            </Route>*/}
             {/* <Route path="/liquidity">
               <Liquidity />
             </Route> */}

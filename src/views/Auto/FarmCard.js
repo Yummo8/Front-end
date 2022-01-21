@@ -40,19 +40,11 @@ const FarmCard = ({bank}) => {
               {/* {bank.name} */}
               Deposit {bank.depositTokenName.toUpperCase()} Earn {` ${bank.earnTokenName}`}
             </Typography>
-            <Typography color="#322f32">
-              {/* {bank.name} */}
-              <b>Daily APR:</b> {bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}%
-            </Typography>
-            <Typography color="#322f32">
-              {/* {bank.name} */}
-              <b>Multiplyer:</b> {bank.multi}
-            </Typography>
             
           </Box>
         </CardContent>
         <CardActions style={{justifyContent: 'flex-end'}}>
-          <Button className="shinyButtonSecondary" component={Link} to={`/farm/${bank.contract}`}>
+          <Button className="shinyButtonSecondary" component={Link} to={`https://yieldwolf.finance/avalanche/grapefinance-wine/90/`}>
             View
           </Button>
         </CardActions>

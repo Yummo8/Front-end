@@ -27,7 +27,7 @@ import useClaimRewardCheck from '../../hooks/boardroom/useClaimRewardCheck';
 import useWithdrawCheck from '../../hooks/boardroom/useWithdrawCheck';
 import ProgressCountdown from './components/ProgressCountdown';
 import {createGlobalStyle} from 'styled-components';
-
+import LaunchCountdown from '../../components/LaunchCountdown';
 import HomeImage from '../../assets/img/background.jpg';
 const BackgroundImage = createGlobalStyle`
   body {
@@ -57,18 +57,25 @@ const Boardroom = () => {
   const boardroomAPR = useFetchBoardroomAPR();
   const canClaimReward = useClaimRewardCheck();
   const canWithdraw = useWithdrawCheck();
-  const scalingFactor = useMemo(() => (cashStat ? Number(cashStat.priceInDollars).toFixed(4) : null), [cashStat]);
+  const scalingFactor = useMemo(() => (cashStat ? Number(cashStat.priceInDollars).toFixed(2) : null), [cashStat]);
   const {to} = useTreasuryAllocationTimes();
 
   return (
     <Page>
+      
       <BackgroundImage />
+      
+
       {!!account ? (
         <>
-          <Typography color="#FFF" align="center" variant="h3" gutterBottom>
-            Boardroom
-          </Typography>
+ 
+            <h2 style={{ fontSize: '80px', textAlign:'center' }}>Winery</h2>
+
+           <Alert variant="filled" severity="info" >               
+    Staked WINE can only be withdrawn every 4 epochs (24hrs) & rewards claimed every 2 epochs (12hrs). Staking or claiming resets this timer.
+      </Alert> 
           <Box mt={5}>
+
             <Grid container justify="center" spacing={3}>
               <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
                 <Card className={classes.gridItem}>
@@ -108,7 +115,7 @@ const Boardroom = () => {
               <Grid item xs={12} md={2} lg={2}>
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
-                    <Typography style={{textTransform: 'uppercase', color: '#930993'}}>GSHARES Staked</Typography>
+                    <Typography style={{textTransform: 'uppercase', color: '#930993'}}>WINE Staked</Typography>
                     <Typography>{getDisplayBalance(totalStaked)}</Typography>
                   </CardContent>
                 </Card>

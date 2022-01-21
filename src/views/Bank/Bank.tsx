@@ -18,7 +18,7 @@ import useRedeem from '../../hooks/useRedeem';
 import {Bank as BankEntity} from '../../bomb-finance';
 import useBombFinance from '../../hooks/useBombFinance';
 import {Alert} from '@material-ui/lab';
-
+import LaunchCountdown from '../../components/LaunchCountdown';
 
 const useStyles = makeStyles((theme) => ({
   gridItem: {
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Bank: React.FC = () => {
   useEffect(() => window.scrollTo(0, 0));
-  const date = new Date('2022-1-13 17:00:00Z');
+  const date = new Date('2022-1-17 08:00:00Z');
   const classes = useStyles();
   const {bankId} = useParams();
   const bank = useBank(bankId);
@@ -40,13 +40,20 @@ const Bank: React.FC = () => {
   const {onRedeem} = useRedeem(bank);
   const statsOnPool = useStatsForPool(bank);
 
- {/* let vaultUrl: string;
-  if (bank.depositTokenName.includes('BOMB')) {
-    vaultUrl = 'https://www.bomb.farm/#/bsc/vault/bomb-bomb-btcb';
-  } else {
-    vaultUrl = 'https://www.bomb.farm/#/bsc/vault/bomb-bshare-wbnb';
+  let name: string;
+  let vaultUrl: string;
+  if (bank.depositTokenName.includes('GRAPE-MIM')) {
+    name = 'GRAPE-MIM Autocompounder';
+    vaultUrl = 'https://yieldwolf.finance/avalanche/grapefinance-wine/90';
+    
+  } else if(bank.depositTokenName.includes('WINE-MIM')) {
+    name = 'WINE-MIM Autocompounder';
+    vaultUrl = 'https://yieldwolf.finance/avalanche/grapefinance-wine/91';
 
-  }*/}
+  }else{
+    name = 'GRAPE-WINE Autocompounder';
+    vaultUrl = 'https://yieldwolf.finance/avalanche/grapefinance-wine/92';
+  }
 
   return account && bank ? (
     <>
@@ -57,14 +64,14 @@ const Bank: React.FC = () => {
       />
          <Box mt={5}>
                 <Grid container justify="center" spacing={3} style={{ marginBottom: '30px' }}>
+       
+        <Alert variant="filled" severity="info">
+            <h3 style={{color: '#000'}}>Autocompounding vaults are live!</h3><br />
+            Autocompound your {bank.depositTokenName} <br />
+            Check it out here: <a href={vaultUrl} target='_blank'>{name}</a>
 
-        {/*<Alert variant="filled" severity="info">
-            <h3>Our autocompounding vaults are live!</h3><br />
-            We support zapping tokens, and auto-compound every 2 hours!<br />
-            Check it out here: <a href={vaultUrl}>{vaultUrl}</a>
 
-
-  </Alert>*/}</Grid>
+  </Alert></Grid>
         </Box>
         <Box>
         <Grid container justify="center" spacing={3} style={{marginBottom: '50px'}}>
@@ -125,27 +132,29 @@ const Bank: React.FC = () => {
 
 const LPTokenHelpText: React.FC<{bank: BankEntity}> = ({bank}) => {
   const bombFinance = useBombFinance();
-  const bombAddr = 0x5541d83efad1f281571b343977648b75d95cdac2;
-  const bshareAddr = 0x859b0921b783874175701fe06393f736535d5074;
 
   let pairName: string;
   let uniswapUrl: string;
   let vaultUrl: string;
-  if (bank.depositTokenName.includes('GRAPE')) {
-    pairName = 'BOMB-BTCB pair';
+  if (bank.depositTokenName.includes('GRAPE-MIM')) {
+    pairName = 'GRAPE-MIM pair';
     uniswapUrl = 'https://traderjoexyz.com/#/pool/0x130966628846bfd36ff31a822705796e8cb8c18d/0x5541d83efad1f281571b343977648b75d95cdac2';
     vaultUrl = '#';
-  } else {
-    pairName = 'BSHARE-BNB pair';
-    uniswapUrl = 'https://traderjoexyz.com/#/pool/0x859b0921b783874175701fe06393f736535d5074/AVAX';
+  } else if(bank.depositTokenName.includes('WINE-MIM')){
+    pairName = 'WINE-MIM pair';
+    uniswapUrl = 'https://traderjoexyz.com/#/pool/0x130966628846bfd36ff31a822705796e8cb8c18d/0xc55036b5348cfb45a932481744645985010d3a44';
     vaultUrl = '#';
 
+  }else{
+    pairName = 'GRAPE-WINE pair';
+    uniswapUrl = 'https://traderjoexyz.com/#/pool/0x5541d83efad1f281571b343977648b75d95cdac2/0xc55036b5348cfb45a932481744645985010d3a44';
+    vaultUrl = '#';
   }
   return (
     <Card>
       <CardContent>
-        <StyledLink href="https://traderjoexyz.com/#/pool/0x130966628846bfd36ff31a822705796e8cb8c18d/0x5541d83efad1f281571b343977648b75d95cdac2" target="_blank">
-          <span style={{color: "#000"}}>Provide liquidity for GRAPE-MIM LP on Joe</span>
+        <StyledLink href={uniswapUrl} target="_blank">
+          <span style={{color: "#000"}}>Provide liquidity for {pairName} on Joe</span>
         </StyledLink>
       </CardContent>
     </Card>

@@ -7,6 +7,7 @@ import {ReactComponent as IconTwitter} from '../../assets/img/twitter.svg';
 import {ReactComponent as IconGithub} from '../../assets/img/github.svg';
 import {ReactComponent as IconDiscord} from '../../assets/img/discord.svg';
 
+
 const useStyles = makeStyles((theme) => ({
   footer: {
     position: 'absolute',
@@ -52,6 +53,7 @@ const Footer = () => {
             </Typography>
           </Grid>
           <Grid item xs={6} style={{textAlign: 'right', height: '20px'}}>
+          
             <a
               href="https://twitter.com/grape_finance"
               rel="noopener noreferrer"
