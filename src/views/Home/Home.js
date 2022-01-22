@@ -72,6 +72,8 @@ const Home = () => {
 
   const buyBombAddress = 'https://traderjoexyz.com/#/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0x5541d83efad1f281571b343977648b75d95cdac2';
   const buyBShareAddress = 'https://traderjoexyz.com/#/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0xc55036b5348cfb45a932481744645985010d3a44';
+  const wineChart = 'https://dexscreener.com/avalanche/0x00cb5b42684da62909665d8151ff80d1567722c3';
+  const grapeChart = 'https://dexscreener.com/avalanche/0xb382247667fe8ca5327ca1fa4835ae77a9907bc8';
   const bombLPStats = useMemo(() => (bombFtmLpStats ? bombFtmLpStats : null), [bombFtmLpStats]);
   const bshareLPStats = useMemo(() => (bShareFtmLpStats ? bShareFtmLpStats : null), [bShareFtmLpStats]);
   const bombPriceInDollars = useMemo(
@@ -237,6 +239,23 @@ const Home = () => {
                 style={{ marginLeft: '10px' }}
               >
                 Buy WINE
+              </Button>
+
+              <Button
+                target="_blank"
+                href={grapeChart}
+                className={'shinyButton ' + classes.button}
+                style={{ marginLeft: '10px' }}
+              >
+                GRAPE Chart
+              </Button>
+              <Button
+                target="_blank"
+                href={wineChart}
+                className={'shinyButton ' + classes.button}
+                style={{ marginLeft: '10px' }}
+              >
+                WINE Chart
               </Button>
             </CardContent>
           </Card>
