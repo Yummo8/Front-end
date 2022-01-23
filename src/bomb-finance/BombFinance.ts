@@ -157,8 +157,8 @@ export class BombFinance {
     const tokenAmountBN = await token0.balanceOf(lpToken.address);
     
     const tokenAmount = getDisplayBalance(tokenAmountBN, 18);
-
-    const ftmAmountBN = await this.MIM.balanceOf(lpToken.address);
+    
+    const ftmAmountBN = lpToken.symbol === "GRAPE-WINE-LP" ? await this.BSHARE.balanceOf(lpToken.address) : await this.MIM.balanceOf(lpToken.address);
 
     const ftmAmount = getDisplayBalance(ftmAmountBN, 18);
     const tokenAmountInOneLP = Number(tokenAmount) / Number(lpTokenSupply);

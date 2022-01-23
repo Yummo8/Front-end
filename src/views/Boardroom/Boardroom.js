@@ -13,13 +13,13 @@ import {Alert} from '@material-ui/lab';
 
 import UnlockWallet from '../../components/UnlockWallet';
 import Page from '../../components/Page';
-
+import useBombFinance from '../../hooks/useBombFinance';
 import useRedeemOnBoardroom from '../../hooks/useRedeemOnBoardroom';
 import useStakedBalanceOnBoardroom from '../../hooks/useStakedBalanceOnBoardroom';
 import {getDisplayBalance} from '../../utils/formatBalance';
 import useCurrentEpoch from '../../hooks/useCurrentEpoch';
 import useFetchBoardroomAPR from '../../hooks/useFetchBoardroomAPR';
-
+import useStakedTokenPriceInDollars from '../../hooks/useStakedTokenPriceInDollars';
 import useCashPriceInEstimatedTWAP from '../../hooks/useCashPriceInEstimatedTWAP';
 import useTreasuryAllocationTimes from '../../hooks/useTreasuryAllocationTimes';
 import useTotalStakedOnBoardroom from '../../hooks/useTotalStakedOnBoardroom';
@@ -47,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Boardroom = () => {
+  const bombFinance = useBombFinance();
   const classes = useStyles();
   const {account} = useWallet();
   const {onRedeem} = useRedeemOnBoardroom();
@@ -60,6 +61,18 @@ const Boardroom = () => {
   const scalingFactor = useMemo(() => (cashStat ? Number(cashStat.priceInDollars).toFixed(2) : null), [cashStat]);
   const {to} = useTreasuryAllocationTimes();
 
+  const stakedTokenPriceInDollars = useStakedTokenPriceInDollars('WINE', bombFinance.BSHARE);
+  const tokenPriceInDollars = useMemo(
+    () =>
+      stakedTokenPriceInDollars
+        ? (Number(stakedTokenPriceInDollars) * Number(getDisplayBalance(stakedBalance))).toFixed(2).toString()
+        : null,
+    [stakedTokenPriceInDollars, stakedBalance],
+  );
+  const rewards = ((boardroomAPR.toFixed(2)/365)/100)*tokenPriceInDollars;
+
+console.log(((boardroomAPR.toFixed(2)/365)/100));
+console.log(tokenPriceInDollars);
   return (
     <Page>
       
@@ -117,6 +130,14 @@ const Boardroom = () => {
                   <CardContent align="center">
                     <Typography style={{textTransform: 'uppercase', color: '#930993'}}>WINE Staked</Typography>
                     <Typography>{getDisplayBalance(totalStaked)}</Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+              <Grid item xs={12} md={2} lg={2}>
+                <Card className={classes.gridItem}>
+                  <CardContent align="center">
+                    <Typography style={{textTransform: 'uppercase', color: '#930993'}}>Est Reward/Day</Typography>
+                    <Typography>~${rewards.toFixed(2)}</Typography>
                   </CardContent>
                 </Card>
               </Grid>
