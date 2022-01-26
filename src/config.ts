@@ -184,7 +184,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     finished: false,
     sort: 3,
     closedForStaking: true,
-    multi: '0x',
+    multi: '0',
   },
   GrapeWavaxRewardPool: {
     name: 'Earn GRAPE with WAVAX',
@@ -196,7 +196,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     finished: false,
     sort: 2,
     closedForStaking: true,
-    multi: '0x',
+    multi: '0',
   },
   GrapeMimLPRewardPool: {
     name: 'Earn GRAPE with GRAPE/MIM LP',
@@ -208,7 +208,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     finished: false,
     sort: 1,
     closedForStaking: true,
-    multi: '0x',
+    multi: '0',
   },
   GrapeMimRewardPool1: {
     name: 'Earn GRAPE with MIM',
@@ -220,7 +220,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     finished: false,
     sort: 6,
     closedForStaking: true,
-    multi: '0x',
+    multi: '0',
   },
   GrapeWavaxRewardPool1: {
     name: 'Earn GRAPE with WAVAX',
@@ -232,7 +232,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     finished: false,
     sort: 5,
     closedForStaking: true,
-    multi: '0x',
+    multi: '0',
   },
   GrapeMimLPRewardPool1: {
     name: 'Earn GRAPE with GRAPE/MIM LP',
@@ -244,7 +244,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     finished: false,
     sort: 4,
     closedForStaking: true,
-    multi: '0x',
+    multi: '0',
   },
   // BombSVLRewardPool: {
   //   name: 'Earn BOMB by SVL',
@@ -382,7 +382,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     finished: false,
     sort: 0,
     closedForStaking: false,
-    multi: '18000x',
+    multi: '44%',
   },
   
   WineMimLPWineRewardPool: {
@@ -395,7 +395,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     finished: false,
     sort: 1,
     closedForStaking: false,
-    multi: '17000x',
+    multi: '41%',
   },
   GrapeWineLPWineRewardPool: {
     name: 'Earn WINE with GRAPE-WINE LP',
@@ -407,7 +407,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     finished: false,
     sort: 2,
     closedForStaking: false,
-    multi: '6000X',
+    multi: '15%',
   },
 };
 

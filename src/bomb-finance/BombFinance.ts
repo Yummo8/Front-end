@@ -228,8 +228,9 @@ export class BombFinance {
     const bondPriceInBNB = (Number(bombStat.tokenInFtm)).toFixed(2);
     
     const priceOfBBondInDollars = (Number(bombStat.priceInDollars)).toFixed(2);
-
+    
     const supply = await this.BBOND.displayedTotalSupply();
+
 
     return {
       tokenInFtm: bondPriceInBNB,
@@ -297,7 +298,7 @@ export class BombFinance {
   async getBondsPurchasable(): Promise<BigNumber> {
     const {Treasury} = this.contracts;
     // const burnableBomb = (Number(Treasury.getBurnableBombLeft()) * 1000).toFixed(2).toString();
-    return Treasury.getBurnableBombLeft();
+    return Treasury.getBurnableGrapeLeft();
   }
 
   /**
@@ -461,7 +462,7 @@ export class BombFinance {
    */
   async buyBonds(amount: string | number): Promise<TransactionResponse> {
     const {Treasury} = this.contracts;
-    const treasuryBombPrice = await Treasury.getBombPrice();
+    const treasuryBombPrice = await Treasury.getGrapePrice();
     return await Treasury.buyBonds(decimalToBalance(amount), treasuryBombPrice);
   }
 
@@ -471,7 +472,7 @@ export class BombFinance {
    */
   async redeemBonds(amount: string | number): Promise<TransactionResponse> {
     const {Treasury} = this.contracts;
-    const priceForBomb = await Treasury.getBombPrice();
+    const priceForBomb = await Treasury.getGrapePrice();
 
     return await Treasury.redeemBonds(decimalToBalance(amount), priceForBomb);
   }

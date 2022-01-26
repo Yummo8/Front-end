@@ -63,7 +63,8 @@ const Bond: React.FC = () => {
   );
 
   const isBondRedeemable = useMemo(() => cashPrice.gt(BOND_REDEEM_PRICE_BN), [cashPrice]);
-  const isBondPurchasable = useMemo(() => Number(bondStat?.tokenInFtm) < 1.01, [bondStat]);
+  const isBondPurchasable = useMemo(() => Number(bondStat?.tokenInFtm) < 12.01, [bondStat]);
+  
   const isBondPayingPremium = useMemo(() => Number(bondStat?.tokenInFtm) >= 1.1, [bondStat]);
   const bondScale = (Number(cashPrice) / 1000000000000000000).toFixed(2); 
 
@@ -104,7 +105,7 @@ const Bond: React.FC = () => {
                       : getDisplayBalance(bondsPurchasable, 18, 4) + ' GBOND available for purchase'
                   }
                   onExchange={handleBuyBonds}
-                  disabled={!bondStat || isBondRedeemable}
+
                 />
               </StyledCardWrapper>
               <StyledStatsWrapper>
@@ -131,7 +132,7 @@ const Bond: React.FC = () => {
                   toTokenName="GRAPE"
                   priceDesc={`${getDisplayBalance(bondBalance)} GBOND Available in wallet`}
                   onExchange={handleRedeemBonds}
-                  disabled={!bondStat || bondBalance.eq(0) || !isBondRedeemable}
+                 
                   disabledDescription={!isBondRedeemable ? `Enabled when 1 GRAPE > $${BOND_REDEEM_PRICE}` : null}
                 />
               </StyledCardWrapper>

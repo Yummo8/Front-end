@@ -46,7 +46,7 @@ const FarmCard = ({bank}) => {
             </Typography>
             <Typography color="#322f32">
               {/* {bank.name} */}
-              <b>Multiplyer:</b> {bank.multi}
+              <b>Pool Weighting:</b> {bank.multi}
             </Typography>
             
           </Box>

@@ -138,16 +138,16 @@ const LPTokenHelpText: React.FC<{bank: BankEntity}> = ({bank}) => {
   let vaultUrl: string;
   if (bank.depositTokenName.includes('GRAPE-MIM')) {
     pairName = 'GRAPE-MIM pair';
-    uniswapUrl = 'https://traderjoexyz.com/#/pool/0x130966628846bfd36ff31a822705796e8cb8c18d/0x5541d83efad1f281571b343977648b75d95cdac2';
+    uniswapUrl = 'https://traderjoexyz.com/pool/0x130966628846bfd36ff31a822705796e8cb8c18d/0x5541d83efad1f281571b343977648b75d95cdac2';
     vaultUrl = '#';
   } else if(bank.depositTokenName.includes('WINE-MIM')){
     pairName = 'WINE-MIM pair';
-    uniswapUrl = 'https://traderjoexyz.com/#/pool/0x130966628846bfd36ff31a822705796e8cb8c18d/0xc55036b5348cfb45a932481744645985010d3a44';
+    uniswapUrl = 'https://traderjoexyz.com/pool/0x130966628846bfd36ff31a822705796e8cb8c18d/0xc55036b5348cfb45a932481744645985010d3a44';
     vaultUrl = '#';
 
   }else{
     pairName = 'GRAPE-WINE pair';
-    uniswapUrl = 'https://traderjoexyz.com/#/pool/0x5541d83efad1f281571b343977648b75d95cdac2/0xc55036b5348cfb45a932481744645985010d3a44';
+    uniswapUrl = 'https://traderjoexyz.com/pool/0x5541d83efad1f281571b343977648b75d95cdac2/0xc55036b5348cfb45a932481744645985010d3a44';
     vaultUrl = '#';
   }
   return (
