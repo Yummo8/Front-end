@@ -309,6 +309,7 @@ export class BombFinance {
   async getPoolAPRs(bank: Bank): Promise<PoolStats> {
     if (this.myAccount === undefined) return;
     const depositToken = bank.depositToken;
+    
     const poolContract = this.contracts[bank.contract];
 
     const depositTokenPrice = await this.getDepositTokenPriceInDollars(bank.depositTokenName, depositToken);
@@ -401,7 +402,9 @@ export class BombFinance {
     if (depositTokenName.startsWith('WINE')) {
       return rewardPerSecond.mul(17000).div(41000);
     } else  if (depositTokenName.startsWith('GRAPE-WINE')) {
-      return rewardPerSecond.mul(6000).div(41000);
+      return rewardPerSecond.mul(5800).div(41000);
+    } else  if (depositTokenName === 'GRAPE') {
+      return rewardPerSecond.mul(200).div(41000);
     } else {
       return rewardPerSecond.mul(18000).div(41000);
     }

@@ -40,20 +40,25 @@ const Bank: React.FC = () => {
   const {onRedeem} = useRedeem(bank);
   const statsOnPool = useStatsForPool(bank);
 
+
   let name: string;
   let vaultUrl: string;
   if (bank.depositTokenName.includes('GRAPE-MIM')) {
-    name = 'GRAPE-MIM Autocompounder';
+    name = 'Autocompound your GRAPE-MIM';
     vaultUrl = 'https://yieldwolf.finance/avalanche/grapefinance-wine/90';
     
   } else if(bank.depositTokenName.includes('WINE-MIM')) {
-    name = 'WINE-MIM Autocompounder';
+    name = 'Autocompound your WINE-MIM';
     vaultUrl = 'https://yieldwolf.finance/avalanche/grapefinance-wine/91';
 
-  }else{
-    name = 'GRAPE-WINE Autocompounder';
+  }else if(bank.depositTokenName.includes('GRAPE-WINE')) {
+    name = 'Autocompound your GRAPE-WINE';
     vaultUrl = 'https://yieldwolf.finance/avalanche/grapefinance-wine/92';
+  } else {
+    name = null;
+    vaultUrl = null;
   }
+
 
   return account && bank ? (
     <>
@@ -63,17 +68,16 @@ const Bank: React.FC = () => {
         title={bank?.name}
       />
          <Box mt={5}>
-                <Grid container justify="center" spacing={3} style={{ marginBottom: '30px' }}>
-       
-        <Alert variant="filled" severity="info">
-            <h3 style={{color: '#000'}}>Autocompounding vaults are live!</h3><br />
-            Autocompound your {bank.depositTokenName} <br />
-            Check it out here: <a href={vaultUrl} target='_blank'>{name}</a>
-
-
-  </Alert></Grid>
-        </Box>
+                <Grid container justify="center" spacing={3} style={{ marginBottom: '30px' }}>       
+                  <Alert variant="filled"> 
+                    <h3 style={{color: '#000'}}>
+                      {bank.depositTokenName === 'GRAPE' ? 'Stake your Grape to earn Wine' : 'Autocompounding vaults are live!'}</h3>
+                      {bank.depositTokenName === 'GRAPE' ? null : <a href={vaultUrl} target='_blank'>{name}</a>}<br />                                               
+                  </Alert>
+                </Grid>
+              </Box>
         <Box>
+
         <Grid container justify="center" spacing={3} style={{marginBottom: '50px'}}>
           <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
             <Card className={classes.gridItem}>
@@ -145,9 +149,13 @@ const LPTokenHelpText: React.FC<{bank: BankEntity}> = ({bank}) => {
     uniswapUrl = 'https://traderjoexyz.com/pool/0x130966628846bfd36ff31a822705796e8cb8c18d/0xc55036b5348cfb45a932481744645985010d3a44';
     vaultUrl = '#';
 
-  }else{
+  }else if(bank.depositTokenName.includes('GRAPE-WINE')){
     pairName = 'GRAPE-WINE pair';
     uniswapUrl = 'https://traderjoexyz.com/pool/0x5541d83efad1f281571b343977648b75d95cdac2/0xc55036b5348cfb45a932481744645985010d3a44';
+    vaultUrl = '#';
+  } else {
+    pairName = 'GRAPE';
+    uniswapUrl = '#';
     vaultUrl = '#';
   }
   return (

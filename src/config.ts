@@ -74,6 +74,7 @@ const configurations: {[env: string]: Configuration} = {
       SHIBA: ['0x9ba3e4f84a34df4e08c112e1a0ff148b81655615', 9],
       'USDT-BNB-LP': ['0x781655d802670bba3c89aebaaea59d3182fd755d', 18], //mim avax
       'USDT-BTCB-LP': ['0x3f803ec2b816ea7f06ec76aa2b6f2532f9892d62', 18],
+      'GRAPE': ['0x5541D83EFaD1f281571B343977648B75d95cdAC2', 18],
       'GRAPE-MIM-LP': ['0xb382247667fe8ca5327ca1fa4835ae77a9907bc8', 18],
       'GRAPE-WINE-LP': ['0xd3d477Df7f63A2623464Ff5Be6746981FdeD026F', 18],
       'WINE-MIM-LP': ['0x00cB5b42684DA62909665d8151fF80D1567722c3', 18],
@@ -107,6 +108,7 @@ const configurations: {[env: string]: Configuration} = {
       ZOO: ['0x09e145a1d53c0045f41aeef25d8ff982ae74dd56', 0],
       SHIBA: ['0x9ba3e4f84a34df4e08c112e1a0ff148b81655615', 9],
       'USDT-BNB-LP': ['0x781655d802670bba3c89aebaaea59d3182fd755d', 18], //mim avax
+      'GRAPE': ['0x5541D83EFaD1f281571B343977648B75d95cdAC2', 18],
       'GRAPE-MIM-LP': ['0xb382247667fe8ca5327ca1fa4835ae77a9907bc8', 18],
       'WINE-MIM-LP': ['0x00cB5b42684DA62909665d8151fF80D1567722c3', 18],
       'GRAPE-WINE-LP': ['0xd3d477Df7f63A2623464Ff5Be6746981FdeD026F', 18],
@@ -407,7 +409,19 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     finished: false,
     sort: 2,
     closedForStaking: false,
-    multi: '15%',
+    multi: '14.5%',
+  },
+  GrapeStaking: {
+    name: 'Earn WINE with GRAPE',
+    poolId: 3,
+    sectionInUI: 2,
+    contract: 'GrapeStaking',
+    depositTokenName: 'GRAPE',
+    earnTokenName: 'WINE',
+    finished: false,
+    sort: 3,
+    closedForStaking: false,
+    multi: '0.5%',
   },
 };
 

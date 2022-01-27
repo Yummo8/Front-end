@@ -158,7 +158,7 @@ const Home = () => {
         <Grid item xs={12} sm={8}>
           <Paper>
             <Box p={4} style={{ textAlign: 'center' }}>
-              <h2>Earn 8%+ Daily at Grape Finance</h2>
+              <h2>Earn 7%+ Daily at Grape Finance</h2>
 
               <p style={{ fontSize: '17px' }}>
                 
@@ -383,11 +383,12 @@ const Home = () => {
               </Box>
               <h2>GRAPE-MIM LP</h2>
               
-              <Box mt={2}>
-               {/*<Button onClick={onPresentBombZap} className="shinyButtonSecondary">
-                  Zap In
-              </Button>*/}
+              <Box mt={4} style={{marginTop: '0px'}}>
+               <Button style={{}}  className="shinyButtonSecondary" href={'/farm/GrapeMimLPWineRewardPool'}>
+                  Go To Pool
+              </Button>              
               </Box>
+              
               <Box mt={2}>
                 <span style={{ fontSize: '26px', color: '#930993'  }}>
                   {bombLPStats?.tokenAmount ? bombLPStats?.tokenAmount : '-.--'} GRAPE /{' '}
@@ -415,13 +416,13 @@ const Home = () => {
               </Box>
               <h2>WINE-MIM LP</h2>
               
-              <Box mt={2}>
-                
-              </Box>
-              <Box mt={2}>
+              <Box mt={2} style={{marginTop: '0px'}}>
                {/* <Button onClick={onPresentBshareZap} className="shinyButtonSecondary">
                   Zap In
             </Button>*/}
+              <Button style={{}}  className="shinyButtonSecondary" href={'/farm/WineMimLPWineRewardPool'}>
+                  Go To Pool
+              </Button>    
               </Box>
               <Box mt={2}>
                 <span style={{ fontSize: '26px', color: '#930993' }}>
@@ -450,10 +451,13 @@ const Home = () => {
               </Box>
               <h2>GRAPE-WINE LP</h2>
               
-              <Box mt={2}>
+              <Box mt={2} style={{marginTop: '0px'}}>
                {/* <Button onClick={onPresentBshareZap} className="shinyButtonSecondary">
                   Zap In
             </Button>*/}
+            <Button style={{}}  className="shinyButtonSecondary" href={'/farm/GrapeWineLPWineRewardPool'}>
+                  Go To Pool
+              </Button>    
               </Box>
               <Box mt={2}>
                 <span style={{ fontSize: '26px', color: '#930993' }}>
