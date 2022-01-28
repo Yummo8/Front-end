@@ -161,16 +161,12 @@ const Home = () => {
               <h2>Earn 7%+ Daily at Grape Finance</h2>
 
               <p style={{ fontSize: '17px' }}>
-                
-               <b>GRAPE is an algorithmic stable coin designed to maintain a 1:1 peg to MIM.</b>
-                
-                
+              <b>We're pegged to MIM helping to reduce your volatility during a market downturn</b>                                  
               </p>
               <p style={{ fontSize: '17px' }}>
-              The protocol incentivizes the peg through high daily yields normally only found
-                with volatile risk assets but with Grape you get this by staking a USD pegged coin instead!
-                {/* Stake your BOMB-BTC LP in the Farm to earn BSHARE rewards. Then stake your earned BSHARE in the
-                Boardroom to earn more BOMB! */}
+              GRAPE is an algorithmic stable coin designed to maintain a 1:1 peg to MIM.                            
+              {/*Stake your LPs in the Vineyard to earn WINE rewards. Then stake your earned WINE in the
+                Winery to earn more GRAPE!*/}
               </p>
               <p>
                 Join our{' '}
@@ -181,7 +177,7 @@ const Home = () => {
                   style={{ color: '#000' }}
                 >
                   Telegram
-                </a>{' '} or {' '}
+                </a>, {' '}
                 
                 <a
                   href="https://discord.gg/ZP9aYaXeCJ"
@@ -191,6 +187,16 @@ const Home = () => {
                 >
                   Discord
                 </a>{' '}
+
+                or read our {' '}
+                <a
+                  href="https://grapefinance.gitbook.io/grape-finance-docs/"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  style={{ color: '#000' }}
+                >
+                  Docs
+                </a>{' '}
                 to find out more!
                 </p>
                 
@@ -199,7 +205,7 @@ const Home = () => {
           </Paper>
         </Grid>
 
-        <Grid container spacing={3}>
+       {/*} <Grid container spacing={3}>
           <Grid item xs={12} sm={12} justify="center" style={{ margin: '12px', display: 'flex' }}>
 
            <Alert variant="filled" severity="info"> 
@@ -207,7 +213,7 @@ const Home = () => {
             </Alert>
 
           </Grid>
-        </Grid>
+              </Grid>*/}
 
         {/* TVL */}
         <Grid item xs={12} sm={4}>
@@ -384,6 +390,9 @@ const Home = () => {
               <h2>GRAPE-MIM LP</h2>
               
               <Box mt={4} style={{marginTop: '0px'}}>
+                {/* <Button onClick={onPresentBshareZap} className="shinyButtonSecondary">
+                  Zap In
+            </Button>*/}
                <Button style={{}}  className="shinyButtonSecondary" href={'/farm/GrapeMimLPWineRewardPool'}>
                   Go To Pool
               </Button>              

@@ -313,7 +313,7 @@ export class BombFinance {
     const poolContract = this.contracts[bank.contract];
 
     const depositTokenPrice = await this.getDepositTokenPriceInDollars(bank.depositTokenName, depositToken);
-
+    
     const stakeInPool = await depositToken.balanceOf(bank.address);
 
     const TVL = Number(depositTokenPrice) * Number(getDisplayBalance(stakeInPool, depositToken.decimal));
@@ -340,7 +340,7 @@ export class BombFinance {
       
 
     const dailyAPR = (totalRewardPricePerDay / totalStakingTokenInPool) * 100;
-
+    console.log(dailyAPR);
     const yearlyAPR = (totalRewardPricePerYear / totalStakingTokenInPool) * 100;
     return {
       dailyAPR: dailyAPR.toFixed(2).toString(),

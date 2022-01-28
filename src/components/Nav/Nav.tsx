@@ -140,6 +140,9 @@ const Nav = () => {
               <Link to="/launchpad" className={'navLink ' + classes.link}>
                 Launchpad
               </Link>
+              <Link to="/roadmap" className={'navLink ' + classes.link}>
+                Roadmap
+              </Link>
               <a href="https://yieldwolf.finance/avalanche" className={'navLink ' + classes.link} rel="noopener" target="_blank">
                 Autocompound
               </a>
@@ -235,6 +238,8 @@ const Nav = () => {
                 <ListItemLink primary="Vineyard" to="/farm" />
                 <ListItemLink primary="Winery" to="/boardroom" />
                 <ListItemLink primary="Bond" to="/bond" />
+                <ListItemLink primary="Launchpad" to="/launchpad" />
+                <ListItemLink primary="Roadmap" to="/roadmap" />
                 <ListItem button component="a" href="https://yieldwolf.finance/avalanche">
                   <ListItemText>Autocompound</ListItemText>
                   </ListItem>

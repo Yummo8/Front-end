@@ -24,9 +24,9 @@ const Farm = lazy(() => import('./views/Farm'));
 const Boardroom = lazy(() => import('./views/Boardroom'));
 const Bond = lazy(() => import('./views/Bond'));
 const Launchpad = lazy(() => import('./views/Launchpad'));
-const Auto = lazy(() => import('./views/Auto'));
+const Roadmap = lazy(() => import('./views/Auto'));
 // const SBS = lazy(() => import('./views/Sbs'));
-// const Liquidity = lazy(() => import('./views/Liquidity'));
+//const Liquidity = lazy(() => import('./views/Liquidity'));
 
 const NoMatch = () => (
   <h3 style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>
@@ -64,8 +64,8 @@ const App: React.FC = () => {
             <Route path="/launchpad">
               <Launchpad />
             </Route> 
-            <Route path="/auto">
-              <Auto />
+            <Route path="/roadmap">
+              <Roadmap />
             </Route> 
             {/* <Route path="/sbs">
               <SBS />
@@ -73,9 +73,7 @@ const App: React.FC = () => {
             <Route path="/regulations">
               <Regulations />
             </Route>*/}
-            {/* <Route path="/liquidity">
-              <Liquidity />
-            </Route> */}
+         
             <Route path="*">
               <NoMatch />
             </Route>
