@@ -12,7 +12,7 @@ const useCashPriceInLastTWAP = () => {
   }, [bombFinance]);
 
   useEffect(() => {
-    fetchCashPrice().catch((err) => console.error(`Failed to fetch BOMB price: ${err.stack}`));
+    fetchCashPrice().catch((err) => console.error(`Failed to fetch GRAPE price: ${err.stack}`));
     const refreshInterval = setInterval(fetchCashPrice, config.refreshInterval);
     return () => clearInterval(refreshInterval);
   }, [setPrice, bombFinance, fetchCashPrice]);

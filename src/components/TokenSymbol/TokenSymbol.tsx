@@ -11,7 +11,7 @@ import wavax from '../../assets/img/wavax.png';
 import grapeWine from '../../assets/img/grape-wine.png';
 import bombFtmLpLogo from '../../assets/img/grape-mim.png';
 import bshareFtmLpLogo from '../../assets/img/gshare-mim.png';
-
+import wamp from '../../assets/img/WAMP.png';
 import bnbLogo from '../../assets/img/bnb.png';
 import btcLogo from '../../assets/img/BCTB-icon.png';
 
@@ -38,6 +38,7 @@ const logosBySymbol: {[title: string]: string} = {
   BTC: btcLogo,
   SVL: bnbLogo,
   WINE: tShareLogoPNG,
+  WAMP: wamp,
   'BOMB-BNB-LP': bombFtmLpLogo,
   'BOMB-BTCB-LP': bombFtmLpLogo,
   'BSHARE-BNB-LP': bshareFtmLpLogo,
@@ -59,7 +60,7 @@ const TokenSymbol: React.FC<LogoProps> = ({symbol}) => {
   }
   if(symbol === 'GRAPE-MIM-LP' || symbol === 'BSHARE-BNB-LP' || symbol === 'BOMB-BTCB-LP' || symbol === 'WINE-MIM-LP' || symbol === 'GRAPE-WINE-LP'){
     return <img src={logosBySymbol[symbol]} alt={`${symbol} Logo`} width={95} height={60} />;
-  }else if(symbol === 'MIM' || symbol === 'WAVAX'){
+  }else if(symbol === 'MIM' || symbol === 'WAVAX' || symbol === 'WAMP'){
     return <img src={logosBySymbol[symbol]} alt={`${symbol} Logo`} width={65} height={65} />;
   }else{
     return <img src={logosBySymbol[symbol]} alt={`${symbol} Logo`} width={55} height={68} />;

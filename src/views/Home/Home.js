@@ -24,6 +24,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import useBombFinance from '../../hooks/useBombFinance';
 import { ReactComponent as IconTelegram } from '../../assets/img/telegram.svg';
 import kyc from '../../assets/img/kyc.jpg';
+import wamp from '../../assets/img/WAMP.png';
 import BombImage from '../../assets/img/grape.png';
 import audit from '../../assets/img/audit1.jpg';
 import HomeImage from '../../assets/img/background.jpg';
@@ -76,6 +77,7 @@ const Home = () => {
   const buyBShareAddress = 'https://traderjoexyz.com/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0xc55036b5348cfb45a932481744645985010d3a44';
   const wineChart = 'https://dexscreener.com/avalanche/0x00cb5b42684da62909665d8151ff80d1567722c3';
   const grapeChart = 'https://dexscreener.com/avalanche/0xb382247667fe8ca5327ca1fa4835ae77a9907bc8';
+  const wampStaking = '/farm/WampStaking';
 
   const bombLPStats = useMemo(() => (bombFtmLpStats ? bombFtmLpStats : null), [bombFtmLpStats]);
   const bshareLPStats = useMemo(() => (bShareFtmLpStats ? bShareFtmLpStats : null), [bShareFtmLpStats]);
@@ -157,8 +159,8 @@ const Home = () => {
         {/* Explanation text */}
         <Grid item xs={12} sm={8}>
           <Paper>
-            <Box p={4} style={{ textAlign: 'center' }}>
-              <h2>Earn 7%+ Daily at Grape Finance</h2>
+            <Box p={4} style={{ textAlign: 'center'}}>
+              <h2>Earn 5%+ Daily at Grape Finance</h2>
 
               <p style={{ fontSize: '17px' }}>
               <b>We're pegged to MIM helping to reduce your volatility during a market downturn</b>                                  
@@ -169,7 +171,7 @@ const Home = () => {
                 Winery to earn more GRAPE!*/}
               </p>
               <p>
-                Join our{' '}
+                Please join our{' '}
                 <a
                   href="https://t.me/GrapeDefi"
                   rel="noopener noreferrer"
@@ -177,7 +179,7 @@ const Home = () => {
                   style={{ color: '#000' }}
                 >
                   Telegram
-                </a>, {' '}
+                </a>{' '} or {' '}
                 
                 <a
                   href="https://discord.gg/ZP9aYaXeCJ"
@@ -188,7 +190,7 @@ const Home = () => {
                   Discord
                 </a>{' '}
 
-                or read our {' '}
+                & read our {' '}
                 <a
                   href="https://grapefinance.gitbook.io/grape-finance-docs/"
                   rel="noopener noreferrer"
@@ -197,14 +199,15 @@ const Home = () => {
                 >
                   Docs
                 </a>{' '}
-                to find out more!
+                 before aping in!
                 </p>
-                
-
+     
             </Box>
+            
           </Paper>
+  
         </Grid>
-
+ 
        {/*} <Grid container spacing={3}>
           <Grid item xs={12} sm={12} justify="center" style={{ margin: '12px', display: 'flex' }}>
 
@@ -217,10 +220,20 @@ const Home = () => {
 
         {/* TVL */}
         <Grid item xs={12} sm={4}>
+  
+              <div style={{width: '80%', margin: '0 auto', paddingBottom: '40px', paddingTop: '40px'}}>
+                <a href='https://twitter.com/0xGuard/status/1480457336082907137' target='_blank'>
+                <img alt="0xGuard KYC" style={{ width: '45%'}} src={kyc} />
+                </a>             
+            
+                <a href='https://grapefinance.app/audit.pdf' target='_blank'>
+                <img alt="0xGuard Audit" style={{ width: '45%', marginLeft: '20px'}} src={audit} />
+                </a>
+              </div>             
+             
           <Card>
             <CardContent align="center">
-              <h2>Total Value Locked</h2>
-              
+              <h2>Total Value Locked</h2>          
               <CountUp style={{ fontSize: '30px' }} end={TVL} separator="," prefix="$" />
             </CardContent>
           </Card>
@@ -229,7 +242,21 @@ const Home = () => {
         {/* Wallet */}
         <Grid item xs={12} sm={8}>
           <Card style={{ height: '100%' }}>
-            <CardContent align="center" style={{ marginTop: '2.5%' }}>
+            <CardContent align="center" style={{ marginTop: '2%' }}>
+            <Box p={4} style={{ textAlign: 'center', paddingTop: '0px'  }}>
+              <h2 style={{ fontSize: '32px'}}>Have WAMP to stake?</h2>
+              <p style={{marginTop: '0'}}>Boost your WAMP yields by staking for WINE then pledge for more AMP</p>
+              
+              <img src={wamp} width={'55px'} height={'55px'}></img>
+              <Button
+                target="_blank"
+                href={wampStaking}
+                className={'shinyButton ' + classes.button}
+                style={{ marginLeft: '10px', marginTop: '-45px' }}
+              >
+                WAMP Staking
+              </Button>
+            </Box>
               {/* <h2 style={{ marginBottom: '20px' }}>Wallet Balance</h2> */}
               <Button href="/boardroom" className="shinyButton" style={{ margin: '10px' }}>
                 Stake Now
@@ -485,26 +512,7 @@ const Home = () => {
           </Card>
           
         </Grid>
-        <Grid item xs={12} sm={3}>
-        
-        </Grid>
-        <Grid item xs={12} sm={3}>
-        <div style={{width: '150px', margin: '0 auto'}}>
-          <a href='https://twitter.com/0xGuard/status/1480457336082907137' target='_blank'>
-          <img alt="0xGuard KYC" style={{ width: '150px'}} src={kyc} />
-          </a>
-        </div>
-        </Grid>
-        <Grid item xs={12} sm={3}>
-        <div style={{width: '150px', margin: '0 auto'}}>
-          <a href='https://grapefinance.app/audit.pdf' target='_blank'>
-          <img alt="0xGuard Audit" style={{ width: '150px'}} src={audit} />
-          </a>
-        </div>
-        </Grid>
-        <Grid item xs={12} sm={3}>
-        
-        </Grid>
+      
       </Grid>
     </Page>
   );

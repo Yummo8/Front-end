@@ -62,9 +62,9 @@ const Footer = () => {
             >
               <IconTwitter style={{fill: '#fff'}} />
             </a>
-            <a href="https://github.com/grapefi/contracts" rel="noopener noreferrer" target="_blank" className={classes.link}>
+            {/*<a href="https://github.com/grapefi/contracts" rel="noopener noreferrer" target="_blank" className={classes.link}>
               <IconGithub style={{fill: '#fff', height: '20px'}} />
-            </a>
+              </a>*/}
             <a href="https://t.me/GrapeDefi" rel="noopener noreferrer" target="_blank" className={classes.link}>
               <IconTelegram style={{fill: '#fff', height: '20px'}} />
             </a>

@@ -19,6 +19,7 @@ import {Bank as BankEntity} from '../../bomb-finance';
 import useBombFinance from '../../hooks/useBombFinance';
 import {Alert} from '@material-ui/lab';
 import LaunchCountdown from '../../components/LaunchCountdown';
+import wampStrat from '../../assets/img/wamp-strat.jpg';
 
 const useStyles = makeStyles((theme) => ({
   gridItem: {
@@ -31,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Bank: React.FC = () => {
   useEffect(() => window.scrollTo(0, 0));
-  const date = new Date('2022-1-17 08:00:00Z');
+  const date = new Date('2022-1-31 12:00:00Z');
   const classes = useStyles();
   const {bankId} = useParams();
   const bank = useBank(bankId);
@@ -43,20 +44,33 @@ const Bank: React.FC = () => {
 
   let name: string;
   let vaultUrl: string;
+  let strat: string;
+  let stratText: string;
   if (bank.depositTokenName.includes('GRAPE-MIM')) {
-    name = 'Autocompound your GRAPE-MIM';
-    vaultUrl = 'https://yieldwolf.finance/avalanche/grapefinance-wine/90';
-    
+    name = 'Autocompound your GRAPE-MIM on Beefy here';
+    vaultUrl = 'https://app.beefy.finance/#/avax/vault/grape-grape-mim';
+    strat = '';
+    stratText = 'Click here to see the optimal strategy for this vault';
   } else if(bank.depositTokenName.includes('WINE-MIM')) {
-    name = 'Autocompound your WINE-MIM';
-    vaultUrl = 'https://yieldwolf.finance/avalanche/grapefinance-wine/91';
-
+    name = 'Autocompound your WINE-MIM on Beefy here';
+    vaultUrl = 'https://app.beefy.finance/#/avax/vault/grape-wine-mim';
+    strat = '';
+    stratText = 'Click here to see the optimal strategy for this vault';
   }else if(bank.depositTokenName.includes('GRAPE-WINE')) {
-    name = 'Autocompound your GRAPE-WINE';
+    name = 'Autocompound your GRAPE-WINE on Yield Wolf here';
     vaultUrl = 'https://yieldwolf.finance/avalanche/grapefinance-wine/92';
-  } else {
-    name = null;
+    strat = '';
+    stratText = 'Click here to see the optimal strategy for this vault';
+  } else if(bank.depositTokenName === 'GRAPE') {
+    name = 'Stake your GRAPE to earn WINE';
     vaultUrl = null;
+    strat = '';
+    stratText = '';
+  } else if(bank.depositTokenName === 'WAMP') {
+    name = 'Get WAMP to stake for WINE here';
+    vaultUrl = 'https://app.asgarddao.fi/#/pledge';
+    strat = 'https://app.beefy.finance/#/avax/vault/grape-wine-mim';
+    stratText = 'Click here to see the optimal strategy for this vault';
   }
 
 
@@ -67,17 +81,27 @@ const Bank: React.FC = () => {
         subtitle={`Deposit ${bank?.depositTokenName} and earn ${bank?.earnTokenName}`}
         title={bank?.name}
       />
-         <Box mt={5}>
-                <Grid container justify="center" spacing={3} style={{ marginBottom: '30px' }}>       
+
+              <Box mt={5}>      
+                <Grid container justify="center" spacing={3} style={{ marginBottom: '30px' }}>    
                   <Alert variant="filled"> 
-                    <h3 style={{color: '#000'}}>
-                      {bank.depositTokenName === 'GRAPE' ? 'Stake your Grape to earn Wine' : 'Autocompounding vaults are live!'}</h3>
-                      {bank.depositTokenName === 'GRAPE' ? null : <a href={vaultUrl} target='_blank'>{name}</a>}<br />                                               
+                      <a href={vaultUrl} target={"_blank"}><h3 style={{color: '#000'}}>{name}</h3></a>    
+              
                   </Alert>
+                  
                 </Grid>
               </Box>
-        <Box>
-
+              {/*{stratText !== '' ? 
+              <Box mt={5}>      
+                <Grid container justify="center" spacing={3} style={{ marginBottom: '30px' }}>    
+                  <Alert variant="filled">          
+                      <a href={strat} target={"_blank"}><h3 style={{color: '#000'}}>{stratText}</h3></a>
+                  </Alert>
+                  
+                </Grid>
+  </Box>: null}*/}
+              
+      <Box>         
         <Grid container justify="center" spacing={3} style={{marginBottom: '50px'}}>
           <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
             <Card className={classes.gridItem}>
@@ -126,6 +150,10 @@ const Bank: React.FC = () => {
           <Spacer size="lg" />
         </StyledBank>
       </Box>
+
+      
+             
+
     </>
   ) : !bank ? (
     <BankNotFound />
@@ -153,19 +181,17 @@ const LPTokenHelpText: React.FC<{bank: BankEntity}> = ({bank}) => {
     pairName = 'GRAPE-WINE pair';
     uniswapUrl = 'https://traderjoexyz.com/pool/0x5541d83efad1f281571b343977648b75d95cdac2/0xc55036b5348cfb45a932481744645985010d3a44';
     vaultUrl = '#';
-  } else {
-    pairName = 'GRAPE';
-    uniswapUrl = '#';
-    vaultUrl = '#';
   }
   return (
+    
     <Card>
       <CardContent>
         <StyledLink href={uniswapUrl} target="_blank">
-          <span style={{color: "#000"}}>Provide liquidity for {pairName} on Joe</span>
+        <span style={{color: "#000"}}>Provide liquidity for {pairName} on Joe</span>        
         </StyledLink>
-      </CardContent>
+      </CardContent>   
     </Card>
+ 
   );
 };
 

@@ -94,14 +94,14 @@ const Bond: React.FC = () => {
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Renounce ownership of Grape contract ✅</p>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Start marketing blast & influencer partnerships ✅</p> 
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Grape staking for Wine rewards ✅</p>
-                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- More autocompounder providers</p>
+                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- More autocompounder providers ✅</p>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Implement Zap contract for LPs</p>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Strategies & user help guides</p>    
-                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Start weekly Grape burns from the DAO</p>   
-                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Wine governance voting through snapshot</p>      
+                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Start weekly Grape burns from the DAO ✅</p>   
+                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Wine governance voting through snapshot ✅</p>      
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Integrate weekly Wine raffle on site</p>                  
-                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- NFT drop for LPs & WINE hodlers giving exclusive access to new developments</p> 
-                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Launchpad for Avax projects with VIP benefits for WINE holders</p>
+                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- NFT drop for LPs & WINE hodlers providing exclusive access to new developments</p> 
+                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Launchpad & partnerships with projects to give exclusive benefits for WINE holders ✅</p>
                   
                   
 

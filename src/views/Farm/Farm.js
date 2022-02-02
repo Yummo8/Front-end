@@ -10,7 +10,6 @@ import {Alert} from '@material-ui/lab';
 import UnlockWallet from '../../components/UnlockWallet';
 import Page from '../../components/Page';
 import FarmCard from './FarmCard';
-import FarmImage from '../../assets/img/farm.png';
 import {createGlobalStyle} from 'styled-components';
 
 import useBanks from '../../hooks/useBanks';

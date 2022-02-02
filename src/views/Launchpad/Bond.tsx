@@ -24,7 +24,7 @@ import {ReactComponent as IconDiscord} from '../../assets/img/discord.svg';
 import HomeImage from '../../assets/img/background.jpg';
 import { Grid , Box, Container } from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
-
+import asgard from '../../assets/img/asgard.jpg';
 
 const BackgroundImage = createGlobalStyle`
   body {
@@ -86,12 +86,24 @@ const Bond: React.FC = () => {
       <Container>   
               <Grid item xs={12} md={12} lg={12} >     
                   <h2 style={{ fontSize: '80px', textAlign:'center' }}>Launchpad</h2>   
-                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>Coming Soon</p>
-                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>WINE stakers will be the only beneficiaries of the Grape launchpad gaining exclusive access to new projects.</p>
+                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>We're working hard to secure partnerships with the best up and coming projects on Avalanche to give our WINE holders and LPs exclusive access and unique benefits. Our launchpad will include access to whitelists, IDOs, membership rights and other unique deals we think will benefit the community.</p>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>The Grape DAO plans on building a strong community led launchpad to foster growth on Avalanche. We'll be partnering with projects that are building something new, unique and beneficial to the ecosystem to help bolster their launch, their community and achieve their roadmap goals.</p>   
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>If you are launching a new and exciting project on Avalanche and would like to be part of our launchpad get in touch with the core team through our <a href="https://discord.gg/mZ4QrZwH5M" rel="noopener noreferrer" target="_blank" >Discord</a> or <a href="https://t.me/GrapeDefi" rel="noopener noreferrer" target="_blank" >Telegram</a>.</p> 
-                  
+                  <h2 style={{textAlign:'center', marginTop: '60px' }}>Current Partnerships</h2>
+
+                  <a href='https://asgarddao.fi/' target='_blank'><h2 style={{textAlign:'center', marginTop: '30px', fontSize: '35px' }}>Asgard</h2></a>
+                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>We're happy to announce our partnership with Asgard, a unique community focused GameFi DAO building an exciting MMORPG P2E game.</p>
+                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>WINE holders & WINE-MIM LPs will be able to pledge their tokens to the Asgard DAO in return for VOLT, this can then be locked in their forge to get AMP & then wrapped. The wrapped token WAMP can then be staked in the Vineyard to earn more WINE!</p>
+                                        
               </Grid>
+                    <Grid item xs={12} sm={12}>
+                      <div style={{width: '350px', margin: '0 auto', paddingBottom: '60px'}}>
+                        <a href='https://asgarddao.fi/' target='_blank'>
+                        <img alt="Asgard DAO" style={{ width: '350px'}} src={asgard} />
+                        </a>
+                      </div>
+                    </Grid>        
+
       </Container>
       </Page>
     </Switch>

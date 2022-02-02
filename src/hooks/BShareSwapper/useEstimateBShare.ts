@@ -17,7 +17,7 @@ const useEstimateBShare = (bbondAmount: string) => {
 
   useEffect(() => {
     if (account) {
-      estimateAmountOfBShare().catch((err) => console.error(`Failed to get estimateAmountOfBShare: ${err.stack}`));
+      estimateAmountOfBShare().catch((err) => console.error(`Failed to get estimateAmountOfWine: ${err.stack}`));
     }
   }, [account, estimateAmountOfBShare]);
 

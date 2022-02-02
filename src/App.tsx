@@ -15,7 +15,6 @@ import config from './config';
 import Updaters from './state/Updaters';
 import Loader from './components/Loader';
 import Popups from './components/Popups';
-import Regulations from './views/Regulations/Regulations';
 import {RefreshContextProvider} from './contexts/RefreshContext';
 import { Launch } from '@material-ui/icons';
 
@@ -25,8 +24,8 @@ const Boardroom = lazy(() => import('./views/Boardroom'));
 const Bond = lazy(() => import('./views/Bond'));
 const Launchpad = lazy(() => import('./views/Launchpad'));
 const Roadmap = lazy(() => import('./views/Auto'));
-// const SBS = lazy(() => import('./views/Sbs'));
-//const Liquidity = lazy(() => import('./views/Liquidity'));
+const Raffle = lazy(() => import('./views/Raffle'));
+
 
 const NoMatch = () => (
   <h3 style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>
@@ -67,13 +66,10 @@ const App: React.FC = () => {
             <Route path="/roadmap">
               <Roadmap />
             </Route> 
-            {/* <Route path="/sbs">
-              <SBS />
+            <Route path="/raffle">
+              <Raffle />
             </Route> 
-            <Route path="/regulations">
-              <Regulations />
-            </Route>*/}
-         
+                   
             <Route path="*">
               <NoMatch />
             </Route>

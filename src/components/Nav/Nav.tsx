@@ -143,8 +143,14 @@ const Nav = () => {
               <Link to="/roadmap" className={'navLink ' + classes.link}>
                 Roadmap
               </Link>
+              <a href="https://app.beefy.finance/#/avax" className={'navLink ' + classes.link} rel="noopener" target="_blank">
+                Beefy
+              </a>
               <a href="https://yieldwolf.finance/avalanche" className={'navLink ' + classes.link} rel="noopener" target="_blank">
-                Autocompound
+                Yield Wolf
+              </a>
+              <a href="https://snapshot.org/#/grapefinance.eth" className={'navLink ' + classes.link} rel="noopener" target="_blank">
+                Voting
               </a>
               
               <a href="https://grapefinance.gitbook.io/grape-finance-docs/" className={'navLink ' + classes.link} rel="noopener" target="_blank">
@@ -240,9 +246,16 @@ const Nav = () => {
                 <ListItemLink primary="Bond" to="/bond" />
                 <ListItemLink primary="Launchpad" to="/launchpad" />
                 <ListItemLink primary="Roadmap" to="/roadmap" />
-                <ListItem button component="a" href="https://yieldwolf.finance/avalanche">
-                  <ListItemText>Autocompound</ListItemText>
+                <ListItem button component="a" href="https://app.beefy.finance/#/avax">
+                  <ListItemText>Beefy</ListItemText>
                   </ListItem>
+                <ListItem button component="a" href="https://yieldwolf.finance/avalanche">
+                  <ListItemText>Yield Wolf</ListItemText>
+                  </ListItem> 
+                  <ListItem button component="a" href="https://snapshot.org/#/grapefinance.eth">
+                  <ListItemText>Voting</ListItemText>
+                  </ListItem>
+                  
                 <ListItem button component="a" href="https://grapefinance.gitbook.io/grape-finance-docs/">
                   <ListItemText>Docs</ListItemText>
                   </ListItem>
@@ -254,6 +267,7 @@ const Nav = () => {
                 {/* <ListItemLink primary="Regulations" to="/regulations" /> 
                 <ListItem button component="a" href="#">
                   <ListItemText>Docs</ListItemText>
+                  
                   </ListItem>
                    <ListItem button component="a" href="https://bomb.farm">
                   <ListItemText>AutoVaults</ListItemText>

@@ -25,10 +25,10 @@ const configurations: {[env: string]: Configuration} = {
   //   refreshInterval: 10000,
   // },
   /*development: {
-    chainId: 97,
-    networkName: 'Avalanche Mainnet C-Chain',
-    ftmscanUrl: 'https://snowtrace.io/',
-    defaultProvider: 'https://data-seed-prebsc-1-s1.binance.org:8545/',
+    chainId: 43113,
+    networkName: 'Avalanche testnet Fuji',
+    ftmscanUrl: 'https://testnet.snowtrace.io/',
+    defaultProvider: 'https://api.avax-test.network/ext/bc/C/rpc',
     deployments: require('./bomb-finance/deployments/deployments.mainnet.json'),
     externalTokens: {
       WAVAX: ['0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7', 18],
@@ -41,7 +41,7 @@ const configurations: {[env: string]: Configuration} = {
       CAKE: ['0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82', 18],
       ZOO: ['0x09e145a1d53c0045f41aeef25d8ff982ae74dd56', 0],
       SHIBA: ['0x9ba3e4f84a34df4e08c112e1a0ff148b81655615', 9],
-      'USDT-BNB-LP': ['0x781655d802670bba3c89aebaaea59d3182fd755d', 18], //mim/avax
+      'GRAPE-MIM-LP': ['0x8b0171657213bd43Cfef7B8Ce6445ce9E85268cD', 18], //mim/avax
       'USDT-BTCB-LP': ['0x3f803ec2b816ea7f06ec76aa2b6f2532f9892d62', 18],
       'BOMB-BTCB-LP': ['0x84392649eb0bC1c1532F2180E58Bae4E1dAbd8D6', 18],
       'BOMB-BNB-LP': ['0x107CDC0c46615C63EE4abC4E1e264D3BD12390e6', 18],
@@ -75,6 +75,9 @@ const configurations: {[env: string]: Configuration} = {
       'USDT-BNB-LP': ['0x781655d802670bba3c89aebaaea59d3182fd755d', 18], //mim avax
       'USDT-BTCB-LP': ['0x3f803ec2b816ea7f06ec76aa2b6f2532f9892d62', 18],
       'GRAPE': ['0x5541D83EFaD1f281571B343977648B75d95cdAC2', 18],
+      'WAMP': ['0xd7Fdf42510566b9aEfD3F1841a1503B6678cD780', 18],
+      'VOLT': ['0xf5ee578505f4D876FeF288DfD9fD5e15e9EA1318', 18],
+      'DAI': ['0xd586e7f844cea2f87f50152665bcbc2c279d8d70', 18],
       'GRAPE-MIM-LP': ['0xb382247667fe8ca5327ca1fa4835ae77a9907bc8', 18],
       'GRAPE-WINE-LP': ['0xd3d477Df7f63A2623464Ff5Be6746981FdeD026F', 18],
       'WINE-MIM-LP': ['0x00cB5b42684DA62909665d8151fF80D1567722c3', 18],
@@ -109,6 +112,9 @@ const configurations: {[env: string]: Configuration} = {
       SHIBA: ['0x9ba3e4f84a34df4e08c112e1a0ff148b81655615', 9],
       'USDT-BNB-LP': ['0x781655d802670bba3c89aebaaea59d3182fd755d', 18], //mim avax
       'GRAPE': ['0x5541D83EFaD1f281571B343977648B75d95cdAC2', 18],
+      'WAMP': ['0xd7Fdf42510566b9aEfD3F1841a1503B6678cD780', 18],
+      'VOLT': ['0xf5ee578505f4D876FeF288DfD9fD5e15e9EA1318', 18],
+      'DAI': ['0xd586e7f844cea2f87f50152665bcbc2c279d8d70', 18],
       'GRAPE-MIM-LP': ['0xb382247667fe8ca5327ca1fa4835ae77a9907bc8', 18],
       'WINE-MIM-LP': ['0x00cB5b42684DA62909665d8151fF80D1567722c3', 18],
       'GRAPE-WINE-LP': ['0xd3d477Df7f63A2623464Ff5Be6746981FdeD026F', 18],
@@ -384,7 +390,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     finished: false,
     sort: 0,
     closedForStaking: false,
-    multi: '44%',
+    multi: '42.5%',
   },
   
   WineMimLPWineRewardPool: {
@@ -397,7 +403,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     finished: false,
     sort: 1,
     closedForStaking: false,
-    multi: '41%',
+    multi: '40.5%',
   },
   GrapeWineLPWineRewardPool: {
     name: 'Earn WINE with GRAPE-WINE LP',
@@ -409,7 +415,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     finished: false,
     sort: 2,
     closedForStaking: false,
-    multi: '14.5%',
+    multi: '12%',
   },
   GrapeStaking: {
     name: 'Earn WINE with GRAPE',
@@ -422,6 +428,18 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     sort: 3,
     closedForStaking: false,
     multi: '0.5%',
+  },
+  WampStaking: {
+    name: 'Earn WINE with WAMP',
+    poolId: 4,
+    sectionInUI: 2,
+    contract: 'WampStaking',
+    depositTokenName: 'WAMP',
+    earnTokenName: 'WINE',
+    finished: false,
+    sort: 4,
+    closedForStaking: false,
+    multi: '4.5%',
   },
 };
 
