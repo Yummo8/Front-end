@@ -1,3 +1,4 @@
+
 # Contributing to [grape finance](https://grapefinance.app)
 
 🎉 First off all, thanks for taking the time to contribute! 🎉
