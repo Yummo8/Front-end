@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
-import useBombFinance from './useBombFinance';
-import {AllocationTime} from '../bomb-finance/types';
+import useGrapeFinance from './useGrapeFinance';
+import {AllocationTime} from '../grape-finance/types';
 import useRefresh from './useRefresh';
 
 const useTreasuryAllocationTimes = () => {
@@ -9,12 +9,12 @@ const useTreasuryAllocationTimes = () => {
     from: new Date(),
     to: new Date(),
   });
-  const bombFinance = useBombFinance();
+  const grapeFinance = useGrapeFinance();
   useEffect(() => {
-    if (bombFinance) {
-      bombFinance.getTreasuryNextAllocationTime().then(setTime);
+    if (grapeFinance) {
+      grapeFinance.getTreasuryNextAllocationTime().then(setTime);
     }
-  }, [bombFinance, slowRefresh]);
+  }, [grapeFinance, slowRefresh]);
   return time;
 };
 

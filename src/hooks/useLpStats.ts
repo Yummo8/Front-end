@@ -1,23 +1,23 @@
 import {useEffect, useState} from 'react';
-import useBombFinance from './useBombFinance';
-import {LPStat} from '../bomb-finance/types';
+import useGrapeFinance from './useGrapeFinance';
+import {LPStat} from '../grape-finance/types';
 import useRefresh from './useRefresh';
 
 const useLpStats = (lpTicker: string) => {
   const [stat, setStat] = useState<LPStat>();
   const {slowRefresh} = useRefresh();
-  const bombFinance = useBombFinance();
+  const grapeFinance = useGrapeFinance();
 
   useEffect(() => {
     async function fetchLpPrice() {
       try {
-        setStat(await bombFinance.getLPStat(lpTicker));
+        setStat(await grapeFinance.getLPStat(lpTicker));
       } catch (err) {
         console.error(err);
       }
     }
     fetchLpPrice();
-  }, [setStat, bombFinance, slowRefresh, lpTicker]);
+  }, [setStat, grapeFinance, slowRefresh, lpTicker]);
 
   return stat;
 };

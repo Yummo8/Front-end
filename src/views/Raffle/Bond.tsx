@@ -9,23 +9,23 @@ import ExchangeCard from './components/ExchangeCard';
 import styled from 'styled-components';
 import Spacer from '../../components/Spacer';
 import useBondStats from '../../hooks/useBondStats';
-import useBombStats from '../../hooks/useBombStats';
+import useGrapeStats from '../../hooks/useGrapeStats';
 import useRaffleStats from '../../hooks/useRaffleBalance';
-import useBombFinance from '../../hooks/useBombFinance';
+import useGrapeFinance from '../../hooks/useGrapeFinance';
 import useCashPriceInLastTWAP from '../../hooks/useCashPriceInLastTWAP';
 import {useTransactionAdder} from '../../state/transactions/hooks';
 import ExchangeStat from './components/ExchangeStat';
 import useBondsPurchasable from '../../hooks/useBondsPurchasable';
 import {getDisplayBalance} from '../../utils/formatBalance';
-import { BOND_REDEEM_PRICE, BOND_REDEEM_PRICE_BN, DECIMALS_18 } from '../../bomb-finance/constants';
+import { BOND_REDEEM_PRICE, BOND_REDEEM_PRICE_BN, DECIMALS_18 } from '../../grape-finance/constants';
 import { Alert } from '@material-ui/lab';
 import {ReactComponent as IconTelegram} from '../../assets/img/telegram.svg';
 import {ReactComponent as IconDiscord} from '../../assets/img/discord.svg';
 import HomeImage from '../../assets/img/background.jpg';
-import { Grid , Box, Container } from '@material-ui/core';
+import { Box, Container, Card, CardContent, Typography, Grid } from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import { Stats } from 'fs';
-
+import LaunchCountdown from '../../components/LaunchCountdown';
 
 const BackgroundImage = createGlobalStyle`
   body {
@@ -34,6 +34,7 @@ const BackgroundImage = createGlobalStyle`
     background-color: #171923;
   }
 `;
+
 
 const useStyles = makeStyles((theme) => ({
   footer: {
@@ -62,48 +63,49 @@ const useStyles = makeStyles((theme) => ({
     width: '24px',
     height: '24px',
   },
+  gridItem: {
+    height: '100%',
+    [theme.breakpoints.up('md')]: {
+      height: '90px',
+    }},
 }));
 
 const Bond: React.FC = () => {
   const {path} = useRouteMatch();
   const {account} = useWallet();
   const classes = useStyles();
-  const bombFinance = useBombFinance();
+  const grapeFinance = useGrapeFinance();
   const addTransaction = useTransactionAdder();
   
   const raffleStats = useRaffleStats(account);
-
+  const endTime = Number(new Date('2022-2-5 12:00:00Z')); //raffle end
 
   const grapePrice = useMemo(
     () => (raffleStats ? Number(raffleStats.tokenInFtm).toFixed(2) : null),
     [raffleStats],
   );
-
+  
   const raffleBals = useMemo(
     () => (raffleStats ? Number(raffleStats.totalSupply).toFixed(0) : null),
     [raffleStats],
   );
 
-  const handleBuyBonds = useCallback(
-    async (amount: string) => {
-      const tx = await bombFinance.sendGrape(amount);
-      addTransaction(tx, {
-        summary: `Send ${Number(amount).toFixed(2)} GRAPE to the raffle ${amount} `,
-      });
-    },
-    [bombFinance, addTransaction],
+  const userBals = useMemo(
+    () => (raffleStats ? Number(raffleStats.priceInDollars).toFixed(0) : null),
+    [raffleStats],
   );
 
-  const handleRedeemBonds = useCallback(
-    async (amount: string) => {
-      const tx = await bombFinance.redeemBonds(amount);
-      addTransaction(tx, {summary: `Redeem ${amount} GBOND`});
-    },
-    [bombFinance, addTransaction],
-  );
 
-  const raffleOpen = true;
-  
+  const handleBuyBonds = useCallback( 
+    async (amount: string) => { 
+      const tx = await grapeFinance.sendGrape(amount);
+        addTransaction(tx, {
+          summary: `Send ${Number(amount).toFixed(2)} GRAPE to the raffle ${amount} `,
+        });
+    
+    },
+    [grapeFinance, addTransaction],
+  );
 
   return (   
 <Switch>
@@ -111,36 +113,44 @@ const Bond: React.FC = () => {
   <BackgroundImage />
   {!!account ? (
     <>
-     <Grid item xs={12} md={12} lg={12} >     
-                  <h2 style={{ fontSize: '80px', textAlign:'center' }}>Weekly WINE Raffle</h2>   
-
-                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>Every week we'll run a raffle for our community where you have the chance to win WINE tokens just by sending in your freely earned Grape rewards.<br></br> <br></br> 1 Grape =  1 entry and there are unlimited entries per address, the more Grape you send the more chance you have to win. After the winner is chosen all Grape sent to the address will be burnt! The winner will be chosen at random.</p>
-
-                  <h2 style={{textAlign:'center', marginTop: '60px' }}>Q1</h2>
-                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Grape & Wine Airdrop for dedicated supporters ✅</p>
-                  <p>Grape Price: ${grapePrice}</p>
-                 <p>Total Grape Entered: {raffleBals}</p>
-                 <p>Your account: {account}</p>
-              </Grid>
     
-      <StyledBond>
-        <StyledCardWrapper>
-          <ExchangeCard
-            action="Enter Raffle"
-            fromToken={bombFinance.BOMB}
-            fromTokenName="GRAPE"
-            toToken={bombFinance.BBOND}
-            toTokenName="GBOND"
-            priceDesc={
-              raffleOpen
-                ? 'Raffle is open! 1 GRAPE = 1 Entry'
-                : 'Raffle is currently closed'
-            }
-            onExchange={handleBuyBonds}
-          />
+     <Grid item xs={12} md={12} lg={12} >     
+        <h2 style={{ fontSize: '80px', textAlign:'center' }}>Weekly WINE Raffle</h2>   
+        <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>Every week we'll run a raffle for our community where you have the chance to win WINE tokens just by sending in your freely earned Grape rewards.<br></br> <br></br> 1 Grape =  1 entry and there are unlimited entries per address, the more Grape you send the more chance you have to win. After the winner is chosen all Grape sent to the address will be burnt! The winner will be chosen at random.</p>                
+      </Grid>
+   
+    <Grid container justify="center" spacing={3}>
+      <Grid item xs={12} sm={12} lg={6}>  
+            <Card>
+              <h2 style={{textAlign:'center', marginTop: '10px' }}>Raffle Stats</h2>
+              <p style={{textAlign:'center'}}>Grape Price: ${grapePrice}</p>
+              <p style={{textAlign:'center'}}>Total Grape Entered: {raffleBals}</p>         
+              <p style={{textAlign:'center'}}>Your entries: {userBals}</p>
+              <p style={{textAlign:'center'}}>Your account: {account}</p>
+            </Card>
+          </Grid>
+        <Grid item xs={12} sm={12} lg={6}>  
+        <StyledBond>
+          <StyledCardWrapper>
+            <ExchangeCard
+              action="Enter Raffle"
+              fromToken={grapeFinance.GRAPE}
+              fromTokenName="GRAPE"
+              toToken={grapeFinance.GBOND}
+              toTokenName="GBOND"
+              priceDesc={
+                Date.now() < endTime
+                  ? 'Raffle is open! 1 GRAPE = 1 Entry'
+                  : 'Raffle is currently closed'
+              }
+              disabled={Date.now() < endTime ? false : true}
+              onExchange={handleBuyBonds}
+            />
+          </StyledCardWrapper>
+        </StyledBond>
+        </Grid>
+      </Grid>
 
-        </StyledCardWrapper>
-      </StyledBond>
     </>
   ) : (
     <UnlockWallet />

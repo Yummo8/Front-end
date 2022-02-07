@@ -1,17 +1,17 @@
 import {useEffect, useState} from 'react';
 import {BigNumber} from 'ethers';
-import useBombFinance from './useBombFinance';
+import useGrapeFinance from './useGrapeFinance';
 import useRefresh from './useRefresh';
 
 const useStakedBalanceOnBoardroom = () => {
   const {slowRefresh} = useRefresh();
   const [balance, setBalance] = useState(BigNumber.from(0));
-  const bombFinance = useBombFinance();
-  const isUnlocked = bombFinance?.isUnlocked;
+  const grapeFinance = useGrapeFinance();
+  const isUnlocked = grapeFinance?.isUnlocked;
   useEffect(() => {
     async function fetchBalance() {
       try {
-        setBalance(await bombFinance.getStakedSharesOnBoardroom());
+        setBalance(await grapeFinance.getStakedSharesOnBoardroom());
       } catch (e) {
         console.error(e);
       }
@@ -19,7 +19,7 @@ const useStakedBalanceOnBoardroom = () => {
     if (isUnlocked) {
       fetchBalance();
     }
-  }, [slowRefresh, isUnlocked, bombFinance]);
+  }, [slowRefresh, isUnlocked, grapeFinance]);
   return balance;
 };
 

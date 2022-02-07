@@ -1,18 +1,18 @@
 import {useEffect, useState} from 'react';
 import {BigNumber} from 'ethers';
-import useBombFinance from './useBombFinance';
+import useGrapeFinance from './useGrapeFinance';
 import useRefresh from './useRefresh';
 
 const useTotalStakedOnBoardroom = () => {
   const [totalStaked, setTotalStaked] = useState(BigNumber.from(0));
-  const bombFinance = useBombFinance();
+  const grapeFinance = useGrapeFinance();
   const {slowRefresh} = useRefresh();
-  const isUnlocked = bombFinance?.isUnlocked;
+  const isUnlocked = grapeFinance?.isUnlocked;
 
   useEffect(() => {
     async function fetchTotalStaked() {
       try {
-        setTotalStaked(await bombFinance.getTotalStakedInBoardroom());
+        setTotalStaked(await grapeFinance.getTotalStakedInBoardroom());
       } catch (err) {
         console.error(err);
       }
@@ -20,7 +20,7 @@ const useTotalStakedOnBoardroom = () => {
     if (isUnlocked) {
       fetchTotalStaked();
     }
-  }, [isUnlocked, slowRefresh, bombFinance]);
+  }, [isUnlocked, slowRefresh, grapeFinance]);
 
   return totalStaked;
 };

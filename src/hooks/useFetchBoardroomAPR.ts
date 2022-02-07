@@ -1,22 +1,22 @@
 import {useEffect, useState} from 'react';
-import useBombFinance from './useBombFinance';
+import useGrapeFinance from './useGrapeFinance';
 import useRefresh from './useRefresh';
 
 const useFetchBoardroomAPR = () => {
   const [apr, setApr] = useState<number>(0);
-  const bombFinance = useBombFinance();
+  const grapeFinance = useGrapeFinance();
   const {slowRefresh} = useRefresh();
 
   useEffect(() => {
     async function fetchBoardroomAPR() {
       try {
-        setApr(await bombFinance.getBoardroomAPR());
+        setApr(await grapeFinance.getBoardroomAPR());
       } catch (err) {
         console.error(err);
       }
     }
     fetchBoardroomAPR();
-  }, [setApr, bombFinance, slowRefresh]);
+  }, [setApr, grapeFinance, slowRefresh]);
 
   return apr;
 };

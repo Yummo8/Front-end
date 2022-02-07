@@ -1,18 +1,18 @@
 import {useCallback, useEffect, useState} from 'react';
 
-import useBombFinance from './useBombFinance';
+import useGrapeFinance from './useGrapeFinance';
 import config from '../config';
-import ERC20 from '../bomb-finance/ERC20';
+import ERC20 from '../grape-finance/ERC20';
 
 const useStakedTokenPriceInDollars = (stakedTokenName: string, stakedToken: ERC20) => {
   const [stakedTokenPriceInDollars, setStakedTokenPriceInDollars] = useState('0');
-  const bombFinance = useBombFinance();
-  const isUnlocked = bombFinance?.isUnlocked;
+  const grapeFinance = useGrapeFinance();
+  const isUnlocked = grapeFinance?.isUnlocked;
 
   const fetchBalance = useCallback(async () => {
-    const balance = await bombFinance.getDepositTokenPriceInDollars(stakedTokenName, stakedToken);
+    const balance = await grapeFinance.getDepositTokenPriceInDollars(stakedTokenName, stakedToken);
     setStakedTokenPriceInDollars(balance);
-  }, [stakedToken, stakedTokenName, bombFinance]);
+  }, [stakedToken, stakedTokenName, grapeFinance]);
 
   useEffect(() => {
     if (isUnlocked) {
@@ -21,7 +21,7 @@ const useStakedTokenPriceInDollars = (stakedTokenName: string, stakedToken: ERC2
       const refreshStakedTokenPriceInDollars = setInterval(fetchBalance, config.refreshInterval);
       return () => clearInterval(refreshStakedTokenPriceInDollars);
     }
-  }, [isUnlocked, setStakedTokenPriceInDollars, bombFinance, fetchBalance]);
+  }, [isUnlocked, setStakedTokenPriceInDollars, grapeFinance, fetchBalance]);
 
   return stakedTokenPriceInDollars;
 };

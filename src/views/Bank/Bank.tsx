@@ -15,11 +15,20 @@ import Stake from './components/Stake';
 import useBank from '../../hooks/useBank';
 import useStatsForPool from '../../hooks/useStatsForPool';
 import useRedeem from '../../hooks/useRedeem';
-import {Bank as BankEntity} from '../../bomb-finance';
-import useBombFinance from '../../hooks/useBombFinance';
+import {Bank as BankEntity} from '../../grape-finance';
+import useGrapeFinance from '../../hooks/useGrapeFinance';
 import {Alert} from '@material-ui/lab';
 import LaunchCountdown from '../../components/LaunchCountdown';
+import Modal, {ModalProps} from '../../components/Modal';
+import ModalActions from '../../components/ModalActions';
+import ModalTitle from '../../components/ModalTitle';
+import useModal from '../../hooks/useModal';
+import StratModal from './components/StratModal';
+import zone1 from '../../assets/img/1.jpg';
+import zone2 from '../../assets/img/2.jpg';
+import zone3 from '../../assets/img/3.jpg';
 import wampStrat from '../../assets/img/wamp-strat.jpg';
+import useCashPriceInLastTWAP from '../../hooks/useCashPriceInLastTWAP';
 
 const useStyles = makeStyles((theme) => ({
   gridItem: {
@@ -41,6 +50,17 @@ const Bank: React.FC = () => {
   const {onRedeem} = useRedeem(bank);
   const statsOnPool = useStatsForPool(bank);
 
+  const cashPrice = useCashPriceInLastTWAP();
+  const bondScale = (Number(cashPrice) / 1000000000000000000).toFixed(2); 
+
+  let curStrat: string;
+  if(Number(bondScale) >= 2){
+    curStrat = zone1;
+  }else if(Number(bondScale) < 2 && Number(bondScale) >= 1){
+    curStrat = zone2;
+  }else{
+    curStrat = zone3;
+  }
 
   let name: string;
   let vaultUrl: string;
@@ -49,17 +69,17 @@ const Bank: React.FC = () => {
   if (bank.depositTokenName.includes('GRAPE-MIM')) {
     name = 'Autocompound your GRAPE-MIM on Beefy here';
     vaultUrl = 'https://app.beefy.finance/#/avax/vault/grape-grape-mim';
-    strat = '';
+    strat = curStrat;
     stratText = 'Click here to see the optimal strategy for this vault';
   } else if(bank.depositTokenName.includes('WINE-MIM')) {
     name = 'Autocompound your WINE-MIM on Beefy here';
     vaultUrl = 'https://app.beefy.finance/#/avax/vault/grape-wine-mim';
-    strat = '';
+    strat = curStrat;
     stratText = 'Click here to see the optimal strategy for this vault';
   }else if(bank.depositTokenName.includes('GRAPE-WINE')) {
     name = 'Autocompound your GRAPE-WINE on Yield Wolf here';
     vaultUrl = 'https://yieldwolf.finance/avalanche/grapefinance-wine/92';
-    strat = '';
+    strat = curStrat;
     stratText = 'Click here to see the optimal strategy for this vault';
   } else if(bank.depositTokenName === 'GRAPE') {
     name = 'Stake your GRAPE to earn WINE';
@@ -69,10 +89,15 @@ const Bank: React.FC = () => {
   } else if(bank.depositTokenName === 'WAMP') {
     name = 'Get WAMP to stake for WINE here';
     vaultUrl = 'https://app.asgarddao.fi/#/pledge';
-    strat = 'https://app.beefy.finance/#/avax/vault/grape-wine-mim';
+    strat = wampStrat;
     stratText = 'Click here to see the optimal strategy for this vault';
   }
 
+  const [onPresentDeposit, onDismissDeposit] = useModal(
+    <StratModal
+      strat={strat}
+    />,
+  );
 
   return account && bank ? (
     <>
@@ -86,20 +111,19 @@ const Bank: React.FC = () => {
                 <Grid container justify="center" spacing={3} style={{ marginBottom: '30px' }}>    
                   <Alert variant="filled"> 
                       <a href={vaultUrl} target={"_blank"}><h3 style={{color: '#000'}}>{name}</h3></a>    
-              
                   </Alert>
                   
                 </Grid>
               </Box>
-              {/*{stratText !== '' ? 
+              {stratText !== '' ? 
               <Box mt={5}>      
                 <Grid container justify="center" spacing={3} style={{ marginBottom: '30px' }}>    
-                  <Alert variant="filled">          
-                      <a href={strat} target={"_blank"}><h3 style={{color: '#000'}}>{stratText}</h3></a>
+                  <Alert variant="filled">                          
+                      <a onClick={onPresentDeposit}><h3 style={{color: '#000'}}>{stratText}</h3></a>
                   </Alert>
-                  
+                 
                 </Grid>
-  </Box>: null}*/}
+  </Box>: null}
               
       <Box>         
         <Grid container justify="center" spacing={3} style={{marginBottom: '50px'}}>
@@ -163,7 +187,7 @@ const Bank: React.FC = () => {
 };
 
 const LPTokenHelpText: React.FC<{bank: BankEntity}> = ({bank}) => {
-  const bombFinance = useBombFinance();
+  const grapeFinance = useGrapeFinance();
 
   let pairName: string;
   let uniswapUrl: string;

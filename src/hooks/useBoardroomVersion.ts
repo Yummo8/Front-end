@@ -1,21 +1,21 @@
 import {useCallback, useEffect, useState} from 'react';
-import useBombFinance from './useBombFinance';
+import useGrapeFinance from './useGrapeFinance';
 import useStakedBalanceOnBoardroom from './useStakedBalanceOnBoardroom';
 
 const useBoardroomVersion = () => {
   const [boardroomVersion, setBoardroomVersion] = useState('latest');
-  const bombFinance = useBombFinance();
+  const grapeFinance = useGrapeFinance();
   const stakedBalance = useStakedBalanceOnBoardroom();
 
   const updateState = useCallback(async () => {
-    setBoardroomVersion(await bombFinance.fetchBoardroomVersionOfUser());
-  }, [bombFinance?.isUnlocked, stakedBalance]);
+    setBoardroomVersion(await grapeFinance.fetchBoardroomVersionOfUser());
+  }, [grapeFinance?.isUnlocked, stakedBalance]);
 
   useEffect(() => {
-    if (bombFinance?.isUnlocked) {
+    if (grapeFinance?.isUnlocked) {
       updateState().catch((err) => console.error(err.stack));
     }
-  }, [bombFinance?.isUnlocked, stakedBalance]);
+  }, [grapeFinance?.isUnlocked, stakedBalance]);
 
   return boardroomVersion;
 };

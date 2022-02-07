@@ -6,7 +6,7 @@ import {ThemeProvider as TP1} from 'styled-components';
 import {UseWalletProvider} from 'use-wallet';
 import usePromptNetwork from './hooks/useNetworkPrompt';
 import BanksProvider from './contexts/Banks';
-import BombFinanceProvider from './contexts/BombFinanceProvider';
+import GrapeFinanceProvider from './contexts/GrapeFinanceProvider';
 import ModalsProvider from './contexts/Modals';
 import store from './state';
 import theme from './theme';
@@ -19,13 +19,13 @@ import {RefreshContextProvider} from './contexts/RefreshContext';
 import { Launch } from '@material-ui/icons';
 
 const Home = lazy(() => import('./views/Home'));
-const Farm = lazy(() => import('./views/Farm'));
-const Boardroom = lazy(() => import('./views/Boardroom'));
+const Vineyard = lazy(() => import('./views/Vineyard'));
+const Winery = lazy(() => import('./views/Winery'));
 const Bond = lazy(() => import('./views/Bond'));
 const Launchpad = lazy(() => import('./views/Launchpad'));
-const Roadmap = lazy(() => import('./views/Auto'));
+const Roadmap = lazy(() => import('./views/Roadmap'));
 const Raffle = lazy(() => import('./views/Raffle'));
-
+const Strategies = lazy(() => import('./views/Strategies'));
 
 const NoMatch = () => (
   <h3 style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>
@@ -51,11 +51,11 @@ const App: React.FC = () => {
             <Route exact path="/">
               <Home />
             </Route>
-            <Route path="/farm">
-              <Farm />
+            <Route path="/vineyard">
+              <Vineyard />
             </Route>
-            <Route path="/boardroom">
-              <Boardroom />
+            <Route path="/winery">
+              <Winery />
             </Route>
             <Route path="/bond">
               <Bond />
@@ -65,6 +65,9 @@ const App: React.FC = () => {
             </Route> 
             <Route path="/roadmap">
               <Roadmap />
+            </Route> 
+            <Route path="/strategies">
+              <Strategies />
             </Route> 
             <Route path="/raffle">
               <Raffle />
@@ -99,7 +102,7 @@ const Providers: React.FC = ({children}) => {
           <Provider store={store}>
             <Updaters />
             <RefreshContextProvider>
-              <BombFinanceProvider>
+              <GrapeFinanceProvider>
                 <ModalsProvider>
                   <BanksProvider>
                     <>
@@ -108,7 +111,7 @@ const Providers: React.FC = ({children}) => {
                     </>
                   </BanksProvider>
                 </ModalsProvider>
-              </BombFinanceProvider>
+              </GrapeFinanceProvider>
             </RefreshContextProvider>
           </Provider>
         </UseWalletProvider>

@@ -181,17 +181,17 @@ code {
   overflow: hidden;
 }
 
-.bomb {
+.grape {
   background-image: url('/grape.png');
   top: -20px;
 }
 
-.bshare {
+.wine {
   background-image: url('/gshare.png');
 }
 
 .btc {
-  background-image: url('/bomb3.png');
+  background-image: url('/grape3.png');
 }
 
 .MuiPaper-root {

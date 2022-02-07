@@ -9,15 +9,15 @@ import ExchangeCard from './components/ExchangeCard';
 import styled from 'styled-components';
 import Spacer from '../../components/Spacer';
 import useBondStats from '../../hooks/useBondStats';
-import useBombStats from '../../hooks/useBombStats';
-import useBombFinance from '../../hooks/useBombFinance';
+import useGrapeStats from '../../hooks/useGrapeStats';
+import useGrapeFinance from '../../hooks/useGrapeFinance';
 import useCashPriceInLastTWAP from '../../hooks/useCashPriceInLastTWAP';
 import {useTransactionAdder} from '../../state/transactions/hooks';
 import ExchangeStat from './components/ExchangeStat';
 import useTokenBalance from '../../hooks/useTokenBalance';
 import useBondsPurchasable from '../../hooks/useBondsPurchasable';
 import {getDisplayBalance} from '../../utils/formatBalance';
-import { BOND_REDEEM_PRICE, BOND_REDEEM_PRICE_BN, DECIMALS_18 } from '../../bomb-finance/constants';
+import { BOND_REDEEM_PRICE, BOND_REDEEM_PRICE_BN, DECIMALS_18 } from '../../grape-finance/constants';
 import { Alert } from '@material-ui/lab';
 import {ReactComponent as IconTelegram} from '../../assets/img/telegram.svg';
 import {ReactComponent as IconDiscord} from '../../assets/img/discord.svg';
@@ -67,15 +67,15 @@ const Bond: React.FC = () => {
   const {path} = useRouteMatch();
   const {account} = useWallet();
   const classes = useStyles();
-  const bombFinance = useBombFinance();
+  const grapeFinance = useGrapeFinance();
   const addTransaction = useTransactionAdder();
   const bondStat = useBondStats();
-  const bombStat = useBombStats();
+  const grapeStat = useGrapeStats();
   const cashPrice = useCashPriceInLastTWAP();
 
   const bondsPurchasable = useBondsPurchasable();
 
-  //const bondBalance = useTokenBalance(bombFinance?.BBOND);
+  //const bondBalance = useTokenBalance(grapeFinance?.GBOND);
   //const scalingFactor = useMemo(() => (cashPrice ? Number(cashPrice) : null), [cashPrice]);
 
 

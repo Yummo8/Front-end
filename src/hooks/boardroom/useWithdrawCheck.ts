@@ -1,17 +1,17 @@
 import {useEffect, useState} from 'react';
-import useBombFinance from '../useBombFinance';
+import useGrapeFinance from '../useGrapeFinance';
 import useRefresh from '../useRefresh';
 
 const useWithdrawCheck = () => {
   const [canWithdraw, setCanWithdraw] = useState(false);
-  const bombFinance = useBombFinance();
+  const grapeFinance = useGrapeFinance();
   const {slowRefresh} = useRefresh();
-  const isUnlocked = bombFinance?.isUnlocked;
+  const isUnlocked = grapeFinance?.isUnlocked;
 
   useEffect(() => {
     async function canUserWithdraw() {
       try {
-        setCanWithdraw(await bombFinance.canUserUnstakeFromBoardroom());
+        setCanWithdraw(await grapeFinance.canUserUnstakeFromBoardroom());
       } catch (err) {
         console.error(err);
       }
@@ -19,7 +19,7 @@ const useWithdrawCheck = () => {
     if (isUnlocked) {
       canUserWithdraw();
     }
-  }, [isUnlocked, bombFinance, slowRefresh]);
+  }, [isUnlocked, grapeFinance, slowRefresh]);
 
   return canWithdraw;
 };

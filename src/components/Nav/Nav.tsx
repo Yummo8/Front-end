@@ -16,9 +16,9 @@ import {
 } from '@material-ui/core';
 
 import ListItemLink from '../ListItemLink';
-import useBombStats from '../../hooks/useBombStats';
+import useGrapeStats from '../../hooks/useGrapeStats';
 import useBtcStats from '../../hooks/useBtcStats';
-import useShareStats from '../../hooks/usebShareStats';
+import useShareStats from '../../hooks/useWineStats';
 
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -26,7 +26,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import {makeStyles, useTheme} from '@material-ui/core/styles';
 import AccountButton from './AccountButton';
 
-import bombLogo from '../../assets/img/logo1.png';
+import grapeLogo from '../../assets/img/logo1.png';
 import {roundAndFormatNumber} from '../../0x';
 import TokenSymbol from '../TokenSymbol';
 
@@ -88,7 +88,7 @@ const Nav = () => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  //const bombStats = useBombStats();
+  //const grapeStats = useGrapeStats();
   //const btcStats = useBtcStats();
   //const shareStats = useShareStats();
 
@@ -102,14 +102,14 @@ const Nav = () => {
     setOpen(false);
   };
 
-  //const btcPriceInDollars = useMemo(() => (bombStats ? Number(btcStats).toFixed(2) : null), [bombStats]);
-  /*const bombPriceInDollars = useMemo(
-    () => (bombStats ? Number(bombStats.priceInDollars).toFixed(2) : null),
-    [bombStats],
+  //const btcPriceInDollars = useMemo(() => (grapeStats ? Number(btcStats).toFixed(2) : null), [grapeStats]);
+  /*const grapePriceInDollars = useMemo(
+    () => (grapeStats ? Number(grapeStats.priceInDollars).toFixed(2) : null),
+    [grapeStats],
   );
   const sharePriceInDollars = useMemo(
-    () => (bombStats ? Number(shareStats.priceInDollars).toFixed(2) : null),
-    [bombStats],
+    () => (grapeStats ? Number(shareStats.priceInDollars).toFixed(2) : null),
+    [grapeStats],
   );
 */
   return (
@@ -118,9 +118,9 @@ const Nav = () => {
         {matches ? (
           <>
             <Typography variant="h6" color="inherit" noWrap style={{flexGrow: '0'}} className={classes.toolbarTitle}>
-              {/* <a className={ classes.brandLink } href="/">Bomb Money</a> */}
+              {/* <a className={ classes.brandLink } href="/">Grape Money</a> */}
               <Link to="/" color="inherit" className={classes.brandLink}>
-                <img alt="Grape Finance" src={bombLogo} height="60px" />
+                <img alt="Grape Finance" src={grapeLogo} height="60px" />
               </Link>
             </Typography>
             <Box style={{paddingLeft: '15px', paddingTop: '10px', fontSize: '1rem', flexGrow: '1'}}>
@@ -128,14 +128,17 @@ const Nav = () => {
                 Home
               </Link>
               
-              <Link to="/farm" className={'navLink ' + classes.link}>
+              <Link to="/vineyard" className={'navLink ' + classes.link}>
                 Vineyard
               </Link>
-              <Link to="/boardroom" className={'navLink ' + classes.link}>
+              <Link to="/winery" className={'navLink ' + classes.link}>
                 Winery
               </Link>
               <Link to="/bond" className={'navLink ' + classes.link}>
-                Bond
+                Bonds
+              </Link>
+              <Link to="/strategies" className={'navLink ' + classes.link}>
+                Strategies
               </Link>
               <Link to="/launchpad" className={'navLink ' + classes.link}>
                 Launchpad
@@ -158,22 +161,6 @@ const Nav = () => {
               </a>
               
               
-{/*
-               <Link color="textPrimary" to="/sbs" className={classes.link}>
-                SBS
-              </Link>
-              <Link color="textPrimary" to="/liquidity" className={classes.link}>
-                Liquidity
-              </Link>
-              <Link color="textPrimary" to="/regulations" className={classes.link}>
-                Regulations
-              </Link> 
-              <a href="https://app.gitbook.com/s/NUqRuqfjnQX78cGRsBTc/" className={'navLink ' + classes.link} rel="noopener" target="_blank">
-                Docs
-              </a>
-                <a href="https://bomb.farm" className={'navLink ' + classes.link} rel="noopener" target="_blank">
-                AutoVaults
-              </a>*/}
             </Box>
 
             <Box
@@ -186,13 +173,7 @@ const Nav = () => {
                 height: '30px',
                 display: 'flex',
               }}
-            >{/*}
-              <div className="navTokenIcon bomb"></div>{' '}
-              <div className="navTokenPrice">${roundAndFormatNumber(Number(bombPriceInDollars), 2)}</div>
-              <div className="navTokenIcon bshare"></div>{' '}
-              <div className="navTokenPrice">${roundAndFormatNumber(Number(sharePriceInDollars), 2)}</div>
-            <div className="navTokenIcon btc"></div>{' '}*/}
-              {/*<div className="navTokenPrice">${roundAndFormatNumber(Number(btcPriceInDollars), 2)}</div>*/}
+            >
             </Box>
             <AccountButton text="Connect" />
           </>
@@ -209,8 +190,8 @@ const Nav = () => {
             </IconButton>
 
             <img
-              alt="bomb.money"
-              src={bombLogo}
+              alt="grape.money"
+              src={grapeLogo}
               style={{height: '40px', marginTop: '-10px', marginLeft: '10px', marginRight: '15px'}}
             />
             <AccountButton text="Connect" />
@@ -241,9 +222,10 @@ const Nav = () => {
                   <AccountButton text="Connect" />
                 </ListItem>
                 <ListItemLink primary="Home" to="/" />
-                <ListItemLink primary="Vineyard" to="/farm" />
-                <ListItemLink primary="Winery" to="/boardroom" />
+                <ListItemLink primary="Vineyard" to="/vineyard" />
+                <ListItemLink primary="Winery" to="/winery" />
                 <ListItemLink primary="Bond" to="/bond" />
+                <ListItemLink primary="Strategies" to="/strategies" />
                 <ListItemLink primary="Launchpad" to="/launchpad" />
                 <ListItemLink primary="Roadmap" to="/roadmap" />
                 <ListItem button component="a" href="https://app.beefy.finance/#/avax">
@@ -259,19 +241,8 @@ const Nav = () => {
                 <ListItem button component="a" href="https://grapefinance.gitbook.io/grape-finance-docs/">
                   <ListItemText>Docs</ListItemText>
                   </ListItem>
+                        
                 
-                
-                
-                {/* <ListItemLink primary="SBS" to="/sbs" /> */}
-                {/* <ListItemLink primary="Liquidity" to="/liquidity" /> */}
-                {/* <ListItemLink primary="Regulations" to="/regulations" /> 
-                <ListItem button component="a" href="#">
-                  <ListItemText>Docs</ListItemText>
-                  
-                  </ListItem>
-                   <ListItem button component="a" href="https://bomb.farm">
-                  <ListItemText>AutoVaults</ListItemText>
-                  </ListItem>*/}
               </List>
             </Drawer>
           </>

@@ -1,6 +1,6 @@
-export const BOMB_TICKER = 'GRAPE';
+export const GRAPE_TICKER = 'GRAPE';
 export const BSHARE_TICKER = 'WINE';
-export const BBOND_TICKER = 'GBOND';
+export const GBOND_TICKER = 'GBOND';
 export const BNB_TICKER = 'MIM';
 export const WBNB_TICKER = 'WBNB';
 export const BTC_TICKER = 'MIM';

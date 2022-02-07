@@ -1,17 +1,17 @@
 import {useEffect, useState} from 'react';
 import {BigNumber} from 'ethers';
-import useBombFinance from './useBombFinance';
+import useGrapeFinance from './useGrapeFinance';
 
 const useTreasuryAmount = () => {
   const [amount, setAmount] = useState(BigNumber.from(0));
-  const bombFinance = useBombFinance();
+  const grapeFinance = useGrapeFinance();
 
   useEffect(() => {
-    if (bombFinance) {
-      const {Treasury} = bombFinance.contracts;
-      bombFinance.BOMB.balanceOf(Treasury.address).then(setAmount);
+    if (grapeFinance) {
+      const {Treasury} = grapeFinance.contracts;
+      grapeFinance.GRAPE.balanceOf(Treasury.address).then(setAmount);
     }
-  }, [bombFinance]);
+  }, [grapeFinance]);
   return amount;
 };
 

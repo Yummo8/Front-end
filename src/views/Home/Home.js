@@ -4,16 +4,16 @@ import { createGlobalStyle } from 'styled-components';
 import CountUp from 'react-countup';
 import CardIcon from '../../components/CardIcon';
 import TokenSymbol from '../../components/TokenSymbol';
-import useBombStats from '../../hooks/useBombStats';
+import useGrapeStats from '../../hooks/useGrapeStats';
 import useLpStats from '../../hooks/useLpStats';
 import useLpStatsBTC from '../../hooks/useLpStatsBTC';
 import useModal from '../../hooks/useModal';
 import useZap from '../../hooks/useZap';
 import useBondStats from '../../hooks/useBondStats';
-import usebShareStats from '../../hooks/usebShareStats';
+import usebShareStats from '../../hooks/useWineStats';
 import useTotalValueLocked from '../../hooks/useTotalValueLocked';
-import { Bomb as bombTesting, BShare as bShareTesting } from '../../bomb-finance/deployments/deployments.testing.json';
-import { Bomb as bombProd, BShare as bShareProd } from '../../bomb-finance/deployments/deployments.mainnet.json';
+import { Grape as grapeTesting, Wine as bShareTesting } from '../../grape-finance/deployments/deployments.testing.json';
+import { Grape as grapeProd, Wine as bShareProd } from '../../grape-finance/deployments/deployments.mainnet.json';
 import { roundAndFormatNumber } from '../../0x';
 import MetamaskFox from '../../assets/img/metamask-fox.svg';
 import { Box, Button, Card, CardContent, Grid, Paper } from '@material-ui/core';
@@ -21,14 +21,17 @@ import ZapModal from '../Bank/components/ZapModal';
 import { Alert } from '@material-ui/lab';
 import useBank from '../../hooks/useBank';
 import { makeStyles } from '@material-ui/core/styles';
-import useBombFinance from '../../hooks/useBombFinance';
+import useGrapeFinance from '../../hooks/useGrapeFinance';
 import { ReactComponent as IconTelegram } from '../../assets/img/telegram.svg';
 import kyc from '../../assets/img/kyc.jpg';
 import wamp from '../../assets/img/WAMP.png';
-import BombImage from '../../assets/img/grape.png';
+import GrapeImage from '../../assets/img/grape.png';
 import audit from '../../assets/img/audit1.jpg';
 import HomeImage from '../../assets/img/background.jpg';
 import useStatsForPool from '../../hooks/useStatsForPool';
+import useTotalStakedOnBoardroom from '../../hooks/useTotalStakedOnBoardroom';
+import {getDisplayBalance} from '../../utils/formatBalance';
+
 const BackgroundImage = createGlobalStyle`
   body {
     background: url(${HomeImage}) repeat !important;
@@ -55,41 +58,43 @@ const useStyles = makeStyles((theme) => ({
 const Home = () => {
   const classes = useStyles();
   const TVL = useTotalValueLocked();
-  const bombFtmLpStats = useLpStatsBTC('GRAPE-MIM-LP');
+  const grapeFtmLpStats = useLpStatsBTC('GRAPE-MIM-LP');
   const bShareFtmLpStats = useLpStats('WINE-MIM-LP');
   const newPair = useLpStats('GRAPE-WINE-LP');
-  const bombStats = useBombStats();
+  const grapeStats = useGrapeStats();
   const bShareStats = usebShareStats();
   const tBondStats = useBondStats();
-  const bombFinance = useBombFinance();
+  const grapeFinance = useGrapeFinance();
+  const totalStaked = useTotalStakedOnBoardroom();
 
-  let bomb;
+  let grape;
   let bShare;
   if (!process.env.NODE_ENV || process.env.NODE_ENV === 'production') {
-    bomb = bombTesting;
+    grape = grapeTesting;
     bShare = bShareTesting;
   } else {
-    bomb = bombProd;
+    grape = grapeProd;
     bShare = bShareProd;
   }
 
-  const buyBombAddress = 'https://traderjoexyz.com/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0x5541d83efad1f281571b343977648b75d95cdac2';
-  const buyBShareAddress = 'https://traderjoexyz.com/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0xc55036b5348cfb45a932481744645985010d3a44';
+  const buyGrapeAddress = 'https://traderjoexyz.com/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0x5541d83efad1f281571b343977648b75d95cdac2';
+  const buyWineAddress = 'https://traderjoexyz.com/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0xc55036b5348cfb45a932481744645985010d3a44';
   const wineChart = 'https://dexscreener.com/avalanche/0x00cb5b42684da62909665d8151ff80d1567722c3';
   const grapeChart = 'https://dexscreener.com/avalanche/0xb382247667fe8ca5327ca1fa4835ae77a9907bc8';
-  const wampStaking = '/farm/WampStaking';
+  const wampStaking = '/vineyard/WampStaking';
 
-  const bombLPStats = useMemo(() => (bombFtmLpStats ? bombFtmLpStats : null), [bombFtmLpStats]);
-  const bshareLPStats = useMemo(() => (bShareFtmLpStats ? bShareFtmLpStats : null), [bShareFtmLpStats]);
+  const grapeLPStats = useMemo(() => (grapeFtmLpStats ? grapeFtmLpStats : null), [grapeFtmLpStats]);
+  const wineLPStats = useMemo(() => (bShareFtmLpStats ? bShareFtmLpStats : null), [bShareFtmLpStats]);
   const newPairLPStats = useMemo(() => (newPair ? newPair : null), [newPair]);
 
-  const bombPriceInDollars = useMemo(
-    () => (bombStats ? Number(bombStats.priceInDollars).toFixed(2) : null),
-    [bombStats],
+  const grapePriceInDollars = useMemo(
+    () => (grapeStats ? Number(grapeStats.priceInDollars).toFixed(2) : null),
+    [grapeStats],
   );
-  const bombPriceInBNB = useMemo(() => (bombStats ? Number(bombStats.tokenInFtm).toFixed(2) : null), [bombStats]);
-  const bombCirculatingSupply = useMemo(() => (bombStats ? String(bombStats.circulatingSupply) : null), [bombStats]);
-  const bombTotalSupply = useMemo(() => (bombStats ? String(bombStats.totalSupply) : null), [bombStats]);
+  const grapePriceInBNB = useMemo(() => (grapeStats ? Number(grapeStats.tokenInFtm).toFixed(2) : null), [grapeStats]);
+  const grapeCirculatingSupply = useMemo(() => (grapeStats ? String(grapeStats.circulatingSupply) : null), [grapeStats]);
+  const grapeTotalSupply = useMemo(() => (grapeStats ? String(grapeStats.totalSupply) : null), [grapeStats]);
+  
 
   const bSharePriceInDollars = useMemo(
     () => (bShareStats ? Number(bShareStats.priceInDollars).toFixed(2) : null),
@@ -114,30 +119,39 @@ const Home = () => {
     () => (tBondStats ? String(tBondStats.circulatingSupply) : null),
     [tBondStats],
   );
-  const tBondTotalSupply = useMemo(() => (tBondStats ? String(tBondStats.totalSupply) : null), [tBondStats]);
-/*
-  const bombLpZap = useZap({ depositTokenName: 'GRAPE-MIM-LP' });
-  const bshareLpZap = useZap({ depositTokenName: 'WINE-MIM-LP' });
+   const tBondTotalSupply = useMemo(() => (tBondStats ? String(tBondStats.totalSupply) : null), [tBondStats]);
 
-  const [onPresentBombZap, onDissmissBombZap] = useModal(
+  
+   const grapeTVL1 = useMemo(() => (newPair ? newPairLPStats.totalLiquidity/2 : null), [newPair]);
+   const grapeTVL2 = useMemo(() => (grapeFtmLpStats ? grapeFtmLpStats.totalLiquidity/2 : null), [grapeFtmLpStats]);
+ 
+   const shareLPTVL = useMemo(() => (wineLPStats ? wineLPStats.totalLiquidity/2 : null), [wineLPStats]);
+
+   const totalStakedFormat = Number(getDisplayBalance(totalStaked))*bSharePriceInDollars;
+   
+/*
+  const grapeLpZap = useZap({ depositTokenName: 'GRAPE-MIM-LP' });
+  const wineLpZap = useZap({ depositTokenName: 'WINE-MIM-LP' });
+
+  const [onPresentGrapeZap, onDissmissGrapeZap] = useModal(
     <ZapModal
       decimals={18}
       onConfirm={(zappingToken, tokenName, amount) => {
         if (Number(amount) <= 0 || isNaN(Number(amount))) return;
-        bombLpZap.onZap(zappingToken, tokenName, amount);
-        onDissmissBombZap();
+        grapeLpZap.onZap(zappingToken, tokenName, amount);
+        onDissmissGrapeZap();
       }}
       tokenName={'GRAPE-MIM-LP'}
     />,
   );
 
-  const [onPresentBshareZap, onDissmissBshareZap] = useModal(
+  const [onPresentWineZap, onDissmissWineZap] = useModal(
     <ZapModal
       decimals={18}
       onConfirm={(zappingToken, tokenName, amount) => {
         if (Number(amount) <= 0 || isNaN(Number(amount))) return;
-        bshareLpZap.onZap(zappingToken, tokenName, amount);
-        onDissmissBshareZap();
+        wineLpZap.onZap(zappingToken, tokenName, amount);
+        onDissmissWineZap();
       }}
       tokenName={'WINE-MIM-LP'}
     />,
@@ -154,13 +168,13 @@ const Home = () => {
           sm={4}
           style={{ display: 'flex', justifyContent: 'center', verticalAlign: 'middle', overflow: 'hidden' }}
         >
-          <img src={BombImage} style={{ maxHeight: '240px' }} />
+          <img src={GrapeImage} style={{ maxHeight: '240px' }} />
         </Grid>
         {/* Explanation text */}
         <Grid item xs={12} sm={8}>
           <Paper>
             <Box p={4} style={{ textAlign: 'center'}}>
-              <h2>Earn 5%+ Daily at Grape Finance</h2>
+              <h2>Earn 4%+ Daily at Grape Finance</h2>
 
               <p style={{ fontSize: '17px' }}>
               <b>We're pegged to MIM helping to reduce your volatility during a market downturn</b>                                  
@@ -197,7 +211,7 @@ const Home = () => {
                   target="_blank"
                   style={{ color: '#000' }}
                 >
-                  Docs
+                  Docs & Disclaimer
                 </a>{' '}
                  before aping in!
                 </p>
@@ -258,15 +272,15 @@ const Home = () => {
               </Button>
             </Box>
               {/* <h2 style={{ marginBottom: '20px' }}>Wallet Balance</h2> */}
-              <Button href="/boardroom" className="shinyButton" style={{ margin: '10px' }}>
-                Stake Now
+              <Button href="/winery" className="shinyButton" style={{ margin: '10px' }}>
+                Winery
               </Button>
-              <Button href="/farm" className="shinyButton" style={{ margin: '10px' }}>
-                Farm Now
+              <Button href="/vineyard" className="shinyButton" style={{ margin: '10px' }}>
+                Vineyard
               </Button>
               <Button
                 target="_blank"
-                href={buyBombAddress}
+                href={buyGrapeAddress}
                 style={{ margin: '10px' }}
                 className={'shinyButton ' + classes.button}
               >
@@ -274,7 +288,7 @@ const Home = () => {
               </Button>
               <Button
                 target="_blank"
-                href={buyBShareAddress}
+                href={buyWineAddress}
                 className={'shinyButton ' + classes.button}
                 style={{ marginLeft: '10px' }}
               >
@@ -301,18 +315,18 @@ const Home = () => {
           </Card>
         </Grid>
 
-        {/* BOMB */}
+        {/* GRAPE */}
         <Grid item xs={12} sm={4}>
           <Card>
             <CardContent align="center" style={{ position: 'relative' }}>
               <Box mt={2}>
                 <CardIcon>
-                  <TokenSymbol symbol="BOMB" />
+                  <TokenSymbol symbol="GRAPE" />
                 </CardIcon>
               </Box>
               <Button
                 onClick={() => {
-                  bombFinance.watchAssetInMetamask('BOMB');
+                  grapeFinance.watchAssetInMetamask('GRAPE');
                 }}
                 style={{ position: 'absolute', top: '10px', right: '10px', border: '1px grey solid' }}
               >
@@ -323,24 +337,25 @@ const Home = () => {
               <h2 style={{ marginBottom: '10px' }}>GRAPE</h2>
               
               <Box>
-                <span style={{ fontSize: '30px', color: '#930993' }}>${bombPriceInBNB ? bombPriceInBNB : '-.----'} </span>
+                <span style={{ fontSize: '30px', color: '#930993' }}>${grapePriceInBNB ? grapePriceInBNB : '-.----'} </span>
               </Box>             
               <span style={{ fontSize: '17px' }}>
-                Market Cap: ${roundAndFormatNumber(bombCirculatingSupply * bombPriceInDollars, 2)} <br />
-                Circulating Supply: {roundAndFormatNumber(bombCirculatingSupply, 2)} <br />
-                Total Supply: {roundAndFormatNumber(bombTotalSupply, 2)}
+                TVL In LPs: ${roundAndFormatNumber(grapeTVL1 + grapeTVL2, 0)}<br />               
+                Market Cap: ${roundAndFormatNumber(grapeCirculatingSupply * grapePriceInDollars, 0)} <br />
+                Circulating Supply: {roundAndFormatNumber(grapeCirculatingSupply, 2)} <br />
+                Total Supply: {roundAndFormatNumber(grapeTotalSupply, 2)}         
             </span>
             </CardContent>
           </Card>
         </Grid>
 
-        {/* BSHARE */}
+        {/* WINE */}
         <Grid item xs={12} sm={4}>
           <Card>
             <CardContent align="center" style={{ position: 'relative' }}>
               <Button
                 onClick={() => {
-                  bombFinance.watchAssetInMetamask('BSHARE');
+                  grapeFinance.watchAssetInMetamask('WINE');
                 }}
                 style={{ position: 'absolute', top: '10px', right: '10px', border: '1px grey solid' }}
               >
@@ -350,7 +365,7 @@ const Home = () => {
               </Button>
               <Box mt={2}>
                 <CardIcon>
-                  <TokenSymbol symbol="BSHARE" />
+                  <TokenSymbol symbol="WINE" />
                 </CardIcon>
               </Box>
               <h2 style={{ marginBottom: '10px' }}>WINE</h2>
@@ -362,22 +377,23 @@ const Home = () => {
               </Box>
               
              <span style={{ fontSize: '17px' }}>
-                Market Cap: ${roundAndFormatNumber((bShareCirculatingSupply * bSharePriceInDollars).toFixed(2), 2)}{' '}
-                <br />
+                TVL In LPs & Winery: ${roundAndFormatNumber(shareLPTVL + totalStakedFormat, 0)}<br />   
+                Market Cap: ${roundAndFormatNumber((bShareCirculatingSupply * bSharePriceInDollars), 0)}{' '}<br />     
                 Circulating Supply: {roundAndFormatNumber(bShareCirculatingSupply, 2)} <br />
                 Total Supply: {roundAndFormatNumber(bShareTotalSupply, 2)}
+                
             </span>
             </CardContent>
           </Card>
         </Grid>
 
-        {/* BBOND */}
+        {/* GBOND */}
         <Grid item xs={12} sm={4}>
           <Card>
-            <CardContent align="center" style={{ position: 'relative' }}>
+            <CardContent align="center" style={{ position: 'relative', paddingBottom: '43px'  }}>
               <Button
                 onClick={() => {
-                  bombFinance.watchAssetInMetamask('BBOND');
+                  grapeFinance.watchAssetInMetamask('GBOND');
                 }}
                 style={{ position: 'absolute', top: '10px', right: '10px', border: '1px grey solid' }}
               >
@@ -387,7 +403,7 @@ const Home = () => {
               </Button>
               <Box mt={2}>
                 <CardIcon>
-                  <TokenSymbol symbol="BBOND" />
+                  <TokenSymbol symbol="GBOND" />
                 </CardIcon>
               </Box>
               <h2 style={{ marginBottom: '10px' }}>GBOND</h2>
@@ -397,10 +413,10 @@ const Home = () => {
                  $ {tBondPriceInDollars ? tBondPriceInDollars : '-.--'}
                 </span>
               </Box>
-              <span style={{ fontSize: '17px' }}>
-                Market Cap: ${roundAndFormatNumber((tBondCirculatingSupply * tBondPriceInDollars).toFixed(2), 2)} <br />
+              <span style={{ fontSize: '17px'}}>
+                Market Cap: ${roundAndFormatNumber((tBondCirculatingSupply * tBondPriceInDollars), 0)} <br />
                 Circulating Supply: {roundAndFormatNumber(tBondCirculatingSupply, 2)} <br />
-                Total Supply: {roundAndFormatNumber(tBondTotalSupply, 2)}
+                Total Supply: {roundAndFormatNumber(tBondTotalSupply, 2)}<br />
             </span>
             </CardContent>
           </Card>
@@ -411,31 +427,31 @@ const Home = () => {
             <CardContent align="center">
               <Box mt={2}>
                 <CardIcon>
-                  <TokenSymbol symbol="BOMB-BTCB-LP" />
+                  <TokenSymbol symbol="GRAPE-MIM-LP" />
                 </CardIcon>
               </Box>
               <h2>GRAPE-MIM LP</h2>
               
               <Box mt={4} style={{marginTop: '0px'}}>
-                {/* <Button onClick={onPresentBshareZap} className="shinyButtonSecondary">
+                {/* <Button onClick={onPresentWineZap} className="shinyButtonSecondary">
                   Zap In
             </Button>*/}
-               <Button style={{}}  className="shinyButtonSecondary" href={'/farm/GrapeMimLPWineRewardPool'}>
+               <Button style={{}}  className="shinyButtonSecondary" href={'/vineyard/GrapeMimLPWineRewardPool'}>
                   Go To Pool
               </Button>              
               </Box>
               
               <Box mt={2}>
                 <span style={{ fontSize: '26px', color: '#930993'  }}>
-                  {bombLPStats?.tokenAmount ? bombLPStats?.tokenAmount : '-.--'} GRAPE /{' '}
-                  {bombLPStats?.ftmAmount ? bombLPStats?.ftmAmount : '-.--'} MIM
+                  {grapeLPStats?.tokenAmount ? grapeLPStats?.tokenAmount : '-.--'} GRAPE /{' '}
+                  {grapeLPStats?.ftmAmount ? grapeLPStats?.ftmAmount : '-.--'} MIM
                 </span>
               </Box>
-              <Box>${bombLPStats?.priceOfOne ? bombLPStats.priceOfOne : '-.--'}</Box>
+              <Box>${grapeLPStats?.priceOfOne ? grapeLPStats.priceOfOne : '-.--'}</Box>
               <span style={{ fontSize: '17px' }}>
-                Liquidity: ${bombLPStats?.totalLiquidity ? roundAndFormatNumber(bombLPStats.totalLiquidity, 2) : '-.--'}{' '}
+                Liquidity: ${grapeLPStats?.totalLiquidity ? roundAndFormatNumber(grapeLPStats.totalLiquidity, 0) : '-.--'}{' '}
                 <br />
-                Total Supply: {bombLPStats?.totalSupply ? roundAndFormatNumber(bombLPStats.totalSupply, 2) : '-.--'}
+                Total Supply: {grapeLPStats?.totalSupply ? roundAndFormatNumber(grapeLPStats.totalSupply, 0) : '-.--'}
               </span>
               
             </CardContent>
@@ -447,31 +463,31 @@ const Home = () => {
             <CardContent align="center">
               <Box mt={2}>
                 <CardIcon>
-                  <TokenSymbol symbol="BSHARE-BNB-LP" style="width:105px;" />
+                  <TokenSymbol symbol="WINE-MIM-LP" style="width:105px;" />
                 </CardIcon>
               </Box>
               <h2>WINE-MIM LP</h2>
               
               <Box mt={2} style={{marginTop: '0px'}}>
-               {/* <Button onClick={onPresentBshareZap} className="shinyButtonSecondary">
+               {/* <Button onClick={onPresentWineZap} className="shinyButtonSecondary">
                   Zap In
             </Button>*/}
-              <Button style={{}}  className="shinyButtonSecondary" href={'/farm/WineMimLPWineRewardPool'}>
+              <Button style={{}}  className="shinyButtonSecondary" href={'/vineyard/WineMimLPWineRewardPool'}>
                   Go To Pool
               </Button>    
               </Box>
               <Box mt={2}>
                 <span style={{ fontSize: '26px', color: '#930993' }}>
-                  {bshareLPStats?.tokenAmount ? bshareLPStats?.tokenAmount : '-.--'} WINE /{' '}
-                  {bshareLPStats?.ftmAmount ? bshareLPStats?.ftmAmount : '-.--'} MIM
+                  {wineLPStats?.tokenAmount ? wineLPStats?.tokenAmount : '-.--'} WINE /{' '}
+                  {wineLPStats?.ftmAmount ? wineLPStats?.ftmAmount : '-.--'} MIM
                 </span>
               </Box>
-              <Box>${bshareLPStats?.priceOfOne ? bshareLPStats.priceOfOne : '-.--'}</Box>
+              <Box>${wineLPStats?.priceOfOne ? wineLPStats.priceOfOne : '-.--'}</Box>
               <span style={{ fontSize: '17px' }}>
                 Liquidity: $
-                {bshareLPStats?.totalLiquidity ? roundAndFormatNumber(bshareLPStats.totalLiquidity, 2) : '-.--'}
+                {wineLPStats?.totalLiquidity ? roundAndFormatNumber(wineLPStats.totalLiquidity, 0) : '-.--'}
                 <br />
-                Total Supply: {bshareLPStats?.totalSupply ? roundAndFormatNumber(bshareLPStats.totalSupply, 2) : '-.--'}
+                Total Supply: {wineLPStats?.totalSupply ? roundAndFormatNumber(wineLPStats.totalSupply, 0) : '-.--'}
               </span>
             </CardContent>
           </Card>
@@ -488,10 +504,10 @@ const Home = () => {
               <h2>GRAPE-WINE LP</h2>
               
               <Box mt={2} style={{marginTop: '0px'}}>
-               {/* <Button onClick={onPresentBshareZap} className="shinyButtonSecondary">
+               {/* <Button onClick={onPresentWineZap} className="shinyButtonSecondary">
                   Zap In
             </Button>*/}
-            <Button style={{}}  className="shinyButtonSecondary" href={'/farm/GrapeWineLPWineRewardPool'}>
+            <Button style={{}}  className="shinyButtonSecondary" href={'/vineyard/GrapeWineLPWineRewardPool'}>
                   Go To Pool
               </Button>    
               </Box>
@@ -504,9 +520,9 @@ const Home = () => {
               <Box>${newPairLPStats?.priceOfOne ? newPairLPStats.priceOfOne : '-.--'}</Box>
               <span style={{ fontSize: '17px' }}>
                 Liquidity: $
-                {newPairLPStats?.totalLiquidity ? roundAndFormatNumber(newPairLPStats.totalLiquidity, 2) : '-.--'}
+                {newPairLPStats?.totalLiquidity ? roundAndFormatNumber(newPairLPStats.totalLiquidity, 0) : '-.--'}
                 <br />
-                Total Supply: {newPairLPStats?.totalSupply ? roundAndFormatNumber(newPairLPStats.totalSupply, 2) : '-.--'}
+                Total Supply: {newPairLPStats?.totalSupply ? roundAndFormatNumber(newPairLPStats.totalSupply, 0) : '-.--'}
               </span>
             </CardContent>
           </Card>

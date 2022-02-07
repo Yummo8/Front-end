@@ -1,19 +1,19 @@
 import {useCallback} from 'react';
-import useBombFinance from './useBombFinance';
+import useGrapeFinance from './useGrapeFinance';
 import useHandleTransactionReceipt from './useHandleTransactionReceipt';
 
 const useWithdrawFromBoardroom = () => {
-  const bombFinance = useBombFinance();
+  const grapeFinance = useGrapeFinance();
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
   const handleWithdraw = useCallback(
     (amount: string) => {
       handleTransactionReceipt(
-        bombFinance.withdrawShareFromBoardroom(amount),
+        grapeFinance.withdrawShareFromBoardroom(amount),
         `Withdraw ${amount} WINE from the Winery`,
       );
     },
-    [bombFinance, handleTransactionReceipt],
+    [grapeFinance, handleTransactionReceipt],
   );
   return {onWithdraw: handleWithdraw};
 };

@@ -1,19 +1,19 @@
 import {useCallback, useEffect, useState} from 'react';
 
 import {BigNumber} from 'ethers';
-import useBombFinance from './useBombFinance';
-import {ContractName} from '../bomb-finance';
+import useGrapeFinance from './useGrapeFinance';
+import {ContractName} from '../grape-finance';
 import config from '../config';
 
 const useStakedBalance = (poolName: ContractName, poolId: Number) => {
   const [balance, setBalance] = useState(BigNumber.from(0));
-  const bombFinance = useBombFinance();
-  const isUnlocked = bombFinance?.isUnlocked;
+  const grapeFinance = useGrapeFinance();
+  const isUnlocked = grapeFinance?.isUnlocked;
 
   const fetchBalance = useCallback(async () => {
-    const balance = await bombFinance.stakedBalanceOnBank(poolName, poolId, bombFinance.myAccount);
+    const balance = await grapeFinance.stakedBalanceOnBank(poolName, poolId, grapeFinance.myAccount);
     setBalance(balance);
-  }, [poolName, poolId, bombFinance]);
+  }, [poolName, poolId, grapeFinance]);
 
   useEffect(() => {
     if (isUnlocked) {
@@ -22,7 +22,7 @@ const useStakedBalance = (poolName: ContractName, poolId: Number) => {
       const refreshBalance = setInterval(fetchBalance, config.refreshInterval);
       return () => clearInterval(refreshBalance);
     }
-  }, [isUnlocked, poolName, setBalance, bombFinance, fetchBalance]);
+  }, [isUnlocked, poolName, setBalance, grapeFinance, fetchBalance]);
 
   return balance;
 };

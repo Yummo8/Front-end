@@ -1,17 +1,17 @@
 import {useEffect, useState} from 'react';
 import useRefresh from '../useRefresh';
-import useBombFinance from '../useBombFinance';
+import useGrapeFinance from '../useGrapeFinance';
 
 const useClaimRewardCheck = () => {
   const {slowRefresh} = useRefresh();
   const [canClaimReward, setCanClaimReward] = useState(false);
-  const bombFinance = useBombFinance();
-  const isUnlocked = bombFinance?.isUnlocked;
+  const grapeFinance = useGrapeFinance();
+  const isUnlocked = grapeFinance?.isUnlocked;
 
   useEffect(() => {
     async function canUserClaimReward() {
       try {
-        setCanClaimReward(await bombFinance.canUserClaimRewardFromBoardroom());
+        setCanClaimReward(await grapeFinance.canUserClaimRewardFromBoardroom());
       } catch (err) {
         console.error(err);
       }
@@ -19,7 +19,7 @@ const useClaimRewardCheck = () => {
     if (isUnlocked) {
       canUserClaimReward();
     }
-  }, [isUnlocked, slowRefresh, bombFinance]);
+  }, [isUnlocked, slowRefresh, grapeFinance]);
 
   return canClaimReward;
 };

@@ -13,9 +13,9 @@ import useHarvest from '../../../hooks/useHarvest';
 
 import {getDisplayBalance} from '../../../utils/formatBalance';
 import TokenSymbol from '../../../components/TokenSymbol';
-import {Bank} from '../../../bomb-finance';
-import useBombStats from '../../../hooks/useBombStats';
-import useShareStats from '../../../hooks/usebShareStats';
+import {Bank} from '../../../grape-finance';
+import useGrapeStats from '../../../hooks/useGrapeStats';
+import useShareStats from '../../../hooks/useWineStats';
 
 interface HarvestProps {
   bank: Bank;
@@ -25,10 +25,10 @@ const Harvest: React.FC<HarvestProps> = ({bank}) => {
   const earnings = useEarnings(bank.contract, bank.earnTokenName, bank.poolId);
   
   const {onReward} = useHarvest(bank);
-  const bombStats = useBombStats();
+  const grapeStats = useGrapeStats();
   const tShareStats = useShareStats();
   const tokenName = bank.earnTokenName === 'GRAPE' ? 'GRAPE' : 'WINE';
-  const tokenStats = bank.earnTokenName === 'WINE' ? tShareStats : bombStats;
+  const tokenStats = bank.earnTokenName === 'WINE' ? tShareStats : grapeStats;
 
   const tokenPriceInDollars = useMemo(
     () => (tokenStats ? Number(tokenStats.priceInDollars).toFixed(2) : null),

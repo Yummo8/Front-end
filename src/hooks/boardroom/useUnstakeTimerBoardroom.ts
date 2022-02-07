@@ -1,19 +1,19 @@
 import {useEffect, useState} from 'react';
-import useBombFinance from '../useBombFinance';
-import {AllocationTime} from '../../bomb-finance/types';
+import useGrapeFinance from '../useGrapeFinance';
+import {AllocationTime} from '../../grape-finance/types';
 
 const useUnstakeTimerBoardroom = () => {
   const [time, setTime] = useState<AllocationTime>({
     from: new Date(),
     to: new Date(),
   });
-  const bombFinance = useBombFinance();
+  const grapeFinance = useGrapeFinance();
 
   useEffect(() => {
-    if (bombFinance) {
-      bombFinance.getUserUnstakeTime().then(setTime);
+    if (grapeFinance) {
+      grapeFinance.getUserUnstakeTime().then(setTime);
     }
-  }, [bombFinance]);
+  }, [grapeFinance]);
   return time;
 };
 

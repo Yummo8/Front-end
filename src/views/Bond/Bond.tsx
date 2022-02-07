@@ -9,15 +9,15 @@ import ExchangeCard from './components/ExchangeCard';
 import styled from 'styled-components';
 import Spacer from '../../components/Spacer';
 import useBondStats from '../../hooks/useBondStats';
-import useBombStats from '../../hooks/useBombStats';
-import useBombFinance from '../../hooks/useBombFinance';
+import useGrapeStats from '../../hooks/useGrapeStats';
+import useGrapeFinance from '../../hooks/useGrapeFinance';
 import useCashPriceInLastTWAP from '../../hooks/useCashPriceInLastTWAP';
 import {useTransactionAdder} from '../../state/transactions/hooks';
 import ExchangeStat from './components/ExchangeStat';
 import useTokenBalance from '../../hooks/useTokenBalance';
 import useBondsPurchasable from '../../hooks/useBondsPurchasable';
 import {getDisplayBalance} from '../../utils/formatBalance';
-import { BOND_REDEEM_PRICE, BOND_REDEEM_PRICE_BN, DECIMALS_18 } from '../../bomb-finance/constants';
+import { BOND_REDEEM_PRICE, BOND_REDEEM_PRICE_BN, DECIMALS_18 } from '../../grape-finance/constants';
 import { Alert } from '@material-ui/lab';
 
 import HomeImage from '../../assets/img/background.jpg';
@@ -33,33 +33,33 @@ const BackgroundImage = createGlobalStyle`
 const Bond: React.FC = () => {
   const {path} = useRouteMatch();
   const {account} = useWallet();
-  const bombFinance = useBombFinance();
+  const grapeFinance = useGrapeFinance();
   const addTransaction = useTransactionAdder();
   const bondStat = useBondStats();
-  const bombStat = useBombStats();
+  const grapeStat = useGrapeStats();
   const cashPrice = useCashPriceInLastTWAP();
 
   const bondsPurchasable = useBondsPurchasable();
 
-  const bondBalance = useTokenBalance(bombFinance?.BBOND);
+  const bondBalance = useTokenBalance(grapeFinance?.GBOND);
   //const scalingFactor = useMemo(() => (cashPrice ? Number(cashPrice) : null), [cashPrice]);
 
   const handleBuyBonds = useCallback(
     async (amount: string) => {
-      const tx = await bombFinance.buyBonds(amount);
+      const tx = await grapeFinance.buyBonds(amount);
       addTransaction(tx, {
         summary: `Buy ${Number(amount).toFixed(2)} GBOND with ${amount} GRAPE`,
       });
     },
-    [bombFinance, addTransaction],
+    [grapeFinance, addTransaction],
   );
 
   const handleRedeemBonds = useCallback(
     async (amount: string) => {
-      const tx = await bombFinance.redeemBonds(amount);
+      const tx = await grapeFinance.redeemBonds(amount);
       addTransaction(tx, {summary: `Redeem ${amount} GBOND`});
     },
-    [bombFinance, addTransaction],
+    [grapeFinance, addTransaction],
   );
 
   const isBondRedeemable = useMemo(() => cashPrice.gt(BOND_REDEEM_PRICE_BN), [cashPrice]);
@@ -95,9 +95,9 @@ const Bond: React.FC = () => {
               <StyledCardWrapper>
                 <ExchangeCard
                   action="Purchase"
-                  fromToken={bombFinance.BOMB}
+                  fromToken={grapeFinance.GRAPE}
                   fromTokenName="GRAPE"
-                  toToken={bombFinance.BBOND}
+                  toToken={grapeFinance.GBOND}
                   toTokenName="GBOND"
                   priceDesc={
                     !isBondPurchasable
@@ -112,7 +112,7 @@ const Bond: React.FC = () => {
                 <ExchangeStat
                   tokenName="1 GRAPE"
                   description="Last-Hour TWAP Price"
-                  //price={Number(bombStat?.tokenInFtm).toFixed(4) || '-'}
+                  //price={Number(grapeStat?.tokenInFtm).toFixed(4) || '-'}
                  price={bondScale || '-'}
 
                 />
@@ -126,9 +126,9 @@ const Bond: React.FC = () => {
               <StyledCardWrapper>
                 <ExchangeCard
                   action="Redeem"
-                  fromToken={bombFinance.BBOND}
+                  fromToken={grapeFinance.GBOND}
                   fromTokenName="GBOND"
-                  toToken={bombFinance.BOMB}
+                  toToken={grapeFinance.GRAPE}
                   toTokenName="GRAPE"
                   priceDesc={`${getDisplayBalance(bondBalance)} GBOND Available in wallet`}
                   onExchange={handleRedeemBonds}

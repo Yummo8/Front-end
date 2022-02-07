@@ -6,14 +6,14 @@ import {Button, Card} from '@material-ui/core';
 // import Button from '../../../components/Button';
 // import Card from '../../../components/Card';
 import CardContent from '../../../components/CardContent';
-import useBombFinance from '../../../hooks/useBombFinance';
+import useGrapeFinance from '../../../hooks/useGrapeFinance';
 import Label from '../../../components/Label';
 import TokenSymbol from '../../../components/TokenSymbol';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faArrowRight} from '@fortawesome/free-solid-svg-icons';
 import useModal from '../../../hooks/useModal';
 import ExchangeModal from './ExchangeModal';
-import ERC20 from '../../../bomb-finance/ERC20';
+import ERC20 from '../../../grape-finance/ERC20';
 import useTokenBalance from '../../../hooks/useTokenBalance';
 import useApprove, {ApprovalState} from '../../../hooks/useApprove';
 import useCatchError from '../../../hooks/useCatchError';
@@ -42,10 +42,6 @@ const ExchangeCard: React.FC<ExchangeCardProps> = ({
   disabledDescription,
 }) => {
   const catchError = useCatchError();
-  const {
-    contracts: {Treasury},
-  } = useBombFinance();
-  const [approveStatus, approve] = useApprove(fromToken, Treasury.address);
 
   const balance = useTokenBalance(fromToken);
   const [onPresent, onDismiss] = useModal(

@@ -1,15 +1,15 @@
 import {useCallback} from 'react';
-import useBombFinance from './useBombFinance';
+import useGrapeFinance from './useGrapeFinance';
 import useHandleTransactionReceipt from './useHandleTransactionReceipt';
 
 const useRedeemOnBoardroom = (description?: string) => {
-  const bombFinance = useBombFinance();
+  const grapeFinance = useGrapeFinance();
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
   const handleRedeem = useCallback(() => {
     const alertDesc = description || 'Redeem WINE from Winery';
-    handleTransactionReceipt(bombFinance.exitFromBoardroom(), alertDesc);
-  }, [bombFinance, description, handleTransactionReceipt]);
+    handleTransactionReceipt(grapeFinance.exitFromBoardroom(), alertDesc);
+  }, [grapeFinance, description, handleTransactionReceipt]);
   return {onRedeem: handleRedeem};
 };
 

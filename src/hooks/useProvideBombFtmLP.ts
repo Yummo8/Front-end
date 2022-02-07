@@ -1,24 +1,24 @@
 import {useCallback} from 'react';
-import useBombFinance from './useBombFinance';
+import useGrapeFinance from './useGrapeFinance';
 import useHandleTransactionReceipt from './useHandleTransactionReceipt';
 import {parseUnits} from 'ethers/lib/utils';
 import {TAX_OFFICE_ADDR} from '../utils/constants';
 
-const useProvideBombFtmLP = () => {
-  const bombFinance = useBombFinance();
+const useProvideGrapeFtmLP = () => {
+  const grapeFinance = useGrapeFinance();
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
-  const handleProvideBombFtmLP = useCallback(
-    (ftmAmount: string, bombAmount: string) => {
-      const bombAmountBn = parseUnits(bombAmount);
+  const handleProvideGrapeFtmLP = useCallback(
+    (ftmAmount: string, grapeAmount: string) => {
+      const grapeAmountBn = parseUnits(grapeAmount);
       handleTransactionReceipt(
-        bombFinance.provideBombFtmLP(ftmAmount, bombAmountBn),
-        `Provide BOMB-BTCB LP ${bombAmount} ${ftmAmount} using ${TAX_OFFICE_ADDR}`,
+        grapeFinance.provideGrapeFtmLP(ftmAmount, grapeAmountBn),
+        `Provide GRAPE-MIM LP ${grapeAmount} ${ftmAmount} using ${TAX_OFFICE_ADDR}`,
       );
     },
-    [bombFinance, handleTransactionReceipt],
+    [grapeFinance, handleTransactionReceipt],
   );
-  return {onProvideBombFtmLP: handleProvideBombFtmLP};
+  return {onProvideGrapeFtmLP: handleProvideGrapeFtmLP};
 };
 
-export default useProvideBombFtmLP;
+export default useProvideGrapeFtmLP;

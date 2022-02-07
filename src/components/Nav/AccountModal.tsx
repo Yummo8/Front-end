@@ -6,21 +6,21 @@ import {getDisplayBalance} from '../../utils/formatBalance';
 import Label from '../Label';
 import Modal, {ModalProps} from '../Modal';
 import ModalTitle from '../ModalTitle';
-import useBombFinance from '../../hooks/useBombFinance';
+import useGrapeFinance from '../../hooks/useGrapeFinance';
 import TokenSymbol from '../TokenSymbol';
 import {useMediaQuery} from '@material-ui/core';
 
 const AccountModal: React.FC<ModalProps> = ({onDismiss}) => {
-  const bombFinance = useBombFinance();
+  const grapeFinance = useGrapeFinance();
 
-  const bombBalance = useTokenBalance(bombFinance.BOMB);
-  const displayBombBalance = useMemo(() => getDisplayBalance(bombBalance), [bombBalance]);
+  const grapeBalance = useTokenBalance(grapeFinance.GRAPE);
+  const displayGrapeBalance = useMemo(() => getDisplayBalance(grapeBalance), [grapeBalance]);
 
-  const bshareBalance = useTokenBalance(bombFinance.BSHARE);
-  const displayBshareBalance = useMemo(() => getDisplayBalance(bshareBalance), [bshareBalance]);
+  const wineBalance = useTokenBalance(grapeFinance.WINE);
+  const displayWineBalance = useMemo(() => getDisplayBalance(wineBalance), [wineBalance]);
 
-  const bbondBalance = useTokenBalance(bombFinance.BBOND);
-  const displayBbondBalance = useMemo(() => getDisplayBalance(bbondBalance), [bbondBalance]);
+  const gbondBalance = useTokenBalance(grapeFinance.GBOND);
+  const displayGbondBalance = useMemo(() => getDisplayBalance(gbondBalance), [gbondBalance]);
 
   const matches = useMediaQuery('(min-width:900px)');
 
@@ -30,25 +30,25 @@ const AccountModal: React.FC<ModalProps> = ({onDismiss}) => {
 
       <Balances style={{display: 'flex', flexDirection: matches ? 'row' : 'column'}}>
         <StyledBalanceWrapper style={{paddingBottom: '15px'}}>
-          <TokenSymbol symbol="BOMB" />
+          <TokenSymbol symbol="GRAPE" />
           <StyledBalance>
-            <StyledValue>{displayBombBalance}</StyledValue>
+            <StyledValue>{displayGrapeBalance}</StyledValue>
             <Label text="GRAPE Available" />
           </StyledBalance>
         </StyledBalanceWrapper>
 
         <StyledBalanceWrapper style={{paddingBottom: '15px'}}>
-          <TokenSymbol symbol="BSHARE" />
+          <TokenSymbol symbol="WINE" />
           <StyledBalance>
-            <StyledValue>{displayBshareBalance}</StyledValue>
+            <StyledValue>{displayWineBalance}</StyledValue>
             <Label text="WINE Available" />
           </StyledBalance>
         </StyledBalanceWrapper>
 
         <StyledBalanceWrapper style={{paddingBottom: '15px'}}>
-          <TokenSymbol symbol="BBOND" />
+          <TokenSymbol symbol="GBOND" />
           <StyledBalance>
-            <StyledValue>{displayBbondBalance}</StyledValue>
+            <StyledValue>{displayGbondBalance}</StyledValue>
             <Label text="GBOND Available" />
           </StyledBalance>
         </StyledBalanceWrapper>
