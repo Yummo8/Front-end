@@ -138,7 +138,10 @@ const Nav = () => {
                 Bonds
               </Link>
               <Link to="/strategies" className={'navLink ' + classes.link}>
-                Strategies
+                Strategy
+              </Link>
+              <Link to="/raffle" className={'navLink ' + classes.link}>
+                Raffle
               </Link>
               <Link to="/launchpad" className={'navLink ' + classes.link}>
                 Launchpad
@@ -156,9 +159,7 @@ const Nav = () => {
                 Voting
               </a>
               
-              <a href="https://grapefinance.gitbook.io/grape-finance-docs/" className={'navLink ' + classes.link} rel="noopener" target="_blank">
-                Docs
-              </a>
+
               
               
             </Box>
@@ -225,7 +226,8 @@ const Nav = () => {
                 <ListItemLink primary="Vineyard" to="/vineyard" />
                 <ListItemLink primary="Winery" to="/winery" />
                 <ListItemLink primary="Bond" to="/bond" />
-                <ListItemLink primary="Strategies" to="/strategies" />
+                <ListItemLink primary="Strategy" to="/strategies" />
+                <ListItemLink primary="Raffle" to="/raffle" />
                 <ListItemLink primary="Launchpad" to="/launchpad" />
                 <ListItemLink primary="Roadmap" to="/roadmap" />
                 <ListItem button component="a" href="https://app.beefy.finance/#/avax">
@@ -238,7 +240,7 @@ const Nav = () => {
                   <ListItemText>Voting</ListItemText>
                   </ListItem>
                   
-                <ListItem button component="a" href="https://grapefinance.gitbook.io/grape-finance-docs/">
+                  <ListItem button component="a" href="https://grapefinance.gitbook.io/grape-finance-docs/">
                   <ListItemText>Docs</ListItemText>
                   </ListItem>
                         

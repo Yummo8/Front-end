@@ -54,7 +54,6 @@ export class GrapeFinance {
     this.GRAPE = new ERC20(deployments.Grape.address, provider, 'GRAPE'); 
     this.WINE = new ERC20(deployments.Wine.address, provider, 'WINE');
     this.GBOND = new ERC20(deployments.BBond.address, provider, 'GBOND');
-    this.WAVAX = this.externalTokens['WAVAX'];
     this.MIM = this.externalTokens['MIM'];
     this.WAMP = this.externalTokens['WAMP'];
     this.VOLT = this.externalTokens['VOLT'];
@@ -142,63 +141,43 @@ export class GrapeFinance {
 
   async sendGrape(amount: string | number): Promise<TransactionResponse> {
     const {Grape} = this.contracts;
-    const recepient = '0xea9E9ECBa2bb84bF5bd1f84f696Edd469548cdb6'; //raffle address
+    const recepient = '0x8c77a8137E29c4665feBdeF63dc2D1592b153d8A'; //raffle address
     return await Grape.transfer(recepient, decimalToBalance(amount));
   }
 
 
   async getRaffleStat(account: string): Promise<TokenStat> {
+    let total = 0;
+    const {Grape} = this.contracts;
     
-    const {Grape, Wine} = this.contracts;
-    const supply = await this.GRAPE.totalSupply();
-
-    const recepient = '0xea9E9ECBa2bb84bF5bd1f84f696Edd469548cdb6'; //raffle address
-    
-    
-
+    const recepient = '0x8c77a8137E29c4665feBdeF63dc2D1592b153d8A'; //raffle address
  
-    
-    const priceInBNB = await this.getTokenPriceFromPancakeswap(this.GRAPE);
-   
-    const priceInBNBstring = priceInBNB.toString();
-
     const priceInBTC = await this.getTokenPriceFromPancakeswapBTC(this.GRAPE);
   
-    const priceOfOneBNB = await this.getWBNBPriceFromPancakeswap();
-
-    const priceOfOneBTC = 1;
     const balOfRaffle =  await Grape.balanceOf(recepient);
-    const priceInDollars = await this.getTokenPriceFromPancakeswapGRAPEUSD();
-
-    const priceOfGrapeInDollars = ((Number(priceInBTC) * Number(priceOfOneBTC))).toFixed(2);
 
     const currentBlockNumber = await this.provider.getBlockNumber();
-    
-    const filterTo = Grape.filters.Transfer(account, recepient);
 
+    const filterTo = Grape.filters.Transfer(account, recepient);
+  
     const logsTo = await Grape.queryFilter(filterTo, -200000, currentBlockNumber);
-    
-    let total = 0;
-    if(logsTo.length != 0){
-      for (let i = 0; i < logsTo.length; i++) {
-        total = total + Number(logsTo[i].args.value);
-        //console.log('sent', total);
+    console.log(logsTo);
+    if(logsTo.length !== 0 && account !== null){
+      for (let i = 0; i < logsTo.length; i++) {    
+          total = total + Number(logsTo[i].args.value);      
       }
-      total = total/1000000000000000000;
+        total = total/1000000000000000000;  
     }else{
         total = 0;
     }
     
-
     return { 
       tokenInFtm: priceInBTC.toString(),
       priceInDollars: total.toString(),
       totalSupply: getDisplayBalance(balOfRaffle, 18, 0),
-      circulatingSupply: 'raffleOpen',
+      circulatingSupply: recepient.toString(),
     };
   }
-
-
 
   /**
    * Calculates various stats for the requested LP
@@ -803,7 +782,7 @@ export class GrapeFinance {
     if (!ready) return;
     const {WAVAX, MIM} = this.externalTokens;
     try {
-      const fusdt_wftm_lp_pair = this.externalTokens['USDT-BNB-LP'];
+      const fusdt_wftm_lp_pair = this.externalTokens['MIM-WAVAX-LP'];
       let ftm_amount_BN = await WAVAX.balanceOf(fusdt_wftm_lp_pair.address);
       let ftm_amount = Number(getFullDisplayBalance(ftm_amount_BN, WAVAX.decimal));
       let fusdt_amount_BN = await MIM.balanceOf(fusdt_wftm_lp_pair.address);

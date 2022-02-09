@@ -20,6 +20,7 @@ const configurations: {[env: string]: Configuration} = {
       'GRAPE-MIM-LP': ['0xb382247667fe8ca5327ca1fa4835ae77a9907bc8', 18],
       'GRAPE-WINE-LP': ['0xd3d477Df7f63A2623464Ff5Be6746981FdeD026F', 18],
       'WINE-MIM-LP': ['0x00cB5b42684DA62909665d8151fF80D1567722c3', 18],
+      'MIM-WAVAX-LP': ['0x781655d802670bba3c89aebaaea59d3182fd755d', 18]
     },
     baseLaunchDate: new Date('2022-1-13 17:00:00Z'),
     bondLaunchesAt: new Date('2020-01-03T15:00:00Z'),
@@ -42,6 +43,7 @@ const configurations: {[env: string]: Configuration} = {
       'GRAPE-MIM-LP': ['0xb382247667fe8ca5327ca1fa4835ae77a9907bc8', 18],
       'WINE-MIM-LP': ['0x00cB5b42684DA62909665d8151fF80D1567722c3', 18],
       'GRAPE-WINE-LP': ['0xd3d477Df7f63A2623464Ff5Be6746981FdeD026F', 18],
+      'MIM-WAVAX-LP': ['0x781655d802670bba3c89aebaaea59d3182fd755d', 18]
     },
     baseLaunchDate: new Date('2021-12-30 1:00:00Z'),
     bondLaunchesAt: new Date('2020-12-03T15:00:00Z'),

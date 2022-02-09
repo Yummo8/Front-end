@@ -53,7 +53,15 @@ const Footer = () => {
             </Typography>
           </Grid>
           <Grid item xs={6} style={{textAlign: 'right', height: '20px'}}>
-          
+
+          <a
+              href="https://grapefinance.gitbook.io/grape-finance-docs/"
+              rel="noopener noreferrer"
+              target="_blank"
+              className={'navLink ' + classes.link}
+            >
+              Grape Docs
+            </a>
             <a
               href="https://twitter.com/grape_finance"
               rel="noopener noreferrer"

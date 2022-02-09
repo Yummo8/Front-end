@@ -71,8 +71,7 @@ const App: React.FC = () => {
             </Route> 
             <Route path="/raffle">
               <Raffle />
-            </Route> 
-                   
+            </Route>               
             <Route path="*">
               <NoMatch />
             </Route>
