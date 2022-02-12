@@ -36,7 +36,7 @@ export type TokenStat = {
 
 export type LPStat = {
   tokenAmount: string;
-  ftmAmount: string;
+  mimAmount: string;
   priceOfOne: string;
   totalLiquidity: string;
   totalSupply: string;

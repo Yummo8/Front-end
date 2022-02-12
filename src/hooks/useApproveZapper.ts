@@ -3,7 +3,7 @@ import {useCallback, useMemo} from 'react';
 import {useHasPendingApproval, useTransactionAdder} from '../state/transactions/hooks';
 import useAllowance from './useAllowance';
 import ERC20 from '../grape-finance/ERC20';
-import {BNB_TICKER, GRAPE_TICKER, BSHARE_TICKER, BTC_TICKER, ZAPPER_ROUTER_ADDR} from '../utils/constants';
+import {GRAPE_TICKER, WINE_TICKER, MIM_TICKER, ZAPPER_ROUTER_ADDR} from '../utils/constants';
 import useGrapeFinance from './useGrapeFinance';
 
 const APPROVE_AMOUNT = ethers.constants.MaxUint256;
@@ -20,17 +20,16 @@ export enum ApprovalState {
 function useApproveZapper(zappingToken: string): [ApprovalState, () => Promise<void>] {
   const grapeFinance = useGrapeFinance();
   let token: ERC20;
-  if (zappingToken === BNB_TICKER) token = grapeFinance.BNB;
-  else if (zappingToken === GRAPE_TICKER) token = grapeFinance.GRAPE;
-  else if (zappingToken === BSHARE_TICKER) token = grapeFinance.WINE;
-  else if (zappingToken === BTC_TICKER) token = grapeFinance.externalTokens[BTC_TICKER];
+
+  if (zappingToken === GRAPE_TICKER) token = grapeFinance.GRAPE;
+  else if (zappingToken === WINE_TICKER) token = grapeFinance.WINE;
+  else if (zappingToken === MIM_TICKER) token = grapeFinance.externalTokens[MIM_TICKER];
   const pendingApproval = useHasPendingApproval(token.address, ZAPPER_ROUTER_ADDR);
   const currentAllowance = useAllowance(token, ZAPPER_ROUTER_ADDR, pendingApproval);
 
   // check the current approval status
   const approvalState: ApprovalState = useMemo(() => {
     // we might not have enough data to know whether or not we need to approve
-    if (token === grapeFinance.BNB) return ApprovalState.APPROVED;
     if (!currentAllowance) return ApprovalState.UNKNOWN;
 
     // amountToApprove will be defined if currentAllowance is

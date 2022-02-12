@@ -15,7 +15,7 @@ import useTokenBalance from '../../../hooks/useTokenBalance';
 import useGrapeFinance from '../../../hooks/useGrapeFinance';
 import {useWallet} from 'use-wallet';
 import useApproveZapper, {ApprovalState} from '../../../hooks/useApproveZapper';
-import {GRAPE_TICKER, BSHARE_TICKER, BNB_TICKER, BTC_TICKER} from '../../../utils/constants';
+import {GRAPE_TICKER, WINE_TICKER, MIM_TICKER} from '../../../utils/constants';
 import {Alert} from '@material-ui/lab';
 
 interface ZapProps extends ModalProps {
@@ -26,21 +26,24 @@ interface ZapProps extends ModalProps {
 
 const ZapModal: React.FC<ZapProps> = ({onConfirm, onDismiss, tokenName = '', decimals = 18}) => {
   const grapeFinance = useGrapeFinance();
-  const {balance} = useWallet();
-  const ftmBalance = (Number(balance) / 1e18).toFixed(4).toString();
+  //const {balance} = useWallet();
+
   const grapeBalance = useTokenBalance(grapeFinance.GRAPE);
   const wineBalance = useTokenBalance(grapeFinance.WINE);
-  const btcBalance = useTokenBalance(grapeFinance.BTC);
+  const mimBalance = useTokenBalance(grapeFinance.MIM);
+
+  //const avaxDisplayBalance = (Number(balance) / 1e18).toFixed(4).toString();
+
   const [val, setVal] = useState('');
-  const [zappingToken, setZappingToken] = useState(BNB_TICKER);
-  const [zappingTokenBalance, setZappingTokenBalance] = useState(ftmBalance);
-  const [estimate, setEstimate] = useState({token0: '0', token1: '0'}); // token0 will always be BNB in this case
+  const [zappingToken, setZappingToken] = useState(MIM_TICKER);
+  const [zappingTokenBalance, setZappingTokenBalance] = useState(getDisplayBalance(mimBalance, decimals));
+  const [estimate, setEstimate] = useState({token0: '0', token1: '0'}); // token0 will always be MIM in this case
   const [approveZapperStatus, approveZapper] = useApproveZapper(zappingToken);
-  const grapeFtmLpStats = useLpStats('GRAPE-MIM-LP');
-  const tShareFtmLpStats = useLpStats('WINE-MIM-LP');
-  const grapeLPStats = useMemo(() => (grapeFtmLpStats ? grapeFtmLpStats : null), [grapeFtmLpStats]);
-  const wineLPStats = useMemo(() => (tShareFtmLpStats ? tShareFtmLpStats : null), [tShareFtmLpStats]);
-  const ftmAmountPerLP = tokenName.startsWith(GRAPE_TICKER) ? grapeLPStats?.ftmAmount : wineLPStats?.ftmAmount;
+  const grapemimLpStats = useLpStats('GRAPE-MIM-LP');
+  const wineSharemimLpStats = useLpStats('WINE-MIM-LP');
+  const grapeLPStats = useMemo(() => (grapemimLpStats ? grapemimLpStats : null), [grapemimLpStats]);
+  const wineLPStats = useMemo(() => (wineSharemimLpStats ? wineSharemimLpStats : null), [wineSharemimLpStats]);
+  const mimAmountPerLP = tokenName.startsWith(GRAPE_TICKER) ? grapeLPStats?.mimAmount : wineLPStats?.mimAmount;
   /**
    * Checks if a value is a valid number or not
    * @param n is the value to be evaluated for a number
@@ -52,15 +55,15 @@ const ZapModal: React.FC<ZapProps> = ({onConfirm, onDismiss, tokenName = '', dec
   const handleChangeAsset = (event: any) => {
     const value = event.target.value;
     setZappingToken(value);
-    setZappingTokenBalance(ftmBalance);
-    if (event.target.value === BSHARE_TICKER) {
+    setZappingTokenBalance(getDisplayBalance(mimBalance, decimals));
+    if (event.target.value === WINE_TICKER) {
       setZappingTokenBalance(getDisplayBalance(wineBalance, decimals));
     }
     if (event.target.value === GRAPE_TICKER) {
       setZappingTokenBalance(getDisplayBalance(grapeBalance, decimals));
     }
-    if (event.target.value === BTC_TICKER) {
-      setZappingTokenBalance(getDisplayBalance(btcBalance, decimals));
+    if (event.target.value === MIM_TICKER) {
+      setZappingTokenBalance(getDisplayBalance(mimBalance, decimals));
     }
   };
 
@@ -90,11 +93,9 @@ const ZapModal: React.FC<ZapProps> = ({onConfirm, onDismiss, tokenName = '', dec
         Select asset to zap with
       </InputLabel>
       <Select onChange={handleChangeAsset} style={{color: '#2c2560'}} labelId="label" id="select" value={zappingToken}>
-        <StyledMenuItem value={BNB_TICKER}>BNB</StyledMenuItem>
-        <StyledMenuItem value={BSHARE_TICKER}>WINE</StyledMenuItem>
-        {/* <StyledMenuItem value={BTC_TICKER}>BTC</StyledMenuItem> */}
-        {/* Grape as an input for zapping will be disabled due to issues occuring with the Gatekeeper system */}
-        {/* <StyledMenuItem value={GRAPE_TICKER}>GRAPE</StyledMenuItem> */}
+        <StyledMenuItem value={MIM_TICKER}>MIM</StyledMenuItem>
+        <StyledMenuItem value={WINE_TICKER}>WINE</StyledMenuItem>
+        <StyledMenuItem value={GRAPE_TICKER}>GRAPE</StyledMenuItem>
       </Select>
       <TokenInput
         onSelectMax={handleSelectMax}
@@ -106,12 +107,12 @@ const ZapModal: React.FC<ZapProps> = ({onConfirm, onDismiss, tokenName = '', dec
       <Label text="Zap Estimations" />
       <StyledDescriptionText>
         {' '}
-        {tokenName}: {Number(estimate.token0) / Number(ftmAmountPerLP)}
+        {tokenName}: {Number(estimate.token0) / Number(mimAmountPerLP)}
       </StyledDescriptionText>
       <StyledDescriptionText>
         {' '}
-        ({Number(estimate.token0)} {tokenName.startsWith(BSHARE_TICKER) ? BSHARE_TICKER : BNB_TICKER} /{' '}
-        {Number(estimate.token1)} {tokenName.startsWith(BSHARE_TICKER) ? BNB_TICKER : BSHARE_TICKER}){' '}
+        ({Number(estimate.token0)} {tokenName.startsWith(WINE_TICKER) ? WINE_TICKER : MIM_TICKER} /{' '}
+        {Number(estimate.token1)} {tokenName.startsWith(WINE_TICKER) ? MIM_TICKER : WINE_TICKER}){' '}
       </StyledDescriptionText>
       <ModalActions>
         <Button
@@ -127,7 +128,7 @@ const ZapModal: React.FC<ZapProps> = ({onConfirm, onDismiss, tokenName = '', dec
 
       <StyledActionSpacer />
       <Alert variant="filled" severity="info">
-        New feature. Use at your own risk!
+        You need to manually stake the LP tokens after zapping. This feature piggybacks off of the Piggy Finance zapper.
       </Alert>
     </Modal>
   );
