@@ -274,7 +274,7 @@ export class GrapeFinance {
 
 
     return {
-      tokenInFtm: bondPriceInBNB,
+      tokenInFtm: modifier.toString(),
       priceInDollars: priceOfBBondInDollars,
       totalSupply: supply,
       circulatingSupply: supply,

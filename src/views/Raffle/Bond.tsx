@@ -125,12 +125,12 @@ const Bond: React.FC = () => {
         <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>Every week we'll run a raffle for our community where you have the chance to win WINE tokens just by sending in your freely earned Grape rewards.<br></br> <br></br> 1 Grape =  1 entry and there are unlimited entries per address, the more Grape you send the more chance you have to win. After the winner is chosen all Grape sent to the address will be burnt! The winner will be chosen at random.</p>                
         <p style={{fontSize: '20px', textAlign:'center', color: '#fff' }}>Raffle address: {raffleAddress}</p>
       </Grid>
-      <LaunchCountdown deadline={startDate} description={'Next raffle opens in'} descriptionLink={''}></LaunchCountdown>
+      <LaunchCountdown deadline={date} description={'Raffle closes in'} descriptionLink={''}></LaunchCountdown>
     <Grid container justify="center" spacing={3} style={{marginTop: '10px'}}>
       <Grid item xs={12} sm={12} lg={6}>  
             <Card>
               <h2 style={{textAlign:'center', marginTop: '10px' }}>Raffle Stats</h2>
-              <p style={{textAlign:'center'}}>Win 1 WINE this upcoming raffle</p>
+              <p style={{textAlign:'center'}}>Win 1 WINE this raffle</p>
               
               <p style={{textAlign:'center'}}>Grape Price: ${grapePrice}</p>
               <p style={{textAlign:'center'}}>Total Grape Entered: {raffleBals}</p>         
