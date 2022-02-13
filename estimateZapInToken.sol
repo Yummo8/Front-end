@@ -36,6 +36,6 @@ function _getSwapAmount(
 
 // i = tokenA investment
 // h = half of tokenA investment
-// n = corresponding number of tokenB (extcall)
+// n = corresponding number of tokenB
 // d = price quote after adding h to reserve of tokenA and removing n from reserve of tokenB
 // s = i - sqrt((h * h * n) / d)

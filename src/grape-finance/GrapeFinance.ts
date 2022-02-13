@@ -1234,20 +1234,22 @@ export class GrapeFinance {
       new Token(ChainId.AVALANCHE, otherToken.address, 18),
       this.provider,
     );
-    console.log(pair);
+    console.log(pair.priceOf(new Token(ChainId.AVALANCHE, otherToken.address, 18)).toSignificant(6));
 
     let estimateNum = await this.estimateTrade(token, otherToken, half, pair);
 
     let numerator = ethers.utils.parseEther(await estimateNum.toSignificant(6));
     let denominator = ethers.utils.parseEther(
-      await (
+      (
         await this.estimateTrade(token, otherToken, half, new Pair(pair.reserve0, pair.reserve1, ChainId.AVALANCHE))
       ).toSignificant(6),
     );
 
     let swapAmountIn = investment.sub(this.sqrt(half.mul(half).mul(numerator).div(denominator)));
 
-    let swapAmountOut = await (await this.estimateTrade(token, otherToken, swapAmountIn, pair)).toSignificant(6);
+    let swapAmountOut = (await this.estimateTrade(token, otherToken, swapAmountIn, pair)).toSignificant(6);
+
+    console.log(swapAmountOut);
 
     return {
       amounts: [ethers.utils.formatEther(half), swapAmountOut],
@@ -1269,10 +1271,12 @@ export class GrapeFinance {
 
     const trade = new Trade(
       route,
-      new TokenAmount(inputToken, ethers.utils.formatEther(ethers.BigNumber.from(amount)).toString()),
+      new TokenAmount(inputToken, amount.toString()),
       TradeType.EXACT_INPUT,
       ChainId.AVALANCHE,
     );
+
+    console.log('price impact: ' + trade.priceImpact.toSignificant(6));
 
     return trade.executionPrice;
   }
