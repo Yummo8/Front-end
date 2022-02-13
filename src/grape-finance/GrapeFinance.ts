@@ -14,7 +14,6 @@ import moment from 'moment';
 import {parseUnits} from 'ethers/lib/utils';
 import {MIM_TICKER, SPOOKY_ROUTER_ADDR, GRAPE_TICKER, WINE_TICKER} from '../utils/constants';
 import {Console} from 'console';
-import sqrt from 'bn-sqrt';
 /**
  * An API module of Grape Finance contracts.
  * All contract-interacting domain logic should be defined in here.
@@ -48,8 +47,10 @@ export class GrapeFinance {
       this.contracts[name] = new Contract(deployment.address, deployment.abi, provider);
     }
     this.externalTokens = {};
-    for (const [symbol, [address, decimal, [tokenA, tokenB]]] of Object.entries(externalTokens)) {
-      if (tokenA && tokenB) {
+    this.externalLPs = {};
+    for (const [symbol, [address, decimal, lp]] of Object.entries(externalTokens)) {
+      if (lp) {
+        let [tokenA, tokenB] = lp;
         this.externalLPs[symbol] = new LPERC20(new ERC20(address, provider, symbol, decimal), [
           new ERC20(tokenA, provider, symbol, decimal),
           new ERC20(tokenB, provider, symbol, decimal),
@@ -1170,7 +1171,11 @@ export class GrapeFinance {
    * @param to block number
    * @returns the amount of bonds events emitted based on the filter provided during a specific period
    */
-  async estimateZapIn(tokenName: string, lpName: string, amount: string): Promise<number[]> {
+  async estimateZapIn(
+    tokenName: string,
+    lpName: string,
+    amount: string,
+  ): Promise<{amounts: string[]; actions: string[]}> {
     // YOU SHOULD NOT BE ABLE TO ZAP USING TOKENS OUTSIDE OF THE LP
 
     // WARNING: SPAGHETTI CODE AHEAD
@@ -1217,11 +1222,9 @@ export class GrapeFinance {
     // half = half of tokenA investment
     // numerator = corresponding number of tokenB (extcall)
     // denominator = price quote after adding half to reserve of tokenA and removing numerator from reserve of tokenB
-    // swapAmount = investment - sqrt((half * half * numerator) / denominator)
+    // swapAmount = investment - sqrt((half * half * numerator / denominator))
 
     let otherToken = lpToken.pairTokenAddresses[0] == token.address ? lpToken.pairTokens[1] : lpToken.pairTokens[0];
-
-    let estimate = await this.estimateTrade(token, otherToken, amount);
 
     let investment = ethers.utils.parseEther(amount);
     let half = investment.div(2);
@@ -1233,14 +1236,23 @@ export class GrapeFinance {
       this.provider,
     );
 
-    let numerator = await (await this.estimateTrade(token, otherToken, half, pair)).toSignificant(6);
-    let denominator = await (
-      await this.estimateTrade(token, otherToken, half, new Pair(pair.reserve0, pair.reserve1, ChainId.AVALANCHE))
-    ).toSignificant(6);
+    let estimateNum = await this.estimateTrade(token, otherToken, half, pair);
 
-    let swapAmount = investment.sub(this.sqrt(half.mul(half).mul(numerator)).div(denominator));
+    let numerator = ethers.utils.parseEther(await estimateNum.toSignificant(6));
+    let denominator = ethers.utils.parseEther(
+      await (
+        await this.estimateTrade(token, otherToken, half, new Pair(pair.reserve0, pair.reserve1, ChainId.AVALANCHE))
+      ).toSignificant(6),
+    );
 
-    return [swapAmount.toNumber()];
+    let swapAmountIn = investment.sub(this.sqrt(half.mul(half).mul(numerator).div(denominator)));
+
+    let swapAmountOut = await (await this.estimateTrade(token, otherToken, swapAmountIn, pair)).toSignificant(6);
+
+    return {
+      amounts: [ethers.utils.formatEther(half), ethers.utils.formatEther(swapAmountOut)],
+      actions: [`Swap ${ethers.utils.formatEther(half)} for ${estimateNum.toSignificant(6)}`],
+    };
   }
 
   async estimateTrade(tokenFrom: ERC20, tokenTo: ERC20, amount: BigNumberish, pair?: Pair): Promise<Price> {

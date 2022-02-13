@@ -82,13 +82,13 @@ const ZapModal: React.FC<ZapProps> = ({onConfirm, onDismiss, LPtokenName = '', d
     if (!isNumeric(e.currentTarget.value)) return;
     setVal(e.currentTarget.value);
     const estimateZap = await grapeFinance.estimateZapIn(zappingToken, LPtokenName, String(e.currentTarget.value));
-    setEstimate({token0: estimateZap[0].toString(), token1: estimateZap[1].toString()});
+    setEstimate({token0: estimateZap.amounts[0], token1: estimateZap.amounts[1]});
   };
 
   const handleSelectMax = async () => {
     setVal(zappingTokenBalance);
     const estimateZap = await grapeFinance.estimateZapIn(zappingToken, LPtokenName, String(zappingTokenBalance));
-    setEstimate({token0: estimateZap[0].toString(), token1: estimateZap[1].toString()});
+    setEstimate({token0: estimateZap.amounts[0].toString(), token1: estimateZap.amounts[1].toString()});
   };
 
   function getOrder(tokenA: string, tokenB: string): string[] {
@@ -111,9 +111,9 @@ const ZapModal: React.FC<ZapProps> = ({onConfirm, onDismiss, LPtokenName = '', d
         value={showZapData ? zappingToken : 'NONE'}
       >
         <StyledMenuItem value="NONE">Choose asset</StyledMenuItem>
-        <StyledMenuItem value={MIM_TICKER}>MIM</StyledMenuItem>
-        <StyledMenuItem value={WINE_TICKER}>WINE</StyledMenuItem>
-        <StyledMenuItem value={GRAPE_TICKER}>GRAPE</StyledMenuItem>
+        {LPtokenName.includes(MIM_TICKER) && <StyledMenuItem value={MIM_TICKER}>MIM</StyledMenuItem>}
+        {LPtokenName.includes(WINE_TICKER) && <StyledMenuItem value={WINE_TICKER}>WINE</StyledMenuItem>}
+        {LPtokenName.includes(GRAPE_TICKER) && <StyledMenuItem value={GRAPE_TICKER}>GRAPE</StyledMenuItem>}
       </Select>
       {showZapData && (
         <>
