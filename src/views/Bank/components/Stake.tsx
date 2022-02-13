@@ -74,7 +74,7 @@ const Stake: React.FC<StakeProps> = ({bank}) => {
         onZap(zappingToken, tokenName, amount);
         onDissmissZap();
       }}
-      tokenName={bank.depositTokenName}
+      LPtokenName={bank.depositTokenName}
     />,
   );
 
@@ -136,16 +136,15 @@ const Stake: React.FC<StakeProps> = ({bank}) => {
                   <RemoveIcon />
                 </IconButton>
                 <StyledActionSpacer />
-                <IconButton
-                  disabled={
-                    bank.closedForStaking ||
-                    bank.depositTokenName === 'GRAPE-MIM-APELP' ||
-                    bank.depositTokenName === 'GRAPE-MIM-LP'
-                  }
-                  onClick={() => (bank.closedForStaking ? null : onPresentZap())}
-                >
-                  <FlashOnIcon style={{color: themeColor.grey[400]}} />
-                </IconButton>
+                {bank.depositTokenName.includes('LP') && (
+                  <IconButton
+                    disabled={bank.closedForStaking}
+                    onClick={() => (bank.closedForStaking ? null : onPresentZap())}
+                  >
+                    <FlashOnIcon style={{color: themeColor.grey[400]}} />
+                  </IconButton>
+                )}
+
                 <StyledActionSpacer />
                 <IconButton
                   disabled={bank.closedForStaking}

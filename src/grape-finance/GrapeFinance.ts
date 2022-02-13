@@ -1,18 +1,20 @@
-import {Fetcher, Route, Token} from '@traderjoe-xyz/sdk';
+import {ChainId, Fetcher, Pair, Price, Route, Token, TokenAmount, Trade, TradeType} from '@traderjoe-xyz/sdk';
 import {Configuration} from './config';
 import {ContractName, TokenStat, AllocationTime, LPStat, Bank, PoolStats, WineSwapperStat} from './types';
-import {BigNumber, Contract, ethers, EventFilter} from 'ethers';
+import {BigNumber, BigNumberish, Contract, ethers, EventFilter} from 'ethers';
 import {decimalToBalance} from './ether-utils';
 import {TransactionResponse} from '@ethersproject/providers';
-import ERC20 from './ERC20';
+import ERC20, {LPERC20} from './ERC20';
 import {getFullDisplayBalance, getDisplayBalance} from '../utils/formatBalance';
 import {getDefaultProvider} from '../utils/provider';
+
 import IUniswapV2PairABI from './IUniswapV2Pair.abi.json';
 import config, {bankDefinitions} from '../config';
 import moment from 'moment';
 import {parseUnits} from 'ethers/lib/utils';
 import {MIM_TICKER, SPOOKY_ROUTER_ADDR, GRAPE_TICKER, WINE_TICKER} from '../utils/constants';
 import {Console} from 'console';
+import sqrt from 'bn-sqrt';
 /**
  * An API module of Grape Finance contracts.
  * All contract-interacting domain logic should be defined in here.
@@ -24,6 +26,7 @@ export class GrapeFinance {
   config: Configuration;
   contracts: {[name: string]: Contract};
   externalTokens: {[name: string]: ERC20};
+  externalLPs: {[name: string]: LPERC20};
   boardroomVersionOfUser?: string;
 
   GRAPEBTCB_LP: Contract;
@@ -45,7 +48,13 @@ export class GrapeFinance {
       this.contracts[name] = new Contract(deployment.address, deployment.abi, provider);
     }
     this.externalTokens = {};
-    for (const [symbol, [address, decimal]] of Object.entries(externalTokens)) {
+    for (const [symbol, [address, decimal, [tokenA, tokenB]]] of Object.entries(externalTokens)) {
+      if (tokenA && tokenB) {
+        this.externalLPs[symbol] = new LPERC20(new ERC20(address, provider, symbol, decimal), [
+          new ERC20(tokenA, provider, symbol, decimal),
+          new ERC20(tokenB, provider, symbol, decimal),
+        ]);
+      }
       this.externalTokens[symbol] = new ERC20(address, provider, symbol, decimal);
     }
     this.GRAPE = new ERC20(deployments.Grape.address, provider, 'GRAPE');
@@ -1140,10 +1149,35 @@ export class GrapeFinance {
     return bondsAmount.length;
   }
 
+  sqrt(value: BigNumberish) {
+    const ONE = ethers.BigNumber.from(1);
+    const TWO = ethers.BigNumber.from(2);
+    let x = ethers.BigNumber.from(value);
+    let z = x.add(ONE).div(TWO);
+    let y = x;
+    while (z.sub(y).isNegative()) {
+      y = z;
+      z = x.div(z).add(z).div(TWO);
+    }
+    return y;
+  }
+
+  /**
+   * Estimate the amount of tokens on each side of the pair
+   * and the amount of liquidity pool shares.
+   * @param tokenName The name of the token
+   * @param from block number
+   * @param to block number
+   * @returns the amount of bonds events emitted based on the filter provided during a specific period
+   */
   async estimateZapIn(tokenName: string, lpName: string, amount: string): Promise<number[]> {
+    // YOU SHOULD NOT BE ABLE TO ZAP USING TOKENS OUTSIDE OF THE LP
+
+    // WARNING: SPAGHETTI CODE AHEAD
+
     const {zapper} = this.contracts;
-    const lpToken = this.externalTokens[lpName];
-    let estimate;
+    const lpToken = this.externalLPs[lpName];
+
     let token: ERC20;
 
     switch (tokenName) {
@@ -1161,17 +1195,76 @@ export class GrapeFinance {
       }
     }
 
-    console.log([token.address, lpToken.address, SPOOKY_ROUTER_ADDR, parseUnits(amount, 18)]);
+    // Check if token is part of the LP
+    if (!lpToken.pairTokenAddresses.includes(token.address)) {
+      throw new Error('Estimate Zapin: Input token not present in pair.');
+    }
 
+    console.log([token.address, lpToken.token.address, SPOOKY_ROUTER_ADDR, parseUnits(amount, 18)]);
+
+    /* Didn't work
     estimate = await zapper.estimateZapInToken(
       token.address,
       lpToken.address,
       SPOOKY_ROUTER_ADDR,
       parseUnits(amount, 18),
+    );*/
+
+    // Perform the swap calculation on client-side, using TraderJoe router
+    // getAmountOut()
+
+    // investment = tokenA investment
+    // half = half of tokenA investment
+    // numerator = corresponding number of tokenB (extcall)
+    // denominator = price quote after adding half to reserve of tokenA and removing numerator from reserve of tokenB
+    // swapAmount = investment - sqrt((half * half * numerator) / denominator)
+
+    let otherToken = lpToken.pairTokenAddresses[0] == token.address ? lpToken.pairTokens[1] : lpToken.pairTokens[0];
+
+    let estimate = await this.estimateTrade(token, otherToken, amount);
+
+    let investment = ethers.utils.parseEther(amount);
+    let half = investment.div(2);
+
+    // get pair data: tokenA reserve & tokenB reserve
+    let pair = await Fetcher.fetchPairData(
+      new Token(ChainId.AVALANCHE, token.address, 18),
+      new Token(ChainId.AVALANCHE, otherToken.address, 18),
+      this.provider,
     );
 
-    return [estimate[0] / 1e18, estimate[1] / 1e18];
+    let numerator = await (await this.estimateTrade(token, otherToken, half, pair)).toSignificant(6);
+    let denominator = await (
+      await this.estimateTrade(token, otherToken, half, new Pair(pair.reserve0, pair.reserve1, ChainId.AVALANCHE))
+    ).toSignificant(6);
+
+    let swapAmount = investment.sub(this.sqrt(half.mul(half).mul(numerator)).div(denominator));
+
+    return [swapAmount.toNumber()];
   }
+
+  async estimateTrade(tokenFrom: ERC20, tokenTo: ERC20, amount: BigNumberish, pair?: Pair): Promise<Price> {
+    const inputToken = new Token(ChainId.AVALANCHE, tokenFrom.address, 18);
+    const outputToken = new Token(ChainId.AVALANCHE, tokenTo.address, 18);
+
+    // note that you may want/need to handle this async code differently,
+    // for example if top-level await is not an option
+    if (!pair) {
+      pair = await Fetcher.fetchPairData(inputToken, outputToken, this.provider);
+    }
+
+    const route = new Route([pair], inputToken, outputToken);
+
+    const trade = new Trade(
+      route,
+      new TokenAmount(inputToken, ethers.BigNumber.from(amount).toString()),
+      TradeType.EXACT_INPUT,
+      ChainId.AVALANCHE,
+    );
+
+    return trade.executionPrice;
+  }
+
   async zapIn(tokenName: string, lpName: string, amount: string): Promise<TransactionResponse> {
     const {zapper} = this.contracts;
     const lpToken = this.externalTokens[lpName];

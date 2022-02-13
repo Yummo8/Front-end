@@ -43,6 +43,7 @@ const Bank: React.FC = () => {
   useEffect(() => window.scrollTo(0, 0));
   const date = new Date('2022-1-31 12:00:00Z');
   const classes = useStyles();
+  // @ts-ignore
   const {bankId} = useParams();
   const bank = useBank(bankId);
 

@@ -1,6 +1,6 @@
 {
   "zapper": {
-    "//1": "This is the Piggy Finance zapper, since the og didn't work.",
+    "//1": "This is the Piggy Finance zapper.",
     "address": "0x2f3ba9e012401c29a24f01a018b7e49db091bbcb",
     "abi": [
       {
