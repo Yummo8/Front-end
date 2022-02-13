@@ -92,6 +92,9 @@ const ZapModal: React.FC<ZapProps> = ({onConfirm, onDismiss, LPtokenName = '', d
   };
 
   function getOrder(tokenA: string, tokenB: string): string[] {
+    if (tokenA == GRAPE_TICKER) return [tokenA, tokenB];
+    if (tokenA == WINE_TICKER) return [tokenA, tokenB];
+    if (tokenA == MIM_TICKER) return [tokenB, tokenA];
     return;
   }
 

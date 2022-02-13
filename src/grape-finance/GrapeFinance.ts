@@ -1164,11 +1164,10 @@ export class GrapeFinance {
   }
 
   /**
-   * Estimate the amount of tokens on each side of the pair
-   * and the amount of liquidity pool shares.
+   * Estimate the amount of tokens on each side of the pair.
    * @param tokenName The name of the token
-   * @param from block number
-   * @param to block number
+   * @param lpName The name of the pair
+   * @param amount The amount of tokenName to be zapped in
    * @returns the amount of bonds events emitted based on the filter provided during a specific period
    */
   async estimateZapIn(
@@ -1235,6 +1234,7 @@ export class GrapeFinance {
       new Token(ChainId.AVALANCHE, otherToken.address, 18),
       this.provider,
     );
+    console.log(pair);
 
     let estimateNum = await this.estimateTrade(token, otherToken, half, pair);
 
@@ -1250,7 +1250,7 @@ export class GrapeFinance {
     let swapAmountOut = await (await this.estimateTrade(token, otherToken, swapAmountIn, pair)).toSignificant(6);
 
     return {
-      amounts: [ethers.utils.formatEther(half), ethers.utils.formatEther(swapAmountOut)],
+      amounts: [ethers.utils.formatEther(half), swapAmountOut],
       actions: [`Swap ${ethers.utils.formatEther(half)} for ${estimateNum.toSignificant(6)}`],
     };
   }
@@ -1269,7 +1269,7 @@ export class GrapeFinance {
 
     const trade = new Trade(
       route,
-      new TokenAmount(inputToken, ethers.BigNumber.from(amount).toString()),
+      new TokenAmount(inputToken, ethers.utils.formatEther(ethers.BigNumber.from(amount)).toString()),
       TradeType.EXACT_INPUT,
       ChainId.AVALANCHE,
     );
