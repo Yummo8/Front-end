@@ -1,4 +1,15 @@
-import {ChainId, Fetcher, Pair, Price, Route, Token, TokenAmount, Trade, TradeType} from '@traderjoe-xyz/sdk';
+import {
+  ChainId,
+  CurrencyAmount,
+  Fetcher,
+  Pair,
+  Price,
+  Route,
+  Token,
+  TokenAmount,
+  Trade,
+  TradeType,
+} from '@traderjoe-xyz/sdk';
 import {Configuration} from './config';
 import {ContractName, TokenStat, AllocationTime, LPStat, Bank, PoolStats, WineSwapperStat} from './types';
 import {BigNumber, BigNumberish, Contract, ethers, EventFilter} from 'ethers';
@@ -1234,8 +1245,6 @@ export class GrapeFinance {
       new Token(ChainId.AVALANCHE, otherToken.address, 18),
       this.provider,
     );
-    console.log(pair.priceOf(new Token(ChainId.AVALANCHE, otherToken.address, 18)).toSignificant(6));
-
     let estimateNum = await this.estimateTrade(token, otherToken, half, pair);
 
     let numerator = ethers.utils.parseEther(await estimateNum.toSignificant(6));
@@ -1244,20 +1253,20 @@ export class GrapeFinance {
         await this.estimateTrade(token, otherToken, half, new Pair(pair.reserve0, pair.reserve1, ChainId.AVALANCHE))
       ).toSignificant(6),
     );
-
+    // investment - sqrt(half^2 * num)
     let swapAmountIn = investment.sub(this.sqrt(half.mul(half).mul(numerator).div(denominator)));
 
-    let swapAmountOut = (await this.estimateTrade(token, otherToken, swapAmountIn, pair)).toSignificant(6);
+    let swapAmountOut = (await this.estimateTrade(token, otherToken, half, pair)).toSignificant(6);
 
     console.log(swapAmountOut);
 
     return {
-      amounts: [ethers.utils.formatEther(half), swapAmountOut],
+      amounts: [ethers.utils.formatEther(swapAmountIn), swapAmountOut],
       actions: [`Swap ${ethers.utils.formatEther(half)} for ${estimateNum.toSignificant(6)}`],
     };
   }
 
-  async estimateTrade(tokenFrom: ERC20, tokenTo: ERC20, amount: BigNumberish, pair?: Pair): Promise<Price> {
+  async estimateTrade(tokenFrom: ERC20, tokenTo: ERC20, amount: BigNumberish, pair?: Pair): Promise<CurrencyAmount> {
     const inputToken = new Token(ChainId.AVALANCHE, tokenFrom.address, 18);
     const outputToken = new Token(ChainId.AVALANCHE, tokenTo.address, 18);
 
@@ -1276,9 +1285,16 @@ export class GrapeFinance {
       ChainId.AVALANCHE,
     );
 
+    /*
+    console.log('--------');
+    console.log('TRADE');
+    console.log('amount of input (bignumber): ' + amount.toString());
+    console.log('execution price (Output/Input):' + trade.executionPrice.toSignificant(6));
     console.log('price impact: ' + trade.priceImpact.toSignificant(6));
-
-    return trade.executionPrice;
+    console.log('liquidity 0: ' + pair.reserve0.toSignificant(6));
+    console.log('liquidity 1: ' + pair.reserve1.toSignificant(6));
+    */
+    return trade.outputAmount;
   }
 
   async zapIn(tokenName: string, lpName: string, amount: string): Promise<TransactionResponse> {

@@ -75,14 +75,20 @@ const ZapModal: React.FC<ZapProps> = ({onConfirm, onDismiss, LPtokenName = '', d
   };
 
   const handleChange = async (e: any) => {
-    if (e.currentTarget.value === '' || e.currentTarget.value === 0) {
+    if (!isNumeric(e.currentTarget.value) || e.currentTarget.value.includes('-')) return;
+    if (e.currentTarget.value === '' || Number(e.currentTarget.value) == 0) {
       setVal(e.currentTarget.value);
       setEstimate({token0: '0', token1: '0'});
+    } else {
+      setVal(e.currentTarget.value);
+      const estimateZap = await grapeFinance.estimateZapIn(
+        zappingToken,
+        LPtokenName,
+        String(e.currentTarget.value).trim(),
+      );
+
+      setEstimate({token0: estimateZap.amounts[0], token1: estimateZap.amounts[1]});
     }
-    if (!isNumeric(e.currentTarget.value)) return;
-    setVal(e.currentTarget.value);
-    const estimateZap = await grapeFinance.estimateZapIn(zappingToken, LPtokenName, String(e.currentTarget.value));
-    setEstimate({token0: estimateZap.amounts[0], token1: estimateZap.amounts[1]});
   };
 
   const handleSelectMax = async () => {
@@ -91,13 +97,29 @@ const ZapModal: React.FC<ZapProps> = ({onConfirm, onDismiss, LPtokenName = '', d
     setEstimate({token0: estimateZap.amounts[0].toString(), token1: estimateZap.amounts[1].toString()});
   };
 
-  function getOrder(tokenA: string, tokenB: string): string[] {
-    if (tokenA == GRAPE_TICKER) return [tokenA, tokenB];
-    if (tokenA == WINE_TICKER) return [tokenA, tokenB];
-    if (tokenA == MIM_TICKER) return [tokenB, tokenA];
+  function getOrderLPName(lpName: string): string[] {
+    if (lpName.includes('GRAPE-MIM-LP')) return [GRAPE_TICKER, MIM_TICKER];
+    if (lpName.includes('WINE-MIM-LP')) return [WINE_TICKER, MIM_TICKER];
+    if (lpName.includes('GRAPE-WINE-LP')) return [GRAPE_TICKER, WINE_TICKER];
     return;
   }
 
+  function getOrderLPBalanceThing(token0: string, token1: string): string[] {
+    if (token0 == WINE_TICKER) return [token0, token1];
+    if (token0 == GRAPE_TICKER) return [token0, token1];
+    if (token0 == MIM_TICKER) return [token1, token0];
+    return;
+  }
+
+  function normalizeOrder(token0: string, tokenAmount0: string, tokenAmount1: string) {
+    if (token0 == WINE_TICKER) return [tokenAmount0, tokenAmount1];
+    if (token0 == GRAPE_TICKER) return [tokenAmount0, tokenAmount1];
+    if (token0 == MIM_TICKER) return [tokenAmount1, tokenAmount0];
+    return;
+  }
+
+  let [token0Name, token1Name] = getOrderLPName(LPtokenName);
+  let [tokenA, tokenB] = getOrderLPBalanceThing(token0Name, token1Name);
   return (
     <Modal>
       <ModalTitle text={`Zap in ${LPtokenName}`} />
@@ -133,9 +155,9 @@ const ZapModal: React.FC<ZapProps> = ({onConfirm, onDismiss, LPtokenName = '', d
             {LPtokenName}: {Number(estimate.token0) / Number(mimAmountPerLP)}
           </StyledDescriptionText>
           <StyledDescriptionText>
-            {' '}
-            ({Number(estimate.token0)} {LPtokenName.startsWith(WINE_TICKER) ? WINE_TICKER : MIM_TICKER} /{' '}
-            {Number(estimate.token1)} {LPtokenName.startsWith(WINE_TICKER) ? MIM_TICKER : WINE_TICKER}){' '}
+            {/* Spaghetti bolognese right here! */} (
+            {Number(normalizeOrder(tokenA, estimate.token0, estimate.token1)[0])} {tokenA} /{' '}
+            {Number(normalizeOrder(tokenA, estimate.token0, estimate.token1)[1])} {tokenB}){' '}
           </StyledDescriptionText>
           <ModalActions>
             <Button
@@ -155,7 +177,7 @@ const ZapModal: React.FC<ZapProps> = ({onConfirm, onDismiss, LPtokenName = '', d
 
       <StyledActionSpacer />
       <Alert variant="filled" severity="info">
-        You need to manually stake the LP tokens after zapping. This feature piggybacks off of the Piggy Finance zapper.
+        You need to manually stake the LP tokens after zapping.{' '}
       </Alert>
     </Modal>
   );
