@@ -1,7 +1,7 @@
 {
   "zapper": {
-    "//1": "This is the Piggy Finance zapper.",
-    "address": "0x2f3ba9e012401c29a24f01a018b7e49db091bbcb",
+    "//1": "This is our very own zapper.",
+    "address": "0x1f342d52e95b6953f32ef5eb0561aaead60c8cf9",
     "abi": [
       {
         "inputs": [

@@ -39,7 +39,7 @@ const ZapModal: React.FC<ZapProps> = ({onConfirm, onDismiss, LPtokenName = '', d
   // The token to be swapped from.
   const [zappingToken, setZappingToken] = useState(MIM_TICKER);
   const [zappingTokenBalance, setZappingTokenBalance] = useState(getDisplayBalance(mimBalance, decimals));
-  const [estimate, setEstimate] = useState({token0: '0', token1: '0'}); // token0 will always be MIM in this case
+  const [estimate, setEstimate] = useState({token0: '0', token1: '0'});
   const [approveZapperStatus, approveZapper] = useApproveZapper(zappingToken);
   const grapemimLpStats = useLpStats('GRAPE-MIM-LP');
   const wineSharemimLpStats = useLpStats('WINE-MIM-LP');
@@ -59,6 +59,8 @@ const ZapModal: React.FC<ZapProps> = ({onConfirm, onDismiss, LPtokenName = '', d
     if (value == 'NONE') {
       setShowZapData(false);
     } else {
+      setVal('0');
+      setEstimate({token0: '0', token1: '0'});
       setZappingToken(value);
       setZappingTokenBalance(getDisplayBalance(mimBalance, decimals));
       if (event.target.value === WINE_TICKER) {
@@ -75,6 +77,7 @@ const ZapModal: React.FC<ZapProps> = ({onConfirm, onDismiss, LPtokenName = '', d
   };
 
   const handleChange = async (e: any) => {
+    // the - is to stop negatives
     if (!isNumeric(e.currentTarget.value) || e.currentTarget.value.includes('-')) return;
     if (e.currentTarget.value === '' || Number(e.currentTarget.value) == 0) {
       setVal(e.currentTarget.value);
@@ -152,12 +155,12 @@ const ZapModal: React.FC<ZapProps> = ({onConfirm, onDismiss, LPtokenName = '', d
           <Label text="Zap Estimations" />
           <StyledDescriptionText>
             {' '}
-            {LPtokenName}: {Number(estimate.token0) / Number(mimAmountPerLP)}
+            {LPtokenName} tokens: {Number(estimate.token0) / Number(mimAmountPerLP)}
           </StyledDescriptionText>
           <StyledDescriptionText>
             {/* Spaghetti bolognese right here! */} (
-            {Number(normalizeOrder(tokenA, estimate.token0, estimate.token1)[0])} {tokenA} /{' '}
-            {Number(normalizeOrder(tokenA, estimate.token0, estimate.token1)[1])} {tokenB}){' '}
+            {Number(normalizeOrder(zappingToken, estimate.token0, estimate.token1)[0])} {tokenA} /{' '}
+            {Number(normalizeOrder(zappingToken, estimate.token0, estimate.token1)[1])} {tokenB}){' '}
           </StyledDescriptionText>
           <ModalActions>
             <Button
@@ -169,7 +172,7 @@ const ZapModal: React.FC<ZapProps> = ({onConfirm, onDismiss, LPtokenName = '', d
                   : onConfirm(zappingToken, LPtokenName, val)
               }
             >
-              {approveZapperStatus !== ApprovalState.APPROVED ? 'Approve' : "Let's go"}
+              {approveZapperStatus !== ApprovalState.APPROVED ? 'Approve' : 'Zap'}
             </Button>
           </ModalActions>
         </>
@@ -177,7 +180,7 @@ const ZapModal: React.FC<ZapProps> = ({onConfirm, onDismiss, LPtokenName = '', d
 
       <StyledActionSpacer />
       <Alert variant="filled" severity="info">
-        You need to manually stake the LP tokens after zapping.{' '}
+        You need to manually stake the LP tokens after zapping. Maximum slippage is 1%.{' '}
       </Alert>
     </Modal>
   );

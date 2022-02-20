@@ -91,6 +91,8 @@ const Stake: React.FC<StakeProps> = ({bank}) => {
     />,
   );
 
+  let isZapLP = bank.depositTokenName.includes('LP') && !bank.depositTokenName.includes('HSHARE');
+
   return (
     <Card>
       <CardContent>
@@ -136,7 +138,7 @@ const Stake: React.FC<StakeProps> = ({bank}) => {
                   <RemoveIcon />
                 </IconButton>
                 <StyledActionSpacer />
-                {bank.depositTokenName.includes('LP') && (
+                {isZapLP && (
                   <IconButton
                     disabled={bank.closedForStaking}
                     onClick={() => (bank.closedForStaking ? null : onPresentZap())}

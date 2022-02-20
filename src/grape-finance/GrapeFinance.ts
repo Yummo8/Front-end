@@ -1317,6 +1317,7 @@ export class GrapeFinance {
         break;
       }
     }
+    console.log(this.myAccount);
     return await zapper.zapInToken(
       token.address,
       parseUnits(amount, 18),

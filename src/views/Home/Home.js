@@ -93,7 +93,7 @@ const Home = () => {
     () => (grapeStats ? Number(grapeStats.priceInDollars).toFixed(2) : null),
     [grapeStats],
   );
-  const grapePriceInBNB = useMemo(() => (grapeStats ? Number(grapeStats.tokenInmim).toFixed(2) : null), [grapeStats]);
+  const grapePriceInAVAX = useMemo(() => (grapeStats ? Number(grapeStats.tokenInFtm).toFixed(2) : null), [grapeStats]);
   const grapeCirculatingSupply = useMemo(
     () => (grapeStats ? String(grapeStats.circulatingSupply) : null),
     [grapeStats],
@@ -104,7 +104,7 @@ const Home = () => {
     () => (bShareStats ? Number(bShareStats.priceInDollars).toFixed(2) : null),
     [bShareStats],
   );
-  const bSharePriceInBNB = useMemo(
+  const bSharePriceInAVAX = useMemo(
     () => (bShareStats ? Number(bShareStats.tokenInmim).toFixed(6) : null),
     [bShareStats],
   );
@@ -118,7 +118,7 @@ const Home = () => {
     () => (tBondStats ? Number(tBondStats.priceInDollars).toFixed(2) : null),
     [tBondStats],
   );
-  const tBondPriceInBNB = useMemo(() => (tBondStats ? Number(tBondStats.tokenInmim).toFixed(4) : null), [tBondStats]);
+  const tBondPriceInAVAX = useMemo(() => (tBondStats ? Number(tBondStats.tokenInmim).toFixed(4) : null), [tBondStats]);
   const tBondCirculatingSupply = useMemo(
     () => (tBondStats ? String(tBondStats.circulatingSupply) : null),
     [tBondStats],
@@ -331,7 +331,7 @@ const Home = () => {
 
               <Box>
                 <span style={{fontSize: '30px', color: '#930993'}}>
-                  ${grapePriceInBNB ? grapePriceInBNB : '-.----'}{' '}
+                  ${grapePriceInAVAX ? grapePriceInAVAX : '-.----'}{' '}
                 </span>
               </Box>
               <span style={{fontSize: '17px'}}>
