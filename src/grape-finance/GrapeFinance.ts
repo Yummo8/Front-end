@@ -289,7 +289,7 @@ export class GrapeFinance {
     const supply = await this.GBOND.displayedTotalSupply();
 
     return {
-      tokenInFtm: bondPriceInBNB,
+      tokenInFtm: modifier.toString(),
       priceInDollars: priceOfBBondInDollars,
       totalSupply: supply,
       circulatingSupply: supply,

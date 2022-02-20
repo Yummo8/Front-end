@@ -176,8 +176,8 @@ const Home = () => {
         {/* Explanation text */}
         <Grid item xs={12} sm={8}>
           <Paper>
-            <Box p={4} style={{textAlign: 'center'}}>
-              <h2>Earn 4%+ Daily at Grape Finance</h2>
+            <Box p={4} style={{ textAlign: 'center'}}>
+              <h2>Earn Daily Yields at Grape Finance</h2>
 
               <p style={{fontSize: '17px'}}>
                 <b>We're pegged to MIM helping to reduce your volatility during a market downturn</b>

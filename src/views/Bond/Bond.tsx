@@ -119,7 +119,7 @@ const Bond: React.FC = () => {
                 <Spacer size="md" />
                 <ExchangeStat
                   tokenName="1 GRAPE"
-                  description="Current Price: (GRAPE)^2"
+                  description="Current Price: (GRAPE)"
                   price={Number(bondStat?.tokenInFtm).toFixed(2) || '-'}
                 />
               </StyledStatsWrapper>
