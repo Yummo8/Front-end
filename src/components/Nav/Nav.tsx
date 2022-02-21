@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
   link: {
     textTransform: 'uppercase',
     color: '#322f32',
-    fontSize: '18px',
+    fontSize: '16px',
     marginTop: '15px',
     margin: theme.spacing(10, 1, 1, 2),
     textDecoration: 'none',
@@ -158,6 +158,13 @@ const Nav = () => {
               <a href="https://snapshot.org/#/grapefinance.eth" className={'navLink ' + classes.link} rel="noopener" target="_blank">
                 Voting
               </a>
+              <a href="https://grapefinance.gitbook.io/grape-finance-docs/" className={'navLink ' + classes.link} rel="noopener" target="_blank">
+                Docs
+              </a>
+              <Link to="/help" className={'navLink ' + classes.link}>
+              Help
+              </Link>
+          
               
 
               

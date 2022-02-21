@@ -4,18 +4,13 @@ import {Bank} from '../grape-finance';
 import {PoolStats} from '../grape-finance/types';
 import config from '../config';
 
-const useStatsForPool = (bank: Bank) => {
+const useStatsForPartner = (bank: Bank) => {
   const grapeFinance = useGrapeFinance();
 
   const [poolAPRs, setPoolAPRs] = useState<PoolStats>();
 
   const fetchAPRsForPool = useCallback(async () => {
-    if(bank.depositTokenName === 'HSHARE-WINE-LP'){
-      setPoolAPRs(await grapeFinance.getPartnerAPRs(bank));
-    }else{
-      setPoolAPRs(await grapeFinance.getPoolAPRs(bank));
-    }
-    
+    setPoolAPRs(await grapeFinance.getPartnerAPRs(bank));
   }, [grapeFinance, bank]);
 
   useEffect(() => {
@@ -27,4 +22,4 @@ const useStatsForPool = (bank: Bank) => {
   return poolAPRs;
 };
 
-export default useStatsForPool;
+export default useStatsForPartner;
