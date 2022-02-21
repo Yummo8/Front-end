@@ -3,7 +3,7 @@ import {useCallback, useMemo} from 'react';
 import {useHasPendingApproval, useTransactionAdder} from '../state/transactions/hooks';
 import useAllowance from './useAllowance';
 import ERC20 from '../grape-finance/ERC20';
-import {BNB_TICKER, GRAPE_TICKER, BSHARE_TICKER, BTC_TICKER, ZAPPER_ROUTER_ADDR} from '../utils/constants';
+import {TAX_OFFICE_ADDR} from '../utils/constants';
 import useGrapeFinance from './useGrapeFinance';
 
 const APPROVE_AMOUNT = ethers.constants.MaxUint256;
@@ -17,15 +17,14 @@ export enum ApprovalState {
 }
 
 // returns a variable indicating the state of the approval and a function which approves if necessary or early returns
-function useApproveZapper(zappingToken: string): [ApprovalState, () => Promise<void>] {
+function useApproveTaxOffice(): [ApprovalState, () => Promise<void>] {
   const grapeFinance = useGrapeFinance();
-  let token: ERC20;
-  if (zappingToken === BNB_TICKER) token = grapeFinance.BNB;
-  else if (zappingToken === GRAPE_TICKER) token = grapeFinance.GRAPE;
-  else if (zappingToken === BSHARE_TICKER) token = grapeFinance.WINE;
-  else if (zappingToken === BTC_TICKER) token = grapeFinance.externalTokens[BTC_TICKER];
-  const pendingApproval = useHasPendingApproval(token.address, ZAPPER_ROUTER_ADDR);
-  const currentAllowance = useAllowance(token, ZAPPER_ROUTER_ADDR, pendingApproval);
+  let token: ERC20 = grapeFinance.GRAPE;
+  // if (zappingToken === BNB_TICKER) token = grapeFinance.BNB;
+  // else if (zappingToken === GRAPE_TICKER) token = grapeFinance.GRAPE;
+  // else if (zappingToken === BSHARE_TICKER) token = grapeFinance.WINE;
+  const pendingApproval = useHasPendingApproval(token.address, TAX_OFFICE_ADDR);
+  const currentAllowance = useAllowance(token, TAX_OFFICE_ADDR, pendingApproval);
 
   // check the current approval status
   const approvalState: ApprovalState = useMemo(() => {
@@ -49,12 +48,12 @@ function useApproveZapper(zappingToken: string): [ApprovalState, () => Promise<v
       return;
     }
 
-    const response = await token.approve(ZAPPER_ROUTER_ADDR, APPROVE_AMOUNT);
+    const response = await token.approve(TAX_OFFICE_ADDR, APPROVE_AMOUNT);
     addTransaction(response, {
       summary: `Approve ${token.symbol}`,
       approval: {
         tokenAddress: token.address,
-        spender: ZAPPER_ROUTER_ADDR,
+        spender: TAX_OFFICE_ADDR,
       },
     });
   }, [approvalState, token, addTransaction]);
@@ -62,4 +61,4 @@ function useApproveZapper(zappingToken: string): [ApprovalState, () => Promise<v
   return [approvalState, approve];
 }
 
-export default useApproveZapper;
+export default useApproveTaxOffice;
