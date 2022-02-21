@@ -38,7 +38,7 @@ const FarmCard = ({bank}) => {
             </Typography>
             <Typography color="#322f32">
               {/* {bank.name} */}
-              Deposit {bank.depositTokenName.toUpperCase()} Earn {` ${bank.earnTokenName}`}
+              Earn {` ${bank.earnTokenName}`}
             </Typography>
             <Typography color="#322f32">
               {/* {bank.name} */}
@@ -46,14 +46,18 @@ const FarmCard = ({bank}) => {
             </Typography>
             <Typography color="#322f32">
               {/* {bank.name} */}
-              <b>Pool Weighting:</b> {bank.multi}
+              {bank.depositTokenName == 'HSHARE-WINE-LP'? <span style={{color: 'rgba(0,0,0,0)'}}>a</span> : <span>Pool Weighting: {bank.multi}</span>}
             </Typography>
             
           </Box>
         </CardContent>
         <CardActions style={{justifyContent: 'flex-end'}}>
+          {bank.buyLink !== null ?
+        <Button className="shinyButtonSecondary" target="_blank" href={`${bank.buyLink}`}>
+            Trade
+          </Button>: null}
           <Button className="shinyButtonSecondary" component={Link} to={`/vineyard/${bank.contract}`}>
-            View
+            Stake
           </Button>
         </CardActions>
       </Card>

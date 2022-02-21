@@ -13,6 +13,7 @@ export interface BankInfo {
   finished: boolean;
   closedForStaking: boolean;
   multi: string;
+  buyLink: string;
 }
 
 export interface Bank extends BankInfo {

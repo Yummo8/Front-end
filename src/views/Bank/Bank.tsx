@@ -11,9 +11,12 @@ import PageHeader from '../../components/PageHeader';
 import Spacer from '../../components/Spacer';
 import UnlockWallet from '../../components/UnlockWallet';
 import Harvest from './components/Harvest';
+import HarvestHermes from './components/HarvestHermes';
 import Stake from './components/Stake';
 import useBank from '../../hooks/useBank';
+import useStatsForPartner from '../../hooks/useStatsForPartner';
 import useStatsForPool from '../../hooks/useStatsForPool';
+
 import useRedeem from '../../hooks/useRedeem';
 import {Bank as BankEntity} from '../../grape-finance';
 import useGrapeFinance from '../../hooks/useGrapeFinance';
@@ -50,9 +53,11 @@ const Bank: React.FC = () => {
   const {account} = useWallet();
   const {onRedeem} = useRedeem(bank);
   const statsOnPool = useStatsForPool(bank);
-
+ 
   const cashPrice = useCashPriceInLastTWAP();
-  const bondScale = (Number(cashPrice) / 1000000000000000000).toFixed(2);
+
+  const bondScale = (Number(cashPrice) / 1e18).toFixed(2); 
+
 
   let curStrat: string;
   if (Number(bondScale) >= 2) {
@@ -67,6 +72,7 @@ const Bank: React.FC = () => {
   let vaultUrl: string;
   let strat: string;
   let stratText: string;
+  let buyText: string;
   if (bank.depositTokenName.includes('GRAPE-MIM')) {
     name = 'Autocompound your GRAPE-MIM on Beefy here';
     vaultUrl = 'https://app.beefy.finance/#/avax/vault/grape-grape-mim';
@@ -92,6 +98,11 @@ const Bank: React.FC = () => {
     vaultUrl = 'https://app.asgarddao.fi/#/pledge';
     strat = wampStrat;
     stratText = 'Click here to see the optimal strategy for this vault';
+  } else if(bank.depositTokenName === 'HSHARE-WINE-LP') {
+    name = 'Buy WINE Here';
+    vaultUrl = 'https://traderjoexyz.com/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0xc55036b5348cfb45a932481744645985010d3a44#/';
+    strat = 'https://app.pangolin.exchange/#/swap?outputCurrency=0xfa4B6db72A650601E7Bd50a0A9f537c9E98311B2';
+    stratText = 'Buy HSHARE Here';
   }
 
   const [onPresentDeposit, onDismissDeposit] = useModal(<StratModal strat={strat} />);
@@ -100,32 +111,32 @@ const Bank: React.FC = () => {
     <>
       <PageHeader
         icon="🏦"
-        subtitle={`Deposit ${bank?.depositTokenName} and earn ${bank?.earnTokenName}`}
+        subtitle={''}
         title={bank?.name}
       />
 
-      <Box mt={5}>
-        <Grid container justify="center" spacing={3} style={{marginBottom: '30px'}}>
-          <Alert variant="filled">
-            <a href={vaultUrl} target={'_blank'}>
-              <h3 style={{color: '#000'}}>{name}</h3>
-            </a>
-          </Alert>
-        </Grid>
-      </Box>
-      {stratText !== '' ? (
-        <Box mt={5}>
-          <Grid container justify="center" spacing={3} style={{marginBottom: '30px'}}>
-            <Alert variant="filled">
-              <a onClick={onPresentDeposit}>
-                <h3 style={{color: '#000'}}>{stratText}</h3>
-              </a>
-            </Alert>
-          </Grid>
-        </Box>
-      ) : null}
 
-      <Box>
+
+              <Box mt={5}>      
+                <Grid container justify="center" spacing={3} style={{ marginBottom: '30px' }}>    
+                  <Alert variant="filled"> 
+                      <a href={vaultUrl} target={"_blank"}><h3 style={{color: '#000'}}>{name}</h3></a>    
+                  </Alert>
+                  
+                </Grid>
+              </Box>
+              {stratText !== '' ? 
+              <Box mt={5}>      
+                <Grid container justify="center" spacing={3} style={{ marginBottom: '30px' }}>    
+                  <Alert variant="filled">                          
+                      {bank.depositTokenName === 'HSHARE-WINE-LP' ? <a href={strat} target={"_blank"}><h3 style={{color: '#000'}}>{stratText}</h3></a>: <a onClick={onPresentDeposit}><h3 style={{color: '#000'}}>{stratText}</h3></a>}
+                  </Alert>
+                 
+                </Grid>
+  </Box>: null}
+              
+      <Box>         
+
         <Grid container justify="center" spacing={3} style={{marginBottom: '50px'}}>
           <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
             <Card className={classes.gridItem}>
@@ -158,7 +169,7 @@ const Bank: React.FC = () => {
         <StyledBank>
           <StyledCardsWrapper>
             <StyledCardWrapper>
-              <Harvest bank={bank} />
+              {bank.depositTokenName === 'HSHARE-WINE-LP' ? <HarvestHermes bank={bank} /> : <Harvest bank={bank} />}
             </StyledCardWrapper>
             <Spacer />
             <StyledCardWrapper>{<Stake bank={bank} />}</StyledCardWrapper>
@@ -188,27 +199,42 @@ const LPTokenHelpText: React.FC<{bank: BankEntity}> = ({bank}) => {
   let pairName: string;
   let uniswapUrl: string;
   let vaultUrl: string;
+  let exchange: string;
   if (bank.depositTokenName.includes('GRAPE-MIM')) {
     pairName = 'GRAPE-MIM pair';
     uniswapUrl =
       'https://traderjoexyz.com/pool/0x130966628846bfd36ff31a822705796e8cb8c18d/0x5541d83efad1f281571b343977648b75d95cdac2';
     vaultUrl = '#';
-  } else if (bank.depositTokenName.includes('WINE-MIM')) {
+
+    exchange = 'joe';
+  } else if(bank.depositTokenName.includes('WINE-MIM')){
+
     pairName = 'WINE-MIM pair';
     uniswapUrl =
       'https://traderjoexyz.com/pool/0x130966628846bfd36ff31a822705796e8cb8c18d/0xc55036b5348cfb45a932481744645985010d3a44';
     vaultUrl = '#';
-  } else if (bank.depositTokenName.includes('GRAPE-WINE')) {
+
+    exchange = 'joe';
+  }else if(bank.depositTokenName.includes('GRAPE-WINE')){
+
     pairName = 'GRAPE-WINE pair';
     uniswapUrl =
       'https://traderjoexyz.com/pool/0x5541d83efad1f281571b343977648b75d95cdac2/0xc55036b5348cfb45a932481744645985010d3a44';
     vaultUrl = '#';
+    exchange = 'joe';
+  }else if(bank.depositTokenName === 'HSHARE-WINE-LP'){
+    pairName = 'HSHARE-WINE-LP';
+    uniswapUrl = 'https://app.pangolin.exchange/#/add/0xC55036B5348CfB45a932481744645985010d3A44/0xfa4B6db72A650601E7Bd50a0A9f537c9E98311B2';
+    vaultUrl = '#';
+    exchange = 'Pangolin';
   }
   return (
     <Card>
       <CardContent>
         <StyledLink href={uniswapUrl} target="_blank">
-          <span style={{color: '#000'}}>Provide liquidity for {pairName} on Joe</span>
+
+        <span style={{color: "#000"}}>Provide liquidity for {pairName} on {exchange}</span>        
+
         </StyledLink>
       </CardContent>
     </Card>

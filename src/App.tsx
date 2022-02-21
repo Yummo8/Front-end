@@ -26,6 +26,7 @@ const Launchpad = lazy(() => import('./views/Launchpad'));
 const Roadmap = lazy(() => import('./views/Roadmap'));
 const Raffle = lazy(() => import('./views/Raffle'));
 const Strategies = lazy(() => import('./views/Strategies'));
+const Help = lazy(() => import('./views/Help'));
 
 const NoMatch = () => (
   <h3 style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>
@@ -71,7 +72,10 @@ const App: React.FC = () => {
             </Route> 
             <Route path="/raffle">
               <Raffle />
-            </Route>               
+            </Route>  
+            <Route path="/help">
+              <Help />
+            </Route>                
             <Route path="*">
               <NoMatch />
             </Route>

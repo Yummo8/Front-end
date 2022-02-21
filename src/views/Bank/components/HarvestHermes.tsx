@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react';
 import styled from 'styled-components';
 
-import {Button, Card, CardContent, Typography} from '@material-ui/core';
+import {Button, Card, CardContent, Typography, Grid, Box} from '@material-ui/core';
 // import Button from '../../../components/Button';
 // import Card from '../../../components/Card';
 // import CardContent from '../../../components/CardContent';
@@ -15,8 +15,10 @@ import {getDisplayBalance} from '../../../utils/formatBalance';
 import TokenSymbol from '../../../components/TokenSymbol';
 import {Bank} from '../../../grape-finance';
 import useGrapeStats from '../../../hooks/useGrapeStats';
+import useHermesStats from '../../../hooks/useHermesStats';
 import useShareStats from '../../../hooks/useWineStats';
-
+import WineImage from '../../../assets/img/gshare.png';
+import HshareImage from '../../../assets/img/hshare.png';
 interface HarvestProps {
   bank: Bank;
 }
@@ -24,36 +26,63 @@ interface HarvestProps {
 const Harvest: React.FC<HarvestProps> = ({bank}) => {
 
   const earnings = useEarnings(bank.contract, bank.earnTokenName, bank.poolId);
-  
+  const earnings2 = useEarnings(bank.contract, 'HSHARE', bank.poolId);
 
   const {onReward} = useHarvest(bank);
-  const grapeStats = useGrapeStats();
+  const hermesStats = useHermesStats();
   const tShareStats = useShareStats();
-  const tokenName = bank.earnTokenName === 'GRAPE' ? 'GRAPE' : 'WINE';
-  const tokenStats = bank.earnTokenName === 'WINE' ? tShareStats : grapeStats;
+  const tokenName = 'WINE';
+  const tokenName2 = 'HSHARE';
+  //const tokenStats = bank.earnTokenName === 'WINE' ? tShareStats : hermesStats;
 
   const tokenPriceInDollars = useMemo(
-    () => (tokenStats ? Number(tokenStats.priceInDollars).toFixed(2) : null),
-    [tokenStats],
+    () => (tShareStats ? Number(tShareStats.priceInDollars).toFixed(2) : null),
+    [tShareStats],
+  );
+  const tokenPriceInDollars2 = useMemo(
+    () => (hermesStats ? Number(hermesStats.priceInDollars).toFixed(2) : null),
+    [hermesStats],
   );
   const earnedInDollars = (Number(tokenPriceInDollars) * Number(getDisplayBalance(earnings))).toFixed(2);
-  
+  const earnedInDollars2 = (Number(tokenPriceInDollars2) * Number(getDisplayBalance(earnings2))).toFixed(2);
 
   return (
     <Card>
       <CardContent>
         <StyledCardContentInner>
           <StyledCardHeader>
-            <CardIcon>
-              <TokenSymbol symbol={bank.earnTokenName} />
-            </CardIcon>
-            <Typography style={{textTransform: 'uppercase', color: '#930993'}}>  
-            <Value value={getDisplayBalance(earnings)} />
+
+            <Grid container spacing={3} style={{marginTop: '0px', marginBottom: '-51px'}}>
+         
+      <Grid item xs={12} sm={12} lg={6}>  
+  
+        <div style={{width: '70px', margin:'0 auto'}}>
+         <img src={WineImage} width={'70px'} style={{width: '70px', margin:'0 auto'}}/>
+         </div>
+    
+      <Typography style={{textTransform: 'uppercase', color: '#930993',textAlign:'center'}}>  
+            <Value value={Number(getDisplayBalance(earnings)).toFixed(2)} />
             </Typography>
-             <Label text={`≈ $${earnedInDollars}`} /> 
-                  <Typography style={{textTransform: 'uppercase', color: '#322f32'}}>
-              {`${tokenName} Earned`}
-                    </Typography>
+            <p style={{textAlign:'center',marginBottom: '-10px'}}>${earnedInDollars}</p>
+            <p style={{textAlign:'center'}}>{tokenName}</p>
+     
+          </Grid>
+          <Grid item xs={12} sm={12} lg={6}>  
+          <div style={{width: '97px', margin:'0 auto'}}>
+         <img src={HshareImage} width={'97px'}/>
+         </div>
+          <Typography style={{textTransform: 'uppercase', color: '#930993',textAlign:'center'}}>  
+            <Value value={Number(getDisplayBalance(earnings2)).toFixed(2)} />
+            </Typography>
+            <p style={{textAlign:'center',marginBottom: '-10px'}}>${earnedInDollars2}</p>
+            <p style={{textAlign:'center'}}>{tokenName2}</p>
+          </Grid>
+         </Grid>
+    
+
+   
+
+                   
           </StyledCardHeader>
           <StyledCardActions>
             <Button
