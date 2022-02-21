@@ -3979,10 +3979,10 @@
     loglevel "^1.8.0"
     web3-utils "^1.6.1"
 
-"@traderjoe-xyz/sdk@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@traderjoe-xyz/sdk/-/sdk-1.1.1.tgz#d6b249f79000bb937fbd2a7f4423201bc6a1c55a"
-  integrity sha512-m++9DqVO33NLZclrKigvwFNaZLC9yt2R+GW59pGqqH6ThqVRg7tqCnYoVEuGB/UdPmc2QL+SyUsn/SSrK5E4kQ==
+"@traderjoe-xyz/sdk@^0.8.6":
+  version "0.8.6"
+  resolved "https://registry.yarnpkg.com/@traderjoe-xyz/sdk/-/sdk-0.8.6.tgz#ada86c54695016cf85e2bee91e44a1853fd470cb"
+  integrity sha512-dtb6dHiYydj75UGvAmiKBrS8HwtVnK46B5Olqt5i/moZrP79vbHCsyj6fSxTM+F1yUOcOioEQX/6FtQWyEz5Ig==
   dependencies:
     "@openzeppelin/cli" "^2.8.2"
     "@uniswap/v2-core" "^1.0.1"

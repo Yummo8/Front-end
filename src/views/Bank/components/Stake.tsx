@@ -66,7 +66,7 @@ const Stake: React.FC<StakeProps> = ({bank}) => {
     />,
   );
 
-  const [onPresentZap, onDissmissZap] = useModal(
+  {/*const [onPresentZap, onDissmissZap] = useModal(
     <ZapModal
       decimals={bank.depositToken.decimal}
       onConfirm={(zappingToken, tokenName, amount) => {
@@ -74,9 +74,9 @@ const Stake: React.FC<StakeProps> = ({bank}) => {
         onZap(zappingToken, tokenName, amount);
         onDissmissZap();
       }}
-      LPtokenName={bank.depositTokenName}
+      tokenName={bank.depositTokenName}
     />,
-  );
+    );*/}
 
   const [onPresentWithdraw, onDismissWithdraw] = useModal(
     <WithdrawModal
@@ -91,8 +91,6 @@ const Stake: React.FC<StakeProps> = ({bank}) => {
     />,
   );
 
-  let isZapLP = bank.depositTokenName.includes('LP') && !bank.depositTokenName.includes('HSHARE');
-
   return (
     <Card>
       <CardContent>
@@ -101,15 +99,16 @@ const Stake: React.FC<StakeProps> = ({bank}) => {
             <CardIcon>
               <TokenSymbol symbol={bank.depositToken.symbol} size={54} />
             </CardIcon>
-            <Typography style={{textTransform: 'uppercase', color: '#930993'}}>
-              <Value value={getDisplayBalance(stakedBalance, bank.depositToken.decimal)} />
+            <Typography style={{textTransform: 'uppercase', color: '#930993'}}>       
+                <Value value={getDisplayBalance(stakedBalance, bank.depositToken.decimal)} />
             </Typography>
+            
+            <Label text={`≈ $${earnedInDollars}`} /> 
 
-            <Label text={`≈ $${earnedInDollars}`} />
 
-            <Typography style={{textTransform: 'uppercase', color: '#322f32'}}>
+               <Typography style={{textTransform: 'uppercase', color: '#322f32'}}>
               {`${bank.depositTokenName} Staked`}
-            </Typography>
+                    </Typography>
             {/* <Label text={`${bank.depositTokenName} Staked`} /> */}
           </StyledCardHeader>
           <StyledCardActions>
@@ -138,15 +137,16 @@ const Stake: React.FC<StakeProps> = ({bank}) => {
                   <RemoveIcon />
                 </IconButton>
                 <StyledActionSpacer />
-                {isZapLP && (
-                  <IconButton
-                    disabled={bank.closedForStaking}
-                    onClick={() => (bank.closedForStaking ? null : onPresentZap())}
-                  >
-                    <FlashOnIcon style={{color: themeColor.grey[400]}} />
-                  </IconButton>
-                )}
-
+                {/*<IconButton
+                  disabled={
+                    bank.closedForStaking ||
+                    bank.depositTokenName === 'GRAPE-MIM-APELP' ||
+                    bank.depositTokenName === 'GRAPE-MIM-LP'
+                  }
+                  onClick={() => (bank.closedForStaking ? null : onPresentZap())}
+                >
+                  <FlashOnIcon style={{color: themeColor.grey[400]}} />
+                </IconButton>*/}
                 <StyledActionSpacer />
                 <IconButton
                   disabled={bank.closedForStaking}

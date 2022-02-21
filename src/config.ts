@@ -3,6 +3,7 @@ import {Configuration} from './grape-finance/config';
 import {BankInfo} from './grape-finance';
 
 const configurations: {[env: string]: Configuration} = {
+
   development: {
     chainId: 43114,
     networkName: 'Avalanche',
@@ -12,30 +13,17 @@ const configurations: {[env: string]: Configuration} = {
     externalTokens: {
       WAVAX: ['0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7', 18],
       MIM: ['0x130966628846bfd36ff31a822705796e8cb8c18d', 18],
-      GRAPE: ['0x5541D83EFaD1f281571B343977648B75d95cdAC2', 18],
-      WAMP: ['0xd7Fdf42510566b9aEfD3F1841a1503B6678cD780', 18],
-      VOLT: ['0xf5ee578505f4D876FeF288DfD9fD5e15e9EA1318', 18],
-      DAI: ['0xd586e7f844cea2f87f50152665bcbc2c279d8d70', 18],
-      'GRAPE-MIM-LP': [
-        '0xb382247667fe8ca5327ca1fa4835ae77a9907bc8',
-        18,
-        ['0x5541D83EFaD1f281571B343977648B75d95cdAC2', '0x130966628846bfd36ff31a822705796e8cb8c18d'],
-      ],
-      'GRAPE-WINE-LP': [
-        '0xd3d477Df7f63A2623464Ff5Be6746981FdeD026F',
-        18,
-        ['0x5541D83EFaD1f281571B343977648B75d95cdAC2', '0xC55036B5348CfB45a932481744645985010d3A44'],
-      ],
-      'WINE-MIM-LP': [
-        '0x00cB5b42684DA62909665d8151fF80D1567722c3',
-        18,
-        ['0xC55036B5348CfB45a932481744645985010d3A44', '0x130966628846bfd36ff31a822705796e8cb8c18d'],
-      ],
-      'MIM-WAVAX-LP': ['0x781655d802670bba3c89aebaaea59d3182fd755d', 18],
       HSHARE: ['0xfa4B6db72A650601E7Bd50a0A9f537c9E98311B2', 18],
       USDC: ['0xa7d7079b0fead91f3e65f86e8915cb59c1a4c664', 6],
+      'GRAPE': ['0x5541D83EFaD1f281571B343977648B75d95cdAC2', 18],
+      'WAMP': ['0xd7Fdf42510566b9aEfD3F1841a1503B6678cD780', 18],
+      'VOLT': ['0xf5ee578505f4D876FeF288DfD9fD5e15e9EA1318', 18],
+      'DAI': ['0xd586e7f844cea2f87f50152665bcbc2c279d8d70', 18],
+      'GRAPE-MIM-LP': ['0xb382247667fe8ca5327ca1fa4835ae77a9907bc8', 18],
+      'GRAPE-WINE-LP': ['0xd3d477Df7f63A2623464Ff5Be6746981FdeD026F', 18],
+      'WINE-MIM-LP': ['0x00cB5b42684DA62909665d8151fF80D1567722c3', 18],
+      'MIM-WAVAX-LP': ['0x781655d802670bba3c89aebaaea59d3182fd755d', 18],
       'HSHARE-WINE-LP': ['0x9E8abB3A78cF9Ae9D6eA3282566e36B91C92db5b', 18]
-
     },
     baseLaunchDate: new Date('2022-1-13 17:00:00Z'),
     bondLaunchesAt: new Date('2020-01-03T15:00:00Z'),
@@ -51,30 +39,17 @@ const configurations: {[env: string]: Configuration} = {
     externalTokens: {
       WAVAX: ['0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7', 18],
       MIM: ['0x130966628846bfd36ff31a822705796e8cb8c18d', 18],
-      GRAPE: ['0x5541D83EFaD1f281571B343977648B75d95cdAC2', 18],
-      WAMP: ['0xd7Fdf42510566b9aEfD3F1841a1503B6678cD780', 18],
-      VOLT: ['0xf5ee578505f4D876FeF288DfD9fD5e15e9EA1318', 18],
-      DAI: ['0xd586e7f844cea2f87f50152665bcbc2c279d8d70', 18],
-      'GRAPE-MIM-LP': [
-        '0xb382247667fe8ca5327ca1fa4835ae77a9907bc8',
-        18,
-        ['0x5541D83EFaD1f281571B343977648B75d95cdAC2', '0x130966628846bfd36ff31a822705796e8cb8c18d'],
-      ],
-      'GRAPE-WINE-LP': [
-        '0xd3d477Df7f63A2623464Ff5Be6746981FdeD026F',
-        18,
-        ['0x5541D83EFaD1f281571B343977648B75d95cdAC2', '0xC55036B5348CfB45a932481744645985010d3A44'],
-      ],
-      'WINE-MIM-LP': [
-        '0x00cB5b42684DA62909665d8151fF80D1567722c3',
-        18,
-        ['0xC55036B5348CfB45a932481744645985010d3A44', '0x130966628846bfd36ff31a822705796e8cb8c18d'],
-      ],
-      'MIM-WAVAX-LP': ['0x781655d802670bba3c89aebaaea59d3182fd755d', 18],
       HSHARE: ['0xfa4B6db72A650601E7Bd50a0A9f537c9E98311B2', 18],
       USDC: ['0xa7d7079b0fead91f3e65f86e8915cb59c1a4c664', 6],
+      'GRAPE': ['0x5541D83EFaD1f281571B343977648B75d95cdAC2', 18],
+      'WAMP': ['0xd7Fdf42510566b9aEfD3F1841a1503B6678cD780', 18],
+      'VOLT': ['0xf5ee578505f4D876FeF288DfD9fD5e15e9EA1318', 18],
+      'DAI': ['0xd586e7f844cea2f87f50152665bcbc2c279d8d70', 18],
+      'GRAPE-MIM-LP': ['0xb382247667fe8ca5327ca1fa4835ae77a9907bc8', 18],
+      'WINE-MIM-LP': ['0x00cB5b42684DA62909665d8151fF80D1567722c3', 18],
+      'GRAPE-WINE-LP': ['0xd3d477Df7f63A2623464Ff5Be6746981FdeD026F', 18],
+      'MIM-WAVAX-LP': ['0x781655d802670bba3c89aebaaea59d3182fd755d', 18],
       'HSHARE-WINE-LP': ['0x9E8abB3A78cF9Ae9D6eA3282566e36B91C92db5b', 18]
-
     },
     baseLaunchDate: new Date('2021-12-30 1:00:00Z'),
     bondLaunchesAt: new Date('2020-12-03T15:00:00Z'),
@@ -98,7 +73,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
   finished: will disable the pool on the UI if set to true
   sort: the order of the pool
   */
-
+  
   GrapeMimRewardPool: {
     name: 'Earn GRAPE with MIM',
     poolId: 0,
@@ -190,7 +165,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     multi: '42.5%',
     buyLink: 'https://traderjoexyz.com/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0x5541d83efad1f281571b343977648b75d95cdac2#/',
   },
-
+  
   WineMimLPWineRewardPool: {
     name: 'Earn WINE with WINE-MIM LP',
     poolId: 1,

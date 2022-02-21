@@ -46,7 +46,6 @@ const Bank: React.FC = () => {
   useEffect(() => window.scrollTo(0, 0));
   const date = new Date('2022-1-31 12:00:00Z');
   const classes = useStyles();
-  // @ts-ignore
   const {bankId} = useParams();
   const bank = useBank(bankId);
 
@@ -55,16 +54,14 @@ const Bank: React.FC = () => {
   const statsOnPool = useStatsForPool(bank);
  
   const cashPrice = useCashPriceInLastTWAP();
-
   const bondScale = (Number(cashPrice) / 1e18).toFixed(2); 
 
-
   let curStrat: string;
-  if (Number(bondScale) >= 2) {
+  if(Number(bondScale) >= 2){
     curStrat = zone1;
-  } else if (Number(bondScale) < 2 && Number(bondScale) >= 1) {
+  }else if(Number(bondScale) < 2 && Number(bondScale) >= 1){
     curStrat = zone2;
-  } else {
+  }else{
     curStrat = zone3;
   }
 
@@ -78,22 +75,22 @@ const Bank: React.FC = () => {
     vaultUrl = 'https://app.beefy.finance/#/avax/vault/grape-grape-mim';
     strat = curStrat;
     stratText = 'Click here to see the optimal strategy for this vault';
-  } else if (bank.depositTokenName.includes('WINE-MIM')) {
+  } else if(bank.depositTokenName.includes('WINE-MIM')) {
     name = 'Autocompound your WINE-MIM on Beefy here';
     vaultUrl = 'https://app.beefy.finance/#/avax/vault/grape-wine-mim';
     strat = curStrat;
     stratText = 'Click here to see the optimal strategy for this vault';
-  } else if (bank.depositTokenName.includes('GRAPE-WINE')) {
+  }else if(bank.depositTokenName.includes('GRAPE-WINE')) {
     name = 'Autocompound your GRAPE-WINE on Yield Wolf here';
     vaultUrl = 'https://yieldwolf.finance/avalanche/grapefinance-wine/92';
     strat = curStrat;
     stratText = 'Click here to see the optimal strategy for this vault';
-  } else if (bank.depositTokenName === 'GRAPE') {
+  } else if(bank.depositTokenName === 'GRAPE') {
     name = 'Stake your GRAPE to earn WINE';
     vaultUrl = null;
     strat = '';
     stratText = '';
-  } else if (bank.depositTokenName === 'WAMP') {
+  } else if(bank.depositTokenName === 'WAMP') {
     name = 'Get WAMP to stake for WINE here';
     vaultUrl = 'https://app.asgarddao.fi/#/pledge';
     strat = wampStrat;
@@ -105,7 +102,11 @@ const Bank: React.FC = () => {
     stratText = 'Buy HSHARE Here';
   }
 
-  const [onPresentDeposit, onDismissDeposit] = useModal(<StratModal strat={strat} />);
+  const [onPresentDeposit, onDismissDeposit] = useModal(
+    <StratModal
+      strat={strat}
+    />,
+  );
 
   return account && bank ? (
     <>
@@ -114,8 +115,6 @@ const Bank: React.FC = () => {
         subtitle={''}
         title={bank?.name}
       />
-
-
 
               <Box mt={5}>      
                 <Grid container justify="center" spacing={3} style={{ marginBottom: '30px' }}>    
@@ -136,7 +135,6 @@ const Bank: React.FC = () => {
   </Box>: null}
               
       <Box>         
-
         <Grid container justify="center" spacing={3} style={{marginBottom: '50px'}}>
           <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
             <Card className={classes.gridItem}>
@@ -162,9 +160,9 @@ const Bank: React.FC = () => {
               </CardContent>
             </Card>
           </Grid>
-        </Grid>
-      </Box>
-
+</Grid>
+        </Box>
+   
       <Box mt={5}>
         <StyledBank>
           <StyledCardsWrapper>
@@ -185,6 +183,10 @@ const Bank: React.FC = () => {
           <Spacer size="lg" />
         </StyledBank>
       </Box>
+
+      
+             
+
     </>
   ) : !bank ? (
     <BankNotFound />
@@ -202,24 +204,17 @@ const LPTokenHelpText: React.FC<{bank: BankEntity}> = ({bank}) => {
   let exchange: string;
   if (bank.depositTokenName.includes('GRAPE-MIM')) {
     pairName = 'GRAPE-MIM pair';
-    uniswapUrl =
-      'https://traderjoexyz.com/pool/0x130966628846bfd36ff31a822705796e8cb8c18d/0x5541d83efad1f281571b343977648b75d95cdac2';
+    uniswapUrl = 'https://traderjoexyz.com/pool/0x130966628846bfd36ff31a822705796e8cb8c18d/0x5541d83efad1f281571b343977648b75d95cdac2';
     vaultUrl = '#';
-
     exchange = 'joe';
   } else if(bank.depositTokenName.includes('WINE-MIM')){
-
     pairName = 'WINE-MIM pair';
-    uniswapUrl =
-      'https://traderjoexyz.com/pool/0x130966628846bfd36ff31a822705796e8cb8c18d/0xc55036b5348cfb45a932481744645985010d3a44';
+    uniswapUrl = 'https://traderjoexyz.com/pool/0x130966628846bfd36ff31a822705796e8cb8c18d/0xc55036b5348cfb45a932481744645985010d3a44';
     vaultUrl = '#';
-
     exchange = 'joe';
   }else if(bank.depositTokenName.includes('GRAPE-WINE')){
-
     pairName = 'GRAPE-WINE pair';
-    uniswapUrl =
-      'https://traderjoexyz.com/pool/0x5541d83efad1f281571b343977648b75d95cdac2/0xc55036b5348cfb45a932481744645985010d3a44';
+    uniswapUrl = 'https://traderjoexyz.com/pool/0x5541d83efad1f281571b343977648b75d95cdac2/0xc55036b5348cfb45a932481744645985010d3a44';
     vaultUrl = '#';
     exchange = 'joe';
   }else if(bank.depositTokenName === 'HSHARE-WINE-LP'){
@@ -229,15 +224,15 @@ const LPTokenHelpText: React.FC<{bank: BankEntity}> = ({bank}) => {
     exchange = 'Pangolin';
   }
   return (
+    
     <Card>
       <CardContent>
         <StyledLink href={uniswapUrl} target="_blank">
-
         <span style={{color: "#000"}}>Provide liquidity for {pairName} on {exchange}</span>        
-
         </StyledLink>
-      </CardContent>
+      </CardContent>   
     </Card>
+ 
   );
 };
 
