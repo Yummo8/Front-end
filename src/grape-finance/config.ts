@@ -7,7 +7,7 @@ export type Configuration = {
   ftmscanUrl: string;
   defaultProvider: string;
   deployments: Deployments;
-  externalTokens: {[contractName: string]: [string, number]};
+  externalTokens: {[contractName: string]: [string, number, [string, string]?]};
   config?: EthereumConfig;
 
   baseLaunchDate: Date;

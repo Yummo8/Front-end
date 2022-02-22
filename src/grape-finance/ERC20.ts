@@ -61,6 +61,17 @@ class ERC20 {
   }
 }
 
+export class LPERC20 {
+  pairTokens: [ERC20, ERC20];
+  pairTokenAddresses: [string, string];
+  token: ERC20;
+  constructor(token: ERC20, pair: [ERC20, ERC20]) {
+    this.token = token;
+    this.pairTokens = pair;
+    this.pairTokenAddresses = [pair[0].address, pair[1].address];
+  }
+}
+
 export default ERC20;
 
 const ABI = [
