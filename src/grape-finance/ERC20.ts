@@ -68,7 +68,7 @@ export class LPERC20 {
   constructor(token: ERC20, pair: [ERC20, ERC20]) {
     this.token = token;
     this.pairTokens = pair;
-    this.pairTokenAddresses = [pair[0].address, pair[1].address];
+    this.pairTokenAddresses = [pair[0].address.toLowerCase(), pair[1].address.toLowerCase()];
   }
 }
 

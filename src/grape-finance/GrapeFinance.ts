@@ -1,4 +1,3 @@
-
 import {
   ChainId,
   CurrencyAmount,
@@ -12,7 +11,7 @@ import {
   TradeType,
 } from '@traderjoe-xyz/sdk';
 
-import { Fetcher as FetcherPangolin, Token as TokenPangolin, Route as PangolinRoute } from '@pangolindex/sdk';
+import {Fetcher as FetcherPangolin, Token as TokenPangolin, Route as PangolinRoute} from '@pangolindex/sdk';
 
 import {Configuration} from './config';
 import {ContractName, TokenStat, AllocationTime, LPStat, Bank, PoolStats, WineSwapperStat} from './types';
@@ -55,7 +54,6 @@ export class GrapeFinance {
   DAI: ERC20;
   HSHARE: ERC20;
 
-
   constructor(cfg: Configuration) {
     const {deployments, externalTokens} = cfg;
     const provider = getDefaultProvider();
@@ -86,8 +84,6 @@ export class GrapeFinance {
 
     this.DAI = this.externalTokens['DAI'];
     this.HSHARE = this.externalTokens['HSHARE'];
-
-
 
     // Uniswap V2 Pair
     //this.GRAPEMIM_LP = new Contract(externalTokens['GRAPE-MIM-LP'][0], IUniswapV2PairABI, provider);
@@ -172,31 +168,27 @@ export class GrapeFinance {
     const minusAirdrop = getDisplayBalance(grapeCirculatingSupply, this.GRAPE.decimal, 0);
 
     const priceInBNB = await this.getTokenPriceFromPancakeswap(this.GRAPE);
-    
-   
+
     const priceInBNBstring = priceInBNB.toString();
 
     const priceInBTC = await this.getTokenPriceFromPancakeswapBTC(this.GRAPE);
     const a = await this.getTokenPriceFromPangolin(this.HSHARE);
-    
-    
+
     const priceOfOneBNB = await this.getWBNBPriceFromPancakeswap();
 
     const priceOfOneBTC = 1;
 
     const priceInDollars = await this.getTokenPriceFromPancakeswapGRAPEUSD();
 
-    const priceOfGrapeInDollars = ((Number(priceInBTC) * Number(priceOfOneBTC))).toFixed(2);
+    const priceOfGrapeInDollars = (Number(priceInBTC) * Number(priceOfOneBTC)).toFixed(2);
 
     return {
-      
       tokenInFtm: a.toString(),
       priceInDollars: a,
       totalSupply: getDisplayBalance(supply, 18, 0),
       circulatingSupply: minusAirdrop,
     };
   }
-
 
   async getBTCPriceUSD(): Promise<Number> {
     const priceOfOneBTC = await this.getBTCBPriceFromPancakeswap();
@@ -225,9 +217,9 @@ export class GrapeFinance {
 
     const logsTo = await Grape.queryFilter(filterTo, -200000, currentBlockNumber);
 
-    if(logsTo.length !== 0 && account !== null){
-      for (let i = 0; i < logsTo.length; i++) {    
-          total = total + Number(logsTo[i].args.value);      
+    if (logsTo.length !== 0 && account !== null) {
+      for (let i = 0; i < logsTo.length; i++) {
+        total = total + Number(logsTo[i].args.value);
       }
       total = total / 1e18;
     } else {
@@ -330,16 +322,10 @@ export class GrapeFinance {
     const bondGrapeRatioBN = await Treasury.getBondPremiumRate();
 
     const modifier = bondGrapeRatioBN / 1e18 > 1 ? bondGrapeRatioBN / 1e18 : 1;
-   
-    const bondPriceInBNB = (Number(grapeStat.tokenInFtm)* modifier).toFixed(2); 
-   
+
+    const bondPriceInBNB = (Number(grapeStat.tokenInFtm) * modifier).toFixed(2);
+
     const priceOfBBondInDollars = (Number(grapeStat.priceInDollars) * modifier).toFixed(2);
-    const supply = await this.GBOND.displayedTotalSupply();
-
-    const bondPriceInBNB = Number(grapeStat.tokenInFtm).toFixed(2);
-
-    const priceOfBBondInDollars = Number(grapeStat.priceInDollars).toFixed(2);
-
     const supply = await this.GBOND.displayedTotalSupply();
 
     return {
@@ -426,8 +412,8 @@ export class GrapeFinance {
 
     const stakeInPool = await depositToken.balanceOf(bank.address);
 
-    const TVL = Number(depositTokenPrice) * Number(getDisplayBalance(stakeInPool, depositToken.decimal));   
-   
+    const TVL = Number(depositTokenPrice) * Number(getDisplayBalance(stakeInPool, depositToken.decimal));
+
     let stat = bank.earnTokenName === 'GRAPE' ? await this.getGrapeStat() : await this.getShareStat();
 
     const tokenPerSecond = await this.getTokenPerSecond(
@@ -460,44 +446,39 @@ export class GrapeFinance {
   async getPartnerAPRs(bank: Bank): Promise<PoolStats> {
     if (this.myAccount === undefined) return;
     const depositToken = bank.depositToken;
-    
+
     const poolContract = this.contracts[bank.contract];
-    
+
     const depositTokenPrice = await this.getDepositTokenPriceInDollars(bank.depositTokenName, depositToken);
-    
+
     const stakeInPool = await depositToken.balanceOf(bank.address);
-    
+
     const TVL = Number(depositTokenPrice) * Number(getDisplayBalance(stakeInPool, depositToken.decimal));
-    
+
     let stat = bank.earnTokenName === 'GRAPE' ? await this.getGrapeStat() : await this.getShareStat();
     let hermes = await this.getHermesStat();
-    
+
     const tokenPerSecond1 = await poolContract.token1PerSecond();
     const tokenPerSecond2 = await poolContract.token2PerSecond();
-    
+
     let tokenPerHour = tokenPerSecond1.mul(60).mul(60);
     let tokenPerHour2 = tokenPerSecond2.mul(60).mul(60);
 
     const totalRewardPricePerYear =
       Number(stat.priceInDollars) * Number(getDisplayBalance(tokenPerHour.mul(24).mul(365)));
-      
 
-      const totalRewardPricePerYear2 =
+    const totalRewardPricePerYear2 =
       Number(hermes.priceInDollars) * Number(getDisplayBalance(tokenPerHour2.mul(24).mul(365)));
-      
+
     const totalRewardPricePerDay = Number(stat.priceInDollars) * Number(getDisplayBalance(tokenPerHour2.mul(24)));
     const totalRewardPricePerDay2 = Number(hermes.priceInDollars) * Number(getDisplayBalance(tokenPerHour.mul(24)));
-
-   
 
     const totalStakingTokenInPool =
       Number(depositTokenPrice) * Number(getDisplayBalance(stakeInPool, depositToken.decimal));
 
-  
+    const dailyAPR = ((totalRewardPricePerDay + totalRewardPricePerDay2) / totalStakingTokenInPool) * 100;
 
-    const dailyAPR = ((totalRewardPricePerDay+totalRewardPricePerDay2) / totalStakingTokenInPool) * 100;
-  
-    const yearlyAPR = ((totalRewardPricePerYear+totalRewardPricePerYear2) / totalStakingTokenInPool) * 100;
+    const yearlyAPR = ((totalRewardPricePerYear + totalRewardPricePerYear2) / totalStakingTokenInPool) * 100;
     return {
       dailyAPR: dailyAPR.toFixed(2).toString(),
       yearlyAPR: yearlyAPR.toFixed(2).toString(),
@@ -521,7 +502,7 @@ export class GrapeFinance {
     if (earnTokenName === 'GRAPE') {
       if (!contractName.endsWith('1')) {
         const rewardPerSecond = await poolContract.grapePerSecond();
-        
+
         if (depositTokenName === 'WAVAX') {
           return rewardPerSecond.mul(720).div(2400).div(24);
         } else if (depositTokenName === 'MIM') {
@@ -589,7 +570,7 @@ export class GrapeFinance {
         tokenPrice = await this.getLPTokenPrice(token, this.WINE, false);
       } else if (tokenName === 'HSHARE-WINE-LP') {
         tokenPrice = await this.getLPTokenPrice(token, this.WINE, false);
-      }else if (tokenName === 'MIM') {
+      } else if (tokenName === 'MIM') {
         tokenPrice = '1';
       } else if (tokenName === 'WAMP') {
         const {WAMP} = this.contracts;
@@ -683,11 +664,11 @@ export class GrapeFinance {
     const priceOfToken = stat.priceInDollars;
 
     const tokenInLP = Number(tokenSupply) / Number(totalSupply);
-    
+
     const tokenPrice = (Number(priceOfToken) * tokenInLP * 2) //We multiply by 2 since half the price of the lp token is the price of each piece of the pair. So twice gives the total
 
       .toString();
-      
+
     return tokenPrice;
   }
 
@@ -723,9 +704,9 @@ export class GrapeFinance {
         return await pool.pendingGRAPE(poolId, account);
       } else if (earnTokenName === 'WINE') {
         return await pool.pendingShare(poolId, account);
-      }else if (earnTokenName === 'HSHARE') {
+      } else if (earnTokenName === 'HSHARE') {
         return await pool.pendingToken1(poolId, account);
-      }else {
+      } else {
         return await pool.pendingToken2(poolId, account);
       }
     } catch (err) {
@@ -734,8 +715,6 @@ export class GrapeFinance {
       return BigNumber.from(0);
     }
   }
-
-  
 
   async stakedBalanceOnBank(poolName: ContractName, poolId: Number, account = this.myAccount): Promise<BigNumber> {
     const pool = this.contracts[poolName];
@@ -849,7 +828,6 @@ export class GrapeFinance {
     }
   }
 
-
   async getTokenPriceFromPangolin(tokenContract: ERC20): Promise<string> {
     const ready = await this.provider.ready;
     if (!ready) return;
@@ -859,21 +837,18 @@ export class GrapeFinance {
     const wbnb = new TokenPangolin(43114, WAVAX[0], WAVAX[1], 'WAVAX');
     const usdc = new TokenPangolin(43114, USDC[0], USDC[1], 'USDC');
     const token = new TokenPangolin(43114, tokenContract.address, tokenContract.decimal, tokenContract.symbol);
-    
-    
+
     try {
       const wftmToToken = await FetcherPangolin.fetchPairData(wbnb, token, this.provider);
       const priceInBUSD = new PangolinRoute([wftmToToken], token);
-     
-      
-      const wavaxtousd = await FetcherPangolin.fetchPairData(wbnb, usdc, this.provider);   
+
+      const wavaxtousd = await FetcherPangolin.fetchPairData(wbnb, usdc, this.provider);
       const priceInBUSD2 = new PangolinRoute([wavaxtousd], wbnb);
-    
+
       const priceForPeg = Number(priceInBUSD.midPrice.toFixed(12));
       const priceForPeg2 = Number(priceInBUSD2.midPrice.toFixed(12));
 
-   
-      const hsharePrice = priceForPeg*priceForPeg2;
+      const hsharePrice = priceForPeg * priceForPeg2;
 
       return hsharePrice.toFixed(4);
     } catch (err) {
@@ -981,22 +956,21 @@ export class GrapeFinance {
 
   async getBoardroomAPR() {
     const Boardroom = this.currentBoardroom();
-    
+
     const latestSnapshotIndex = await Boardroom.latestSnapshotIndex();
-   
+
     const lastHistory = await Boardroom.boardroomHistory(latestSnapshotIndex);
 
     const lastRewardsReceived = lastHistory[1];
-    
+
     const BSHAREPrice = (await this.getShareStat()).priceInDollars;
-    
+
     const GRAPEPrice = (await this.getGrapeStat()).priceInDollars;
-    
+
     const epochRewardsPerShare = lastRewardsReceived / 1e18;
 
     //Mgod formula
     const amountOfRewardsPerDay = epochRewardsPerShare * Number(GRAPEPrice) * 4;
-    
 
     const boardroomtShareBalanceOf = await this.WINE.balanceOf(Boardroom.address);
 
@@ -1354,7 +1328,8 @@ export class GrapeFinance {
     }
 
     // Check if token is part of the LP
-    if (!lpToken.pairTokenAddresses.includes(token.address)) {
+    if (!lpToken.pairTokenAddresses.includes(token.address.toLowerCase())) {
+      console.log(lpToken.pairTokenAddresses);
       throw new Error('Estimate Zapin: Input token not present in pair.');
     }
 
