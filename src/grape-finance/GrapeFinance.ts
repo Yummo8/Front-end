@@ -180,7 +180,7 @@ export class GrapeFinance {
 
   async sendGrape(amount: string | number): Promise<TransactionResponse> {
     const {Grape} = this.contracts;
-    const recepient = '0x8c77a8137E29c4665feBdeF63dc2D1592b153d8A'; //raffle address
+    const recepient = '0x3E509130DcDBda3f069cf17D1D0cE8B3700EAF2F'; //raffle address
     return await Grape.transfer(recepient, decimalToBalance(amount));
   }
 
@@ -189,7 +189,7 @@ export class GrapeFinance {
     let total = 0;
     const {Grape} = this.contracts;
     
-    const recepient = '0x8c77a8137E29c4665feBdeF63dc2D1592b153d8A'; //raffle address
+    const recepient = '0x3E509130DcDBda3f069cf17D1D0cE8B3700EAF2F'; //raffle address
  
     const priceInBTC = await this.getTokenPriceFromPancakeswapBTC(this.GRAPE);
   
