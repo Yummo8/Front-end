@@ -31,6 +31,7 @@ import zone1 from '../../assets/img/1.jpg';
 import zone2 from '../../assets/img/2.jpg';
 import zone3 from '../../assets/img/3.jpg';
 import wampStrat from '../../assets/img/wamp-strat.jpg';
+import hermesStrat from '../../assets/img/hermes-strat.png';
 import useCashPriceInLastTWAP from '../../hooks/useCashPriceInLastTWAP';
 
 const useStyles = makeStyles((theme) => ({
@@ -69,7 +70,7 @@ const Bank: React.FC = () => {
   let vaultUrl: string;
   let strat: string;
   let stratText: string;
-  let buyText: string;
+
   if (bank.depositTokenName.includes('GRAPE-MIM')) {
     name = 'Autocompound your GRAPE-MIM on Beefy here';
     vaultUrl = 'https://app.beefy.finance/#/avax/vault/grape-grape-mim';
@@ -98,8 +99,8 @@ const Bank: React.FC = () => {
   } else if(bank.depositTokenName === 'HSHARE-WINE-LP') {
     name = 'Buy WINE Here';
     vaultUrl = 'https://traderjoexyz.com/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0xc55036b5348cfb45a932481744645985010d3a44#/';
-    strat = 'https://app.pangolin.exchange/#/swap?outputCurrency=0xfa4B6db72A650601E7Bd50a0A9f537c9E98311B2';
-    stratText = 'Buy HSHARE Here';
+    strat = hermesStrat;
+    stratText = 'Click here to see the optimal strategy for this vault';
   }
 
   const [onPresentDeposit, onDismissDeposit] = useModal(
@@ -118,17 +119,17 @@ const Bank: React.FC = () => {
 
               <Box mt={5}>      
                 <Grid container justify="center" spacing={3} style={{ marginBottom: '30px' }}>    
-                  <Alert variant="filled"> 
-                      <a href={vaultUrl} target={"_blank"}><h3 style={{color: '#000'}}>{name}</h3></a>    
-                  </Alert>
-                  
+                {bank.depositTokenName === 'HSHARE-WINE-LP' ?
+                <Alert variant="filled"> 
+                   <a href={vaultUrl} target={"_blank"}><h3 style={{color: '#000'}}>{name}</h3></a>  <a href="https://app.pangolin.exchange/#/swap?outputCurrency=0xfa4B6db72A650601E7Bd50a0A9f537c9E98311B2" target={"_blank"}><h3 style={{color: '#000'}}>Buy HSHARE HERE</h3></a>
+                  </Alert>: null}          
                 </Grid>
               </Box>
               {stratText !== '' ? 
               <Box mt={5}>      
                 <Grid container justify="center" spacing={3} style={{ marginBottom: '30px' }}>    
                   <Alert variant="filled">                          
-                      {bank.depositTokenName === 'HSHARE-WINE-LP' ? <a href={strat} target={"_blank"}><h3 style={{color: '#000'}}>{stratText}</h3></a>: <a onClick={onPresentDeposit}><h3 style={{color: '#000'}}>{stratText}</h3></a>}
+                      <a onClick={onPresentDeposit}><h3 style={{color: '#000'}}>{stratText}</h3></a>
                   </Alert>
                  
                 </Grid>
