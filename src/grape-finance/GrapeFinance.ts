@@ -1,19 +1,33 @@
-import {Fetcher, Route, Token} from '@traderjoe-xyz/sdk';
-import { Fetcher as FetcherPangolin, Token as TokenPangolin, Route as PangolinRoute } from '@pangolindex/sdk';
+import {
+  ChainId,
+  CurrencyAmount,
+  Fetcher,
+  Pair,
+  Price,
+  Route,
+  Token,
+  TokenAmount,
+  Trade,
+  TradeType,
+} from '@traderjoe-xyz/sdk';
+
+import {Fetcher as FetcherPangolin, Token as TokenPangolin, Route as PangolinRoute} from '@pangolindex/sdk';
+
 import {Configuration} from './config';
 import {ContractName, TokenStat, AllocationTime, LPStat, Bank, PoolStats, WineSwapperStat} from './types';
-import {BigNumber, Contract, ethers, EventFilter} from 'ethers';
+import {BigNumber, BigNumberish, Contract, ethers, EventFilter} from 'ethers';
 import {decimalToBalance} from './ether-utils';
 import {TransactionResponse} from '@ethersproject/providers';
-import ERC20 from './ERC20';
+import ERC20, {LPERC20} from './ERC20';
 import {getFullDisplayBalance, getDisplayBalance} from '../utils/formatBalance';
 import {getDefaultProvider} from '../utils/provider';
+
 import IUniswapV2PairABI from './IUniswapV2Pair.abi.json';
 import config, {bankDefinitions} from '../config';
 import moment from 'moment';
 import {parseUnits} from 'ethers/lib/utils';
-import {BNB_TICKER, SPOOKY_ROUTER_ADDR, GRAPE_TICKER} from '../utils/constants';
-import { Console } from 'console';
+import {MIM_TICKER, SPOOKY_ROUTER_ADDR, GRAPE_TICKER, WINE_TICKER} from '../utils/constants';
+import {Console} from 'console';
 /**
  * An API module of Grape Finance contracts.
  * All contract-interacting domain logic should be defined in here.
@@ -25,18 +39,18 @@ export class GrapeFinance {
   config: Configuration;
   contracts: {[name: string]: Contract};
   externalTokens: {[name: string]: ERC20};
+  externalLPs: {[name: string]: LPERC20};
   boardroomVersionOfUser?: string;
 
   GRAPEBTCB_LP: Contract;
   GRAPE: ERC20;
   WINE: ERC20;
   GBOND: ERC20;
-  BNB: ERC20;
-  BTC: ERC20;
   WAVAX: ERC20;
   MIM: ERC20;
   WAMP: ERC20;
   VOLT: ERC20;
+
   DAI: ERC20;
   HSHARE: ERC20;
 
@@ -50,18 +64,26 @@ export class GrapeFinance {
       this.contracts[name] = new Contract(deployment.address, deployment.abi, provider);
     }
     this.externalTokens = {};
-    for (const [symbol, [address, decimal]] of Object.entries(externalTokens)) {
+    this.externalLPs = {};
+    for (const [symbol, [address, decimal, lp]] of Object.entries(externalTokens)) {
+      if (lp) {
+        let [tokenA, tokenB] = lp;
+        this.externalLPs[symbol] = new LPERC20(new ERC20(address, provider, symbol, decimal), [
+          new ERC20(tokenA, provider, symbol, decimal),
+          new ERC20(tokenB, provider, symbol, decimal),
+        ]);
+      }
       this.externalTokens[symbol] = new ERC20(address, provider, symbol, decimal);
     }
-    this.GRAPE = new ERC20(deployments.Grape.address, provider, 'GRAPE'); 
+    this.GRAPE = new ERC20(deployments.Grape.address, provider, 'GRAPE');
     this.WINE = new ERC20(deployments.Wine.address, provider, 'WINE');
     this.GBOND = new ERC20(deployments.BBond.address, provider, 'GBOND');
     this.MIM = this.externalTokens['MIM'];
     this.WAMP = this.externalTokens['WAMP'];
     this.VOLT = this.externalTokens['VOLT'];
+
     this.DAI = this.externalTokens['DAI'];
     this.HSHARE = this.externalTokens['HSHARE'];
-
 
     // Uniswap V2 Pair
     //this.GRAPEMIM_LP = new Contract(externalTokens['GRAPE-MIM-LP'][0], IUniswapV2PairABI, provider);
@@ -115,21 +137,20 @@ export class GrapeFinance {
     const minusAirdrop = getDisplayBalance(grapeCirculatingSupply, this.GRAPE.decimal, 0);
 
     const priceInBNB = await this.getTokenPriceFromPancakeswap(this.GRAPE);
-    
-   
+
     const priceInBNBstring = priceInBNB.toString();
 
     const priceInBTC = await this.getTokenPriceFromPancakeswapBTC(this.GRAPE);
+
     const priceOfOneBNB = await this.getWBNBPriceFromPancakeswap();
 
     const priceOfOneBTC = 1;
 
     const priceInDollars = await this.getTokenPriceFromPancakeswapGRAPEUSD();
 
-    const priceOfGrapeInDollars = ((Number(priceInBTC) * Number(priceOfOneBTC))).toFixed(2);
+    const priceOfGrapeInDollars = (Number(priceInBTC) * Number(priceOfOneBTC)).toFixed(2);
 
     return {
-      
       tokenInFtm: priceInBTC.toString(),
       priceInDollars: priceOfGrapeInDollars,
       totalSupply: getDisplayBalance(supply, 18, 0),
@@ -147,31 +168,27 @@ export class GrapeFinance {
     const minusAirdrop = getDisplayBalance(grapeCirculatingSupply, this.GRAPE.decimal, 0);
 
     const priceInBNB = await this.getTokenPriceFromPancakeswap(this.GRAPE);
-    
-   
+
     const priceInBNBstring = priceInBNB.toString();
 
     const priceInBTC = await this.getTokenPriceFromPancakeswapBTC(this.GRAPE);
     const a = await this.getTokenPriceFromPangolin(this.HSHARE);
-    
-    
+
     const priceOfOneBNB = await this.getWBNBPriceFromPancakeswap();
 
     const priceOfOneBTC = 1;
 
     const priceInDollars = await this.getTokenPriceFromPancakeswapGRAPEUSD();
 
-    const priceOfGrapeInDollars = ((Number(priceInBTC) * Number(priceOfOneBTC))).toFixed(2);
+    const priceOfGrapeInDollars = (Number(priceInBTC) * Number(priceOfOneBTC)).toFixed(2);
 
     return {
-      
       tokenInFtm: a.toString(),
       priceInDollars: a,
       totalSupply: getDisplayBalance(supply, 18, 0),
       circulatingSupply: minusAirdrop,
     };
   }
-
 
   async getBTCPriceUSD(): Promise<Number> {
     const priceOfOneBTC = await this.getBTCBPriceFromPancakeswap();
@@ -184,33 +201,32 @@ export class GrapeFinance {
     return await Grape.transfer(recepient, decimalToBalance(amount));
   }
 
-
   async getRaffleStat(account: string): Promise<TokenStat> {
     let total = 0;
     const {Grape} = this.contracts;
-    
+
     const recepient = '0x3E509130DcDBda3f069cf17D1D0cE8B3700EAF2F'; //raffle address
- 
+
     const priceInBTC = await this.getTokenPriceFromPancakeswapBTC(this.GRAPE);
-  
-    const balOfRaffle =  await Grape.balanceOf(recepient);
+
+    const balOfRaffle = await Grape.balanceOf(recepient);
 
     const currentBlockNumber = await this.provider.getBlockNumber();
 
     const filterTo = Grape.filters.Transfer(account, recepient);
-  
+
     const logsTo = await Grape.queryFilter(filterTo, -200000, currentBlockNumber);
-    
-    if(logsTo.length !== 0 && account !== null){
-      for (let i = 0; i < logsTo.length; i++) {    
-          total = total + Number(logsTo[i].args.value);      
+
+    if (logsTo.length !== 0 && account !== null) {
+      for (let i = 0; i < logsTo.length; i++) {
+        total = total + Number(logsTo[i].args.value);
       }
-        total = total/1000000000000000000;  
-    }else{
-        total = 0;
+      total = total / 1e18;
+    } else {
+      total = 0;
     }
-    
-    return { 
+
+    return {
       tokenInFtm: priceInBTC.toString(),
       priceInDollars: total.toString(),
       totalSupply: getDisplayBalance(balOfRaffle, 18, 0),
@@ -229,26 +245,29 @@ export class GrapeFinance {
     const lpTokenSupplyBN = await lpToken.totalSupply();
 
     const lpTokenSupply = getDisplayBalance(lpTokenSupplyBN, 18);
-    
+
     const token0 = name.startsWith('GRAPE') ? this.GRAPE : this.WINE;
-    
+
     const isGrape = name.startsWith('GRAPE');
 
     const tokenAmountBN = await token0.balanceOf(lpToken.address);
-    
-    const tokenAmount = getDisplayBalance(tokenAmountBN, 18);
-    
-    const ftmAmountBN = lpToken.symbol === "GRAPE-WINE-LP" ? await this.WINE.balanceOf(lpToken.address) : await this.MIM.balanceOf(lpToken.address);
 
-    const ftmAmount = getDisplayBalance(ftmAmountBN, 18);
+    const tokenAmount = getDisplayBalance(tokenAmountBN, 18);
+
+    const mimAmountBN =
+      lpToken.symbol === 'GRAPE-WINE-LP'
+        ? await this.WINE.balanceOf(lpToken.address)
+        : await this.MIM.balanceOf(lpToken.address);
+
+    const mimAmount = getDisplayBalance(mimAmountBN, 18);
     const tokenAmountInOneLP = Number(tokenAmount) / Number(lpTokenSupply);
-    const ftmAmountInOneLP = Number(ftmAmount) / Number(lpTokenSupply);
+    const mimAmountInOneLP = Number(mimAmount) / Number(lpTokenSupply);
     const lpTokenPrice = await this.getLPTokenPrice(lpToken, token0, isGrape);
     const lpTokenPriceFixed = Number(lpTokenPrice).toFixed(2).toString();
     const liquidity = (Number(lpTokenSupply) * Number(lpTokenPrice)).toFixed(2).toString();
     return {
       tokenAmount: tokenAmountInOneLP.toFixed(2).toString(),
-      ftmAmount: ftmAmountInOneLP.toFixed(2).toString(),
+      mimAmount: mimAmountInOneLP.toFixed(2).toString(),
       priceOfOne: lpTokenPriceFixed,
       totalLiquidity: liquidity,
       totalSupply: Number(lpTokenSupply).toFixed(2).toString(),
@@ -256,25 +275,24 @@ export class GrapeFinance {
   }
 
   async getLPStatBTC(name: string): Promise<LPStat> {
-
     const lpToken = this.externalTokens[name];
 
     const lpTokenSupplyBN = await lpToken.totalSupply();
 
     const lpTokenSupply = getDisplayBalance(lpTokenSupplyBN, 18);
-    
+
     const token0 = name.startsWith('GRAPE') ? this.GRAPE : this.WINE;
     const isGrape = name.startsWith('GRAPE');
-    
+
     const tokenAmountBN = await token0.balanceOf(lpToken.address);
-    
+
     const tokenAmount = getDisplayBalance(tokenAmountBN, 18);
 
     const btcAmountBN = await this.MIM.balanceOf(lpToken.address);
-    
+
     const btcAmount = getDisplayBalance(btcAmountBN, 18);
     const tokenAmountInOneLP = Number(tokenAmount) / Number(lpTokenSupply);
-    const ftmAmountInOneLP = Number(btcAmount) / Number(lpTokenSupply);
+    const mimAmountInOneLP = Number(btcAmount) / Number(lpTokenSupply);
     const lpTokenPrice = await this.getLPTokenPrice(lpToken, token0, isGrape);
 
     const lpTokenPriceFixed = Number(lpTokenPrice).toFixed(2).toString();
@@ -283,7 +301,7 @@ export class GrapeFinance {
 
     return {
       tokenAmount: tokenAmountInOneLP.toFixed(2).toString(),
-      ftmAmount: ftmAmountInOneLP.toFixed(5).toString(),
+      mimAmount: mimAmountInOneLP.toFixed(5).toString(),
       priceOfOne: lpTokenPriceFixed,
       totalLiquidity: liquidity,
       totalSupply: Number(lpTokenSupply).toFixed(2).toString(),
@@ -302,15 +320,13 @@ export class GrapeFinance {
     const grapeStat = await this.getGrapeStat();
 
     const bondGrapeRatioBN = await Treasury.getBondPremiumRate();
-    
+
     const modifier = bondGrapeRatioBN / 1e18 > 1 ? bondGrapeRatioBN / 1e18 : 1;
-    
-    const bondPriceInBNB = (Number(grapeStat.tokenInFtm)* modifier).toFixed(2);
-    
-   
+
+    const bondPriceInBNB = (Number(grapeStat.tokenInFtm) * modifier).toFixed(2);
+
     const priceOfBBondInDollars = (Number(grapeStat.priceInDollars) * modifier).toFixed(2);
     const supply = await this.GBOND.displayedTotalSupply();
-
 
     return {
       tokenInFtm: priceOfBBondInDollars,
@@ -329,16 +345,16 @@ export class GrapeFinance {
    */
   async getShareStat(): Promise<TokenStat> {
     const {WineRewardPool} = this.contracts;
-   
+
     const supply = await this.WINE.totalSupply();
-    
+
     const priceInBNB = await this.getTokenPriceFromPancakeswap(this.WINE);
-    
+
     const grapeRewardPoolSupply = await this.WINE.balanceOf(WineRewardPool.address);
 
     const tShareCirculatingSupply = supply.sub(grapeRewardPoolSupply);
-    
-    const priceOfSharesInDollars = (Number(priceInBNB)).toFixed(2);
+
+    const priceOfSharesInDollars = Number(priceInBNB).toFixed(2);
 
     return {
       tokenInFtm: priceOfSharesInDollars,
@@ -389,17 +405,17 @@ export class GrapeFinance {
   async getPoolAPRs(bank: Bank): Promise<PoolStats> {
     if (this.myAccount === undefined) return;
     const depositToken = bank.depositToken;
-   
+
     const poolContract = this.contracts[bank.contract];
-   
+
     const depositTokenPrice = await this.getDepositTokenPriceInDollars(bank.depositTokenName, depositToken);
-    
+
     const stakeInPool = await depositToken.balanceOf(bank.address);
 
-    const TVL = Number(depositTokenPrice) * Number(getDisplayBalance(stakeInPool, depositToken.decimal));   
-   
+    const TVL = Number(depositTokenPrice) * Number(getDisplayBalance(stakeInPool, depositToken.decimal));
+
     let stat = bank.earnTokenName === 'GRAPE' ? await this.getGrapeStat() : await this.getShareStat();
-   
+
     const tokenPerSecond = await this.getTokenPerSecond(
       bank.earnTokenName,
       bank.contract,
@@ -408,17 +424,17 @@ export class GrapeFinance {
     );
 
     let tokenPerHour = tokenPerSecond.mul(60).mul(60);
-    
+
     const totalRewardPricePerYear =
       Number(stat.priceInDollars) * Number(getDisplayBalance(tokenPerHour.mul(24).mul(365)));
-      
+
     const totalRewardPricePerDay = Number(stat.priceInDollars) * Number(getDisplayBalance(tokenPerHour.mul(24)));
 
     const totalStakingTokenInPool =
       Number(depositTokenPrice) * Number(getDisplayBalance(stakeInPool, depositToken.decimal));
 
     const dailyAPR = (totalRewardPricePerDay / totalStakingTokenInPool) * 100;
-  
+
     const yearlyAPR = (totalRewardPricePerYear / totalStakingTokenInPool) * 100;
     return {
       dailyAPR: dailyAPR.toFixed(2).toString(),
@@ -430,44 +446,39 @@ export class GrapeFinance {
   async getPartnerAPRs(bank: Bank): Promise<PoolStats> {
     if (this.myAccount === undefined) return;
     const depositToken = bank.depositToken;
-    
+
     const poolContract = this.contracts[bank.contract];
-    
+
     const depositTokenPrice = await this.getDepositTokenPriceInDollars(bank.depositTokenName, depositToken);
-    
+
     const stakeInPool = await depositToken.balanceOf(bank.address);
-    
+
     const TVL = Number(depositTokenPrice) * Number(getDisplayBalance(stakeInPool, depositToken.decimal));
-    
+
     let stat = bank.earnTokenName === 'GRAPE' ? await this.getGrapeStat() : await this.getShareStat();
     let hermes = await this.getHermesStat();
-    
+
     const tokenPerSecond1 = await poolContract.token1PerSecond();
     const tokenPerSecond2 = await poolContract.token2PerSecond();
-    
+
     let tokenPerHour = tokenPerSecond1.mul(60).mul(60);
     let tokenPerHour2 = tokenPerSecond2.mul(60).mul(60);
 
     const totalRewardPricePerYear =
       Number(stat.priceInDollars) * Number(getDisplayBalance(tokenPerHour.mul(24).mul(365)));
-      
 
-      const totalRewardPricePerYear2 =
+    const totalRewardPricePerYear2 =
       Number(hermes.priceInDollars) * Number(getDisplayBalance(tokenPerHour2.mul(24).mul(365)));
-      
+
     const totalRewardPricePerDay = Number(stat.priceInDollars) * Number(getDisplayBalance(tokenPerHour2.mul(24)));
     const totalRewardPricePerDay2 = Number(hermes.priceInDollars) * Number(getDisplayBalance(tokenPerHour.mul(24)));
-
-   
 
     const totalStakingTokenInPool =
       Number(depositTokenPrice) * Number(getDisplayBalance(stakeInPool, depositToken.decimal));
 
-  
+    const dailyAPR = ((totalRewardPricePerDay + totalRewardPricePerDay2) / totalStakingTokenInPool) * 100;
 
-    const dailyAPR = ((totalRewardPricePerDay+totalRewardPricePerDay2) / totalStakingTokenInPool) * 100;
-  
-    const yearlyAPR = ((totalRewardPricePerYear+totalRewardPricePerYear2) / totalStakingTokenInPool) * 100;
+    const yearlyAPR = ((totalRewardPricePerYear + totalRewardPricePerYear2) / totalStakingTokenInPool) * 100;
     return {
       dailyAPR: dailyAPR.toFixed(2).toString(),
       yearlyAPR: yearlyAPR.toFixed(2).toString(),
@@ -488,16 +499,15 @@ export class GrapeFinance {
     poolContract: Contract,
     depositTokenName: string,
   ) {
-
     if (earnTokenName === 'GRAPE') {
       if (!contractName.endsWith('1')) {
         const rewardPerSecond = await poolContract.grapePerSecond();
-        
+
         if (depositTokenName === 'WAVAX') {
           return rewardPerSecond.mul(720).div(2400).div(24);
         } else if (depositTokenName === 'MIM') {
           return rewardPerSecond.mul(720).div(2400).div(24);
-        } 
+        }
         return rewardPerSecond.div(12);
       }
 
@@ -507,7 +517,7 @@ export class GrapeFinance {
       } else if (depositTokenName === 'MIM') {
         const rewardPerSecond = await poolContract.epochGrapePerSecond(0);
         return rewardPerSecond.div(100).mul(2);
-      } 
+      }
 
       const poolStartTime = await poolContract.poolStartTime();
       await poolContract.epochGrapePerSecond(1);
@@ -515,19 +525,15 @@ export class GrapeFinance {
       const startDateTime = new Date(poolStartTime.toNumber() * 1000);
       const FOUR_DAYS = 4 * 24 * 60 * 60 * 1000;
       if (Date.now() - startDateTime.getTime() > FOUR_DAYS) {
-        
         return await poolContract.epochGrapePerSecond(1);
-
       }
       return await poolContract.epochGrapePerSecond(0);
-
-      
     }
 
     //update for new tokens
 
     const rewardPerSecond = await poolContract.winePerSecond();
-    
+
     if (depositTokenName.startsWith('WINE')) {
       return rewardPerSecond.mul(15000).div(41000);
     } else  if (depositTokenName.startsWith('GRAPE-WINE')) {
@@ -552,7 +558,7 @@ export class GrapeFinance {
   async getDepositTokenPriceInDollars(tokenName: string, token: ERC20) {
     let tokenPrice;
     const priceOfOneFtmInDollars = await this.getWBNBPriceFromPancakeswap();
-    
+
     if (tokenName === 'WAVAX') {
       tokenPrice = priceOfOneFtmInDollars;
     } else {
@@ -564,18 +570,17 @@ export class GrapeFinance {
         tokenPrice = await this.getLPTokenPrice(token, this.WINE, false);
       } else if (tokenName === 'HSHARE-WINE-LP') {
         tokenPrice = await this.getLPTokenPrice(token, this.WINE, false);
-      }else if (tokenName === 'MIM') {
+      } else if (tokenName === 'MIM') {
         tokenPrice = '1';
-      }else if (tokenName === 'WAMP') {
+      } else if (tokenName === 'WAMP') {
         const {WAMP} = this.contracts;
-        token = this.VOLT       
+        token = this.VOLT;
         const getWAMP = await WAMP.wAMPToAMP(1000000000000000);
-        tokenPrice = await this.getDaiPrice(token);   
-        tokenPrice = ((Number(tokenPrice) / 1000000000) * (Number(getWAMP)/1000000)).toString();    
-
+        tokenPrice = await this.getDaiPrice(token);
+        tokenPrice = ((Number(tokenPrice) / 1000000000) * (Number(getWAMP) / 1000000)).toString();
       } else {
         tokenPrice = await this.getTokenPriceFromPancakeswap(token);
-        tokenPrice = (Number(tokenPrice) * 1).toString();      
+        tokenPrice = (Number(tokenPrice) * 1).toString();
       }
     }
     return tokenPrice;
@@ -622,7 +627,7 @@ export class GrapeFinance {
     for (const bankInfo of Object.values(bankDefinitions)) {
       const pool = this.contracts[bankInfo.contract];
       const token = this.externalTokens[bankInfo.depositTokenName];
-      
+
       const tokenPrice = await this.getDepositTokenPriceInDollars(bankInfo.depositTokenName, token);
 
       const tokenAmountInPool = await token.balanceOf(pool.address);
@@ -640,8 +645,6 @@ export class GrapeFinance {
     return totalValue + boardroomTVL;
   }
 
-
-
   /**
    * Calculates the price of an LP token
    * Reference https://github.com/DefiDebauchery/discordpricebot/blob/4da3cdb57016df108ad2d0bb0c91cd8dd5f9d834/pricebot/pricebot.py#L150
@@ -653,19 +656,19 @@ export class GrapeFinance {
   async getLPTokenPrice(lpToken: ERC20, token: ERC20, isGrape: boolean): Promise<string> {
     const totalSupply = getFullDisplayBalance(await lpToken.totalSupply(), lpToken.decimal);
     //Get amount of tokenA
-    
+
     const tokenSupply = getFullDisplayBalance(await token.balanceOf(lpToken.address), token.decimal);
-    
+
     const stat = isGrape === true ? await this.getGrapeStat() : await this.getShareStat();
-    
+
     const priceOfToken = stat.priceInDollars;
-    
+
     const tokenInLP = Number(tokenSupply) / Number(totalSupply);
-    
+
     const tokenPrice = (Number(priceOfToken) * tokenInLP * 2) //We multiply by 2 since half the price of the lp token is the price of each piece of the pair. So twice gives the total
-    
+
       .toString();
-      
+
     return tokenPrice;
   }
 
@@ -701,27 +704,27 @@ export class GrapeFinance {
         return await pool.pendingGRAPE(poolId, account);
       } else if (earnTokenName === 'WINE') {
         return await pool.pendingShare(poolId, account);
-      }else if (earnTokenName === 'HSHARE') {
+      } else if (earnTokenName === 'HSHARE') {
         return await pool.pendingToken1(poolId, account);
-      }else {
+      } else {
         return await pool.pendingToken2(poolId, account);
       }
     } catch (err) {
+      // @ts-ignore
       console.error(`Failed to call pendingShare() on pool ${pool.address}: ${err.stack}`);
       return BigNumber.from(0);
     }
   }
 
-  
-
   async stakedBalanceOnBank(poolName: ContractName, poolId: Number, account = this.myAccount): Promise<BigNumber> {
     const pool = this.contracts[poolName];
- 
+
     try {
       let userInfo = await pool.userInfo(poolId, account);
 
       return await userInfo.amount;
     } catch (err) {
+      // @ts-ignore
       console.error(`Failed to call userInfo() on pool ${pool.address}: ${err.stack}`);
       return BigNumber.from(0);
     }
@@ -783,22 +786,20 @@ export class GrapeFinance {
     return this.boardroomVersionOfUser !== 'latest';
   }
 
-
   async getDaiPrice(tokenContract: ERC20): Promise<string> {
     const ready = await this.provider.ready;
     if (!ready) return;
     //const { chainId } = this.config;
     const {DAI} = this.config.externalTokens;
-       
-    const wftm = new Token(43114, DAI[0], DAI[1], 'DAI');
-    
+
+    const wmim = new Token(43114, DAI[0], DAI[1], 'DAI');
+
     const token = new Token(43114, tokenContract.address, tokenContract.decimal, tokenContract.symbol);
-    
-    
+
     try {
-      const wftmToToken = await Fetcher.fetchPairData(wftm, token, this.provider);
-      
-      const priceInBUSD = new Route([wftmToToken], token);
+      const wmimToToken = await Fetcher.fetchPairData(wmim, token, this.provider);
+
+      const priceInBUSD = new Route([wmimToToken], token);
 
       return priceInBUSD.midPrice.toFixed(2);
     } catch (err) {
@@ -811,15 +812,15 @@ export class GrapeFinance {
     if (!ready) return;
     //const { chainId } = this.config;
     const {MIM} = this.config.externalTokens;
-     
-    const wftm = new Token(43114, MIM[0], MIM[1], 'MIM');
-      
+
+    const wmim = new Token(43114, MIM[0], MIM[1], 'MIM');
+
     const token = new Token(43114, tokenContract.address, tokenContract.decimal, tokenContract.symbol);
-    
+
     try {
-      const wftmToToken = await Fetcher.fetchPairData(wftm, token, this.provider);
-      
-      const priceInBUSD = new Route([wftmToToken], token);
+      const wmimToToken = await Fetcher.fetchPairData(wmim, token, this.provider);
+
+      const priceInBUSD = new Route([wmimToToken], token);
 
       return priceInBUSD.midPrice.toFixed(4);
     } catch (err) {
@@ -836,29 +837,24 @@ export class GrapeFinance {
     const wbnb = new TokenPangolin(43114, WAVAX[0], WAVAX[1], 'WAVAX');
     const usdc = new TokenPangolin(43114, USDC[0], USDC[1], 'USDC');
     const token = new TokenPangolin(43114, tokenContract.address, tokenContract.decimal, tokenContract.symbol);
-    
-    
+
     try {
       const wftmToToken = await FetcherPangolin.fetchPairData(wbnb, token, this.provider);
       const priceInBUSD = new PangolinRoute([wftmToToken], token);
-     
-      
-      const wavaxtousd = await FetcherPangolin.fetchPairData(wbnb, usdc, this.provider);   
+
+      const wavaxtousd = await FetcherPangolin.fetchPairData(wbnb, usdc, this.provider);
       const priceInBUSD2 = new PangolinRoute([wavaxtousd], wbnb);
-    
+
       const priceForPeg = Number(priceInBUSD.midPrice.toFixed(12));
       const priceForPeg2 = Number(priceInBUSD2.midPrice.toFixed(12));
 
-   
-      const hsharePrice = priceForPeg*priceForPeg2;
+      const hsharePrice = priceForPeg * priceForPeg2;
 
       return hsharePrice.toFixed(4);
     } catch (err) {
       console.error(`Failed to fetch token price of ${tokenContract.symbol}: ${err}`);
     }
   }
-
-
 
   async getTokenPriceFromPancakeswapBTC(tokenContract: ERC20): Promise<string> {
     const ready = await this.provider.ready;
@@ -868,11 +864,10 @@ export class GrapeFinance {
 
     const wbnb = new Token(43114, MIM[0], MIM[1], 'MIM');
     const token = new Token(43114, tokenContract.address, tokenContract.decimal, tokenContract.symbol);
-    
-    
+
     try {
-      const wftmToToken = await Fetcher.fetchPairData(wbnb, token, this.provider);
-      const priceInBUSD = new Route([wftmToToken], token);
+      const wmimToToken = await Fetcher.fetchPairData(wbnb, token, this.provider);
+      const priceInBUSD = new Route([wmimToToken], token);
 
       const priceForPeg = Number(priceInBUSD.midPrice.toFixed(12));
       return priceForPeg.toFixed(4);
@@ -890,11 +885,11 @@ export class GrapeFinance {
     const mim = new Token(43114, MIM[0], MIM[1]);
     const token = new Token(43114, this.GRAPE.address, this.GRAPE.decimal, 'GRAPE');
     try {
-      const wftmToToken = await Fetcher.fetchPairData(mim, token, this.provider);
-      const priceInBUSD = new Route([wftmToToken], token);
-      
+      const wmimToToken = await Fetcher.fetchPairData(mim, token, this.provider);
+      const priceInBUSD = new Route([wmimToToken], token);
+
       const priceForPeg = Number(priceInBUSD.midPrice.toFixed(12));
-      
+
       return priceForPeg.toFixed(4);
     } catch (err) {
       console.error(`Failed to fetch token price of GRAPE: ${err}`);
@@ -906,13 +901,13 @@ export class GrapeFinance {
     if (!ready) return;
     const {WAVAX, MIM} = this.externalTokens;
     try {
-      const fusdt_wftm_lp_pair = this.externalTokens['MIM-WAVAX-LP'];
-      let ftm_amount_BN = await WAVAX.balanceOf(fusdt_wftm_lp_pair.address);
-      let ftm_amount = Number(getFullDisplayBalance(ftm_amount_BN, WAVAX.decimal));
-      let fusdt_amount_BN = await MIM.balanceOf(fusdt_wftm_lp_pair.address);
+      const fusdt_wmim_lp_pair = this.externalTokens['MIM-WAVAX-LP'];
+      let mim_amount_BN = await WAVAX.balanceOf(fusdt_wmim_lp_pair.address);
+      let mim_amount = Number(getFullDisplayBalance(mim_amount_BN, WAVAX.decimal));
+      let fusdt_amount_BN = await MIM.balanceOf(fusdt_wmim_lp_pair.address);
       let fusdt_amount = Number(getFullDisplayBalance(fusdt_amount_BN, MIM.decimal));
 
-      return (fusdt_amount / ftm_amount).toString();
+      return (fusdt_amount / mim_amount).toString();
     } catch (err) {
       console.error(`Failed to fetch token price of AVAX: ${err}`);
     }
@@ -924,7 +919,7 @@ export class GrapeFinance {
     const {MIM} = this.externalTokens;
     try {
       const btcPriceInBNB = await this.getTokenPriceFromPancakeswap(MIM);
-      
+
       const wbnbPrice = await this.getWBNBPriceFromPancakeswap();
 
       const btcprice = (Number(btcPriceInBNB) * Number(wbnbPrice)).toFixed(2).toString();
@@ -941,12 +936,12 @@ export class GrapeFinance {
   //   const { BTCB, FUSDT } = this.externalTokens;
   //   try {
   //     const fusdt_btcb_lp_pair = this.externalTokens['USDT-BTCB-LP'];
-  //     let ftm_amount_BN = await BTCB.balanceOf(fusdt_btcb_lp_pair.address);
-  //     let ftm_amount = Number(getFullDisplayBalance(ftm_amount_BN, BTCB.decimal));
+  //     let mim_amount_BN = await BTCB.balanceOf(fusdt_btcb_lp_pair.address);
+  //     let mim_amount = Number(getFullDisplayBalance(mim_amount_BN, BTCB.decimal));
   //     let fusdt_amount_BN = await FUSDT.balanceOf(fusdt_btcb_lp_pair.address);
   //     let fusdt_amount = Number(getFullDisplayBalance(fusdt_amount_BN, FUSDT.decimal));
-  //     console.log('BTCB price', (fusdt_amount / ftm_amount).toString());
-  //     return (fusdt_amount / ftm_amount).toString();
+  //     console.log('BTCB price', (fusdt_amount / mim_amount).toString());
+  //     return (fusdt_amount / mim_amount).toString();
   //     console.log('BTCB price');
   //   } catch (err) {
   //     console.error(`Failed to fetch token price of BTCB: ${err}`);
@@ -961,26 +956,24 @@ export class GrapeFinance {
 
   async getBoardroomAPR() {
     const Boardroom = this.currentBoardroom();
-    
+
     const latestSnapshotIndex = await Boardroom.latestSnapshotIndex();
-   
+
     const lastHistory = await Boardroom.boardroomHistory(latestSnapshotIndex);
 
     const lastRewardsReceived = lastHistory[1];
-    
+
     const BSHAREPrice = (await this.getShareStat()).priceInDollars;
-    
+
     const GRAPEPrice = (await this.getGrapeStat()).priceInDollars;
-    
+
     const epochRewardsPerShare = lastRewardsReceived / 1e18;
-    
 
     //Mgod formula
     const amountOfRewardsPerDay = epochRewardsPerShare * Number(GRAPEPrice) * 4;
-    
 
     const boardroomtShareBalanceOf = await this.WINE.balanceOf(Boardroom.address);
-    
+
     const boardroomTVL = Number(getDisplayBalance(boardroomtShareBalanceOf, this.WINE.decimal)) * Number(BSHAREPrice);
 
     const realAPR = ((amountOfRewardsPerDay * 100) / boardroomTVL) * 365;
@@ -1036,7 +1029,7 @@ export class GrapeFinance {
       return await Boardroom.getShareOf(this.myAccount);
     }
 
-   /* const elements = [
+    /* const elements = [
       '0xd185c6923d9b95cab880c9c6a0061b5a8d822405'
     ];
 
@@ -1064,7 +1057,6 @@ export class GrapeFinance {
     const Boardroom = this.currentBoardroom();
 
     if (this.boardroomVersionOfUser === 'v1') {
-      
       return await Boardroom.getCashEarningsOf(this.myAccount);
     }
 
@@ -1112,7 +1104,7 @@ export class GrapeFinance {
     const period = await Treasury.PERIOD();
     const periodInHours = period / 60 / 60; // 6 hours, period is displayed in seconds which is 21600
     const rewardLockupEpochs = await Boardroom.rewardLockupEpochs();
-    
+
     const targetEpochForClaimUnlock = Number(startTimeEpoch) + Number(rewardLockupEpochs);
 
     const fromDate = new Date(Date.now());
@@ -1160,7 +1152,7 @@ export class GrapeFinance {
       const endDate = moment(toDate)
         .add(delta * PeriodInHours, 'hours')
         .toDate();
-        console.log(fromDate);
+      console.log(fromDate);
       return {from: fromDate, to: endDate};
     }
   }
@@ -1173,13 +1165,16 @@ export class GrapeFinance {
       let assetUrl;
       if (assetName === 'GRAPE') {
         asset = this.GRAPE;
-        assetUrl = 'https://raw.githubusercontent.com/grapefi/front-end/77fa78f2b05b9fecfc0ebd43aef4560c0c00890b/src/assets/img/grape.png';
+        assetUrl =
+          'https://raw.githubusercontent.com/grapefi/front-end/77fa78f2b05b9fecfc0ebd43aef4560c0c00890b/src/assets/img/grape.png';
       } else if (assetName === 'WINE') {
         asset = this.WINE;
-        assetUrl = 'https://raw.githubusercontent.com/grapefi/front-end/77fa78f2b05b9fecfc0ebd43aef4560c0c00890b/src/assets/img/gshare.png';
+        assetUrl =
+          'https://raw.githubusercontent.com/grapefi/front-end/77fa78f2b05b9fecfc0ebd43aef4560c0c00890b/src/assets/img/gshare.png';
       } else if (assetName === 'GBOND') {
         asset = this.GBOND;
-        assetUrl = 'https://raw.githubusercontent.com/grapefi/front-end/77fa78f2b05b9fecfc0ebd43aef4560c0c00890b/src/assets/img/gbond.png';
+        assetUrl =
+          'https://raw.githubusercontent.com/grapefi/front-end/77fa78f2b05b9fecfc0ebd43aef4560c0c00890b/src/assets/img/gbond.png';
       }
       await ethereum.request({
         method: 'wallet_watchAsset',
@@ -1197,20 +1192,18 @@ export class GrapeFinance {
     return true;
   }
 
-  async provideGrapeFtmLP(ftmAmount: string, grapeAmount: BigNumber): Promise<TransactionResponse> {
+  async provideGrapeFtmLP(mimAmount: string, grapeAmount: BigNumber): Promise<TransactionResponse> {
     const {TaxOffice} = this.contracts;
     let overrides = {
-      value: parseUnits(ftmAmount, 18),
+      value: parseUnits(mimAmount, 18),
     };
     return await TaxOffice.addLiquidityETHTaxFree(
       grapeAmount,
       grapeAmount.mul(992).div(1000),
-      parseUnits(ftmAmount, 18).mul(992).div(1000),
+      parseUnits(mimAmount, 18).mul(992).div(1000),
       overrides,
     );
   }
-
-
 
   /**
    * @returns an array of the regulation events till the most up to date epoch
@@ -1285,41 +1278,171 @@ export class GrapeFinance {
     return bondsAmount.length;
   }
 
-  async estimateZapIn(tokenName: string, lpName: string, amount: string): Promise<number[]> {
-    const {zapper} = this.contracts;
-    const lpToken = this.externalTokens[lpName];
-    let estimate;
-    if (tokenName === BNB_TICKER) {
-      estimate = await zapper.estimateZapIn(lpToken.address, SPOOKY_ROUTER_ADDR, parseUnits(amount, 18));
-    } else {
-      const token = tokenName === GRAPE_TICKER ? this.GRAPE : this.WINE;
-      estimate = await zapper.estimateZapInToken(
-        token.address,
-        lpToken.address,
-        SPOOKY_ROUTER_ADDR,
-        parseUnits(amount, 18),
-      );
+  sqrt(value: BigNumberish) {
+    const ONE = ethers.BigNumber.from(1);
+    const TWO = ethers.BigNumber.from(2);
+    let x = ethers.BigNumber.from(value);
+    let z = x.add(ONE).div(TWO);
+    let y = x;
+    while (z.sub(y).isNegative()) {
+      y = z;
+      z = x.div(z).add(z).div(TWO);
     }
-    return [estimate[0] / 1e18, estimate[1] / 1e18];
+    return y;
   }
+
+  /**
+   * Estimate the amount of tokens on each side of the pair.
+   * @param tokenName The name of the token
+   * @param lpName The name of the pair
+   * @param amount The amount of tokenName to be zapped in
+   * @returns the amount of bonds events emitted based on the filter provided during a specific period
+   */
+  async estimateZapIn(
+    tokenName: string,
+    lpName: string,
+    amount: string,
+  ): Promise<{amounts: string[]; actions: string[]}> {
+    // YOU SHOULD NOT BE ABLE TO ZAP USING TOKENS OUTSIDE OF THE LP
+
+    // WARNING: SPAGHETTI CODE AHEAD
+
+    const {zapper} = this.contracts;
+    const lpToken = this.externalLPs[lpName];
+
+    let token: ERC20;
+
+    switch (tokenName) {
+      case GRAPE_TICKER: {
+        token = this.GRAPE;
+        break;
+      }
+      case WINE_TICKER: {
+        token = this.WINE;
+        break;
+      }
+      case MIM_TICKER: {
+        token = this.MIM;
+        break;
+      }
+    }
+
+    // Check if token is part of the LP
+    if (!lpToken.pairTokenAddresses.includes(token.address.toLowerCase())) {
+      console.log(lpToken.pairTokenAddresses);
+      throw new Error('Estimate Zapin: Input token not present in pair.');
+    }
+
+    console.log([token.address, lpToken.token.address, SPOOKY_ROUTER_ADDR, parseUnits(amount, 18)]);
+
+    /* Didn't work
+    estimate = await zapper.estimateZapInToken(
+      token.address,
+      lpToken.address,
+      SPOOKY_ROUTER_ADDR,
+      parseUnits(amount, 18),
+    );*/
+
+    // Perform the swap calculation on client-side, using TraderJoe router
+    // getAmountOut()
+
+    // investment = tokenA investment
+    // half = half of tokenA investment
+    // numerator = corresponding number of tokenB (extcall)
+    // denominator = price quote after adding half to reserve of tokenA and removing numerator from reserve of tokenB
+    // swapAmount = investment - sqrt((half * half * numerator / denominator))
+
+    let otherToken = lpToken.pairTokenAddresses[0] == token.address ? lpToken.pairTokens[1] : lpToken.pairTokens[0];
+
+    let investment = ethers.utils.parseEther(amount);
+    let half = investment.div(2);
+
+    // get pair data: tokenA reserve & tokenB reserve
+    let pair = await Fetcher.fetchPairData(
+      new Token(ChainId.AVALANCHE, token.address, 18),
+      new Token(ChainId.AVALANCHE, otherToken.address, 18),
+      this.provider,
+    );
+    let estimateNum = await this.estimateTrade(token, otherToken, half, pair);
+
+    let numerator = ethers.utils.parseEther(await estimateNum.toSignificant(6));
+    let denominator = ethers.utils.parseEther(
+      (
+        await this.estimateTrade(token, otherToken, half, new Pair(pair.reserve0, pair.reserve1, ChainId.AVALANCHE))
+      ).toSignificant(6),
+    );
+    // investment - sqrt(half^2 * num)
+    let swapAmountIn = investment.sub(this.sqrt(half.mul(half).mul(numerator).div(denominator)));
+
+    let swapAmountOut = (await this.estimateTrade(token, otherToken, half, pair)).toSignificant(6);
+
+    console.log(swapAmountOut);
+
+    return {
+      amounts: [ethers.utils.formatEther(swapAmountIn), swapAmountOut],
+      actions: [`Swap ${ethers.utils.formatEther(half)} for ${estimateNum.toSignificant(6)}`],
+    };
+  }
+
+  async estimateTrade(tokenFrom: ERC20, tokenTo: ERC20, amount: BigNumberish, pair?: Pair): Promise<CurrencyAmount> {
+    const inputToken = new Token(ChainId.AVALANCHE, tokenFrom.address, 18);
+    const outputToken = new Token(ChainId.AVALANCHE, tokenTo.address, 18);
+
+    // note that you may want/need to handle this async code differently,
+    // for example if top-level await is not an option
+    if (!pair) {
+      pair = await Fetcher.fetchPairData(inputToken, outputToken, this.provider);
+    }
+
+    const route = new Route([pair], inputToken, outputToken);
+
+    const trade = new Trade(
+      route,
+      new TokenAmount(inputToken, amount.toString()),
+      TradeType.EXACT_INPUT,
+      ChainId.AVALANCHE,
+    );
+
+    /*
+    console.log('--------');
+    console.log('TRADE');
+    console.log('amount of input (bignumber): ' + amount.toString());
+    console.log('execution price (Output/Input):' + trade.executionPrice.toSignificant(6));
+    console.log('price impact: ' + trade.priceImpact.toSignificant(6));
+    console.log('liquidity 0: ' + pair.reserve0.toSignificant(6));
+    console.log('liquidity 1: ' + pair.reserve1.toSignificant(6));
+    */
+    return trade.outputAmount;
+  }
+
   async zapIn(tokenName: string, lpName: string, amount: string): Promise<TransactionResponse> {
     const {zapper} = this.contracts;
     const lpToken = this.externalTokens[lpName];
-    if (tokenName === BNB_TICKER) {
-      let overrides = {
-        value: parseUnits(amount, 18),
-      };
-      return await zapper.zapIn(lpToken.address, SPOOKY_ROUTER_ADDR, this.myAccount, overrides);
-    } else {
-      const token = tokenName === GRAPE_TICKER ? this.GRAPE : this.WINE;
-      return await zapper.zapInToken(
-        token.address,
-        parseUnits(amount, 18),
-        lpToken.address,
-        SPOOKY_ROUTER_ADDR,
-        this.myAccount,
-      );
+
+    let token: ERC20;
+
+    switch (tokenName) {
+      case GRAPE_TICKER: {
+        token = this.GRAPE;
+        break;
+      }
+      case WINE_TICKER: {
+        token = this.WINE;
+        break;
+      }
+      case MIM_TICKER: {
+        token = this.MIM;
+        break;
+      }
     }
+    console.log(this.myAccount);
+    return await zapper.zapInToken(
+      token.address,
+      parseUnits(amount, 18),
+      lpToken.address,
+      SPOOKY_ROUTER_ADDR,
+      this.myAccount,
+    );
   }
   async swapBBondToWine(gbondAmount: BigNumber): Promise<TransactionResponse> {
     const {WineSwapper} = this.contracts;
