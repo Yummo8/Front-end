@@ -78,9 +78,9 @@ const Bond: React.FC = () => {
   const addTransaction = useTransactionAdder();
   const raffleStats = useRaffleStats(account);
 
-  const startDate = new Date('2022-2-28 05:00:00Z');
-  const date = new Date('2022-2-14 05:00:00Z');
-  const raffleAddress = '0x8c77a8137E29c4665feBdeF63dc2D1592b153d8A';
+  const startDate = new Date('2022-2-22 07:00:00Z');
+  const date = new Date('2022-2-25 07:00:00Z');
+  const raffleAddress = '0x3E509130DcDBda3f069cf17D1D0cE8B3700EAF2F';
 
   const startTime = Number(startDate); 
   const endTime = Number(date); 
@@ -122,11 +122,11 @@ const Bond: React.FC = () => {
     
      <Grid item xs={12} md={12} lg={12} >     
         <h2 style={{ fontSize: '80px', textAlign:'center' }}>Weekly WINE Raffle</h2>   
-        <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>Every week we'll run a raffle for our community where you have the chance to win WINE tokens just by sending in your freely earned Grape rewards.<br></br> <br></br> 1 Grape =  1 entry and there are unlimited entries per address, the more Grape you send the more chance you have to win. After the winner is chosen all Grape sent to the address will be burnt! The winner will be chosen at random.</p>                
+        <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>Every week we'll run a raffle for our community where you have the chance to win WINE tokens just by sending in your freely earned Grape rewards.<br></br> <br></br> 1 Grape =  1 entry and there are unlimited entries per address, the more Grape you send the more chance you have to win. The winner will be chosen at random.</p>                
         <p style={{fontSize: '20px', textAlign:'center', color: '#fff' }}>Raffle address: {raffleAddress}</p>
       </Grid>
-     {/* <LaunchCountdown deadline={date} description={'Raffle closes in'} descriptionLink={''}></LaunchCountdown>*/}
-     <h2 style={{textAlign:'center', marginTop: '10px' }}>Raffle closed winners will be announced soon!</h2>
+     {/*<LaunchCountdown deadline={startDate} description={'Raffle Closes In'} descriptionLink={''}></LaunchCountdown>*/}
+     <h2 style={{textAlign:'center', marginTop: '10px' }}>Raffle Closed!</h2>
     <Grid container justify="center" spacing={3} style={{marginTop: '10px'}}>
       <Grid item xs={12} sm={12} lg={6}>  
             <Card>
@@ -149,11 +149,11 @@ const Bond: React.FC = () => {
               toToken={grapeFinance.GBOND}
               toTokenName="GBOND"
               priceDesc={
-                Date.now() > startTime
+                Date.now() < endTime
                   ? 'Raffle is open! 1 GRAPE = 1 Entry'
                   : 'Raffle is currently closed'
               }
-              disabled={Date.now() > startTime ? false : true}
+              disabled={Date.now() < endTime ? false : true}
               onExchange={handleBuyBonds}
             />
           </StyledCardWrapper>
