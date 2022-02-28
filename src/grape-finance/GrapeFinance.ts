@@ -1352,7 +1352,10 @@ export class GrapeFinance {
     // denominator = price quote after adding half to reserve of tokenA and removing numerator from reserve of tokenB
     // swapAmount = investment - sqrt((half * half * numerator / denominator))
 
-    let otherToken = lpToken.pairTokenAddresses[0] == token.address ? lpToken.pairTokens[1] : lpToken.pairTokens[0];
+    let otherToken =
+      lpToken.pairTokenAddresses[0].toLowerCase() == token.address.toLowerCase()
+        ? lpToken.pairTokens[1]
+        : lpToken.pairTokens[0];
 
     let investment = ethers.utils.parseEther(amount);
     let half = investment.div(2);
