@@ -176,7 +176,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     finished: false,
     sort: 1,
     closedForStaking: false,
-    multi: '40%',
+    multi: '37%',
     buyLink: 'https://traderjoexyz.com/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0xc55036b5348cfb45a932481744645985010d3a44#/',
   },
   GrapeWineLPWineRewardPool: {
@@ -189,7 +189,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     finished: false,
     sort: 2,
     closedForStaking: false,
-    multi: '12%',
+    multi: '10%',
     buyLink: 'https://traderjoexyz.com/trade?inputCurrency=0xC55036B5348CfB45a932481744645985010d3A44&outputCurrency=0x5541d83efad1f281571b343977648b75d95cdac2#/',
   },
   GrapeStaking: {
@@ -202,7 +202,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     finished: false,
     sort: 3,
     closedForStaking: false,
-    multi: '1.5%',
+    multi: '6.5%',
     buyLink: 'https://traderjoexyz.com/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0x5541d83efad1f281571b343977648b75d95cdac2#/',
   },
   WampStaking: {

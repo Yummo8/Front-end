@@ -529,11 +529,11 @@ export class GrapeFinance {
     const rewardPerSecond = await poolContract.winePerSecond();
     
     if (depositTokenName.startsWith('WINE')) {
-      return rewardPerSecond.mul(16000).div(41000);
+      return rewardPerSecond.mul(15000).div(41000);
     } else  if (depositTokenName.startsWith('GRAPE-WINE')) {
-      return rewardPerSecond.mul(4800).div(41000);
+      return rewardPerSecond.mul(3900).div(41000);
     } else  if (depositTokenName === 'GRAPE') {
-      return rewardPerSecond.mul(625).div(41000);
+      return rewardPerSecond.mul(2675).div(41000);
     } else if (depositTokenName === 'WAMP') {
       return rewardPerSecond.mul(2575).div(41000);
     } else {
