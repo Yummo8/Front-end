@@ -197,7 +197,7 @@ export class GrapeFinance {
 
   async sendGrape(amount: string | number): Promise<TransactionResponse> {
     const {Grape} = this.contracts;
-    const recepient = '0x3E509130DcDBda3f069cf17D1D0cE8B3700EAF2F'; //raffle address
+    const recepient = '0x867174E923B32C918dF25135e5Bb3D3bfc0D5a7D'; //raffle address
     return await Grape.transfer(recepient, decimalToBalance(amount));
   }
 
@@ -205,7 +205,7 @@ export class GrapeFinance {
     let total = 0;
     const {Grape} = this.contracts;
 
-    const recepient = '0x3E509130DcDBda3f069cf17D1D0cE8B3700EAF2F'; //raffle address
+    const recepient = '0x867174E923B32C918dF25135e5Bb3D3bfc0D5a7D'; //raffle address
 
     const priceInBTC = await this.getTokenPriceFromPancakeswapBTC(this.GRAPE);
 
@@ -478,7 +478,7 @@ export class GrapeFinance {
 
     const dailyAPR = ((totalRewardPricePerDay + totalRewardPricePerDay2) / totalStakingTokenInPool) * 100;
 
-    const yearlyAPR = ((totalRewardPricePerYear + totalRewardPricePerYear2) / totalStakingTokenInPool) * 100;
+    const yearlyAPR = dailyAPR * 365;
     return {
       dailyAPR: dailyAPR.toFixed(2).toString(),
       yearlyAPR: yearlyAPR.toFixed(2).toString(),
@@ -535,15 +535,15 @@ export class GrapeFinance {
     const rewardPerSecond = await poolContract.winePerSecond();
 
     if (depositTokenName.startsWith('WINE')) {
-      return rewardPerSecond.mul(15000).div(41000);
+      return rewardPerSecond.mul(13000).div(41000);
     } else  if (depositTokenName.startsWith('GRAPE-WINE')) {
-      return rewardPerSecond.mul(3900).div(41000);
+      return rewardPerSecond.mul(3500).div(41000);
     } else  if (depositTokenName === 'GRAPE') {
-      return rewardPerSecond.mul(2675).div(41000);
+      return rewardPerSecond.mul(3200).div(41000);
     } else if (depositTokenName === 'WAMP') {
-      return rewardPerSecond.mul(2575).div(41000);
+      return rewardPerSecond.mul(1800).div(41000);
     } else {
-      return rewardPerSecond.mul(17000).div(41000);
+      return rewardPerSecond.mul(19500).div(41000);
     }
   }
 

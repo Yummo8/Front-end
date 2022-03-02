@@ -90,8 +90,8 @@ const Bank: React.FC = () => {
     strat = curStrat;
     stratText = 'Click here to see the optimal strategy for this vault';
   } else if (bank.depositTokenName === 'GRAPE') {
-    name = 'Stake your GRAPE to earn WINE';
-    vaultUrl = null;
+    name = 'Autocompound your GRAPE on Yield Wolf here';
+    vaultUrl = 'https://yieldwolf.finance/avalanche/grapefinance-wine/142';
     strat = '';
     stratText = '';
   } else if (bank.depositTokenName === 'WAMP') {
@@ -123,7 +123,8 @@ const Bank: React.FC = () => {
                 {bank.depositTokenName === 'HSHARE-WINE-LP' ?
                 <Alert variant="filled"> 
                    <a href={vaultUrl} target={"_blank"}><h3 style={{color: '#000'}}>{name}</h3></a>  <a href="https://app.pangolin.exchange/#/swap?outputCurrency=0xfa4B6db72A650601E7Bd50a0A9f537c9E98311B2" target={"_blank"}><h3 style={{color: '#000'}}>Buy HSHARE HERE</h3></a>
-                  </Alert>: null}          
+                   </Alert>
+                  : <Alert variant="filled">  <a href={vaultUrl} target={"_blank"}><h3 style={{color: '#000'}}>{name}</h3></a></Alert>}          
                 </Grid>
               </Box>
               {stratText !== '' ? 

@@ -95,7 +95,7 @@ const Bond: React.FC = () => {
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Start marketing blast & influencer partnerships ✅</p> 
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Grape staking for Wine rewards ✅</p>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- More autocompounder providers ✅</p>
-                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Implement Zap contract for LPs</p>
+                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Implement Zap contract for LPs ✅</p>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Strategy guides implemented on site ✅</p> 
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- User help guides in docs</p>   
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Start weekly Grape burns from the DAO ✅</p>   

@@ -78,12 +78,12 @@ const Bond: React.FC = () => {
   const addTransaction = useTransactionAdder();
   const raffleStats = useRaffleStats(account);
 
-  const startDate = new Date('2022-2-22 07:00:00Z');
-  const date = new Date('2022-2-25 07:00:00Z');
-  const raffleAddress = '0x3E509130DcDBda3f069cf17D1D0cE8B3700EAF2F';
+  const startDate = new Date('2022-3-1 11:00:00Z');
+  const endDate = new Date('2022-3-4 15:00:00Z');
+  const raffleAddress = '0x867174E923B32C918dF25135e5Bb3D3bfc0D5a7D';
 
   const startTime = Number(startDate); 
-  const endTime = Number(date); 
+  const endTime = Number(endDate); 
 
   const grapePrice = useMemo(
     () => (raffleStats ? Number(raffleStats.tokenInFtm).toFixed(2) : null),
@@ -99,8 +99,6 @@ const Bond: React.FC = () => {
     () => (raffleStats ? Number(raffleStats.priceInDollars).toFixed(0) : null),
     [raffleStats],
   );
-
-
 
   const handleBuyBonds = useCallback( 
     async (amount: string) => { 
@@ -125,14 +123,14 @@ const Bond: React.FC = () => {
         <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>Every week we'll run a raffle for our community where you have the chance to win WINE tokens just by sending in your freely earned Grape rewards.<br></br> <br></br> 1 Grape =  1 entry and there are unlimited entries per address, the more Grape you send the more chance you have to win. The winner will be chosen at random.</p>                
         <p style={{fontSize: '20px', textAlign:'center', color: '#fff' }}>Raffle address: {raffleAddress}</p>
       </Grid>
-     {/*<LaunchCountdown deadline={startDate} description={'Raffle Closes In'} descriptionLink={''}></LaunchCountdown>*/}
-     <h2 style={{textAlign:'center', marginTop: '10px' }}>Raffle Closed!</h2>
+
+      {Date.now() < startTime ? <LaunchCountdown deadline={startDate} description={'Raffle Starts In'} descriptionLink={''}></LaunchCountdown> : <LaunchCountdown deadline={endDate} description={'Raffle Closes In'} descriptionLink={''}></LaunchCountdown>}
+     
     <Grid container justify="center" spacing={3} style={{marginTop: '10px'}}>
-      <Grid item xs={12} sm={12} lg={6}>  
+        <Grid item xs={12} sm={12} lg={6}>  
             <Card>
               <h2 style={{textAlign:'center', marginTop: '10px' }}>Raffle Stats</h2>
-              <p style={{textAlign:'center'}}>Win 1 WINE this raffle</p>
-              
+              <p style={{textAlign:'center'}}>Win 1 WINE this raffle</p>           
               <p style={{textAlign:'center'}}>Grape Price: ${grapePrice}</p>
               <p style={{textAlign:'center'}}>Total Grape Entered: {raffleBals}</p>         
               <p style={{textAlign:'center'}}>Your entries: {userBals}</p>
@@ -149,11 +147,11 @@ const Bond: React.FC = () => {
               toToken={grapeFinance.GBOND}
               toTokenName="GBOND"
               priceDesc={
-                Date.now() < endTime
+                Date.now() < endTime && Date.now() > startTime
                   ? 'Raffle is open! 1 GRAPE = 1 Entry'
                   : 'Raffle is currently closed'
               }
-              disabled={Date.now() < endTime ? false : true}
+              disabled={Date.now() < endTime && Date.now() > startTime ? false : true}
               onExchange={handleBuyBonds}
             />
           </StyledCardWrapper>

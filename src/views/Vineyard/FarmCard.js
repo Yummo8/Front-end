@@ -45,8 +45,9 @@ const FarmCard = ({bank}) => {
               <b>Daily APR:</b> {bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}%
             </Typography>
             <Typography color="#322f32">
-              {/* {bank.name} */}
-              {bank.depositTokenName == 'HSHARE-WINE-LP'? <span style={{color: 'rgba(0,0,0,0)'}}>a</span> : <span>Pool Weighting: {bank.multi}</span>}
+              {/* {bank.name} 
+              {bank.depositTokenName == 'HSHARE-WINE-LP'? <span style={{color: 'rgba(0,0,0,0)'}}>a</span> : <span>Pool Weighting: {bank.multi}</span>}*/}
+              <b>Yearly APR:</b> {bank.closedForStaking ? '0.00' : statsOnPool?.yearlyAPR}%
             </Typography>
             
           </Box>
