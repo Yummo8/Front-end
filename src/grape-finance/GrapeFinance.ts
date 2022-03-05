@@ -537,9 +537,9 @@ export class GrapeFinance {
     if (depositTokenName.startsWith('WINE')) {
       return rewardPerSecond.mul(13000).div(41000);
     } else  if (depositTokenName.startsWith('GRAPE-WINE')) {
-      return rewardPerSecond.mul(3500).div(41000);
+      return rewardPerSecond.mul(3100).div(41000);
     } else  if (depositTokenName === 'GRAPE') {
-      return rewardPerSecond.mul(3200).div(41000);
+      return rewardPerSecond.mul(3600).div(41000);
     } else if (depositTokenName === 'WAMP') {
       return rewardPerSecond.mul(1800).div(41000);
     } else {
@@ -1352,10 +1352,7 @@ export class GrapeFinance {
     // denominator = price quote after adding half to reserve of tokenA and removing numerator from reserve of tokenB
     // swapAmount = investment - sqrt((half * half * numerator / denominator))
 
-    let otherToken =
-      lpToken.pairTokenAddresses[0].toLowerCase() == token.address.toLowerCase()
-        ? lpToken.pairTokens[1]
-        : lpToken.pairTokens[0];
+    let otherToken = lpToken.pairTokenAddresses[0] == token.address ? lpToken.pairTokens[1] : lpToken.pairTokens[0];
 
     let investment = ethers.utils.parseEther(amount);
     let half = investment.div(2);

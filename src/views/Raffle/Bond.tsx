@@ -124,8 +124,8 @@ const Bond: React.FC = () => {
         <p style={{fontSize: '20px', textAlign:'center', color: '#fff' }}>Raffle address: {raffleAddress}</p>
       </Grid>
 
-      {Date.now() < startTime ? <LaunchCountdown deadline={startDate} description={'Raffle Starts In'} descriptionLink={''}></LaunchCountdown> : <LaunchCountdown deadline={endDate} description={'Raffle Closes In'} descriptionLink={''}></LaunchCountdown>}
-     
+      {/*{Date.now() < startTime ? <LaunchCountdown deadline={startDate} description={'Raffle Starts In'} descriptionLink={''}></LaunchCountdown> : <LaunchCountdown deadline={endDate} description={'Raffle Closes In'} descriptionLink={''}></LaunchCountdown>}*/}
+      <h2 style={{ fontSize: '60px', textAlign:'center' }}>Raffle Closed</h2>   
     <Grid container justify="center" spacing={3} style={{marginTop: '10px'}}>
         <Grid item xs={12} sm={12} lg={6}>  
             <Card>
