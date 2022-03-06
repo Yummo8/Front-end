@@ -195,25 +195,23 @@ export class GrapeFinance {
     return Number(priceOfOneBTC);
   }
 
-  async sendGrape(amount: string | number): Promise<TransactionResponse> {
+  async sendGrape(amount: string | number, recepient: string): Promise<TransactionResponse> {
     const {Grape} = this.contracts;
-    const recepient = '0x867174E923B32C918dF25135e5Bb3D3bfc0D5a7D'; //raffle address
+    
     return await Grape.transfer(recepient, decimalToBalance(amount));
   }
 
-  async getRaffleStat(account: string): Promise<TokenStat> {
+  async getRaffleStat(account: string, raffleAddress: string): Promise<TokenStat> {
     let total = 0;
     const {Grape} = this.contracts;
 
-    const recepient = '0x867174E923B32C918dF25135e5Bb3D3bfc0D5a7D'; //raffle address
-
     const priceInBTC = await this.getTokenPriceFromPancakeswapBTC(this.GRAPE);
 
-    const balOfRaffle = await Grape.balanceOf(recepient);
+    const balOfRaffle = await Grape.balanceOf(raffleAddress);
 
     const currentBlockNumber = await this.provider.getBlockNumber();
 
-    const filterTo = Grape.filters.Transfer(account, recepient);
+    const filterTo = Grape.filters.Transfer(account, raffleAddress);
 
     const logsTo = await Grape.queryFilter(filterTo, -200000, currentBlockNumber);
 
@@ -230,7 +228,7 @@ export class GrapeFinance {
       tokenInFtm: priceInBTC.toString(),
       priceInDollars: total.toString(),
       totalSupply: getDisplayBalance(balOfRaffle, 18, 0),
-      circulatingSupply: recepient.toString(),
+      circulatingSupply: raffleAddress.toString(),
     };
   }
 

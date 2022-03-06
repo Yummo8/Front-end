@@ -76,9 +76,9 @@ const Bond: React.FC = () => {
   const grapeFinance = useGrapeFinance();
   const cashPrice = useCashPriceInLastTWAP();
   
-  const raffleStats = useRaffleStats(account);
 
-  const bondScale = (Number(cashPrice) / 1000000000000000000).toFixed(2); 
+
+  const bondScale = (Number(cashPrice) / 1e18).toFixed(2); 
   
   //const bondScale = 2;
   let strat: string;

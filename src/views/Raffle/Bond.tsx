@@ -71,16 +71,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Bond: React.FC = () => {
+
+  const startDate = new Date('2022-3-1 11:00:00Z');
+  const endDate = new Date('2022-3-5 15:00:00Z');
+  const raffleAddress = '0xea9E9ECBa2bb84bF5bd1f84f696Edd469548cdb6';
+
+
   const {path} = useRouteMatch();
   const {account} = useWallet();
   const classes = useStyles();
   const grapeFinance = useGrapeFinance();
   const addTransaction = useTransactionAdder();
-  const raffleStats = useRaffleStats(account);
+  const raffleStats = useRaffleStats(account, raffleAddress);
 
-  const startDate = new Date('2022-3-1 11:00:00Z');
-  const endDate = new Date('2022-3-4 15:00:00Z');
-  const raffleAddress = '0x867174E923B32C918dF25135e5Bb3D3bfc0D5a7D';
+
 
   const startTime = Number(startDate); 
   const endTime = Number(endDate); 
@@ -102,7 +106,7 @@ const Bond: React.FC = () => {
 
   const handleBuyBonds = useCallback( 
     async (amount: string) => { 
-      const tx = await grapeFinance.sendGrape(amount);
+      const tx = await grapeFinance.sendGrape(amount, raffleAddress);
         addTransaction(tx, {
           summary: `Send ${Number(amount).toFixed(2)} GRAPE to the raffle ${amount} `,
         });
@@ -123,9 +127,9 @@ const Bond: React.FC = () => {
         <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>Every week we'll run a raffle for our community where you have the chance to win WINE tokens just by sending in your freely earned Grape rewards.<br></br> <br></br> 1 Grape =  1 entry and there are unlimited entries per address, the more Grape you send the more chance you have to win. The winner will be chosen at random.</p>                
         <p style={{fontSize: '20px', textAlign:'center', color: '#fff' }}>Raffle address: {raffleAddress}</p>
       </Grid>
-
-      {/*{Date.now() < startTime ? <LaunchCountdown deadline={startDate} description={'Raffle Starts In'} descriptionLink={''}></LaunchCountdown> : <LaunchCountdown deadline={endDate} description={'Raffle Closes In'} descriptionLink={''}></LaunchCountdown>}*/}
-      <h2 style={{ fontSize: '60px', textAlign:'center' }}>Raffle Closed</h2>   
+      {Date.now() > endTime ? <h2 style={{ fontSize: '60px', textAlign:'center' }}>Raffle Closed</h2> : <h2 style={{ fontSize: '60px', textAlign:'center' }}>Raffle Open</h2>}
+      {Date.now() < startTime ? <LaunchCountdown deadline={startDate} description={'Raffle Starts In'} descriptionLink={''}></LaunchCountdown> : <LaunchCountdown deadline={endDate} description={'Raffle Closes In'} descriptionLink={''}></LaunchCountdown>}
+       
     <Grid container justify="center" spacing={3} style={{marginTop: '10px'}}>
         <Grid item xs={12} sm={12} lg={6}>  
             <Card>
