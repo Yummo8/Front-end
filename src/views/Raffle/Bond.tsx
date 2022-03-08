@@ -72,9 +72,9 @@ const useStyles = makeStyles((theme) => ({
 
 const Bond: React.FC = () => {
 
-  const startDate = new Date('2022-3-1 11:00:00Z');
-  const endDate = new Date('2022-3-5 15:00:00Z');
-  const raffleAddress = '0xea9E9ECBa2bb84bF5bd1f84f696Edd469548cdb6';
+  const startDate = new Date('2022-3-8 7:00:00Z');
+  const endDate = new Date('2022-3-11 7:00:00Z');
+  const raffleAddress = '0x7265f1d4066A52D917519aBdd23482Ee0F0C907E';
 
 
   const {path} = useRouteMatch();
