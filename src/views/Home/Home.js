@@ -265,12 +265,12 @@ const Home = () => {
                 </Button>
               </Box>
               {/* <h2 style={{ marginBottom: '20px' }}>Wallet Balance</h2> */}
-              <Button href="/winery" className="shinyButton" style={{margin: '10px'}}>
-                Winery
-              </Button>
               <Button href="/vineyard" className="shinyButton" style={{margin: '10px'}}>
                 Vineyard
               </Button>
+              <Button href="/winery" className="shinyButton" style={{margin: '10px'}}>
+                Winery
+              </Button>  
               <Button
                 target="_blank"
                 href={buyGrapeAddress}
