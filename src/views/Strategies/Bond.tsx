@@ -25,6 +25,7 @@ import HomeImage from '../../assets/img/background.jpg';
 import zone1 from '../../assets/img/1.jpg';
 import zone2 from '../../assets/img/2.jpg';
 import zone3 from '../../assets/img/3.jpg';
+import auto from '../../assets/img/Autocompounder.png';
 import wampStrat from '../../assets/img/wamp-strat.jpg';
 import hermesStrat from '../../assets/img/hermes-strat.png';
 import { Grid , Box, Container } from '@material-ui/core';
@@ -102,6 +103,8 @@ const Bond: React.FC = () => {
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>Grape TWAP: ${bondScale}</p>
                   <h2 style={{textAlign:'center', marginTop: '60px', paddingBottom: '50px' }}>Current Optimal Strategy</h2>
                   <img src={strat} width={'100%'} />     
+                  <h2 style={{textAlign:'center', marginTop: '100px', paddingBottom: '50px' }}>Auto-Compounder Strategy</h2>
+                  <img src={auto} width={'100%'} />   
                   <h2 style={{textAlign:'center', marginTop: '100px', paddingBottom: '50px' }}>Asgard DAO Multiplier Strategy</h2>
                   <img src={wampStrat} width={'100%'} />    
                   <h2 style={{textAlign:'center', marginTop: '100px', paddingBottom: '50px' }}>Hermes Dual Rewards Pool Strategy</h2>
