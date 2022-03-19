@@ -190,7 +190,7 @@ const Home = () => {
               <p>
                 Please join our{' '}
                 <a href="https://t.me/GrapeDefi" rel="noopener noreferrer" target="_blank" style={{color: '#000'}}>
-                  Telegram
+                <b> Telegram</b>
                 </a>{' '}
                 or{' '}
                 <a
@@ -199,7 +199,7 @@ const Home = () => {
                   target="_blank"
                   style={{color: '#000'}}
                 >
-                  Discord
+                 <b> Discord</b>
                 </a>{' '}
                 & read our{' '}
                 <a
@@ -208,9 +208,9 @@ const Home = () => {
                   target="_blank"
                   style={{color: '#000'}}
                 >
-                  Docs & Disclaimer
+                 <b>  Docs & Disclaimer</b>
                 </a>{' '}
-                before aping in!
+                before joining!
               </p>
             </Box>
           </Paper>
@@ -265,12 +265,12 @@ const Home = () => {
                 </Button>
               </Box>
               {/* <h2 style={{ marginBottom: '20px' }}>Wallet Balance</h2> */}
-              <Button href="/winery" className="shinyButton" style={{margin: '10px'}}>
-                Winery
-              </Button>
               <Button href="/vineyard" className="shinyButton" style={{margin: '10px'}}>
                 Vineyard
               </Button>
+              <Button href="/winery" className="shinyButton" style={{margin: '10px'}}>
+                Winery
+              </Button>  
               <Button
                 target="_blank"
                 href={buyGrapeAddress}
