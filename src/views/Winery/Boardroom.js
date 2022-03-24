@@ -78,7 +78,7 @@ const Boardroom = () => {
     () => (bShareStats ? bShareStats.circulatingSupply : null),
     [bShareStats],
   );
-    const percentageStaked = ((totalStaked/bShareCirculatingSupply)/1e18).toFixed(2);
+    const percentageStaked = ((totalStaked/bShareCirculatingSupply)/1e16).toFixed(2);
     const stake = Number(getDisplayBalance(totalStaked)).toFixed(0);
     const tvl = stake*stakedTokenPriceInDollars;
 
