@@ -168,7 +168,7 @@ const AprModal = ({open, handleClose, statsOnPool, coin}) => {
                 <Typography className={classes.subTitle}>Time</Typography>
               </Box>
               <Box sx={{width: '75px'}}>
-                <Typography className={classes.subTitle}>APY</Typography>
+                <Typography className={classes.subTitle}>APR</Typography>
               </Box>
               <Typography className={classes.subTitle}>Wine Per ${aprAmount}</Typography>
             </Box>
