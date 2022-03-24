@@ -209,7 +209,7 @@ const AprModal = ({open, handleClose, statsOnPool, coin}) => {
                 <Typography className={classes.text}>7d</Typography>
               </Box>
               <Box sx={{width: '75px'}}>
-                <Typography className={classes.text}>{statsOnPool?.dailyAPR * 7}%</Typography>
+                <Typography className={classes.text}>{(statsOnPool?.dailyAPR * 7).toFixed(2)}%</Typography>
               </Box>
               <Box
                 sx={{
@@ -235,7 +235,7 @@ const AprModal = ({open, handleClose, statsOnPool, coin}) => {
                 <Typography className={classes.text}>30d</Typography>
               </Box>
               <Box sx={{width: '75px'}}>
-                <Typography className={classes.text}>{statsOnPool?.dailyAPR * 30}%</Typography>
+                <Typography className={classes.text}>{(statsOnPool?.dailyAPR * 30).toFixed(2)}%</Typography>
               </Box>
               <Box
                 sx={{

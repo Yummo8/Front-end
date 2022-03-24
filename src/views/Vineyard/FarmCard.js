@@ -55,10 +55,10 @@ const FarmCard = ({bank}) => {
               {/* {bank.name} */}
               Earn {` ${bank.earnTokenName}`}
             </Typography>
-            <Typography color="#322f32">
-              {/* {bank.name} */}
+            {/*<Typography color="#322f32">
+           
               <b>Daily APR:</b> {bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}%
-            </Typography>
+            </Typography>*/}
             <Typography color="#322f32">
               {/* {bank.name}  */}
               {/* {bank.depositTokenName == 'HSHARE-WINE-LP' ? (
@@ -77,7 +77,7 @@ const FarmCard = ({bank}) => {
                 cursor: 'pointer',
               }}
             >
-              <Typography>Apr Calc</Typography> <SwapVerticalCircleIcon />
+              <Typography><b><u>Apr Calc</u></b></Typography> <SwapVerticalCircleIcon />
             </Box>
           </Box>
         </CardContent>

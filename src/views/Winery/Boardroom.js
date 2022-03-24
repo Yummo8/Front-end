@@ -78,7 +78,7 @@ const Boardroom = () => {
     () => (bShareStats ? bShareStats.circulatingSupply : null),
     [bShareStats],
   );
-    const percentageStaked = ((totalStaked/bShareCirculatingSupply)/10000000000000000).toFixed(2);
+    const percentageStaked = ((totalStaked/bShareCirculatingSupply)/1e18).toFixed(2);
     const stake = Number(getDisplayBalance(totalStaked)).toFixed(0);
     const tvl = stake*stakedTokenPriceInDollars;
 
@@ -136,7 +136,7 @@ const Boardroom = () => {
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
                     <Typography style={{textTransform: 'uppercase', color: '#930993'}}>TVL</Typography>
-                    <Typography>${tvl.toFixed(2)}</Typography>
+                    <Typography>${tvl ? (Number((Number(tvl).toFixed(0)))).toLocaleString('en-US') : '-.--'}</Typography>
                   </CardContent>
                 </Card>
               </Grid>
@@ -144,7 +144,7 @@ const Boardroom = () => {
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
                     <Typography style={{textTransform: 'uppercase', color: '#930993'}}>Est Reward/Day</Typography>
-                    <Typography>~${rewards.toFixed(2)}</Typography>
+                    <Typography>~${rewards ? Number(rewards).toLocaleString('en-US') : '0.00'}</Typography>
                   </CardContent>
                 </Card>
               </Grid>

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import styled from 'styled-components';
 
 import {useParams} from 'react-router-dom';
@@ -33,7 +33,7 @@ import zone3 from '../../assets/img/3.jpg';
 import wampStrat from '../../assets/img/wamp-strat.jpg';
 import hermesStrat from '../../assets/img/hermes-strat.png';
 import useCashPriceInLastTWAP from '../../hooks/useCashPriceInLastTWAP';
-
+import usebShareStats from '../../hooks/useWineStats';
 const useStyles = makeStyles((theme) => ({
   gridItem: {
     height: '100%',
@@ -54,11 +54,14 @@ const Bank: React.FC = () => {
   const {account} = useWallet();
   const {onRedeem} = useRedeem(bank);
   const statsOnPool = useStatsForPool(bank);
- 
+  const bShareStats = usebShareStats();
   const cashPrice = useCashPriceInLastTWAP();
 
   const bondScale = (Number(cashPrice) / 1e18).toFixed(2); 
-
+  const bSharePriceInDollars = useMemo(
+    () => (bShareStats ? Number(bShareStats.priceInDollars).toFixed(2) : null),
+    [bShareStats],
+  );
 
   let curStrat: string;
   if (Number(bondScale) >= 2) {
@@ -143,16 +146,16 @@ const Bank: React.FC = () => {
           <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
             <Card className={classes.gridItem}>
               <CardContent style={{textAlign: 'center'}}>
-                <Typography>APR</Typography>
-                <Typography>{bank.closedForStaking ? '0.00' : statsOnPool?.yearlyAPR}%</Typography>
+                <Typography>Pool Wine p/day</Typography>
+                <Typography>{bank.closedForStaking ? '0.00' : bank.multi} | ${(Number((Number(bSharePriceInDollars)*Number(bank.multi)).toFixed(0))).toLocaleString('en-US')}</Typography>
               </CardContent>
             </Card>
           </Grid>
           <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
             <Card className={classes.gridItem}>
               <CardContent style={{textAlign: 'center'}}>
-                <Typography>Daily APR</Typography>
-                <Typography>{bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}%</Typography>
+                <Typography>APR | DAILY</Typography>
+                <Typography>{bank.closedForStaking ? '0.00' : statsOnPool?.yearlyAPR}% | {bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}%</Typography>
               </CardContent>
             </Card>
           </Grid>
@@ -160,7 +163,7 @@ const Bank: React.FC = () => {
             <Card className={classes.gridItem}>
               <CardContent style={{textAlign: 'center'}}>
                 <Typography>TVL</Typography>
-                <Typography>${statsOnPool?.TVL}</Typography>
+                <Typography>${statsOnPool?.TVL ? (Number((Number(statsOnPool?.TVL).toFixed(0)))).toLocaleString('en-US') : '-.--'}</Typography>
               </CardContent>
             </Card>
           </Grid>
