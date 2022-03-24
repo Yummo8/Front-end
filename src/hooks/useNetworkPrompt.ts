@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import config from './../config';
+import config from '../config';
 
 const usePromptNetwork = () => {
   const [networkPrompt, setNetworkPrompt] = useState(false);
