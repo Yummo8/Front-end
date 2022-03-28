@@ -213,11 +213,21 @@ export class GrapeFinance {
     
     const filterTo = Grape.filters.Transfer(account, raffleAddress);
    
-    const logsTo = await Grape.queryFilter(filterTo, -2048, currentBlockNumber);
+    const startBlock = currentBlockNumber-100000;
 
-    if (logsTo.length !== 0 && account !== null) {
-      for (let i = 0; i < logsTo.length; i++) {
-        total = total + Number(logsTo[i].args.value);
+    let allEvents : any = [];
+    
+    for(let i = startBlock; i < currentBlockNumber; i += 2000) {
+      const _startBlock = i;
+      const _endBlock = Math.min(currentBlockNumber, i + 1999);
+      const events = await Grape.queryFilter(filterTo, _startBlock, _endBlock);
+      allEvents = [...allEvents, ...events]
+    }
+
+
+    if (allEvents.length !== 0 && account !== null) {
+      for (let i = 0; i < allEvents.length; i++) {
+        total = total + Number(allEvents[i].args.value);
       }
       total = total / 1e18;
     } else {

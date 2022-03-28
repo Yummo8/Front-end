@@ -22,7 +22,6 @@ import {Alert} from '@material-ui/lab';
 import useBank from '../../hooks/useBank';
 import {makeStyles} from '@material-ui/core/styles';
 import useGrapeFinance from '../../hooks/useGrapeFinance';
-import {ReactComponent as IconTelegram} from '../../assets/img/telegram.svg';
 import kyc from '../../assets/img/kyc.jpg';
 import wamp from '../../assets/img/WAMP.png';
 import GrapeImage from '../../assets/img/grape.png';
@@ -31,6 +30,8 @@ import HomeImage from '../../assets/img/background.jpg';
 import useStatsForPool from '../../hooks/useStatsForPool';
 import useTotalStakedOnBoardroom from '../../hooks/useTotalStakedOnBoardroom';
 import {getDisplayBalance} from '../../utils/formatBalance';
+import {ReactComponent as IconTelegram} from '../../assets/img/telegram.svg';
+import {ReactComponent as IconDiscord} from '../../assets/img/discord.svg';
 
 const BackgroundImage = createGlobalStyle`
   body {
@@ -190,7 +191,7 @@ const Home = () => {
               <p>
                 Please join our{' '}
                 <a href="https://t.me/GrapeDefi" rel="noopener noreferrer" target="_blank" style={{color: '#000'}}>
-                <b> Telegram</b>
+                <b> <IconTelegram style={{fill: '#000', height: '15px'}} />Telegram</b>
                 </a>{' '}
                 or{' '}
                 <a
@@ -199,7 +200,7 @@ const Home = () => {
                   target="_blank"
                   style={{color: '#000'}}
                 >
-                 <b> Discord</b>
+                 <b><IconDiscord style={{fill: '#000', height: '15px'}} /> Discord</b>
                 </a>{' '}
                 & read our{' '}
                 <a
