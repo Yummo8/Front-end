@@ -95,7 +95,7 @@ const Boardroom = () => {
             <h2 style={{ fontSize: '80px', textAlign:'center' }}>Winery</h2>
 
            <Alert variant="filled" severity="info" >               
-   The winery does not print Grape when below 1.01 TWAP, staking here below 1.01 TWAP will not generate rewards. Staked WINE can only be withdrawn every 4 epochs (24hrs) & rewards claimed every 2 epochs (12hrs). Staking or claiming resets this timer. <a target={"_blank"} href='https://yieldwolf.finance/avalanche/grape-boardroom/99'>Auto compound your Wine at Yield Wolf Here</a>
+   The winery does not print Grape when below 1.01 TWAP, staking here below 1.01 TWAP will not generate rewards. Staked WINE can only be withdrawn every 4 epochs (24hrs) & rewards claimed every 2 epochs (12hrs). Staking or claiming resets this timer.
       </Alert> 
           <Box mt={5}>
 
