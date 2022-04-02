@@ -4,6 +4,7 @@ import {Bank, ContractName} from '../grape-finance';
 
 const useBank = (contractName: ContractName): Bank => {
   const {banks} = useContext(BanksContext);
+  console.log(banks);
   return banks.find((bank) => bank.contract === contractName);
 };
 

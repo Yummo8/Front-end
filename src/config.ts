@@ -231,6 +231,19 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     multi: '4.5%',
     buyLink: 'https://app.pangolin.exchange/#/swap?inputCurrency=0xfa4B6db72A650601E7Bd50a0A9f537c9E98311B2&outputCurrency=0xC55036B5348CfB45a932481744645985010d3A44',
   },
+  GrapeMasterNode: {
+    name: 'Generate EMP with Nodes',
+    poolId: 0,
+    sectionInUI: 3,
+    contract: 'GrapeMasterNode',
+    depositTokenName: 'GRAPE',
+    earnTokenName: 'GRAPE',
+    finished: false,
+    sort: 2,
+    closedForStaking: false,
+    multi: '0',
+    buyLink: null,
+  },
 };
 
 export default configurations[process.env.NODE_ENV || 'production'];
