@@ -78,7 +78,7 @@ const Boardroom = () => {
     () => (bShareStats ? bShareStats.circulatingSupply : null),
     [bShareStats],
   );
-    const percentageStaked = ((totalStaked/bShareCirculatingSupply)/10000000000000000).toFixed(2);
+    const percentageStaked = ((totalStaked/bShareCirculatingSupply)/1e16).toFixed(2);
     const stake = Number(getDisplayBalance(totalStaked)).toFixed(0);
     const tvl = stake*stakedTokenPriceInDollars;
 
@@ -95,7 +95,7 @@ const Boardroom = () => {
             <h2 style={{ fontSize: '80px', textAlign:'center' }}>Winery</h2>
 
            <Alert variant="filled" severity="info" >               
-   The winery does not print Grape when below 1.01 TWAP, staking here below 1.01 TWAP will not generate rewards. Staked WINE can only be withdrawn every 4 epochs (24hrs) & rewards claimed every 2 epochs (12hrs). Staking or claiming resets this timer. <a target={"_blank"} href='https://yieldwolf.finance/avalanche/grape-boardroom/99'>Auto compound your Wine at Yield Wolf Here</a>
+   The winery does not print Grape when below 1.01 TWAP, staking here below 1.01 TWAP will not generate rewards. Staked WINE can only be withdrawn every 4 epochs (24hrs) & rewards claimed every 2 epochs (12hrs). Staking or claiming resets this timer.
       </Alert> 
           <Box mt={5}>
 
@@ -136,7 +136,7 @@ const Boardroom = () => {
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
                     <Typography style={{textTransform: 'uppercase', color: '#930993'}}>TVL</Typography>
-                    <Typography>${tvl.toFixed(2)}</Typography>
+                    <Typography>${tvl ? (Number((Number(tvl).toFixed(0)))).toLocaleString('en-US') : '-.--'}</Typography>
                   </CardContent>
                 </Card>
               </Grid>
@@ -144,7 +144,7 @@ const Boardroom = () => {
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
                     <Typography style={{textTransform: 'uppercase', color: '#930993'}}>Est Reward/Day</Typography>
-                    <Typography>~${rewards.toFixed(2)}</Typography>
+                    <Typography>~${rewards ? Number(rewards).toLocaleString('en-US') : '0.00'}</Typography>
                   </CardContent>
                 </Card>
               </Grid>

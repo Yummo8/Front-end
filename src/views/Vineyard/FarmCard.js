@@ -1,21 +1,36 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import {Box, Button, Card, CardActions, CardContent, Typography, Grid} from '@material-ui/core';
 import {useParams} from 'react-router-dom';
 import TokenSymbol from '../../components/TokenSymbol';
 import useBank from '../../hooks/useBank';
 import useStatsForPool from '../../hooks/useStatsForPool';
+import AprModal from './AprModal';
+import SwapVerticalCircleIcon from '@material-ui/icons/SwapVerticalCircle';
 
 const FarmCard = ({bank}) => {
   const bankid = useBank(bank.id);
   const statsOnPool = useStatsForPool(bank);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
+  const handleOpenModal = () => {
+    setModalOpen(true);
+  };
 
   return (
-
-
     <Grid item xs={12} md={4} lg={4}>
       <Card variant="outlined">
         <CardContent>
+          <AprModal
+            open={modalOpen}
+            handleClose={handleCloseModal}
+            statsOnPool={statsOnPool}
+            coin={bank.depositTokenName}
+          />
           <Box style={{position: 'relative'}}>
             <Box
               style={{
@@ -40,23 +55,38 @@ const FarmCard = ({bank}) => {
               {/* {bank.name} */}
               Earn {` ${bank.earnTokenName}`}
             </Typography>
-            <Typography color="#322f32">
-              {/* {bank.name} */}
+            {/*<Typography color="#322f32">
+           
               <b>Daily APR:</b> {bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}%
-            </Typography>
+            </Typography>*/}
             <Typography color="#322f32">
-              {/* {bank.name} 
-              {bank.depositTokenName == 'HSHARE-WINE-LP'? <span style={{color: 'rgba(0,0,0,0)'}}>a</span> : <span>Pool Weighting: {bank.multi}</span>}*/}
+              {/* {bank.name}  */}
+              {/* {bank.depositTokenName == 'HSHARE-WINE-LP' ? (
+                <span style={{color: 'rgba(0,0,0,0)'}}>a</span>
+              ) : (
+                <span>Pool Weighting: {bank.multi}</span>
+              )} */}
               <b>Yearly APR:</b> {bank.closedForStaking ? '0.00' : statsOnPool?.yearlyAPR}%
             </Typography>
-            
+            <Box
+              onClick={handleOpenModal}
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '5px',
+                cursor: 'pointer',
+              }}
+            >
+              <Typography><b><u>APR Calc</u></b></Typography> <SwapVerticalCircleIcon />
+            </Box>
           </Box>
         </CardContent>
         <CardActions style={{justifyContent: 'flex-end'}}>
-          {bank.buyLink !== null ?
-        <Button className="shinyButtonSecondary" target="_blank" href={`${bank.buyLink}`}>
-            Trade
-          </Button>: null}
+          {bank.buyLink !== null ? (
+            <Button className="shinyButtonSecondary" target="_blank" href={`${bank.buyLink}`}>
+              Trade
+            </Button>
+          ) : null}
           <Button className="shinyButtonSecondary" component={Link} to={`/vineyard/${bank.contract}`}>
             Stake
           </Button>

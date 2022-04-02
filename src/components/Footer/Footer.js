@@ -20,9 +20,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     height: '1.3rem',
     fontFamily: 'superstar',
-      [theme.breakpoints.down('xs')]: {
-      display: 'none',
-    },
+      
   },
   link: {
     width: '24px',
@@ -43,7 +41,7 @@ const Footer = () => {
     <footer className={classes.footer}>
       <Container maxWidth="lg">
         <Grid container>
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <Typography variant="body2" color="#" align="left">
               {'Copyright © '}
               <Link color="inherit" href="/">
@@ -52,8 +50,15 @@ const Footer = () => {
               {new Date().getFullYear()}
             </Typography>
           </Grid>
-          <Grid item xs={6} style={{textAlign: 'right', height: '20px'}}>
-
+          <Grid item xs={12} style={{textAlign: 'right', height: '20px'}}>
+          <a
+              href="mailto:grapefinance@protonmail.com"
+              rel="noopener noreferrer"
+              target="_blank"
+              className={'navLink ' + classes.link}
+            >
+              Email
+            </a>
           <a
               href="https://grapefinance.gitbook.io/grape-finance-docs/"
               rel="noopener noreferrer"
@@ -70,9 +75,9 @@ const Footer = () => {
             >
               <IconTwitter style={{fill: '#fff'}} />
             </a>
-            {/*<a href="https://github.com/grapefi/contracts" rel="noopener noreferrer" target="_blank" className={classes.link}>
+            <a href="https://github.com/grapefi/contracts" rel="noopener noreferrer" target="_blank" className={classes.link}>
               <IconGithub style={{fill: '#fff', height: '20px'}} />
-              </a>*/}
+              </a>
             <a href="https://t.me/GrapeDefi" rel="noopener noreferrer" target="_blank" className={classes.link}>
               <IconTelegram style={{fill: '#fff', height: '20px'}} />
             </a>

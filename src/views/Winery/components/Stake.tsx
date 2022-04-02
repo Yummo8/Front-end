@@ -90,7 +90,7 @@ const Stake: React.FC = () => {
               <Typography style={{textTransform: 'uppercase', color: '#930993'}}>  
               <Value value={getDisplayBalance(stakedBalance)} />
               </Typography>
-              <Label text={`≈ $${tokenPriceInDollars}`} color="#322f32" />
+              <Label text={`≈ $${Number(tokenPriceInDollars).toLocaleString('en-US')}`} color="#322f32" />
               <Label text={'WINE Staked'} color="#322f32" />
             </StyledCardHeader>
             <StyledCardActions>
