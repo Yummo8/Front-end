@@ -427,7 +427,7 @@ export class GrapeFinance {
           poolContract.tierAllocPoints(bank.poolId),
           poolContract.totalAllocPoints(),
           poolContract.tierAmounts(bank.poolId),
-          poolContract.getGrapeBalancePool(),
+          poolContract.getBalancePool(),
           depositToken.balanceOf(bank.address),
           poolContract.dripRate(),
           poolContract.getDayDripEstimate(this.myAccount),

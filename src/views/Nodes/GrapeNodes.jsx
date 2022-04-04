@@ -11,7 +11,7 @@ const GrapeNodes = () => {
     <Page>
       <Switch>
         <Route exact path={path}>
-          <h2 style={{fontSize: '80px', textAlign: 'center'}}>GRAPE NODES</h2>
+          <h2 style={{fontSize: '80px', textAlign: 'center'}}>NODES</h2>
           <Grid container spacing={3} style={{marginTop: '20px'}}>
             <GrapeCard />
           </Grid>

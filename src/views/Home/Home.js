@@ -336,8 +336,8 @@ const Home = () => {
                 </span>
               </Box>
               <span style={{fontSize: '17px'}}>
-                TVL In LPs: ${roundAndFormatNumber(grapeTVL1 + grapeTVL2, 0)}
-                <br />
+                {/*TVL In LPs: ${roundAndFormatNumber(grapeTVL1 + grapeTVL2, 0)}
+                <br />*/}
                 Market Cap: ${roundAndFormatNumber(grapeCirculatingSupply * grapePriceInDollars, 0)} <br />
                 Circulating Supply: {roundAndFormatNumber(grapeCirculatingSupply, 2)} <br />
                 Total Supply: {roundAndFormatNumber(grapeTotalSupply, 2)}
@@ -374,8 +374,8 @@ const Home = () => {
               </Box>
 
               <span style={{fontSize: '17px'}}>
-                TVL In LPs & Winery: ${roundAndFormatNumber(shareLPTVL + totalStakedFormat, 0)}
-                <br />
+               {/* TVL In LPs & Winery: ${roundAndFormatNumber(shareLPTVL + totalStakedFormat, 0)}
+                <br />*/}
                 Market Cap: ${roundAndFormatNumber(bShareCirculatingSupply * bSharePriceInDollars, 0)} <br />
                 Circulating Supply: {roundAndFormatNumber(bShareCirculatingSupply, 2)} <br />
                 Total Supply: {roundAndFormatNumber(bShareTotalSupply, 2)}
@@ -387,7 +387,7 @@ const Home = () => {
         {/* GBOND */}
         <Grid item xs={12} sm={4}>
           <Card>
-            <CardContent align="center" style={{position: 'relative', paddingBottom: '43px'}}>
+            <CardContent align="center" style={{position: 'relative'}}>
               <Button
                 onClick={() => {
                   grapeFinance.watchAssetInMetamask('GBOND');

@@ -11,7 +11,7 @@ import grapeMimLpLogo from '../../assets/img/grape-mim.png';
 import wineMimLpLogo from '../../assets/img/gshare-mim.png';
 import wamp from '../../assets/img/WAMP.png';
 import hsharewine from '../../assets/img/hshare-wine.png';
-
+import gnode from '../../assets/img/gnode.png';
 
 
 const logosBySymbol: {[title: string]: string} = {
@@ -24,6 +24,7 @@ const logosBySymbol: {[title: string]: string} = {
   MIM: mimLogo,
   WAMP: wamp,
   HSHARE: wamp,
+  GNODE: gnode,
   'GRAPE-MIM-LP' : grapeMimLpLogo,
   'GRAPE-WINE-LP' : grapeWine,
   'WINE-MIM-LP' : wineMimLpLogo,

@@ -134,6 +134,9 @@ const Nav = () => {
               <Link to="/winery" className={'navLink ' + classes.link}>
                 Winery
               </Link>
+              <Link to="/nodes" className={'navLink ' + classes.link}>
+                 Nodes
+              </Link>
               <Link to="/bond" className={'navLink ' + classes.link}>
                 Bonds
               </Link>
@@ -146,9 +149,7 @@ const Nav = () => {
               <Link to="/launchpad" className={'navLink ' + classes.link}>
                 Launchpad
               </Link>
-              {/* <Link to="/grape-nodes" className={'navLink ' + classes.link}>
-                Grape Nodes
-              </Link>*/}
+              
 
               <Link to="/roadmap" className={'navLink ' + classes.link}>
                 Roadmap
@@ -250,6 +251,7 @@ const Nav = () => {
                 <ListItemLink primary="Home" to="/" />
                 <ListItemLink primary="Vineyard" to="/vineyard" />
                 <ListItemLink primary="Winery" to="/winery" />
+                <ListItemLink primary="Nodes" to="/nodes" />
                 <ListItemLink primary="Bond" to="/bond" />
                 <ListItemLink primary="Strategy" to="/strategies" />
                 <ListItemLink primary="Raffle" to="/raffle" />

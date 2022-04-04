@@ -56,27 +56,26 @@ const GrapeNode = () => {
         <Box>
           <Grid container justify="center" spacing={3} style={{marginBottom: '50px'}}>
             <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
-              <StyledOutlineWrapper>
-                <StyledOutline />
+           
                 <Card className={classes.gridItem}>
                   <CardContent style={{ textAlign: 'center' }}>
-                    <Typography>Node Amount</Typography>
+                    <Typography>Your Nodes</Typography>
                     <Typography>
                       {
                         nodes[0] &&
                         <>
-                          <b style={{ color: 'rgb(29, 72, 182)', marginRight: '8px' }}>
-                            {nodes[0].toString()}x
+                          <b style={{ color: 'rgb(0, 0, 0)', marginRight: '8px' }}>
+                            {nodes[0].toString()}
                           </b>
                           <div>
-                            Node{nodes[0].gt(1) ? 's' : ''}
+                            {nodes[0].gt(1) ? 's' : ''}
                           </div>
                         </>
                       }
                     </Typography>
                   </CardContent>
                 </Card>
-              </StyledOutlineWrapper>
+         
             </Grid>
             <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
               <Card className={classes.gridItem}>

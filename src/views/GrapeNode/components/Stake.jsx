@@ -103,7 +103,7 @@ const Stake = ({bank}) => {
         <StyledCardContentInner>
           <StyledCardHeader>
             <CardIcon>
-              <TokenSymbol symbol={'GRAPE'} size={54} />
+              <TokenSymbol symbol={'GNODE'} size={54} />
             </CardIcon>
             <Typography style={{textTransform: 'uppercase', color: '#930993'}}>
               <Value value={getDisplayBalance(nodePrice, bank.depositToken.decimal, 0)} />
@@ -111,7 +111,7 @@ const Stake = ({bank}) => {
 
             <Label text={`≈ $${earnedInDollars}`} />
 
-            <Typography style={{textTransform: 'uppercase', color: '#322f32'}}>{`${'GRAPE NODES'} COST`}</Typography>
+            <Typography style={{textTransform: 'uppercase', color: '#322f32'}}>{`${'GRAPE NODE'} COST`}</Typography>
             {/* <Label text={`${bank.depositTokenName} Staked`} /> */}
           </StyledCardHeader>
           <StyledCardActions>

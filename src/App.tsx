@@ -17,8 +17,7 @@ import Loader from './components/Loader';
 import Popups from './components/Popups';
 import {RefreshContextProvider} from './contexts/RefreshContext';
 import {Launch} from '@material-ui/icons';
-import GrapeNodes from './views/GrapeNodes';
-import GrapeNode from './views/GrapeNode';
+
 
 const Home = lazy(() => import('./views/Home'));
 const Vineyard = lazy(() => import('./views/Vineyard'));
@@ -29,6 +28,7 @@ const Roadmap = lazy(() => import('./views/Roadmap'));
 const Raffle = lazy(() => import('./views/Raffle'));
 const Strategies = lazy(() => import('./views/Strategies'));
 const Help = lazy(() => import('./views/Help'));
+const Nodes = lazy(() => import('./views/Nodes'));
 
 const NoMatch = () => (
   <h3 style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>
@@ -60,6 +60,9 @@ const App: React.FC = () => {
             <Route path="/winery">
               <Winery />
             </Route>
+            <Route path="/nodes">
+              <Nodes />
+            </Route>
             <Route path="/bond">
               <Bond />
             </Route>
@@ -78,9 +81,7 @@ const App: React.FC = () => {
             <Route path="/help">
               <Help />
             </Route>
-            <Route path="/grape-nodes">
-              <GrapeNodes />
-            </Route>
+            
             <Route path="*">
               <NoMatch />
             </Route>
