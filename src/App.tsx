@@ -16,7 +16,9 @@ import Updaters from './state/Updaters';
 import Loader from './components/Loader';
 import Popups from './components/Popups';
 import {RefreshContextProvider} from './contexts/RefreshContext';
-import { Launch } from '@material-ui/icons';
+import {Launch} from '@material-ui/icons';
+import GrapeNodes from './views/GrapeNodes';
+import GrapeNode from './views/GrapeNode';
 
 const Home = lazy(() => import('./views/Home'));
 const Vineyard = lazy(() => import('./views/Vineyard'));
@@ -63,19 +65,22 @@ const App: React.FC = () => {
             </Route>
             <Route path="/launchpad">
               <Launchpad />
-            </Route> 
+            </Route>
             <Route path="/roadmap">
               <Roadmap />
-            </Route> 
+            </Route>
             <Route path="/strategies">
               <Strategies />
-            </Route> 
+            </Route>
             <Route path="/raffle">
               <Raffle />
-            </Route>  
+            </Route>
             <Route path="/help">
               <Help />
-            </Route>                
+            </Route>
+            <Route path="/grape-nodes">
+              <GrapeNodes />
+            </Route>
             <Route path="*">
               <NoMatch />
             </Route>
@@ -91,8 +96,7 @@ const Providers: React.FC = ({children}) => {
     <TP1 theme={theme}>
       <TP theme={newTheme}>
         <UseWalletProvider
-                    chainId={config.chainId}
-
+          chainId={config.chainId}
           connectors={{
             walletconnect: {rpcUrl: config.defaultProvider},
             walletlink: {

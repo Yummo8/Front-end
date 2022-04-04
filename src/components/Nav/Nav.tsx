@@ -127,7 +127,7 @@ const Nav = () => {
               <Link to="/" className={'navLink ' + classes.link}>
                 Home
               </Link>
-              
+
               <Link to="/vineyard" className={'navLink ' + classes.link}>
                 Vineyard
               </Link>
@@ -146,29 +146,48 @@ const Nav = () => {
               <Link to="/launchpad" className={'navLink ' + classes.link}>
                 Launchpad
               </Link>
+              {/* <Link to="/grape-nodes" className={'navLink ' + classes.link}>
+                Grape Nodes
+              </Link>*/}
+
               <Link to="/roadmap" className={'navLink ' + classes.link}>
                 Roadmap
               </Link>
-              <a href="https://app.beefy.finance/#/avax" className={'navLink ' + classes.link} rel="noopener" target="_blank">
+              <a
+                href="https://app.beefy.finance/#/avax"
+                className={'navLink ' + classes.link}
+                rel="noopener"
+                target="_blank"
+              >
                 Beefy
               </a>
-              <a href="https://yieldwolf.finance/avalanche" className={'navLink ' + classes.link} rel="noopener" target="_blank">
+              <a
+                href="https://yieldwolf.finance/avalanche"
+                className={'navLink ' + classes.link}
+                rel="noopener"
+                target="_blank"
+              >
                 Yield Wolf
               </a>
-              <a href="https://snapshot.org/#/grapefinance.eth" className={'navLink ' + classes.link} rel="noopener" target="_blank">
+              <a
+                href="https://snapshot.org/#/grapefinance.eth"
+                className={'navLink ' + classes.link}
+                rel="noopener"
+                target="_blank"
+              >
                 Voting
               </a>
-              <a href="https://grapefinance.gitbook.io/grape-finance-docs/" className={'navLink ' + classes.link} rel="noopener" target="_blank">
+              <a
+                href="https://grapefinance.gitbook.io/grape-finance-docs/"
+                className={'navLink ' + classes.link}
+                rel="noopener"
+                target="_blank"
+              >
                 Docs
               </a>
               <Link to="/help" className={'navLink ' + classes.link}>
-              Help
+                Help
               </Link>
-          
-              
-
-              
-              
             </Box>
 
             <Box
@@ -181,8 +200,7 @@ const Nav = () => {
                 height: '30px',
                 display: 'flex',
               }}
-            >
-            </Box>
+            ></Box>
             <AccountButton text="Connect" />
           </>
         ) : (
@@ -204,8 +222,8 @@ const Nav = () => {
             />
             <AccountButton text="Connect" />
             <Drawer
-                className={classes.drawer}
-                onClose={handleDrawerClose}
+              className={classes.drawer}
+              onClose={handleDrawerClose}
               // onEscapeKeyDown={handleDrawerClose}
               // onBackdropClick={handleDrawerClose}
               variant="temporary"
@@ -239,19 +257,17 @@ const Nav = () => {
                 <ListItemLink primary="Roadmap" to="/roadmap" />
                 <ListItem button component="a" href="https://app.beefy.finance/#/avax">
                   <ListItemText>Beefy</ListItemText>
-                  </ListItem>
+                </ListItem>
                 <ListItem button component="a" href="https://yieldwolf.finance/avalanche">
                   <ListItemText>Yield Wolf</ListItemText>
-                  </ListItem> 
-                  <ListItem button component="a" href="https://snapshot.org/#/grapefinance.eth">
+                </ListItem>
+                <ListItem button component="a" href="https://snapshot.org/#/grapefinance.eth">
                   <ListItemText>Voting</ListItemText>
-                  </ListItem>
-                  
-                  <ListItem button component="a" href="https://grapefinance.gitbook.io/grape-finance-docs/">
+                </ListItem>
+
+                <ListItem button component="a" href="https://grapefinance.gitbook.io/grape-finance-docs/">
                   <ListItemText>Docs</ListItemText>
-                  </ListItem>
-                        
-                
+                </ListItem>
               </List>
             </Drawer>
           </>
