@@ -146,9 +146,9 @@ const Nav = () => {
               <Link to="/launchpad" className={'navLink ' + classes.link}>
                 Launchpad
               </Link>
-              <Link to="/grape-nodes" className={'navLink ' + classes.link}>
+              {/* <Link to="/grape-nodes" className={'navLink ' + classes.link}>
                 Grape Nodes
-              </Link>
+              </Link>*/}
 
               <Link to="/roadmap" className={'navLink ' + classes.link}>
                 Roadmap
