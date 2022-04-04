@@ -162,7 +162,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     finished: false,
     sort: 0,
     closedForStaking: false,
-    multi: '56.75',
+    multi: '62.15',
     buyLink: 'https://traderjoexyz.com/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0x5541d83efad1f281571b343977648b75d95cdac2#/',
   },
   
@@ -202,7 +202,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     finished: false,
     sort: 3,
     closedForStaking: false,
-    multi: '25.67',
+    multi: '20.27',
     buyLink: 'https://traderjoexyz.com/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0x5541d83efad1f281571b343977648b75d95cdac2#/',
   },
   WampStaking: {

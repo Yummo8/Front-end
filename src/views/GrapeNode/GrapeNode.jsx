@@ -59,17 +59,17 @@ const GrapeNode = () => {
            
                 <Card className={classes.gridItem}>
                   <CardContent style={{ textAlign: 'center' }}>
-                    <Typography>Your Nodes</Typography>
+                    <Typography>Your Nodes | TVL</Typography>
                     <Typography>
                       {
                         nodes[0] &&
                         <>
-                          <b style={{ color: 'rgb(0, 0, 0)', marginRight: '8px' }}>
+                          <b style={{ color: 'rgb(0, 0, 0)', marginRight: '0px' }}>
                             {nodes[0].toString()}
+                          </b> |  <b style={{ color: 'rgb(0, 0, 0)', marginRight: '0px' }}>
+                             ${(nodes[0] * 50).toString()}
                           </b>
-                          <div>
-                            {nodes[0].gt(1) ? 's' : ''}
-                          </div>
+                          
                         </>
                       }
                     </Typography>
