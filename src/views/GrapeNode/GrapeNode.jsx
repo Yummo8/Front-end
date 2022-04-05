@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useMemo } from 'react';
 import {useParams} from 'react-router-dom';
 import { useWallet } from 'use-wallet';
 import PageHeader from '../../components/PageHeader';
@@ -11,9 +11,10 @@ import Stake from './components/Stake';
 import useNodeText from '../../hooks/useNodeText';
 import useBank from '../../hooks/useBank';
 import useNodes from '../../hooks/useNodes';
+import totalNodes from '../../hooks/useTotalNodes';
 import useStatsForPool from '../../hooks/useStatsForPool';
 import {Context} from '../../contexts/GrapeFinanceProvider';
-
+import useGrapeStats from '../../hooks/useGrapeStats';
 const useStyles = makeStyles((theme) => ({
   gridItem: {
     height: '100%',
@@ -25,18 +26,25 @@ const useStyles = makeStyles((theme) => ({
 
 const GrapeNode = () => {
   const { bankId } = useParams();
-  console.log(bankId);
+  
   const bank = useBank(bankId);
   const { getNodeText } = useNodeText();
   const { account } = useWallet();
+  const grapeStats = useGrapeStats();
 
+  const tokenStats = grapeStats;
+  const tokenPriceInDollars = useMemo(
+    () => (tokenStats ? Number(tokenStats.priceInDollars).toFixed(2) : null),
+    [tokenStats],
+  );
   const classes = useStyles();
   const [poolId, setPoolId] = useState(0);
   const LOCK_ID = 'LOCK_ID';
   const statsOnPool = useStatsForPool(bank);
   const {grapeFinance} = useContext(Context);
   const nodes = useNodes(bank?.contract, bank?.sectionInUI, account);
-
+  const total = totalNodes(bank?.contract, bank?.sectionInUI);
+  
   const handleChangeLockup = (event) => {
     const value = event.target.value;
     setPoolId(Number(value));
@@ -67,7 +75,7 @@ const GrapeNode = () => {
                           <b style={{ color: 'rgb(0, 0, 0)', marginRight: '0px' }}>
                             {nodes[0].toString()}
                           </b> |  <b style={{ color: 'rgb(0, 0, 0)', marginRight: '0px' }}>
-                             ${(nodes[0] * 50).toString()}
+                             ${(nodes[0] * tokenPriceInDollars).toString()}
                           </b>
                           
                         </>
@@ -80,16 +88,16 @@ const GrapeNode = () => {
             <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
               <Card className={classes.gridItem}>
                 <CardContent style={{textAlign: 'center'}}>
-                  <Typography>APR</Typography>
-                  <Typography>{bank.closedForStaking ? '0.00' : statsOnPool?.yearlyAPR}%</Typography>
+                  <Typography>APR | Daily</Typography>
+                  <Typography>{bank.closedForStaking ? '0.00' : statsOnPool?.yearlyAPR}% | {bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}%</Typography>
                 </CardContent>
               </Card>
             </Grid>
             <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
               <Card className={classes.gridItem}>
                 <CardContent style={{textAlign: 'center'}}>
-                  <Typography>Daily APR</Typography>
-                  <Typography>{bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}%</Typography>
+                  <Typography>Total Grape Nodes</Typography>
+                  <Typography>{Number(total[0])}</Typography>
                 </CardContent>
               </Card>
             </Grid>

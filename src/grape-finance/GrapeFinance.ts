@@ -409,6 +409,10 @@ export class GrapeFinance {
     return await this.contracts[contract].getNodes(user);
   }
   
+  async getTotalNodes(contract: string): Promise<BigNumber[]> {
+    return await this.contracts[contract].getTotalNodes();
+  }
+  
   /**
    * Calculates the TVL, APR and daily APR of a provided pool/bank
    * @param bank
@@ -591,11 +595,11 @@ export class GrapeFinance {
     } else  if (depositTokenName.startsWith('GRAPE-WINE')) {
       return rewardPerSecond.mul(1500).div(41000);
     } else  if (depositTokenName === 'GRAPE') {
-      return rewardPerSecond.mul(7500).div(41000);
+      return rewardPerSecond.mul(5000).div(41000);
     } else if (depositTokenName === 'WAMP') {
       return rewardPerSecond.mul(2000).div(41000);
     } else {
-      return rewardPerSecond.mul(23000).div(41000);
+      return rewardPerSecond.mul(25500).div(41000);
     }
   }
 
