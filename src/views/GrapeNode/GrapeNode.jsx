@@ -75,7 +75,7 @@ const GrapeNode = () => {
                           <b style={{ color: 'rgb(0, 0, 0)', marginRight: '0px' }}>
                             {nodes[0].toString()}
                           </b> |  <b style={{ color: 'rgb(0, 0, 0)', marginRight: '0px' }}>
-                             ${(nodes[0] * tokenPriceInDollars).toString()}
+                             ${(nodes[0] * (tokenPriceInDollars*50)).toString()}
                           </b>
                           
                         </>
