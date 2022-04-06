@@ -155,7 +155,7 @@ const Nav = () => {
                 Roadmap
               </Link>
               <a
-                href="https://app.beefy.finance/#/avax"
+                href="https://app.beefy.finance/#/"
                 className={'navLink ' + classes.link}
                 rel="noopener"
                 target="_blank"
@@ -257,7 +257,7 @@ const Nav = () => {
                 <ListItemLink primary="Raffle" to="/raffle" />
                 <ListItemLink primary="Launchpad" to="/launchpad" />
                 <ListItemLink primary="Roadmap" to="/roadmap" />
-                <ListItem button component="a" href="https://app.beefy.finance/#/avax">
+                <ListItem button component="a" href="https://app.beefy.finance/#/">
                   <ListItemText>Beefy</ListItemText>
                 </ListItem>
                 <ListItem button component="a" href="https://yieldwolf.finance/avalanche">

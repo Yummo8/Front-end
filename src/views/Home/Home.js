@@ -242,6 +242,7 @@ const Home = () => {
           <Card>
             <CardContent align="center">
               <h2>Total Value Locked</h2>
+             
               <CountUp style={{fontSize: '30px'}} end={TVL} separator="," prefix="$" />
             </CardContent>
           </Card>

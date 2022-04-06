@@ -73,7 +73,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
   finished: will disable the pool on the UI if set to true
   sort: the order of the pool
   */
-  
+  /*
   GrapeMimRewardPool: {
     name: 'Earn GRAPE with MIM',
     poolId: 0,
@@ -151,7 +151,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     closedForStaking: true,
     multi: '0',
     buyLink: null,
-  },
+  },*/
   GrapeMimLPWineRewardPool: {
     name: 'Earn WINE with GRAPE-MIM LP',
     poolId: 0,
