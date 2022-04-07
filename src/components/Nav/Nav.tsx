@@ -143,7 +143,7 @@ const Nav = () => {
                 rel="noopener"
                 target="_blank"
               >
-                NFT Mint
+                <b><u>NFT Mint</u></b>
               </a>
               <Link to="/bond" className={'navLink ' + classes.link}>
                 Bonds

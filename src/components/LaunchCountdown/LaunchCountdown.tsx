@@ -40,7 +40,7 @@ const StyledCard = styled.div`
   width: 450px;
   margin:0 auto;
   background-color: #fff;
-  border: 1px solid ${(props) => props.theme.color.grey[900]};
+  border: 0px solid ${(props) => props.theme.color.grey[900]};
   box-sizing: border-box;
   padding: 36px;
   border-radius: 48px;
@@ -48,12 +48,14 @@ const StyledCard = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+
 `;
 
 const StyledCountdownWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  
 `;
 
 const StyledCountdownTitle = styled.p`

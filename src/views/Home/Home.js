@@ -32,7 +32,7 @@ import useTotalStakedOnBoardroom from '../../hooks/useTotalStakedOnBoardroom';
 import {getDisplayBalance} from '../../utils/formatBalance';
 import {ReactComponent as IconTelegram} from '../../assets/img/telegram.svg';
 import {ReactComponent as IconDiscord} from '../../assets/img/discord.svg';
-
+import LaunchCountdown from '../../components/LaunchCountdown';
 const BackgroundImage = createGlobalStyle`
   body {
     background: url(${HomeImage}) repeat !important;
@@ -67,7 +67,7 @@ const Home = () => {
   const tBondStats = useBondStats();
   const grapeFinance = useGrapeFinance();
   const totalStaked = useTotalStakedOnBoardroom();
-
+  const startDate = new Date('2022-4-7 22:00:00Z');
   let grape;
   let bShare;
   if (!process.env.NODE_ENV || process.env.NODE_ENV === 'production') {
@@ -164,7 +164,12 @@ const Home = () => {
   return (
     <Page>
       <BackgroundImage />
+      <Grid item xs={12} sm={12} style={{marginBottom: '25px'}}>
+      <a href="https://mint.grapefinance.app/" style={{textDecoration: 'none'}}><LaunchCountdown  deadline={startDate} description={'NFT Mint Starts In (Click Here)'} descriptionLink={''}></LaunchCountdown></a>
+     
+      </Grid>
       <Grid container spacing={3}>
+
         {/* Logo */}
         <Grid
           item
@@ -215,9 +220,10 @@ const Home = () => {
               </p>
             </Box>
           </Paper>
+          
         </Grid>
-
-        {/*} <Grid container spacing={3}>
+        
+        {/* <Grid container spacing={3}>
           <Grid item xs={12} sm={12} justify="center" style={{ margin: '12px', display: 'flex' }}>
 
            <Alert variant="filled" severity="info"> 
@@ -247,7 +253,7 @@ const Home = () => {
             </CardContent>
           </Card>
         </Grid>
-
+        
         {/* Wallet */}
         <Grid item xs={12} sm={8}>
           <Card style={{height: '100%'}}>
@@ -309,7 +315,7 @@ const Home = () => {
             </CardContent>
           </Card>
         </Grid>
-
+        
         {/* GRAPE */}
         <Grid item xs={12} sm={4}>
           <Card>
