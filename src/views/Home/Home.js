@@ -67,7 +67,7 @@ const Home = () => {
   const tBondStats = useBondStats();
   const grapeFinance = useGrapeFinance();
   const totalStaked = useTotalStakedOnBoardroom();
-  const startDate = new Date('2022-4-7 22:00:00Z');
+ 
   let grape;
   let bShare;
   if (!process.env.NODE_ENV || process.env.NODE_ENV === 'production') {
@@ -165,8 +165,6 @@ const Home = () => {
     <Page>
       <BackgroundImage />
       <Grid item xs={12} sm={12} style={{marginBottom: '25px'}}>
-      <a href="https://mint.grapefinance.app/" style={{textDecoration: 'none'}}><LaunchCountdown  deadline={startDate} description={'NFT Mint Starts In (Click Here)'} descriptionLink={''}></LaunchCountdown></a>
-     
       </Grid>
       <Grid container spacing={3}>
 
