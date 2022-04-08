@@ -15,6 +15,10 @@ import totalNodes from '../../hooks/useTotalNodes';
 import useStatsForPool from '../../hooks/useStatsForPool';
 import {Context} from '../../contexts/GrapeFinanceProvider';
 import useGrapeStats from '../../hooks/useGrapeStats';
+import useStakedTokenPriceInDollars from '../../hooks/useStakedTokenPriceInDollars';
+
+import {Alert} from '@material-ui/lab';
+
 const useStyles = makeStyles((theme) => ({
   gridItem: {
     height: '100%',
@@ -30,13 +34,7 @@ const GrapeNode = () => {
   const bank = useBank(bankId);
   const { getNodeText } = useNodeText();
   const { account } = useWallet();
-  const grapeStats = useGrapeStats();
 
-  const tokenStats = grapeStats;
-  const tokenPriceInDollars = useMemo(
-    () => (tokenStats ? Number(tokenStats.priceInDollars).toFixed(2) : null),
-    [tokenStats],
-  );
   const classes = useStyles();
   const [poolId, setPoolId] = useState(0);
   const LOCK_ID = 'LOCK_ID';
@@ -45,16 +43,12 @@ const GrapeNode = () => {
   const nodes = useNodes(bank?.contract, bank?.sectionInUI, account);
   const total = totalNodes(bank?.contract, bank?.sectionInUI);
   
-  const handleChangeLockup = (event) => {
-    const value = event.target.value;
-    setPoolId(Number(value));
-    bank.poolId = Number(value);
-    localStorage.setItem(LOCK_ID, String(value))
-  }
+  const stakedTokenPriceInDollars = useStakedTokenPriceInDollars(bank.depositTokenName, bank.depositToken);
 
-  const setTierValues = async () => {
-    await grapeFinance.getTierValues(bank.contract);
-  }
+  const tokenPriceInDollars = useMemo(
+    () => (stakedTokenPriceInDollars ? stakedTokenPriceInDollars : null),
+    [stakedTokenPriceInDollars],
+  );
 
   return bank
   ? (
@@ -62,9 +56,13 @@ const GrapeNode = () => {
         <PageHeader icon="🏦" subtitle={'PURCHASE NODES TO GENERATE GRAPE'} title={'GENERATE GRAPE WITH NODES'} />
         {/* <Button onClick={setTierValues}>Set Tier Values</Button> */}
         <Box>
-          <Grid container justify="center" spacing={3} style={{marginBottom: '50px'}}>
+        <Alert variant="filled" severity="info">
+                    Ensure you have read our <a target={'_blank'} href="https://grapefinance.gitbook.io/grape-finance-docs/unique-features/locked-staking-grape-nodes" >Node Docs & Strategy</a> in order to fully understand how our pools work before purchasing. Sticking to the current strategy helps support the protocol which in turn helps you to continue to earn rewards!
+                  </Alert>
+          <Grid container justify="center" spacing={3} style={{marginBottom: '50px', marginTop: '20px'}}>
+          
             <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
-           
+            
                 <Card className={classes.gridItem}>
                   <CardContent style={{ textAlign: 'center' }}>
                     <Typography>Your Nodes | TVL</Typography>
