@@ -227,7 +227,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     earnTokenName: 'HSHARE & WINE',
     finished: false,
     sort: 5,
-    closedForStaking: false,
+    closedForStaking: true,
     multi: '3.5',
     buyLink: 'https://app.pangolin.exchange/#/swap?inputCurrency=0xfa4B6db72A650601E7Bd50a0A9f537c9E98311B2&outputCurrency=0xC55036B5348CfB45a932481744645985010d3A44',
   },
