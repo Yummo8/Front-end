@@ -57,7 +57,7 @@ const GrapeNode = () => {
         {/* <Button onClick={setTierValues}>Set Tier Values</Button> */}
         <Box>
         <Alert variant="filled" severity="info">
-                    Ensure you have read our <a target={'_blank'} href="https://grapefinance.gitbook.io/grape-finance-docs/unique-features/locked-staking-grape-nodes" >Node Docs & Strategy</a> in order to fully understand how our pools work before purchasing. Sticking to the current strategy helps support the protocol which in turn helps you to continue to earn rewards!
+                    Please read our <a target={'_blank'} href="https://grapefinance.gitbook.io/grape-finance-docs/unique-features/locked-staking-grape-nodes" >Node Docs & Strategy</a> in order to fully understand how our node pools work before purchasing. Sticking to the current strategy helps support the protocol which in turn helps you to continue to earn rewards!
                   </Alert>
           <Grid container justify="center" spacing={3} style={{marginBottom: '50px', marginTop: '20px'}}>
           
