@@ -111,7 +111,7 @@ const Stake = ({bank}) => {
 
             <Label text={`≈ $${earnedInDollars}`} />
 
-            <Typography style={{textTransform: 'uppercase', color: '#322f32'}}>{`${'GRAPE NODE'} COST`}</Typography>
+            <Typography style={{textTransform: 'uppercase', color: '#322f32'}}>{`${bank.earnTokenName} NODE COST`}</Typography>
             {/* <Label text={`${bank.depositTokenName} Staked`} /> */}
           </StyledCardHeader>
           <StyledCardActions>

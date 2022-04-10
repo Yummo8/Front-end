@@ -41,7 +41,7 @@ const Harvest = ({bank}) => {
               <Value value={getDisplayBalance(earnings)} />
             </Typography>
             <Label text={`≈ $${earnedInDollars}`} />
-            <Typography style={{textTransform: 'uppercase', color: '#322f32'}}>{`GRAPE GENERATED`}</Typography>
+            <Typography style={{textTransform: 'uppercase', color: '#322f32'}}>{bank.earnTokenName} Earned</Typography>
           </StyledCardHeader>
           <StyledCardActions>
             <Button

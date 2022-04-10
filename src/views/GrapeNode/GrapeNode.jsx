@@ -11,6 +11,8 @@ import Stake from './components/Stake';
 import useNodeText from '../../hooks/useNodeText';
 import useBank from '../../hooks/useBank';
 import useNodes from '../../hooks/useNodes';
+import useMaxPayout from '../../hooks/useMaxPayout';
+import useUserDetails from '../../hooks/useUserDetails';
 import totalNodes from '../../hooks/useTotalNodes';
 import useStatsForPool from '../../hooks/useStatsForPool';
 import {Context} from '../../contexts/GrapeFinanceProvider';
@@ -42,7 +44,8 @@ const GrapeNode = () => {
   const {grapeFinance} = useContext(Context);
   const nodes = useNodes(bank?.contract, bank?.sectionInUI, account);
   const total = totalNodes(bank?.contract, bank?.sectionInUI);
-  
+  const max = useMaxPayout(bank?.contract, bank?.sectionInUI, account);
+  const userDetails = useUserDetails(bank?.contract, bank?.sectionInUI, account);
   const stakedTokenPriceInDollars = useStakedTokenPriceInDollars(bank.depositTokenName, bank.depositToken);
 
   const tokenPriceInDollars = useMemo(
@@ -53,13 +56,13 @@ const GrapeNode = () => {
   return bank
   ? (
       <>
-        <PageHeader icon="🏦" subtitle={'PURCHASE NODES TO GENERATE GRAPE'} title={'GENERATE GRAPE WITH NODES'} />
+        <PageHeader icon="🏦" subtitle={''} title={bank?.name} />
         {/* <Button onClick={setTierValues}>Set Tier Values</Button> */}
         <Box>
         <Alert variant="filled" severity="info">
                     Please read our <a target={'_blank'} href="https://grapefinance.gitbook.io/grape-finance-docs/unique-features/locked-staking-grape-nodes" >Node Docs & Strategy</a> in order to fully understand how our node pools work before purchasing. Sticking to the current strategy helps support the protocol which in turn helps you to continue to earn rewards!
                   </Alert>
-          <Grid container justify="center" spacing={3} style={{marginBottom: '50px', marginTop: '20px'}}>
+          <Grid container justify="center" spacing={2} style={{marginBottom: '50px', marginTop: '20px'}}>
           
             <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
             
@@ -86,6 +89,22 @@ const GrapeNode = () => {
             <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
               <Card className={classes.gridItem}>
                 <CardContent style={{textAlign: 'center'}}>
+                  <Typography>Amount Claimed</Typography>
+                  <Typography>{(Number(userDetails.total_claims)/1e18).toFixed(2)} {bank.earnTokenName}</Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
+              <Card className={classes.gridItem}>
+                <CardContent style={{textAlign: 'center'}}>
+                  <Typography>Max Possible Pay</Typography>
+                  <Typography>{Number(max)/1e18} {bank.earnTokenName}</Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
+              <Card className={classes.gridItem}>
+                <CardContent style={{textAlign: 'center'}}>
                   <Typography>APR | Daily</Typography>
                   <Typography>{bank.closedForStaking ? '0.00' : statsOnPool?.yearlyAPR}% | {bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}%</Typography>
                 </CardContent>
@@ -94,16 +113,17 @@ const GrapeNode = () => {
             <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
               <Card className={classes.gridItem}>
                 <CardContent style={{textAlign: 'center'}}>
-                  <Typography>Total Grape Nodes</Typography>
+                  <Typography>Total {bank.earnTokenName} Nodes</Typography>
                   <Typography>{Number(total[0])}</Typography>
                 </CardContent>
               </Card>
             </Grid>
+          
             <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
               <Card className={classes.gridItem}>
                 <CardContent style={{textAlign: 'center'}}>
                   <Typography>TVL</Typography>
-                  <Typography>${statsOnPool?.TVL}</Typography>
+                  <Typography>${statsOnPool?.TVL ? (Number((Number(statsOnPool?.TVL).toFixed(0)))).toLocaleString('en-US') : '-.--'}</Typography>
                 </CardContent>
               </Card>
             </Grid>

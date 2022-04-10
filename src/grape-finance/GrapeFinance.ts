@@ -408,6 +408,14 @@ export class GrapeFinance {
   async getNodes(contract: string, user: string): Promise<BigNumber[]> {
     return await this.contracts[contract].getNodes(user);
   }
+
+  async getMaxPayout(contract: string, user: string): Promise<BigNumber[]> {
+    return await this.contracts[contract].maxPayout(user);
+  }
+
+  async getUserDetails(contract: string, user: string): Promise<BigNumber[]> {
+    return await this.contracts[contract].users(user);
+  }
   
   async getTotalNodes(contract: string): Promise<BigNumber[]> {
     return await this.contracts[contract].getTotalNodes();
