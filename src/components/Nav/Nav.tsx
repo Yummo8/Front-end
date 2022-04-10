@@ -137,7 +137,14 @@ const Nav = () => {
               <Link to="/nodes" className={'navLink ' + classes.link}>
                  Nodes
               </Link>
-
+              <a
+                href="https://shop.grapefinance.app/"
+                className={'navLink ' + classes.link}
+                rel="noopener"
+                target="_blank"
+              >
+                Merch
+              </a>
               <Link to="/bond" className={'navLink ' + classes.link}>
                 Bonds
               </Link>
@@ -253,6 +260,9 @@ const Nav = () => {
                 <ListItemLink primary="Vineyard" to="/vineyard" />
                 <ListItemLink primary="Winery" to="/winery" />
                 <ListItemLink primary="Nodes" to="/nodes" />
+                <ListItem button component="a" href="https://shop.grapefinance.app/">
+                  <ListItemText>Merch</ListItemText>
+                </ListItem>
                 <ListItemLink primary="Bond" to="/bond" />
                 <ListItemLink primary="Strategy" to="/strategies" />
                 <ListItemLink primary="Raffle" to="/raffle" />
