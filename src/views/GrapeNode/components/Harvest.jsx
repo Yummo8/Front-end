@@ -15,12 +15,14 @@ import {getDisplayBalance} from '../../../utils/formatBalance';
 import TokenSymbol from '../../../components/TokenSymbol';
 import {Bank} from '../../../grape-finance';
 import useGrapeStats from '../../../hooks/useGrapeStats';
+import useShareStats from '../../../hooks/useWineStats';
 
 const Harvest = ({bank}) => {
   const earnings = useEarnings(bank.contract, bank.earnTokenName, bank.poolId);
   const grapeStats = useGrapeStats();
-
-  const tokenStats = grapeStats;
+  const tShareStats = useShareStats();
+  const tokenStats = bank.earnTokenName === 'WINE' ? tShareStats : grapeStats;
+  
   const tokenPriceInDollars = useMemo(
     () => (tokenStats ? Number(tokenStats.priceInDollars).toFixed(2) : null),
     [tokenStats],
@@ -40,11 +42,11 @@ const Harvest = ({bank}) => {
             <Typography style={{textTransform: 'uppercase', color: '#930993'}}>
               <Value value={getDisplayBalance(earnings)} />
             </Typography>
-            <Label text={`≈ $${earnedInDollars}`} />
+           <Label text={`≈ $${earnedInDollars}`} />
             <Typography style={{textTransform: 'uppercase', color: '#322f32'}}>{bank.earnTokenName} Earned</Typography>
           </StyledCardHeader>
           <StyledCardActions>
-            <Button
+          <Button
               onClick={onReward}
               disabled={earnings.eq(0)}
               className={earnings.eq(0) ? 'shinyButtonDisabled' : 'shinyButton'}
@@ -52,7 +54,15 @@ const Harvest = ({bank}) => {
               Claim
             </Button>
           </StyledCardActions>
-
+          {bank.earnTokenName === 'WINE' ?
+          <Button
+          style={{marginTop: '20px'}}
+              onClick={onCompound}
+              disabled={earnings < 0.5*1e18}
+              className={earnings < 0.5*1e18 ? 'shinyButtonDisabled' : 'shinyButton'}
+            >
+              Compound {(earnings/(0.5*1e18)).toFixed(0)} Nodes
+          </Button>:
           <Button
           style={{marginTop: '20px'}}
               onClick={onCompound}
@@ -60,7 +70,7 @@ const Harvest = ({bank}) => {
               className={earnings < 50*1e18 ? 'shinyButtonDisabled' : 'shinyButton'}
             >
               Compound {(earnings/(50*1e18)).toFixed(0)} Nodes
-          </Button>
+          </Button>}
 
         </StyledCardContentInner>
       </CardContent>

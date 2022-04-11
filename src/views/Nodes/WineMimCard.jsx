@@ -31,17 +31,17 @@ const WineMimCard = ({}) => {
               <TokenSymbol size={32} symbol={'GNODE'} />
             </Box>
             <Typography variant="h5" component="h2">
-            WINE-MIM LP Node
+            WINE Node
             </Typography>
             <Typography color="#322f32">
-              Lock your WINE-MIM LP to earn daily yields<br></br>
+              Lock your WINE to earn daily yields<br></br>
               <b>Daily APR:</b> {statsOnPool?.dailyAPR}%<br></br>
               <b>Yearly APR:</b> {statsOnPool?.yearlyAPR}%
             </Typography>
           </Box>
         </CardContent>
         <CardActions style={{justifyContent: 'flex-end'}}>
-          <Button className="shinyButtonSecondary" component={Link} to={'/nodes/LPNode'}>
+          <Button className="shinyButtonSecondary" component={Link} to={'/nodes/WineNode'}>
             View
           </Button>
         </CardActions>

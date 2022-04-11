@@ -76,7 +76,8 @@ const GrapeNode = () => {
                           <b style={{ color: 'rgb(0, 0, 0)', marginRight: '0px' }}>
                             {nodes[0].toString()}
                           </b> |  <b style={{ color: 'rgb(0, 0, 0)', marginRight: '0px' }}>
-                             ${(nodes[0] * (tokenPriceInDollars*50)).toFixed(0)}
+                            ${bank.depositTokenName === 'GRAPE' ? (nodes[0] * (tokenPriceInDollars*50)).toFixed(0) : (nodes[0] * (tokenPriceInDollars*0.5)).toFixed(0)}
+                           
                           </b>
                           
                         </>

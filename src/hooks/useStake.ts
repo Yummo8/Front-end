@@ -14,10 +14,18 @@ const useStake = (bank: Bank) => {
       const amountBn = bank.sectionInUI !== 3 
       ? parseUnits(amount, bank.depositToken.decimal)
       : BigNumber.from(amount);
-      handleTransactionReceipt(
-        grapeFinance.stake(bank.contract, bank.poolId, bank.sectionInUI, amountBn),
-        `Stake ${amount} ${bank.depositTokenName} to ${bank.contract}`,
-      );
+      if(bank.sectionInUI === 3){
+        handleTransactionReceipt(
+          grapeFinance.stake(bank.contract, bank.poolId, bank.sectionInUI, amountBn),
+            `Buy ${amount} ${bank.depositTokenName} Node`,  
+        );
+      }else{
+        handleTransactionReceipt(
+          grapeFinance.stake(bank.contract, bank.poolId, bank.sectionInUI, amountBn),
+            `Stake ${amount} ${bank.depositTokenName} to ${bank.contract}`,  
+        );
+      }
+      
     },
     [bank, grapeFinance, handleTransactionReceipt],
   );

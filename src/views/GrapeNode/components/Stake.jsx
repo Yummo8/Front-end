@@ -26,10 +26,7 @@ import useTokenBalance from '../../../hooks/useTokenBalance';
 
 import {getDisplayBalance} from '../../../utils/formatBalance';
 
-// import DepositModal from './DepositModal';
-// import WithdrawModal from './WithdrawModal';
-// import ZapModal from './ZapModal';
-// import {Bank} from '../../../grape-finance';
+
 import TokenSymbol from '../../../components/TokenSymbol';
 
 // interface StakeProps {
@@ -53,8 +50,7 @@ const Stake = ({bank}) => {
     Number(tokenPriceInDollars) * Number(getDisplayBalance(nodePrice, bank.depositToken.decimal))
   ).toFixed(2);
   const {onStake} = useStake(bank);
-  // const {onZap} = useZap(bank);
-  // const {onWithdraw} = useWithdraw(bank);
+
 
   const [onPresentDeposit, onDismissDeposit] = useModal(
     <DepositModal
@@ -70,32 +66,7 @@ const Stake = ({bank}) => {
     />,
   );
 
-  // const [onPresentZap, onDissmissZap] = useModal(
-  //   <ZapModal
-  //     decimals={bank.depositToken.decimal}
-  //     onConfirm={(zappingToken, tokenName, amount) => {
-  //       if (Number(amount) <= 0 || isNaN(Number(amount))) return;
-  //       onZap(zappingToken, tokenName, amount);
-  //       onDissmissZap();
-  //     }}
-  //     LPtokenName={bank.depositTokenName}
-  //   />,
-  // );
 
-  // const [onPresentWithdraw, onDismissWithdraw] = useModal(
-  //   <WithdrawModal
-  //     max={stakedBalance}
-  //     decimals={bank.depositToken.decimal}
-  //     onConfirm={(amount) => {
-  //       if (Number(amount) <= 0 || isNaN(Number(amount))) return;
-  //       onWithdraw(amount);
-  //       onDismissWithdraw();
-  //     }}
-  //     tokenName={bank.depositTokenName}
-  //   />,
-  // );
-
-  // let isZapLP = bank.depositTokenName.includes('LP') && !bank.depositTokenName.includes('HSHARE');
 
   return (
     <Card>
@@ -106,7 +77,7 @@ const Stake = ({bank}) => {
               <TokenSymbol symbol={'GNODE'} size={54} />
             </CardIcon>
             <Typography style={{textTransform: 'uppercase', color: '#930993'}}>
-              <Value value={getDisplayBalance(nodePrice, bank.depositToken.decimal, 0)} />
+              <Value value={getDisplayBalance(nodePrice, bank.depositToken.decimal, 1)} />
             </Typography>
 
             <Label text={`≈ $${earnedInDollars}`} />

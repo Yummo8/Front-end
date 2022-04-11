@@ -8,7 +8,7 @@ import SwapVerticalCircleIcon from '@material-ui/icons/SwapVerticalCircle';
 import useStatsForPool from '../../hooks/useStatsForPool';
 const GrapeCard = ({}) => {
   const [banks] = useBanks();
-  const statsOnPool = useStatsForPool(banks[2]);
+  const statsOnPool = useStatsForPool(banks[3]);
   return (
     <Grid item xs={12} md={4} lg={4}>
       <Card variant="outlined">
