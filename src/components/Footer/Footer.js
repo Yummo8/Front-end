@@ -51,14 +51,14 @@ const Footer = () => {
             </Typography>
           </Grid>
           <Grid item xs={12} style={{textAlign: 'right', height: '20px'}}>
-          <a
+          {/*<a
               href="mailto:grapefinance@protonmail.com"
               rel="noopener noreferrer"
               target="_blank"
               className={'navLink ' + classes.link}
             >
               Email
-            </a>
+  </a>*/}
           <a
               href="https://grapefinance.gitbook.io/grape-finance-docs/"
               rel="noopener noreferrer"
