@@ -69,7 +69,7 @@ const Harvest = ({bank}) => {
               disabled={earnings < 50*1e18}
               className={earnings < 50*1e18 ? 'shinyButtonDisabled' : 'shinyButton'}
             >
-              Compound {(earnings/(50*1e18)).toFixed(0)} Nodes
+              Compound {(earnings/(50*1e18))|0} Nodes
           </Button>}
 
         </StyledCardContentInner>
