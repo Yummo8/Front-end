@@ -53,7 +53,7 @@ const FarmCard = ({bank}) => {
             </Typography>
             <Typography color="#322f32">
               {/* {bank.name} */}
-              Earn {` ${bank.earnTokenName}`}
+              {bank.closedForStaking ? <span>Pool Ended Please unstake</span> : <span>Earn {bank.earnTokenName}</span>}
             </Typography>
             {/*<Typography color="#322f32">
            
@@ -77,7 +77,7 @@ const FarmCard = ({bank}) => {
                 cursor: 'pointer',
               }}
             >
-              <Typography><b><u>APR Calc</u></b></Typography> <SwapVerticalCircleIcon />
+              <Typography><b><u>APR Calc</u></b></Typography><SwapVerticalCircleIcon />
             </Box>
           </Box>
         </CardContent>

@@ -221,7 +221,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     buyLink: 'https://traderjoexyz.com/trade?outputCurrency=0xf5ee578505f4D876FeF288DfD9fD5e15e9EA1318#/',
   },
   PartnerPool: {
-    name: 'Earn WINE & HSHARE with HSHARE-WINE LP',
+    name: 'Pool Ended Please Unstake',
     poolId: 0,
     sectionInUI: 2,
     contract: 'PartnerPool',

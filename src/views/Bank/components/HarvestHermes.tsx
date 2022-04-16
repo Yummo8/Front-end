@@ -61,9 +61,9 @@ const Harvest: React.FC<HarvestProps> = ({bank}) => {
          </div>
     
       <Typography style={{textTransform: 'uppercase', color: '#930993',textAlign:'center'}}>  
-            <Value value={Number(getDisplayBalance(earnings)).toFixed(2)} />
+            <Value value={'0'} />
             </Typography>
-            <p style={{textAlign:'center',marginBottom: '-10px'}}>${earnedInDollars}</p>
+            <p style={{textAlign:'center',marginBottom: '-10px'}}>0</p>
             <p style={{textAlign:'center'}}>{tokenName}</p>
      
           </Grid>
@@ -72,9 +72,9 @@ const Harvest: React.FC<HarvestProps> = ({bank}) => {
          <img src={HshareImage} width={'97px'}/>
          </div>
           <Typography style={{textTransform: 'uppercase', color: '#930993',textAlign:'center'}}>  
-            <Value value={Number(getDisplayBalance(earnings2)).toFixed(2)} />
+            <Value value={'0'} />
             </Typography>
-            <p style={{textAlign:'center',marginBottom: '-10px'}}>${earnedInDollars2}</p>
+            <p style={{textAlign:'center',marginBottom: '-10px'}}>0</p>
             <p style={{textAlign:'center'}}>{tokenName2}</p>
           </Grid>
          </Grid>
