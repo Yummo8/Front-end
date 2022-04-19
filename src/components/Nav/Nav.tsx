@@ -137,6 +137,9 @@ const Nav = () => {
               <Link to="/nodes" className={'navLink ' + classes.link}>
                  Nodes
               </Link>
+              <Link to="/leaderboard" className={'navLink ' + classes.link}>
+                 Leaderboard
+              </Link>
               <a
                 href="https://shop.grapefinance.app/"
                 className={'navLink ' + classes.link}
