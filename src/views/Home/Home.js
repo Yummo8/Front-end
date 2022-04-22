@@ -33,6 +33,8 @@ import {getDisplayBalance} from '../../utils/formatBalance';
 import {ReactComponent as IconTelegram} from '../../assets/img/telegram.svg';
 import {ReactComponent as IconDiscord} from '../../assets/img/discord.svg';
 import LaunchCountdown from '../../components/LaunchCountdown';
+import { useGetEventQuery } from '../../services/event';
+import {ILeaderBoard} from '../../interfaces/ILeaderBoard'
 const BackgroundImage = createGlobalStyle`
   body {
     background: url(${HomeImage}) repeat !important;
@@ -67,6 +69,17 @@ const Home = () => {
   const tBondStats = useBondStats();
   const grapeFinance = useGrapeFinance();
   const totalStaked = useTotalStakedOnBoardroom();
+
+  const {data : eventResponse} = useGetEventQuery();
+  const [leaderboard, setLeaderboard] = React.useState([]);
+  React.useEffect(() => {
+    
+    if (eventResponse && eventResponse.result) {
+      setLeaderboard(eventResponse.data.mixed);
+    }
+  }, [eventResponse]);
+ 
+  console.log('leaderboard', leaderboard)
  
   let grape;
   let bShare;

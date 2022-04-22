@@ -8,7 +8,7 @@ import usePromptNetwork from './hooks/useNetworkPrompt';
 import BanksProvider from './contexts/Banks';
 import GrapeFinanceProvider from './contexts/GrapeFinanceProvider';
 import ModalsProvider from './contexts/Modals';
-import store from './state';
+import {store} from './state';
 import theme from './theme';
 import newTheme from './newTheme';
 import config from './config';
@@ -17,7 +17,6 @@ import Loader from './components/Loader';
 import Popups from './components/Popups';
 import {RefreshContextProvider} from './contexts/RefreshContext';
 import {Launch} from '@material-ui/icons';
-
 
 const Home = lazy(() => import('./views/Home'));
 const Vineyard = lazy(() => import('./views/Vineyard'));
@@ -29,6 +28,7 @@ const Raffle = lazy(() => import('./views/Raffle'));
 const Strategies = lazy(() => import('./views/Strategies'));
 const Help = lazy(() => import('./views/Help'));
 const Nodes = lazy(() => import('./views/Nodes'));
+const Leaderboard = lazy(() => import('./views/Leaderboard'));
 
 const NoMatch = () => (
   <h3 style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>
@@ -63,6 +63,9 @@ const App: React.FC = () => {
             <Route path="/nodes">
               <Nodes />
             </Route>
+            <Route path="/leaderboard">
+              <Leaderboard />
+            </Route>
             <Route path="/bond">
               <Bond />
             </Route>
@@ -81,7 +84,7 @@ const App: React.FC = () => {
             <Route path="/help">
               <Help />
             </Route>
-            
+
             <Route path="*">
               <NoMatch />
             </Route>
