@@ -87,6 +87,10 @@ const Bond: React.FC = () => {
               <Grid item xs={12} md={12} lg={12} >     
                   <h2 style={{ fontSize: '80px', textAlign:'center' }}>Grape Guides</h2>   
 
+                  <h2 style={{textAlign:'center', marginTop: '60px' }}>Beginner tutorial on Grape staking & adding to LPs</h2><br></br>
+
+                  <iframe width="100%" height="550px" src="https://www.youtube.com/embed/JBWCOadvqbw" title="Grape Finance Videos" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ></iframe>
+
                   <h2 style={{textAlign:'center', marginTop: '60px' }}>Zone 1 - Introductions & what to do when Grape is above $2</h2><br></br>
 
                   <iframe width="100%" height="550px" src="https://www.youtube.com/embed/videoseries?list=PL_Nr1FoFNB03Ep-LDgn0_nHdFGuYcO030" title="Grape Finance Videos" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ></iframe>
