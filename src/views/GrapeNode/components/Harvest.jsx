@@ -61,7 +61,7 @@ const Harvest = ({bank}) => {
               disabled={earnings < 0.5*1e18}
               className={earnings < 0.5*1e18 ? 'shinyButtonDisabled' : 'shinyButton'}
             >
-              Compound {(earnings/(0.5*1e18)).toFixed(0)} Nodes
+              Compound {(earnings/(0.5*1e18))|0} Nodes
           </Button>:
           <Button
           style={{marginTop: '20px'}}
@@ -69,7 +69,7 @@ const Harvest = ({bank}) => {
               disabled={earnings < 50*1e18}
               className={earnings < 50*1e18 ? 'shinyButtonDisabled' : 'shinyButton'}
             >
-              Compound {(earnings/(50*1e18)).toFixed(0)} Nodes
+              Compound {(earnings/(50*1e18))|0} Nodes
           </Button>}
 
         </StyledCardContentInner>

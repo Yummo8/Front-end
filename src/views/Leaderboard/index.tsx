@@ -57,15 +57,15 @@ const LeaderBoard = () => {
 
   return (
     <Page>
-      <h2 style={{fontSize: '65px', textAlign: 'center', marginBottom: '15px'}}>LeaderBoard</h2>
-      <h2 style={{fontSize: '45px', textAlign: 'left', marginBottom: '15px'}}>Entire</h2>
+      <h2 style={{fontSize: '65px', textAlign: 'center', marginBottom: '15px'}}>Node LeaderBoard</h2>
+      <h2 style={{fontSize: '45px', textAlign: 'left', marginBottom: '15px'}}>All Time</h2>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
             <TableRow>
               <StyledTableCell>Rank</StyledTableCell>
               <StyledTableCell>User</StyledTableCell>
-              <StyledTableCell>Time</StyledTableCell>
+              <StyledTableCell>Last Node Time</StyledTableCell>
               <StyledTableCell>Node Count</StyledTableCell>
             </TableRow>
           </TableHead>
@@ -75,7 +75,7 @@ const LeaderBoard = () => {
                 <StyledTableCell component="th" scope="row">
                   {index + 1}
                 </StyledTableCell>
-                <StyledTableCell>{row._id}</StyledTableCell>
+                <StyledTableCell>{(row._id).substring(35)}</StyledTableCell>
                 <StyledTableCell>{convertTime(row.timestamp)}</StyledTableCell>
                 <StyledTableCell>{row.num}</StyledTableCell>
               </StyledTableRow>
@@ -90,7 +90,7 @@ const LeaderBoard = () => {
             <TableRow>
               <StyledTableCell>Rank</StyledTableCell>
               <StyledTableCell>User</StyledTableCell>
-              <StyledTableCell>Time</StyledTableCell>
+              <StyledTableCell>Last Node Time</StyledTableCell>
               <StyledTableCell>Node Count</StyledTableCell>
             </TableRow>
           </TableHead>
@@ -100,7 +100,7 @@ const LeaderBoard = () => {
                 <StyledTableCell component="th" scope="row">
                   {index + 1}
                 </StyledTableCell>
-                <StyledTableCell>{row._id}</StyledTableCell>
+                <StyledTableCell>{(row._id).substring(35)}</StyledTableCell>
                 <StyledTableCell>{convertTime(row.timestamp)}</StyledTableCell>
                 <StyledTableCell>{row.num}</StyledTableCell>
               </StyledTableRow>

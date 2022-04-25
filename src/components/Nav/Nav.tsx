@@ -263,6 +263,7 @@ const Nav = () => {
                 <ListItemLink primary="Vineyard" to="/vineyard" />
                 <ListItemLink primary="Winery" to="/winery" />
                 <ListItemLink primary="Nodes" to="/nodes" />
+                <ListItemLink primary="Leaderboard" to="/leaderboard" />
                 <ListItem button component="a" href="https://shop.grapefinance.app/">
                   <ListItemText>Merch</ListItemText>
                 </ListItem>
