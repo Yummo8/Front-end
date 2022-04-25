@@ -6,6 +6,7 @@ import {useWallet} from 'use-wallet';
 import UnlockWallet from '../../components/UnlockWallet';
 import PageHeader from '../../components/PageHeader';
 import ExchangeCard from './components/ExchangeCard';
+
 import styled from 'styled-components';
 import Spacer from '../../components/Spacer';
 import useBondStats from '../../hooks/useBondStats';
@@ -86,6 +87,7 @@ const Bond: React.FC = () => {
       <BackgroundImage />
       <Container>   
               <Grid item xs={12} md={12} lg={12} >     
+              
                   <h2 style={{ fontSize: '80px', textAlign:'center' }}>Launchpad</h2>   
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>We're working hard to secure partnerships with the best up and coming projects on Avalanche to give our WINE holders and LPs exclusive access and unique benefits. Our launchpad will include access to whitelists, IDOs, membership rights and other unique deals we think will benefit the community.</p>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>The Grape DAO plans on building a strong community led launchpad to foster growth on Avalanche. We'll be partnering with projects that are building something new, unique and beneficial to the ecosystem to help bolster their launch, their community and achieve their roadmap goals.</p>   

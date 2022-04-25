@@ -154,6 +154,9 @@ const Nav = () => {
               <Link to="/strategies" className={'navLink ' + classes.link}>
                 Strategy
               </Link>
+              <Link to="/stats" className={'navLink ' + classes.link}>
+                 Stats
+              </Link>
               <Link to="/raffle" className={'navLink ' + classes.link}>
                 Raffle
               </Link>
@@ -264,6 +267,7 @@ const Nav = () => {
                 <ListItemLink primary="Winery" to="/winery" />
                 <ListItemLink primary="Nodes" to="/nodes" />
                 <ListItemLink primary="Leaderboard" to="/leaderboard" />
+                <ListItemLink primary="Stats" to="/stats" />
                 <ListItem button component="a" href="https://shop.grapefinance.app/">
                   <ListItemText>Merch</ListItemText>
                 </ListItem>
