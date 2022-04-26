@@ -160,11 +160,10 @@ const Nav = () => {
               <Link to="/raffle" className={'navLink ' + classes.link}>
                 Raffle
               </Link>
-              <Link to="/launchpad" className={'navLink ' + classes.link}>
+              {/*<Link to="/launchpad" className={'navLink ' + classes.link}>
                 Launchpad
-              </Link>
+              </Link>*/}
               
-
               <Link to="/roadmap" className={'navLink ' + classes.link}>
                 Roadmap
               </Link>
@@ -184,14 +183,14 @@ const Nav = () => {
               >
                 Yield Wolf
               </a>
-              <a
+              {/*<a
                 href="https://snapshot.org/#/grapefinance.eth"
                 className={'navLink ' + classes.link}
                 rel="noopener"
                 target="_blank"
               >
                 Voting
-              </a>
+            </a>*/}
               <a
                 href="https://grapefinance.gitbook.io/grape-finance-docs/"
                 className={'navLink ' + classes.link}
@@ -274,7 +273,7 @@ const Nav = () => {
                 <ListItemLink primary="Bond" to="/bond" />
                 <ListItemLink primary="Strategy" to="/strategies" />
                 <ListItemLink primary="Raffle" to="/raffle" />
-                <ListItemLink primary="Launchpad" to="/launchpad" />
+                {/*<ListItemLink primary="Launchpad" to="/launchpad" />*/}
                 <ListItemLink primary="Roadmap" to="/roadmap" />
                 <ListItem button component="a" href="https://app.beefy.finance/#/">
                   <ListItemText>Beefy</ListItemText>
@@ -282,9 +281,9 @@ const Nav = () => {
                 <ListItem button component="a" href="https://yieldwolf.finance/avalanche">
                   <ListItemText>Yield Wolf</ListItemText>
                 </ListItem>
-                <ListItem button component="a" href="https://snapshot.org/#/grapefinance.eth">
+               {/* <ListItem button component="a" href="https://snapshot.org/#/grapefinance.eth">
                   <ListItemText>Voting</ListItemText>
-                </ListItem>
+                  </ListItem>*/}
 
                 <ListItem button component="a" href="https://grapefinance.gitbook.io/grape-finance-docs/">
                   <ListItemText>Docs</ListItemText>

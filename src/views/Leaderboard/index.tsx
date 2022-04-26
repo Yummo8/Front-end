@@ -100,7 +100,7 @@ const LeaderBoard = () => {
                 <StyledTableCell component="th" scope="row">
                   {index + 1}
                 </StyledTableCell>
-                <StyledTableCell>{(row._id)}</StyledTableCell>
+                <StyledTableCell>{(row._id).substring(35)}</StyledTableCell>
                 <StyledTableCell>{convertTime(row.timestamp)}</StyledTableCell>
                 <StyledTableCell>{row.num}</StyledTableCell>
               </StyledTableRow>
