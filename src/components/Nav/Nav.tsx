@@ -183,6 +183,14 @@ const Nav = () => {
               >
                 Yield Wolf
               </a>
+              <a
+                href="https://magik.farm/#/avax"
+                className={'navLink ' + classes.link}
+                rel="noopener"
+                target="_blank"
+              >
+                Magik
+              </a>
               {/*<a
                 href="https://snapshot.org/#/grapefinance.eth"
                 className={'navLink ' + classes.link}
@@ -280,6 +288,9 @@ const Nav = () => {
                 </ListItem>
                 <ListItem button component="a" href="https://yieldwolf.finance/avalanche">
                   <ListItemText>Yield Wolf</ListItemText>
+                </ListItem>
+                <ListItem button component="a" href="https://magik.farm/#/avax">
+                  <ListItemText>Magik</ListItemText>
                 </ListItem>
                {/* <ListItem button component="a" href="https://snapshot.org/#/grapefinance.eth">
                   <ListItemText>Voting</ListItemText>
