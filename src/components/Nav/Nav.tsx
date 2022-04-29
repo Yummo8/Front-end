@@ -167,9 +167,20 @@ const Nav = () => {
               <Link to="/roadmap" className={'navLink ' + classes.link}>
                 Roadmap
               </Link>
-              <a
+              <div className={'dropdown'}>
+                <button className={'dropbtn'}>AUTO VAULTS</button>
+                  <div className={'dropdown-content'}>
+                      <a
+                    href="https://magik.farm/#/avax"
+                    className={classes.link}
+                    rel="noopener"
+                    target="_blank"
+                  >
+                    Magik
+                  </a>
+                  <a
                 href="https://app.beefy.finance/#/"
-                className={'navLink ' + classes.link}
+                className={classes.link}
                 rel="noopener"
                 target="_blank"
               >
@@ -177,20 +188,15 @@ const Nav = () => {
               </a>
               <a
                 href="https://yieldwolf.finance/avalanche"
-                className={'navLink ' + classes.link}
+                className={classes.link}
                 rel="noopener"
                 target="_blank"
               >
                 Yield Wolf
-              </a>
-              <a
-                href="https://magik.farm/#/avax"
-                className={'navLink ' + classes.link}
-                rel="noopener"
-                target="_blank"
-              >
-                Magik
-              </a>
+              </a>                
+                  </div>
+              </div>
+                
               {/*<a
                 href="https://snapshot.org/#/grapefinance.eth"
                 className={'navLink ' + classes.link}

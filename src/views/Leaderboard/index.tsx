@@ -46,6 +46,7 @@ const LeaderBoard = () => {
   const classes = useStyles();
 
   const {data: eventResponse} = useGetEventQuery();
+  
   const [leaderBoardEntire, setLeaderBoardEntire] = React.useState([]);
   const [leaderBoardLastWeek, setLeaderBoardLastWeek] = React.useState([]);
   React.useEffect(() => {
