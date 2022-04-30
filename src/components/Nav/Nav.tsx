@@ -102,16 +102,7 @@ const Nav = () => {
     setOpen(false);
   };
 
-  //const btcPriceInDollars = useMemo(() => (grapeStats ? Number(btcStats).toFixed(2) : null), [grapeStats]);
-  /*const grapePriceInDollars = useMemo(
-    () => (grapeStats ? Number(grapeStats.priceInDollars).toFixed(2) : null),
-    [grapeStats],
-  );
-  const sharePriceInDollars = useMemo(
-    () => (grapeStats ? Number(shareStats.priceInDollars).toFixed(2) : null),
-    [grapeStats],
-  );
-*/
+
   return (
     <AppBar position="sticky" elevation={0} className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
@@ -157,8 +148,8 @@ const Nav = () => {
               <Link to="/stats" className={'navLink ' + classes.link}>
                  Stats
               </Link>
-              <Link to="/raffle" className={'navLink ' + classes.link}>
-                Raffle
+              <Link to="/nftraffle" className={'navLink ' + classes.link}>
+                NFT Raffle
               </Link>
               {/*<Link to="/launchpad" className={'navLink ' + classes.link}>
                 Launchpad
