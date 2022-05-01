@@ -61,7 +61,8 @@
   },
   "targets": {
     "default": {
-      "distDir": "./build"
+      "distDir": "./build",
+      "scopeHoist": false
     }
   },
   "browserslist": [
