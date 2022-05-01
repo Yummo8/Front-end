@@ -1,11 +1,11 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import WalletCard from './WalletCard';
-import {Modal, List} from '@material-ui/core';
-import {makeStyles} from '@material-ui/core/styles';
-import metamaskLogo from '../../assets/img/metamask-fox.svg';
-import walletConnectLogo from '../../assets/img/wallet-connect.svg';
+import { Modal, List } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import metamaskLogo from 'jsx:../../assets/img/metamask-fox.svg';
+import walletConnectLogo from 'jsx:../../assets/img/wallet-connect.svg';
 import coingBaseLogo from '../../assets/img/coinbase_logo.jpeg';
-import {useWallet} from 'use-wallet';
+import { useWallet } from 'use-wallet';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -19,9 +19,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const WalletProviderModal = ({open, handleClose}) => {
+const WalletProviderModal = ({ open, handleClose }) => {
   const classes = useStyles();
-  const {account, connect} = useWallet();
+  const { account, connect } = useWallet();
 
   useEffect(() => {
     if (account) {
@@ -34,28 +34,28 @@ const WalletProviderModal = ({open, handleClose}) => {
       aria-labelledby="connect a wallet"
       aria-describedby="connect your crypto wallet"
       open={open}
-      style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}
+      style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
       onClose={handleClose}
     >
       <div className={classes.paper}>
         <h2>Connect Wallet</h2>
         <List component="nav" aria-label="main mailbox folders">
           <WalletCard
-            icon={<img src={metamaskLogo} alt="Metamask logo" style={{height: 32}} />}
+            icon={<img src={metamaskLogo} alt="Metamask logo" style={{ height: 32 }} />}
             onConnect={() => {
               connect('injected');
             }}
             title="Metamask"
           />
           <WalletCard
-            icon={<img src={walletConnectLogo} alt="Wallet Connect logo" style={{height: 24, color: 'white'}} />}
+            icon={<img src={walletConnectLogo} alt="Wallet Connect logo" style={{ height: 24, color: 'white' }} />}
             onConnect={() => {
               connect('walletconnect');
             }}
             title="WalletConnect"
           />
           <WalletCard
-            icon={<img src={coingBaseLogo} alt="Coinbase wallet logo" style={{height: 32, color: 'white'}} />}
+            icon={<img src={coingBaseLogo} alt="Coinbase wallet logo" style={{ height: 32, color: 'white' }} />}
             onConnect={() => {
               connect('walletlink');
             }}

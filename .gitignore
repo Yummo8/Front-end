@@ -1,6 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 package-lock.json
 .idea/
+.parcel-cache
 *.local.*
 
 # dependencies
@@ -12,7 +13,7 @@ package-lock.json
 /coverage
 
 # production
-/build
+/dist
 
 # misc
 .DS_Store
