@@ -148,7 +148,7 @@ const Bond: React.FC = () => {
               <h2 style={{textAlign:'center', marginTop: '10px' }}>Raffle Stats</h2>                
               <p style={{textAlign:'center'}}>Total MIM entered: {raffleBals}</p>         
               <p style={{textAlign:'center'}}>Your MIM entered: {userBals}</p>
-              <p style={{textAlign:'center'}}>Your Raffle entires: {Number(userBals)/5}</p>
+              <p style={{textAlign:'center'}}>Your Raffle entries: {Number(userBals)/5}</p>
               <p style={{textAlign:'center'}}>Your account: {account}</p>
             </Card>
           </Grid>
