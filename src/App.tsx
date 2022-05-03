@@ -1,6 +1,6 @@
 import React, {Suspense, lazy} from 'react';
 import {Provider} from 'react-redux';
-import {HashRouter as Router, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import {ThemeProvider as TP} from '@material-ui/core/styles';
 import {ThemeProvider as TP1} from 'styled-components';
 import {UseWalletProvider} from 'use-wallet';
