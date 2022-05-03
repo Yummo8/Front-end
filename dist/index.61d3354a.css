@@ -1,0 +1,225 @@
+@font-face {
+  font-family: superstar;
+  src: local(superstar), url("superstar.85d5a74c.ttf") format("truetype");
+}
+
+body, html, h1, h2, h3, h4 {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  font-family: "MONOSPACE", sans-serif;
+}
+
+html, body {
+  height: 100%;
+  overflow-y: auto;
+}
+
+h2 {
+  font-size: 2.5em;
+  color: #930993 !important;
+}
+
+body {
+  content: "";
+  height: 100%;
+  width: 100%;
+  font-size: 1em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-position: center !important;
+  background-size: cover !important;
+  background-attachment: fixed !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-transform: uppercase;
+  color: #fff;
+  font-family: superstar, "monospace";
+}
+
+.MuiToolbar-regular {
+  color: #000;
+}
+
+.MuiButton-containedPrimary, .MuiButton-containedPrimary:hover, .MuiListItem-button:hover, .MuiButtonBase-root:hover {
+  color: #fff !important;
+}
+
+.MuiButton-containedPrimary {
+  background: #930993 !important;
+}
+
+.MuiButton-containedPrimary:hover {
+  background: #d19aff !important;
+}
+
+code {
+  font-family: "monospace", monospace;
+}
+
+.wallet-button {
+  color: #fff;
+  text-align: left !important;
+  text-transform: none !important;
+  justify-content: flex-start !important;
+  font-family: "monospace", sans-serif !important;
+  font-size: 1.2rem !important;
+}
+
+.wallet-button:hover {
+  color: #930993 !important;
+}
+
+.navLink {
+  color: #fff !important;
+}
+
+.navLink:hover {
+  color: #930993 !important;
+}
+
+.shinyButton {
+  border-radius: 15px;
+  margin-top: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  box-shadow: 0 0 5px #000;
+  color: #fff !important;
+  background-color: #930993 !important;
+  font-size: 1rem !important;
+}
+
+.shinyButtonDisabled {
+  border-radius: 15px;
+  box-shadow: 0 0 5px gray;
+  color: gray !important;
+}
+
+.shinyButton:hover {
+  color: #fff !important;
+  background-color: #72046d !important;
+}
+
+.shinyButtonSecondary {
+  border-radius: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  box-shadow: 0 0 5px #000;
+  color: #fff !important;
+  background-color: #930993 !important;
+  font-size: 1rem !important;
+}
+
+.account {
+  align-items: center;
+  display: flex;
+}
+
+.account > img, .account > div {
+  margin-right: 8px;
+}
+
+.shinyButtonDisabledSecondary {
+  border-radius: 15px;
+  box-shadow: 0 0 5px gray;
+  color: gray !important;
+}
+
+.shinyButtonSecondary:hover {
+  box-shadow: 0 0 5px #000;
+  color: #fff !important;
+  background-color: #72046d !important;
+}
+
+.navTokenPrice {
+  color: #fff;
+  padding-top: 5px;
+  padding-right: 15px;
+}
+
+.navTokenIcon {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  padding-right: 12px;
+  overflow: hidden;
+  height: 30px !important;
+  width: 30px !important;
+}
+
+.grape {
+  background-image: url("grape.f30bab04.png");
+  top: -20px;
+}
+
+.wine {
+  background-image: url("gshare.00039385.png");
+}
+
+.MuiPaper-root {
+  color: #322f32 !important;
+  background-color: #fffc !important;
+}
+
+.MuiAppBar-positionSticky {
+  position: relative !important;
+}
+
+.ijwpow {
+  background-color: #ffffff1a !important;
+}
+
+.makeStyles-appBar-2 {
+  background-color: #fff0 !important;
+}
+
+.walletconnecttitle {
+  color: #322f32;
+}
+
+.walletconnecttitle:hover {
+  color: #930993;
+}
+
+.dropbtn {
+  color: #fff;
+  background-color: #0000;
+  border: none;
+  padding: 16px;
+  font-size: 16px;
+}
+
+.dropdown {
+  display: inline-block;
+  position: relative;
+}
+
+.dropdown-content {
+  min-width: 160px;
+  z-index: 1;
+  background-color: #f1f1f1;
+  display: none;
+  position: absolute;
+  box-shadow: 0 8px 16px #0003;
+}
+
+.dropdown-content a {
+  color: #000;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/*# sourceMappingURL=index.61d3354a.css.map */

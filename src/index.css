@@ -67,12 +67,12 @@ h6 {
 .MuiButtonBase-root:hover {
   color: #fff !important;
 }
-.MuiButton-containedPrimary {
+.MuiButton-containedPrimary{
   background: #930993 !important;
 }
 
-.MuiButton-containedPrimary:hover {
-  background: #d19aff !important;
+.MuiButton-containedPrimary:hover{
+  background: #D19AFF !important;
 }
 
 code {
@@ -182,12 +182,16 @@ code {
 }
 
 .grape {
-  background-image: url('./assets/grape.png');
+  background-image: url('/grape.png');
   top: -20px;
 }
 
 .wine {
-  background-image: url('./assets/gshare.png');
+  background-image: url('/gshare.png');
+}
+
+.btc {
+  background-image: url('/grape3.png');
 }
 
 .MuiPaper-root {
@@ -211,7 +215,7 @@ code {
   color: #930993;
 }
 .dropbtn {
-  background-color: rgba(0, 0, 0, 0);
+  background-color: rgba(0,0,0,0);
   color: white;
   padding: 16px;
   font-size: 16px;
@@ -227,7 +231,7 @@ code {
   position: absolute;
   background-color: #f1f1f1;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
 }
 
@@ -238,10 +242,7 @@ code {
   display: block;
 }
 
-.dropdown-content a:hover {
-  background-color: #ddd;
-}
 
-.dropdown:hover .dropdown-content {
-  display: block;
-}
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}

@@ -1,32 +1,40 @@
-import React, { useMemo } from 'react';
+import React, {useMemo} from 'react';
 import Page from '../../components/Page';
-import { createGlobalStyle } from 'styled-components';
+import {createGlobalStyle} from 'styled-components';
 import CountUp from 'react-countup';
 import CardIcon from '../../components/CardIcon';
 import TokenSymbol from '../../components/TokenSymbol';
 import useGrapeStats from '../../hooks/useGrapeStats';
 import useLpStats from '../../hooks/useLpStats';
 import useLpStatsBTC from '../../hooks/useLpStatsBTC';
+import useModal from '../../hooks/useModal';
+import useZap from '../../hooks/useZap';
 import useBondStats from '../../hooks/useBondStats';
 import usebShareStats from '../../hooks/useWineStats';
 import useTotalValueLocked from '../../hooks/useTotalValueLocked';
-import { Grape as grapeTesting, Wine as bShareTesting } from '../../grape-finance/deployments/deployments.testing.json';
-import { Grape as grapeProd, Wine as bShareProd } from '../../grape-finance/deployments/deployments.mainnet.json';
-import { roundAndFormatNumber } from '../../0x';
+import {Grape as grapeTesting, Wine as bShareTesting} from '../../grape-finance/deployments/deployments.testing.json';
+import {Grape as grapeProd, Wine as bShareProd} from '../../grape-finance/deployments/deployments.mainnet.json';
+import {roundAndFormatNumber} from '../../0x';
 import MetamaskFox from '../../assets/img/metamask-fox.svg';
-import { Box, Button, Card, CardContent, Grid, Paper } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import {Box, Button, Card, CardContent, Grid, Paper} from '@material-ui/core';
+import ZapModal from '../Bank/components/ZapModal';
+import {Alert} from '@material-ui/lab';
+import useBank from '../../hooks/useBank';
+import {makeStyles} from '@material-ui/core/styles';
 import useGrapeFinance from '../../hooks/useGrapeFinance';
 import kyc from '../../assets/img/kyc.jpg';
 import wamp from '../../assets/img/WAMP.png';
 import GrapeImage from '../../assets/img/grape.png';
 import audit from '../../assets/img/audit1.jpg';
 import HomeImage from '../../assets/img/background.jpg';
+import useStatsForPool from '../../hooks/useStatsForPool';
 import useTotalStakedOnBoardroom from '../../hooks/useTotalStakedOnBoardroom';
-import { getDisplayBalance } from '../../utils/formatBalance';
-import IconTelegram from 'jsx:../../assets/img/telegram.svg';
-import IconDiscord from 'jsx:../../assets/img/discord.svg';
+import {getDisplayBalance} from '../../utils/formatBalance';
+import {ReactComponent as IconTelegram} from '../../assets/img/telegram.svg';
+import {ReactComponent as IconDiscord} from '../../assets/img/discord.svg';
+import LaunchCountdown from '../../components/LaunchCountdown';
 import { useGetEventQuery } from '../../services/event';
+import {ILeaderBoard} from '../../interfaces/ILeaderBoard'
 const BackgroundImage = createGlobalStyle`
   body {
     background: url(${HomeImage}) repeat !important;
@@ -62,16 +70,17 @@ const Home = () => {
   const grapeFinance = useGrapeFinance();
   const totalStaked = useTotalStakedOnBoardroom();
 
-  const { data: eventResponse } = useGetEventQuery();
+  const {data : eventResponse} = useGetEventQuery();
   const [leaderboard, setLeaderboard] = React.useState([]);
   React.useEffect(() => {
+    
     if (eventResponse && eventResponse.result) {
       setLeaderboard(eventResponse.data.mixed);
     }
   }, [eventResponse]);
-
-  console.log('leaderboard', leaderboard);
-
+ 
+  console.log('leaderboard', leaderboard)
+ 
   let grape;
   let bShare;
   if (!process.env.NODE_ENV || process.env.NODE_ENV === 'production') {
@@ -168,66 +177,63 @@ const Home = () => {
   return (
     <Page>
       <BackgroundImage />
-      <Grid item xs={12} sm={12} style={{ marginBottom: '25px' }}></Grid>
+      <Grid item xs={12} sm={12} style={{marginBottom: '25px'}}>
+      </Grid>
       <Grid container spacing={3}>
+
         {/* Logo */}
         <Grid
           item
           xs={12}
           sm={4}
-          style={{ display: 'flex', justifyContent: 'center', verticalAlign: 'middle', overflow: 'hidden' }}
+          style={{display: 'flex', justifyContent: 'center', verticalAlign: 'middle', overflow: 'hidden'}}
         >
-          <img src={GrapeImage} style={{ maxHeight: '240px' }} />
+          <img src={GrapeImage} style={{maxHeight: '240px'}} />
         </Grid>
         {/* Explanation text */}
         <Grid item xs={12} sm={8}>
           <Paper>
-            <Box p={4} style={{ textAlign: 'center' }}>
+            <Box p={4} style={{ textAlign: 'center'}}>
               <h2>Earn Daily Yields at Grape Finance</h2>
 
-              <p style={{ fontSize: '17px' }}>
+              <p style={{fontSize: '17px'}}>
                 <b>We're pegged to MIM helping to reduce your volatility during a market downturn</b>
               </p>
-              <p style={{ fontSize: '17px' }}>
+              <p style={{fontSize: '17px'}}>
                 GRAPE is an algorithmic stable coin designed to maintain a 1:1 peg to MIM.
                 {/*Stake your LPs in the Vineyard to earn WINE rewards. Then stake your earned WINE in the
                 Winery to earn more GRAPE!*/}
               </p>
               <p>
                 Please join our{' '}
-                <a href="https://t.me/GrapeDefi" rel="noopener noreferrer" target="_blank" style={{ color: '#000' }}>
-                  <b>
-                    {' '}
-                    <IconTelegram width="25" style={{ fill: '#000', height: '15px' }} />
-                    Telegram
-                  </b>
+                <a href="https://t.me/GrapeDefi" rel="noopener noreferrer" target="_blank" style={{color: '#000'}}>
+                <b> <IconTelegram style={{fill: '#000', height: '15px'}} />Telegram</b>
                 </a>{' '}
                 or{' '}
                 <a
                   href="https://discord.gg/ZP9aYaXeCJ"
                   rel="noopener noreferrer"
                   target="_blank"
-                  style={{ color: '#000' }}
+                  style={{color: '#000'}}
                 >
-                  <b>
-                    <IconDiscord width="25" style={{ fill: '#000', height: '15px' }} /> Discord
-                  </b>
+                 <b><IconDiscord style={{fill: '#000', height: '15px'}} /> Discord</b>
                 </a>{' '}
                 & read our{' '}
                 <a
                   href="https://grapefinance.gitbook.io/grape-finance-docs/"
                   rel="noopener noreferrer"
                   target="_blank"
-                  style={{ color: '#000' }}
+                  style={{color: '#000'}}
                 >
-                  <b> Docs & Disclaimer</b>
+                 <b>  Docs & Disclaimer</b>
                 </a>{' '}
                 before joining!
               </p>
             </Box>
           </Paper>
+          
         </Grid>
-
+        
         {/* <Grid container spacing={3}>
           <Grid item xs={12} sm={12} justify="center" style={{ margin: '12px', display: 'flex' }}>
 
@@ -240,54 +246,54 @@ const Home = () => {
 
         {/* TVL */}
         <Grid item xs={12} sm={4}>
-          <div style={{ width: '80%', margin: '0 auto', paddingBottom: '40px', paddingTop: '40px' }}>
+          <div style={{width: '80%', margin: '0 auto', paddingBottom: '40px', paddingTop: '40px'}}>
             <a href="https://twitter.com/0xGuard/status/1480457336082907137" target="_blank">
-              <img alt="0xGuard KYC" style={{ width: '45%' }} src={kyc} />
+              <img alt="0xGuard KYC" style={{width: '45%'}} src={kyc} />
             </a>
 
             <a href="https://grapefinance.app/audit.pdf" target="_blank">
-              <img alt="0xGuard Audit" style={{ width: '45%', marginLeft: '20px' }} src={audit} />
+              <img alt="0xGuard Audit" style={{width: '45%', marginLeft: '20px'}} src={audit} />
             </a>
           </div>
 
           <Card>
             <CardContent align="center">
               <h2>Total Value Locked</h2>
-
-              <CountUp style={{ fontSize: '30px' }} end={TVL} separator="," prefix="$" />
+             
+              <CountUp style={{fontSize: '30px'}} end={TVL} separator="," prefix="$" />
             </CardContent>
           </Card>
         </Grid>
-
+        
         {/* Wallet */}
         <Grid item xs={12} sm={8}>
-          <Card style={{ height: '100%' }}>
-            <CardContent align="center" style={{ marginTop: '2%' }}>
-              <Box p={4} style={{ textAlign: 'center', paddingTop: '0px' }}>
-                <h2 style={{ fontSize: '32px' }}>Have WAMP to stake?</h2>
-                <p style={{ marginTop: '0' }}>Boost your WAMP yields by staking for WINE then pledge for more AMP</p>
+          <Card style={{height: '100%'}}>
+            <CardContent align="center" style={{marginTop: '2%'}}>
+              <Box p={4} style={{textAlign: 'center', paddingTop: '0px'}}>
+                <h2 style={{fontSize: '32px'}}>Have WAMP to stake?</h2>
+                <p style={{marginTop: '0'}}>Boost your WAMP yields by staking for WINE then pledge for more AMP</p>
 
                 <img src={wamp} width={'55px'} height={'55px'}></img>
                 <Button
                   target="_blank"
                   href={wampStaking}
                   className={'shinyButton ' + classes.button}
-                  style={{ marginLeft: '10px', marginTop: '-45px' }}
+                  style={{marginLeft: '10px', marginTop: '-45px'}}
                 >
                   WAMP Staking
                 </Button>
               </Box>
               {/* <h2 style={{ marginBottom: '20px' }}>Wallet Balance</h2> */}
-              <Button href="/vineyard" className="shinyButton" style={{ margin: '10px' }}>
+              <Button href="/vineyard" className="shinyButton" style={{margin: '10px'}}>
                 Vineyard
               </Button>
-              <Button href="/winery" className="shinyButton" style={{ margin: '10px' }}>
+              <Button href="/winery" className="shinyButton" style={{margin: '10px'}}>
                 Winery
-              </Button>
+              </Button>  
               <Button
                 target="_blank"
                 href={buyGrapeAddress}
-                style={{ margin: '10px' }}
+                style={{margin: '10px'}}
                 className={'shinyButton ' + classes.button}
               >
                 Buy GRAPE
@@ -296,7 +302,7 @@ const Home = () => {
                 target="_blank"
                 href={buyWineAddress}
                 className={'shinyButton ' + classes.button}
-                style={{ marginLeft: '10px' }}
+                style={{marginLeft: '10px'}}
               >
                 Buy WINE
               </Button>
@@ -305,7 +311,7 @@ const Home = () => {
                 target="_blank"
                 href={grapeChart}
                 className={'shinyButton ' + classes.button}
-                style={{ marginLeft: '10px' }}
+                style={{marginLeft: '10px'}}
               >
                 GRAPE Chart
               </Button>
@@ -313,18 +319,18 @@ const Home = () => {
                 target="_blank"
                 href={wineChart}
                 className={'shinyButton ' + classes.button}
-                style={{ marginLeft: '10px' }}
+                style={{marginLeft: '10px'}}
               >
                 WINE Chart
               </Button>
             </CardContent>
           </Card>
         </Grid>
-
+        
         {/* GRAPE */}
         <Grid item xs={12} sm={4}>
           <Card>
-            <CardContent align="center" style={{ position: 'relative' }}>
+            <CardContent align="center" style={{position: 'relative'}}>
               <Box mt={2}>
                 <CardIcon>
                   <TokenSymbol symbol="GRAPE" />
@@ -334,20 +340,20 @@ const Home = () => {
                 onClick={() => {
                   grapeFinance.watchAssetInMetamask('GRAPE');
                 }}
-                style={{ position: 'absolute', top: '10px', right: '10px', border: '1px grey solid' }}
+                style={{position: 'absolute', top: '10px', right: '10px', border: '1px grey solid'}}
               >
                 {' '}
                 <b>+</b>&nbsp;&nbsp;
-                <img alt="metamask fox" style={{ width: '20px' }} src={MetamaskFox} />
+                <img alt="metamask fox" style={{width: '20px'}} src={MetamaskFox} />
               </Button>
-              <h2 style={{ marginBottom: '10px' }}>GRAPE</h2>
+              <h2 style={{marginBottom: '10px'}}>GRAPE</h2>
 
               <Box>
-                <span style={{ fontSize: '30px', color: '#930993' }}>
+                <span style={{fontSize: '30px', color: '#930993'}}>
                   ${grapePriceInAVAX ? grapePriceInAVAX : '-.----'}{' '}
                 </span>
               </Box>
-              <span style={{ fontSize: '17px' }}>
+              <span style={{fontSize: '17px'}}>
                 {/*TVL In LPs: ${roundAndFormatNumber(grapeTVL1 + grapeTVL2, 0)}
                 <br />*/}
                 Market Cap: ${roundAndFormatNumber(grapeCirculatingSupply * grapePriceInDollars, 0)} <br />
@@ -361,32 +367,32 @@ const Home = () => {
         {/* WINE */}
         <Grid item xs={12} sm={4}>
           <Card>
-            <CardContent align="center" style={{ position: 'relative' }}>
+            <CardContent align="center" style={{position: 'relative'}}>
               <Button
                 onClick={() => {
                   grapeFinance.watchAssetInMetamask('WINE');
                 }}
-                style={{ position: 'absolute', top: '10px', right: '10px', border: '1px grey solid' }}
+                style={{position: 'absolute', top: '10px', right: '10px', border: '1px grey solid'}}
               >
                 {' '}
                 <b>+</b>&nbsp;&nbsp;
-                <img alt="metamask fox" style={{ width: '20px' }} src={MetamaskFox} />
+                <img alt="metamask fox" style={{width: '20px'}} src={MetamaskFox} />
               </Button>
               <Box mt={2}>
                 <CardIcon>
                   <TokenSymbol symbol="WINE" />
                 </CardIcon>
               </Box>
-              <h2 style={{ marginBottom: '10px' }}>WINE</h2>
+              <h2 style={{marginBottom: '10px'}}>WINE</h2>
 
               <Box>
-                <span style={{ fontSize: '30px', color: '#930993' }}>
+                <span style={{fontSize: '30px', color: '#930993'}}>
                   ${bSharePriceInDollars ? bSharePriceInDollars : '-.--'}
                 </span>
               </Box>
 
-              <span style={{ fontSize: '17px' }}>
-                {/* TVL In LPs & Winery: ${roundAndFormatNumber(shareLPTVL + totalStakedFormat, 0)}
+              <span style={{fontSize: '17px'}}>
+               {/* TVL In LPs & Winery: ${roundAndFormatNumber(shareLPTVL + totalStakedFormat, 0)}
                 <br />*/}
                 Market Cap: ${roundAndFormatNumber(bShareCirculatingSupply * bSharePriceInDollars, 0)} <br />
                 Circulating Supply: {roundAndFormatNumber(bShareCirculatingSupply, 2)} <br />
@@ -399,30 +405,30 @@ const Home = () => {
         {/* GBOND */}
         <Grid item xs={12} sm={4}>
           <Card>
-            <CardContent align="center" style={{ position: 'relative' }}>
+            <CardContent align="center" style={{position: 'relative'}}>
               <Button
                 onClick={() => {
                   grapeFinance.watchAssetInMetamask('GBOND');
                 }}
-                style={{ position: 'absolute', top: '10px', right: '10px', border: '1px grey solid' }}
+                style={{position: 'absolute', top: '10px', right: '10px', border: '1px grey solid'}}
               >
                 {' '}
                 <b>+</b>&nbsp;&nbsp;
-                <img alt="metamask fox" style={{ width: '20px' }} src={MetamaskFox} />
+                <img alt="metamask fox" style={{width: '20px'}} src={MetamaskFox} />
               </Button>
               <Box mt={2}>
                 <CardIcon>
                   <TokenSymbol symbol="GBOND" />
                 </CardIcon>
               </Box>
-              <h2 style={{ marginBottom: '10px' }}>GBOND</h2>
+              <h2 style={{marginBottom: '10px'}}>GBOND</h2>
 
               <Box>
-                <span style={{ fontSize: '30px', color: '#930993' }}>
+                <span style={{fontSize: '30px', color: '#930993'}}>
                   $ {tBondPriceInDollars ? tBondPriceInDollars : '-.--'}
                 </span>
               </Box>
-              <span style={{ fontSize: '17px' }}>
+              <span style={{fontSize: '17px'}}>
                 Market Cap: ${roundAndFormatNumber(tBondCirculatingSupply * tBondPriceInDollars, 0)} <br />
                 Circulating Supply: {roundAndFormatNumber(tBondCirculatingSupply, 2)} <br />
                 Total Supply: {roundAndFormatNumber(tBondTotalSupply, 2)}
@@ -442,7 +448,7 @@ const Home = () => {
               </Box>
               <h2>GRAPE-MIM LP</h2>
 
-              <Box mt={4} style={{ marginTop: '0px' }}>
+              <Box mt={4} style={{marginTop: '0px'}}>
                 {/* <Button onClick={onPresentWineZap} className="shinyButtonSecondary">
                   Zap In
             </Button>*/}
@@ -452,13 +458,13 @@ const Home = () => {
               </Box>
 
               <Box mt={2}>
-                <span style={{ fontSize: '26px', color: '#930993' }}>
+                <span style={{fontSize: '26px', color: '#930993'}}>
                   {grapeLPStats?.tokenAmount ? grapeLPStats?.tokenAmount : '-.--'} GRAPE /{' '}
                   {grapeLPStats?.mimAmount ? grapeLPStats?.mimAmount : '-.--'} MIM
                 </span>
               </Box>
               <Box>${grapeLPStats?.priceOfOne ? grapeLPStats.priceOfOne : '-.--'}</Box>
-              <span style={{ fontSize: '17px' }}>
+              <span style={{fontSize: '17px'}}>
                 Liquidity: $
                 {grapeLPStats?.totalLiquidity ? roundAndFormatNumber(grapeLPStats.totalLiquidity, 0) : '-.--'} <br />
                 Total Supply: {grapeLPStats?.totalSupply ? roundAndFormatNumber(grapeLPStats.totalSupply, 0) : '-.--'}
@@ -476,7 +482,7 @@ const Home = () => {
               </Box>
               <h2>WINE-MIM LP</h2>
 
-              <Box mt={2} style={{ marginTop: '0px' }}>
+              <Box mt={2} style={{marginTop: '0px'}}>
                 {/* <Button onClick={onPresentWineZap} className="shinyButtonSecondary">
                   Zap In
             </Button>*/}
@@ -485,13 +491,13 @@ const Home = () => {
                 </Button>
               </Box>
               <Box mt={2}>
-                <span style={{ fontSize: '26px', color: '#930993' }}>
+                <span style={{fontSize: '26px', color: '#930993'}}>
                   {wineLPStats?.tokenAmount ? wineLPStats?.tokenAmount : '-.--'} WINE /{' '}
                   {wineLPStats?.mimAmount ? wineLPStats?.mimAmount : '-.--'} MIM
                 </span>
               </Box>
               <Box>${wineLPStats?.priceOfOne ? wineLPStats.priceOfOne : '-.--'}</Box>
-              <span style={{ fontSize: '17px' }}>
+              <span style={{fontSize: '17px'}}>
                 Liquidity: ${wineLPStats?.totalLiquidity ? roundAndFormatNumber(wineLPStats.totalLiquidity, 0) : '-.--'}
                 <br />
                 Total Supply: {wineLPStats?.totalSupply ? roundAndFormatNumber(wineLPStats.totalSupply, 0) : '-.--'}
@@ -509,7 +515,7 @@ const Home = () => {
               </Box>
               <h2>GRAPE-WINE LP</h2>
 
-              <Box mt={2} style={{ marginTop: '0px' }}>
+              <Box mt={2} style={{marginTop: '0px'}}>
                 {/* <Button onClick={onPresentWineZap} className="shinyButtonSecondary">
                   Zap In
             </Button>*/}
@@ -518,13 +524,13 @@ const Home = () => {
                 </Button>
               </Box>
               <Box mt={2}>
-                <span style={{ fontSize: '26px', color: '#930993' }}>
+                <span style={{fontSize: '26px', color: '#930993'}}>
                   {newPairLPStats?.tokenAmount ? newPairLPStats?.tokenAmount : '-.--'} GRAPE /{' '}
                   {newPairLPStats?.mimAmount ? newPairLPStats?.mimAmount : '-.--'} WINE
                 </span>
               </Box>
               <Box>${newPairLPStats?.priceOfOne ? newPairLPStats.priceOfOne : '-.--'}</Box>
-              <span style={{ fontSize: '17px' }}>
+              <span style={{fontSize: '17px'}}>
                 Liquidity: $
                 {newPairLPStats?.totalLiquidity ? roundAndFormatNumber(newPairLPStats.totalLiquidity, 0) : '-.--'}
                 <br />

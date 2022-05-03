@@ -1,11 +1,12 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Container, Grid, Typography, Link } from '@material-ui/core';
+import {makeStyles} from '@material-ui/core/styles';
+import {Container, Grid, Typography, Link} from '@material-ui/core';
 
-import IconTelegram from 'jsx:../../assets/img/telegram.svg';
-import IconTwitter from 'jsx:../../assets/img/twitter.svg';
-import IconGithub from 'jsx:../../assets/img/github.svg';
-import IconDiscord from 'jsx:../../assets/img/discord.svg';
+import {ReactComponent as IconTelegram} from '../../assets/img/telegram.svg';
+import {ReactComponent as IconTwitter} from '../../assets/img/twitter.svg';
+import {ReactComponent as IconGithub} from '../../assets/img/github.svg';
+import {ReactComponent as IconDiscord} from '../../assets/img/discord.svg';
+
 
 const useStyles = makeStyles((theme) => ({
   footer: {
@@ -19,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     height: '1.3rem',
     fontFamily: 'superstar',
+      
   },
   link: {
     width: '24px',
@@ -48,8 +50,8 @@ const Footer = () => {
               {new Date().getFullYear()}
             </Typography>
           </Grid>
-          <Grid item xs={12} style={{ textAlign: 'right', height: '20px' }}>
-            {/*<a
+          <Grid item xs={12} style={{textAlign: 'right', height: '20px'}}>
+          {/*<a
               href="mailto:grapefinance@protonmail.com"
               rel="noopener noreferrer"
               target="_blank"
@@ -57,7 +59,7 @@ const Footer = () => {
             >
               Email
   </a>*/}
-            <a
+          <a
               href="https://grapefinance.gitbook.io/grape-finance-docs/"
               rel="noopener noreferrer"
               target="_blank"
@@ -65,28 +67,23 @@ const Footer = () => {
             >
               Grape Docs
             </a>
-
+            
             <a
               href="https://twitter.com/grape_finance"
               rel="noopener noreferrer"
               target="_blank"
               className={classes.link}
             >
-              <IconTwitter style={{ fill: '#fff' }} />
+              <IconTwitter style={{fill: '#fff'}} />
             </a>
-            <a
-              href="https://github.com/grapefi/contracts"
-              rel="noopener noreferrer"
-              target="_blank"
-              className={classes.link}
-            >
-              <IconGithub style={{ fill: '#fff', height: '20px' }} />
-            </a>
+            <a href="https://github.com/grapefi/contracts" rel="noopener noreferrer" target="_blank" className={classes.link}>
+              <IconGithub style={{fill: '#fff', height: '20px'}} />
+              </a>
             <a href="https://t.me/GrapeDefi" rel="noopener noreferrer" target="_blank" className={classes.link}>
-              <IconTelegram style={{ fill: '#fff', height: '20px' }} />
+              <IconTelegram style={{fill: '#fff', height: '20px'}} />
             </a>
             <a href="https://discord.gg/mZ4QrZwH5M" rel="noopener noreferrer" target="_blank" className={classes.link}>
-              <IconDiscord style={{ fill: '#fff', height: '20px' }} />
+              <IconDiscord style={{fill: '#fff', height: '20px'}} />
             </a>
           </Grid>
         </Grid>
