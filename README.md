@@ -1,6 +1,4 @@
-
-#Welcome to GRAPE FINANCE
-
+# Welcome to GRAPE FINANCE
 
 Thanks for taking the time to contribute!
 You can start by reading our [Contribution guidelines](CONTRIBUTING.md) first.
@@ -35,7 +33,6 @@ npx prettier --write .
 ## Useful Resources
 
 =======
-
 
 - [Our project documentation] (https://grapefinance.gitbook.io/grape-finance-docs/) will help you understand before start contributing
 - Join our Discord (https://discord.gg/mZ4QrZwH5M) community to get in on the discussion

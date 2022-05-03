@@ -1,8 +1,8 @@
-import React, {useCallback, useMemo, useEffect} from 'react';
+import React, { useCallback, useMemo, useEffect } from 'react';
 import Page from '../../components/Page';
-import {createGlobalStyle} from 'styled-components';
-import {Route, Switch, useRouteMatch} from 'react-router-dom';
-import {useWallet} from 'use-wallet';
+import { createGlobalStyle } from 'styled-components';
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import { useWallet } from 'use-wallet';
 import UnlockWallet from '../../components/UnlockWallet';
 import PageHeader from '../../components/PageHeader';
 import ExchangeCard from './components/ExchangeCard';
@@ -13,18 +13,18 @@ import useGrapeStats from '../../hooks/useGrapeStats';
 import useRaffleStats from '../../hooks/useRaffleBalance';
 import useGrapeFinance from '../../hooks/useGrapeFinance';
 import useCashPriceInLastTWAP from '../../hooks/useCashPriceInLastTWAP';
-import {useTransactionAdder} from '../../state/transactions/hooks';
+import { useTransactionAdder } from '../../state/transactions/hooks';
 import ExchangeStat from './components/ExchangeStat';
 import useBondsPurchasable from '../../hooks/useBondsPurchasable';
-import {getDisplayBalance} from '../../utils/formatBalance';
+import { getDisplayBalance } from '../../utils/formatBalance';
 import { BOND_REDEEM_PRICE, BOND_REDEEM_PRICE_BN, DECIMALS_18 } from '../../grape-finance/constants';
 import { Alert } from '@material-ui/lab';
-import {ReactComponent as IconTelegram} from '../../assets/img/telegram.svg';
-import {ReactComponent as IconDiscord} from '../../assets/img/discord.svg';
+import { ReactComponent as IconTelegram } from 'jsx:../../assets/img/telegram.svg';
+import { ReactComponent as IconDiscord } from 'jsx:../../assets/img/discord.svg';
 import HomeImage from '../../assets/img/background.jpg';
 import Collage from '../../assets/img/collage.jpg';
 import { Box, Container, Card, CardContent, Typography, Grid } from '@material-ui/core';
-import {makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { Stats } from 'fs';
 import LaunchCountdown from '../../components/LaunchCountdown';
 
@@ -35,7 +35,6 @@ const BackgroundImage = createGlobalStyle`
     background-color: #171923;
   }
 `;
-
 
 const useStyles = makeStyles((theme) => ({
   footer: {
@@ -49,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     height: '1.3rem',
     fontFamily: 'superstar',
-      [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('xs')]: {
       display: 'none',
     },
   },
@@ -68,46 +67,35 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     [theme.breakpoints.up('md')]: {
       height: '90px',
-    }},
+    },
+  },
 }));
 
 const Bond: React.FC = () => {
-
   const startDate = new Date('2022-4-30 3:00:00Z');
   const endDate = new Date('2022-5-3 4:00:00Z');
   const raffleAddress = '0x37219231a957e09F6e674B218043FdF1C5145F68';
 
-
-
-  const {path} = useRouteMatch();
-  const {account} = useWallet();
+  const { path } = useRouteMatch();
+  const { account } = useWallet();
   const classes = useStyles();
   const grapeFinance = useGrapeFinance();
   const addTransaction = useTransactionAdder();
   const raffleStats = useRaffleStats(account, raffleAddress);
 
+  const startTime = Number(startDate);
+  const endTime = Number(endDate);
 
+  const raffleBals = useMemo(() => (raffleStats ? Number(raffleStats.totalSupply).toFixed(0) : null), [raffleStats]);
 
-  const startTime = Number(startDate); 
-  const endTime = Number(endDate); 
-  
-  const raffleBals = useMemo(
-    () => (raffleStats ? Number(raffleStats.totalSupply).toFixed(0) : null),
-    [raffleStats],
-  );
+  const userBals = useMemo(() => (raffleStats ? Number(raffleStats.priceInDollars).toFixed(0) : null), [raffleStats]);
 
-  const userBals = useMemo(
-    () => (raffleStats ? Number(raffleStats.priceInDollars).toFixed(0) : null),
-    [raffleStats],
-  );
-
-  const handleBuyBonds = useCallback( 
-    async (amount: string) => { 
+  const handleBuyBonds = useCallback(
+    async (amount: string) => {
       const tx = await grapeFinance.sendGrape(amount, raffleAddress);
-        addTransaction(tx, {
-          summary: `Send ${Number(amount).toFixed(2)} MIM to the raffle ${amount} `,
-        });
-    
+      addTransaction(tx, {
+        summary: `Send ${Number(amount).toFixed(2)} MIM to the raffle ${amount} `,
+      });
     },
     [grapeFinance, addTransaction],
   );
