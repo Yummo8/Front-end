@@ -170,6 +170,14 @@ const Nav = () => {
                     Magik
                   </a>
                   <a
+                    href="https://froyo.farm/#/avax"
+                    className={classes.link}
+                    rel="noopener"
+                    target="_blank"
+                  >
+                    Froyo
+                  </a>
+                  <a
                 href="https://app.beefy.finance/#/"
                 className={classes.link}
                 rel="noopener"
@@ -277,7 +285,7 @@ const Nav = () => {
                 </ListItem>
                 <ListItemLink primary="Bond" to="/bond" />
                 <ListItemLink primary="Strategy" to="/strategies" />
-                <ListItemLink primary="Raffle" to="/raffle" />
+                <ListItemLink primary="NFT Raffle" to="/nftraffle" />
                 {/*<ListItemLink primary="Launchpad" to="/launchpad" />*/}
                 <ListItemLink primary="Roadmap" to="/roadmap" />
                 <ListItem button component="a" href="https://app.beefy.finance/#/">
@@ -288,6 +296,9 @@ const Nav = () => {
                 </ListItem>
                 <ListItem button component="a" href="https://magik.farm/#/avax">
                   <ListItemText>Magik</ListItemText>
+                </ListItem>
+                <ListItem button component="a" href="https://froyo.farm/#/avax">
+                  <ListItemText>Froyo</ListItemText>
                 </ListItem>
                {/* <ListItem button component="a" href="https://snapshot.org/#/grapefinance.eth">
                   <ListItemText>Voting</ListItemText>
