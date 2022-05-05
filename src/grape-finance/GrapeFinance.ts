@@ -14,7 +14,7 @@ import {
 import {Fetcher as FetcherPangolin, Token as TokenPangolin, Route as PangolinRoute} from '@pangolindex/sdk';
 
 import {Configuration} from './config';
-import {ContractName, TokenStat, AllocationTime, LPStat, Bank, PoolStats, WineSwapperStat} from './types';
+import {ContractName, TokenStat, AllocationTime, LPStat, Bank, NodesRewardWalletBalance, PoolStats, WineSwapperStat} from './types';
 import {BigNumber, BigNumberish, Contract, ethers, EventFilter} from 'ethers';
 import {decimalToBalance} from './ether-utils';
 import {TransactionResponse} from '@ethersproject/providers';
@@ -199,6 +199,15 @@ export class GrapeFinance {
     const {MIM} = this.contracts;
     
     return await MIM.transfer(recepient, decimalToBalance(amount));
+  }
+
+  async getNodesRewardWalletBalance(nodesRewardWallet: string): Promise<NodesRewardWalletBalance> {
+    const grapes = await this.GRAPE.balanceOf(nodesRewardWallet);
+    const wines = await this.WINE.balanceOf(nodesRewardWallet);
+    return {
+      grapes: getDisplayBalance(grapes, 18, 2), 
+      wines: getDisplayBalance(wines, 18, 2)
+    };
   }
 
   async getRaffleStat(account: string, raffleAddress: string): Promise<TokenStat> {
