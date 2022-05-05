@@ -25,8 +25,8 @@ import audit from '../../assets/img/audit1.jpg';
 import HomeImage from '../../assets/img/background.jpg';
 import useTotalStakedOnBoardroom from '../../hooks/useTotalStakedOnBoardroom';
 import { getDisplayBalance } from '../../utils/formatBalance';
-import IconTelegram from 'jsx:../../assets/img/telegram.svg';
-import IconDiscord from 'jsx:../../assets/img/discord.svg';
+import {ReactComponent as IconTelegram} from '../../assets/img/telegram.svg';
+import {ReactComponent as IconDiscord} from '../../assets/img/discord.svg';
 import { useGetEventQuery } from '../../services/event';
 import AirdropRewardModal from './AirdropRewardModal';
 
