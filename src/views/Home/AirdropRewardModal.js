@@ -163,7 +163,7 @@ const AirdropRewardModal = ({ open, handleClose, grapes, grapePrice, wines, wine
             <Box>
               <h2 style={{fontSize: '22px'}}>In the Reward Pool, we currently have</h2>
               <Typography className={classes.text}>{getNumberOfNodes('GRAPE')} Grape Nodes (≈${getPriceForNodes('GRAPE')}) in the reward pool</Typography>
-              <Typography className={classes.text}>{getNumberOfNodes('WINE')} Wine Nodes (≈${getPriceForNodes('WINE')})</Typography>
+              <Typography className={classes.text}>{getNumberOfNodes('WINE')} Wine Nodes (≈${getPriceForNodes('WINE')}) in the reward pool</Typography>
               <Typography className={classes.text}>Total Tickets from Nodes: {getTotalNumberOfNodes()}</Typography>
               <Typography className={classes.text}>Total Tickets from NFTs: {NFT_TICKET_COUNT}</Typography>
               <Typography className={classes.text}><b>TOTAL TICKETS: {getTotalNumberOfNodes() + NFT_TICKET_COUNT}</b></Typography>
