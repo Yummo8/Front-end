@@ -171,7 +171,7 @@ const AirdropRewardModal = ({ open, handleClose, grapes, grapePrice, wines, wine
               <Box sx={{ marginTop: '10px'}} className={classes.text}>{getTotalNumberOfNodes() + NFT_TICKET_COUNT} tickets are worth ≈${getPriceForNodes('GRAPE') + getPriceForNodes('WINE')}</Box>
               <Typography className={classes.yourText}><b>Your {ticketNumber} tickets are worth approx. ≈${getShareValue()}</b></Typography>
 
-              <Box sx={{ fontStyle: 'italic', marginTop: '10px', fontSize: '11px' }}>Please note that this estimation is based on the current balance of the reward pool and the current prices.</Box>
+              <Box sx={{ fontStyle: 'italic', marginTop: '10px', fontSize: '11px' }}>Please note that the numbers are only an estimation, and they are based upon the current balance of the reward pool and the current prices. Do not consider the results as your final reward amount.</Box>
             </Box>
           </Box>
         </Box>
