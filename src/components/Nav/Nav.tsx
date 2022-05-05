@@ -108,13 +108,13 @@ const Nav = () => {
       <Toolbar className={classes.toolbar}>
         {matches ? (
           <>
-            <Typography variant="h6" color="inherit" noWrap style={{flexGrow: '0'}} className={classes.toolbarTitle}>
+            <Typography variant="h6" color="inherit" noWrap style={{ flexGrow: '0' }} className={classes.toolbarTitle}>
               {/* <a className={ classes.brandLink } href="/">Grape Money</a> */}
               <Link to="/" color="inherit" className={classes.brandLink}>
                 <img alt="Grape Finance" src={grapeLogo} height="60px" />
               </Link>
             </Typography>
-            <Box style={{paddingLeft: '15px', paddingTop: '10px', fontSize: '1rem', flexGrow: '1'}}>
+            <Box style={{ paddingLeft: '15px', paddingTop: '10px', fontSize: '1rem', flexGrow: '1' }}>
               <Link to="/" className={'navLink ' + classes.link}>
                 Home
               </Link>
@@ -126,76 +126,80 @@ const Nav = () => {
                 Winery
               </Link>
               <Link to="/nodes" className={'navLink ' + classes.link}>
-                 Nodes
+                Nodes
               </Link>
               <Link to="/leaderboard" className={'navLink ' + classes.link}>
-                 Leaderboard
+                Leaderboard
               </Link>
-              <a
-                href="https://shop.grapefinance.app/"
-                className={'navLink ' + classes.link}
-                rel="noopener"
-                target="_blank"
-              >
-                Merch
-              </a>
+
               <Link to="/bond" className={'navLink ' + classes.link}>
                 Bonds
               </Link>
-              <Link to="/strategies" className={'navLink ' + classes.link}>
-                Strategy
-              </Link>
-              <Link to="/stats" className={'navLink ' + classes.link}>
-                 Stats
-              </Link>
-              <Link to="/nftraffle" className={'navLink ' + classes.link}>
-                NFT Raffle
-              </Link>
-              {/*<Link to="/launchpad" className={'navLink ' + classes.link}>
-                Launchpad
-              </Link>*/}
-              
-              <Link to="/roadmap" className={'navLink ' + classes.link}>
-                Roadmap
+              <Link to="/raffle" className={'navLink ' + classes.link}>
+                Raffle
               </Link>
               <div className={'dropdown'}>
                 <button className={'dropbtn'}>AUTO VAULTS</button>
-                  <div className={'dropdown-content'}>
-                      <a
-                    href="https://magik.farm/#/avax"
-                    className={classes.link}
-                    rel="noopener"
-                    target="_blank"
-                  >
+                <div className={'dropdown-content'}>
+                  <a href="https://magik.farm/#/avax" className={classes.link} rel="noopener" target="_blank">
                     Magik
                   </a>
+                  <a href="https://app.beefy.finance/#/" className={classes.link} rel="noopener" target="_blank">
+                    Beefy
+                  </a>
+                  <a href="https://yieldwolf.finance/avalanche" className={classes.link} rel="noopener" target="_blank">
+                    Yield Wolf
+                  </a>
+                </div>
+              </div>
+
+              <div className={'dropdown'}>
+                <button className={'dropbtn'}>GRAPE'S WALLETS</button>
+                <div className={'dropdown-content'}>
                   <a
-                    href="https://froyo.farm/#/avax"
+                    href="https://debank.com/profile/0xb260547c37bC80fBD1a0D742Af71C2324151640c"
                     className={classes.link}
                     rel="noopener"
                     target="_blank"
                   >
-                    Froyo
+                    Treasury
                   </a>
                   <a
-                href="https://app.beefy.finance/#/"
-                className={classes.link}
-                rel="noopener"
-                target="_blank"
-              >
-                Beefy
-              </a>
-              <a
-                href="https://yieldwolf.finance/avalanche"
-                className={classes.link}
-                rel="noopener"
-                target="_blank"
-              >
-                Yield Wolf
-              </a>                
-                  </div>
+                    href="https://debank.com/profile/0xEB6c4b5aC4822480860476FF543D77D3882244e1"
+                    className={classes.link}
+                    rel="noopener"
+                    target="_blank"
+                  >
+                    DAO
+                  </a>
+                  <a
+                    href="https://debank.com/profile/0xc0702Ae0374F83fc3bA71CE2B30A323b09EC19da"
+                    className={classes.link}
+                    rel="noopener"
+                    target="_blank"
+                  >
+                    Nodes Rewards
+                  </a>
+                </div>
               </div>
-                
+              <div className={'dropdown'}>
+                <button className={'dropbtn'}>USEFUL LINKS</button>
+                <div className={'dropdown-content'}>
+                  <Link to="/strategies" className={classes.link}>
+                    Strategy
+                  </Link>
+                  <Link to="/stats" className={classes.link}>
+                    Stats
+                  </Link>
+                  <Link to="/roadmap" className={classes.link}>
+                    Roadmap
+                  </Link>
+                  <Link to="/help" className={classes.link}>
+                    Help
+                  </Link>
+                </div>
+              </div>
+
               {/*<a
                 href="https://snapshot.org/#/grapefinance.eth"
                 className={'navLink ' + classes.link}
@@ -205,6 +209,14 @@ const Nav = () => {
                 Voting
             </a>*/}
               <a
+                href="https://shop.grapefinance.app/"
+                className={'navLink ' + classes.link}
+                rel="noopener"
+                target="_blank"
+              >
+                Merch
+              </a>
+              <a
                 href="https://grapefinance.gitbook.io/grape-finance-docs/"
                 className={'navLink ' + classes.link}
                 rel="noopener"
@@ -212,9 +224,6 @@ const Nav = () => {
               >
                 Docs
               </a>
-              <Link to="/help" className={'navLink ' + classes.link}>
-                Help
-              </Link>
             </Box>
 
             <Box
@@ -245,7 +254,7 @@ const Nav = () => {
             <img
               alt="grape.money"
               src={grapeLogo}
-              style={{height: '40px', marginTop: '-10px', marginLeft: '10px', marginRight: '15px'}}
+              style={{ height: '40px', marginTop: '-10px', marginLeft: '10px', marginRight: '15px' }}
             />
             <AccountButton text="Connect" />
             <Drawer
@@ -279,28 +288,48 @@ const Nav = () => {
                 <ListItemLink primary="Winery" to="/winery" />
                 <ListItemLink primary="Nodes" to="/nodes" />
                 <ListItemLink primary="Leaderboard" to="/leaderboard" />
-                <ListItemLink primary="Stats" to="/stats" />
-                <ListItem button component="a" href="https://shop.grapefinance.app/">
-                  <ListItemText>Merch</ListItemText>
-                </ListItem>
                 <ListItemLink primary="Bond" to="/bond" />
-                <ListItemLink primary="Strategy" to="/strategies" />
-                <ListItemLink primary="NFT Raffle" to="/nftraffle" />
-                {/*<ListItemLink primary="Launchpad" to="/launchpad" />*/}
-                <ListItemLink primary="Roadmap" to="/roadmap" />
+                <ListItemLink primary="Raffle" to="/raffle" />
+                <ListItem button component="a" href="https://magik.farm/#/avax">
+                  <ListItemText>Magik</ListItemText>
+                </ListItem>
                 <ListItem button component="a" href="https://app.beefy.finance/#/">
                   <ListItemText>Beefy</ListItemText>
                 </ListItem>
                 <ListItem button component="a" href="https://yieldwolf.finance/avalanche">
                   <ListItemText>Yield Wolf</ListItemText>
+                </ListItem>      
+                {/*<ListItemLink primary="Launchpad" to="/launchpad" />*/}
+                <ListItem
+                  button
+                  component="a"
+                  href="https://debank.com/profile/0xb260547c37bC80fBD1a0D742Af71C2324151640c"
+                >
+                  <ListItemText>Treasury</ListItemText>
                 </ListItem>
-                <ListItem button component="a" href="https://magik.farm/#/avax">
-                  <ListItemText>Magik</ListItemText>
+                <ListItem
+                  button
+                  component="a"
+                  href="https://debank.com/profile/0xEB6c4b5aC4822480860476FF543D77D3882244e1"
+                >
+                  <ListItemText>DAO</ListItemText>
                 </ListItem>
-                <ListItem button component="a" href="https://froyo.farm/#/avax">
-                  <ListItemText>Froyo</ListItemText>
+                <ListItem
+                  button
+                  component="a"
+                  href="https://debank.com/profile/0xc0702Ae0374F83fc3bA71CE2B30A323b09EC19da"
+                >
+                  <ListItemText>Nodes Rewards</ListItemText>
                 </ListItem>
-               {/* <ListItem button component="a" href="https://snapshot.org/#/grapefinance.eth">
+
+                <ListItemLink primary="Strategy" to="/strategies" />
+                <ListItemLink primary="Stats" to="/stats" />
+                <ListItemLink primary="Roadmap" to="/roadmap" />
+                <ListItemLink primary="Help" to="/help" />
+                <ListItem button component="a" href="https://shop.grapefinance.app/">
+                  <ListItemText>Merch</ListItemText>
+                </ListItem>
+                {/* <ListItem button component="a" href="https://snapshot.org/#/grapefinance.eth">
                   <ListItemText>Voting</ListItemText>
                   </ListItem>*/}
 
