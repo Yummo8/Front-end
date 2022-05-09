@@ -8,7 +8,7 @@ export interface BankInfo {
   sectionInUI: number;
   contract: ContractName;
   depositTokenName: ContractName;
-  earnTokenName: ContractName;
+earnTokenName: ContractName;
   sort: number;
   finished: boolean;
   closedForStaking: boolean;
@@ -29,6 +29,11 @@ export type PoolStats = {
   yearlyAPR: string;
   TVL: string;
 };
+
+export type NodesRewardWalletBalance = {
+  grapes: string;
+  wines: string;
+}
 
 export type TokenStat = {
   tokenInFtm: string;
