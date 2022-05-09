@@ -144,6 +144,9 @@ const Nav = () => {
                   <a href="https://magik.farm/#/avax" className={classes.link} rel="noopener" target="_blank">
                     Magik
                   </a>
+                  <a href="https://froyo.farm/#/avax" className={classes.link} rel="noopener" target="_blank">
+                    Ice Cream
+                  </a>
                   <a href="https://app.beefy.finance/#/" className={classes.link} rel="noopener" target="_blank">
                     Beefy
                   </a>
@@ -157,7 +160,7 @@ const Nav = () => {
                 <button className={'dropbtn'}>GRAPE'S WALLETS</button>
                 <div className={'dropdown-content'}>
                   <a
-                    href="https://debank.com/profile/0xb260547c37bC80fBD1a0D742Af71C2324151640c"
+                    href="https://debank.com/profile/0x363D1EA627d8e6fB11DAcB4A5fDE76FAEbE0Ac8A"
                     className={classes.link}
                     rel="noopener"
                     target="_blank"
@@ -293,6 +296,9 @@ const Nav = () => {
                 <ListItem button component="a" href="https://magik.farm/#/avax">
                   <ListItemText>Magik</ListItemText>
                 </ListItem>
+                <ListItem button component="a" href="https://froyo.farm/#/avax">
+                  <ListItemText>Ice Cream</ListItemText>
+                </ListItem>
                 <ListItem button component="a" href="https://app.beefy.finance/#/">
                   <ListItemText>Beefy</ListItemText>
                 </ListItem>
@@ -303,7 +309,7 @@ const Nav = () => {
                 <ListItem
                   button
                   component="a"
-                  href="https://debank.com/profile/0xb260547c37bC80fBD1a0D742Af71C2324151640c"
+                  href="https://debank.com/profile/0x363D1EA627d8e6fB11DAcB4A5fDE76FAEbE0Ac8A"
                 >
                   <ListItemText>Treasury</ListItemText>
                 </ListItem>

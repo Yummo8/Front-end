@@ -9,6 +9,8 @@ import useLpStats from '../../hooks/useLpStats';
 import useLpStatsBTC from '../../hooks/useLpStatsBTC';
 import useBondStats from '../../hooks/useBondStats';
 import usebShareStats from '../../hooks/useWineStats';
+import useGrapeTotalNode from '../../hooks/useGrapeTotalNodes';
+import useWineTotalNode from '../../hooks/useWineTotalNodes';
 import useTotalValueLocked from '../../hooks/useTotalValueLocked';
 import useNodeRewardPoolStats from '../../hooks/useNodesRewardBalance';
 import { Grape as grapeTesting, Wine as bShareTesting } from '../../grape-finance/deployments/deployments.testing.json';
@@ -67,6 +69,8 @@ const Home = () => {
   const nodeRewardPoolStats = useNodeRewardPoolStats(nodesRewardAddress);
   const grapeFinance = useGrapeFinance();
   const totalStaked = useTotalStakedOnBoardroom();
+  const useGrapeTotal = useGrapeTotalNode();
+  const useWineTotal = useWineTotalNode();
   const [rewardModelOpen, setModalOpen] = useState(false);
 
   const {data : eventResponse} = useGetEventQuery();
@@ -78,7 +82,7 @@ const Home = () => {
     }
   }, [eventResponse]);
  
-  console.log('leaderboard', leaderboard)
+
  
   let grape;
   let bShare;
@@ -185,10 +189,12 @@ return (
     <AirdropRewardModal
       open={rewardModelOpen}
       handleClose={handleCloseModal}
-      grapes={nodeRewardPoolStats?.grapes}
+      grapes={useGrapeTotal[0]}
       grapePrice={grapePriceInDollars}
-      wines={nodeRewardPoolStats?.wines}
+      wines={useWineTotal[0]}
       winePrice={winePriceInDollars}
+      totalGrapes={nodeRewardPoolStats?.grapes}
+      totalWine={nodeRewardPoolStats?.wines}
     />
     <BackgroundImage />
     <Grid item xs={12} sm={12} style={{ marginBottom: '25px' }}></Grid>

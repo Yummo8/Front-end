@@ -429,6 +429,16 @@ export class GrapeFinance {
   async getTotalNodes(contract: string): Promise<BigNumber[]> {
     return await this.contracts[contract].getTotalNodes();
   }
+
+  async getGrapeNodes(): Promise<BigNumber[]> {
+      const {GrapeNode} = this.contracts;
+    return await GrapeNode.getTotalNodes();
+  }
+
+  async getWineNodes(): Promise<BigNumber[]> {
+    const {WineNode} = this.contracts;
+  return await WineNode.getTotalNodes();
+}
   
   /**
    * Calculates the TVL, APR and daily APR of a provided pool/bank
