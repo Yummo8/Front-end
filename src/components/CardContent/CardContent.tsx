@@ -6,6 +6,7 @@ const CardContent: React.FC = ({children}) => <StyledCardContent>{children}</Sty
 const StyledCardContent = styled.div`
   display: flex;
   flex: 1;
+  color: #fff;
   flex-direction: column;
   padding: ${(props) => props.theme.spacing[4]}px;
 `;

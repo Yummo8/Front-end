@@ -28,7 +28,6 @@ const StyledModal = styled.div`
   overflow-y: auto;
   margin-top:30px;
   margin-bottom:30px;
-
 `;
 
 export default Modal;

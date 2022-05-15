@@ -29,7 +29,7 @@ body {
 /* .MuiTypography-body1,
 .MuiPaper-root, */
 h2 {
-  color: #930993 !important;
+  color: #ccf !important;
   font-size: 2.5em;
 }
 
@@ -66,9 +66,11 @@ h6 {
 .MuiListItem-button:hover,
 .MuiButtonBase-root:hover {
   color: #fff !important;
+  
 }
 .MuiButton-containedPrimary{
   background: #930993 !important;
+  
 }
 
 .MuiButton-containedPrimary:hover{
@@ -96,7 +98,7 @@ code {
 }
 
 .navLink:hover {
-  color: #930993 !important;
+  color: #ccf !important;
 }
 
 .shinyButton {
@@ -104,7 +106,7 @@ code {
   padding-top: 5px;
   padding-bottom: 5px;
   background-color: #930993 !important;
-  border-radius: 15px;
+  border-radius: 5px !important;
   font-size: 1rem !important;
   padding-left: 5px;
   color: #fff !important;
@@ -195,8 +197,10 @@ code {
 }
 
 .MuiPaper-root {
-  color: #322f32 !important;
-  background-color: rgba(255, 255, 255, 0.8) !important;
+  color: rgb(235, 235, 235) !important;
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  border-radius: 20px !important;
+  box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, 0.8) !important;
 }
 
 .MuiAppBar-positionSticky {
@@ -205,11 +209,8 @@ code {
 .ijwpow {
   background-color: rgba(255, 255, 255, 0.1) !important;
 }
-.makeStyles-appBar-2 {
-  background-color: rgba(255, 255, 255, 0) !important;
-}
 .walletconnecttitle {
-  color: #322f32;
+  color: #fff;
 }
 .walletconnecttitle:hover {
   color: #930993;
@@ -229,20 +230,21 @@ code {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #f1f1f1;
+  background-color: rgba(0,0,0,0.9);
+  border-radius: 20px;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
 }
 
 .dropdown-content a {
-  color: black;
+  color: white;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
 }
 
 
-.dropdown-content a:hover {background-color: #ddd;}
+.dropdown-content a:hover { border-radius: 10px; color: #ccf}
 
 .dropdown:hover .dropdown-content {display: block;}

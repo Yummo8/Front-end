@@ -34,18 +34,13 @@ import AirdropRewardModal from './AirdropRewardModal';
 
 const BackgroundImage = createGlobalStyle`
   body {
-    background: url(${HomeImage}) repeat !important;
+   //background: url(${HomeImage}) repeat !important;
     background-size: cover !important;
-    background-color: #171923;
+    background: radial-gradient(circle at 52.1% -29.6%, rgb(144, 17, 105) 0%, rgb(51, 0, 131) 100.2%);
+    ;
   }
 `;
 
-// const BackgroundImage = createGlobalStyle`
-//   body {
-//     background-color: grey;
-//     background-size: cover !important;
-//   }
-// `;
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -219,15 +214,14 @@ return (
             </p>
             <p style={{ fontSize: '17px' }}>
               GRAPE is an algorithmic stable coin designed to maintain a 1:1 peg to MIM.
-              {/*Stake your LPs in the Vineyard to earn WINE rewards. Then stake your earned WINE in the
-Winery to earn more GRAPE!*/}
+
             </p>
             <p>
               Please join our{' '}
-              <a href="https://t.me/GrapeDefi" rel="noopener noreferrer" target="_blank" style={{ color: '#000' }}>
+              <a href="https://t.me/GrapeDefi" rel="noopener noreferrer" target="_blank" style={{ color: '#fff' }}>
                 <b>
                   {' '}
-                  <IconTelegram width="25" style={{ fill: '#000', height: '15px' }} />
+                  <IconTelegram width="25" style={{ fill: '#fff', height: '15px' }} />
                   Telegram
                 </b>
               </a>{' '}
@@ -236,10 +230,10 @@ Winery to earn more GRAPE!*/}
                 href="https://discord.gg/ZP9aYaXeCJ"
                 rel="noopener noreferrer"
                 target="_blank"
-                style={{ color: '#000' }}
+                style={{ color: '#fff' }}
               >
                 <b>
-                  <IconDiscord width="25" style={{ fill: '#000', height: '15px' }} /> Discord
+                  <IconDiscord width="25" style={{ fill: '#fff', height: '15px' }} /> Discord
                 </b>
               </a>{' '}
               & read our{' '}
@@ -247,7 +241,7 @@ Winery to earn more GRAPE!*/}
                 href="https://grapefinance.gitbook.io/grape-finance-docs/"
                 rel="noopener noreferrer"
                 target="_blank"
-                style={{ color: '#000' }}
+                style={{ color: '#fff' }}
               >
                 <b> Docs & Disclaimer</b>
               </a>{' '}
@@ -256,13 +250,13 @@ Winery to earn more GRAPE!*/}
             <Grid container>
               <Grid item xs={6} sm={6} lg={6}>
                 <a href="https://twitter.com/0xGuard/status/1480457336082907137" target="_blank">
-                  <img alt="0xGuard KYC" style={{ width: '45%' }} src={kyc} />
+                  <img alt="0xGuard KYC" style={{ width: '35%' }} src={kyc} />
                 </a>
                 <br />
               </Grid>
               <Grid item xs={6} sm={6} lg={6}>
                 <a href="https://grapefinance.app/audit.pdf" target="_blank">
-                  <img alt="0xGuard Audit" style={{ width: '45%', paddingTop: '10px' }} src={audit} />
+                  <img alt="0xGuard Audit" style={{ width: '35%', paddingTop: '10px' }} src={audit} />
                 </a>
               </Grid>
             </Grid>
@@ -281,6 +275,7 @@ Winery to earn more GRAPE!*/}
             </Grid>*/}
 
       {/* TVL */}
+      
       <Grid item xs={12} sm={4}>
         <Card>
           <CardContent align="center">
@@ -290,7 +285,7 @@ Winery to earn more GRAPE!*/}
         </Card>
         <Card style={{ marginTop: '10px' }}>
           <CardContent align="center">
-            <h2>Next NFT Airdrop</h2>
+            <h2>NFT Reward Pool</h2>
             <span style={{ fontSize: '24px' }}>
               {nodeRewardPoolStats?.grapes} Grapes{' '}
               <span style={{ fontSize: '20px' }}>
@@ -322,7 +317,7 @@ Winery to earn more GRAPE!*/}
       <Grid item xs={12} sm={8}>
         <Card style={{ height: '100%' }}>
           <CardContent align="center" style={{ marginTop: '2%' }}>
-            <Box p={4} style={{ textAlign: 'center', paddingTop: '0px' }}>
+            <Box p={4} style={{ textAlign: 'center', paddingTop: '0px', marginBottom: '20px' }}>
               <h2 style={{ fontSize: '32px' }}>Have WAMP to stake?</h2>
               <p style={{ marginTop: '0' }}>Boost your WAMP yields by staking for WINE then pledge for more AMP</p>
 
@@ -335,7 +330,8 @@ Winery to earn more GRAPE!*/}
               >
                 WAMP Staking
               </Button>
-            </Box>
+          </Box>
+          
             {/* <h2 style={{ marginBottom: '20px' }}>Wallet Balance</h2> */}
             <Button href="/vineyard" className="shinyButton" style={{ margin: '10px' }}>
               Vineyard
@@ -402,7 +398,7 @@ Winery to earn more GRAPE!*/}
             <h2 style={{ marginBottom: '10px' }}>GRAPE</h2>
 
             <Box>
-              <span style={{ fontSize: '30px', color: '#930993' }}>
+              <span style={{ fontSize: '30px', color: '#fff' }}>
                 ${grapePriceInAVAX ? grapePriceInAVAX : '-.----'}{' '}
               </span>
             </Box>
@@ -439,7 +435,7 @@ Winery to earn more GRAPE!*/}
             <h2 style={{ marginBottom: '10px' }}>WINE</h2>
 
             <Box>
-              <span style={{ fontSize: '30px', color: '#930993' }}>
+              <span style={{ fontSize: '30px', color: '#fff' }}>
                 ${winePriceInDollars ? winePriceInDollars : '-.--'}
               </span>
             </Box>
@@ -477,7 +473,7 @@ Winery to earn more GRAPE!*/}
             <h2 style={{ marginBottom: '10px' }}>GBOND</h2>
 
             <Box>
-              <span style={{ fontSize: '30px', color: '#930993' }}>
+              <span style={{ fontSize: '30px', color: '#fff' }}>
                 $ {tBondPriceInDollars ? tBondPriceInDollars : '-.--'}
               </span>
             </Box>
@@ -511,7 +507,7 @@ Winery to earn more GRAPE!*/}
             </Box>
 
             <Box mt={2}>
-              <span style={{ fontSize: '26px', color: '#930993' }}>
+              <span style={{ fontSize: '26px', color: '#fff' }}>
                 {grapeLPStats?.tokenAmount ? grapeLPStats?.tokenAmount : '-.--'} GRAPE /{' '}
                 {grapeLPStats?.mimAmount ? grapeLPStats?.mimAmount : '-.--'} MIM
               </span>
@@ -544,7 +540,7 @@ Winery to earn more GRAPE!*/}
               </Button>
             </Box>
             <Box mt={2}>
-              <span style={{ fontSize: '26px', color: '#930993' }}>
+              <span style={{ fontSize: '26px', color: '#fff' }}>
                 {wineLPStats?.tokenAmount ? wineLPStats?.tokenAmount : '-.--'} WINE /{' '}
                 {wineLPStats?.mimAmount ? wineLPStats?.mimAmount : '-.--'} MIM
               </span>
@@ -577,7 +573,7 @@ Winery to earn more GRAPE!*/}
               </Button>
             </Box>
             <Box mt={2}>
-              <span style={{ fontSize: '26px', color: '#930993' }}>
+              <span style={{ fontSize: '26px', color: '#fff' }}>
                 {newPairLPStats?.tokenAmount ? newPairLPStats?.tokenAmount : '-.--'} GRAPE /{' '}
                 {newPairLPStats?.mimAmount ? newPairLPStats?.mimAmount : '-.--'} WINE
               </span>

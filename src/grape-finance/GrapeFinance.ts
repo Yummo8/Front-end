@@ -335,6 +335,7 @@ export class GrapeFinance {
   async getBondStat(): Promise<TokenStat> {
     const {Treasury} = this.contracts;
     const grapeStat = await this.getGrapeStat();
+    const grapeBal = await Treasury.getReserve();
 
     const bondGrapeRatioBN = await Treasury.getBondPremiumRate();
 
@@ -350,6 +351,7 @@ export class GrapeFinance {
       priceInDollars: priceOfBBondInDollars,
       totalSupply: supply,
       circulatingSupply: supply,
+      treasuryGrapes: grapeBal,
     };
   }
 

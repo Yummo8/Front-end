@@ -30,9 +30,10 @@ import LaunchCountdown from '../../components/LaunchCountdown';
 
 const BackgroundImage = createGlobalStyle`
   body {
-    background: url(${HomeImage}) repeat !important;
+    //background: url(${HomeImage}) repeat !important;
     background-size: cover !important;
-    background-color: #171923;
+    background-size: cover !important;
+    background: radial-gradient(circle at 52.1% -29.6%, rgb(144, 17, 105) 0%, rgb(51, 0, 131) 100.2%);
   }
 `;
 

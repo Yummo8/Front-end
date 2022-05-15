@@ -30,9 +30,9 @@ import hermes from '../../assets/img/hermes.png';
 
 const BackgroundImage = createGlobalStyle`
   body {
-    background: url(${HomeImage}) repeat !important;
+    //background: url(${HomeImage}) repeat !important;
     background-size: cover !important;
-    background-color: #171923;
+    background: radial-gradient(circle at 52.1% -29.6%, rgb(144, 17, 105) 0%, rgb(51, 0, 131) 100.2%);
   }
 `;
 
@@ -46,7 +46,7 @@ const Stats: React.FC = () => {
       <BackgroundImage />
       <Container>   
           <Grid item xs={12} md={12} lg={12} >               
-            <h2 style={{ fontSize: '80px', textAlign:'center' }}>Stats</h2>   
+            <h1 style={{ fontSize: '80px', textAlign:'center' }}>Stats</h1>   
             <Chart />        
         </Grid>
       </Container>

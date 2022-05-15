@@ -40,7 +40,7 @@ const FarmCard = ({bank}) => {
                 height: '48px',
                 width: '48px',
                 borderRadius: '40px',
-                backgroundColor: 'rgba(255,255,255,0.1)',
+                backgroundColor: 'rgba(255,255,255,0.0)',
                 alignItems: 'center',
                 display: 'flex',
                 justifyContent: 'center',

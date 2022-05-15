@@ -57,11 +57,12 @@ const useStyles = makeStyles((theme) => ({
 
 const style = {
   position: 'absolute',
+  color: '#fff',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 'min(90%, 450px)',
-  bgcolor: 'white',
+  bgcolor: 'rgba(0,0,0,0.8)',
   p: '24px',
   display: 'flex',
   flexDirection: 'column',
@@ -145,7 +146,7 @@ const AirdropRewardModal = ({ open, handleClose, grapes, grapePrice, wines, wine
                 onChange={(e) => setTicketNumber(e.target.value)}
               /> <br/>
             </Box>
-            <Box sx={{ fontStyle: 'italic', marginTop: '10px', fontSize: '11px' }}>
+            <Box sx={{ fontStyle: 'italic', marginTop: '10px', fontSize: '11px', color: '#000' }}>
                 1 node (grape or wine) gives 1 ticket<br/>
                 1 Goon Bag gives 1 ticket<br/>
                 1 Glass gives 3 tickets<br/>

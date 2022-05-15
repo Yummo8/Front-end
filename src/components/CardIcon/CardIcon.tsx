@@ -8,7 +8,7 @@ interface CardIconProps {
 const CardIcon: React.FC<CardIconProps> = ({children}) => <StyledCardIcon>{children}</StyledCardIcon>;
 
 const StyledCardIcon = styled.div`
-  background-color: #fff;
+  background-color: rgba(0,0,0,0.2);
   font-size: 36px;
   height: 95px;
   width: 95px;

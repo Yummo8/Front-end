@@ -29,9 +29,10 @@ import LaunchCountdown from '../../components/LaunchCountdown';
 
 const BackgroundImage = createGlobalStyle`
   body {
-    background: url(${HomeImage}) repeat !important;
+    //background: url(${HomeImage}) repeat !important;
     background-size: cover !important;
-    background-color: #171923;
+    background-size: cover !important;
+    background: radial-gradient(circle at 52.1% -29.6%, rgb(144, 17, 105) 0%, rgb(51, 0, 131) 100.2%);
   }
 `;
 
@@ -124,11 +125,11 @@ const Bond: React.FC = () => {
     <>
     
      <Grid item xs={12} md={12} lg={12} >     
-        <h2 style={{ fontSize: '80px', textAlign:'center' }}>Weekly WINE Raffle</h2>   
+        <h1 style={{ fontSize: '80px', textAlign:'center', color: '#fff' }}>Weekly WINE Raffle</h1>   
         <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>Every week we'll run a raffle for our community where you have the chance to win WINE tokens just by sending in your freely earned Grape rewards.<br></br> <br></br> 1 Grape =  1 entry and there are unlimited entries per address, the more Grape you send the more chance you have to win. The winner will be chosen at random.</p>                
         <p style={{fontSize: '20px', textAlign:'center', color: '#fff' }}>Raffle address: {raffleAddress}</p>
       </Grid>
-      {Date.now() > endTime ? <h2 style={{ fontSize: '60px', textAlign:'center' }}>Raffle Closed</h2> : <h2 style={{ fontSize: '60px', textAlign:'center' }}>Raffle Open</h2>}
+      {Date.now() > endTime ? <h1 style={{ fontSize: '60px', textAlign:'center', color: '#fff' }}>Raffle Closed</h1> : <h1 style={{ fontSize: '60px', textAlign:'center' }}>Raffle Open</h1>}
       {Date.now() < startTime ? <LaunchCountdown deadline={startDate} description={'Raffle Starts In'} descriptionLink={''}></LaunchCountdown> : <LaunchCountdown deadline={endDate} description={'Raffle Closes In'} descriptionLink={''}></LaunchCountdown>}
        
     <Grid container justify="center" spacing={3} style={{marginTop: '10px'}}>

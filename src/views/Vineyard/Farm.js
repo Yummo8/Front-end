@@ -17,9 +17,10 @@ import LaunchCountdown from '../../components/LaunchCountdown';
 import HomeImage from '../../assets/img/background.jpg';
 const BackgroundImage = createGlobalStyle`
   body {
-    background: url(${HomeImage}) repeat !important;
+    //background: url(${HomeImage}) repeat !important;
     background-size: cover !important;
-    background-color: #171923;
+    background-size: cover !important;
+    background: radial-gradient(circle at 52.1% -29.6%, rgb(144, 17, 105) 0%, rgb(51, 0, 131) 100.2%);
   }
 `;
 
@@ -36,16 +37,16 @@ const Farm = () => {
           <BackgroundImage />
           {!!account ? (
             <Container maxWidth="lg">
-              <h2 style={{ fontSize: '80px', textAlign:'center' }}>Vineyard</h2>             
+              <h1 style={{ fontSize: '80px', textAlign:'center', color: '#fff' }}>Vineyard</h1>             
               
               <Box mt={5}>
               
                 <div hidden={activeBanks.filter((bank) => bank.sectionInUI === 2).length === 0}>
-                <Typography color="textPrimary" variant="h4" gutterBottom style={{marginTop: '20px', color: '#fff'}}>
+                {/*<Typography color="textPrimary" variant="h4" gutterBottom style={{marginTop: '20px', color: '#fff'}}>
                     WINE Reward Farms
-                  </Typography>
+          </Typography>*/}
                   <Alert variant="filled" severity="warning">
-                    Follow the <a href="http://grapefinance.app/strategies" >Strategies guide here</a>. Sticking to the current strategy helps support the protocol which in turn helps you to continue to earn rewards!
+                    Follow the <a style={{color: '#fff'}} href="http://grapefinance.app/strategies" >Strategies guide here</a>. Sticking to the current strategy helps support the protocol which in turn helps you to continue to earn rewards!
                   </Alert>
                   <Grid container spacing={3} style={{marginTop: '20px'}}>
                     {activeBanks

@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '14px',
   },
   subTitle: {
-    color: '#0a274280',
+    color: '#fff',
     fontSize: '14px',
     fontWeight: 'bold',
   },
@@ -53,10 +53,11 @@ const useStyles = makeStyles((theme) => ({
 const style = {
   position: 'absolute',
   top: '50%',
+  color: '#fff',
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 'min(90%, 450px)',
-  bgcolor: 'white',
+  bgcolor: 'rgba(0,0,0,0.8)',
   p: '24px',
   display: 'flex',
   flexDirection: 'column',

@@ -93,12 +93,12 @@ const StyledCardTitle = styled.div`
   font-weight: 700;
   height: 64px;
   justify-content: center;
-  color: #930993;
+  color: #ccf;
   margin-top: ${(props) => -props.theme.spacing[3]}px;
 `;
 
 const StyledCardIcon = styled.div`
-  background-color: #fff;
+  background-color: rgba(0,0,0,0.2);
   width: 80px;
   height: 80px;
   border-radius: 36px;

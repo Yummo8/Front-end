@@ -5,14 +5,24 @@ import Page from '../../components/Page';
 import GrapeNode from '../GrapeNode';
 import GrapeCard from './GrapeCard';
 import WineMimCard from './WineMimCard';
+import { createGlobalStyle } from 'styled-components';
+
+const BackgroundImage = createGlobalStyle`
+  body {
+    background-size: cover !important;
+    background: radial-gradient(circle at 52.1% -29.6%, rgb(144, 17, 105) 0%, rgb(51, 0, 131) 100.2%);
+    ;
+  }
+`;
 
 const GrapeNodes = () => {
   const {path} = useRouteMatch();
   return (
     <Page>
+      <BackgroundImage />
       <Switch>
         <Route exact path={path}>
-          <h2 style={{fontSize: '80px', textAlign: 'center'}}>NODES</h2>
+          <h1 style={{fontSize: '80px', textAlign: 'center'}}>NODES</h1>
           <Grid container spacing={3} style={{marginTop: '20px'}}>
             <GrapeCard />
             <WineMimCard />

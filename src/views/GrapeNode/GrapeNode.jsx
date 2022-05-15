@@ -60,7 +60,7 @@ const GrapeNode = () => {
         {/* <Button onClick={setTierValues}>Set Tier Values</Button> */}
         <Box>
         <Alert variant="filled" severity="info">
-                    Please read our <a target={'_blank'} href="https://grapefinance.gitbook.io/grape-finance-docs/unique-features/locked-staking-grape-nodes" >Node Docs & Strategy</a> in order to fully understand how our node pools work before purchasing. Sticking to the current strategy helps support the protocol which in turn helps you to continue to earn rewards!
+                    Please read our <a style={{color: '#fff'}} target={'_blank'} href="https://grapefinance.gitbook.io/grape-finance-docs/unique-features/locked-staking-grape-nodes" >Node Docs & Strategy</a> in order to fully understand how our node pools work before purchasing. Sticking to the current strategy helps support the protocol which in turn helps you to continue to earn rewards!
                   </Alert>
           <Grid container justify="center" spacing={2} style={{marginBottom: '50px', marginTop: '20px'}}>
           
@@ -68,14 +68,14 @@ const GrapeNode = () => {
             
                 <Card className={classes.gridItem}>
                   <CardContent style={{ textAlign: 'center' }}>
-                    <Typography>Your Nodes | TVL</Typography>
+                    <Typography style={{color: '#ccf'}}>Your Nodes | TVL</Typography>
                     <Typography>
                       {
                         nodes[0] &&
                         <>
-                          <b style={{ color: 'rgb(0, 0, 0)', marginRight: '0px' }}>
+                          <b style={{ color: 'rgb(255, 255, 255)', marginRight: '0px' }}>
                             {nodes[0].toString()}
-                          </b> |  <b style={{ color: 'rgb(0, 0, 0)', marginRight: '0px' }}>
+                          </b> |  <b style={{ color: 'rgb(255, 255, 255)', marginRight: '0px' }}>
                             ${bank.depositTokenName === 'GRAPE' ? (nodes[0] * (tokenPriceInDollars*50)).toFixed(0) : (nodes[0] * (tokenPriceInDollars*0.5)).toFixed(0)}
                            
                           </b>
@@ -90,7 +90,7 @@ const GrapeNode = () => {
             <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
               <Card className={classes.gridItem}>
                 <CardContent style={{textAlign: 'center'}}>
-                  <Typography>Amount Claimed</Typography>
+                  <Typography style={{color: '#ccf'}}>Amount Claimed</Typography>
                   <Typography>{(Number(userDetails.total_claims)/1e18).toFixed(2)} {bank.earnTokenName}</Typography>
                 </CardContent>
               </Card>
@@ -98,7 +98,7 @@ const GrapeNode = () => {
             <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
               <Card className={classes.gridItem}>
                 <CardContent style={{textAlign: 'center'}}>
-                  <Typography>Max Possible Pay</Typography>
+                  <Typography style={{color: '#ccf'}}>Max Possible Pay</Typography>
                   <Typography>{Number(max)/1e18} {bank.earnTokenName}</Typography>
                 </CardContent>
               </Card>
@@ -106,7 +106,7 @@ const GrapeNode = () => {
             <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
               <Card className={classes.gridItem}>
                 <CardContent style={{textAlign: 'center'}}>
-                  <Typography>APR | Daily</Typography>
+                  <Typography style={{color: '#ccf'}}>APR | Daily</Typography>
                   <Typography>{bank.closedForStaking ? '0.00' : statsOnPool?.yearlyAPR}% | {bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}%</Typography>
                 </CardContent>
               </Card>
@@ -114,7 +114,7 @@ const GrapeNode = () => {
             <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
               <Card className={classes.gridItem}>
                 <CardContent style={{textAlign: 'center'}}>
-                  <Typography>Total {bank.earnTokenName} Nodes</Typography>
+                  <Typography style={{color: '#ccf'}}>Total {bank.earnTokenName} Nodes</Typography>
                   <Typography>{Number(total[0])}</Typography>
                 </CardContent>
               </Card>
@@ -123,7 +123,7 @@ const GrapeNode = () => {
             <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
               <Card className={classes.gridItem}>
                 <CardContent style={{textAlign: 'center'}}>
-                  <Typography>TVL</Typography>
+                  <Typography style={{color: '#ccf'}}>TVL</Typography>
                   <Typography>${statsOnPool?.TVL ? (Number((Number(statsOnPool?.TVL).toFixed(0)))).toLocaleString('en-US') : '-.--'}</Typography>
                 </CardContent>
               </Card>
@@ -149,39 +149,7 @@ const GrapeNode = () => {
 };
 
 const LPTokenHelpText = ({bank}) => {
-  // const grapeFinance = useGrapeFinance();
 
-  // let pairName: string;
-  // let uniswapUrl: string;
-  // let vaultUrl: string;
-  // let exchange: string;
-  // if (bank.depositTokenName.includes('GRAPE-MIM')) {
-  //   pairName = 'GRAPE-MIM pair';
-  //   uniswapUrl =
-  //     'https://traderjoexyz.com/pool/0x130966628846bfd36ff31a822705796e8cb8c18d/0x5541d83efad1f281571b343977648b75d95cdac2';
-  //   vaultUrl = '#';
-
-  //   exchange = 'joe';
-  // } else if (bank.depositTokenName.includes('WINE-MIM')) {
-  //   pairName = 'WINE-MIM pair';
-  //   uniswapUrl =
-  //     'https://traderjoexyz.com/pool/0x130966628846bfd36ff31a822705796e8cb8c18d/0xc55036b5348cfb45a932481744645985010d3a44';
-  //   vaultUrl = '#';
-
-  //   exchange = 'joe';
-  // } else if (bank.depositTokenName.includes('GRAPE-WINE')) {
-  //   pairName = 'GRAPE-WINE pair';
-  //   uniswapUrl =
-  //     'https://traderjoexyz.com/pool/0x5541d83efad1f281571b343977648b75d95cdac2/0xc55036b5348cfb45a932481744645985010d3a44';
-  //   vaultUrl = '#';
-  //   exchange = 'joe';
-  // } else if (bank.depositTokenName === 'HSHARE-WINE-LP') {
-  //   pairName = 'HSHARE-WINE-LP';
-  //   uniswapUrl =
-  //     'https://app.pangolin.exchange/#/add/0xC55036B5348CfB45a932481744645985010d3A44/0xfa4B6db72A650601E7Bd50a0A9f537c9E98311B2';
-  //   vaultUrl = '#';
-  //   exchange = 'Pangolin';
-  // }
   return (
     <Card>
       <CardContent>

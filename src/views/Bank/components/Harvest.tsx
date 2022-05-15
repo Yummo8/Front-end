@@ -51,7 +51,7 @@ const Harvest: React.FC<HarvestProps> = ({bank}) => {
             <Value value={getDisplayBalance(earnings)} />
             </Typography>
              <Label text={`≈ $${Number(earnedInDollars).toLocaleString('en-US')}`} /> 
-                  <Typography style={{textTransform: 'uppercase', color: '#322f32'}}>
+                  <Typography style={{textTransform: 'uppercase', color: '#fff'}}>
               {`${tokenName} Earned`}
                     </Typography>
           </StyledCardHeader>

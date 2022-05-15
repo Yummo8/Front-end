@@ -78,13 +78,13 @@ const Bank: React.FC = () => {
   let stratText: string;
 
   if (bank.depositTokenName.includes('GRAPE-MIM')) {
-    name = 'Autocompound your GRAPE-MIM on Beefy here';
-    vaultUrl = 'https://app.beefy.finance/#/avax/vault/grape-grape-mim';
+    name = 'Autocompound your GRAPE-MIM on Magik here';
+    vaultUrl = 'https://magik.farm/#/avax';
     strat = curStrat;
     stratText = 'Click here to see the optimal strategy for this vault';
   } else if (bank.depositTokenName.includes('WINE-MIM')) {
-    name = 'Autocompound your WINE-MIM on Beefy here';
-    vaultUrl = 'https://app.beefy.finance/#/avax/vault/grape-wine-mim';
+    name = 'Autocompound your WINE-MIM on Magik here';
+    vaultUrl = 'https://magik.farm/#/avax';
     strat = curStrat;
     stratText = 'Click here to see the optimal strategy for this vault';
   } else if (bank.depositTokenName.includes('GRAPE-WINE')) {
@@ -93,8 +93,8 @@ const Bank: React.FC = () => {
     strat = curStrat;
     stratText = 'Click here to see the optimal strategy for this vault';
   } else if (bank.depositTokenName === 'GRAPE') {
-    name = 'Autocompound your GRAPE on Yield Wolf here';
-    vaultUrl = 'https://yieldwolf.finance/avalanche/grapefinance-wine/142';
+    name = 'Autocompound your GRAPE on Magik here';
+    vaultUrl = 'https://magik.farm/#/avax';
     strat = '';
     stratText = '';
   } else if (bank.depositTokenName === 'WAMP') {
@@ -122,7 +122,7 @@ const Bank: React.FC = () => {
             <Alert variant="filled">
               {' '}
               <a href={vaultUrl} target={'_blank'}>
-                <h3 style={{color: '#000'}}>{name}</h3>
+                <span style={{color: '#fff'}}>{name}</span>
               </a>
             </Alert>
         
@@ -133,7 +133,7 @@ const Bank: React.FC = () => {
           <Grid container justify="center" spacing={3} style={{marginBottom: '30px'}}>
             <Alert variant="filled">
               <a onClick={onPresentDeposit}>
-                <h3 style={{color: '#000'}}>{stratText}</h3>
+                <span style={{color: '#fff'}}>{stratText}</span>
               </a>
             </Alert>
           </Grid>
@@ -145,7 +145,7 @@ const Bank: React.FC = () => {
           <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
             <Card className={classes.gridItem}>
               <CardContent style={{textAlign: 'center'}}>
-                <Typography>Pool Wine p/day</Typography>
+                <Typography style={{color: '#ccf'}}>Pool Wine p/day</Typography>
                 <Typography>{bank.closedForStaking ? '0.00' : bank.multi} | ${(Number((Number(bSharePriceInDollars)*Number(bank.multi)).toFixed(0))).toLocaleString('en-US')}</Typography>
               </CardContent>
             </Card>
@@ -153,7 +153,7 @@ const Bank: React.FC = () => {
           <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
             <Card className={classes.gridItem}>
               <CardContent style={{textAlign: 'center'}}>
-                <Typography>APR | DAILY</Typography>
+                <Typography style={{color: '#ccf'}}>APR | DAILY</Typography>
                 <Typography>{bank.closedForStaking ? '0.00' : statsOnPool?.yearlyAPR}% | {bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}%</Typography>
               </CardContent>
             </Card>
@@ -161,7 +161,7 @@ const Bank: React.FC = () => {
           <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
             <Card className={classes.gridItem}>
               <CardContent style={{textAlign: 'center'}}>
-                <Typography>TVL</Typography>
+                <Typography style={{color: '#ccf'}}>TVL</Typography>
                 <Typography>${statsOnPool?.TVL ? (Number((Number(statsOnPool?.TVL).toFixed(0)))).toLocaleString('en-US') : '-.--'}</Typography>
               </CardContent>
             </Card>
@@ -235,7 +235,7 @@ const LPTokenHelpText: React.FC<{bank: BankEntity}> = ({bank}) => {
     <Card>
       <CardContent>
         <StyledLink href={uniswapUrl} target="_blank">
-          <span style={{color: '#000'}}>
+          <span style={{color: '#fff'}}>
             Provide liquidity for {pairName} on {exchange}
           </span>
         </StyledLink>

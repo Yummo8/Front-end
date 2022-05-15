@@ -42,8 +42,8 @@ const Harvest: React.FC = () => {
               <Typography style={{textTransform: 'uppercase', color: '#930993'}}>  
               <Value value={getDisplayBalance(earnings)} />
               </Typography>
-              <Label text={`≈ $${Number(earnedInDollars).toLocaleString('en-US')}`} color="#322f32" />
-              <Label text="GRAPE Earned" color="#322f32" />
+              <Label text={`≈ $${Number(earnedInDollars).toLocaleString('en-US')}`} color="#fff" />
+              <Label text="GRAPE Earned" color="#fff" />
             </StyledCardHeader>
             <StyledCardActions>
               <Button

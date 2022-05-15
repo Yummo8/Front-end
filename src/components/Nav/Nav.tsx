@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
   appBar: {
     color: '#322f32',
     'background-color': 'rgba(255,255,255,0.0) !important',
+    boxShadow: 'none !important',
     // borderBottom: `1px solid ${theme.palette.divider}`,
     padding: '10px',
     marginBottom: '3rem',
@@ -157,7 +158,7 @@ const Nav = () => {
               </div>
 
               <div className={'dropdown'}>
-                <button className={'dropbtn'}>GRAPE'S WALLETS</button>
+                <button className={'dropbtn'}>WALLETS</button>
                 <div className={'dropdown-content'}>
                   <a
                     href="https://debank.com/profile/0x363D1EA627d8e6fB11DAcB4A5fDE76FAEbE0Ac8A"

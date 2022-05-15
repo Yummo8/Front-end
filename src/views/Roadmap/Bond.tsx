@@ -28,9 +28,10 @@ import {makeStyles} from '@material-ui/core/styles';
 
 const BackgroundImage = createGlobalStyle`
   body {
-    background: url(${HomeImage}) repeat !important;
+    //background: url(${HomeImage}) repeat !important;
     background-size: cover !important;
-    background-color: #171923;
+    background-size: cover !important;
+    background: radial-gradient(circle at 52.1% -29.6%, rgb(144, 17, 105) 0%, rgb(51, 0, 131) 100.2%);
   }
 `;
 
@@ -85,11 +86,11 @@ const Bond: React.FC = () => {
       <BackgroundImage />
       <Container>   
               <Grid item xs={12} md={12} lg={12} >     
-                  <h2 style={{ fontSize: '80px', textAlign:'center' }}>ROADMAP</h2>   
+                  <h1 style={{ fontSize: '80px', textAlign:'center' }}>ROADMAP</h1>   
 
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>It's important we build lasting utility into Grape & Wine in order to create a sustainable long term project, to do so we will be building out the platform's functionality into other areas of DeFi. As Grape is pegged to MIM it allows us to use it in ways similar to how a stablecoin would such as for payments, borrowing & lending. <br></br><br></br>We're first & foremost a community led project & very receptive to suggestions as well as changes should the community see it as the best course of action. Below is where we'll be headed in the next year. </p>
 
-                  <h2 style={{textAlign:'center', marginTop: '60px' }}>Q1</h2>
+                  <h1 style={{textAlign:'center', marginTop: '70px' }}>Q1</h1>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Grape & Wine Airdrop for dedicated supporters ✅</p>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Renounce ownership of Grape contract ✅</p>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Start marketing blast & influencer partnerships ✅</p> 
@@ -106,23 +107,23 @@ const Bond: React.FC = () => {
                   
                   
 
-                  <h2 style={{textAlign:'center', marginTop: '60px' }}>Q2</h2>
+                  <h1 style={{textAlign:'center', marginTop: '70px' }}>Q2</h1>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- UI/UX website revamp</p>
-                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Chainlink integrations</p>
+                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Chainlink integrations ✅</p>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Implement bonding to secure protocol owned liquidity</p>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Lending & borrowing of Grape & Wine on site</p>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Auto repaying loans using yielding strategies</p>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Leveraged positions</p>                
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- NFT based p2e game & staking</p>
 
-                  <h2 style={{textAlign:'center', marginTop: '60px' }}>Q3</h2>
+                  <h1 style={{textAlign:'center', marginTop: '70px' }}>Q3</h1>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Implement cross chain Grape liquidity</p>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Integrate Grape on large lending platforms as a stablecoin</p>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Yield strategies & aggregation of these integrations cross chain</p>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Partner with various projects in the ecosystem to improve token utilization in farms, lending/borrowing & exchange</p>
                   
 
-                  <h2 style={{textAlign:'center', marginTop: '60px' }}>Q4</h2>
+                  <h1 style={{textAlign:'center', marginTop: '70px' }}>Q4</h1>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Dedicated mobile app for Grape Finance</p>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Partner with crypto payment gateways to accept Grape</p>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Partner with card provider</p>

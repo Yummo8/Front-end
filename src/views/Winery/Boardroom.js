@@ -33,9 +33,9 @@ import usebShareStats from '../../hooks/useWineStats';
 
 const BackgroundImage = createGlobalStyle`
   body {
-    background: url(${HomeImage}) repeat !important;
+    //background: url(${HomeImage}) repeat !important;
     background-size: cover !important;
-    background-color: #171923;
+    background: radial-gradient(circle at 52.1% -29.6%, rgb(144, 17, 105) 0%, rgb(51, 0, 131) 100.2%);
   }
 `;
 
@@ -92,7 +92,7 @@ const Boardroom = () => {
       {!!account ? (
         <>
  
-            <h2 style={{ fontSize: '80px', textAlign:'center' }}>Winery</h2>
+            <h1 style={{ fontSize: '80px', textAlign:'center' }}>Winery</h1>
 
            <Alert variant="filled" severity="info" >               
    The winery does not print Grape when below 1.01 TWAP, staking here below 1.01 TWAP will not generate rewards. Staked WINE can only be withdrawn every 4 epochs (24hrs) & rewards claimed every 2 epochs (12hrs). Staking or claiming resets this timer.
@@ -103,7 +103,7 @@ const Boardroom = () => {
               <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
                 <Card className={classes.gridItem}>
                   <CardContent style={{textAlign: 'center'}}>
-                    <Typography style={{textTransform: 'uppercase', color: '#930993'}}>Next Epoch</Typography>
+                    <Typography style={{textTransform: 'uppercase', color: '#ccf'}}>Next Epoch</Typography>
                     <ProgressCountdown base={moment().toDate()} hideBar={true} deadline={to} description="Next Epoch" />
                   </CardContent>
                 </Card>
@@ -111,7 +111,7 @@ const Boardroom = () => {
               <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
-                    <Typography style={{textTransform: 'uppercase', color: '#930993'}}>Epoch / TWAP</Typography>
+                    <Typography style={{textTransform: 'uppercase', color: '#ccf'}}>Epoch / TWAP</Typography>
                     <Typography>{Number(currentEpoch)} / {scalingFactor} MIM</Typography>
                   </CardContent>
                 </Card>
@@ -119,7 +119,7 @@ const Boardroom = () => {
               <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
-                    <Typography style={{textTransform: 'uppercase', color: '#930993'}}>APR / Daily</Typography>
+                    <Typography style={{textTransform: 'uppercase', color: '#ccf'}}>APR / Daily</Typography>
                     <Typography>{boardroomAPR.toFixed(0)}% / {(boardroomAPR/365).toFixed(2)}%</Typography>
                   </CardContent>
                 </Card>
@@ -127,7 +127,7 @@ const Boardroom = () => {
               <Grid item xs={12} md={2} lg={2}>
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
-                    <Typography style={{textTransform: 'uppercase', color: '#930993'}}>Staked / %</Typography>
+                    <Typography style={{textTransform: 'uppercase', color: '#ccf'}}>Staked / %</Typography>
                     <Typography>{stake} / {percentageStaked}%</Typography>
                   </CardContent>
                 </Card>
@@ -135,7 +135,7 @@ const Boardroom = () => {
               <Grid item xs={12} md={2} lg={2}>
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
-                    <Typography style={{textTransform: 'uppercase', color: '#930993'}}>TVL</Typography>
+                    <Typography style={{textTransform: 'uppercase', color: '#ccf'}}>TVL</Typography>
                     <Typography>${tvl ? (Number((Number(tvl).toFixed(0)))).toLocaleString('en-US') : '-.--'}</Typography>
                   </CardContent>
                 </Card>
@@ -143,7 +143,7 @@ const Boardroom = () => {
               <Grid item xs={12} md={2} lg={2}>
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
-                    <Typography style={{textTransform: 'uppercase', color: '#930993'}}>Est Reward/Day</Typography>
+                    <Typography style={{textTransform: 'uppercase', color: '#ccf'}}>Est Reward/Day</Typography>
                     <Typography>~${rewards ? Number(rewards).toLocaleString('en-US') : '0.00'}</Typography>
                   </CardContent>
                 </Card>

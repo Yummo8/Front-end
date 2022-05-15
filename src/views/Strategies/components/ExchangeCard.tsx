@@ -102,7 +102,7 @@ const StyledCardTitle = styled.div`
 `;
 
 const StyledCardIcon = styled.div`
-  background-color: #fff;
+  background-color: rgba(0,0,0,0.2);
   width: 80px;
   height: 80px;
   border-radius: 36px;

@@ -128,12 +128,12 @@ const ZapModal: React.FC<ZapProps> = ({onConfirm, onDismiss, LPtokenName = '', d
       <ModalTitle text={`Zap in ${LPtokenName}`} />
 
       <StyledActionSpacer />
-      <InputLabel style={{color: '#2c2560'}} id="label">
+      <InputLabel style={{color: '#fff'}} id="label">
         Select asset to zap with
       </InputLabel>
       <Select
         onChange={handleChangeAsset}
-        style={{color: '#2c2560'}}
+        style={{color: '#fff'}}
         labelId="label"
         id="select"
         value={showZapData ? zappingToken : 'NONE'}

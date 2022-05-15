@@ -35,9 +35,10 @@ import { Stats } from 'fs';
 
 const BackgroundImage = createGlobalStyle`
   body {
-    background: url(${HomeImage}) repeat !important;
+    //background: url(${HomeImage}) repeat !important;
     background-size: cover !important;
-    background-color: #171923;
+    background-size: cover !important;
+    background: radial-gradient(circle at 52.1% -29.6%, rgb(144, 17, 105) 0%, rgb(51, 0, 131) 100.2%);
   }
 `;
 
@@ -98,17 +99,16 @@ const Bond: React.FC = () => {
 <Page>
   <BackgroundImage />  
      <Grid item xs={12} md={12} lg={12} >     
-                  <h2 style={{ fontSize: '80px', textAlign:'center' }}>Strategies</h2>   
+                  <h1 style={{ fontSize: '80px', textAlign:'center' }}>Strategies</h1>   
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>Depending on the TWAP price of Grape there are different optimal strategies for protocol health. <br></br>All strategies can be found in our <a target={"_blank"} href="https://grapefinance.gitbook.io/grape-finance-docs/protocol/strategies" >docs here.</a></p>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>Grape TWAP: ${bondScale}</p>
-                  <h2 style={{textAlign:'center', marginTop: '60px', paddingBottom: '50px' }}>Current Optimal Strategy</h2>
+                  <h1 style={{textAlign:'center', marginTop: '60px', paddingBottom: '50px' }}>Current Optimal Strategy</h1>
                   <img src={strat} width={'100%'} />     
-                  <h2 style={{textAlign:'center', marginTop: '100px', paddingBottom: '50px' }}>Auto-Compounder Strategy</h2>
+                  <h1 style={{textAlign:'center', marginTop: '100px', paddingBottom: '50px' }}>Auto-Compounder Strategy</h1>
                   <img src={auto} width={'100%'} />   
-                  <h2 style={{textAlign:'center', marginTop: '100px', paddingBottom: '50px' }}>Asgard DAO Multiplier Strategy</h2>
+                  <h1 style={{textAlign:'center', marginTop: '100px', paddingBottom: '50px' }}>Asgard DAO Multiplier Strategy</h1>
                   <img src={wampStrat} width={'100%'} />    
-                  <h2 style={{textAlign:'center', marginTop: '100px', paddingBottom: '50px' }}>Hermes Dual Rewards Pool Strategy</h2>
-                  <img src={hermesStrat} width={'100%'} />      
+                  
               </Grid>  
 </Page>
 </Switch>

@@ -10,18 +10,27 @@ import Paper from '@material-ui/core/Paper';
 import Page from '../../components/Page';
 import {useGetEventQuery} from '../../services/event';
 import {convertTime} from '../../utils/convertTime';
+import { createGlobalStyle } from 'styled-components';
+
+const BackgroundImage = createGlobalStyle`
+  body {
+    background-size: cover !important;
+    background: radial-gradient(circle at 52.1% -29.6%, rgb(144, 17, 105) 0%, rgb(51, 0, 131) 100.2%);
+    ;
+  }
+`;
 
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
     head: {
       backgroundColor: 'transparent',
-      color: '#930993',
+      color: '#fff',
       fontSize: 20,
       fontWeight: 500,
     },
     body: {
       fontSize: 20,
-      color: 'black',
+      color: '#fff',
     },
   }),
 )(TableCell);
@@ -30,7 +39,7 @@ const StyledTableRow = withStyles((theme: Theme) =>
   createStyles({
     root: {
       '&:nth-of-type(odd)': {
-        backgroundColor: theme.palette.action.hover,
+        backgroundColor: 'rgba(0,0,0,0.5)',
       },
     },
   }),
@@ -58,8 +67,9 @@ const LeaderBoard = () => {
 
   return (
     <Page>
-      <h2 style={{fontSize: '65px', textAlign: 'center', marginBottom: '15px'}}>Node LeaderBoard</h2>
-      <h2 style={{fontSize: '45px', textAlign: 'left', marginBottom: '15px'}}>All Time</h2>
+      <BackgroundImage />
+      <h1 style={{fontSize: '65px', textAlign: 'center', marginBottom: '15px'}}>Node LeaderBoard</h1>
+      <h1 style={{fontSize: '45px', textAlign: 'left', marginBottom: '15px'}}>All Time</h1>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
@@ -84,7 +94,7 @@ const LeaderBoard = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <h2 style={{fontSize: '45px', textAlign: 'left', marginTop: '15px', marginBottom: '15px'}}>Last Week</h2>
+      <h1 style={{fontSize: '45px', textAlign: 'left', marginTop: '15px', marginBottom: '15px'}}>Last Week</h1>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>

@@ -40,6 +40,7 @@ export type TokenStat = {
   priceInDollars: string;
   totalSupply: string;
   circulatingSupply: string;
+  treasuryGrapes?: string;
 };
 
 export type LPStat = {
