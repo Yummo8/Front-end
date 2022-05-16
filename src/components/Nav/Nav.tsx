@@ -119,7 +119,6 @@ const Nav = () => {
               <Link to="/" className={'navLink ' + classes.link}>
                 Home
               </Link>
-
               <Link to="/vineyard" className={'navLink ' + classes.link}>
                 Vineyard
               </Link>
@@ -129,10 +128,6 @@ const Nav = () => {
               <Link to="/nodes" className={'navLink ' + classes.link}>
                 Nodes
               </Link>
-              <Link to="/leaderboard" className={'navLink ' + classes.link}>
-                Leaderboard
-              </Link>
-
               <Link to="/bond" className={'navLink ' + classes.link}>
                 Bonds
               </Link>
@@ -189,6 +184,17 @@ const Nav = () => {
               <div className={'dropdown'}>
                 <button className={'dropbtn'}>USEFUL LINKS</button>
                 <div className={'dropdown-content'}>
+                <Link to="/leaderboard" className={'navLink ' + classes.link}>
+                  Leaderboard
+                </Link>
+                <a
+                    href="https://nftrade.com/assets/avalanche/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df"
+                    className={classes.link}
+                    rel="noopener"
+                    target="_blank"
+                  >
+                    Buy NFTs
+                  </a>
                   <Link to="/strategies" className={classes.link}>
                     Strategy
                   </Link>
@@ -201,6 +207,7 @@ const Nav = () => {
                   <Link to="/help" className={classes.link}>
                     Help
                   </Link>
+                  
                 </div>
               </div>
 
