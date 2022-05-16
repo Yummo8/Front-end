@@ -196,9 +196,8 @@ export class GrapeFinance {
   }
 
   async sendGrape(amount: string | number, recepient: string): Promise<TransactionResponse> {
-    const {GRAPE} = this.contracts;
-    
-    return await GRAPE.transfer(recepient, decimalToBalance(amount));
+    const {Grape} = this.contracts;
+    return await Grape.transfer(recepient, decimalToBalance(amount));
   }
 
   async getNodesRewardWalletBalance(nodesRewardWallet: string): Promise<NodesRewardWalletBalance> {
@@ -212,7 +211,7 @@ export class GrapeFinance {
 
   async getRaffleStat(account: string, raffleAddress: string): Promise<TokenStat> {
     let total = 0;
-    const {GRAPE} = this.contracts;
+    const {Grape} = this.contracts;
     
     const priceInBTC = await this.getTokenPriceFromPancakeswapBTC(this.GRAPE);
     
@@ -220,7 +219,7 @@ export class GrapeFinance {
     
     const currentBlockNumber = await this.provider.getBlockNumber();
     
-    const filterTo = GRAPE.filters.Transfer(account, raffleAddress);
+    const filterTo = Grape.filters.Transfer(account, raffleAddress);
    
     const startBlock = currentBlockNumber-100000;
 
@@ -229,7 +228,7 @@ export class GrapeFinance {
     for(let i = startBlock; i < currentBlockNumber; i += 2000) {
       const _startBlock = i;
       const _endBlock = Math.min(currentBlockNumber, i + 1999);
-      const events = await GRAPE.queryFilter(filterTo, _startBlock, _endBlock);
+      const events = await Grape.queryFilter(filterTo, _startBlock, _endBlock);
       allEvents = [...allEvents, ...events]
     }
 
