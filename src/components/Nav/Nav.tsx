@@ -135,7 +135,7 @@ const Nav = () => {
                 Raffle
               </Link>
               <div className={'dropdown'}>
-                <button className={'dropbtn'}>AUTO VAULTS</button>
+                <button className={'dropbtn'}>VAULTS</button>
                 <div className={'dropdown-content'}>
                   <a href="https://magik.farm/#/avax" className={classes.link} rel="noopener" target="_blank">
                     Magik
@@ -335,7 +335,13 @@ const Nav = () => {
                 >
                   <ListItemText>Nodes Rewards</ListItemText>
                 </ListItem>
-
+                <ListItem
+                  button
+                  component="a"
+                  href="https://nftrade.com/assets/avalanche/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df"
+                >
+                  <ListItemText>Buy NFTs</ListItemText>
+                </ListItem>    
                 <ListItemLink primary="Strategy" to="/strategies" />
                 <ListItemLink primary="Stats" to="/stats" />
                 <ListItemLink primary="Roadmap" to="/roadmap" />

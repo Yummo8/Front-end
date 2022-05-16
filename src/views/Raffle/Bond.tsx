@@ -73,9 +73,9 @@ const useStyles = makeStyles((theme) => ({
 
 const Bond: React.FC = () => {
 
-  const startDate = new Date('2022-4-6 11:00:00Z');
-  const endDate = new Date('2022-4-9 11:00:00Z');
-  const raffleAddress = '0x37219231a957e09F6e674B218043FdF1C5145F68';
+  const startDate = new Date('2022-5-16 11:00:00Z');
+  const endDate = new Date('2022-5-19 11:00:00Z');
+  const raffleAddress = '0xA3F2C4D813d75E26335ddE70DcFd703996Ae25D8';
 
 
 
@@ -125,8 +125,8 @@ const Bond: React.FC = () => {
     <>
     
      <Grid item xs={12} md={12} lg={12} >     
-        <h1 style={{ fontSize: '80px', textAlign:'center', color: '#fff' }}>Weekly WINE Raffle</h1>   
-        <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>Every week we'll run a raffle for our community where you have the chance to win WINE tokens just by sending in your freely earned Grape rewards.<br></br> <br></br> 1 Grape =  1 entry and there are unlimited entries per address, the more Grape you send the more chance you have to win. The winner will be chosen at random.</p>                
+        <h1 style={{ fontSize: '80px', textAlign:'center', color: '#fff' }}>WINE Raffle</h1>   
+        <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>Community raffle where you have the chance to win WINE just by sending in your freely earned Grape rewards.<br></br> <br></br> 1 Grape =  1 entry and there are unlimited entries per address, the more Grape you send the more chance you have to win. The winner will be chosen at random.</p>                
         <p style={{fontSize: '20px', textAlign:'center', color: '#fff' }}>Raffle address: {raffleAddress}</p>
       </Grid>
       {Date.now() > endTime ? <h1 style={{ fontSize: '60px', textAlign:'center', color: '#fff' }}>Raffle Closed</h1> : <h1 style={{ fontSize: '60px', textAlign:'center' }}>Raffle Open</h1>}
@@ -136,7 +136,7 @@ const Bond: React.FC = () => {
         <Grid item xs={12} sm={12} lg={6}>  
             <Card>
               <h2 style={{textAlign:'center', marginTop: '10px' }}>Raffle Stats</h2>
-              <p style={{textAlign:'center'}}>Win 1 WINE this raffle</p>           
+              <p style={{textAlign:'center'}}>6 WINE up for grabs this raffle</p>           
               <p style={{textAlign:'center'}}>Grape Price: ${grapePrice}</p>
               <p style={{textAlign:'center'}}>Total Grape Entered: {raffleBals}</p>         
               <p style={{textAlign:'center'}}>Your entries: {userBals}</p>
