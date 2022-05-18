@@ -156,7 +156,7 @@ const Nav = () => {
                 <button className={'dropbtn'}>WALLETS</button>
                 <div className={'dropdown-content'}>
                   <a
-                    href="https://debank.com/profile/0x363D1EA627d8e6fB11DAcB4A5fDE76FAEbE0Ac8A"
+                    href="https://debank.com/profile/0xEB755b81A786832705a3c0658127216eD36fE898"
                     className={classes.link}
                     rel="noopener"
                     target="_blank"
@@ -164,7 +164,7 @@ const Nav = () => {
                     Treasury
                   </a>
                   <a
-                    href="https://debank.com/profile/0xEB6c4b5aC4822480860476FF543D77D3882244e1"
+                    href="https://debank.com/profile/0xf29fD03Df2Cb7F81d8Ae4d10A76f8b1C898786BD"
                     className={classes.link}
                     rel="noopener"
                     target="_blank"
@@ -172,7 +172,7 @@ const Nav = () => {
                     DAO
                   </a>
                   <a
-                    href="https://debank.com/profile/0xc0702Ae0374F83fc3bA71CE2B30A323b09EC19da"
+                    href="https://debank.com/profile/0xa3C4C965BA6aA9382a8Edd965D13CB495F8da6F5"
                     className={classes.link}
                     rel="noopener"
                     target="_blank"
@@ -317,21 +317,21 @@ const Nav = () => {
                 <ListItem
                   button
                   component="a"
-                  href="https://debank.com/profile/0x363D1EA627d8e6fB11DAcB4A5fDE76FAEbE0Ac8A"
+                  href="https://debank.com/profile/0xEB755b81A786832705a3c0658127216eD36fE898"
                 >
                   <ListItemText>Treasury</ListItemText>
                 </ListItem>
                 <ListItem
                   button
                   component="a"
-                  href="https://debank.com/profile/0xEB6c4b5aC4822480860476FF543D77D3882244e1"
+                  href="https://debank.com/profile/0xf29fD03Df2Cb7F81d8Ae4d10A76f8b1C898786BD"
                 >
                   <ListItemText>DAO</ListItemText>
                 </ListItem>
                 <ListItem
                   button
                   component="a"
-                  href="https://debank.com/profile/0xc0702Ae0374F83fc3bA71CE2B30A323b09EC19da"
+                  href="https://debank.com/profile/0xa3C4C965BA6aA9382a8Edd965D13CB495F8da6F5"
                 >
                   <ListItemText>Nodes Rewards</ListItemText>
                 </ListItem>

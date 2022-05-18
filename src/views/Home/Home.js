@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Home = () => {
-  const nodesRewardAddress = '0xc0702Ae0374F83fc3bA71CE2B30A323b09EC19da';
+  const nodesRewardAddress = '0xa3C4C965BA6aA9382a8Edd965D13CB495F8da6F5';
 
   const classes = useStyles();
   const TVL = useTotalValueLocked();
