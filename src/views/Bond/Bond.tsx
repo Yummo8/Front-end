@@ -83,19 +83,19 @@ const Bond: React.FC = () => {
             <Route exact path={path}>
               <PageHeader icon={'🏦'} title="Buy &amp; Redeem Bonds" subtitle="Earn premiums upon redemption" />
             </Route>
-            {isBondPayingPremium == false ? (
+         
 
 
               <Box mt={5}>
                 <Grid item xs={12} sm={12} justify="center" style={{ margin: '18px', display: 'flex' }}>
                 <Alert variant="filled" severity="error">
                     <b>
-                      Claiming below 1.1 peg will not receive a redemption bonus, claim wisely!</b>
+                      Bonds are emitted & premiums redeemable based on last epoch TWAP prices not the current TWAP!</b>
               </Alert>
             
               </Grid>
               </Box>
-            ) : <></>}
+          
           
             <StyledBond>
               <StyledCardWrapper>
@@ -124,7 +124,7 @@ const Bond: React.FC = () => {
                 />
                 <Spacer size="md" />
                 <ExchangeStat
-                  tokenName="1 GRAPE"
+                  tokenName="1 GBOND"
                   description="Bond Price"
                   price={Number(bondStat?.tokenInFtm).toFixed(2) || '-'}
                 />
