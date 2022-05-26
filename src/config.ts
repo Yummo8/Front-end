@@ -259,6 +259,19 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     multi: '0',
     buyLink: null,
   },
+  LPNode: {
+    name: 'Generate LP with Nodes',
+    poolId: 0,
+    sectionInUI: 3,
+    contract: 'LPNode',
+    depositTokenName: 'GRAPE-MIM-LP',
+    earnTokenName: 'GRAPE-MIM-LP',
+    finished: false,
+    sort: 2,
+    closedForStaking: false,
+    multi: '0',
+    buyLink: null,
+  },
 };
 
 export default configurations[process.env.NODE_ENV || 'production'];

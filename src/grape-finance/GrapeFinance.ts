@@ -790,6 +790,9 @@ export class GrapeFinance {
       if (earnTokenName === 'WINE' && poolName.includes('Node')) {
         return await pool.getTotalRewards(account);
       }
+      if (earnTokenName === 'GRAPE-MIM-LP' && poolName.includes('Node')) {
+        return await pool.getTotalRewards(account);
+      }
       if (earnTokenName === 'GRAPE') {
         return await pool.pendingGRAPE(poolId, account);
       } else if (earnTokenName === 'WINE') {

@@ -18,7 +18,8 @@ import useStatsForPool from '../../hooks/useStatsForPool';
 import {Context} from '../../contexts/GrapeFinanceProvider';
 import useGrapeStats from '../../hooks/useGrapeStats';
 import useStakedTokenPriceInDollars from '../../hooks/useStakedTokenPriceInDollars';
-
+import useNodePrice from '../../hooks/useNodePrice';
+import {getDisplayBalance} from '../../utils/formatBalance';
 import {Alert} from '@material-ui/lab';
 
 const useStyles = makeStyles((theme) => ({
@@ -43,6 +44,7 @@ const GrapeNode = () => {
   const statsOnPool = useStatsForPool(bank);
   const {grapeFinance} = useContext(Context);
   const nodes = useNodes(bank?.contract, bank?.sectionInUI, account);
+  const nodePrice = useNodePrice(bank.contract, bank.poolId, bank.sectionInUI);
   const total = totalNodes(bank?.contract, bank?.sectionInUI);
   const max = useMaxPayout(bank?.contract, bank?.sectionInUI, account);
   const userDetails = useUserDetails(bank?.contract, bank?.sectionInUI, account);
@@ -76,7 +78,7 @@ const GrapeNode = () => {
                           <b style={{ color: 'rgb(255, 255, 255)', marginRight: '0px' }}>
                             {nodes[0].toString()}
                           </b> |  <b style={{ color: 'rgb(255, 255, 255)', marginRight: '0px' }}>
-                            ${bank.depositTokenName === 'GRAPE' ? (nodes[0] * (tokenPriceInDollars*50)).toFixed(0) : (nodes[0] * (tokenPriceInDollars*0.5)).toFixed(0)}
+                            ${(nodes[0] * (tokenPriceInDollars*getDisplayBalance(nodePrice, bank.depositToken.decimal, 1))).toFixed(0)}
                            
                           </b>
                           

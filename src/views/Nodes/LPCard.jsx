@@ -6,9 +6,9 @@ import TokenSymbol from '../../components/TokenSymbol';
 import useBanks from '../../hooks/useBanks';
 import SwapVerticalCircleIcon from '@material-ui/icons/SwapVerticalCircle';
 import useStatsForPool from '../../hooks/useStatsForPool';
-const WineMimCard = ({}) => {
+const LPCard = ({}) => {
   const [banks] = useBanks();
-  const statsOnPool = useStatsForPool(banks[3]);
+  const statsOnPool = useStatsForPool(banks[2]);
   return (
     <Grid item xs={12} md={4} lg={4}>
       <Card variant="outlined">
@@ -31,17 +31,17 @@ const WineMimCard = ({}) => {
               <TokenSymbol size={32} symbol={'GNODE'} />
             </Box>
             <Typography variant="h5" component="h2">
-            WINE Node
+              Grape-MIM LP Node
             </Typography>
             <Typography color="#322f32">
-              Lock your WINE to earn daily yields<br></br>
-              <b>Daily APR:</b> {statsOnPool?.dailyAPR}%<br></br>
-              <b>Yearly APR:</b> {statsOnPool?.yearlyAPR}%
+              Lock your LP tokens to earn daily yields<br></br>
+              <b>Daily APR:</b> {statsOnPool?.dailyAPR}% + POPs token<br></br>
+              <b>Yearly APR:</b> {statsOnPool?.yearlyAPR}% + POPs token
             </Typography>
           </Box>
         </CardContent>
         <CardActions style={{justifyContent: 'flex-end'}}>
-          <Button className="shinyButtonSecondary" component={Link} to={'/nodes/WineNode'}>
+          <Button className="shinyButtonSecondary" component={Link} to={'/nodes/LPNode'}>
             View
           </Button>
         </CardActions>
@@ -50,4 +50,4 @@ const WineMimCard = ({}) => {
   );
 };
 
-export default WineMimCard;
+export default LPCard;

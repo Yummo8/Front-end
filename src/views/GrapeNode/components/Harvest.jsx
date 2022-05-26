@@ -16,18 +16,34 @@ import TokenSymbol from '../../../components/TokenSymbol';
 import {Bank} from '../../../grape-finance';
 import useGrapeStats from '../../../hooks/useGrapeStats';
 import useShareStats from '../../../hooks/useWineStats';
+import useNodePrice from '../../../hooks/useNodePrice';
+import useLpStatsBTC from '../../../hooks/useLpStatsBTC';
 
 const Harvest = ({bank}) => {
   const earnings = useEarnings(bank.contract, bank.earnTokenName, bank.poolId);
   const grapeStats = useGrapeStats();
   const tShareStats = useShareStats();
-  const tokenStats = bank.earnTokenName === 'WINE' ? tShareStats : grapeStats;
-  
+  const grapemimLpStats = useLpStatsBTC('GRAPE-MIM-LP');
+
+  let tokenStats = 0;
+  if (bank.earnTokenName === 'WINE') {
+    tokenStats = tShareStats;
+  }else if(bank.earnTokenName === 'GRAPE') {
+    tokenStats = grapeStats;
+  }else if(bank.earnTokenName === 'GRAPE-MIM-LP'){
+    tokenStats = grapemimLpStats;
+  }
+  const nodePrice = useNodePrice(bank.contract, bank.poolId, bank.sectionInUI);
   const tokenPriceInDollars = useMemo(
     () => (tokenStats ? Number(tokenStats.priceInDollars).toFixed(2) : null),
     [tokenStats],
   );
+  const tokenPriceInDollarsLP = useMemo(
+    () => (tokenStats ? Number(tokenStats.priceOfOne).toFixed(2) : null),
+    [tokenStats],
+  );
   const earnedInDollars = (Number(tokenPriceInDollars) * Number(getDisplayBalance(earnings))).toFixed(2);
+  const earnedInDollarsLP = (Number(tokenPriceInDollarsLP) * Number(getDisplayBalance(earnings))).toFixed(2);
   const { onReward } = useHarvest(bank);
   const { onCompound } = useCompound(bank);
 
@@ -42,7 +58,7 @@ const Harvest = ({bank}) => {
             <Typography style={{textTransform: 'uppercase', color: '#930993'}}>
               <Value value={getDisplayBalance(earnings)} />
             </Typography>
-           <Label text={`≈ $${earnedInDollars}`} />
+            <Label text={bank.earnTokenName === 'GRAPE-MIM-LP' ? `≈ $${earnedInDollarsLP}` : `≈ $${earnedInDollars}`} />
             <Typography style={{textTransform: 'uppercase', color: '#fff'}}>{bank.earnTokenName} Earned</Typography>
           </StyledCardHeader>
           <StyledCardActions>
@@ -54,23 +70,15 @@ const Harvest = ({bank}) => {
               Claim
             </Button>
           </StyledCardActions>
-          {bank.earnTokenName === 'WINE' ?
+         
           <Button
           style={{marginTop: '20px'}}
               onClick={onCompound}
-              disabled={earnings < 0.5*1e18}
-              className={earnings < 0.5*1e18 ? 'shinyButtonDisabled' : 'shinyButton'}
+              disabled={Number(earnings) < Number(nodePrice)}
+              className={Number(earnings) < Number(nodePrice) ? 'shinyButtonDisabled' : 'shinyButton'}
             >
-              Compound {(earnings/(0.5*1e18))|0} Nodes
-          </Button>:
-          <Button
-          style={{marginTop: '20px'}}
-              onClick={onCompound}
-              disabled={earnings < 50*1e18}
-              className={earnings < 50*1e18 ? 'shinyButtonDisabled' : 'shinyButton'}
-            >
-              Compound {(earnings/(50*1e18))|0} Nodes
-          </Button>}
+              Compound {(Number(earnings)/Number(nodePrice))|0} Nodes
+          </Button>
 
         </StyledCardContentInner>
       </CardContent>

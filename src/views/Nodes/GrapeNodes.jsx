@@ -5,6 +5,7 @@ import Page from '../../components/Page';
 import GrapeNode from '../GrapeNode';
 import GrapeCard from './GrapeCard';
 import WineMimCard from './WineMimCard';
+import LPCard from './LPCard';
 import { createGlobalStyle } from 'styled-components';
 
 const BackgroundImage = createGlobalStyle`
@@ -26,6 +27,7 @@ const GrapeNodes = () => {
           <Grid container spacing={3} style={{marginTop: '20px'}}>
             <GrapeCard />
             <WineMimCard />
+           
           </Grid>
         </Route>
         <Route path={`${path}/:bankId`}>
