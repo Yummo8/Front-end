@@ -3,12 +3,12 @@ import {Link} from 'react-router-dom';
 import {Box, Button, Card, CardActions, CardContent, Typography, Grid} from '@material-ui/core';
 import {useParams} from 'react-router-dom';
 import TokenSymbol from '../../components/TokenSymbol';
-import useBanks from '../../hooks/useBanks';
+import useBank from '../../hooks/useBank';
 import SwapVerticalCircleIcon from '@material-ui/icons/SwapVerticalCircle';
 import useStatsForPool from '../../hooks/useStatsForPool';
 const GrapeCard = ({}) => {
-  const [banks] = useBanks();
-  const statsOnPool = useStatsForPool(banks[4]);
+  const tombBank = useBank('GrapeNode');
+  const statsOnPool = useStatsForPool(tombBank);
   return (
     <Grid item xs={12} md={4} lg={4}>
       <Card variant="outlined">
