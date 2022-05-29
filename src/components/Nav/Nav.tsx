@@ -128,6 +128,9 @@ const Nav = () => {
               <Link to="/nodes" className={'navLink ' + classes.link}>
                 Nodes
               </Link>
+              <Link to="/rebates" className={'navLink ' + classes.link}>
+                Rebates
+              </Link>
               <Link to="/bond" className={'navLink ' + classes.link}>
                 Bonds
               </Link>
@@ -298,6 +301,7 @@ const Nav = () => {
                 <ListItemLink primary="Vineyard" to="/vineyard" />
                 <ListItemLink primary="Winery" to="/winery" />
                 <ListItemLink primary="Nodes" to="/nodes" />
+                <ListItemLink primary="Rebates" to="/rebates" />
                 <ListItemLink primary="Leaderboard" to="/leaderboard" />
                 <ListItemLink primary="Bond" to="/bond" />
                 <ListItemLink primary="Raffle" to="/raffle" />

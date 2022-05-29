@@ -119,11 +119,11 @@ const Cemetery = () => {
               </Box>
               <div hidden={activeBanks.filter((bank) => bank.sectionInUI === 4).length === 0}>
                   <Typography color="textPrimary" variant="h4" gutterBottom style={{ marginTop: '35px', marginBottom: '30px' }}>
-                    Bondable Assets
+                    Assets
                   </Typography>
-                  {/*<Alert style={{ backgroundColor:"black" , color:"white" , width:"60%" , marginLeft:"20%", marginBottom: '15px'}}variant="filled" severity="warning">
-                    Rebates are only profitable when last epoch TWAP above 1.2
-                     </Alert>*/}
+                  <Alert style={{ backgroundColor:"black" , color:"white", marginBottom: '15px'}}variant="filled" severity="warning">
+                    Bond LPs or MIM and receieve discounted WINE vested linearly over 3 days. WINE available will be limited and deposited to the contract daily.
+                     </Alert>
                   <Grid container spacing={3}>
                     {activeBanks
                       .filter((bank) => bank.sectionInUI === 4)
