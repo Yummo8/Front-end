@@ -109,7 +109,7 @@ const AirdropRewardModal = ({ open, handleClose, grapes, grapePrice, wines, wine
             }}
             onClick={() => {
               handleClose();
-              setTicketNumber(100);
+              setTicketNumber(1);
             }}
           >
             <CloseIcon />

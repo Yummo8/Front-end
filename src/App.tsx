@@ -31,6 +31,7 @@ const Nodes = lazy(() => import('./views/Nodes'));
 const Leaderboard = lazy(() => import('./views/Leaderboard'));
 const Stats = lazy(() => import('./views/Stats'));
 const NFTRaffle = lazy(() => import('./views/NFTRaffle'));
+const Rebates = lazy(() => import('./views/Rebates'));
 
 const NoMatch = () => (
   <h3 style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>
@@ -64,6 +65,9 @@ const App: React.FC = () => {
             </Route>
             <Route path="/nodes">
               <Nodes />
+            </Route>
+            <Route path="/rebates">
+              <Rebates />
             </Route>
             <Route path="/leaderboard">
               <Leaderboard />
