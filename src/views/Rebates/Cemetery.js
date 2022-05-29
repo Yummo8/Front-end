@@ -122,7 +122,7 @@ const Cemetery = () => {
                     Assets
                   </Typography>
                   <Alert style={{ backgroundColor:"black" , color:"white", marginBottom: '15px'}}variant="filled" severity="warning">
-                    Bond LPs or MIM and receieve discounted WINE vested linearly over 3 days. WINE available will be limited and deposited to the contract daily.
+                    Bond LPs or MIM and receive discounted WINE vested linearly over 3 days. WINE available will be limited and deposited to the contract daily.
                      </Alert>
                   <Grid container spacing={3}>
                     {activeBanks
