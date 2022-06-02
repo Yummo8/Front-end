@@ -27,7 +27,7 @@ const GrapeNodes = () => {
           <Grid container spacing={3} style={{marginTop: '20px'}}>
             <GrapeCard />
             <WineMimCard />
-            {/*<LPCard />*/}
+            <LPCard />
           </Grid>
         </Route>
         <Route path={`${path}/:bankId`}>
