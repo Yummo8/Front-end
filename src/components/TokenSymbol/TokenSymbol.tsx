@@ -26,6 +26,7 @@ const logosBySymbol: {[title: string]: string} = {
   HSHARE: wamp,
   GNODE: gnode,
   'GRAPE-MIM-LP' : grapeMimLpLogo,
+  'GRAPE-MIM-SW' : grapeMimLpLogo,
   'GRAPE-WINE-LP' : grapeWine,
   'WINE-MIM-LP' : wineMimLpLogo,
   'HSHARE-WINE-LP' : hsharewine,
@@ -42,7 +43,7 @@ const TokenSymbol: React.FC<LogoProps> = ({symbol}) => {
   if (!logosBySymbol[symbol]) {
     throw new Error(`Invalid Token Logo symbol: ${symbol}`);
   }
-  if(symbol === 'GRAPE-MIM-LP' || symbol === 'WINE-MIM-LP' || symbol === 'GRAPE-WINE-LP' || symbol === 'HSHARE-WINE-LP'){
+  if(symbol === 'GRAPE-MIM-LP' || symbol === 'WINE-MIM-LP' || symbol === 'GRAPE-WINE-LP' || symbol === 'HSHARE-WINE-LP' || symbol === 'GRAPE-MIM-SW'){
     return <img src={logosBySymbol[symbol]} alt={`${symbol} Logo`} width={95} height={60} />;
   }else if(symbol === 'MIM' || symbol === 'WAVAX' || symbol === 'WAMP'){
     return <img src={logosBySymbol[symbol]} alt={`${symbol} Logo`} width={65} height={65} />;

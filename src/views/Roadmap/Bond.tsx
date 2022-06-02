@@ -107,10 +107,10 @@ const Bond: React.FC = () => {
                   
 
                   <h1 style={{textAlign:'center', marginTop: '70px' }}>Q2</h1>
-                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- UI/UX website revamp</p>
+                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- UI/UX website revamp (ongoing)✅</p>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Chainlink integrations ✅</p>
-                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Implement bonding to secure protocol owned liquidity</p>
-                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Lending & borrowing of Grape & Wine on site</p>
+                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Implement bonding to secure protocol owned liquidity ✅</p>
+                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Lending & borrowing platform including Grape & Wine as collateral</p>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Auto repaying loans using yielding strategies</p>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Leveraged positions</p>                
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- NFT based p2e game & staking</p>
@@ -119,14 +119,14 @@ const Bond: React.FC = () => {
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Implement cross chain Grape liquidity</p>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Integrate Grape on large lending platforms as a stablecoin</p>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Yield strategies & aggregation of these integrations cross chain</p>
-                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Partner with various projects in the ecosystem to improve token utilization in farms, lending/borrowing & exchange</p>
+                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Partner with projects in the ecosystem to improve token utilization (ongoing)✅</p>
                   
 
                   <h1 style={{textAlign:'center', marginTop: '70px' }}>Q4</h1>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Dedicated mobile app for Grape Finance</p>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Partner with crypto payment gateways to accept Grape</p>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Partner with card provider</p>
-                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Card/NFC payments using credit from collateral provided</p>
+                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Card payments using credit from collateral provided</p>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Payment rewards & cashback system</p>
 
               </Grid>

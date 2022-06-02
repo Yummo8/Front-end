@@ -269,7 +269,7 @@ export class GrapeFinance {
     const tokenAmountBN = await token0.balanceOf(lpToken.address);
 
     const tokenAmount = getDisplayBalance(tokenAmountBN, 18);
-
+    console.log('test', tokenAmount)
     const mimAmountBN =
       lpToken.symbol === 'GRAPE-WINE-LP'
         ? await this.WINE.balanceOf(lpToken.address)
@@ -466,7 +466,7 @@ export class GrapeFinance {
         ]);
         const stakeAmount = Number(getDisplayBalance(tierAmount))
         // const userStakePrice = Number(depositTokenPrice) * Number(getDisplayBalance(user.total_deposits))
-  
+        
         const dailyDrip = totalPoints && +totalPoints > 0 
           ? getDisplayBalance(poolBalance.mul(BigNumber.from(86400)).mul(points).div(totalPoints).div(dripRate)) 
           : 0;
@@ -654,6 +654,8 @@ export class GrapeFinance {
         tokenPrice = await this.getLPTokenPrice(token, this.WINE, false);
       } else if (tokenName === 'HSHARE-WINE-LP') {
         tokenPrice = await this.getLPTokenPrice(token, this.WINE, false);
+      }else if (tokenName === 'GRAPE-MIM-SW') {
+        tokenPrice = await this.getLPTokenPrice(token, this.GRAPE, true);
       } else if (tokenName === 'MIM') {
         tokenPrice = '1';
       } else if (tokenName === 'WAMP') {
@@ -742,17 +744,17 @@ export class GrapeFinance {
     //Get amount of tokenA
 
     const tokenSupply = getFullDisplayBalance(await token.balanceOf(lpToken.address), token.decimal);
-
+    
     const stat = isGrape === true ? await this.getGrapeStat() : await this.getShareStat();
 
     const priceOfToken = stat.priceInDollars;
-
+    
     const tokenInLP = Number(tokenSupply) / Number(totalSupply);
-
+    
     const tokenPrice = (Number(priceOfToken) * tokenInLP * 2) //We multiply by 2 since half the price of the lp token is the price of each piece of the pair. So twice gives the total
 
       .toString();
-
+      console.log('supply', tokenPrice)
     return tokenPrice;
   }
 
@@ -790,7 +792,7 @@ export class GrapeFinance {
       if (earnTokenName === 'WINE' && poolName.includes('Node')) {
         return await pool.getTotalRewards(account);
       }
-      if (earnTokenName === 'GRAPE-MIM-LP' && poolName.includes('Node')) {
+      if (earnTokenName === 'GRAPE-MIM-LP' || earnTokenName === 'GRAPE-MIM-SW' && poolName.includes('Node')) {
         return await pool.getTotalRewards(account);
       }
       if (earnTokenName === 'GRAPE') {

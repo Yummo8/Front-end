@@ -31,12 +31,12 @@ const LPCard = ({}) => {
               <TokenSymbol size={32} symbol={'GNODE'} />
             </Box>
             <Typography variant="h5" component="h2">
-              Grape-MIM LP Node
+              Grape-MIM Swapsicle
             </Typography>
             <Typography color="#322f32">
               Lock your LP tokens to earn daily yields<br></br>
-              <b>Daily APR:</b> {statsOnPool?.dailyAPR}% + POPs token<br></br>
-              <b>Yearly APR:</b> {statsOnPool?.yearlyAPR}% + POPs token
+              <b>Daily APR:</b> {statsOnPool?.dailyAPR}% + POPs airdrops<br></br>
+              <b>Yearly APR:</b> {statsOnPool?.yearlyAPR}% + POPs airdrops
             </Typography>
           </Box>
         </CardContent>

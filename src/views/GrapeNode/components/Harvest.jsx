@@ -23,14 +23,14 @@ const Harvest = ({bank}) => {
   const earnings = useEarnings(bank.contract, bank.earnTokenName, bank.poolId);
   const grapeStats = useGrapeStats();
   const tShareStats = useShareStats();
-  const grapemimLpStats = useLpStatsBTC('GRAPE-MIM-LP');
+  const grapemimLpStats = useLpStatsBTC('GRAPE-MIM-SW');
 
   let tokenStats = 0;
   if (bank.earnTokenName === 'WINE') {
     tokenStats = tShareStats;
   }else if(bank.earnTokenName === 'GRAPE') {
     tokenStats = grapeStats;
-  }else if(bank.earnTokenName === 'GRAPE-MIM-LP'){
+  }else if(bank.earnTokenName === 'GRAPE-MIM-SW'){
     tokenStats = grapemimLpStats;
   }
   const nodePrice = useNodePrice(bank.contract, bank.poolId, bank.sectionInUI);
@@ -58,7 +58,7 @@ const Harvest = ({bank}) => {
             <Typography style={{textTransform: 'uppercase', color: '#930993'}}>
               <Value value={getDisplayBalance(earnings)} />
             </Typography>
-            <Label text={bank.earnTokenName === 'GRAPE-MIM-LP' ? `≈ $${earnedInDollarsLP}` : `≈ $${earnedInDollars}`} />
+            <Label text={bank.earnTokenName === 'GRAPE-MIM-SW' ? `≈ $${earnedInDollarsLP}` : `≈ $${earnedInDollars}`} />
             <Typography style={{textTransform: 'uppercase', color: '#fff'}}>{bank.earnTokenName} Earned</Typography>
           </StyledCardHeader>
           <StyledCardActions>

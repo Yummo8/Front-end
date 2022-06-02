@@ -93,7 +93,7 @@ const GrapeNode = () => {
               <Card className={classes.gridItem}>
                 <CardContent style={{textAlign: 'center'}}>
                   <Typography style={{color: '#ccf'}}>Amount Claimed</Typography>
-                  <Typography>{(Number(userDetails.total_claims)/1e18).toFixed(2)} {bank.earnTokenName}</Typography>
+                  <Typography>{(Number(userDetails.total_claims)/1e18).toFixed(2)} </Typography>
                 </CardContent>
               </Card>
             </Grid>
@@ -101,7 +101,7 @@ const GrapeNode = () => {
               <Card className={classes.gridItem}>
                 <CardContent style={{textAlign: 'center'}}>
                   <Typography style={{color: '#ccf'}}>Max Possible Pay</Typography>
-                  <Typography>{Number(max)/1e18} {bank.earnTokenName}</Typography>
+                  <Typography>{Number(max)/1e18} </Typography>
                 </CardContent>
               </Card>
             </Grid>
@@ -116,7 +116,7 @@ const GrapeNode = () => {
             <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
               <Card className={classes.gridItem}>
                 <CardContent style={{textAlign: 'center'}}>
-                  <Typography style={{color: '#ccf'}}>Total {bank.earnTokenName} Nodes</Typography>
+                  <Typography style={{color: '#ccf'}}>Total Nodes</Typography>
                   <Typography>{Number(total[0])}</Typography>
                 </CardContent>
               </Card>
@@ -143,27 +143,24 @@ const GrapeNode = () => {
               <StyledCardWrapper>{<Stake bank={bank} />}</StyledCardWrapper>
             </StyledCardsWrapper>
             <Spacer size="lg" />
-          </StyledBank>
-        </Box>
+           {bank.depositTokenName === 'GRAPE-MIM-SW' ?
+           <Card>
+            <CardContent >
+              <StyledLink href={'https://www.swapsicle.io/add/0x5541D83EFaD1f281571B343977648B75d95cdAC2/0x130966628846BFd36ff31a822705796e8cb8C18D'} target="_blank">
+                <span style={{color: '#fff'}}>
+                  Provide liquidity for GRAPE-MIM on Swapsicle
+                </span>
+              </StyledLink>
+            </CardContent>
+          </Card>: null }
+          </StyledBank>      
+        </Box>    
+        
       </>
     )
   : <BankNotFound/>
 };
 
-const LPTokenHelpText = ({bank}) => {
-
-  return (
-    <Card>
-      <CardContent>
-        <StyledLink href={'#'} target="_blank">
-          <span style={{color: '#000'}}>
-            Provide liquidity for {'pairname'} on {'exchange'}
-          </span>
-        </StyledLink>
-      </CardContent>
-    </Card>
-  );
-};
 
 const BankNotFound = () => {
   return (

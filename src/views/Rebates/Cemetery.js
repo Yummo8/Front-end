@@ -144,6 +144,7 @@ const Cemetery = () => {
                         </Typography>
                         <Typography variant="h6">{vested.toFixed(4)} Total Vested</Typography>
                         <Typography variant="h6">{claimablewine.toFixed(4)} Claimable</Typography>
+                        <Typography variant="h6">{claimablewine.toFixed(4)} Claimable</Typography>
                         <Button color="primary" size="small" variant="contained" onClick={claimTomb} style={{ marginTop: "8px" }}>
                           CLAIM
                         </Button>
