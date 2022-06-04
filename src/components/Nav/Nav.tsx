@@ -134,6 +134,14 @@ const Nav = () => {
               >
                 Game
               </a>
+              <a
+                href="https://slot.grapefinance.app/"
+                className={'navLink ' + classes.link}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Slots
+              </a>
               <div className={'dropdown'}>
                 <button className={'dropbtn'}>VAULTS</button>
                 <div className={'dropdown-content'}>
@@ -305,6 +313,9 @@ const Nav = () => {
                 <ListItemLink primary="Raffle" to="/raffle" />
                 <ListItem button component="a" href="https://lianyou.io/burnforfun">
                   <ListItemText>Game</ListItemText>
+                </ListItem>
+                <ListItem button component="a" href="https://slot.grapefinance.app/">
+                  <ListItemText>Slots</ListItemText>
                 </ListItem>
                 <ListItem button component="a" href="https://magik.farm/#/avax">
                   <ListItemText>Magik</ListItemText>

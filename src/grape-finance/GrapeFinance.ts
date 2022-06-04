@@ -432,7 +432,7 @@ export class GrapeFinance {
     const poolContract = this.contracts[bank.contract];
 
     if (bank.sectionInUI === 3) {
-      if (bank.sectionInUI === 3) {
+    
         const [depositTokenPrice, points, totalPoints, tierAmount, poolBalance, totalBalance, dripRate, dailyUserDrip] = await Promise.all([
           this.getDepositTokenPriceInDollars(bank.depositTokenName, depositToken),
           poolContract.tierAllocPoints(bank.poolId),
@@ -444,7 +444,6 @@ export class GrapeFinance {
           poolContract.getDayDripEstimate(this.myAccount),
         ]);
         const stakeAmount = Number(getDisplayBalance(tierAmount))
-        // const userStakePrice = Number(depositTokenPrice) * Number(getDisplayBalance(user.total_deposits))
         
         const dailyDrip = totalPoints && +totalPoints > 0 
           ? getDisplayBalance(poolBalance.mul(BigNumber.from(86400)).mul(points).div(totalPoints).div(dripRate)) 
@@ -454,10 +453,6 @@ export class GrapeFinance {
         
         const dailyDripUser = Number(getDisplayBalance(dailyUserDrip));
         const yearlyDripUser = Number(dailyDripUser) * 365;
-        // const dailyDripUserPricePerYear = Number(empStat.priceInDollars) * Number(dailyDripUser);
-        // const yearlyDripUserPricePerYear = Number(empStat.priceInDollars) * Number(yearlyDripUser);
-        // const dailyDripUserAPR = (dailyDripUserPricePerYear / userStakePrice) * 100;
-        // const yearlyDripUserAPR = (yearlyDripUserPricePerYear / userStakePrice) * 100;
         
         const TVL = Number(depositTokenPrice) * Number(getDisplayBalance(totalBalance, depositToken.decimal));
   
@@ -468,7 +463,7 @@ export class GrapeFinance {
           yearlyAPR: yearlyDripAPR.toFixed(2).toString(),
           TVL: TVL.toFixed(2).toString(),
         };
-      }
+      
     } else {
       const depositTokenPrice = await this.getDepositTokenPriceInDollars(bank.depositTokenName, depositToken);
 
