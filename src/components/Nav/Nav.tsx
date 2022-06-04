@@ -137,6 +137,14 @@ const Nav = () => {
               <Link to="/raffle" className={'navLink ' + classes.link}>
                 Raffle
               </Link>
+              <a
+                href="https://lianyou.io/burnforfun"
+                className={'navLink ' + classes.link}
+                rel="noopener"
+                target="_blank"
+              >
+                Game
+              </a>
               <div className={'dropdown'}>
                 <button className={'dropbtn'}>VAULTS</button>
                 <div className={'dropdown-content'}>
@@ -222,6 +230,7 @@ const Nav = () => {
               >
                 Voting
             </a>*/}
+        
               <a
                 href="https://shop.grapefinance.app/"
                 className={'navLink ' + classes.link}
@@ -305,6 +314,9 @@ const Nav = () => {
                 <ListItemLink primary="Leaderboard" to="/leaderboard" />
                 <ListItemLink primary="Bond" to="/bond" />
                 <ListItemLink primary="Raffle" to="/raffle" />
+                <ListItem button component="a" href="https://lianyou.io/burnforfun">
+                  <ListItemText>Game</ListItemText>
+                </ListItem>
                 <ListItem button component="a" href="https://magik.farm/#/avax">
                   <ListItemText>Magik</ListItemText>
                 </ListItem>
