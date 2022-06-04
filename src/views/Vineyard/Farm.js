@@ -13,7 +13,7 @@ import FarmCard from './FarmCard';
 import {createGlobalStyle} from 'styled-components';
 
 import useBanks from '../../hooks/useBanks';
-import LaunchCountdown from '../../components/LaunchCountdown';
+
 import HomeImage from '../../assets/img/background.jpg';
 const BackgroundImage = createGlobalStyle`
   body {
@@ -42,9 +42,7 @@ const Farm = () => {
               <Box mt={5}>
               
                 <div hidden={activeBanks.filter((bank) => bank.sectionInUI === 2).length === 0}>
-                {/*<Typography color="textPrimary" variant="h4" gutterBottom style={{marginTop: '20px', color: '#fff'}}>
-                    WINE Reward Farms
-          </Typography>*/}
+        
                   <Alert variant="filled" severity="warning">
                     Follow the <a style={{color: '#fff'}} href="http://grapefinance.app/strategies" >Strategies guide here</a>. Sticking to the current strategy helps support the protocol which in turn helps you to continue to earn rewards!
                   </Alert>

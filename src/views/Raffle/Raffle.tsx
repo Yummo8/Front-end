@@ -1,87 +1,38 @@
-import React, {useCallback, useMemo, useEffect} from 'react';
+import React, {useCallback, useMemo} from 'react';
 import Page from '../../components/Page';
 import {createGlobalStyle} from 'styled-components';
-import {Route, Switch, useRouteMatch} from 'react-router-dom';
+import { Switch} from 'react-router-dom';
 import {useWallet} from 'use-wallet';
 import UnlockWallet from '../../components/UnlockWallet';
-import PageHeader from '../../components/PageHeader';
 import ExchangeCard from './components/ExchangeCard';
 import styled from 'styled-components';
-import Spacer from '../../components/Spacer';
-import useBondStats from '../../hooks/useBondStats';
-import useGrapeStats from '../../hooks/useGrapeStats';
+
 import useRaffleStats from '../../hooks/useRaffleBalance';
 import useGrapeFinance from '../../hooks/useGrapeFinance';
-import useCashPriceInLastTWAP from '../../hooks/useCashPriceInLastTWAP';
 import {useTransactionAdder} from '../../state/transactions/hooks';
-import ExchangeStat from './components/ExchangeStat';
-import useBondsPurchasable from '../../hooks/useBondsPurchasable';
-import {getDisplayBalance} from '../../utils/formatBalance';
-import { BOND_REDEEM_PRICE, BOND_REDEEM_PRICE_BN, DECIMALS_18 } from '../../grape-finance/constants';
-import { Alert } from '@material-ui/lab';
-import {ReactComponent as IconTelegram} from '../../assets/img/telegram.svg';
-import {ReactComponent as IconDiscord} from '../../assets/img/discord.svg';
 import HomeImage from '../../assets/img/background.jpg';
-import { Box, Container, Card, CardContent, Typography, Grid } from '@material-ui/core';
-import {makeStyles} from '@material-ui/core/styles';
-import { Stats } from 'fs';
+import { Card, Grid } from '@material-ui/core';
+
 import LaunchCountdown from '../../components/LaunchCountdown';
 
 const BackgroundImage = createGlobalStyle`
   body {
     //background: url(${HomeImage}) repeat !important;
     background-size: cover !important;
-    background-size: cover !important;
     background: radial-gradient(circle at 52.1% -29.6%, rgb(144, 17, 105) 0%, rgb(51, 0, 131) 100.2%);
   }
 `;
 
 
-const useStyles = makeStyles((theme) => ({
-  footer: {
-    position: 'absolute',
-    bottom: '0',
-    paddingTop: '15px',
-    paddingBottom: '15px',
-    width: '100%',
-    color: '#fff',
-    backgroundColor: 'rgba(0,0,0,0)',
-    textAlign: 'center',
-    height: '1.3rem',
-    fontFamily: 'superstar',
-      [theme.breakpoints.down('xs')]: {
-      display: 'none',
-    },
-  },
-  link: {
-    width: '24px',
-    height: '24px',
-    display: 'inline',
-    marginLeft: '20px',
-  },
 
-  img: {
-    width: '24px',
-    height: '24px',
-  },
-  gridItem: {
-    height: '100%',
-    [theme.breakpoints.up('md')]: {
-      height: '90px',
-    }},
-}));
 
-const Bond: React.FC = () => {
+const Raffle: React.FC = () => {
 
   const startDate = new Date('2022-5-26 12:00:00Z');
   const endDate = new Date('2022-5-29 12:00:00Z');
   const raffleAddress = '0xA3F2C4D813d75E26335ddE70DcFd703996Ae25D8';
 
-
-
-  const {path} = useRouteMatch();
   const {account} = useWallet();
-  const classes = useStyles();
   const grapeFinance = useGrapeFinance();
   const addTransaction = useTransactionAdder();
   const raffleStats = useRaffleStats(account, raffleAddress);
@@ -192,16 +143,5 @@ const StyledCardWrapper = styled.div`
   }
 `;
 
-const StyledStatsWrapper = styled.div`
-  display: flex;
-  flex: 0.8;
-  margin: 0 20px;
-  flex-direction: column;
 
-  @media (max-width: 768px) {
-    width: 80%;
-    margin: 16px 0;
-  }
-`;
-
-export default Bond;
+export default Raffle;

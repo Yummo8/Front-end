@@ -16,7 +16,6 @@ import Updaters from './state/Updaters';
 import Loader from './components/Loader';
 import Popups from './components/Popups';
 import {RefreshContextProvider} from './contexts/RefreshContext';
-import {Launch} from '@material-ui/icons';
 
 const Home = lazy(() => import('./views/Home'));
 const Vineyard = lazy(() => import('./views/Vineyard'));

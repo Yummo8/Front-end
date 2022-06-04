@@ -1,5 +1,3 @@
-import React from 'react';
-
 const useNodeText = () => {
 
   const getNodeText = (nodeId: number) => {
@@ -9,7 +7,7 @@ const useNodeText = () => {
       case 2: return 'Kilo Node';
       case 3: return 'Mega Node';
       case 4: return 'Giga Node';
-        defualt: return '';
+        default: return 'Node';
     }
   }
 

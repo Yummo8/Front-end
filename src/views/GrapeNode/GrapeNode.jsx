@@ -1,22 +1,19 @@
-import React, { useState, useContext, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import {useParams} from 'react-router-dom';
 import { useWallet } from 'use-wallet';
 import PageHeader from '../../components/PageHeader';
-import { Box, Button, Card, CardContent, Typography, Grid, MenuItem, Select, withStyles } from '@material-ui/core';
+import { Box, Card, CardContent, Typography, Grid, MenuItem, withStyles } from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import styled from 'styled-components';
 import Spacer from '../../components/Spacer';
 import Harvest from './components/Harvest';
 import Stake from './components/Stake';
-import useNodeText from '../../hooks/useNodeText';
 import useBank from '../../hooks/useBank';
 import useNodes from '../../hooks/useNodes';
 import useMaxPayout from '../../hooks/useMaxPayout';
 import useUserDetails from '../../hooks/useUserDetails';
 import totalNodes from '../../hooks/useTotalNodes';
 import useStatsForPool from '../../hooks/useStatsForPool';
-import {Context} from '../../contexts/GrapeFinanceProvider';
-import useGrapeStats from '../../hooks/useGrapeStats';
 import useStakedTokenPriceInDollars from '../../hooks/useStakedTokenPriceInDollars';
 import useNodePrice from '../../hooks/useNodePrice';
 import {getDisplayBalance} from '../../utils/formatBalance';
@@ -36,14 +33,10 @@ const GrapeNode = () => {
   const { bankId } = useParams();
   
   const bank = useBank(bankId);
-  const { getNodeText } = useNodeText();
   const { account } = useWallet();
-
   const classes = useStyles();
   const [poolId, setPoolId] = useState(0);
-  const LOCK_ID = 'LOCK_ID';
   const statsOnPool = useStatsForPool(bank);
-  const {grapeFinance} = useContext(Context);
   const nodes = useNodes(bank?.contract, bank?.sectionInUI, account);
   const nodePrice = useNodePrice(bank.contract, bank.poolId, bank.sectionInUI);
   const total = totalNodes(bank?.contract, bank?.sectionInUI);
@@ -61,7 +54,7 @@ const GrapeNode = () => {
   ? (
       <>
         <PageHeader icon="🏦" subtitle={''} title={bank?.name} />
-        {/* <Button onClick={setTierValues}>Set Tier Values</Button> */}
+
         <Box>
         <Alert variant="filled" severity="info">
                     Please read our <a style={{color: '#fff'}} target={'_blank'} href="https://grapefinance.gitbook.io/grape-finance-docs/unique-features/locked-staking-grape-nodes" >Node Docs & Strategy</a> in order to fully understand how our node pools work before purchasing, by partaking you accept the risks outlined in the docs & disclaimer. Sticking to the current strategy helps support the protocol which in turn helps you to continue to earn rewards!

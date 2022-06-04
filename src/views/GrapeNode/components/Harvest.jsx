@@ -2,9 +2,6 @@ import React, {useMemo} from 'react';
 import styled from 'styled-components';
 
 import {Button, Card, CardContent, Typography} from '@material-ui/core';
-// import Button from '../../../components/Button';
-// import Card from '../../../components/Card';
-// import CardContent from '../../../components/CardContent';
 import CardIcon from '../../../components/CardIcon';
 import Label from '../../../components/Label';
 import Value from '../../../components/Value';
@@ -13,7 +10,6 @@ import useHarvest from '../../../hooks/useHarvest';
 import useCompound from '../../../hooks/useCompound';
 import {getDisplayBalance} from '../../../utils/formatBalance';
 import TokenSymbol from '../../../components/TokenSymbol';
-import {Bank} from '../../../grape-finance';
 import useGrapeStats from '../../../hooks/useGrapeStats';
 import useShareStats from '../../../hooks/useWineStats';
 import useNodePrice from '../../../hooks/useNodePrice';

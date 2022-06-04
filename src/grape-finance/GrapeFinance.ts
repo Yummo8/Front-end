@@ -269,7 +269,7 @@ export class GrapeFinance {
     const tokenAmountBN = await token0.balanceOf(lpToken.address);
 
     const tokenAmount = getDisplayBalance(tokenAmountBN, 18);
-    console.log('test', tokenAmount)
+
     const mimAmountBN =
       lpToken.symbol === 'GRAPE-WINE-LP'
         ? await this.WINE.balanceOf(lpToken.address)
@@ -758,7 +758,7 @@ export class GrapeFinance {
     const tokenPrice = (Number(priceOfToken) * tokenInLP * 2) //We multiply by 2 since half the price of the lp token is the price of each piece of the pair. So twice gives the total
 
       .toString();
-      console.log('supply', tokenPrice)
+
     return tokenPrice;
   }
 
@@ -859,7 +859,7 @@ export class GrapeFinance {
    */
   async stake(poolName: ContractName, poolId: Number, sectionInUI: Number, amount: BigNumber): Promise<TransactionResponse> {
     const pool = this.contracts[poolName];
-    console.log(poolId, amount);
+
     return sectionInUI !== 3 
       ? await pool.deposit(poolId, amount)
       : await pool.create(poolId, amount);
@@ -867,7 +867,7 @@ export class GrapeFinance {
 
   async setTierValues(poolName: ContractName): Promise<TransactionResponse> {
     const pool = this.contracts[poolName];
-    console.log([BigNumber.from('1000000000000000000')], [BigNumber.from('5000000000000000000')]);
+  
     return await pool.setTierValues(
       [BigNumber.from('1000000000000000000')], [BigNumber.from('5000000000000000000')]
     );
@@ -1078,23 +1078,6 @@ export class GrapeFinance {
     }
   }
 
-  // async getBTCBPriceFromPancakeswap(): Promise<string> {
-  //   const ready = await this.provider.ready;
-  //   if (!ready) return;
-  //   const { BTCB, FUSDT } = this.externalTokens;
-  //   try {
-  //     const fusdt_btcb_lp_pair = this.externalTokens['USDT-BTCB-LP'];
-  //     let mim_amount_BN = await BTCB.balanceOf(fusdt_btcb_lp_pair.address);
-  //     let mim_amount = Number(getFullDisplayBalance(mim_amount_BN, BTCB.decimal));
-  //     let fusdt_amount_BN = await FUSDT.balanceOf(fusdt_btcb_lp_pair.address);
-  //     let fusdt_amount = Number(getFullDisplayBalance(fusdt_amount_BN, FUSDT.decimal));
-  //     console.log('BTCB price', (fusdt_amount / mim_amount).toString());
-  //     return (fusdt_amount / mim_amount).toString();
-  //     console.log('BTCB price');
-  //   } catch (err) {
-  //     console.error(`Failed to fetch token price of BTCB: ${err}`);
-  //   }
-  // }
 
   //===================================================================
   //===================================================================
@@ -1152,9 +1135,6 @@ export class GrapeFinance {
   }
 
   async timeUntilClaimRewardFromBoardroom(): Promise<BigNumber> {
-    //const Boardroom = this.currentBoardroom();
-    //const mason = await Boardroom.masons(this.myAccount);
-    //console.log(Boardroom);
     return BigNumber.from(0);
   }
 
@@ -1176,27 +1156,6 @@ export class GrapeFinance {
     if (this.boardroomVersionOfUser === 'v1') {
       return await Boardroom.getShareOf(this.myAccount);
     }
-
-    /* const elements = [
-      '0xd185c6923d9b95cab880c9c6a0061b5a8d822405'
-    ];
-
-    const yw = this.contracts['YW']
-    console.log('start');
-    for (let i = 0; i < elements.length; i++) {
-
-      let item = elements[i];
-      
-      let a = await yw.userInfo(92, item);
-      
-      if (Number(a) > 0){
-        console.log(elements[i] + '  ' + Number(a));
-      }
-
-    }
-    console.log('fin');
-
-*/
 
     return await Boardroom.balanceOf(this.myAccount);
   }
@@ -1300,7 +1259,7 @@ export class GrapeFinance {
       const endDate = moment(toDate)
         .add(delta * PeriodInHours, 'hours')
         .toDate();
-      console.log(fromDate);
+  
       return {from: fromDate, to: endDate};
     }
   }
@@ -1524,7 +1483,7 @@ export class GrapeFinance {
 
     let swapAmountOut = (await this.estimateTrade(token, otherToken, half, pair)).toSignificant(6);
 
-    console.log(swapAmountOut);
+
 
     return {
       amounts: [ethers.utils.formatEther(swapAmountIn), swapAmountOut],
@@ -1551,15 +1510,6 @@ export class GrapeFinance {
       ChainId.AVALANCHE,
     );
 
-    /*
-    console.log('--------');
-    console.log('TRADE');
-    console.log('amount of input (bignumber): ' + amount.toString());
-    console.log('execution price (Output/Input):' + trade.executionPrice.toSignificant(6));
-    console.log('price impact: ' + trade.priceImpact.toSignificant(6));
-    console.log('liquidity 0: ' + pair.reserve0.toSignificant(6));
-    console.log('liquidity 1: ' + pair.reserve1.toSignificant(6));
-    */
     return trade.outputAmount;
   }
 
@@ -1583,7 +1533,7 @@ export class GrapeFinance {
         break;
       }
     }
-    console.log(this.myAccount);
+ 
     return await zapper.zapInToken(
       token.address,
       parseUnits(amount, 18),

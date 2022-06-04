@@ -2,20 +2,16 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { Button } from '@material-ui/core';
 import ReactTooltip from 'react-tooltip';
-// import Button from '../../../components/Button'
 import Modal, { ModalProps } from '../../../components/Modal';
 import ModalActions from '../../../components/ModalActions';
 import ModalTitle from '../../../components/ModalTitle';
 import TokenInput from '../../../components/TokenInput';
 
-import { getBalance, getDisplayBalance, getFullDisplayBalance } from '../../../utils/formatBalance';
-import { BigNumber } from 'ethers';
-import { BigNumber as BigNumberJS } from 'bignumber.js';
+import { getFullDisplayBalance } from '../../../utils/formatBalance';
+
 import useNodeText from '../../../hooks/useNodeText';
 import useNodePrice from '../../../hooks/useNodePrice';
-import { Bank } from '../../../grape-finance';
-import {AddIcon, RemoveIcon} from '../../../components/icons';
-import IconButton from '../../../components/IconButton';
+
 
 const DepositModal = ({ bank, max, decimals, onConfirm, onDismiss, tokenName = '' }) => {
   const [val, setVal] = useState('');

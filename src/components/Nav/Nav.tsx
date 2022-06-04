@@ -1,4 +1,4 @@
-import React, {useMemo, useEffect} from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import {Link} from 'react-router-dom';
 import {
@@ -16,19 +16,13 @@ import {
 } from '@material-ui/core';
 
 import ListItemLink from '../ListItemLink';
-import useGrapeStats from '../../hooks/useGrapeStats';
-import useBtcStats from '../../hooks/useBtcStats';
-import useShareStats from '../../hooks/useWineStats';
 
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import {makeStyles, useTheme} from '@material-ui/core/styles';
 import AccountButton from './AccountButton';
-
 import grapeLogo from '../../assets/img/logo1.png';
-import {roundAndFormatNumber} from '../../0x';
-import TokenSymbol from '../TokenSymbol';
 
 const useStyles = makeStyles((theme) => ({
   '@global': {
@@ -140,7 +134,7 @@ const Nav = () => {
               <a
                 href="https://lianyou.io/burnforfun"
                 className={'navLink ' + classes.link}
-                rel="noopener"
+                rel="noopener noreferrer"
                 target="_blank"
               >
                 Game
@@ -148,16 +142,16 @@ const Nav = () => {
               <div className={'dropdown'}>
                 <button className={'dropbtn'}>VAULTS</button>
                 <div className={'dropdown-content'}>
-                  <a href="https://magik.farm/#/avax" className={classes.link} rel="noopener" target="_blank">
+                  <a href="https://magik.farm/#/avax" className={classes.link} rel="noopener noreferrer" target="_blank">
                     Magik
                   </a>
-                  <a href="https://froyo.farm/#/avax" className={classes.link} rel="noopener" target="_blank">
+                  <a href="https://froyo.farm/#/avax" className={classes.link} rel="noopener noreferrer" target="_blank">
                     Ice Cream
                   </a>
-                  <a href="https://app.beefy.finance/#/" className={classes.link} rel="noopener" target="_blank">
+                  <a href="https://app.beefy.finance/#/" className={classes.link} rel="noopener noreferrer" target="_blank">
                     Beefy
                   </a>
-                  <a href="https://yieldwolf.finance/avalanche" className={classes.link} rel="noopener" target="_blank">
+                  <a href="https://yieldwolf.finance/avalanche" className={classes.link} rel="noopener noreferrer" target="_blank">
                     Yield Wolf
                   </a>
                 </div>
@@ -169,7 +163,7 @@ const Nav = () => {
                   <a
                     href="https://debank.com/profile/0xEB755b81A786832705a3c0658127216eD36fE898"
                     className={classes.link}
-                    rel="noopener"
+                    rel="noopener noreferrer"
                     target="_blank"
                   >
                     Treasury
@@ -177,7 +171,7 @@ const Nav = () => {
                   <a
                     href="https://debank.com/profile/0xf29fD03Df2Cb7F81d8Ae4d10A76f8b1C898786BD"
                     className={classes.link}
-                    rel="noopener"
+                    rel="noopener noreferrer"
                     target="_blank"
                   >
                     DAO
@@ -185,7 +179,7 @@ const Nav = () => {
                   <a
                     href="https://debank.com/profile/0xa3C4C965BA6aA9382a8Edd965D13CB495F8da6F5"
                     className={classes.link}
-                    rel="noopener"
+                    rel="noopener noreferrer"
                     target="_blank"
                   >
                     Nodes Rewards
@@ -201,7 +195,7 @@ const Nav = () => {
                 <a
                     href="https://nftrade.com/assets/avalanche/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df"
                     className={classes.link}
-                    rel="noopener"
+                    rel="noopener noreferrer"
                     target="_blank"
                   >
                     Buy NFTs
@@ -234,7 +228,7 @@ const Nav = () => {
               <a
                 href="https://shop.grapefinance.app/"
                 className={'navLink ' + classes.link}
-                rel="noopener"
+                rel="noopener noreferrer"
                 target="_blank"
               >
                 Merch
@@ -242,7 +236,7 @@ const Nav = () => {
               <a
                 href="https://grapefinance.gitbook.io/grape-finance-docs/"
                 className={'navLink ' + classes.link}
-                rel="noopener"
+                rel="noopener noreferrer"
                 target="_blank"
               >
                 Docs

@@ -1,4 +1,4 @@
-import {Button, Modal, Box, Typography, TextField, InputAdornment, makeStyles} from '@material-ui/core';
+import { Modal, Box, Typography, makeStyles} from '@material-ui/core';
 import React, {useState} from 'react';
 import CloseIcon from '@material-ui/icons/Close';
 
@@ -82,10 +82,6 @@ function nFormatter(num) {
 const AprModal = ({open, handleClose, statsOnPool, coin}) => {
   const [aprAmount, setAprAmount] = useState(100);
   const classes = useStyles();
-
-  const calculateApr = (apr) => {
-    return (Number(aprAmount) * (Number(apr) / 100) + Number(aprAmount)).toFixed(2);
-  };
 
   const calculateAprGain = (apr) => {
     return (Number(aprAmount) * (Number(apr) / 100)).toFixed(2);

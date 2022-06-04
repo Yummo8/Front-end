@@ -14,24 +14,18 @@ import Harvest from './components/Harvest';
 import HarvestHermes from './components/HarvestHermes';
 import Stake from './components/Stake';
 import useBank from '../../hooks/useBank';
-import useStatsForPartner from '../../hooks/useStatsForPartner';
 import useStatsForPool from '../../hooks/useStatsForPool';
 
 import useRedeem from '../../hooks/useRedeem';
 import {Bank as BankEntity} from '../../grape-finance';
-import useGrapeFinance from '../../hooks/useGrapeFinance';
+
 import {Alert} from '@material-ui/lab';
-import LaunchCountdown from '../../components/LaunchCountdown';
-import Modal, {ModalProps} from '../../components/Modal';
-import ModalActions from '../../components/ModalActions';
-import ModalTitle from '../../components/ModalTitle';
 import useModal from '../../hooks/useModal';
 import StratModal from './components/StratModal';
 import zone1 from '../../assets/img/1.jpg';
 import zone2 from '../../assets/img/2.jpg';
 import zone3 from '../../assets/img/3.jpg';
 import wampStrat from '../../assets/img/wamp-strat.jpg';
-import hermesStrat from '../../assets/img/hermes-strat.png';
 import useCashPriceInLastTWAP from '../../hooks/useCashPriceInLastTWAP';
 import usebShareStats from '../../hooks/useWineStats';
 const useStyles = makeStyles((theme) => ({
@@ -102,13 +96,7 @@ const Bank: React.FC = () => {
     vaultUrl = 'https://app.asgarddao.fi/#/pledge';
     strat = wampStrat;
     stratText = 'Click here to see the optimal strategy for this vault';
-  } else if (bank.depositTokenName === 'HSHARE-WINE-LP') {
-    name = 'Please Unstake';
-    vaultUrl =
-      '#';
-    strat = hermesStrat;
-    stratText = 'THIS POOL HAS ENDED PLEASE UNSTAKE';
-  }
+  } 
 
   const [onPresentDeposit, onDismissDeposit] = useModal(<StratModal strat={strat} />);
 
@@ -198,39 +186,27 @@ const Bank: React.FC = () => {
 };
 
 const LPTokenHelpText: React.FC<{bank: BankEntity}> = ({bank}) => {
-  const grapeFinance = useGrapeFinance();
+
 
   let pairName: string;
   let uniswapUrl: string;
-  let vaultUrl: string;
   let exchange: string;
   if (bank.depositTokenName.includes('GRAPE-MIM')) {
     pairName = 'GRAPE-MIM pair';
     uniswapUrl =
       'https://traderjoexyz.com/pool/0x130966628846bfd36ff31a822705796e8cb8c18d/0x5541d83efad1f281571b343977648b75d95cdac2';
-    vaultUrl = '#';
-
     exchange = 'joe';
   } else if (bank.depositTokenName.includes('WINE-MIM')) {
     pairName = 'WINE-MIM pair';
     uniswapUrl =
       'https://traderjoexyz.com/pool/0x130966628846bfd36ff31a822705796e8cb8c18d/0xc55036b5348cfb45a932481744645985010d3a44';
-    vaultUrl = '#';
-
     exchange = 'joe';
   } else if (bank.depositTokenName.includes('GRAPE-WINE')) {
     pairName = 'GRAPE-WINE pair';
     uniswapUrl =
       'https://traderjoexyz.com/pool/0x5541d83efad1f281571b343977648b75d95cdac2/0xc55036b5348cfb45a932481744645985010d3a44';
-    vaultUrl = '#';
     exchange = 'joe';
-  } else if (bank.depositTokenName === 'HSHARE-WINE-LP') {
-    pairName = 'HSHARE-WINE-LP';
-    uniswapUrl =
-      'https://app.pangolin.exchange/#/add/0xC55036B5348CfB45a932481744645985010d3A44/0xfa4B6db72A650601E7Bd50a0A9f537c9E98311B2';
-    vaultUrl = '#';
-    exchange = 'Pangolin';
-  }
+  } 
   return (
     <Card>
       <CardContent>

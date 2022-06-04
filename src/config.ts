@@ -1,4 +1,3 @@
-import {ChainId} from '@pancakeswap/sdk';
 import {Configuration} from './grape-finance/config';
 import {BankInfo} from './grape-finance';
 
@@ -12,14 +11,14 @@ const configurations: {[env: string]: Configuration} = {
     deployments: require('./grape-finance/deployments/deployments.mainnet.json'),
     externalTokens: {
       WAVAX: ['0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7', 18],
-      MIM: ['0x130966628846bfd36ff31a822705796e8cb8c18d', 18],
+      MIM: ['0x130966628846BFd36ff31a822705796e8cb8C18D', 18],
       HSHARE: ['0xfa4B6db72A650601E7Bd50a0A9f537c9E98311B2', 18],
       USDC: ['0xa7d7079b0fead91f3e65f86e8915cb59c1a4c664', 6],
       'GRAPE': ['0x5541D83EFaD1f281571B343977648B75d95cdAC2', 18],
       'WINE': ['0xC55036B5348CfB45a932481744645985010d3A44', 18],
       'WAMP': ['0xd7Fdf42510566b9aEfD3F1841a1503B6678cD780', 18],
       'VOLT': ['0xf5ee578505f4D876FeF288DfD9fD5e15e9EA1318', 18],
-      'DAI': ['0xd586e7f844cea2f87f50152665bcbc2c279d8d70', 18],
+      'DAI': ['0xd586E7F844cEa2F87f50152665BCbc2C279D8d70', 18],
       'GRAPE-MIM-LP': ['0xb382247667fe8ca5327ca1fa4835ae77a9907bc8', 18],
       'GRAPE-WINE-LP': ['0xd3d477Df7f63A2623464Ff5Be6746981FdeD026F', 18],
       'GRAPE-MIM-SW': ['0x9076C15D7b2297723ecEAC17419D506AE320CbF1', 18],
@@ -40,14 +39,14 @@ const configurations: {[env: string]: Configuration} = {
     deployments: require('./grape-finance/deployments/deployments.mainnet.json'),
     externalTokens: {
       WAVAX: ['0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7', 18],
-      MIM: ['0x130966628846bfd36ff31a822705796e8cb8c18d', 18],
+      MIM: ['0x130966628846BFd36ff31a822705796e8cb8C18D', 18],
       HSHARE: ['0xfa4B6db72A650601E7Bd50a0A9f537c9E98311B2', 18],
       USDC: ['0xa7d7079b0fead91f3e65f86e8915cb59c1a4c664', 6],
       'GRAPE': ['0x5541D83EFaD1f281571B343977648B75d95cdAC2', 18],
       'WINE': ['0xC55036B5348CfB45a932481744645985010d3A44', 18],
       'WAMP': ['0xd7Fdf42510566b9aEfD3F1841a1503B6678cD780', 18],
       'VOLT': ['0xf5ee578505f4D876FeF288DfD9fD5e15e9EA1318', 18],
-      'DAI': ['0xd586e7f844cea2f87f50152665bcbc2c279d8d70', 18],
+      'DAI': ['0xd586E7F844cEa2F87f50152665BCbc2C279D8d70', 18],
       'GRAPE-MIM-LP': ['0xb382247667fe8ca5327ca1fa4835ae77a9907bc8', 18],
       'GRAPE-MIM-SW': ['0x9076C15D7b2297723ecEAC17419D506AE320CbF1', 18],
       'WINE-MIM-LP': ['0x00cB5b42684DA62909665d8151fF80D1567722c3', 18],
@@ -167,7 +166,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     sort: 0,
     closedForStaking: false,
     multi: '75',
-    buyLink: 'https://traderjoexyz.com/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0x5541d83efad1f281571b343977648b75d95cdac2#/',
+    buyLink: 'https://traderjoexyz.com/trade?inputCurrency=0x130966628846BFd36ff31a822705796e8cb8C18D&outputCurrency=0x5541D83EFaD1f281571B343977648B75d95cdAC2#/',
   },
   
   WineMimLPWineRewardPool: {
@@ -181,7 +180,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     sort: 1,
     closedForStaking: false,
     multi: '17.56',
-    buyLink: 'https://traderjoexyz.com/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0xc55036b5348cfb45a932481744645985010d3a44#/',
+    buyLink: 'https://traderjoexyz.com/trade?inputCurrency=0x130966628846BFd36ff31a822705796e8cb8C18D&outputCurrency=0xc55036b5348cfb45a932481744645985010d3a44#/',
   },
   GrapeWineLPWineRewardPool: {
     name: 'Earn WINE with GRAPE-WINE LP',
@@ -194,7 +193,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     sort: 2,
     closedForStaking: false,
     multi: '3.37',
-    buyLink: 'https://traderjoexyz.com/trade?inputCurrency=0xC55036B5348CfB45a932481744645985010d3A44&outputCurrency=0x5541d83efad1f281571b343977648b75d95cdac2#/',
+    buyLink: 'https://traderjoexyz.com/trade?inputCurrency=0xC55036B5348CfB45a932481744645985010d3A44&outputCurrency=0x5541D83EFaD1f281571B343977648B75d95cdAC2#/',
   },
   GrapeStaking: {
     name: 'Earn WINE with GRAPE',
@@ -207,7 +206,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     sort: 3,
     closedForStaking: false,
     multi: '10.8',
-    buyLink: 'https://traderjoexyz.com/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0x5541d83efad1f281571b343977648b75d95cdac2#/',
+    buyLink: 'https://traderjoexyz.com/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0x5541D83EFaD1f281571B343977648B75d95cdAC2#/',
   },
   WampStaking: {
     name: 'Earn WINE with WAMP',

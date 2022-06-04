@@ -1,1 +1,1 @@
-export {default} from './Bond';
+export {default} from './Strategies';

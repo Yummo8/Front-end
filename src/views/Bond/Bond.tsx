@@ -9,7 +9,6 @@ import ExchangeCard from './components/ExchangeCard';
 import styled from 'styled-components';
 import Spacer from '../../components/Spacer';
 import useBondStats from '../../hooks/useBondStats';
-import useGrapeStats from '../../hooks/useGrapeStats';
 import useGrapeFinance from '../../hooks/useGrapeFinance';
 import useCashPriceInLastTWAP from '../../hooks/useCashPriceInLastTWAP';
 import {useTransactionAdder} from '../../state/transactions/hooks';
@@ -17,7 +16,7 @@ import ExchangeStat from './components/ExchangeStat';
 import useTokenBalance from '../../hooks/useTokenBalance';
 import useBondsPurchasable from '../../hooks/useBondsPurchasable';
 import {getDisplayBalance} from '../../utils/formatBalance';
-import { BOND_REDEEM_PRICE, BOND_REDEEM_PRICE_BN, DECIMALS_18 } from '../../grape-finance/constants';
+import { BOND_REDEEM_PRICE, BOND_REDEEM_PRICE_BN } from '../../grape-finance/constants';
 import { Alert } from '@material-ui/lab';
 import { roundAndFormatNumber } from '../../0x';
 
@@ -37,14 +36,12 @@ const Bond: React.FC = () => {
   const grapeFinance = useGrapeFinance();
   const addTransaction = useTransactionAdder();
   const bondStat = useBondStats();
-  const grapeStat = useGrapeStats();
   const cashPrice = useCashPriceInLastTWAP();
-
 
   const bondsPurchasable = useBondsPurchasable();
 
   const bondBalance = useTokenBalance(grapeFinance?.GBOND);
-  //const scalingFactor = useMemo(() => (cashPrice ? Number(cashPrice) : null), [cashPrice]);
+
 
   const handleBuyBonds = useCallback(
     async (amount: string) => {
@@ -66,8 +63,6 @@ const Bond: React.FC = () => {
 
   const isBondRedeemable = useMemo(() => cashPrice.gt(BOND_REDEEM_PRICE_BN), [cashPrice]);
   const isBondPurchasable = useMemo(() => Number(bondStat?.tokenInFtm) < 1.01, [bondStat]);
-  
-  const isBondPayingPremium = useMemo(() => Number(bondStat?.tokenInFtm) >= 1.1, [bondStat]);
   const grapeReserves = useMemo(() => (Number(bondStat?.treasuryGrapes) / 1e18).toFixed(0), [bondStat]);
   const bondSupply = useMemo(() => bondStat?.circulatingSupply, [bondStat]);
   const bondScale = (Number(cashPrice) / 1e18).toFixed(2); 

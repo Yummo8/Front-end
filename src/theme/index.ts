@@ -1,4 +1,4 @@
-import {black, purple, teal, grey, red, white, yellow, newNavy} from './colors';
+import {black, teal, grey, red, white, yellow, newNavy} from './colors';
 
 const theme = {
   borderRadius: 13,
