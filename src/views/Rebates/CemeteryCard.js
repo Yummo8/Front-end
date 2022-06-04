@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Box, Button, Card, CardActions, CardContent, Typography, Grid } from '@material-ui/core';
 import useRebateTreasury from "../../hooks/useRebateTreasury"
 import useApprove, { ApprovalState } from '../../hooks/useApprove';

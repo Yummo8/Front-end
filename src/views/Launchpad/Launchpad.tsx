@@ -43,7 +43,7 @@ const Launchpad: React.FC = () => {
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#000' }}>We're happy to announce our partnership with Asgard! They are an unique GameFi DAO building an exciting MMORPG P2E game.</p>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#000' }}>WINE holders will be able to pledge their tokens to the Asgard DAO in return for VOLT, this can then be locked in their forge to get AMP & then wrapped. The wrapped token WAMP can then be staked in the Vineyard to earn more WINE!</p>
                   <div style={{width: '350px', margin: '0 auto'}}>
-                        <a href='https://asgarddao.fi/' target='_blank'>
+                        <a href='https://asgarddao.fi/' rel="noopener noreferrer" target='_blank'>
                         <img alt="Asgard DAO" style={{ width: '350px'}} src={asgard} />
                         </a>
                       </div>

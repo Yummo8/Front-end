@@ -27,7 +27,6 @@ import useClaimRewardCheck from '../../hooks/boardroom/useClaimRewardCheck';
 import useWithdrawCheck from '../../hooks/boardroom/useWithdrawCheck';
 import ProgressCountdown from './components/ProgressCountdown';
 import {createGlobalStyle} from 'styled-components';
-import LaunchCountdown from '../../components/LaunchCountdown';
 import HomeImage from '../../assets/img/background.jpg';
 import usebShareStats from '../../hooks/useWineStats';
 

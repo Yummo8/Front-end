@@ -3,7 +3,6 @@ import {
   CurrencyAmount,
   Fetcher,
   Pair,
-  Price,
   Route,
   Token,
   TokenAmount,
@@ -22,12 +21,11 @@ import ERC20, {LPERC20} from './ERC20';
 import {getFullDisplayBalance, getDisplayBalance} from '../utils/formatBalance';
 import {getDefaultProvider} from '../utils/provider';
 
-import IUniswapV2PairABI from './IUniswapV2Pair.abi.json';
-import config, {bankDefinitions} from '../config';
+import {bankDefinitions} from '../config';
 import moment from 'moment';
 import {parseUnits} from 'ethers/lib/utils';
 import {MIM_TICKER, SPOOKY_ROUTER_ADDR, GRAPE_TICKER, WINE_TICKER} from '../utils/constants';
-import {Console} from 'console';
+
 /**
  * An API module of Grape Finance contracts.
  * All contract-interacting domain logic should be defined in here.
@@ -50,7 +48,7 @@ export class GrapeFinance {
   MIM: ERC20;
   WAMP: ERC20;
   VOLT: ERC20;
-
+  SW: ERC20;
   DAI: ERC20;
   HSHARE: ERC20;
 
@@ -81,7 +79,7 @@ export class GrapeFinance {
     this.MIM = this.externalTokens['MIM'];
     this.WAMP = this.externalTokens['WAMP'];
     this.VOLT = this.externalTokens['VOLT'];
-
+    this.SW = this.externalTokens['GRAPE-MIM-SW'];
     this.DAI = this.externalTokens['DAI'];
     this.HSHARE = this.externalTokens['HSHARE'];
 
@@ -136,17 +134,9 @@ export class GrapeFinance {
 
     const minusAirdrop = getDisplayBalance(grapeCirculatingSupply, this.GRAPE.decimal, 0);
 
-    const priceInBNB = await this.getTokenPriceFromPancakeswap(this.GRAPE);
-
-    const priceInBNBstring = priceInBNB.toString();
-
     const priceInBTC = await this.getTokenPriceFromPancakeswapBTC(this.GRAPE);
 
-    const priceOfOneBNB = await this.getWBNBPriceFromPancakeswap();
-
     const priceOfOneBTC = 1;
-
-    const priceInDollars = await this.getTokenPriceFromPancakeswapGRAPEUSD();
 
     const priceOfGrapeInDollars = (Number(priceInBTC) * Number(priceOfOneBTC)).toFixed(2);
 
@@ -167,20 +157,7 @@ export class GrapeFinance {
 
     const minusAirdrop = getDisplayBalance(grapeCirculatingSupply, this.GRAPE.decimal, 0);
 
-    const priceInBNB = await this.getTokenPriceFromPancakeswap(this.GRAPE);
-
-    const priceInBNBstring = priceInBNB.toString();
-
-    const priceInBTC = await this.getTokenPriceFromPancakeswapBTC(this.GRAPE);
     const a = await this.getTokenPriceFromPangolin(this.HSHARE);
-
-    const priceOfOneBNB = await this.getWBNBPriceFromPancakeswap();
-
-    const priceOfOneBTC = 1;
-
-    const priceInDollars = await this.getTokenPriceFromPancakeswapGRAPEUSD();
-
-    const priceOfGrapeInDollars = (Number(priceInBTC) * Number(priceOfOneBTC)).toFixed(2);
 
     return {
       tokenInFtm: a.toString(),
@@ -339,8 +316,6 @@ export class GrapeFinance {
     const bondGrapeRatioBN = await Treasury.getBondPremiumRate();
 
     const modifier = bondGrapeRatioBN / 1e18 > 1 ? bondGrapeRatioBN / 1e18 : 1;
-
-    const bondPriceInBNB = (Number(grapeStat.tokenInFtm) * modifier).toFixed(2);
 
     const priceOfBBondInDollars = (Number(grapeStat.priceInDollars) * modifier).toFixed(2);
     const supply = await this.GBOND.displayedTotalSupply();
@@ -551,12 +526,6 @@ export class GrapeFinance {
 
     let tokenPerHour = tokenPerSecond1.mul(60).mul(60);
     let tokenPerHour2 = tokenPerSecond2.mul(60).mul(60);
-
-    const totalRewardPricePerYear =
-      Number(stat.priceInDollars) * Number(getDisplayBalance(tokenPerHour.mul(24).mul(365)));
-
-    const totalRewardPricePerYear2 =
-      Number(hermes.priceInDollars) * Number(getDisplayBalance(tokenPerHour2.mul(24).mul(365)));
 
     const totalRewardPricePerDay = Number(stat.priceInDollars) * Number(getDisplayBalance(tokenPerHour2.mul(24)));
     const totalRewardPricePerDay2 = Number(hermes.priceInDollars) * Number(getDisplayBalance(tokenPerHour.mul(24)));
@@ -796,7 +765,10 @@ export class GrapeFinance {
       if (earnTokenName === 'WINE' && poolName.includes('Node')) {
         return await pool.getTotalRewards(account);
       }
-      if (earnTokenName === 'GRAPE-MIM-LP' || earnTokenName === 'GRAPE-MIM-SW' && poolName.includes('Node')) {
+      if (earnTokenName === 'GRAPE-MIM-LP' && poolName.includes('Node')) {
+        return await pool.getTotalRewards(account);
+      }
+      if (earnTokenName === 'GRAPE-MIM-SW' && poolName.includes('Node')) {
         return await pool.getTotalRewards(account);
       }
       if (earnTokenName === 'GRAPE') {
@@ -1282,6 +1254,11 @@ export class GrapeFinance {
         asset = this.GBOND;
         assetUrl =
           'https://raw.githubusercontent.com/grapefi/front-end/77fa78f2b05b9fecfc0ebd43aef4560c0c00890b/src/assets/img/gbond.png';
+      } else if (assetName === 'SW') {
+        asset = this.SW;
+        asset.symbol = 'GRAPE-SW-LP';
+        assetUrl =    
+          'https://raw.githubusercontent.com/grapefi/front-end/main/public/grape-mim.png';
       }
       await ethereum.request({
         method: 'wallet_watchAsset',
@@ -1414,7 +1391,6 @@ export class GrapeFinance {
 
     // WARNING: SPAGHETTI CODE AHEAD
 
-    const {zapper} = this.contracts;
     const lpToken = this.externalLPs[lpName];
 
     let token: ERC20;

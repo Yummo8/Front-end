@@ -83,11 +83,6 @@ const Nav = () => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  //const grapeStats = useGrapeStats();
-  //const btcStats = useBtcStats();
-  //const shareStats = useShareStats();
-
-  const [connected, setConnected] = React.useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);

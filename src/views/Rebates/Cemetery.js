@@ -1,7 +1,6 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { useWallet } from 'use-wallet';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
-import Bank from '../Bank';
 import { makeStyles } from '@material-ui/core/styles';
 import Web3 from "web3"
 
@@ -13,7 +12,6 @@ import UnlockWallet from '../../components/UnlockWallet';
 import Page from '../../components/Page';
 import CemeteryCard from './CemeteryCard';
 import { createGlobalStyle } from 'styled-components';
-import useCashPriceInEstimatedTWAP from '../../hooks/useCashPriceInEstimatedTWAP';
 
 import useBanks from '../../hooks/useBanks';
 import useRebateTreasury from "../../hooks/useRebateTreasury"
@@ -47,9 +45,7 @@ const Cemetery = () => {
   const [banks] = useBanks();
   const { path } = useRouteMatch();
   const { account } = useWallet();
-  const cashStat = useCashPriceInEstimatedTWAP();
   const tombStats = useTombStats();
-  const scalingFactor = useMemo(() => (cashStat ? Number(cashStat.priceInDollars).toFixed(4) : null), [cashStat]);
   const activeBanks = banks.filter((bank) => !bank.finished);
 
 

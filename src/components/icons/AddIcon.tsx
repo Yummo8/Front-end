@@ -1,10 +1,10 @@
-import React, {useContext} from 'react';
-import {ThemeContext} from 'styled-components';
+import React from 'react';
+
 
 import Icon, {IconProps} from '../Icon';
 
 const AddIcon: React.FC<IconProps> = ({color}) => {
-  const {color: themeColor} = useContext(ThemeContext);
+
   return (
     <Icon>
       <svg height="24" viewBox="0 0 24 24" width="24">

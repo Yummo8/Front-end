@@ -17,12 +17,12 @@ import useStakedTokenPriceInDollars from '../../../hooks/useStakedTokenPriceInDo
 import useTokenBalance from '../../../hooks/useTokenBalance';
 import {getDisplayBalance} from '../../../utils/formatBalance';
 import TokenSymbol from '../../../components/TokenSymbol';
-
-
+import MetamaskFox from '../../../assets/img/metamask-fox.svg';
+import useGrapeFinance from '../../../hooks/useGrapeFinance';
 
 const Stake = ({bank}) => {
   const [approveStatus, approve] = useApprove(bank.depositToken, bank.address);
-
+  const grapeFinance = useGrapeFinance();
   const tokenBalance = useTokenBalance(bank.depositToken);
   const nodePrice = useNodePrice(bank.contract, bank.poolId, bank.sectionInUI);
   const stakedTokenPriceInDollars = useStakedTokenPriceInDollars(bank.depositTokenName, bank.depositToken);
@@ -55,9 +55,19 @@ const Stake = ({bank}) => {
 
   return (
     <Card>
-      <CardContent>
-        <StyledCardContentInner>
-          <StyledCardHeader>
+      <CardContent>  
+      {bank.depositTokenName === 'GRAPE-MIM-SW' ? <Button
+              onClick={() => {
+                grapeFinance.watchAssetInMetamask('SW');
+              }}
+              style={{ position: 'relative', top: '0px', border: '0px grey solid' }}
+            >
+              {' '}
+              <b>+</b>&nbsp;&nbsp;
+              <img alt="metamask fox" style={{ width: '20px' }} src={MetamaskFox} />
+            </Button> : null}    
+        <StyledCardContentInner>         
+          <StyledCardHeader>        
             <CardIcon>
               <TokenSymbol symbol={'GNODE'} size={54} />
             </CardIcon>

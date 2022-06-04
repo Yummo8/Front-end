@@ -3,20 +3,15 @@ import styled from 'styled-components';
 
 import {Button, Card} from '@material-ui/core';
 
-// import Button from '../../../components/Button';
-// import Card from '../../../components/Card';
+
 import CardContent from '../../../components/CardContent';
-import useGrapeFinance from '../../../hooks/useGrapeFinance';
+
 import Label from '../../../components/Label';
 import TokenSymbol from '../../../components/TokenSymbol';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faArrowRight} from '@fortawesome/free-solid-svg-icons';
 import useModal from '../../../hooks/useModal';
 import ExchangeModal from './ExchangeModal';
 import ERC20 from '../../../grape-finance/ERC20';
 import useTokenBalance from '../../../hooks/useTokenBalance';
-import useApprove, {ApprovalState} from '../../../hooks/useApprove';
-import useCatchError from '../../../hooks/useCatchError';
 
 interface ExchangeCardProps {
   action: string;
@@ -41,7 +36,7 @@ const ExchangeCard: React.FC<ExchangeCardProps> = ({
   disabled = false,
   disabledDescription,
 }) => {
-  const catchError = useCatchError();
+ 
 
   const balance = useTokenBalance(fromToken);
   const [onPresent, onDismiss] = useModal(
@@ -114,12 +109,6 @@ const StyledExchanger = styled.div`
   margin-bottom: ${(props) => props.theme.spacing[5]}px;
 `;
 
-const StyledExchangeArrow = styled.div`
-  font-size: 20px;
-  padding-left: ${(props) => props.theme.spacing[3]}px;
-  padding-right: ${(props) => props.theme.spacing[3]}px;
-  padding-bottom: ${(props) => props.theme.spacing[4]}px;
-`;
 
 const StyledToken = styled.div`
   align-items: center;

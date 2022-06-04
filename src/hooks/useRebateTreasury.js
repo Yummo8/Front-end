@@ -9,7 +9,7 @@ const RebateTreasury = new web3.eth.Contract(RebateTreasuryABI, "0xde18bD8EC7769
 const Threeomb = new web3.eth.Contract(ERC20ABI, "0xC55036B5348CfB45a932481744645985010d3A44")
 
 const assetList = [
-    "0x130966628846bfd36ff31a822705796e8cb8c18d", //MIM
+    "0x130966628846BFd36ff31a822705796e8cb8C18D", //MIM
     "0xb382247667fe8ca5327ca1fa4835ae77a9907bc8", //GRAPE-MIM LP
     "0x00cB5b42684DA62909665d8151fF80D1567722c3" //WINE-MIM LP
 ]

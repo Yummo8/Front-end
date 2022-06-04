@@ -1,8 +1,8 @@
-import React, { useState, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import {useParams} from 'react-router-dom';
 import { useWallet } from 'use-wallet';
 import PageHeader from '../../components/PageHeader';
-import { Box, Card, CardContent, Typography, Grid, MenuItem, withStyles } from '@material-ui/core';
+import { Box, Card, CardContent, Typography, Grid, Button } from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import styled from 'styled-components';
 import Spacer from '../../components/Spacer';
@@ -31,11 +31,10 @@ const useStyles = makeStyles((theme) => ({
 
 const GrapeNode = () => {
   const { bankId } = useParams();
-  
+
   const bank = useBank(bankId);
   const { account } = useWallet();
   const classes = useStyles();
-  const [poolId, setPoolId] = useState(0);
   const statsOnPool = useStatsForPool(bank);
   const nodes = useNodes(bank?.contract, bank?.sectionInUI, account);
   const nodePrice = useNodePrice(bank.contract, bank.poolId, bank.sectionInUI);
@@ -57,7 +56,7 @@ const GrapeNode = () => {
 
         <Box>
         <Alert variant="filled" severity="info">
-                    Please read our <a style={{color: '#fff'}} target={'_blank'} href="https://grapefinance.gitbook.io/grape-finance-docs/unique-features/locked-staking-grape-nodes" >Node Docs & Strategy</a> in order to fully understand how our node pools work before purchasing, by partaking you accept the risks outlined in the docs & disclaimer. Sticking to the current strategy helps support the protocol which in turn helps you to continue to earn rewards!
+                    Please read our <a style={{color: '#fff'}} rel="noopener noreferrer" target={'_blank'} href="https://grapefinance.gitbook.io/grape-finance-docs/unique-features/locked-staking-grape-nodes" >Node Docs & Strategy</a> in order to fully understand how our node pools work before purchasing, by partaking you accept the risks outlined in the docs & disclaimer. Sticking to the current strategy helps support the protocol which in turn helps you to continue to earn rewards!
                   </Alert>
           <Grid container justify="center" spacing={2} style={{marginBottom: '50px', marginTop: '20px'}}>
           
@@ -129,25 +128,28 @@ const GrapeNode = () => {
         </Box>
 
         <Box mt={5}>
+        
           <StyledBank>
             <StyledCardsWrapper>
               <StyledCardWrapper>
+       
                 <Harvest bank={bank} />
               </StyledCardWrapper>
               <Spacer />
               <StyledCardWrapper>{<Stake bank={bank} />}</StyledCardWrapper>
             </StyledCardsWrapper>
-            <Spacer size="lg" />
+            <Spacer size="lg" />  
            {bank.depositTokenName === 'GRAPE-MIM-SW' ?
            <Card>
             <CardContent >
-              <StyledLink href={'https://www.swapsicle.io/add/0x5541D83EFaD1f281571B343977648B75d95cdAC2/0x130966628846BFd36ff31a822705796e8cb8C18D'} target="_blank">
+              <StyledLink href={'https://www.swapsicle.io/add/0x5541D83EFaD1f281571B343977648B75d95cdAC2/0x130966628846BFd36ff31a822705796e8cb8C18D'} rel="noopener noreferrer" target="_blank">
                 <span style={{color: '#fff'}}>
                   Provide liquidity for GRAPE-MIM on Swapsicle
-                </span>
+                </span>     
               </StyledLink>
             </CardContent>
-          </Card>: null }
+          </Card> 
+       : null }
           </StyledBank>      
         </Box>    
         
@@ -206,38 +208,5 @@ const Center = styled.div`
   justify-content: center;
 `;
 
-const StyledOutline = styled.div`
-  background: #1d48b6;
-  background-size: 300% 300%;
-  border-radius: 0px;
-  filter: blur(8px);
-  position: absolute;
-  top: -6px;
-  right: -6px;
-  bottom: -6px;
-  left: -6px;
-  z-index: -1;
-`;
-
-const StyledOutlineWrapper = styled.div`    
-    position: relative;
-    background: #08090d;
-    border-radius: 0px;
-    box-shadow: 0px 2px 12px -8px rgba(25, 19, 38, 0.1), 0px 1px 1px rgba(25, 19, 38, 0.05)
-`;
-
-const StyledMenuItem = withStyles({
-  root: {
-    backgroundColor: 'white',
-    color: '#2c2560',
-    '&:hover': {
-      backgroundColor: 'grey',
-      color: '#2c2560',
-    },
-    selected: {
-      backgroundColor: 'black',
-    },
-  },
-})(MenuItem);
 
 export default GrapeNode;

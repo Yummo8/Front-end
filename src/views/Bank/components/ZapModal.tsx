@@ -1,6 +1,6 @@
 import React, {useState, useMemo} from 'react';
 
-import {Button, Select, MenuItem, InputLabel, Typography, withStyles} from '@material-ui/core';
+import {Button, Select, MenuItem, InputLabel, withStyles} from '@material-ui/core';
 // import Button from '../../../components/Button'
 import Modal, {ModalProps} from '../../../components/Modal';
 import ModalActions from '../../../components/ModalActions';
@@ -13,7 +13,6 @@ import Label from '../../../components/Label';
 import useLpStats from '../../../hooks/useLpStats';
 import useTokenBalance from '../../../hooks/useTokenBalance';
 import useGrapeFinance from '../../../hooks/useGrapeFinance';
-import {useWallet} from 'use-wallet';
 import useApproveZapper, {ApprovalState} from '../../../hooks/useApproveZapper';
 import {GRAPE_TICKER, WINE_TICKER, MIM_TICKER} from '../../../utils/constants';
 import {Alert} from '@material-ui/lab';

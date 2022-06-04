@@ -1,7 +1,7 @@
 import React, {useCallback, useMemo} from 'react';
 import Page from '../../components/Page';
 import {createGlobalStyle} from 'styled-components';
-import { Switch, useRouteMatch} from 'react-router-dom';
+import { Switch} from 'react-router-dom';
 import {useWallet} from 'use-wallet';
 import UnlockWallet from '../../components/UnlockWallet';
 import ExchangeCard from './components/ExchangeCard';
@@ -12,7 +12,6 @@ import {useTransactionAdder} from '../../state/transactions/hooks';
 import HomeImage from '../../assets/img/background.jpg';
 import Collage from '../../assets/img/collage.jpg';
 import { Card,  Grid } from '@material-ui/core';
-import {makeStyles} from '@material-ui/core/styles';
 import LaunchCountdown from '../../components/LaunchCountdown';
 
 const BackgroundImage = createGlobalStyle`
@@ -23,40 +22,6 @@ const BackgroundImage = createGlobalStyle`
   }
 `;
 
-
-const useStyles = makeStyles((theme) => ({
-  footer: {
-    position: 'absolute',
-    bottom: '0',
-    paddingTop: '15px',
-    paddingBottom: '15px',
-    width: '100%',
-    color: '#fff',
-    backgroundColor: 'rgba(0,0,0,0)',
-    textAlign: 'center',
-    height: '1.3rem',
-    fontFamily: 'superstar',
-      [theme.breakpoints.down('xs')]: {
-      display: 'none',
-    },
-  },
-  link: {
-    width: '24px',
-    height: '24px',
-    display: 'inline',
-    marginLeft: '20px',
-  },
-
-  img: {
-    width: '24px',
-    height: '24px',
-  },
-  gridItem: {
-    height: '100%',
-    [theme.breakpoints.up('md')]: {
-      height: '90px',
-    }},
-}));
 
 const NFTRaffle: React.FC = () => {
 
@@ -112,7 +77,7 @@ const NFTRaffle: React.FC = () => {
         2nd- Picks 2 NFTs from reward pool <br></br>
         3rd- Picks 1 NFT from reward pool </p> 
         
-        <Grid container justify="center" spacing={3} style={{marginTop: '10px', marginBottom: '20px'}}><img style={{width: '450px'}} src={Collage}/></Grid>
+        <Grid container justify="center" spacing={3} style={{marginTop: '10px', marginBottom: '20px'}}><img alt='NFT Collage' style={{width: '450px'}} src={Collage}/></Grid>
 
         <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>Many thanks to our awesome partners for donating NFTs!<br></br>
         <a target={'_blank'} rel="noopener noreferrer" href={'https://www.eltacofinance.com/'}>El Taco Finance</a><br></br>
@@ -183,16 +148,5 @@ const StyledCardWrapper = styled.div`
   }
 `;
 
-const StyledStatsWrapper = styled.div`
-  display: flex;
-  flex: 0.8;
-  margin: 0 20px;
-  flex-direction: column;
-
-  @media (max-width: 768px) {
-    width: 80%;
-    margin: 16px 0;
-  }
-`;
 
 export default NFTRaffle;

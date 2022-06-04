@@ -1,10 +1,10 @@
-import React, {useContext} from 'react';
-import {ThemeContext} from 'styled-components';
+import React from 'react';
+
 
 import Icon, {IconProps} from '../Icon';
 
 const RemoveIcon: React.FC<IconProps> = ({color}) => {
-  const {color: themeColor} = useContext(ThemeContext);
+
   return (
     <Icon>
       <svg viewBox="0 0 24 24" fill={color ? '#fff' : '#fff'} width="18px" height="18px">

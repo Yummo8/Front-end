@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import useGrapeFinance from './useGrapeFinance';
 import {TokenStat} from '../grape-finance/types';
 import useRefresh from './useRefresh';
-import useWallet from 'use-wallet';
+
 const useRaffleStats = (account: string, raffleAddress: string) => {
   const [stat, setStat] = useState<TokenStat>();
   const {fastRefresh} = useRefresh();

@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Bank: React.FC = () => {
   useEffect(() => window.scrollTo(0, 0));
-  const date = new Date('2022-1-31 12:00:00Z');
+
   const classes = useStyles();
   // @ts-ignore
   const {bankId} = useParams();
@@ -109,7 +109,7 @@ const Bank: React.FC = () => {
   
             <Alert variant="filled">
               {' '}
-              <a href={vaultUrl} target={'_blank'}>
+              <a href={vaultUrl} target={'_blank'} rel="noopener noreferrer">
                 <span style={{color: '#fff'}}>{name}</span>
               </a>
             </Alert>
@@ -210,7 +210,7 @@ const LPTokenHelpText: React.FC<{bank: BankEntity}> = ({bank}) => {
   return (
     <Card>
       <CardContent>
-        <StyledLink href={uniswapUrl} target="_blank">
+        <StyledLink href={uniswapUrl} target="_blank" rel="noopener noreferrer">
           <span style={{color: '#fff'}}>
             Provide liquidity for {pairName} on {exchange}
           </span>

@@ -1,22 +1,12 @@
-import React, {useMemo} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-import {Button, Card, CardContent, Typography, Grid, Box} from '@material-ui/core';
-// import Button from '../../../components/Button';
-// import Card from '../../../components/Card';
-// import CardContent from '../../../components/CardContent';
-import CardIcon from '../../../components/CardIcon';
-import Label from '../../../components/Label';
+import {Button, Card, CardContent, Typography, Grid} from '@material-ui/core';
+
 import Value from '../../../components/Value';
 import useEarnings from '../../../hooks/useEarnings';
 import useHarvest from '../../../hooks/useHarvest';
-
-import {getDisplayBalance} from '../../../utils/formatBalance';
-import TokenSymbol from '../../../components/TokenSymbol';
 import {Bank} from '../../../grape-finance';
-import useGrapeStats from '../../../hooks/useGrapeStats';
-import useHermesStats from '../../../hooks/useHermesStats';
-import useShareStats from '../../../hooks/useWineStats';
 import WineImage from '../../../assets/img/gshare.png';
 import HshareImage from '../../../assets/img/hshare.png';
 interface HarvestProps {
@@ -26,25 +16,9 @@ interface HarvestProps {
 const Harvest: React.FC<HarvestProps> = ({bank}) => {
 
   const earnings = useEarnings(bank.contract, bank.earnTokenName, bank.poolId);
-  const earnings2 = useEarnings(bank.contract, 'HSHARE', bank.poolId);
-
   const {onReward} = useHarvest(bank);
-  const hermesStats = useHermesStats();
-  const tShareStats = useShareStats();
   const tokenName = 'WINE';
   const tokenName2 = 'HSHARE';
-  //const tokenStats = bank.earnTokenName === 'WINE' ? tShareStats : hermesStats;
-
-  const tokenPriceInDollars = useMemo(
-    () => (tShareStats ? Number(tShareStats.priceInDollars).toFixed(2) : null),
-    [tShareStats],
-  );
-  const tokenPriceInDollars2 = useMemo(
-    () => (hermesStats ? Number(hermesStats.priceInDollars).toFixed(2) : null),
-    [hermesStats],
-  );
-  const earnedInDollars = (Number(tokenPriceInDollars) * Number(getDisplayBalance(earnings))).toFixed(2);
-  const earnedInDollars2 = (Number(tokenPriceInDollars2) * Number(getDisplayBalance(earnings2))).toFixed(2);
 
   return (
     <Card>
@@ -57,7 +31,7 @@ const Harvest: React.FC<HarvestProps> = ({bank}) => {
       <Grid item xs={12} sm={12} lg={6}>  
   
         <div style={{width: '70px', margin:'0 auto'}}>
-         <img src={WineImage} width={'70px'} style={{width: '70px', margin:'0 auto'}}/>
+         <img alt='hshare logo' src={WineImage} width={'70px'} style={{width: '70px', margin:'0 auto'}}/>
          </div>
     
       <Typography style={{textTransform: 'uppercase', color: '#930993',textAlign:'center'}}>  
@@ -69,7 +43,7 @@ const Harvest: React.FC<HarvestProps> = ({bank}) => {
           </Grid>
           <Grid item xs={12} sm={12} lg={6}>  
           <div style={{width: '97px', margin:'0 auto'}}>
-         <img src={HshareImage} width={'97px'}/>
+         <img alt='hshare logo' src={HshareImage} width={'97px'}/>
          </div>
           <Typography style={{textTransform: 'uppercase', color: '#930993',textAlign:'center'}}>  
             <Value value={'0'} />

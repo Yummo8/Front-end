@@ -5,7 +5,6 @@ import { Switch} from 'react-router-dom';
 
 import Chart from '../../components/Chart';
 
-import styled from 'styled-components';
 import HomeImage from '../../assets/img/background.jpg';
 import { Grid , Container } from '@material-ui/core';
 
