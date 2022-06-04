@@ -21,6 +21,7 @@ import useStakedTokenPriceInDollars from '../../hooks/useStakedTokenPriceInDolla
 import useNodePrice from '../../hooks/useNodePrice';
 import {getDisplayBalance} from '../../utils/formatBalance';
 import {Alert} from '@material-ui/lab';
+import useDailyDrip from '../../hooks/useDailyDrip';
 
 const useStyles = makeStyles((theme) => ({
   gridItem: {
@@ -47,6 +48,7 @@ const GrapeNode = () => {
   const nodePrice = useNodePrice(bank.contract, bank.poolId, bank.sectionInUI);
   const total = totalNodes(bank?.contract, bank?.sectionInUI);
   const max = useMaxPayout(bank?.contract, bank?.sectionInUI, account);
+  const daily = useDailyDrip(bank?.contract, bank?.sectionInUI, account);
   const userDetails = useUserDetails(bank?.contract, bank?.sectionInUI, account);
   const stakedTokenPriceInDollars = useStakedTokenPriceInDollars(bank.depositTokenName, bank.depositToken);
 
@@ -70,7 +72,7 @@ const GrapeNode = () => {
             
                 <Card className={classes.gridItem}>
                   <CardContent style={{ textAlign: 'center' }}>
-                    <Typography style={{color: '#ccf'}}>Your Nodes | TVL</Typography>
+                    <Typography style={{color: '#ccf'}}>Your Nodes | Value</Typography>
                     <Typography>
                       {
                         nodes[0] &&
@@ -89,6 +91,14 @@ const GrapeNode = () => {
                 </Card>
          
             </Grid>
+            <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
+              <Card className={classes.gridItem}>
+                <CardContent style={{textAlign: 'center'}}>
+                  <Typography style={{color: '#ccf'}}>Daily | $</Typography>
+                  <Typography>{(Number(daily)/1e18).toFixed(2)} | $ {((Number(daily)/1e18)*(tokenPriceInDollars)).toFixed(2)}</Typography>
+                </CardContent>
+              </Card>
+            </Grid> 
             <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
               <Card className={classes.gridItem}>
                 <CardContent style={{textAlign: 'center'}}>
@@ -113,23 +123,15 @@ const GrapeNode = () => {
                 </CardContent>
               </Card>
             </Grid>
+
             <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
               <Card className={classes.gridItem}>
                 <CardContent style={{textAlign: 'center'}}>
-                  <Typography style={{color: '#ccf'}}>Total Nodes</Typography>
-                  <Typography>{Number(total[0])}</Typography>
+                  <Typography style={{color: '#ccf'}}>Total Nodes | TVL</Typography>
+                  <Typography>{Number(total[0])} | ${statsOnPool?.TVL ? (Number((Number(statsOnPool?.TVL).toFixed(0)))).toLocaleString('en-US') : '-.--'}</Typography>
                 </CardContent>
               </Card>
-            </Grid>
-          
-            <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
-              <Card className={classes.gridItem}>
-                <CardContent style={{textAlign: 'center'}}>
-                  <Typography style={{color: '#ccf'}}>TVL</Typography>
-                  <Typography>${statsOnPool?.TVL ? (Number((Number(statsOnPool?.TVL).toFixed(0)))).toLocaleString('en-US') : '-.--'}</Typography>
-                </CardContent>
-              </Card>
-            </Grid>
+            </Grid>         
           </Grid>
         </Box>
 

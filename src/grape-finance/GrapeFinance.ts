@@ -423,6 +423,10 @@ export class GrapeFinance {
     return await this.contracts[contract].maxPayout(user);
   }
 
+  async getDailyDrip(contract: string, user: string): Promise<BigNumber[]> {
+    return await this.contracts[contract].getDayDripEstimate(user);
+  }
+
   async getUserDetails(contract: string, user: string): Promise<BigNumber[]> {
     return await this.contracts[contract].users(user);
   }
