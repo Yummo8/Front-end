@@ -60,7 +60,7 @@ const Stake = ({bank}) => {
               onClick={() => {
                 grapeFinance.watchAssetInMetamask('SW');
               }}
-              style={{ position: 'relative', top: '0px', border: '0px grey solid' }}
+              style={{ position: 'relative', top: '0px'}}
             >
               {' '}
               <b>+</b>&nbsp;&nbsp;

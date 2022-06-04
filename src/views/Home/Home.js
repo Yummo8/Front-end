@@ -362,7 +362,7 @@ return (
               onClick={() => {
                 grapeFinance.watchAssetInMetamask('GRAPE');
               }}
-              style={{ position: 'absolute', top: '10px', right: '10px', border: '1px grey solid' }}
+              style={{ position: 'absolute', top: '10px', right: '10px'}}
             >
               {' '}
               <b>+</b>&nbsp;&nbsp;
@@ -394,7 +394,7 @@ return (
               onClick={() => {
                 grapeFinance.watchAssetInMetamask('WINE');
               }}
-              style={{ position: 'absolute', top: '10px', right: '10px', border: '1px grey solid' }}
+              style={{ position: 'absolute', top: '10px', right: '10px'}}
             >
               {' '}
               <b>+</b>&nbsp;&nbsp;
@@ -432,7 +432,7 @@ return (
               onClick={() => {
                 grapeFinance.watchAssetInMetamask('GBOND');
               }}
-              style={{ position: 'absolute', top: '10px', right: '10px', border: '1px grey solid' }}
+              style={{ position: 'absolute', top: '10px', right: '10px'}}
             >
               {' '}
               <b>+</b>&nbsp;&nbsp;
