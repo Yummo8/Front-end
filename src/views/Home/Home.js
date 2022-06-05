@@ -332,14 +332,14 @@ return (
             </Button>
             <Grid container style={{marginTop: '15px'}}>
               <Grid item xs={6} sm={6} lg={6}>
-                <a href="https://twitter.com/0xGuard/status/1480457336082907137"  rel="noopener noreferrer" target="_blank">
+                <a href="https://twitter.com/0xGuard/status/1480457336082907137" style={{textDecoration: 'none'}} rel="noopener noreferrer" target="_blank">
                   <img alt="0xGuard KYC" style={{ width: '35%' }} src={kyc} />
                   <span style={{color: '#fff', display: 'block'}}>KYC</span>
                 </a>
                 <br />
               </Grid>
               <Grid item xs={6} sm={6} lg={6}>
-                <a href="https://grapefinance.app/audit.pdf"  rel="noopener noreferrer" target="_blank">
+                <a href="https://grapefinance.app/audit.pdf" style={{textDecoration: 'none'}}  rel="noopener noreferrer" target="_blank">
                   <img alt="0xGuard Audit" style={{ width: '35%', paddingTop: '10px' }} src={audit} />
                   <span style={{color: '#fff', display: 'block'}}>Audit</span>
                 </a>              
