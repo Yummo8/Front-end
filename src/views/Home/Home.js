@@ -11,7 +11,6 @@ import useBondStats from '../../hooks/useBondStats';
 import usebShareStats from '../../hooks/useWineStats';
 import useGrapeTotalNode from '../../hooks/useGrapeTotalNodes';
 import useWineTotalNode from '../../hooks/useWineTotalNodes';
-import useGrapeMimSWTotalNode from '../../hooks/useGrapeMimSWTotalNode';
 import useTotalValueLocked from '../../hooks/useTotalValueLocked';
 import useNodeRewardPoolStats from '../../hooks/useNodesRewardBalance';
 import { roundAndFormatNumber } from '../../0x';
@@ -55,8 +54,6 @@ const Home = () => {
   const grapemimLpStats = useLpStatsBTC('GRAPE-MIM-LP');
   const bSharemimLpStats = useLpStats('WINE-MIM-LP');
   const newPair = useLpStats('GRAPE-WINE-LP');
-  const grapeMimSWStats = useLpStats('GRAPE-MIM-SW');
-
   const grapeStats = useGrapeStats();
   const bShareStats = usebShareStats();
   const tBondStats = useBondStats();
@@ -64,7 +61,6 @@ const Home = () => {
   const grapeFinance = useGrapeFinance();
   const useGrapeTotal = useGrapeTotalNode();
   const useWineTotal = useWineTotalNode();
-  const useGrapeMimSWTotal = useGrapeMimSWTotalNode();
   const [rewardModelOpen, setModalOpen] = useState(false);
 
   const {data : eventResponse} = useGetEventQuery();
@@ -104,11 +100,6 @@ const Home = () => {
     () => (bShareStats ? Number(bShareStats.priceInDollars).toFixed(2) : null),
     [bShareStats],
   );
-  const grapeMimSWPriceInDollars = useMemo(
-    () => (grapeMimSWStats ? Number(grapeMimSWStats.priceOfOne).toFixed(2) : null),
-    [grapeMimSWStats],
-  );
-
   const bShareCirculatingSupply = useMemo(
     () => (bShareStats ? String(bShareStats.circulatingSupply) : null),
     [bShareStats],
@@ -143,11 +134,8 @@ return (
       grapePrice={grapePriceInDollars}
       wines={useWineTotal[0]}
       winePrice={winePriceInDollars}
-      grapeMimSW={useGrapeMimSWTotal[0]}
-      grapeMimSWPrice={grapeMimSWPriceInDollars}
       totalGrapes={nodeRewardPoolStats?.grapes}
       totalWine={nodeRewardPoolStats?.wines}
-      totalGrapeMimSW={nodeRewardPoolStats?.grapeMimSWs}
     />
     <BackgroundImage />
     <Grid item xs={12} sm={12} style={{ marginBottom: '25px' }}></Grid>
@@ -233,13 +221,6 @@ return (
               {nodeRewardPoolStats?.wines} Wines{' '}
               <span style={{ fontSize: '20px' }}>
                 (≈${roundAndFormatNumber(nodeRewardPoolStats?.wines * winePriceInDollars, 0)})
-              </span>
-            </span>
-            <br />
-            <span style={{ fontSize: '24px' }}>
-              {nodeRewardPoolStats?.grapeMimSWs} Grape-Mim SWs{' '}
-              <span style={{ fontSize: '20px' }}>
-                (≈${roundAndFormatNumber(nodeRewardPoolStats?.grapeMimSWs * grapeMimSWPriceInDollars, 0)})
               </span>
             </span>
             <br />

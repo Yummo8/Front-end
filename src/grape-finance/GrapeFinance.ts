@@ -180,11 +180,9 @@ export class GrapeFinance {
   async getNodesRewardWalletBalance(nodesRewardWallet: string): Promise<NodesRewardWalletBalance> {
     const grapes = await this.GRAPE.balanceOf(nodesRewardWallet);
     const wines = await this.WINE.balanceOf(nodesRewardWallet);
-    const grapeMimSWs = await this.SW.balanceOf(nodesRewardWallet);
     return {
       grapes: getDisplayBalance(grapes, 18, 2), 
-      wines: getDisplayBalance(wines, 18, 2), 
-      grapeMimSWs: getDisplayBalance(grapeMimSWs, 18, 2),
+      wines: getDisplayBalance(wines, 18, 2)
     };
   }
 
@@ -236,12 +234,19 @@ export class GrapeFinance {
    */
   async getLPStat(name: string): Promise<LPStat> {
     const lpToken = this.externalTokens[name];
+
     const lpTokenSupplyBN = await lpToken.totalSupply();
+
     const lpTokenSupply = getDisplayBalance(lpTokenSupplyBN, 18);
+
     const token0 = name.startsWith('GRAPE') ? this.GRAPE : this.WINE;
+
     const isGrape = name.startsWith('GRAPE');
+
     const tokenAmountBN = await token0.balanceOf(lpToken.address);
+
     const tokenAmount = getDisplayBalance(tokenAmountBN, 18);
+
     const mimAmountBN =
       lpToken.symbol === 'GRAPE-WINE-LP'
         ? await this.WINE.balanceOf(lpToken.address)
@@ -253,7 +258,6 @@ export class GrapeFinance {
     const lpTokenPrice = await this.getLPTokenPrice(lpToken, token0, isGrape);
     const lpTokenPriceFixed = Number(lpTokenPrice).toFixed(2).toString();
     const liquidity = (Number(lpTokenSupply) * Number(lpTokenPrice)).toFixed(2).toString();
-
     return {
       tokenAmount: tokenAmountInOneLP.toFixed(2).toString(),
       mimAmount: mimAmountInOneLP.toFixed(2).toString(),
@@ -413,13 +417,8 @@ export class GrapeFinance {
 
   async getWineNodes(): Promise<BigNumber[]> {
     const {WineNode} = this.contracts;
-    return await WineNode.getTotalNodes();
-  }
-
-  async getGrapeMimSWNodes(): Promise<BigNumber[]> {
-    const {LPNode} = this.contracts;
-    return await LPNode.getTotalNodes();
-  }
+  return await WineNode.getTotalNodes();
+}
   
   /**
    * Calculates the TVL, APR and daily APR of a provided pool/bank
