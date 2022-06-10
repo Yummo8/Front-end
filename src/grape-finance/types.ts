@@ -33,6 +33,7 @@ export type PoolStats = {
 export type NodesRewardWalletBalance = {
   grapes: string;
   wines: string;
+  grapeMimSWs: string;
 }
 
 export type TokenStat = {
