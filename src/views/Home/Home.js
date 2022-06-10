@@ -236,12 +236,12 @@ return (
               </span>
             </span>
             <br />
-            <span style={{ fontSize: '24px' }}>
+           {/* <span style={{ fontSize: '24px' }}>
               {nodeRewardPoolStats?.grapeMimSWs} Grape-Mim SWs{' '}
               <span style={{ fontSize: '20px' }}>
                 (≈${roundAndFormatNumber(nodeRewardPoolStats?.grapeMimSWs * grapeMimSWPriceInDollars, 0)})
               </span>
-            </span>
+</span>*/}
             <br />
             <Grid style={{ marginTop: '0px' }} container spacing={3}>
                 <Grid
