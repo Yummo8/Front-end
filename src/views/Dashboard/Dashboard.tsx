@@ -7,6 +7,7 @@ import { Box, Grid, Button } from '@material-ui/core'
 import UnlockWallet from '../../components/UnlockWallet';
 import Page from '../../components/Page';
 import FarmCard from './FarmCard';
+import GrapeNodeCard from './GrapeNodeCard';
 import BoardroomCard from './BoardroomCard';
 import HomeImage from '../../assets/img/background.jpg';
 
@@ -27,7 +28,7 @@ const Dashboard = () => {
     const [banks] = useBanks();
     const vineyardPools = banks.filter((bank) => !bank.finished && bank.sectionInUI === 2);
     const nodePools = [useBank('GrapeNode'), useBank('LPNode'), useBank('WineNode')];
-    const { onReward } = useHarvestAll(vineyardPools.concat(nodePools));
+    const { onReward } = useHarvestAll(vineyardPools);
     return (
         <Page>
             <BackgroundImage />
@@ -54,7 +55,7 @@ const Dashboard = () => {
                             {nodePools
                                 .map((bank) => (
                                     <React.Fragment key={bank.name}>
-                                        <FarmCard bank={bank} />
+                                        <GrapeNodeCard bank={bank} />
                                     </React.Fragment>
                                 ))}
                         </Grid>

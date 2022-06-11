@@ -8,14 +8,18 @@ import {getDisplayBalance} from '../../utils/formatBalance';
 
 import useStatsForPool from '../../hooks/useStatsForPool';
 import useEarnings from '../../hooks/useEarnings';
+import useCompound from '../../hooks/useCompound';
+import useNodePrice from '../../hooks/useNodePrice';
 import useHarvest from '../../hooks/useHarvest';
 import useGrapeStats from '../../hooks/useGrapeStats';
 import useShareStats from '../../hooks/useWineStats';
 
-const FarmCard = ({bank}) => {
+const GrapeNodeCard = ({bank}) => {
   const statsOnPool = useStatsForPool(bank);
   const earnings = useEarnings(bank.contract, bank.earnTokenName, bank.poolId);
+  const nodePrice = useNodePrice(bank.contract, bank.poolId, bank.sectionInUI);
   const {onReward} = useHarvest(bank);
+  const {onCompound} = useCompound(bank);
   const grapeStats = useGrapeStats();
   const tShareStats = useShareStats();
   const tokenStats = bank.earnTokenName === 'WINE' ? tShareStats : grapeStats;
@@ -67,11 +71,22 @@ const FarmCard = ({bank}) => {
               <b>EARNED: </b>
               {`${earnedInToken} ${bank.earnTokenName} (≈$${Number(earnedInDollars).toLocaleString('en-US')})`}
             </Typography>
+            <Typography color="#322f32">
+              <b>NODES: </b>
+              {(Number(earnings) / Number(nodePrice)) | 0}
+            </Typography>
           </Box>
         </CardContent>
         <CardActions style={{justifyContent: 'flex-end'}}>
-          <Button className="shinyButton" component={Link} to={`/vineyard/${bank.contract}`}>
+          <Button className="shinyButton" component={Link} to={`/nodes/${bank.contract}`}>
             View
+          </Button>
+          <Button
+            onClick={onCompound}
+            disabled={Number(earnings) < Number(nodePrice)}
+            className={Number(earnings) < Number(nodePrice) ? 'shinyButtonDisabled' : 'shinyButton'}
+          >
+            Compound
           </Button>
           <Button
             disabled={earnings.eq(0)}
@@ -86,4 +101,4 @@ const FarmCard = ({bank}) => {
   );
 };
 
-export default FarmCard;
+export default GrapeNodeCard;
