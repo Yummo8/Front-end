@@ -24,7 +24,8 @@ const BoardroomCard = () => {
     () => (grapeStats ? Number(grapeStats.priceInDollars).toFixed(2) : null),
     [grapeStats],
   );
-  const earnedInDollars = (Number(tokenPriceInDollars) * Number(getDisplayBalance(earnings))).toFixed(2);
+  const earnedInToken = Number(getDisplayBalance(earnings));
+  const earnedInDollars = (Number(tokenPriceInDollars) * earnedInToken).toFixed(2);
 
   const boardroomAPR = useFetchBoardroomAPR();
   const totalStaked = useTotalStakedOnBoardroom();
@@ -69,7 +70,7 @@ const BoardroomCard = () => {
             </Typography>
             <Typography color="#322f32">
               <b>EARNED: </b>
-              {`$${Number(earnedInDollars).toLocaleString('en-US')}`}
+              {`${earnedInToken} GRAPE (≈$${Number(earnedInDollars).toLocaleString('en-US')})`}
             </Typography>
           </Box>
         </CardContent>

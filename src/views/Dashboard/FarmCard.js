@@ -24,7 +24,8 @@ const FarmCard = ({bank}) => {
     () => (tokenStats ? Number(tokenStats.priceInDollars).toFixed(2) : null),
     [tokenStats],
   );
-  const earnedInDollars = (Number(tokenPriceInDollars) * Number(getDisplayBalance(earnings))).toFixed(2);
+  const earnedInToken = Number(getDisplayBalance(earnings));
+  const earnedInDollars = (Number(tokenPriceInDollars) * earnedInToken).toFixed(2);
   const isNode = bank.contract?.endsWith('Node');
   return (
     <Grid item xs={12} md={4} lg={4}>
@@ -65,7 +66,7 @@ const FarmCard = ({bank}) => {
             </Typography>
             <Typography color="#322f32">
               <b>EARNED: </b>
-              {`$${Number(earnedInDollars).toLocaleString('en-US')}`}
+              {`${earnedInToken} ${bank.earnTokenName} (≈$${Number(earnedInDollars).toLocaleString('en-US')})`}
             </Typography>
           </Box>
         </CardContent>
