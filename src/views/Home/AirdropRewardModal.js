@@ -150,7 +150,7 @@ const AirdropRewardModal = ({ open, handleClose, grapes, grapePrice, wines, wine
             flexDirection: 'column',
           }}
         >
-          <h2 style={{fontSize: '22px'}}>Enter your number of tickets</h2>
+          <h2 style={{fontSize: '22px'}}>Enter your number of tickets </h2>
           <Box
             sx={{
               borderRadius: '10px',
