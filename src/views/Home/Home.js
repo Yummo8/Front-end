@@ -48,19 +48,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Home = () => {
-  const nodesRewardAddress = '0xa3C4C965BA6aA9382a8Edd965D13CB495F8da6F5';
-
   const classes = useStyles();
   const TVL = useTotalValueLocked();
   const grapemimLpStats = useLpStatsBTC('GRAPE-MIM-LP');
   const bSharemimLpStats = useLpStats('WINE-MIM-LP');
+
   const newPair = useLpStats('GRAPE-WINE-LP');
   const grapeMimSWStats = useLpStats('GRAPE-MIM-SW');
 
   const grapeStats = useGrapeStats();
   const bShareStats = usebShareStats();
   const tBondStats = useBondStats();
-  const nodeRewardPoolStats = useNodeRewardPoolStats(nodesRewardAddress);
+  const nodeRewardPoolStats = useNodeRewardPoolStats();
   const grapeFinance = useGrapeFinance();
   const useGrapeTotal = useGrapeTotalNode();
   const useWineTotal = useWineTotalNode();
@@ -88,8 +87,8 @@ const Home = () => {
   const grapeLPStats = useMemo(() => (grapemimLpStats ? grapemimLpStats : null), [grapemimLpStats]);
   const wineLPStats = useMemo(() => (bSharemimLpStats ? bSharemimLpStats : null), [bSharemimLpStats]);
   const newPairLPStats = useMemo(() => (newPair ? newPair : null), [newPair]);
-
   const grapePriceInDollars = useMemo(
+
     () => (grapeStats ? Number(grapeStats.priceInDollars).toFixed(2) : null),
     [grapeStats],
   );

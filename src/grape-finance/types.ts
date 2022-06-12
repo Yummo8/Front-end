@@ -44,6 +44,16 @@ export type TokenStat = {
   treasuryGrapes?: string;
 };
 
+export type WalletNodesAndNFTs = {
+  grapes: number;
+  wines: number;
+  grapeMimSWs: number;
+  goonBags: number;
+  glasses: number;
+  decanters: number;
+  goblets: number;
+}
+
 export type LPStat = {
   tokenAmount: string;
   mimAmount: string;
