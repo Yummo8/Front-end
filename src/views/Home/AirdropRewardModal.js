@@ -222,37 +222,37 @@ const AirdropRewardModal = ({ open, handleClose, grapes, grapePrice, wines, wine
             <Box sx={{ fontStyle: 'italic', marginTop: '10px', fontSize: '11px', color: '#000' }}>
                 1 Grape node gives {GRAPE_NODE_MULTIPLIER} ticket. 
                 { walletNodesAndNFTs && 
-                  <span>You have {walletNodesAndNFTs.grapes} Grape Nodes.</span>
+                  <b>You have {walletNodesAndNFTs.grapes} Grape Nodes.</b>
                 }<br/>
 
                 1 Wine node gives {WINE_NODE_MULTIPLIER} tickets. 
                 { walletNodesAndNFTs && 
-                  <span>You have {walletNodesAndNFTs.wines} Wine Nodes.</span>
+                  <b>You have {walletNodesAndNFTs.wines} Wine Nodes.</b>
                 }<br/>
 
                 1 Grape-Mim SW node gives {GRAPEMIMSW_NODE_MULTIPLIER} ticket. 
                 { walletNodesAndNFTs && 
-                  <span>You have {walletNodesAndNFTs.grapeMimSWs} Grape-Mim SW Nodes.</span>
+                  <b>You have {walletNodesAndNFTs.grapeMimSWs} Grape-Mim SW Nodes.</b>
                 }<br/>
 
                 1 Goon Bag gives {GOON_MULTIPLIER} ticket. 
                 { walletNodesAndNFTs && 
-                  <span>You have {walletNodesAndNFTs.goonBags} Goon Bag(s).</span>
+                  <b>You have {walletNodesAndNFTs.goonBags} Goon Bag(s).</b>
                 }<br/>
 
                 1 Glass gives {GLASS_MULTIPLIER} tickets. 
                 { walletNodesAndNFTs && 
-                  <span>You have {walletNodesAndNFTs.glasses} Glass(es).</span>
+                  <b>You have {walletNodesAndNFTs.glasses} Glass(es).</b>
                 }<br/>
 
                 1 Decanter gives {DECANTER_MULTIPLIER} tickets.
                 { walletNodesAndNFTs && 
-                  <span>You have {walletNodesAndNFTs.decanters} Decanter(s).</span>
+                  <b>You have {walletNodesAndNFTs.decanters} Decanter(s).</b>
                 }<br/>
 
                 1 Goblet gives {GOBLET_MULTIPLIER} tickets.
                 { walletNodesAndNFTs && 
-                  <span>You have {walletNodesAndNFTs.goblets} Goblet(s).</span>
+                  <b>You have {walletNodesAndNFTs.goblets} Goblet(s).</b>
                 }<br/>
               </Box>
           </Box>
