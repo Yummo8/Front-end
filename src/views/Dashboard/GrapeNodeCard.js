@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react';
 import {Link} from 'react-router-dom';
 import {Box, Button, Card, CardActions, CardContent, Typography, Grid} from '@material-ui/core';
-
+import { useWallet } from 'use-wallet';
 import TokenSymbol from '../../components/TokenSymbol';
 
 import {getDisplayBalance} from '../../utils/formatBalance';
@@ -13,8 +13,12 @@ import useNodePrice from '../../hooks/useNodePrice';
 import useHarvest from '../../hooks/useHarvest';
 import useGrapeStats from '../../hooks/useGrapeStats';
 import useShareStats from '../../hooks/useWineStats';
+import useNodes from '../../hooks/useNodes';
+import useLpStatsBTC from '../../hooks/useLpStatsBTC';
+
 
 const GrapeNodeCard = ({bank}) => {
+  const { account } = useWallet();
   const statsOnPool = useStatsForPool(bank);
   const earnings = useEarnings(bank.contract, bank.earnTokenName, bank.poolId);
   const nodePrice = useNodePrice(bank.contract, bank.poolId, bank.sectionInUI);
@@ -22,14 +26,28 @@ const GrapeNodeCard = ({bank}) => {
   const {onCompound} = useCompound(bank);
   const grapeStats = useGrapeStats();
   const tShareStats = useShareStats();
-  const tokenStats = bank.earnTokenName === 'WINE' ? tShareStats : grapeStats;
+  const grapemimLpStats = useLpStatsBTC('GRAPE-MIM-SW');
+  const nodes = useNodes(bank?.contract, bank?.sectionInUI, account);
+  let tokenStats = 0;
+  if (bank.earnTokenName === 'WINE') {
+    tokenStats = tShareStats;
+  }else if(bank.earnTokenName === 'GRAPE') {
+    tokenStats = grapeStats;
+  }else if(bank.earnTokenName === 'GRAPE-MIM-SW'){
+    tokenStats = grapemimLpStats;
+  }
 
   const tokenPriceInDollars = useMemo(
     () => (tokenStats ? Number(tokenStats.priceInDollars).toFixed(2) : null),
     [tokenStats],
   );
+  const tokenPriceInDollarsLP = useMemo(
+    () => (tokenStats ? Number(tokenStats.priceOfOne).toFixed(2) : null),
+    [tokenStats],
+  );
   const earnedInToken = Number(getDisplayBalance(earnings));
   const earnedInDollars = (Number(tokenPriceInDollars) * earnedInToken).toFixed(2);
+  const earnedInDollarsLP = (Number(tokenPriceInDollarsLP) * Number(getDisplayBalance(earnings))).toFixed(2);
   return (
     <Grid item xs={12} md={4} lg={4}>
       <Card variant="outlined">
@@ -54,11 +72,11 @@ const GrapeNodeCard = ({bank}) => {
             <Typography variant="h5" component="h2">
               {bank.depositTokenName}
             </Typography>
-            <Typography color="#322f32">
+          <Typography color="#322f32">
               {bank.closedForStaking ? <span>Pool Ended Please unstake</span> : <span>Earn {bank.earnTokenName}</span>}
             </Typography>
             <Typography color="#322f32">
-              <b>APR:</b> {bank.closedForStaking ? '0.00' : statsOnPool?.yearlyAPR}%
+              <b>APR:</b> {bank.closedForStaking ? '0.00' : statsOnPool?.yearlyAPR}% 
             </Typography>
             {/* <Typography color="#322f32">
               <b>Daily APR:</b> {bank.closedForStaking ? '0.00' : statsOnPool?.yearlyAPR}%
@@ -68,13 +86,13 @@ const GrapeNodeCard = ({bank}) => {
               {statsOnPool?.TVL ? Number(Number(statsOnPool?.TVL).toFixed(0)).toLocaleString('en-US') : '-.--'}
             </Typography>
             <Typography color="#322f32">
-              <b>EARNED: </b>
-              {`${earnedInToken} ${bank.earnTokenName} (≈$${Number(earnedInDollars).toLocaleString('en-US')})`}
-            </Typography>
+              <b>YOUR NODES: </b>
+              {nodes[0] ? Number(nodes[0]) : null}
+          </Typography>
             <Typography color="#322f32">
-              <b>NODES: </b>
-              {(Number(earnings) / Number(nodePrice)) | 0}
-            </Typography>
+              <b>EARNED: </b>
+              {`${earnedInToken} ${bank.earnTokenName} (≈$${bank.earnTokenName === 'GRAPE-MIM-SW' ? Number(earnedInDollarsLP).toLocaleString('en-US') : Number(earnedInDollars).toLocaleString('en-US')})`}
+            </Typography>          
           </Box>
         </CardContent>
         <CardActions style={{justifyContent: 'flex-end'}}>
