@@ -150,6 +150,17 @@ const GrapeNode = () => {
             </CardContent>
           </Card> 
        : null }
+       {bank.depositTokenName === 'GRAPE-WLRS-LP' ?
+           <Card>
+            <CardContent >
+              <StyledLink href={'https://traderjoexyz.com/pool/0x395908aeb53d33a9b8ac35e148e9805d34a555d3/0x5541d83efad1f281571b343977648b75d95cdac2'} rel="noopener noreferrer" target="_blank">
+                <span style={{color: '#fff'}}>
+                  Provide liquidity for GRAPE-WLRS on Joe
+                </span>     
+              </StyledLink>
+            </CardContent>
+          </Card> 
+       : null }
           </StyledBank>      
         </Box>    
         

@@ -28,7 +28,7 @@ const Dashboard = () => {
     const {to} = useTreasuryAllocationTimes();
     const [banks] = useBanks();
     const vineyardPools = banks.filter((bank) => !bank.finished && bank.sectionInUI === 2);
-    const nodePools = [useBank('GrapeNode'), useBank('LPNode'), useBank('WineNode')];
+    const nodePools = [useBank('GrapeNode'), useBank('LPNode'), useBank('WineNode'), useBank('LPWlrsNode')];
     const { onReward } = useHarvestAll(vineyardPools);
     return (
         <Page>

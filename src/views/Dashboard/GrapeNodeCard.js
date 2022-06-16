@@ -27,7 +27,10 @@ const GrapeNodeCard = ({bank}) => {
   const grapeStats = useGrapeStats();
   const tShareStats = useShareStats();
   const grapemimLpStats = useLpStatsBTC('GRAPE-MIM-SW');
+  const grapeWLRSLpStats = useLpStatsBTC('GRAPE-WLRS-LP');
+
   const nodes = useNodes(bank?.contract, bank?.sectionInUI, account);
+
   let tokenStats = 0;
   if (bank.earnTokenName === 'WINE') {
     tokenStats = tShareStats;
@@ -35,6 +38,8 @@ const GrapeNodeCard = ({bank}) => {
     tokenStats = grapeStats;
   }else if(bank.earnTokenName === 'GRAPE-MIM-SW'){
     tokenStats = grapemimLpStats;
+  }else if(bank.earnTokenName === 'GRAPE-WLRS-LP'){
+    tokenStats = grapeWLRSLpStats;
   }
 
   const tokenPriceInDollars = useMemo(
@@ -91,7 +96,7 @@ const GrapeNodeCard = ({bank}) => {
           </Typography>
             <Typography color="#322f32">
               <b>EARNED: </b>
-              {`${earnedInToken} ${bank.earnTokenName} (≈$${bank.earnTokenName === 'GRAPE-MIM-SW' ? Number(earnedInDollarsLP).toLocaleString('en-US') : Number(earnedInDollars).toLocaleString('en-US')})`}
+              {`${earnedInToken} ${bank.earnTokenName} (≈$${bank.earnTokenName === 'GRAPE-MIM-SW' || bank.earnTokenName === 'GRAPE-WLRS-LP' ? Number(earnedInDollarsLP).toLocaleString('en-US') : Number(earnedInDollars).toLocaleString('en-US')})`}
             </Typography>          
           </Box>
         </CardContent>

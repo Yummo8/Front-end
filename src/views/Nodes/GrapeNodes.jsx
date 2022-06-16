@@ -6,6 +6,7 @@ import GrapeNode from '../GrapeNode';
 import GrapeCard from './GrapeCard';
 import WineMimCard from './WineMimCard';
 import LPCard from './LPCard';
+import LPWlrsCard from './LPWlrsCard';
 import { createGlobalStyle } from 'styled-components';
 
 const BackgroundImage = createGlobalStyle`
@@ -28,6 +29,7 @@ const GrapeNodes = () => {
             <GrapeCard />
             <WineMimCard />
             <LPCard />
+            <LPWlrsCard />
           </Grid>
         </Route>
         <Route path={`${path}/:bankId`}>
