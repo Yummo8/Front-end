@@ -34,7 +34,6 @@ export type NodesRewardWalletBalance = {
   grapes: string;
   wines: string;
   grapeMimSWs: string;
-  grapeWalrus: string;
 }
 
 export type TokenStat = {
