@@ -80,12 +80,13 @@ const NFT_TICKET_COUNT = 9600;
 const GRAPE_NODE_MULTIPLIER = 1;
 const WINE_NODE_MULTIPLIER = 3;
 const GRAPEMIMSW_NODE_MULTIPLIER = 1;
+const GRAPEWALRUS_NODE_MULTIPLIER = 1;
 const GOON_MULTIPLIER = 1;
 const GLASS_MULTIPLIER = 3;
 const DECANTER_MULTIPLIER = 9;
 const GOBLET_MULTIPLIER = 30;
 
-const AirdropRewardModal = ({ open, handleClose, grapes, grapePrice, wines, winePrice, grapeMimSW, grapeMimSWPrice, totalGrapes, totalWine, totalGrapeMimSW }) => {
+const AirdropRewardModal = ({ open, handleClose, grapes, grapePrice, wines, winePrice, grapeMimSW, grapeMimSWPrice, grapeWalrus, grapeWalrusPrice, totalGrapes, totalWine, totalGrapeMimSW, totalGrapeWalrus }) => {
   const grapeFinance = useGrapeFinance();  
   const [ticketNumber, setTicketNumber] = useState(1);
   const [manualEntry, setManualEntry] = useState(false);
@@ -101,6 +102,7 @@ const AirdropRewardModal = ({ open, handleClose, grapes, grapePrice, wines, wine
       setTicketNumber((useWalletsNodesAndNFTs.grapes * GRAPE_NODE_MULTIPLIER) + 
                       (useWalletsNodesAndNFTs.wines * WINE_NODE_MULTIPLIER) + 
                       (useWalletsNodesAndNFTs.grapeMimSWs * GRAPEMIMSW_NODE_MULTIPLIER) +
+                      (useWalletsNodesAndNFTs.grapeWalrus * GRAPEWALRUS_NODE_MULTIPLIER) +
                       (useWalletsNodesAndNFTs.goonBags * GOON_MULTIPLIER) +
                       (useWalletsNodesAndNFTs.glasses * GLASS_MULTIPLIER) +
                       (useWalletsNodesAndNFTs.decanters * DECANTER_MULTIPLIER) +
@@ -122,6 +124,9 @@ const AirdropRewardModal = ({ open, handleClose, grapes, grapePrice, wines, wine
     else if (coin === 'GRAPE-MIM SW') {
       return Number((grapeMimSW));
     }
+    else if (coin === 'GRAPE-WALRUS') {
+      return Number((grapeWalrus));
+    }
   }
 
   const getPriceForNodes = (coin) => {
@@ -134,10 +139,13 @@ const AirdropRewardModal = ({ open, handleClose, grapes, grapePrice, wines, wine
     else if (coin === 'GRAPE-MIM SW') {
       return Number((totalGrapeMimSW * grapeMimSWPrice).toFixed(0));
     }
+    else if (coin === 'GRAPE-WALRUS') {
+      return Number((totalGrapeWalrus * grapeWalrusPrice).toFixed(0));
+    }
   }
 
   const getTotalPriceForNodes = () => {
-    return getPriceForNodes('GRAPE') + getPriceForNodes('WINE') + getPriceForNodes('GRAPE-MIM SW');
+    return getPriceForNodes('GRAPE') + getPriceForNodes('WINE') + getPriceForNodes('GRAPE-MIM SW') + getPriceForNodes('GRAPE-WALRUS');
   }
 
   const getShareDollarValue = () => {
@@ -159,6 +167,7 @@ const AirdropRewardModal = ({ open, handleClose, grapes, grapePrice, wines, wine
   const getTotalTicketsFromNodes = () => {
     return (getNumberOfNodes('GRAPE') * GRAPE_NODE_MULTIPLIER) + 
            (getNumberOfNodes('WINE') * WINE_NODE_MULTIPLIER) + 
+           (getNumberOfNodes('GRAPE-WALRUS') * GRAPEWALRUS_NODE_MULTIPLIER) +
            (getNumberOfNodes('GRAPE-MIM SW') * GRAPEMIMSW_NODE_MULTIPLIER);
   }
 
@@ -235,6 +244,11 @@ const AirdropRewardModal = ({ open, handleClose, grapes, grapePrice, wines, wine
                   <b>You have {walletNodesAndNFTs.grapeMimSWs} Grape-Mim SW Nodes.</b>
                 }<br/>
 
+                1 Grape-Walrus node gives {GRAPEWALRUS_NODE_MULTIPLIER} ticket. 
+                { walletNodesAndNFTs && 
+                  <b>You have {walletNodesAndNFTs.grapeWalrus} Grape-Walrus Nodes.</b>
+                }<br/>
+
                 1 Goon Bag gives {GOON_MULTIPLIER} ticket. 
                 { walletNodesAndNFTs && 
                   <b>You have {walletNodesAndNFTs.goonBags} Goon Bag(s).</b>
@@ -268,6 +282,7 @@ const AirdropRewardModal = ({ open, handleClose, grapes, grapePrice, wines, wine
               <Typography className={classes.text}>{getNumberOfNodes('GRAPE')} Grape Nodes ({totalGrapes} Grapes in pool)</Typography>
               <Typography className={classes.text}>{getNumberOfNodes('WINE')} Wine Nodes ({totalWine} Wine in pool) </Typography>
               <Typography className={classes.text}>{getNumberOfNodes('GRAPE-MIM SW')} Grape-Mim SW Nodes</Typography>
+              <Typography className={classes.text}>{getNumberOfNodes('GRAPE-WALRUS')} Grape-Walrus Nodes</Typography>
               
               <Box sx={{ marginTop: '10px'}} className={classes.text}>Tickets from Nodes: {getTotalTicketsFromNodes()}</Box>
               <Typography className={classes.text}>Tickets from NFTs: {NFT_TICKET_COUNT}</Typography>
