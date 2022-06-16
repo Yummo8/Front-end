@@ -50,6 +50,7 @@ export class GrapeFinance {
   WAMP: ERC20;
   VOLT: ERC20;
   SW: ERC20;
+  GRAPEWLRS: ERC20;
   DAI: ERC20;
   HSHARE: ERC20;
 
@@ -87,6 +88,7 @@ export class GrapeFinance {
     this.WAMP = this.externalTokens['WAMP'];
     this.VOLT = this.externalTokens['VOLT'];
     this.SW = this.externalTokens['GRAPE-MIM-SW'];
+    this.GRAPEWLRS = this.externalTokens['GRAPE-WLRS-LP']
     this.DAI = this.externalTokens['DAI'];
     this.HSHARE = this.externalTokens['HSHARE'];
 
@@ -189,10 +191,12 @@ export class GrapeFinance {
     const grapes = await this.GRAPE.balanceOf(nodesRewardWallet);
     const wines = await this.WINE.balanceOf(nodesRewardWallet);
     const grapeMimSWs = await this.SW.balanceOf(nodesRewardWallet);
+    const grapeWalrus = await this.GRAPEWLRS.balanceOf(nodesRewardWallet);
     return {
       grapes: getDisplayBalance(grapes, 18, 2), 
       wines: getDisplayBalance(wines, 18, 2), 
       grapeMimSWs: getDisplayBalance(grapeMimSWs, 18, 2),
+      grapeWalrus: getDisplayBalance(grapeWalrus, 18, 2),
     };
   }
 
@@ -366,11 +370,13 @@ export class GrapeFinance {
     const grapeNodesCount = await this.getNodes('GrapeNode', this.myAccount);
     const wineNodesCount = await this.getNodes('WineNode', this.myAccount);
     const grapeMimSWNodesCount = await this.getNodes('LPNode', this.myAccount);
-        
+    const grapeWalrusNodesCount = await this.getNodes('LPWlrsNode', this.myAccount);
+    
     let walletNodesAndNFTs = {
         grapes: grapeNodesCount[0].toNumber(), 
         wines: wineNodesCount[0].toNumber(),
         grapeMimSWs: grapeMimSWNodesCount[0].toNumber(),
+        grapeWalrus: grapeWalrusNodesCount[0].toNumber(),
         goonBags: 0,
         glasses: 0,
         decanters: 0,
@@ -468,6 +474,11 @@ export class GrapeFinance {
   async getGrapeMimSWNodes(): Promise<BigNumber[]> {
     const {LPNode} = this.contracts;
     return await LPNode.getTotalNodes();
+  }
+
+  async getGrapeWalrusNodes(): Promise<BigNumber[]> {
+    const {LPWlrsNode} = this.contracts;
+    return await LPWlrsNode.getTotalNodes();
   }
 
   async getWalletNFTs() : Promise<BigNumber[]> {

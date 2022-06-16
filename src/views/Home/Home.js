@@ -12,6 +12,7 @@ import usebShareStats from '../../hooks/useWineStats';
 import useGrapeTotalNode from '../../hooks/useGrapeTotalNodes';
 import useWineTotalNode from '../../hooks/useWineTotalNodes';
 import useGrapeMimSWTotalNode from '../../hooks/useGrapeMimSWTotalNode';
+import useGrapeWalrusTotalNode from '../../hooks/useGrapeWalrusTotalNode';
 import useTotalValueLocked from '../../hooks/useTotalValueLocked';
 import useNodeRewardPoolStats from '../../hooks/useNodesRewardBalance';
 import { roundAndFormatNumber } from '../../0x';
@@ -55,6 +56,7 @@ const Home = () => {
 
   const newPair = useLpStats('GRAPE-WINE-LP');
   const grapeMimSWStats = useLpStats('GRAPE-MIM-SW');
+  const grapeWalrusStats = useLpStats('GRAPE-WLRS-LP');
 
   const grapeStats = useGrapeStats();
   const bShareStats = usebShareStats();
@@ -64,6 +66,7 @@ const Home = () => {
   const useGrapeTotal = useGrapeTotalNode();
   const useWineTotal = useWineTotalNode();
   const useGrapeMimSWTotal = useGrapeMimSWTotalNode();
+  const useGrapeWalrusTotal = useGrapeWalrusTotalNode();
   const [rewardModelOpen, setModalOpen] = useState(false);
 
   const {data : eventResponse} = useGetEventQuery();
@@ -107,6 +110,10 @@ const Home = () => {
     () => (grapeMimSWStats ? Number(grapeMimSWStats.priceOfOne).toFixed(2) : null),
     [grapeMimSWStats],
   );
+  const grapeWalrusPriceInDollars = useMemo(
+    () => (grapeWalrusStats ? Number(grapeWalrusStats.priceOfOne).toFixed(2) : null),
+    [grapeWalrusStats],
+  );
 
   const bShareCirculatingSupply = useMemo(
     () => (bShareStats ? String(bShareStats.circulatingSupply) : null),
@@ -144,9 +151,12 @@ return (
       winePrice={winePriceInDollars}
       grapeMimSW={useGrapeMimSWTotal[0]}
       grapeMimSWPrice={grapeMimSWPriceInDollars}
+      grapeWalrus={useGrapeWalrusTotal[0]}
+      grapeWalrusPrice={grapeWalrusPriceInDollars}
       totalGrapes={nodeRewardPoolStats?.grapes}
       totalWine={nodeRewardPoolStats?.wines}
       totalGrapeMimSW={nodeRewardPoolStats?.grapeMimSWs}
+      totalGrapeWalrus={nodeRewardPoolStats?.grapeWalrus}
     />
     <BackgroundImage />
     <Grid item xs={12} sm={12} style={{ marginBottom: '25px' }}></Grid>
