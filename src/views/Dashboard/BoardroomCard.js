@@ -14,6 +14,7 @@ import useTotalStakedOnBoardroom from '../../hooks/useTotalStakedOnBoardroom';
 import useEarningsOnBoardroom from '../../hooks/useEarningsOnBoardroom';
 import useHarvestFromBoardroom from '../../hooks/useHarvestFromBoardroom';
 import useClaimRewardCheck from '../../hooks/boardroom/useClaimRewardCheck';
+import useStakedBalanceOnBoardroom from '../../hooks/useStakedBalanceOnBoardroom';
 
 const BoardroomCard = () => {
   const {onReward} = useHarvestFromBoardroom();
@@ -33,6 +34,10 @@ const BoardroomCard = () => {
   const grapeFinance = useGrapeFinance();
   const stakedTokenPriceInDollars = useStakedTokenPriceInDollars('WINE', grapeFinance.WINE);
   const tvl = stake * stakedTokenPriceInDollars;
+  
+  const stakedBalance = useStakedBalanceOnBoardroom();
+  const stakedInToken = Number(getDisplayBalance(stakedBalance));
+  const stakedInDollars = (Number(stakedTokenPriceInDollars) * stakedInToken).toFixed(2);
 
   return (
     <Grid item xs={12} md={4} lg={4}>
@@ -67,6 +72,10 @@ const BoardroomCard = () => {
             </Typography> */}
             <Typography color="#322f32">
               <b>TVL:</b> ${tvl ? Number(Number(tvl).toFixed(0)).toLocaleString('en-US') : '-.--'}
+            </Typography>
+            <Typography color="#322f32">
+              <b>STAKED: </b>
+              {`${stakedInToken} WINE (≈$${Number(stakedInDollars).toLocaleString('en-US')})`}
             </Typography>
             <Typography color="#322f32">
               <b>EARNED: </b>

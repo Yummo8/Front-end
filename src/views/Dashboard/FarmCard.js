@@ -9,6 +9,8 @@ import {getDisplayBalance} from '../../utils/formatBalance';
 import useStatsForPool from '../../hooks/useStatsForPool';
 import useEarnings from '../../hooks/useEarnings';
 import useHarvest from '../../hooks/useHarvest';
+import useStakedBalance from '../../hooks/useStakedBalance';
+import useStakedTokenPriceInDollars from '../../hooks/useStakedTokenPriceInDollars';
 import useGrapeStats from '../../hooks/useGrapeStats';
 import useShareStats from '../../hooks/useWineStats';
 
@@ -26,6 +28,12 @@ const FarmCard = ({bank}) => {
   );
   const earnedInToken = Number(getDisplayBalance(earnings));
   const earnedInDollars = (Number(tokenPriceInDollars) * earnedInToken).toFixed(2);
+
+  const stakedBalance = useStakedBalance(bank.contract, bank.poolId);
+  const stakedInToken = Number(getDisplayBalance(stakedBalance, bank.depositToken.decimal));
+  const stakedTokenPriceInDollars = useStakedTokenPriceInDollars(bank.depositTokenName, bank.depositToken);
+  const stakedInDollars = (Number(stakedTokenPriceInDollars) * stakedInToken).toFixed(2);
+
   return (
     <Grid item xs={12} md={4} lg={4}>
       <Card variant="outlined">
@@ -62,6 +70,10 @@ const FarmCard = ({bank}) => {
             <Typography color="#322f32">
               <b>TVL:</b> $
               {statsOnPool?.TVL ? Number(Number(statsOnPool?.TVL).toFixed(0)).toLocaleString('en-US') : '-.--'}
+            </Typography>
+            <Typography color="#322f32">
+              <b>STAKED: </b>
+              {`${stakedInToken} ${bank.depositTokenName} (≈$${Number(stakedInDollars).toLocaleString('en-US')})`}
             </Typography>
             <Typography color="#322f32">
               <b>EARNED: </b>
