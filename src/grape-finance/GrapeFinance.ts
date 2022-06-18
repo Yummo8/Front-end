@@ -1,19 +1,19 @@
-import {
-  ChainId,
-  CurrencyAmount,
-  Fetcher,
-  Pair,
-  Route,
-  Token,
-  TokenAmount,
-  Trade,
-  TradeType,
-} from '@traderjoe-xyz/sdk';
+import {ChainId, CurrencyAmount, Fetcher, Pair, Route, Token, TokenAmount, Trade, TradeType} from '@traderjoe-xyz/sdk';
 
 import {Fetcher as FetcherPangolin, Token as TokenPangolin, Route as PangolinRoute} from '@pangolindex/sdk';
 
 import {Configuration} from './config';
-import {ContractName, TokenStat, AllocationTime, LPStat, Bank, NodesRewardWalletBalance, PoolStats, WineSwapperStat, WalletNodesAndNFTs} from './types';
+import {
+  ContractName,
+  TokenStat,
+  AllocationTime,
+  LPStat,
+  Bank,
+  NodesRewardWalletBalance,
+  PoolStats,
+  WineSwapperStat,
+  WalletNodesAndNFTs,
+} from './types';
 import {BigNumber, BigNumberish, Contract, ethers, EventFilter} from 'ethers';
 import {decimalToBalance} from './ether-utils';
 import {TransactionResponse} from '@ethersproject/providers';
@@ -56,15 +56,13 @@ export class GrapeFinance {
   constructor(cfg: Configuration) {
     const {deployments, externalTokens} = cfg;
     const provider = getDefaultProvider();
-
     // loads contracts from deployments
     this.contracts = {};
     this.nftContracts = {};
     for (const [name, deployment] of Object.entries(deployments)) {
       if (deployment.type === 'NFT') {
         this.nftContracts[name] = new Contract(deployment.address, deployment.abi, provider);
-      }
-      else {
+      } else {
         this.contracts[name] = new Contract(deployment.address, deployment.abi, provider);
       }
     }
@@ -190,8 +188,8 @@ export class GrapeFinance {
     const wines = await this.WINE.balanceOf(nodesRewardWallet);
     const grapeMimSWs = await this.SW.balanceOf(nodesRewardWallet);
     return {
-      grapes: getDisplayBalance(grapes, 18, 2), 
-      wines: getDisplayBalance(wines, 18, 2), 
+      grapes: getDisplayBalance(grapes, 18, 2),
+      wines: getDisplayBalance(wines, 18, 2),
       grapeMimSWs: getDisplayBalance(grapeMimSWs, 18, 2),
     };
   }
@@ -199,26 +197,25 @@ export class GrapeFinance {
   async getRaffleStat(account: string, raffleAddress: string): Promise<TokenStat> {
     let total = 0;
     const {Grape} = this.contracts;
-    
-    const priceInBTC = await this.getTokenPriceFromPancakeswapBTC(this.GRAPE);
-    
-    const balOfRaffle = await this.GRAPE.balanceOf(raffleAddress);
-    
-    const currentBlockNumber = await this.provider.getBlockNumber();
-    
-    const filterTo = Grape.filters.Transfer(account, raffleAddress);
-   
-    const startBlock = currentBlockNumber-100000;
 
-    let allEvents : any = [];
-    
-    for(let i = startBlock; i < currentBlockNumber; i += 2000) {
+    const priceInBTC = await this.getTokenPriceFromPancakeswapBTC(this.GRAPE);
+
+    const balOfRaffle = await this.GRAPE.balanceOf(raffleAddress);
+
+    const currentBlockNumber = await this.provider.getBlockNumber();
+
+    const filterTo = Grape.filters.Transfer(account, raffleAddress);
+
+    const startBlock = currentBlockNumber - 100000;
+
+    let allEvents: any = [];
+
+    for (let i = startBlock; i < currentBlockNumber; i += 2000) {
       const _startBlock = i;
       const _endBlock = Math.min(currentBlockNumber, i + 1999);
       const events = await Grape.queryFilter(filterTo, _startBlock, _endBlock);
-      allEvents = [...allEvents, ...events]
+      allEvents = [...allEvents, ...events];
     }
-
 
     if (allEvents.length !== 0 && account !== null) {
       for (let i = 0; i < allEvents.length; i++) {
@@ -228,7 +225,7 @@ export class GrapeFinance {
     } else {
       total = 0;
     }
-    
+
     return {
       tokenInFtm: priceInBTC.toString(),
       priceInDollars: total.toString(),
@@ -362,42 +359,38 @@ export class GrapeFinance {
   }
 
   async getWalletNodesAndNFTs(): Promise<WalletNodesAndNFTs> {
-  
     const grapeNodesCount = await this.getNodes('GrapeNode', this.myAccount);
     const wineNodesCount = await this.getNodes('WineNode', this.myAccount);
     const grapeMimSWNodesCount = await this.getNodes('LPNode', this.myAccount);
-        
+
     let walletNodesAndNFTs = {
-        grapes: grapeNodesCount[0].toNumber(), 
-        wines: wineNodesCount[0].toNumber(),
-        grapeMimSWs: grapeMimSWNodesCount[0].toNumber(),
-        goonBags: 0,
-        glasses: 0,
-        decanters: 0,
-        goblets: 0,
+      grapes: grapeNodesCount[0].toNumber(),
+      wines: wineNodesCount[0].toNumber(),
+      grapeMimSWs: grapeMimSWNodesCount[0].toNumber(),
+      goonBags: 0,
+      glasses: 0,
+      decanters: 0,
+      goblets: 0,
     };
 
     const walletNFTs = await this.getWalletNFTs();
     if (walletNFTs.length !== 0) {
       const data = require('../nfts.json');
-      walletNFTs.forEach(walletNftId => {
+      walletNFTs.forEach((walletNftId) => {
         for (let i = 0; i < data.length; i++) {
           if (data[i].Id == walletNftId) {
             if (data[i].Type === 'GoonBag') {
               walletNodesAndNFTs.goonBags++;
-            }
-            else if (data[i].Type === 'Glass') {
+            } else if (data[i].Type === 'Glass') {
               walletNodesAndNFTs.glasses++;
-            }
-            else if (data[i].Type === 'Decanter') {
+            } else if (data[i].Type === 'Decanter') {
               walletNodesAndNFTs.decanters++;
-            }
-            else if (data[i].Type === 'Goblet') {
+            } else if (data[i].Type === 'Goblet') {
               walletNodesAndNFTs.goblets++;
             }
           }
         }
-      });  
+      });
     }
     return walletNodesAndNFTs;
   }
@@ -450,13 +443,13 @@ export class GrapeFinance {
   async getUserDetails(contract: string, user: string): Promise<BigNumber[]> {
     return await this.contracts[contract].users(user);
   }
-  
+
   async getTotalNodes(contract: string): Promise<BigNumber[]> {
     return await this.contracts[contract].getTotalNodes();
   }
 
   async getGrapeNodes(): Promise<BigNumber[]> {
-      const {GrapeNode} = this.contracts;
+    const {GrapeNode} = this.contracts;
     return await GrapeNode.getTotalNodes();
   }
 
@@ -470,11 +463,11 @@ export class GrapeFinance {
     return await LPNode.getTotalNodes();
   }
 
-  async getWalletNFTs() : Promise<BigNumber[]> {
+  async getWalletNFTs(): Promise<BigNumber[]> {
     const {TheWineryNFT} = this.nftContracts;
     return await TheWineryNFT.walletOfOwner(this.myAccount);
   }
-  
+
   /**
    * Calculates the TVL, APR and daily APR of a provided pool/bank
    * @param bank
@@ -487,8 +480,8 @@ export class GrapeFinance {
     const poolContract = this.contracts[bank.contract];
 
     if (bank.sectionInUI === 3) {
-    
-        const [depositTokenPrice, points, totalPoints, tierAmount, poolBalance, totalBalance, dripRate, dailyUserDrip] = await Promise.all([
+      const [depositTokenPrice, points, totalPoints, tierAmount, poolBalance, totalBalance, dripRate, dailyUserDrip] =
+        await Promise.all([
           this.getDepositTokenPriceInDollars(bank.depositTokenName, depositToken),
           poolContract.tierAllocPoints(bank.poolId),
           poolContract.totalAllocPoints(),
@@ -498,27 +491,27 @@ export class GrapeFinance {
           poolContract.dripRate(),
           poolContract.getDayDripEstimate(this.myAccount),
         ]);
-        const stakeAmount = Number(getDisplayBalance(tierAmount))
-        
-        const dailyDrip = totalPoints && +totalPoints > 0 
-          ? getDisplayBalance(poolBalance.mul(BigNumber.from(86400)).mul(points).div(totalPoints).div(dripRate)) 
+      const stakeAmount = Number(getDisplayBalance(tierAmount));
+
+      const dailyDrip =
+        totalPoints && +totalPoints > 0
+          ? getDisplayBalance(poolBalance.mul(BigNumber.from(86400)).mul(points).div(totalPoints).div(dripRate))
           : 0;
-        const dailyDripAPR = (Number(dailyDrip) / stakeAmount) * 100;
-        const yearlyDripAPR = (Number(dailyDrip) * 365 / stakeAmount) * 100;
-        
-        const dailyDripUser = Number(getDisplayBalance(dailyUserDrip));
-        const yearlyDripUser = Number(dailyDripUser) * 365;
-        
-        const TVL = Number(depositTokenPrice) * Number(getDisplayBalance(totalBalance, depositToken.decimal));
-  
-        return {
-          userDailyBurst: dailyDripUser.toFixed(2).toString(),
-          userYearlyBurst: yearlyDripUser.toFixed(2).toString(),
-          dailyAPR: dailyDripAPR.toFixed(2).toString(),
-          yearlyAPR: yearlyDripAPR.toFixed(2).toString(),
-          TVL: TVL.toFixed(2).toString(),
-        };
-      
+      const dailyDripAPR = (Number(dailyDrip) / stakeAmount) * 100;
+      const yearlyDripAPR = ((Number(dailyDrip) * 365) / stakeAmount) * 100;
+
+      const dailyDripUser = Number(getDisplayBalance(dailyUserDrip));
+      const yearlyDripUser = Number(dailyDripUser) * 365;
+
+      const TVL = Number(depositTokenPrice) * Number(getDisplayBalance(totalBalance, depositToken.decimal));
+
+      return {
+        userDailyBurst: dailyDripUser.toFixed(2).toString(),
+        userYearlyBurst: yearlyDripUser.toFixed(2).toString(),
+        dailyAPR: dailyDripAPR.toFixed(2).toString(),
+        yearlyAPR: yearlyDripAPR.toFixed(2).toString(),
+        TVL: TVL.toFixed(2).toString(),
+      };
     } else {
       const depositTokenPrice = await this.getDepositTokenPriceInDollars(bank.depositTokenName, depositToken);
 
@@ -643,9 +636,9 @@ export class GrapeFinance {
 
     if (depositTokenName.startsWith('WINE')) {
       return rewardPerSecond.mul(6500).div(41000);
-    } else  if (depositTokenName.startsWith('GRAPE-WINE')) {
+    } else if (depositTokenName.startsWith('GRAPE-WINE')) {
       return rewardPerSecond.mul(1250).div(41000);
-    } else  if (depositTokenName === 'GRAPE') {
+    } else if (depositTokenName === 'GRAPE') {
       return rewardPerSecond.mul(4000).div(41000);
     } else if (depositTokenName === 'WAMP') {
       return rewardPerSecond.mul(1500).div(41000);
@@ -677,9 +670,9 @@ export class GrapeFinance {
         tokenPrice = await this.getLPTokenPrice(token, this.WINE, false);
       } else if (tokenName === 'HSHARE-WINE-LP') {
         tokenPrice = await this.getLPTokenPrice(token, this.WINE, false);
-      }else if (tokenName === 'GRAPE-MIM-SW') {
+      } else if (tokenName === 'GRAPE-MIM-SW') {
         tokenPrice = await this.getLPTokenPrice(token, this.GRAPE, true);
-      }else if (tokenName === 'GRAPE-WLRS-LP') {
+      } else if (tokenName === 'GRAPE-WLRS-LP') {
         tokenPrice = await this.getLPTokenPrice(token, this.GRAPE, true);
       } else if (tokenName === 'MIM') {
         tokenPrice = '1';
@@ -772,13 +765,13 @@ export class GrapeFinance {
     //Get amount of tokenA
 
     const tokenSupply = getFullDisplayBalance(await token.balanceOf(lpToken.address), token.decimal);
-    
+
     const stat = isGrape === true ? await this.getGrapeStat() : await this.getShareStat();
 
     const priceOfToken = stat.priceInDollars;
-    
+
     const tokenInLP = Number(tokenSupply) / Number(totalSupply);
-    
+
     const tokenPrice = (Number(priceOfToken) * tokenInLP * 2) //We multiply by 2 since half the price of the lp token is the price of each piece of the pair. So twice gives the total
 
       .toString();
@@ -859,7 +852,6 @@ export class GrapeFinance {
     }
   }
 
-    
   async claimedBalanceNode(poolName: ContractName, account = this.myAccount): Promise<BigNumber> {
     const pool = this.contracts[poolName];
     try {
@@ -870,7 +862,7 @@ export class GrapeFinance {
       return BigNumber.from(0);
     }
   }
-  
+
   async getNodePrice(poolName: ContractName, poolId: Number): Promise<BigNumber> {
     const pool = this.contracts[poolName];
     try {
@@ -887,22 +879,23 @@ export class GrapeFinance {
    * @param amount Number of tokens with decimals applied. (e.g. 1.45 DAI * 10^18)
    * @returns {string} Transaction hash
    */
-  async stake(poolName: ContractName, poolId: Number, sectionInUI: Number, amount: BigNumber): Promise<TransactionResponse> {
+  async stake(
+    poolName: ContractName,
+    poolId: Number,
+    sectionInUI: Number,
+    amount: BigNumber,
+  ): Promise<TransactionResponse> {
     const pool = this.contracts[poolName];
 
-    return sectionInUI !== 3 
-      ? await pool.deposit(poolId, amount)
-      : await pool.create(poolId, amount);
+    return sectionInUI !== 3 ? await pool.deposit(poolId, amount) : await pool.create(poolId, amount);
   }
 
   async setTierValues(poolName: ContractName): Promise<TransactionResponse> {
     const pool = this.contracts[poolName];
-  
-    return await pool.setTierValues(
-      [BigNumber.from('1000000000000000000')], [BigNumber.from('5000000000000000000')]
-    );
+
+    return await pool.setTierValues([BigNumber.from('1000000000000000000')], [BigNumber.from('5000000000000000000')]);
   }
-  
+
   async getTierValues(poolName: ContractName): Promise<void> {
     const pool = this.contracts[poolName];
 
@@ -926,17 +919,13 @@ export class GrapeFinance {
   async harvest(poolName: ContractName, poolId: Number, sectionInUI: Number): Promise<TransactionResponse> {
     const pool = this.contracts[poolName];
     //By passing 0 as the amount, we are asking the contract to only redeem the reward and not the currently staked token
-    return sectionInUI !== 3
-    ? await pool.withdraw(poolId, 0)
-    : await pool.claim();
+    return sectionInUI !== 3 ? await pool.withdraw(poolId, 0) : await pool.claim();
   }
 
   async compound(poolName: ContractName, poolId: Number, sectionInUI: Number): Promise<TransactionResponse> {
     const pool = this.contracts[poolName];
     //By passing 0 as the amount, we are asking the contract to only redeem the reward and not the currently staked token
-    return sectionInUI !== 3
-    ? await pool.withdraw(poolId, 0)
-    : await pool.compound();
+    return sectionInUI !== 3 ? await pool.withdraw(poolId, 0) : await pool.compound();
   }
 
   /**
@@ -1107,7 +1096,6 @@ export class GrapeFinance {
       console.error(`Failed to fetch token price of BTCB: ${err}`);
     }
   }
-
 
   //===================================================================
   //===================================================================
@@ -1289,7 +1277,7 @@ export class GrapeFinance {
       const endDate = moment(toDate)
         .add(delta * PeriodInHours, 'hours')
         .toDate();
-  
+
       return {from: fromDate, to: endDate};
     }
   }
@@ -1315,8 +1303,7 @@ export class GrapeFinance {
       } else if (assetName === 'SW') {
         asset = this.SW;
         asset.symbol = 'GRAPE-SW-LP';
-        assetUrl =    
-          'https://raw.githubusercontent.com/grapefi/front-end/main/public/grape-mim.png';
+        assetUrl = 'https://raw.githubusercontent.com/grapefi/front-end/main/public/grape-mim.png';
       }
       await ethereum.request({
         method: 'wallet_watchAsset',
@@ -1517,8 +1504,6 @@ export class GrapeFinance {
 
     let swapAmountOut = (await this.estimateTrade(token, otherToken, half, pair)).toSignificant(6);
 
-
-
     return {
       amounts: [ethers.utils.formatEther(swapAmountIn), swapAmountOut],
       actions: [`Swap ${ethers.utils.formatEther(half)} for ${estimateNum.toSignificant(6)}`],
@@ -1567,7 +1552,7 @@ export class GrapeFinance {
         break;
       }
     }
- 
+
     return await zapper.zapInToken(
       token.address,
       parseUnits(amount, 18),
@@ -1575,6 +1560,25 @@ export class GrapeFinance {
       SPOOKY_ROUTER_ADDR,
       this.myAccount,
     );
+  }
+  async zapIn_sw(tokenName: string, lpName: string, amount: string): Promise<TransactionResponse> {
+    const {sw_zapper} = this.contracts;
+    const lpToken = this.externalTokens[lpName];
+
+    let token: ERC20;
+
+    switch (tokenName) {
+      case GRAPE_TICKER: {
+        token = this.GRAPE;
+        break;
+      }
+      case MIM_TICKER: {
+        token = this.MIM;
+        break;
+      }
+    }
+
+    return await sw_zapper.zapInToken(token.address, parseUnits(amount, 18), lpToken.address);
   }
   async swapBBondToWine(gbondAmount: BigNumber): Promise<TransactionResponse> {
     const {WineSwapper} = this.contracts;
