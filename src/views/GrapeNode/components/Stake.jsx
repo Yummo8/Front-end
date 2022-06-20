@@ -128,12 +128,14 @@ const Stake = ({bank}) => {
                 >
                   <AddIcon />
                 </IconButton>
-                <StyledActionSpacer />
+                {isZapLP ? <StyledActionSpacer /> : null}
                 {isZapLP && (
+                    
                   <IconButton
                     disabled={bank.closedForStaking}
                     onClick={() => (bank.closedForStaking ? null : onPresentZap())}
                   >
+                    
                     <FlashOnIcon style={{color: themeColor.grey[400]}} />
                   </IconButton>
                 )}
