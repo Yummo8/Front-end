@@ -16,12 +16,12 @@ import ExchangeStat from './components/ExchangeStat';
 import useTokenBalance from '../../hooks/useTokenBalance';
 import useBondsPurchasable from '../../hooks/useBondsPurchasable';
 import {getDisplayBalance} from '../../utils/formatBalance';
-import { BOND_REDEEM_PRICE, BOND_REDEEM_PRICE_BN } from '../../grape-finance/constants';
-import { Alert } from '@material-ui/lab';
-import { roundAndFormatNumber } from '../../0x';
+import {BOND_REDEEM_PRICE, BOND_REDEEM_PRICE_BN} from '../../grape-finance/constants';
+import {Alert} from '@material-ui/lab';
+import {roundAndFormatNumber} from '../../0x';
 
 import HomeImage from '../../assets/img/background.jpg';
-import { Grid , Box } from '@material-ui/core';
+import {Grid, Box} from '@material-ui/core';
 const BackgroundImage = createGlobalStyle`
   body {
     //background: url(${HomeImage}) repeat !important;
@@ -41,7 +41,6 @@ const Bond: React.FC = () => {
   const bondsPurchasable = useBondsPurchasable();
 
   const bondBalance = useTokenBalance(grapeFinance?.GBOND);
-
 
   const handleBuyBonds = useCallback(
     async (amount: string) => {
@@ -65,9 +64,7 @@ const Bond: React.FC = () => {
   const isBondPurchasable = useMemo(() => Number(bondStat?.tokenInFtm) < 1.01, [bondStat]);
   const grapeReserves = useMemo(() => (Number(bondStat?.treasuryGrapes) / 1e18).toFixed(0), [bondStat]);
   const bondSupply = useMemo(() => bondStat?.circulatingSupply, [bondStat]);
-  const bondScale = (Number(cashPrice) / 1e18).toFixed(2); 
-
-
+  const bondScale = (Number(cashPrice) / 1e18).toFixed(2);
 
   return (
     <Switch>
@@ -78,20 +75,15 @@ const Bond: React.FC = () => {
             <Route exact path={path}>
               <PageHeader icon={'🏦'} title="Buy &amp; Redeem Bonds" subtitle="Earn premiums upon redemption" />
             </Route>
-         
 
-
-              <Box mt={5}>
-                <Grid item xs={12} sm={12} justify="center" style={{ margin: '18px', display: 'flex' }}>
+            <Box mt={5}>
+              <Grid item xs={12} sm={12} justify="center" style={{margin: '18px', display: 'flex'}}>
                 <Alert variant="filled" severity="error">
-                    <b>
-                      Bonds are emitted & premiums redeemable based on last epoch TWAP prices not the current TWAP!</b>
-              </Alert>
-            
+                  <b>Bonds are emitted & premiums redeemable based on last epoch TWAP prices not the current TWAP!</b>
+                </Alert>
               </Grid>
-              </Box>
-          
-          
+            </Box>
+
             <StyledBond>
               <StyledCardWrapper>
                 <ExchangeCard
@@ -106,7 +98,6 @@ const Bond: React.FC = () => {
                       : getDisplayBalance(bondsPurchasable, 18, 4) + ' GBOND available for purchase'
                   }
                   onExchange={handleBuyBonds}
-
                 />
               </StyledCardWrapper>
               <StyledStatsWrapper>
@@ -114,8 +105,7 @@ const Bond: React.FC = () => {
                   tokenName="1 GRAPE"
                   description="Last-Hour TWAP Price"
                   //price={Number(grapeStat?.tokenInFtm).toFixed(4) || '-'}
-                 price={bondScale || '-'}
-
+                  price={bondScale || '-'}
                 />
                 <Spacer size="md" />
                 <ExchangeStat
@@ -123,17 +113,19 @@ const Bond: React.FC = () => {
                   description="Bond Price"
                   price={Number(bondStat?.tokenInFtm).toFixed(2) || '-'}
                 />
-          
+
                 <Box mt={5}>
-                <Grid item xs={12} sm={12} justify="center" style={{ display: 'flex' }}>
-                <Alert variant='filled' severity="error">
-                  <b>Grape Reserves:</b> {bondStat?.treasuryGrapes ? roundAndFormatNumber(Number(grapeReserves), 0) : '-'}<br></br>
-                  <b>Bond supply:</b> {bondStat?.circulatingSupply ? roundAndFormatNumber(Number(bondSupply), 0) : '-'} <br></br>
-                  <b>When reserves are {'>'} bond supply debt phase has finished</b>
-              </Alert>
-            
-              </Grid>
-              </Box>
+                  <Grid item xs={12} sm={12} justify="center" style={{display: 'flex'}}>
+                    <Alert variant="filled" severity="error">
+                      <b>Grape Reserves:</b>{' '}
+                      {bondStat?.treasuryGrapes ? roundAndFormatNumber(Number(grapeReserves), 0) : '-'}
+                      <br></br>
+                      <b>Bond supply:</b>{' '}
+                      {bondStat?.circulatingSupply ? roundAndFormatNumber(Number(bondSupply), 0) : '-'} <br></br>
+                      <b>When reserves are {'>'} bond supply debt phase has finished</b>
+                    </Alert>
+                  </Grid>
+                </Box>
               </StyledStatsWrapper>
               <StyledCardWrapper>
                 <ExchangeCard
@@ -144,7 +136,6 @@ const Bond: React.FC = () => {
                   toTokenName="GRAPE"
                   priceDesc={`${getDisplayBalance(bondBalance)} GBOND Available in wallet`}
                   onExchange={handleRedeemBonds}
-                 
                   disabledDescription={!isBondRedeemable ? `Enabled when 1 GRAPE > $${BOND_REDEEM_PRICE}` : null}
                 />
               </StyledCardWrapper>
