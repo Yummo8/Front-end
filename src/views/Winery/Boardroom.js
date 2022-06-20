@@ -29,6 +29,8 @@ import ProgressCountdown from './components/ProgressCountdown';
 import {createGlobalStyle} from 'styled-components';
 import HomeImage from '../../assets/img/background.jpg';
 import usebShareStats from '../../hooks/useWineStats';
+import useBondStats from '../../hooks/useBondStats';
+import {roundAndFormatNumber} from '../../0x';
 
 const BackgroundImage = createGlobalStyle`
   body {
@@ -62,6 +64,7 @@ const Boardroom = () => {
   const bShareStats = usebShareStats();
   const scalingFactor = useMemo(() => (cashStat ? Number(cashStat.priceInDollars).toFixed(2) : null), [cashStat]);
   const {to} = useTreasuryAllocationTimes();
+  const bondStat = useBondStats();
 
   const stakedTokenPriceInDollars = useStakedTokenPriceInDollars('WINE', grapeFinance.WINE);
   const tokenPriceInDollars = useMemo(
@@ -71,33 +74,45 @@ const Boardroom = () => {
         : null,
     [stakedTokenPriceInDollars, stakedBalance],
   );
-  const rewards = ((boardroomAPR.toFixed(2)/365)/100)*tokenPriceInDollars;
+  const rewards = (boardroomAPR.toFixed(2) / 365 / 100) * tokenPriceInDollars;
 
-  const bShareCirculatingSupply = useMemo(
-    () => (bShareStats ? bShareStats.circulatingSupply : null),
-    [bShareStats],
-  );
-    const percentageStaked = ((totalStaked/bShareCirculatingSupply)/1e16).toFixed(2);
-    const stake = Number(getDisplayBalance(totalStaked)).toFixed(0);
-    const tvl = stake*stakedTokenPriceInDollars;
+  const bShareCirculatingSupply = useMemo(() => (bShareStats ? bShareStats.circulatingSupply : null), [bShareStats]);
+  const percentageStaked = (totalStaked / bShareCirculatingSupply / 1e16).toFixed(2);
+  const stake = Number(getDisplayBalance(totalStaked)).toFixed(0);
+  const tvl = stake * stakedTokenPriceInDollars;
 
+  const grapeReserves = useMemo(() => (Number(bondStat?.treasuryGrapes) / 1e18).toFixed(0), [bondStat]);
+  const bondSupply = useMemo(() => bondStat?.circulatingSupply, [bondStat]);
 
   return (
     <Page>
-      
       <BackgroundImage />
-      
 
       {!!account ? (
         <>
- 
-            <h1 style={{ fontSize: '80px', textAlign:'center' }}>Winery</h1>
+          <h1 style={{fontSize: '80px', textAlign: 'center'}}>Winery</h1>
 
-           <Alert variant="filled" severity="info" >               
-   The winery does not print Grape when below 1.01 TWAP, staking here below 1.01 TWAP will not generate rewards. Staked WINE can only be withdrawn every 4 epochs (24hrs) & rewards claimed every 2 epochs (12hrs). Staking or claiming resets this timer.
-      </Alert> 
+          <Alert variant="filled" severity="info">
+            The winery does not print Grape when below 1.01 TWAP, staking here below 1.01 TWAP will not generate
+            rewards. Staked WINE can only be withdrawn every 4 epochs (24hrs) & rewards claimed every 2 epochs (12hrs).
+            Staking or claiming resets this timer.
+          </Alert>
+          { bondStat && (bondSupply - grapeReserves) > 0 &&
+            <Box mt={4}>
+            <Grid item justify="center">
+              <Alert variant="outlined" severity="warning">
+                <div>
+                  Winery APR is temporarly reduced during debt phase. Debt is paid by the Winery when an epoch ends above 1.01 TWAP. Once Grape reserves are higher than bond supply, debt phase ends, and normal APR resumes.
+                </div>
+                <b>Grape Reserves:</b>{' '} {bondStat?.treasuryGrapes ? roundAndFormatNumber(Number(grapeReserves), 0) : '-'} {'  |  '}
+                <b>Bond supply:</b>{' '} {bondStat?.circulatingSupply ? roundAndFormatNumber(Number(bondSupply), 0) : '-'} {'  |  '}
+                <b>Debt to be paid by Winery:</b>{' '} {bondStat?.circulatingSupply ? roundAndFormatNumber(Number(bondSupply) - Number(grapeReserves), 0) : '-'}<br/>
+              </Alert>
+            </Grid>
+          </Box>
+          }
+          
           <Box mt={5}>
-
             <Grid container justify="center" spacing={3}>
               <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
                 <Card className={classes.gridItem}>
@@ -111,7 +126,9 @@ const Boardroom = () => {
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
                     <Typography style={{textTransform: 'uppercase', color: '#ccf'}}>Epoch / TWAP</Typography>
-                    <Typography>{Number(currentEpoch)} / {scalingFactor} MIM</Typography>
+                    <Typography>
+                      {Number(currentEpoch)} / {scalingFactor} MIM
+                    </Typography>
                   </CardContent>
                 </Card>
               </Grid>
@@ -119,7 +136,9 @@ const Boardroom = () => {
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
                     <Typography style={{textTransform: 'uppercase', color: '#ccf'}}>APR / Daily</Typography>
-                    <Typography>{boardroomAPR.toFixed(0)}% / {(boardroomAPR/365).toFixed(2)}%</Typography>
+                    <Typography>
+                      {boardroomAPR.toFixed(0)}% / {(boardroomAPR / 365).toFixed(2)}%
+                    </Typography>
                   </CardContent>
                 </Card>
               </Grid>
@@ -127,7 +146,9 @@ const Boardroom = () => {
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
                     <Typography style={{textTransform: 'uppercase', color: '#ccf'}}>Staked / %</Typography>
-                    <Typography>{stake} / {percentageStaked}%</Typography>
+                    <Typography>
+                      {stake} / {percentageStaked}%
+                    </Typography>
                   </CardContent>
                 </Card>
               </Grid>
@@ -135,7 +156,7 @@ const Boardroom = () => {
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
                     <Typography style={{textTransform: 'uppercase', color: '#ccf'}}>TVL</Typography>
-                    <Typography>${tvl ? (Number((Number(tvl).toFixed(0)))).toLocaleString('en-US') : '-.--'}</Typography>
+                    <Typography>${tvl ? Number(Number(tvl).toFixed(0)).toLocaleString('en-US') : '-.--'}</Typography>
                   </CardContent>
                 </Card>
               </Grid>
@@ -148,8 +169,6 @@ const Boardroom = () => {
                 </Card>
               </Grid>
             </Grid>
-
-            
 
             <Box mt={4}>
               <StyledBoardroom>
