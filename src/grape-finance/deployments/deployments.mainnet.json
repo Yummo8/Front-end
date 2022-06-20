@@ -1106,7 +1106,7 @@
   },
   "sw_zapper": {
     "//1": "This is our very own zapper on swap sicle.",
-    "address": "0x6B99CBC724F81745c639615417Dd0B2e4740c8c1",
+    "address": "0xb766434e15B902159186DF2dD1891255bF391396",
     "abi": [
       {
         "inputs": [{"internalType": "address", "name": "_router", "type": "address"}],
@@ -1131,6 +1131,13 @@
       },
       {
         "inputs": [],
+        "name": "GRAPE_MIM_LP",
+        "outputs": [{"internalType": "address", "name": "", "type": "address"}],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
         "name": "MIM",
         "outputs": [{"internalType": "address", "name": "", "type": "address"}],
         "stateMutability": "view",
@@ -1144,47 +1151,16 @@
         "type": "function"
       },
       {
-        "inputs": [{"internalType": "address", "name": "_address", "type": "address"}],
-        "name": "isLP",
-        "outputs": [{"internalType": "bool", "name": "", "type": "bool"}],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
         "inputs": [],
         "name": "owner",
         "outputs": [{"internalType": "address", "name": "", "type": "address"}],
         "stateMutability": "view",
         "type": "function"
       },
-      {
-        "inputs": [{"internalType": "uint256", "name": "i", "type": "uint256"}],
-        "name": "removeToken",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
       {"inputs": [], "name": "renounceOwnership", "outputs": [], "stateMutability": "nonpayable", "type": "function"},
-      {
-        "inputs": [{"internalType": "address", "name": "_address", "type": "address"}],
-        "name": "routePair",
-        "outputs": [{"internalType": "address", "name": "", "type": "address"}],
-        "stateMutability": "view",
-        "type": "function"
-      },
       {
         "inputs": [{"internalType": "address", "name": "token", "type": "address"}],
         "name": "setNotLP",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {"internalType": "address", "name": "asset", "type": "address"},
-          {"internalType": "address", "name": "route", "type": "address"}
-        ],
-        "name": "setRoutePairAddress",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -1212,17 +1188,9 @@
         "type": "function"
       },
       {
-        "inputs": [{"internalType": "address", "name": "_to", "type": "address"}],
-        "name": "zapIn",
-        "outputs": [],
-        "stateMutability": "payable",
-        "type": "function"
-      },
-      {
         "inputs": [
           {"internalType": "address", "name": "_from", "type": "address"},
-          {"internalType": "uint256", "name": "amount", "type": "uint256"},
-          {"internalType": "address", "name": "_to", "type": "address"}
+          {"internalType": "uint256", "name": "amount", "type": "uint256"}
         ],
         "name": "zapInToken",
         "outputs": [],
@@ -1230,10 +1198,7 @@
         "type": "function"
       },
       {
-        "inputs": [
-          {"internalType": "address", "name": "_from", "type": "address"},
-          {"internalType": "uint256", "name": "amount", "type": "uint256"}
-        ],
+        "inputs": [{"internalType": "uint256", "name": "amount", "type": "uint256"}],
         "name": "zapOut",
         "outputs": [],
         "stateMutability": "nonpayable",

@@ -1563,7 +1563,6 @@ export class GrapeFinance {
   }
   async zapIn_sw(tokenName: string, lpName: string, amount: string): Promise<TransactionResponse> {
     const {sw_zapper} = this.contracts;
-    const lpToken = this.externalTokens[lpName];
 
     let token: ERC20;
 
@@ -1578,7 +1577,7 @@ export class GrapeFinance {
       }
     }
 
-    return await sw_zapper.zapInToken(token.address, parseUnits(amount, 18), lpToken.address);
+    return await sw_zapper.zapInToken(token.address, parseUnits(amount, 18));
   }
   async swapBBondToWine(gbondAmount: BigNumber): Promise<TransactionResponse> {
     const {WineSwapper} = this.contracts;
