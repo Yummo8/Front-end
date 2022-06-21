@@ -34,7 +34,8 @@ const WineMimCard = ({}) => {
             <Typography color="#322f32">
               Lock your WINE to earn daily yields<br></br>
               <b>Daily APR:</b> {statsOnPool?.dailyAPR}%<br></br>
-              <b>Yearly APR:</b> {statsOnPool?.yearlyAPR}%
+              <b>Yearly APR:</b> {statsOnPool?.yearlyAPR}%<br />
+              <i>1 Node = 3 tickets towards NFT monthly airdrop</i>
             </Typography>
           </Box>
         </CardContent>
