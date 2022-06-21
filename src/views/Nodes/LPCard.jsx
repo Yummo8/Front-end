@@ -4,6 +4,8 @@ import {Box, Button, Card, CardActions, CardContent, Typography, Grid} from '@ma
 import TokenSymbol from '../../components/TokenSymbol';
 import useBank from '../../hooks/useBank';
 import useStatsForPool from '../../hooks/useStatsForPool';
+import { GRAPEMIMSW_NODE_MULTIPLIER } from '../../utils/constants';
+
 const LPCard = ({}) => {
   const tombBank = useBank('LPNode');
   const statsOnPool = useStatsForPool(tombBank);
@@ -34,7 +36,8 @@ const LPCard = ({}) => {
             <Typography color="#322f32">
               Lock your LP tokens to earn daily yields<br></br>
               <b>Daily APR:</b> {statsOnPool?.dailyAPR}% + POPs airdrops<br></br>
-              <b>Yearly APR:</b> {statsOnPool?.yearlyAPR}% + POPs airdrops
+              <b>Yearly APR:</b> {statsOnPool?.yearlyAPR}% + POPs airdrops<br/>
+              <i>1 Node = {GRAPEMIMSW_NODE_MULTIPLIER} ticket towards NFT monthly airdrop</i>
             </Typography>
           </Box>
         </CardContent>

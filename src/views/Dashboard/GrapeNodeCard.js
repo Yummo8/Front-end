@@ -15,7 +15,7 @@ import useGrapeStats from '../../hooks/useGrapeStats';
 import useShareStats from '../../hooks/useWineStats';
 import useNodes from '../../hooks/useNodes';
 import useLpStatsBTC from '../../hooks/useLpStatsBTC';
-
+import {GRAPE_NODE_MULTIPLIER, WINE_NODE_MULTIPLIER, GRAPEMIMSW_NODE_MULTIPLIER } from '../../utils/constants';
 
 const GrapeNodeCard = ({bank}) => {
   const { account } = useWallet();
@@ -40,6 +40,25 @@ const GrapeNodeCard = ({bank}) => {
     tokenStats = grapemimLpStats;
   }else if(bank.earnTokenName === 'GRAPE-WLRS-LP'){
     tokenStats = grapeWLRSLpStats;
+  }
+
+  const getRewards = () => {
+    if (bank.earnTokenName === 'GRAPE-WLRS-LP') {
+      return false;
+    }
+    return true;
+  }
+
+  const getMultiplierForNode = () => {
+    if (bank.earnTokenName === 'WINE') {
+      return WINE_NODE_MULTIPLIER;
+    } else if (bank.earnTokenName === 'GRAPE') {
+      return GRAPE_NODE_MULTIPLIER;
+    }
+    else if (bank.earnTokenName === 'GRAPE-MIM-SW'){
+      return GRAPEMIMSW_NODE_MULTIPLIER;
+    }
+    return 1;
   }
 
   const tokenPriceInDollars = useMemo(
@@ -92,8 +111,19 @@ const GrapeNodeCard = ({bank}) => {
             </Typography>
             <Typography color="#322f32">
               <b>YOUR NODES: </b>
-              {nodes[0] ? Number(nodes[0]) : null}
+              {nodes[0] ?  
+              Number(nodes[0]) : null}
           </Typography>
+
+          { getRewards() && 
+            <Typography color="#322f32">
+              <b>NFT AIRDROP TICKETS: </b>
+              {nodes[0] ?  
+                Number(nodes[0] * getMultiplierForNode()) : null
+              }
+            </Typography>
+          }
+          
             <Typography color="#322f32">
               <b>EARNED: </b>
               {`${earnedInToken} ${bank.earnTokenName} (≈$${bank.earnTokenName === 'GRAPE-MIM-SW' || bank.earnTokenName === 'GRAPE-WLRS-LP' ? Number(earnedInDollarsLP).toLocaleString('en-US') : Number(earnedInDollars).toLocaleString('en-US')})`}

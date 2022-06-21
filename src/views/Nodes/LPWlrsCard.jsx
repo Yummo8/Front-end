@@ -34,7 +34,8 @@ const LPWlrsCard = ({}) => {
             <Typography color="#322f32">
               Lock your LP tokens to earn daily yields<br></br>
               <b>Daily APR:</b> {statsOnPool?.dailyAPR}%<br></br>
-              <b>Yearly APR:</b> {statsOnPool?.yearlyAPR}%
+              <b>Yearly APR:</b> {statsOnPool?.yearlyAPR}%<br/>
+              <i>Doesn't count towards NFT monthly airdrop</i>
             </Typography>
           </Box>
         </CardContent>

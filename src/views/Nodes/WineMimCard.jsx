@@ -4,6 +4,8 @@ import {Box, Button, Card, CardActions, CardContent, Typography, Grid} from '@ma
 import TokenSymbol from '../../components/TokenSymbol';
 import useBank from '../../hooks/useBank';
 import useStatsForPool from '../../hooks/useStatsForPool';
+import { WINE_NODE_MULTIPLIER } from '../../utils/constants';
+
 const WineMimCard = ({}) => {
   const tombBank = useBank('WineNode');
   const statsOnPool = useStatsForPool(tombBank);
@@ -34,7 +36,8 @@ const WineMimCard = ({}) => {
             <Typography color="#322f32">
               Lock your WINE to earn daily yields<br></br>
               <b>Daily APR:</b> {statsOnPool?.dailyAPR}%<br></br>
-              <b>Yearly APR:</b> {statsOnPool?.yearlyAPR}%
+              <b>Yearly APR:</b> {statsOnPool?.yearlyAPR}%<br />
+              <i>1 Node = {WINE_NODE_MULTIPLIER} tickets towards NFT monthly airdrop</i>
             </Typography>
           </Box>
         </CardContent>
