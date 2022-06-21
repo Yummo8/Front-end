@@ -3,6 +3,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import CloseIcon from '@material-ui/icons/Close';
 import useGrapeFinance from '../../hooks/useGrapeFinance';
 import useWalletNodesAndNFTs from '../../hooks/useWalletNodesAndNFTs';
+import {NFT_TICKET_COUNT, GRAPE_NODE_MULTIPLIER, WINE_NODE_MULTIPLIER, GRAPEMIMSW_NODE_MULTIPLIER, GOON_MULTIPLIER, GLASS_MULTIPLIER, DECANTER_MULTIPLIER, GOBLET_MULTIPLIER} from '../../utils/constants';
 
 const useStyles = makeStyles((theme) => ({
   textField: {
@@ -76,14 +77,6 @@ const style = {
   borderRadius: '12px',
 };
 
-const NFT_TICKET_COUNT = 9600;
-const GRAPE_NODE_MULTIPLIER = 1;
-const WINE_NODE_MULTIPLIER = 3;
-const GRAPEMIMSW_NODE_MULTIPLIER = 1;
-const GOON_MULTIPLIER = 1;
-const GLASS_MULTIPLIER = 3;
-const DECANTER_MULTIPLIER = 9;
-const GOBLET_MULTIPLIER = 30;
 
 const AirdropRewardModal = ({ open, handleClose, grapes, grapePrice, wines, winePrice, grapeMimSW, grapeMimSWPrice, totalGrapes, totalWine, totalGrapeMimSW }) => {
   const grapeFinance = useGrapeFinance();  
