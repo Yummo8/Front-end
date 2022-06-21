@@ -112,7 +112,7 @@ const GrapeNodeCard = ({bank}) => {
             <Typography color="#322f32">
               <b>YOUR NODES: </b>
               {nodes[0] ?  
-              <span>{Number(nodes[0])} </span> : null}
+              Number(nodes[0]) : null}
           </Typography>
 
           { getRewards() && 
