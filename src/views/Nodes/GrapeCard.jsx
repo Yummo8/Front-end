@@ -4,6 +4,8 @@ import {Box, Button, Card, CardActions, CardContent, Typography, Grid} from '@ma
 import TokenSymbol from '../../components/TokenSymbol';
 import useBank from '../../hooks/useBank';
 import useStatsForPool from '../../hooks/useStatsForPool';
+import {GRAPE_NODE_MULTIPLIER } from '../../utils/constants';
+
 const GrapeCard = ({}) => {
   const tombBank = useBank('GrapeNode');
   const statsOnPool = useStatsForPool(tombBank);
@@ -35,7 +37,7 @@ const GrapeCard = ({}) => {
               Lock your Grapes to earn daily yields<br></br>
               <b>Daily APR:</b> {statsOnPool?.dailyAPR}%<br></br>
               <b>Yearly APR:</b> {statsOnPool?.yearlyAPR}%<br />
-              <i>1 Node = 1 ticket towards NFT monthly airdrop</i>
+              <i>1 Node = {GRAPE_NODE_MULTIPLIER} ticket towards NFT monthly airdrop</i>
             </Typography>
           </Box>
         </CardContent>
