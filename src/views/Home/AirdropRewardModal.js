@@ -21,6 +21,10 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '16px',
     color: '#930993'
   },
+  noEligible: {
+    fontSize: '16px',
+    color: 'red'
+  },
   subTitle: {
     color: '#0a274280',
     fontSize: '14px',
@@ -156,6 +160,15 @@ const AirdropRewardModal = ({ open, handleClose, grapes, grapePrice, wines, wine
   //   return Number((ticketNumber * totalGrapeMimSW) / (getTotalTicketsFromNodes() + NFT_TICKET_COUNT)).toFixed(2);
   // }
 
+  const elibileToAirdrop = () => {
+    return walletNodesAndNFTs && 
+            (manualEntry === true ||
+            walletNodesAndNFTs.goonBags > 0 ||
+            walletNodesAndNFTs.glasses > 0 ||
+            walletNodesAndNFTs.decanters > 0 ||
+            walletNodesAndNFTs.goblets > 0)
+  }
+
   const getTotalTicketsFromNodes = () => {
     return (getNumberOfNodes('GRAPE') * GRAPE_NODE_MULTIPLIER) + 
            (getNumberOfNodes('WINE') * WINE_NODE_MULTIPLIER) + 
@@ -274,10 +287,16 @@ const AirdropRewardModal = ({ open, handleClose, grapes, grapePrice, wines, wine
               <Typography className={classes.biggerText}><b>TOTAL TICKETS: {getTotalTicketsFromNodes() + NFT_TICKET_COUNT}</b></Typography>
 
               <h2 sx={{ marginTop: '20px'}} style={{fontSize: '22px'}}>Results</h2>
-              <Box className={classes.purpleText}><b>At current prices, your {ticketNumber} tickets are worth ≈${getShareDollarValue()}</b></Box>
-              <Typography className={classes.text}>≈{getShareGrapes()} Grape(s)</Typography>
-              <Typography className={classes.text}>≈{getShareWines()} Wine(s)</Typography>
-              {/*<Typography className={classes.text}>≈{getShareGrapeMimSW()} Grape-Mim SW(s)</Typography>*/}
+              {elibileToAirdrop() ?  
+                <div>
+                  <Box className={classes.purpleText}><b>At current prices, your {ticketNumber} tickets are worth ≈${getShareDollarValue()}</b></Box>
+                  <Typography className={classes.text}>≈{getShareGrapes()} Grape(s)</Typography>
+                  <Typography className={classes.text}>≈{getShareWines()} Wine(s)</Typography>
+                </div>
+                : 
+                <Typography className={classes.noEligible}>You are not eligible to the NFT monthly airdrop. You need to own at least 1 NFT (any kind) and at least 1 node (any kind).</Typography>
+              }
+
 
               <Box sx={{ fontStyle: 'italic', marginTop: '10px', fontSize: '11px' }}>Please note that the numbers are only an estimation, they are based upon the current balance of the reward pool and the current prices. They also estimate that all NFTs are held by node holders. Do not consider the results as your final reward amount.</Box>
             </Box>
