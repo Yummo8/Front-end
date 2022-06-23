@@ -204,8 +204,17 @@ const Nav = () => {
                     rel="noopener noreferrer"
                     target="_blank"
                   >
-                    Buy NFTs
+                    Buy NFTs with Avax
                   </a>
+                  <a
+                    href="https://hexagon.market/collections/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df"
+                    className={classes.link}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    Buy NFTs with Grapes
+                  </a>
+                  
                   <Link to="/strategies" className={classes.link}>
                     Strategy
                   </Link>
@@ -360,8 +369,15 @@ const Nav = () => {
                   component="a"
                   href="https://nftrade.com/assets/avalanche/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df"
                 >
-                  <ListItemText>Buy NFTs</ListItemText>
+                  <ListItemText>Buy NFTs with Avax</ListItemText>
                 </ListItem>    
+                <ListItem
+                  button
+                  component="a"
+                  href="https://hexagon.market/collections/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df"
+                >
+                  <ListItemText>Buy NFTs with Grapes</ListItemText>
+                </ListItem>
                 <ListItemLink primary="Strategy" to="/strategies" />
                 <ListItemLink primary="Stats" to="/stats" />
                 <ListItemLink primary="Roadmap" to="/roadmap" />
