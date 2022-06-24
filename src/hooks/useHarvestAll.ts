@@ -8,11 +8,13 @@ const useHarvestAll = (banks: Bank[]) => {
   const grapeFinance = useGrapeFinance();
   const earnings = useEarningsAll(banks);
   const handleTransactionReceipt = useHandleTransactionReceipt();
+
   const handleReward = useCallback(async () => {
     Promise.all(
       banks
         .filter((bank: Bank) => !earnings.get(`${bank.contract}-${bank.poolId}`).eq(0))
         .map((bank: Bank) => {
+          console.log('claiming '+ bank.contract)
           handleTransactionReceipt(
             grapeFinance.harvest(bank.contract, bank.poolId, bank.sectionInUI),
             `Claim ${bank.earnTokenName} from ${bank.contract}`,
@@ -21,7 +23,7 @@ const useHarvestAll = (banks: Bank[]) => {
     );
   }, [banks, earnings, grapeFinance, handleTransactionReceipt]);
 
-  return {onReward: handleReward};
+  return handleReward;
 };
 
 export default useHarvestAll;
