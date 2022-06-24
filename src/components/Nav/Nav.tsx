@@ -207,7 +207,7 @@ const Nav = () => {
                     Buy NFTs with Avax
                   </a>
                   <a
-                    href="https://hexagon.market/collections/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df"
+                    href="https://hexagon.market/collections/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df?sort=-highestPrice"
                     className={classes.link}
                     rel="noopener noreferrer"
                     target="_blank"
@@ -374,7 +374,7 @@ const Nav = () => {
                 <ListItem
                   button
                   component="a"
-                  href="https://hexagon.market/collections/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df"
+                  href="https://hexagon.market/collections/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df?sort=-highestPrice"
                 >
                   <ListItemText>Buy NFTs with Grapes</ListItemText>
                 </ListItem>

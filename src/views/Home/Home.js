@@ -242,20 +242,20 @@ return (
               </span>
 </span>*/}
             <br />
-            <Grid style={{ marginTop: '0px' }} container spacing={3}>
+            <Grid style={{ marginTop: '-10px' }} container spacing={3}>
                 <Grid
                   item
                   xs={12}
                   sm={12}
-                  md={6}
-                  lg={6}
-                  xl={6}
+                  md={5}
+                  lg={5}
+                  xl={5}
                   style={{ display: 'flex', justifyContent: 'center', verticalAlign: 'middle', overflow: 'hidden' }}
                 >
                   <Button
                     onClick={handleOpenModal}
                     className={'shinyButton ' + classes.button}
-                    style={{ width: '220px', height: '60px'  }}
+                    style={{ width: '100%', height: '80px'  }}
                   >
                     Estimate my Rewards
                   </Button>
@@ -264,19 +264,28 @@ return (
                   item
                   xs={12}
                   sm={12}
-                  md={6}
-                  lg={6}
-                  xl={6}
-                  style={{ display: 'flex', justifyContent: 'center', verticalAlign: 'middle', overflow: 'hidden' }}
+                  md={7}
+                  lg={7}
+                  xl={7}
+                  style={{justifyContent: 'center', verticalAlign: 'middle', overflow: 'hidden' }}
                 >
                   <Button
                     target="_blank"
                     rel="noopener noreferrer"
                     href="https://nftrade.com/assets/avalanche/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df"
                     className={'shinyButton ' + classes.button}
-                    style={{ width: '220px', height: '60px'}}
+                    style={{ width: '100%', height: '35px', marginBottom: '10px'}}
                   >
-                    Buy an NFT
+                    Buy an NFT (Avax)
+                  </Button>
+                  <Button
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://hexagon.market/collections/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df?sort=-highestPrice"
+                    className={'shinyButton ' + classes.button}
+                    style={{ width: '100%', height: '35px'}}
+                  >
+                    Buy an NFT (Grape)
                   </Button>
                 </Grid>
               </Grid>
