@@ -15,10 +15,7 @@ const useCompoundAll = (banks: Bank[]) => {
       const bank = banks[i]
       const nodePrice = await grapeFinance.getNodePrice(bank.contract, bank.poolId)
       const nodeEarnings = earnings.get(`${bank.contract}-${bank.poolId}`)
-      console.log('Node Price = ' + nodePrice)
-      console.log('Node Earnings = ' + nodeEarnings)
       if (!nodeEarnings.eq(0) && Number(nodeEarnings) >= Number(nodePrice)) {
-        console.log('can compound ' + bank.contract)
         nodesToCompound.push(bank)
       }
     }
