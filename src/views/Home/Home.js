@@ -8,7 +8,7 @@ import useGrapeStats from '../../hooks/useGrapeStats';
 import useLpStats from '../../hooks/useLpStats';
 import useLpStatsBTC from '../../hooks/useLpStatsBTC';
 import useBondStats from '../../hooks/useBondStats';
-import usebShareStats from '../../hooks/useWineStats';
+import useWineStats from '../../hooks/useWineStats';
 import useGrapeTotalNode from '../../hooks/useGrapeTotalNodes';
 import useWineTotalNode from '../../hooks/useWineTotalNodes';
 import useGrapeMimSWTotalNode from '../../hooks/useGrapeMimSWTotalNode';
@@ -57,7 +57,7 @@ const Home = () => {
   const grapeMimSWStats = useLpStats('GRAPE-MIM-SW');
 
   const grapeStats = useGrapeStats();
-  const bShareStats = usebShareStats();
+  const bShareStats = useWineStats();
   const tBondStats = useBondStats();
   const nodeRewardPoolStats = useNodeRewardPoolStats();
   const grapeFinance = useGrapeFinance();
@@ -88,7 +88,6 @@ const Home = () => {
   const wineLPStats = useMemo(() => (bSharemimLpStats ? bSharemimLpStats : null), [bSharemimLpStats]);
   const newPairLPStats = useMemo(() => (newPair ? newPair : null), [newPair]);
   const grapePriceInDollars = useMemo(
-
     () => (grapeStats ? Number(grapeStats.priceInDollars).toFixed(2) : null),
     [grapeStats],
   );
