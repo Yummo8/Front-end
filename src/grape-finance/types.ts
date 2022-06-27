@@ -54,6 +54,13 @@ export type WalletNodesAndNFTs = {
   goblets: number;
 }
 
+export type WalletStats = {
+  total: number;
+  totalInVineyard: number;
+  totalInWinery: number;
+  totalInNodes: number;
+}
+
 export type LPStat = {
   tokenAmount: string;
   mimAmount: string;
