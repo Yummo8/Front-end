@@ -48,12 +48,22 @@ const Dashboard = () => {
     () => (wineStats ? Number(wineStats.priceInDollars).toFixed(2) : null),
     [wineStats],
   );
+
+  const [totalInvested, totalInVineyard, totalInNodes, totalInWinery] = useMemo(
+    () => (wineStats ? [Number(wineStats.priceInDollars).toFixed(2), 
+                        Number(wineStats.priceInDollars).toFixed(2), 
+                        Number(wineStats.priceInDollars).toFixed(2), 
+                        Number(wineStats.priceInDollars).toFixed(2)] : null),
+    [wineStats],
+  );
+
   return (
     <Page>
       <BackgroundImage />
       {!!account ? (
         <>
           <h1 style={{ fontSize: '80px', textAlign: 'center' }}>Dashboard</h1>
+          <h3>Your Total $ Invested: ${totalInvested ? totalInvested : '-.--'}</h3>
           <Box mt={3}>
             <Grid container justifyContent="center" spacing={4}>
             <Box>
@@ -72,6 +82,7 @@ const Dashboard = () => {
             </Grid>
           </Box>
           <h1 style={{ fontSize: '60px', textAlign: 'center', marginTop: '50px' }}>Vineyard</h1>
+          <h3>Your $ Invested: ${totalInVineyard ? totalInVineyard : '-.--'}</h3>
           <Box mt={3} display="flex" justifyContent="center">
             <Button className="shinyButton" onClick={onReward}>
               Claim All From Vineyard
@@ -87,6 +98,8 @@ const Dashboard = () => {
             </Grid>
           </Box>
           <h1 style={{ fontSize: '60px', textAlign: 'center', marginTop: '50px' }}>Nodes</h1>
+          <h3>Your $ Invested: ${totalInNodes ? totalInNodes : '-.--'}</h3>
+
           <Grid container style={{textAlign: 'center'}}>
             <Grid item xs={6} md={6} lg={6}>
               <Button className="shinyButton" onClick={compoundNodes}>
@@ -110,6 +123,8 @@ const Dashboard = () => {
             </Grid>
           </Box>
           <h1 style={{ fontSize: '60px', textAlign: 'center', marginTop: '50px' }}>Winery</h1>
+          <h3>Your $ Invested: ${totalInWinery ? totalInWinery : '-.--'}</h3>
+
           <Typography style={{ textTransform: 'uppercase', color: '#fff', textAlign: 'center' }}>
             <b>Next Epoch: </b>
             <ProgressCountdown base={moment().toDate()} hideBar={true} deadline={to} description="Next Epoch" />
