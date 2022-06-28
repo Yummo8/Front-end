@@ -13,6 +13,7 @@ import {
   PoolStats,
   WineSwapperStat,
   WalletNodesAndNFTs,
+  WalletStats
 } from './types';
 import {BigNumber, BigNumberish, Contract, ethers, EventFilter} from 'ethers';
 import {decimalToBalance} from './ether-utils';
@@ -356,6 +357,58 @@ export class GrapeFinance {
       totalSupply: getDisplayBalance(supply, this.WINE.decimal, 0),
       circulatingSupply: getDisplayBalance(tShareCirculatingSupply, this.WINE.decimal, 0),
     };
+  }
+
+  async getWalletStats(banks: Bank[]): Promise<WalletStats> {
+    const vineyardBanks = banks.filter((bank) => !bank.finished && bank.sectionInUI === 2)
+    const nodeBanks = banks.filter((bank) => !bank.finished && bank.sectionInUI === 3)
+    let totalInVineyard = 0, totalInNodes = 0, totalInWinery = 0;
+
+    const winePriceInDollars = Number(await this.getDepositTokenPriceInDollars('WINE', this.WINE)) 
+    const grapePriceInDollars = Number(await this.getDepositTokenPriceInDollars('GRAPE', this.GRAPE)) 
+
+    // Vineyard
+    for (let i = 0; i < vineyardBanks.length; i++) {
+      const bank = vineyardBanks[i]
+      // bank Value
+      const stakedBalance = await this.stakedBalanceOnBank(bank.contract, bank.poolId, this.myAccount)
+      const stakedInToken = Number(getDisplayBalance(stakedBalance, bank.depositToken.decimal))
+      const stakedTokenPriceInDollars = Number(await this.getDepositTokenPriceInDollars(bank.depositTokenName, bank.depositToken))
+      totalInVineyard += stakedTokenPriceInDollars * stakedInToken
+
+      // bank Earnings
+      const bankEarnings = await this.earnedFromBank(bank.contract, bank.earnTokenName, bank.poolId, this.myAccount)
+      totalInVineyard += winePriceInDollars * Number(getDisplayBalance(bankEarnings, bank.depositToken.decimal))
+    }
+
+    // Nodes
+    for (let i = 0; i < nodeBanks.length; i++) {
+      const bank = nodeBanks[i]
+      // Node value
+      const nodesCount = Number((await this.getNodes(bank.contract, this.myAccount))[0])
+      const nodePrice = await this.getNodePrice(bank.contract, bank.poolId)
+      const stakedTokenPriceInDollars = Number(await this.getDepositTokenPriceInDollars(bank.depositTokenName, bank.depositToken))
+      totalInNodes += nodesCount * (stakedTokenPriceInDollars * Number(getDisplayBalance(nodePrice, bank.depositToken.decimal)))
+
+      // Node earnings
+      const nodeEarnings = await this.earnedFromBank(bank.contract, bank.earnTokenName, bank.poolId, this.myAccount)
+      totalInNodes += stakedTokenPriceInDollars * Number(getDisplayBalance(nodeEarnings, bank.depositToken.decimal))
+    }
+
+    // Winery deposit
+    const wineryStakedBalance = await this.getStakedSharesOnBoardroom()
+    const wineryStakedInToken = Number(getDisplayBalance(wineryStakedBalance))
+    // Winery earnings
+    const earnings = await this.getEarningsOnBoardroom()
+    const wineryEarnings = Number(getDisplayBalance(earnings))
+    totalInWinery = (winePriceInDollars * wineryStakedInToken) + (grapePriceInDollars * wineryEarnings)
+
+    return {
+      total: totalInVineyard + totalInNodes + totalInWinery,
+      totalInVineyard: totalInVineyard,
+      totalInWinery: totalInWinery,
+      totalInNodes: totalInNodes
+    }
   }
 
   async getWalletNodesAndNFTs(): Promise<WalletNodesAndNFTs> {
