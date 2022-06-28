@@ -92,19 +92,18 @@ const Nav = () => {
     setOpen(false);
   };
 
-
   return (
     <AppBar position="sticky" elevation={0} className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
         {matches ? (
           <>
-            <Typography variant="h6" color="inherit" noWrap style={{ flexGrow: '0' }} className={classes.toolbarTitle}>
+            <Typography variant="h6" color="inherit" noWrap style={{flexGrow: '0'}} className={classes.toolbarTitle}>
               {/* <a className={ classes.brandLink } href="/">Grape Money</a> */}
               <Link to="/" color="inherit" className={classes.brandLink}>
                 <img alt="Grape Finance" src={grapeLogo} height="60px" />
               </Link>
             </Typography>
-            <Box style={{ paddingLeft: '15px', paddingTop: '10px', fontSize: '1rem', flexGrow: '1' }}>
+            <Box style={{paddingLeft: '15px', paddingTop: '10px', fontSize: '1rem', flexGrow: '1'}}>
               <Link to="/" className={'navLink ' + classes.link}>
                 Home
               </Link>
@@ -123,45 +122,82 @@ const Nav = () => {
               <Link to="/rebates" className={'navLink ' + classes.link}>
                 Rebates
               </Link>
+              <div className={'dropdown'}>
+                <button className={'dropbtn'}>GAMES</button>
+                <div className={'dropdown-content'}>
+                  <a
+                    href="https://lianyou.io/burnforfun"
+                    className={classes.link}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    Burn For Fun - Space Shooter
+                  </a>
+                  <a
+                    href="https://slot.grapefinance.app/"
+                    className={classes.link}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    Slots
+                  </a>
+                  <a
+                    href="https://gladiatorfinance.app/koc"
+                    className={classes.link}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    King Of Colosseum
+                  </a>
+                  
+                </div>
+              </div>
+
+              <div className={'dropdown'}>
+                <button className={'dropbtn'}>VAULTS</button>
+                <div className={'dropdown-content'}>
+                  <a
+                    href="https://magik.farm/#/avax"
+                    className={classes.link}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    Magik
+                  </a>
+                  <a
+                    href="https://froyo.farm/#/avax"
+                    className={classes.link}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    Ice Cream
+                  </a>
+                  <a
+                    href="https://app.beefy.finance/#/"
+                    className={classes.link}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    Beefy
+                  </a>
+                  <a
+                    href="https://yieldwolf.finance/avalanche"
+                    className={classes.link}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    Yield Wolf
+                  </a>
+                </div>
+              </div>
               <Link to="/bond" className={'navLink ' + classes.link}>
                 Bonds
               </Link>
               <Link to="/raffle" className={'navLink ' + classes.link}>
                 Raffle
               </Link>
-              <a
-                href="https://lianyou.io/burnforfun"
-                className={'navLink ' + classes.link}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Game
-              </a>
-              <a
-                href="https://slot.grapefinance.app/"
-                className={'navLink ' + classes.link}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Slots
-              </a>
-              <div className={'dropdown'}>
-                <button className={'dropbtn'}>VAULTS</button>
-                <div className={'dropdown-content'}>
-                  <a href="https://magik.farm/#/avax" className={classes.link} rel="noopener noreferrer" target="_blank">
-                    Magik
-                  </a>
-                  <a href="https://froyo.farm/#/avax" className={classes.link} rel="noopener noreferrer" target="_blank">
-                    Ice Cream
-                  </a>
-                  <a href="https://app.beefy.finance/#/" className={classes.link} rel="noopener noreferrer" target="_blank">
-                    Beefy
-                  </a>
-                  <a href="https://yieldwolf.finance/avalanche" className={classes.link} rel="noopener noreferrer" target="_blank">
-                    Yield Wolf
-                  </a>
-                </div>
-              </div>
+
+              
 
               <div className={'dropdown'}>
                 <button className={'dropbtn'}>WALLETS</button>
@@ -195,10 +231,10 @@ const Nav = () => {
               <div className={'dropdown'}>
                 <button className={'dropbtn'}>USEFUL LINKS</button>
                 <div className={'dropdown-content'}>
-                <Link to="/leaderboard" className={'navLink ' + classes.link}>
-                  Leaderboard
-                </Link>
-                <a
+                  <Link to="/leaderboard" className={'navLink ' + classes.link}>
+                    Leaderboard
+                  </Link>
+                  <a
                     href="https://nftrade.com/assets/avalanche/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df"
                     className={classes.link}
                     rel="noopener noreferrer"
@@ -214,7 +250,7 @@ const Nav = () => {
                   >
                     Buy NFTs with Grapes
                   </a>
-                  
+
                   <Link to="/strategies" className={classes.link}>
                     Strategy
                   </Link>
@@ -224,10 +260,17 @@ const Nav = () => {
                   <Link to="/roadmap" className={classes.link}>
                     Roadmap
                   </Link>
+                  <a
+                    href="https://shop.grapefinance.app/"
+                    className={'navLink ' + classes.link}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    Merch
+                  </a>
                   <Link to="/help" className={classes.link}>
                     Help
                   </Link>
-                  
                 </div>
               </div>
 
@@ -239,15 +282,7 @@ const Nav = () => {
               >
                 Voting
             </a>*/}
-        
-              <a
-                href="https://shop.grapefinance.app/"
-                className={'navLink ' + classes.link}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Merch
-              </a>
+
               <a
                 href="https://grapefinance.gitbook.io/grape-finance-docs/"
                 className={'navLink ' + classes.link}
@@ -286,7 +321,7 @@ const Nav = () => {
             <img
               alt="grape.money"
               src={grapeLogo}
-              style={{ height: '40px', marginTop: '-10px', marginLeft: '10px', marginRight: '15px' }}
+              style={{height: '40px', marginTop: '-10px', marginLeft: '10px', marginRight: '15px'}}
             />
             <AccountButton text="Connect" />
             <Drawer
@@ -322,47 +357,52 @@ const Nav = () => {
                 <ListItemLink primary="Nodes" to="/nodes" />
                 <ListItemLink primary="Rebates" to="/rebates" />
                 <ListItemLink primary="Leaderboard" to="/leaderboard" />
-                <ListItemLink primary="Bond" to="/bond" />
-                <ListItemLink primary="Raffle" to="/raffle" />
                 <ListItem button component="a" href="https://lianyou.io/burnforfun">
-                  <ListItemText>Game</ListItemText>
+                  <ListItemText>Game - Burn for Fun</ListItemText>
                 </ListItem>
                 <ListItem button component="a" href="https://slot.grapefinance.app/">
-                  <ListItemText>Slots</ListItemText>
+                  <ListItemText>Game - Slots</ListItemText>
+                </ListItem>
+                <ListItem button component="a" href="https://gladiatorfinance.app/koc">
+                  <ListItemText>Game - King of Colosseum</ListItemText>
                 </ListItem>
                 <ListItem button component="a" href="https://magik.farm/#/avax">
-                  <ListItemText>Magik</ListItemText>
+                  <ListItemText>Magik Vaults</ListItemText>
                 </ListItem>
                 <ListItem button component="a" href="https://froyo.farm/#/avax">
-                  <ListItemText>Ice Cream</ListItemText>
+                  <ListItemText>Ice Cream Vaults</ListItemText>
                 </ListItem>
                 <ListItem button component="a" href="https://app.beefy.finance/#/">
-                  <ListItemText>Beefy</ListItemText>
+                  <ListItemText>Beefy Vaults</ListItemText>
                 </ListItem>
                 <ListItem button component="a" href="https://yieldwolf.finance/avalanche">
-                  <ListItemText>Yield Wolf</ListItemText>
-                </ListItem>      
+                  <ListItemText>Yield Wolf Vaults</ListItemText>
+                </ListItem>
+
+                <ListItemLink primary="Bond" to="/bond" />
+                <ListItemLink primary="Raffle" to="/raffle" />
+                
                 {/*<ListItemLink primary="Launchpad" to="/launchpad" />*/}
                 <ListItem
                   button
                   component="a"
                   href="https://debank.com/profile/0xEB755b81A786832705a3c0658127216eD36fE898"
                 >
-                  <ListItemText>Treasury</ListItemText>
+                  <ListItemText>Treasury Wallet</ListItemText>
                 </ListItem>
                 <ListItem
                   button
                   component="a"
                   href="https://debank.com/profile/0xf29fD03Df2Cb7F81d8Ae4d10A76f8b1C898786BD"
                 >
-                  <ListItemText>DAO</ListItemText>
+                  <ListItemText>DAO Wallet</ListItemText>
                 </ListItem>
                 <ListItem
                   button
                   component="a"
                   href="https://debank.com/profile/0xa3C4C965BA6aA9382a8Edd965D13CB495F8da6F5"
                 >
-                  <ListItemText>Nodes Rewards</ListItemText>
+                  <ListItemText>Nodes Rewards Wallet</ListItemText>
                 </ListItem>
                 <ListItem
                   button
@@ -370,7 +410,7 @@ const Nav = () => {
                   href="https://nftrade.com/assets/avalanche/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df"
                 >
                   <ListItemText>Buy NFTs with Avax</ListItemText>
-                </ListItem>    
+                </ListItem>
                 <ListItem
                   button
                   component="a"
