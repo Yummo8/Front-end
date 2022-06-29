@@ -71,7 +71,7 @@ const Dashboard = () => {
       {!!account ? (
         <>
           <h1 style={{fontSize: '80px', textAlign: 'center'}}>Dashboard</h1>
-          <h3 style={{ fontSize: '40px', textAlign: 'center' }}>Your Total $ Worth: {totalInvested ? <CountUp end={totalInvested} separator="," prefix='≈$' /> : <CircularProgress style={{marginLeft: '10px'}} size={22} color='inherit' />}</h3>
+          <h3 style={{ fontSize: '40px', textAlign: 'center' }}>Your Total $ Worth: {totalInvested != null ? <CountUp end={totalInvested} separator="," prefix='≈$' /> : <CircularProgress style={{marginLeft: '10px'}} size={22} color='inherit' />}</h3>
 
           
 

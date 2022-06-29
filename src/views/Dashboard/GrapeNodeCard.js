@@ -49,6 +49,10 @@ const GrapeNodeCard = ({bank}) => {
     return true;
   }
 
+  const isWineNode = () => {
+    return bank.contract === 'WineNode' && nodes.length > 0 && nodes[0] > 0
+  }
+
   const getMultiplierForNode = () => {
     if (bank.earnTokenName === 'WINE') {
       return WINE_NODE_MULTIPLIER;
@@ -148,7 +152,11 @@ const GrapeNodeCard = ({bank}) => {
           >
             Claim
           </Button>
+         
         </CardActions>
+        { isWineNode() && 
+            <div style={{textAlign: 'center', padding: '5px', fontSize: '12px', marginTop: '5px'}}>NOTE: If your wine node rewards are not what you expect, please wait up to 15 minutes for the contract to refill and try again.</div>
+          }
       </Card>
     </Grid>
   );
