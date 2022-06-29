@@ -71,10 +71,7 @@ const Dashboard = () => {
       {!!account ? (
         <>
           <h1 style={{fontSize: '80px', textAlign: 'center'}}>Dashboard</h1>
-          <h3 style={{ fontSize: '40px', textAlign: 'center' }}>Your Total $ Worth: {totalInvested ? <CountUp end={totalInvested} separator="," prefix='≈$' /> : <CircularProgress style={{marginLeft: '10px'}} size={22} color='inherit' />}</h3>
-
-          
-
+          <p style={{ fontSize: '30px', textAlign: 'center', color: '#fff', fontWeight: 'bold' }}>Your Total $ Worth: {totalInvested ? <CountUp end={totalInvested} separator="," prefix='≈$' /> : <CircularProgress style={{marginLeft: '10px'}} size={22} color='inherit' />}</p>
           <Box mt={3}>
             <Grid container justifyContent="center" spacing={4}>
               <Box>
@@ -98,9 +95,9 @@ const Dashboard = () => {
           </Box>
           <hr style={{marginTop: '50px'}}></hr>
           <h1 style={{fontSize: '60px', textAlign: 'center', marginTop: '30px'}}>Vineyard</h1>
-          <h2 style={{fontSize: '35px', textAlign: 'center'}}>
+          <p style={{fontSize: '28px', textAlign: 'center', color: '#fff', margin: '0'}}>
             Your $ Worth: {totalInVineyard ? '≈$' + totalInVineyard : <CircularProgress style={{marginLeft: '10px'}} size={22} color='inherit' />}
-          </h2>
+          </p>
           <Box style={{marginTop: '20px'}} mt={3} display="flex" justifyContent="center">
             <Button className="shinyButton" onClick={onReward}>
               Claim All From Vineyard
@@ -116,9 +113,9 @@ const Dashboard = () => {
             </Grid>
           </Box>
           <h1 style={{fontSize: '60px', textAlign: 'center', marginTop: '50px'}}>Nodes</h1>
-          <h2 style={{fontSize: '35px', textAlign: 'center'}}>
+          <p style={{fontSize: '28px', textAlign: 'center', color: '#fff', margin: '0'}}>
             Your $ Worth: {totalInNodes ? '≈$' + totalInNodes : <CircularProgress style={{marginLeft: '10px'}} size={22} color='inherit' />}
-          </h2>
+          </p>
           <Grid container style={{marginTop: '20px', textAlign: 'center'}}>
             <Grid item xs={6} md={6} lg={6}>
               <Button className="shinyButton" onClick={compoundNodes}>
@@ -142,9 +139,9 @@ const Dashboard = () => {
             </Grid>
           </Box>
           <h1 style={{fontSize: '60px', textAlign: 'center', marginTop: '50px'}}>Winery</h1>
-          <h2 style={{fontSize: '35px', textAlign: 'center'}}>
+          <p style={{fontSize: '28px', textAlign: 'center', color: '#fff', margin: '0'}}>
             Your $ Worth: {totalInWinery ? '≈$' + totalInWinery : <CircularProgress style={{marginLeft: '10px'}} size={22} color='inherit' />}
-          </h2>
+          </p>
           <Typography style={{marginTop: '20px', textTransform: 'uppercase', color: '#fff', textAlign: 'center'}}>
             <b>Next Epoch: </b>
             <ProgressCountdown base={moment().toDate()} hideBar={true} deadline={to} description="Next Epoch" />
