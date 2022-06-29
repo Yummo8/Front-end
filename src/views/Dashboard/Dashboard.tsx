@@ -71,7 +71,10 @@ const Dashboard = () => {
       {!!account ? (
         <>
           <h1 style={{fontSize: '80px', textAlign: 'center'}}>Dashboard</h1>
-          <p style={{ fontSize: '30px', textAlign: 'center', color: '#fff', fontWeight: 'bold' }}>Your Total $ Worth: {totalInvested ? <CountUp end={totalInvested} separator="," prefix='≈$' /> : <CircularProgress style={{marginLeft: '10px'}} size={22} color='inherit' />}</p>
+
+          <h3 style={{ fontSize: '40px', textAlign: 'center' }}>Your Total $ Worth: {totalInvested != null ? <CountUp end={totalInvested} separator="," prefix='≈$' /> : <CircularProgress style={{marginLeft: '10px'}} size={22} color='inherit' />}</h3>
+
+          
           <Box mt={3}>
             <Grid container justifyContent="center" spacing={4}>
               <Box>
