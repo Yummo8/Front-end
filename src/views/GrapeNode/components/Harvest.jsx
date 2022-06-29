@@ -33,6 +33,10 @@ const Harvest = ({bank}) => {
     tokenStats = grapeWLRSLpStats;
   }
 
+  const isWineNode = () => {
+    return bank.contract === 'WineNode'
+  }
+
   const nodePrice = useNodePrice(bank.contract, bank.poolId, bank.sectionInUI);
   const tokenPriceInDollars = useMemo(
     () => (tokenStats ? Number(tokenStats.priceInDollars).toFixed(2) : null),
@@ -70,7 +74,9 @@ const Harvest = ({bank}) => {
               Claim
             </Button>
           </StyledCardActions>
-         
+          { isWineNode() && 
+            <div style={{textAlign: 'center', fontSize: '12px', marginTop: '10px'}}>NOTE: If your wine node rewards are not what you expect, please wait up to 15 minutes for the contract to refill and try again.</div>
+          }
           <Button
           style={{marginTop: '20px'}}
               onClick={onCompound}
