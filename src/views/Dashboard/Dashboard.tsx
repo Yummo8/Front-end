@@ -1,11 +1,12 @@
 import React, {useMemo} from 'react';
 import {useWallet} from 'use-wallet';
+import styled from 'styled-components';
 import {createGlobalStyle} from 'styled-components';
 import moment from 'moment';
-import {Box, Grid, Button, Typography, CircularProgress, Card, CardContent} from '@material-ui/core';
+import Label from '../../components/Label';
+import {Box, Grid, Button, Typography, CircularProgress} from '@material-ui/core';
 import ProgressCountdown from './ProgressCountdown';
 import UnlockWallet from '../../components/UnlockWallet';
-import CardIcon from '../../components/CardIcon';
 import TokenSymbol from '../../components/TokenSymbol';
 import Page from '../../components/Page';
 import FarmCard from './FarmCard';
@@ -21,6 +22,10 @@ import useGrapeStats from '../../hooks/useGrapeStats';
 import useWineStats from '../../hooks/useWineStats';
 import useWalletStats from '../../hooks/useWalletStats';
 import CountUp from 'react-countup';
+import {useMediaQuery} from '@material-ui/core';
+import useTokenBalance from '../../hooks/useTokenBalance';
+import {getDisplayBalance} from '../../utils/formatBalance';
+import useGrapeFinance from '../../hooks/useGrapeFinance';
 
 const BackgroundImage = createGlobalStyle`
   body {
@@ -32,6 +37,8 @@ const BackgroundImage = createGlobalStyle`
 
 const Dashboard = () => {
   const {account} = useWallet();
+  const grapeFinance = useGrapeFinance();
+
   const {to} = useTreasuryAllocationTimes();
   const [banks] = useBanks();
   const walletStats = useWalletStats(banks);
@@ -42,6 +49,14 @@ const Dashboard = () => {
   const onReward = useHarvestAll(vineyardPools);
   const harvestNodes = useHarvestAll(nodePools);
   const compoundNodes = useCompoundAll(nodePools);
+  const matches = useMediaQuery('(min-width:900px)');
+
+  const grapeBalance = useTokenBalance(grapeFinance.GRAPE);
+  const displayGrapeBalance = useMemo(() => getDisplayBalance(grapeBalance), [grapeBalance]);
+  const wineBalance = useTokenBalance(grapeFinance.WINE);
+  const displayWineBalance = useMemo(() => getDisplayBalance(wineBalance), [wineBalance]);
+  const gbondBalance = useTokenBalance(grapeFinance.GBOND);
+  const displayGbondBalance = useMemo(() => getDisplayBalance(gbondBalance), [gbondBalance]);
 
   const grapePriceInDollars = useMemo(
     () => (grapeStats ? Number(grapeStats.priceInDollars).toFixed(2) : null),
@@ -65,6 +80,12 @@ const Dashboard = () => {
     [walletStats],
   );
 
+  const getTotalInvested = () => {
+    return totalInvested + 
+    (Number(displayGrapeBalance) * Number(grapePriceInDollars)) +
+    (Number(displayWineBalance) * Number(winePriceInDollars));
+  }
+
   return (
     <Page>
       <BackgroundImage />
@@ -72,34 +93,76 @@ const Dashboard = () => {
         <>
           <h1 style={{fontSize: '80px', textAlign: 'center'}}>Dashboard</h1>
 
-          <h3 style={{ fontSize: '40px', textAlign: 'center' }}>Your Total $ Worth: {totalInvested != null ? <CountUp end={totalInvested} separator="," prefix='≈$' /> : <CircularProgress style={{marginLeft: '10px'}} size={22} color='inherit' />}</h3>
+          <h3 style={{fontSize: '40px', textAlign: 'center'}}>
+            My Total $ Worth:{' '}
+            {totalInvested != null ? (
+              <CountUp end={getTotalInvested()} separator="," prefix="≈$" />
+            ) : (
+              <CircularProgress style={{marginLeft: '10px'}} size={22} color="inherit" />
+            )}
+          </h3>
 
-          
           <Box mt={3}>
             <Grid container justifyContent="center" spacing={4}>
-              <Box>
-                <Box style={{paddingLeft: '20px'}}>
-                  <TokenSymbol symbol="GRAPE" />
-                </Box>
-                <span style={{fontSize: '30px', color: '#fff', display: 'block'}}>
-                  ${grapePriceInDollars ? grapePriceInDollars : '-.--'}
-                </span>
-              </Box>
+              <Grid item xs={12} md={6} lg={6} style={{textAlign: 'center'}}>
+                <h1>Prices</h1>
+                <Balances style={{display: 'flex', flexDirection: matches ? 'row' : 'column'}}>
+                  <StyledBalanceWrapper style={{paddingBottom: '15px'}}>
+                    <TokenSymbol symbol="GRAPE" />
+                    <StyledBalance>
+                      <StyledValue>${grapePriceInDollars ? grapePriceInDollars : '-.--'}</StyledValue>
+                      <Label text="GRAPE Price" />
+                    </StyledBalance>
+                  </StyledBalanceWrapper>
 
-              <Box style={{marginLeft: '30px'}}>
-                <Box style={{paddingLeft: '20px'}}>
-                  <TokenSymbol symbol="WINE" />
-                </Box>
-                <span style={{fontSize: '30px', color: '#fff', display: 'block'}}>
-                  ${winePriceInDollars ? winePriceInDollars : '-.--'}
-                </span>
-              </Box>
+                  <StyledBalanceWrapper style={{paddingBottom: '15px'}}>
+                    <TokenSymbol symbol="WINE" />
+                    <StyledBalance>
+                      <StyledValue>${winePriceInDollars ? winePriceInDollars : '-.--'}</StyledValue>
+                      <Label text="WINE Price" />
+                    </StyledBalance>
+                  </StyledBalanceWrapper>
+                </Balances>
+              </Grid>
+              <Grid item xs={12} md={6} lg={6} style={{textAlign: 'center'}}>
+                <h1>My Wallet</h1>
+                <Balances style={{display: 'flex', flexDirection: matches ? 'row' : 'column'}}>
+                  <StyledBalanceWrapper style={{paddingBottom: '15px'}}>
+                    <TokenSymbol symbol="GRAPE" />
+                    <StyledBalance>
+                      <StyledValue>{displayGrapeBalance}</StyledValue>
+                      <Label text="GRAPE Available" />
+                    </StyledBalance>
+                  </StyledBalanceWrapper>
+
+                  <StyledBalanceWrapper style={{paddingBottom: '15px'}}>
+                    <TokenSymbol symbol="WINE" />
+                    <StyledBalance>
+                      <StyledValue>{displayWineBalance}</StyledValue>
+                      <Label text="WINE Available" />
+                    </StyledBalance>
+                  </StyledBalanceWrapper>
+
+                  <StyledBalanceWrapper style={{paddingBottom: '15px'}}>
+                    <TokenSymbol symbol="GBOND" />
+                    <StyledBalance>
+                      <StyledValue>{displayGbondBalance}</StyledValue>
+                      <Label text="GBOND Available" />
+                    </StyledBalance>
+                  </StyledBalanceWrapper>
+                </Balances>
+              </Grid>
             </Grid>
           </Box>
-          <hr style={{marginTop: '50px'}}></hr>
+          <hr></hr>
           <h1 style={{fontSize: '60px', textAlign: 'center', marginTop: '30px'}}>Vineyard</h1>
           <p style={{fontSize: '28px', textAlign: 'center', color: '#fff', margin: '0'}}>
-            Your $ Worth: {totalInVineyard ? '≈$' + totalInVineyard : <CircularProgress style={{marginLeft: '10px'}} size={22} color='inherit' />}
+            My $ Worth:{' '}
+            {totalInVineyard ? (
+              '≈$' + totalInVineyard
+            ) : (
+              <CircularProgress style={{marginLeft: '10px'}} size={22} color="inherit" />
+            )}
           </p>
           <Box style={{marginTop: '20px'}} mt={3} display="flex" justifyContent="center">
             <Button className="shinyButton" onClick={onReward}>
@@ -117,7 +180,12 @@ const Dashboard = () => {
           </Box>
           <h1 style={{fontSize: '60px', textAlign: 'center', marginTop: '50px'}}>Nodes</h1>
           <p style={{fontSize: '28px', textAlign: 'center', color: '#fff', margin: '0'}}>
-            Your $ Worth: {totalInNodes ? '≈$' + totalInNodes : <CircularProgress style={{marginLeft: '10px'}} size={22} color='inherit' />}
+            My $ Worth (Locked):{' '}
+            {totalInNodes ? (
+              '≈$' + totalInNodes
+            ) : (
+              <CircularProgress style={{marginLeft: '10px'}} size={22} color="inherit" />
+            )}
           </p>
           <Grid container style={{marginTop: '20px', textAlign: 'center'}}>
             <Grid item xs={6} md={6} lg={6}>
@@ -143,7 +211,12 @@ const Dashboard = () => {
           </Box>
           <h1 style={{fontSize: '60px', textAlign: 'center', marginTop: '50px'}}>Winery</h1>
           <p style={{fontSize: '28px', textAlign: 'center', color: '#fff', margin: '0'}}>
-            Your $ Worth: {totalInWinery ? '≈$' + totalInWinery : <CircularProgress style={{marginLeft: '10px'}} size={22} color='inherit' />}
+            My $ Worth:{' '}
+            {totalInWinery ? (
+              '≈$' + totalInWinery
+            ) : (
+              <CircularProgress style={{marginLeft: '10px'}} size={22} color="inherit" />
+            )}
           </p>
           <Typography style={{marginTop: '20px', textTransform: 'uppercase', color: '#fff', textAlign: 'center'}}>
             <b>Next Epoch: </b>
@@ -161,5 +234,31 @@ const Dashboard = () => {
     </Page>
   );
 };
+
+const StyledValue = styled.div`
+  color: white;
+  font-size: 30px;
+  font-weight: 700;
+`;
+
+const StyledBalance = styled.div`
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+`;
+
+const Balances = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: ${(props) => props.theme.spacing[4]}px;
+`;
+
+const StyledBalanceWrapper = styled.div`
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 0 ${(props) => props.theme.spacing[3]}px;
+`;
 
 export default Dashboard;
