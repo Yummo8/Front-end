@@ -361,7 +361,7 @@ export class GrapeFinance {
   }
 
   async getWalletStats(banks: Bank[]): Promise<WalletStats> {
-    const vineyardBanks = banks.filter((bank) => !bank.finished && bank.sectionInUI === 2)
+    const vineyardBanks = banks.filter((bank) => !bank.finished && (bank.sectionInUI === 2 || bank.sectionInUI === 6 || bank.sectionInUI === 7))
     const nodeBanks = banks.filter((bank) => !bank.finished && bank.sectionInUI === 3)
     let totalInVineyard = 0, totalInNodes = 0, totalInWinery = 0;
 
