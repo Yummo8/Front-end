@@ -697,9 +697,9 @@ export class GrapeFinance {
     } else if (depositTokenName === 'WAMP') {
       return rewardPerSecond.mul(500).div(41000);
     } else if (depositTokenName === 'GRAPE-MIM-SW') {
-      return rewardPerSecond.mul(2500).div(41000);
+      return rewardPerSecond.mul(3000).div(41000);
     } else if (depositTokenName === 'WINE-POPS-LP') {
-      return rewardPerSecond.mul(500).div(41000);
+      return rewardPerSecond.mul(250).div(41000);
     } else {
       return rewardPerSecond.mul(27750).div(41000);
     }

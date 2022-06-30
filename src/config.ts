@@ -208,7 +208,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     finished: false,
     sort: 1,
     closedForStaking: false,
-    multi: '6.75',
+    multi: '8.10',
     buyLink: 'https://www.swapsicle.io/swap',
   },
   WinePopsSWWineRewardPool: {
@@ -221,7 +221,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     finished: false,
     sort: 2,
     closedForStaking: false,
-    multi: '1.35',
+    multi: '0.675',
     buyLink: 'https://www.swapsicle.io/swap',
   },
   GrapeStaking: {
