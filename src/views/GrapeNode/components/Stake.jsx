@@ -41,7 +41,7 @@ const Stake = ({bank}) => {
     Number(tokenPriceInDollars) * Number(getDisplayBalance(nodePrice, bank.depositToken.decimal))
   ).toFixed(2);
   const {onStake} = useStake(bank);
-  const {onZap} = useZap(bank);
+  const {onZapSW} = useZap(bank);
   const [onPresentDeposit, onDismissDeposit] = useModal(
     <DepositModal
       bank={bank}
@@ -61,7 +61,7 @@ const Stake = ({bank}) => {
       decimals={bank.depositToken.decimal}
       onConfirm={(zappingToken, tokenName, amount) => {
         if (Number(amount) <= 0 || isNaN(Number(amount))) return;
-        onZap(zappingToken, tokenName, amount);
+        onZapSW(zappingToken, tokenName, amount);
         onDissmissZap();
       }}
       LPtokenName={bank.depositTokenName}

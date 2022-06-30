@@ -17,6 +17,7 @@ import useApprove, {ApprovalState} from '../../../hooks/useApprove';
 import useModal from '../../../hooks/useModal';
 import useStake from '../../../hooks/useStake';
 import useZap from '../../../hooks/useZap';
+import useZapSW from '../../../hooks/useZapSW';
 import useStakedBalance from '../../../hooks/useStakedBalance';
 import useStakedTokenPriceInDollars from '../../../hooks/useStakedTokenPriceInDollars';
 import useTokenBalance from '../../../hooks/useTokenBalance';
@@ -27,6 +28,7 @@ import {getDisplayBalance} from '../../../utils/formatBalance';
 import DepositModal from './DepositModal';
 import WithdrawModal from './WithdrawModal';
 import ZapModal from './ZapModal';
+import ZapModalSW from './ZapModalSW';
 import TokenSymbol from '../../../components/TokenSymbol';
 import {Bank} from '../../../grape-finance';
 
@@ -51,6 +53,7 @@ const Stake: React.FC<StakeProps> = ({bank}) => {
   ).toFixed(2);
   const {onStake} = useStake(bank);
   const {onZap} = useZap(bank);
+  const {onZapSW} = useZapSW(bank);
   const {onWithdraw} = useWithdraw(bank);
 
   const [onPresentDeposit, onDismissDeposit] = useModal(
@@ -78,6 +81,18 @@ const Stake: React.FC<StakeProps> = ({bank}) => {
     />,
   );
 
+  const [onPresentZapSW, onDissmissZapSW] = useModal(
+    <ZapModalSW
+      decimals={bank.depositToken.decimal}
+      onConfirm={(zappingToken, tokenName, amount) => {
+        if (Number(amount) <= 0 || isNaN(Number(amount))) return;
+        onZapSW(zappingToken, tokenName, amount);
+        onDissmissZapSW();
+      }}
+      LPtokenName={bank.depositTokenName}
+    />,
+  );
+
   const [onPresentWithdraw, onDismissWithdraw] = useModal(
     <WithdrawModal
       max={stakedBalance}
@@ -91,8 +106,18 @@ const Stake: React.FC<StakeProps> = ({bank}) => {
     />,
   );
 
-  let isZapLP = bank.depositTokenName.includes('LP') && !bank.depositTokenName.includes('HSHARE');
+  let isZapLP = false;
+  if (bank.depositTokenName.includes('POPS')) {
+    isZapLP = false;
+  } else if(bank.depositTokenName.includes('LP')){
+    isZapLP = true;
+  }
 
+  let isZapSW = false;
+  if(bank.depositTokenName.includes('SW')){
+    isZapSW = true;
+  }
+  
   return (
     <Card>
       <CardContent>
@@ -142,6 +167,14 @@ const Stake: React.FC<StakeProps> = ({bank}) => {
                   <IconButton
                     disabled={bank.closedForStaking}
                     onClick={() => (bank.closedForStaking ? null : onPresentZap())}
+                  >
+                    <FlashOnIcon style={{color: themeColor.grey[400]}} />
+                  </IconButton>
+                )}
+                {isZapSW && (
+                  <IconButton
+                    disabled={bank.closedForStaking}
+                    onClick={() => (bank.closedForStaking ? null : onPresentZapSW())}
                   >
                     <FlashOnIcon style={{color: themeColor.grey[400]}} />
                   </IconButton>

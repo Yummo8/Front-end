@@ -9,10 +9,10 @@ const useZap = (bank: Bank) => {
 
   const handleZap = useCallback(
     (zappingToken: string, tokenName: string, amount: string) => {
-      handleTransactionReceipt(
-        grapeFinance.zapIn(zappingToken, tokenName, amount),
-        `Zap ${amount} in ${bank.depositTokenName}.`,
-      );
+        handleTransactionReceipt(
+          grapeFinance.zapIn(zappingToken, tokenName, amount),
+          `Zap ${amount} in ${bank.depositTokenName}.`,
+        );      
     },
     [bank, grapeFinance, handleTransactionReceipt],
   );

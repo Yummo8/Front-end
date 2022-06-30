@@ -16,7 +16,7 @@ const useZap = (bank: Bank) => {
     },
     [bank, grapeFinance, handleTransactionReceipt],
   );
-  return {onZap: handleZap};
+  return {onZapSW: handleZap};
 };
 
 export default useZap;

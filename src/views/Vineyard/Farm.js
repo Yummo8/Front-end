@@ -44,9 +44,24 @@ const Farm = () => {
                 <div hidden={activeBanks.filter((bank) => bank.sectionInUI === 2).length === 0}>
         
                   <Alert variant="filled" severity="warning">
-                    Follow the <a style={{color: '#fff'}} href="http://grapefinance.app/strategies" >Strategies guide here</a>. Sticking to the current strategy helps support the protocol which in turn helps you to continue to earn rewards!
+                    Follow the <a style={{color: '#fff'}} href="http://grapefinance.app/strategies" >Strategies guide here</a>. If autocompounding be sure to use <a style={{color: '#fff'}} href="https://magik.farm/#/avax" >Magik Farms</a> to help buy back and burn the peg! Sticking to the current strategy helps support the protocol which in turn helps you to continue to earn rewards!
                   </Alert>
-                  <Grid container spacing={3} style={{marginTop: '20px'}}>
+
+                  <h1 style={{ fontSize: '50px', textAlign:'left', color: '#fff', marginTop: '40px' }}>Swapsicle Pools</h1> 
+                      <Grid container spacing={3} style={{marginTop: '0px'}}>
+                      {activeBanks
+                      .filter((bank) => bank.sectionInUI === 6)
+                      .map((bank) => (
+                        <React.Fragment key={bank.name}>
+                          <FarmCard bank={bank} />
+                        </React.Fragment>
+                      ))}
+
+                          </Grid>
+
+                  <h1 style={{ fontSize: '50px', textAlign:'left', color: '#fff', marginTop: '40px' }}>Trader Joe Pools</h1> 
+                  <Grid container spacing={3} style={{marginTop: '0px'}}>
+                    
                     {activeBanks
                       .filter((bank) => bank.sectionInUI === 2)
                       .map((bank) => (
@@ -55,7 +70,23 @@ const Farm = () => {
                         </React.Fragment>
                       ))}
                       </Grid>
+
+
+
+                      <h1 style={{ fontSize: '50px', textAlign:'left', color: '#fff', marginTop: '40px' }}>Single Stake Pools</h1> 
+                      <Grid container spacing={3} style={{marginTop: '0px', marginBottom: '40px'}}>
+                      {activeBanks
+                      .filter((bank) => bank.sectionInUI === 7)
+                      .map((bank) => (
+                        <React.Fragment key={bank.name}>
+                          <FarmCard bank={bank} />
+                        </React.Fragment>
+                      ))}
+
+                          </Grid>
                 </div>
+
+
 
                 <div hidden={activeBanks.filter((bank) => bank.sectionInUI === 1).length === 0}>
                   <Typography color="textPrimary" variant="h4" gutterBottom style={{marginTop: '100px', color: '#fff'}}>

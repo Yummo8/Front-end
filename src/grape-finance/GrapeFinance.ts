@@ -26,6 +26,7 @@ import {bankDefinitions} from '../config';
 import moment from 'moment';
 import {parseUnits} from 'ethers/lib/utils';
 import {MIM_TICKER, SPOOKY_ROUTER_ADDR, GRAPE_TICKER, WINE_TICKER} from '../utils/constants';
+import { Console } from 'console';
 
 /**
  * An API module of Grape Finance contracts.
@@ -687,14 +688,18 @@ export class GrapeFinance {
 
     const rewardPerSecond = await poolContract.winePerSecond();
 
-    if (depositTokenName.startsWith('WINE')) {
-      return rewardPerSecond.mul(6500).div(41000);
+    if (depositTokenName.startsWith('WINE-MIM')) {
+      return rewardPerSecond.mul(6000).div(41000);
     } else if (depositTokenName.startsWith('GRAPE-WINE')) {
-      return rewardPerSecond.mul(1250).div(41000);
+      return rewardPerSecond.mul(1000).div(41000);
     } else if (depositTokenName === 'GRAPE') {
-      return rewardPerSecond.mul(4000).div(41000);
+      return rewardPerSecond.mul(2500).div(41000);
     } else if (depositTokenName === 'WAMP') {
-      return rewardPerSecond.mul(1500).div(41000);
+      return rewardPerSecond.mul(500).div(41000);
+    } else if (depositTokenName === 'GRAPE-MIM-SW') {
+      return rewardPerSecond.mul(2500).div(41000);
+    } else if (depositTokenName === 'WINE-POPS-LP') {
+      return rewardPerSecond.mul(500).div(41000);
     } else {
       return rewardPerSecond.mul(27750).div(41000);
     }
@@ -727,7 +732,9 @@ export class GrapeFinance {
         tokenPrice = await this.getLPTokenPrice(token, this.GRAPE, true);
       } else if (tokenName === 'GRAPE-WLRS-LP') {
         tokenPrice = await this.getLPTokenPrice(token, this.GRAPE, true);
-      } else if (tokenName === 'MIM') {
+      } else if (tokenName === 'WINE-POPS-LP') {
+        tokenPrice = await this.getLPTokenPrice(token, this.WINE, false);
+      }else if (tokenName === 'MIM') {
         tokenPrice = '1';
       } else if (tokenName === 'WAMP') {
         const {WAMP} = this.contracts;
@@ -816,7 +823,7 @@ export class GrapeFinance {
   async getLPTokenPrice(lpToken: ERC20, token: ERC20, isGrape: boolean): Promise<string> {
     const totalSupply = getFullDisplayBalance(await lpToken.totalSupply(), lpToken.decimal);
     //Get amount of tokenA
-
+    console.log(lpToken)
     const tokenSupply = getFullDisplayBalance(await token.balanceOf(lpToken.address), token.decimal);
 
     const stat = isGrape === true ? await this.getGrapeStat() : await this.getShareStat();

@@ -65,30 +65,35 @@ const Bank: React.FC = () => {
   } else {
     curStrat = zone3;
   }
-
+console.log(bank.depositTokenName)
   let name: string;
   let vaultUrl: string;
   let strat: string;
   let stratText: string;
 
   if (bank.depositTokenName.includes('GRAPE-MIM')) {
-    name = 'Autocompound your GRAPE-MIM on Magik here';
+    name = 'Autocompound your GRAPE-MIM on Magik to buy back & burn Grape';
     vaultUrl = 'https://magik.farm/#/avax';
     strat = curStrat;
     stratText = 'Click here to see the optimal strategy for this vault';
   } else if (bank.depositTokenName.includes('WINE-MIM')) {
-    name = 'Autocompound your WINE-MIM on Magik here';
+    name = 'Autocompound your WINE-MIM on Magik to buy back & burn Grape';
     vaultUrl = 'https://magik.farm/#/avax';
     strat = curStrat;
     stratText = 'Click here to see the optimal strategy for this vault';
   } else if (bank.depositTokenName.includes('GRAPE-WINE')) {
-    name = 'Autocompound your GRAPE-WINE on Yield Wolf here';
-    vaultUrl = 'https://yieldwolf.finance/avalanche/grapefinance-wine/92';
+    name = 'Autocompound your GRAPE-WINE on Magik to buy back & burn Grape';
+    vaultUrl = 'https://magik.farm/#/avax';
     strat = curStrat;
     stratText = 'Click here to see the optimal strategy for this vault';
   } else if (bank.depositTokenName === 'GRAPE') {
-    name = 'Autocompound your GRAPE on Magik here';
+    name = 'Autocompound your GRAPE on Magik to buy back & burn Grape';
     vaultUrl = 'https://magik.farm/#/avax';
+    strat = '';
+    stratText = '';
+  } else if (bank.depositTokenName === 'WINE-POPS-LP') {
+    name = '';
+    vaultUrl = '';
     strat = '';
     stratText = '';
   } else if (bank.depositTokenName === 'WAMP') {
@@ -103,7 +108,7 @@ const Bank: React.FC = () => {
   return account && bank ? (
     <>
       <PageHeader icon="🏦" subtitle={''} title={bank?.name} />
-
+      {name !== '' ? (
       <Box mt={5}>
         <Grid container justify="center" spacing={3} style={{marginBottom: '30px'}}>
   
@@ -115,7 +120,8 @@ const Bank: React.FC = () => {
             </Alert>
         
         </Grid>
-      </Box>
+      </Box>  ) : null}
+
       {stratText !== '' ? (
         <Box mt={5}>
           <Grid container justify="center" spacing={3} style={{marginBottom: '30px'}}>
@@ -168,6 +174,7 @@ const Bank: React.FC = () => {
           </StyledCardsWrapper>
           <Spacer size="lg" />
           {bank.depositTokenName.includes('LP') && <LPTokenHelpText bank={bank} />}
+          {bank.depositTokenName.includes('SW') && <LPTokenHelpText bank={bank} />}
           <Spacer size="lg" />
           <div>
             <Button onClick={onRedeem} className="shinyButtonSecondary">
@@ -191,12 +198,17 @@ const LPTokenHelpText: React.FC<{bank: BankEntity}> = ({bank}) => {
   let pairName: string;
   let uniswapUrl: string;
   let exchange: string;
-  if (bank.depositTokenName.includes('GRAPE-MIM')) {
+  if (bank.depositTokenName == 'GRAPE-MIM-LP') {
     pairName = 'GRAPE-MIM pair';
     uniswapUrl =
       'https://traderjoexyz.com/pool/0x130966628846bfd36ff31a822705796e8cb8c18d/0x5541d83efad1f281571b343977648b75d95cdac2';
     exchange = 'joe';
-  } else if (bank.depositTokenName.includes('WINE-MIM')) {
+  } else if (bank.depositTokenName == 'GRAPE-MIM-SW') {
+    pairName = 'GRAPE-MIM-SW pair';
+    uniswapUrl =
+      'https://www.swapsicle.io/add/0x130966628846BFd36ff31a822705796e8cb8C18D/0x5541D83EFaD1f281571B343977648B75d95cdAC2';
+    exchange = 'Swapsicle';
+  }else if (bank.depositTokenName.includes('WINE-MIM')) {
     pairName = 'WINE-MIM pair';
     uniswapUrl =
       'https://traderjoexyz.com/pool/0x130966628846bfd36ff31a822705796e8cb8c18d/0xc55036b5348cfb45a932481744645985010d3a44';
@@ -206,6 +218,11 @@ const LPTokenHelpText: React.FC<{bank: BankEntity}> = ({bank}) => {
     uniswapUrl =
       'https://traderjoexyz.com/pool/0x5541d83efad1f281571b343977648b75d95cdac2/0xc55036b5348cfb45a932481744645985010d3a44';
     exchange = 'joe';
+  } else if (bank.depositTokenName.includes('WINE-POPS')) {
+    pairName = 'WINE-POPS pair';
+    uniswapUrl =
+      'https://www.swapsicle.io/add/0xC55036B5348CfB45a932481744645985010d3A44/0x240248628B7B6850352764C5dFa50D1592A033A8';
+    exchange = 'Swapsicle';
   } 
   return (
     <Card>
