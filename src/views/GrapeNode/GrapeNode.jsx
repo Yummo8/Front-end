@@ -56,7 +56,10 @@ const GrapeNode = () => {
 
         <Box>
         <Alert variant="filled" severity="info">
-                    Please read our <a style={{color: '#fff'}} rel="noopener noreferrer" target={'_blank'} href="https://grapefinance.gitbook.io/grape-finance-docs/unique-features/locked-staking-grape-nodes" >Node Docs & Strategy</a> in order to fully understand how our node pools work before purchasing, by partaking you accept the risks outlined in the docs & disclaimer. Sticking to the current strategy helps support the protocol which in turn helps you to continue to earn rewards!
+                    Please read our <a style={{color: '#fff'}} rel="noopener noreferrer" target={'_blank'} href="https://grapefinance.gitbook.io/grape-finance-docs/unique-features/locked-staking-grape-nodes" >Node Docs & Strategy</a> in order to fully understand how our node pools work before purchasing, by partaking you accept the risks outlined in the docs & disclaimer.
+                  </Alert>
+                  <Alert variant="filled" severity="info" style={{marginTop:'20px'}}>
+                    Node APRs are determined by overall claim to compound ratio of the pool, more compounding not only means you reach ROI faster it also keeps the APR more stable and can actually help boost it. A good ratio is to compound 3 times for every claim of the same size.
                   </Alert>
           <Grid container justify="center" spacing={2} style={{marginBottom: '50px', marginTop: '20px'}}>
           

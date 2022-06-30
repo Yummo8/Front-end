@@ -37,7 +37,7 @@ const Dashboard = () => {
   const walletStats = useWalletStats(banks);
   const grapeStats = useGrapeStats();
   const wineStats = useWineStats();
-  const vineyardPools = banks.filter((bank) => !bank.finished && bank.sectionInUI === 2);
+  const vineyardPools = banks.filter((bank) => !bank.finished && bank.sectionInUI === 2 || bank.sectionInUI === 6 || bank.sectionInUI === 7);
   const nodePools = [useBank('GrapeNode'), useBank('LPNode'), useBank('WineNode'), useBank('LPWlrsNode')];
   const onReward = useHarvestAll(vineyardPools);
   const harvestNodes = useHarvestAll(nodePools);
