@@ -28,8 +28,8 @@ const BackgroundImage = createGlobalStyle`
 
 const Raffle: React.FC = () => {
 
-  const startDate = new Date('2022-5-26 12:00:00Z');
-  const endDate = new Date('2022-5-29 12:00:00Z');
+  const startDate = new Date('2022-7-1 23:00:00Z');
+  const endDate = new Date('2022-7-5 00:00:00Z');
   const raffleAddress = '0xA3F2C4D813d75E26335ddE70DcFd703996Ae25D8';
 
   const {account} = useWallet();
