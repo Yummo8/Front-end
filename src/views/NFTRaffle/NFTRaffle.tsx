@@ -25,8 +25,9 @@ const BackgroundImage = createGlobalStyle`
 
 const NFTRaffle: React.FC = () => {
 
-  const startDate = new Date('2022-4-30 3:00:00Z');
-  const endDate = new Date('2022-5-3 4:00:00Z');
+  // compatible format for most browser + metamask browser. Needs to be YYYY-MM-ddTHH:mm:ssZ
+  const startDate = new Date('2022-04-30T3:00:00Z');
+  const endDate = new Date('2022-05-03T4:00:00Z');
   const raffleAddress = '0x37219231a957e09F6e674B218043FdF1C5145F68';
 
   const {account} = useWallet();

@@ -93,14 +93,14 @@ const Dashboard = () => {
         <>
           <h1 style={{fontSize: '80px', textAlign: 'center'}}>Dashboard</h1>
 
-          <h3 style={{fontSize: '40px', textAlign: 'center'}}>
+          <p style={{fontSize: '40px', textAlign: 'center', color: 'white', margin: '0'}}>
             My Total $ Worth:{' '}
             {totalInvested != null ? (
               <CountUp end={getTotalInvested()} separator="," prefix="≈$" />
             ) : (
               <CircularProgress style={{marginLeft: '10px'}} size={22} color="inherit" />
             )}
-          </h3>
+          </p>
 
           <Box mt={3}>
             <Grid container justifyContent="center" spacing={4}>
