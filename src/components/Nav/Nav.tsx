@@ -142,7 +142,7 @@ const Nav = () => {
                     Slots
                   </a>
                   <a
-                    href="https://gladiatorfinance.app/koc"
+                    href="https://koc.money/"
                     className={classes.link}
                     rel="noopener noreferrer"
                     target="_blank"
@@ -363,7 +363,7 @@ const Nav = () => {
                 <ListItem button component="a" href="https://slot.grapefinance.app/">
                   <ListItemText>Game - Slots</ListItemText>
                 </ListItem>
-                <ListItem button component="a" href="https://gladiatorfinance.app/koc">
+                <ListItem button component="a" href="https://koc.money/">
                   <ListItemText>Game - King of Colosseum</ListItemText>
                 </ListItem>
                 <ListItem button component="a" href="https://magik.farm/#/avax">
