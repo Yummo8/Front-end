@@ -126,20 +126,23 @@ const Nav = () => {
                 <button className={'dropbtn'}>GAMES</button>
                 <div className={'dropdown-content'}>
                   <a
-                    href="https://lianyou.io/burnforfun"
-                    className={classes.link}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    Burn For Fun - Space Shooter
-                  </a>
-                  <a
                     href="https://slot.grapefinance.app/"
                     className={classes.link}
                     rel="noopener noreferrer"
                     target="_blank"
                   >
                     Slots
+                  </a>
+                  <Link to="/raffle" className={'navLink ' + classes.link}>
+                    Raffle
+                  </Link>
+                  <a
+                    href="https://lianyou.io/burnforfun"
+                    className={classes.link}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    Space Shooter
                   </a>
                   <a
                     href="https://koc.money/"
@@ -193,11 +196,7 @@ const Nav = () => {
               <Link to="/bond" className={'navLink ' + classes.link}>
                 Bonds
               </Link>
-              <Link to="/raffle" className={'navLink ' + classes.link}>
-                Raffle
-              </Link>
-
-              
+          
 
               <div className={'dropdown'}>
                 <button className={'dropbtn'}>WALLETS</button>
@@ -269,7 +268,7 @@ const Nav = () => {
                     Merch
                   </a>
                   <Link to="/help" className={classes.link}>
-                    Help
+                    Beginner Videos
                   </Link>
                 </div>
               </div>
@@ -421,7 +420,7 @@ const Nav = () => {
                 <ListItemLink primary="Strategy" to="/strategies" />
                 <ListItemLink primary="Stats" to="/stats" />
                 <ListItemLink primary="Roadmap" to="/roadmap" />
-                <ListItemLink primary="Help" to="/help" />
+                <ListItemLink primary="Beginner Videos" to="/help" />
                 <ListItem button component="a" href="https://shop.grapefinance.app/">
                   <ListItemText>Merch</ListItemText>
                 </ListItem>

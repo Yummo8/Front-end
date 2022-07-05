@@ -28,6 +28,9 @@ const Help: React.FC = () => {
               <Grid item xs={12} md={12} lg={12} >     
                   <h1 style={{ fontSize: '80px', textAlign:'center' }}>Grape Guides</h1>   
 
+                  <h1 style={{textAlign:'center', marginTop: '60px' }}>How to earn MAX YIELD and PROTECT THE PEG</h1><br></br>
+                  <iframe width="100%" height="550px" src="https://www.youtube.com/embed/L9oo4yj-HIM" title="Grape Finance Videos" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ></iframe>
+
                   <h1 style={{textAlign:'center', marginTop: '60px' }}>Beginner tutorial on Grape staking & adding to LPs</h1><br></br>
                   <iframe width="100%" height="550px" src="https://www.youtube.com/embed/JBWCOadvqbw" title="Grape Finance Videos" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ></iframe>
 
