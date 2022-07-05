@@ -59,7 +59,7 @@ const GrapeNode = () => {
                     Please read our <a style={{color: '#fff'}} rel="noopener noreferrer" target={'_blank'} href="https://grapefinance.gitbook.io/grape-finance-docs/unique-features/locked-staking-grape-nodes" >Node Docs & Strategy</a> in order to fully understand how our node pools work before purchasing, by partaking you accept the risks outlined in the docs & disclaimer.
                   </Alert>
                   <Alert variant="filled" severity="info" style={{marginTop:'20px'}}>
-                    Node APRs are determined by overall claim to compound ratio of the pool, more compounding not only means you reach ROI faster it also keeps the APR more stable and can actually help boost it. A good ratio is to compound 3 nodes for every 1 nodes worth of claims.
+                    Node APRs are determined by overall claim to compound ratio of the pool, a higher compound rate not only means your daily returns increase it also keeps the APR stable and can help boost it. A good ratio for node health is to compound 3 nodes for every 1 nodes worth of claims.
                   </Alert>
           <Grid container justify="center" spacing={2} style={{marginBottom: '50px', marginTop: '20px'}}>
           
