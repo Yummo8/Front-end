@@ -62,7 +62,7 @@ const Boardroom = () => {
   const canClaimReward = useClaimRewardCheck();
   const canWithdraw = useWithdrawCheck();
   const bShareStats = usebShareStats();
-  const scalingFactor = useMemo(() => (cashStat ? Number(cashStat.priceInDollars).toFixed(2) : null), [cashStat]);
+  const scalingFactor = useMemo(() => (cashStat ? Number(cashStat.priceInDollars).toFixed(4) : null), [cashStat]);
   const {to} = useTreasuryAllocationTimes();
   const bondStat = useBondStats();
 
