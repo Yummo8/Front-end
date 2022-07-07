@@ -140,7 +140,7 @@ const ZapModal: React.FC<ZapProps> = ({onConfirm, onDismiss, LPtokenName = '', d
         <StyledMenuItem value="NONE">Choose asset</StyledMenuItem>
         {LPtokenName.includes(MIM_TICKER) && <StyledMenuItem value={MIM_TICKER}>MIM</StyledMenuItem>}
         {LPtokenName.includes(WINE_TICKER) && <StyledMenuItem value={WINE_TICKER}>WINE</StyledMenuItem>}
-        {LPtokenName.includes(GRAPE_TICKER) && <StyledMenuItem value={GRAPE_TICKER}>GRAPE</StyledMenuItem>}
+        {/*LPtokenName.includes(GRAPE_TICKER) && <StyledMenuItem value={GRAPE_TICKER}>GRAPE</StyledMenuItem>*/}
       </Select>
       {showZapData && (
         <>
