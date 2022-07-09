@@ -35,8 +35,8 @@ const GrapeCard = ({}) => {
             </Typography>
             <Typography color="#322f32">
               Lock your Grapes to earn daily yields<br></br>
-              <b>Daily APR:</b> {statsOnPool?.dailyAPR}%<br></br>
-              <b>Yearly APR:</b> {statsOnPool?.yearlyAPR}%<br />
+              <b>Daily APR:</b> {statsOnPool?.dailyAPR}% + airdrops<br></br>
+              <b>Yearly APR:</b> {statsOnPool?.yearlyAPR}% + airdrops<br />
               <i>1 Node = {GRAPE_NODE_MULTIPLIER} ticket towards NFT monthly airdrop</i>
             </Typography>
           </Box>

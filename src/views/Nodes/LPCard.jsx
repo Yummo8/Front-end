@@ -35,8 +35,8 @@ const LPCard = ({}) => {
             </Typography>
             <Typography color="#322f32">
               Lock your LP tokens to earn daily yields<br></br>
-              <b>Daily APR:</b> {statsOnPool?.dailyAPR}% + POPs airdrops<br></br>
-              <b>Yearly APR:</b> {statsOnPool?.yearlyAPR}% + POPs airdrops<br/>
+              <b>Daily APR:</b> {statsOnPool?.dailyAPR}% + airdrops<br></br>
+              <b>Yearly APR:</b> {statsOnPool?.yearlyAPR}% + airdrops<br/>
               <i>1 Node = {GRAPEMIMSW_NODE_MULTIPLIER} ticket towards NFT monthly airdrop</i>
             </Typography>
           </Box>
