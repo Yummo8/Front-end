@@ -104,6 +104,14 @@ const Nav = () => {
               </Link>
             </Typography>
             <Box style={{paddingLeft: '15px', paddingTop: '10px', fontSize: '1rem', flexGrow: '1'}}>
+            <a
+                    href="https://grape.liquidcapital.finance/"
+                    className={classes.link}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    LC Presale
+                  </a>
               <Link to="/" className={'navLink ' + classes.link}>
                 Home
               </Link>
@@ -348,6 +356,9 @@ const Nav = () => {
               <List>
                 <ListItem>
                   <AccountButton text="Connect" />
+                </ListItem>
+                <ListItem button component="a" href="https://grape.liquidcapital.finance/">
+                  <ListItemText>LC Presale</ListItemText>
                 </ListItem>
                 <ListItemLink primary="Home" to="/" />
                 <ListItemLink primary="Dashboard" to="/dashboard" />
