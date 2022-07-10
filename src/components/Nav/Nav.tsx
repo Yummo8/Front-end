@@ -109,6 +109,7 @@ const Nav = () => {
                     className={classes.link}
                     rel="noopener noreferrer"
                     target="_blank"
+                    style={{color: '#fff'}}
                   >
                     LC Presale
                   </a>
