@@ -38,19 +38,27 @@ const logosBySymbol: {[title: string]: string} = {
 
 type LogoProps = {
   symbol: string;
-  size?: number;
+  width?: number;
+  height?: number;
 };
 
-const TokenSymbol: React.FC<LogoProps> = ({symbol}) => {
+const TokenSymbol: React.FC<LogoProps> = ({symbol, width, height}) => {
   if (!logosBySymbol[symbol]) {
     throw new Error(`Invalid Token Logo symbol: ${symbol}`);
   }
+  if (!width) {
+    width = 55;
+  }
+  if (!height) {
+    height = 60
+  }
+
   if(symbol === 'GRAPE-MIM-LP' || symbol === 'WINE-MIM-LP' || symbol === 'GRAPE-WINE-LP' || symbol === 'HSHARE-WINE-LP' || symbol === 'GRAPE-MIM-SW' || symbol === 'GRAPE-WLRS-LP' || symbol === 'WINE-POPS-LP'){
-    return <img src={logosBySymbol[symbol]} alt={`${symbol} Logo`} width={95} height={60} />;
+    return <img src={logosBySymbol[symbol]} alt={`${symbol} Logo`} width={width + 40} height={height} />;
   }else if(symbol === 'MIM' || symbol === 'WAVAX' || symbol === 'WAMP'){
-    return <img src={logosBySymbol[symbol]} alt={`${symbol} Logo`} width={65} height={65} />;
+    return <img src={logosBySymbol[symbol]} alt={`${symbol} Logo`} width={width + 10} height={height + 5} />;
   }else{
-    return <img src={logosBySymbol[symbol]} alt={`${symbol} Logo`} width={55} height={68} />;
+    return <img src={logosBySymbol[symbol]} alt={`${symbol} Logo`} width={width} height={height + 8} />;
   }
     
 };

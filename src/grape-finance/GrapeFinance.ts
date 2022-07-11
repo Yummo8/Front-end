@@ -363,7 +363,7 @@ export class GrapeFinance {
   async getWalletStats(banks: Bank[]): Promise<WalletStats> {
     const vineyardBanks = banks.filter((bank) => !bank.finished && (bank.sectionInUI === 2 || bank.sectionInUI === 6 || bank.sectionInUI === 7))
     const nodeBanks = banks.filter((bank) => !bank.finished && bank.sectionInUI === 3)
-    let totalInVineyard = 0, totalInNodes = 0, totalInWinery = 0;
+    let totalInVineyard = 0, totalInNodes = 0, totalInWinery = 0, totalRewards = 0;
 
     const winePriceInDollars = Number(await this.getDepositTokenPriceInDollars('WINE', this.WINE)) 
     const grapePriceInDollars = Number(await this.getDepositTokenPriceInDollars('GRAPE', this.GRAPE)) 
@@ -379,7 +379,9 @@ export class GrapeFinance {
 
       // bank Earnings
       const bankEarnings = await this.earnedFromBank(bank.contract, bank.earnTokenName, bank.poolId, this.myAccount)
-      totalInVineyard += winePriceInDollars * Number(getDisplayBalance(bankEarnings, bank.depositToken.decimal))
+      const earningInDollars = winePriceInDollars * Number(getDisplayBalance(bankEarnings, bank.depositToken.decimal))
+      totalRewards += earningInDollars
+      totalInVineyard += earningInDollars
     }
 
     // Nodes
@@ -393,7 +395,9 @@ export class GrapeFinance {
 
       // Node earnings
       const nodeEarnings = await this.earnedFromBank(bank.contract, bank.earnTokenName, bank.poolId, this.myAccount)
-      totalInNodes += stakedTokenPriceInDollars * Number(getDisplayBalance(nodeEarnings, bank.depositToken.decimal))
+      const earningInDollars = stakedTokenPriceInDollars * Number(getDisplayBalance(nodeEarnings, bank.depositToken.decimal))
+      totalRewards += earningInDollars
+      totalInNodes += earningInDollars
     }
 
     // Winery deposit
@@ -402,10 +406,13 @@ export class GrapeFinance {
     // Winery earnings
     const earnings = await this.getEarningsOnBoardroom()
     const wineryEarnings = Number(getDisplayBalance(earnings))
+    totalRewards += (grapePriceInDollars * wineryEarnings)
+
     totalInWinery = (winePriceInDollars * wineryStakedInToken) + (grapePriceInDollars * wineryEarnings)
 
     return {
       total: totalInVineyard + totalInNodes + totalInWinery,
+      totalRewards: totalRewards,
       totalInVineyard: totalInVineyard,
       totalInWinery: totalInWinery,
       totalInNodes: totalInNodes

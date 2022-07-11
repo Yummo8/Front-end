@@ -59,7 +59,7 @@ const ExchangeCard: React.FC<ExchangeCardProps> = ({
           <StyledExchanger>
             <StyledToken>
               <StyledCardIcon>
-                <TokenSymbol symbol={fromToken.symbol} size={95} />
+                <TokenSymbol symbol={fromToken.symbol} />
               </StyledCardIcon>
               <Label text={fromTokenName} color="#930993" />
             </StyledToken>                     

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import {createGlobalStyle} from 'styled-components';
 import moment from 'moment';
 import Label from '../../components/Label';
-import {Box, Grid, Button, Typography, CircularProgress} from '@material-ui/core';
+import {Box, Grid, Button, Typography, Card, CircularProgress} from '@material-ui/core';
 import ProgressCountdown from './ProgressCountdown';
 import UnlockWallet from '../../components/UnlockWallet';
 import TokenSymbol from '../../components/TokenSymbol';
@@ -44,7 +44,9 @@ const Dashboard = () => {
   const walletStats = useWalletStats(banks);
   const grapeStats = useGrapeStats();
   const wineStats = useWineStats();
-  const vineyardPools = banks.filter((bank) => !bank.finished && bank.sectionInUI === 2 || bank.sectionInUI === 6 || bank.sectionInUI === 7);
+  const vineyardPools = banks.filter(
+    (bank) => (!bank.finished && bank.sectionInUI === 2) || bank.sectionInUI === 6 || bank.sectionInUI === 7,
+  );
   const nodePools = [useBank('GrapeNode'), useBank('LPNode'), useBank('WineNode'), useBank('LPWlrsNode')];
   const onReward = useHarvestAll(vineyardPools);
   const harvestNodes = useHarvestAll(nodePools);
@@ -67,11 +69,12 @@ const Dashboard = () => {
     [wineStats],
   );
 
-  const [totalInvested, totalInVineyard, totalInNodes, totalInWinery] = useMemo(
+  const [totalInvested, totalRewards, totalInVineyard, totalInNodes, totalInWinery] = useMemo(
     () =>
       walletStats
         ? [
             walletStats.total,
+            walletStats.totalRewards,
             walletStats.totalInVineyard.toFixed(2),
             walletStats.totalInNodes.toFixed(2),
             walletStats.totalInWinery.toFixed(2),
@@ -81,10 +84,12 @@ const Dashboard = () => {
   );
 
   const getTotalInvested = () => {
-    return totalInvested + 
-    (Number(displayGrapeBalance) * Number(grapePriceInDollars)) +
-    (Number(displayWineBalance) * Number(winePriceInDollars));
-  }
+    return (
+      totalInvested +
+      Number(displayGrapeBalance) * Number(grapePriceInDollars) +
+      Number(displayWineBalance) * Number(winePriceInDollars)
+    );
+  };
 
   return (
     <Page>
@@ -92,71 +97,95 @@ const Dashboard = () => {
       {!!account ? (
         <>
           <h1 style={{fontSize: '80px', textAlign: 'center'}}>Dashboard</h1>
-
-          <p style={{fontSize: '40px', textAlign: 'center', color: 'white', margin: '0'}}>
-            My Total $ Worth:{' '}
-            {totalInvested != null ? (
-              <CountUp end={getTotalInvested()} separator="," prefix="≈$" />
-            ) : (
-              <CircularProgress style={{marginLeft: '10px'}} size={22} color="inherit" />
-            )}
-          </p>
-
-          <Box mt={3}>
-            <Grid container justifyContent="center" spacing={4}>
-              <Grid item xs={12} md={6} lg={6} style={{textAlign: 'center'}}>
-                <h1>Prices</h1>
-                <Balances style={{display: 'flex', flexDirection: matches ? 'row' : 'column'}}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={5} lg={3}>
+              <Card style={{textAlign: 'center', minHeight: '210px'}}>
+                <h1 style={{width: '100%', marginTop: '15px', textAlign: 'center'}}>Prices</h1>
+                <Balances style={{marginTop: '10px', marginBottom: '15px', display: 'flex'}}>
                   <StyledBalanceWrapper style={{paddingBottom: '15px'}}>
-                    <TokenSymbol symbol="GRAPE" />
+                    <TokenSymbol width={40} height={45} symbol="GRAPE" />
                     <StyledBalance>
                       <StyledValue>${grapePriceInDollars ? grapePriceInDollars : '-.--'}</StyledValue>
-                      <Label text="GRAPE Price" />
+                      <Label text="GRAPE" />
                     </StyledBalance>
                   </StyledBalanceWrapper>
 
                   <StyledBalanceWrapper style={{paddingBottom: '15px'}}>
-                    <TokenSymbol symbol="WINE" />
+                    <TokenSymbol width={40} height={45} symbol="WINE" />
                     <StyledBalance>
                       <StyledValue>${winePriceInDollars ? winePriceInDollars : '-.--'}</StyledValue>
-                      <Label text="WINE Price" />
+                      <Label text="WINE" />
                     </StyledBalance>
                   </StyledBalanceWrapper>
                 </Balances>
-              </Grid>
-              <Grid item xs={12} md={6} lg={6} style={{textAlign: 'center'}}>
-                <h1>My Wallet</h1>
-                <Balances style={{display: 'flex', flexDirection: matches ? 'row' : 'column'}}>
+              </Card>
+            </Grid>
+
+            <Grid item xs={12} md={7} lg={5}>
+              <Card style={{textAlign: 'center', minHeight: '210px'}}>
+                <h1 style={{width: '100%', marginTop: '15px', textAlign: 'center'}}>My Wallet</h1>
+                <Balances style={{display: 'flex', marginTop: '10px'}}>
                   <StyledBalanceWrapper style={{paddingBottom: '15px'}}>
-                    <TokenSymbol symbol="GRAPE" />
+                    <TokenSymbol width={40} height={45} symbol="GRAPE" />
                     <StyledBalance>
                       <StyledValue>{displayGrapeBalance}</StyledValue>
-                      <Label text="GRAPE Available" />
+                      <Label text="GRAPE" />
                     </StyledBalance>
                   </StyledBalanceWrapper>
 
                   <StyledBalanceWrapper style={{paddingBottom: '15px'}}>
-                    <TokenSymbol symbol="WINE" />
+                    <TokenSymbol width={40} height={45} symbol="WINE" />
                     <StyledBalance>
                       <StyledValue>{displayWineBalance}</StyledValue>
-                      <Label text="WINE Available" />
+                      <Label text="WINE" />
                     </StyledBalance>
                   </StyledBalanceWrapper>
 
                   <StyledBalanceWrapper style={{paddingBottom: '15px'}}>
-                    <TokenSymbol symbol="GBOND" />
+                    <TokenSymbol width={40} height={45} symbol="GBOND" />
                     <StyledBalance>
                       <StyledValue>{displayGbondBalance}</StyledValue>
-                      <Label text="GBOND Available" />
+                      <Label text="GBOND" />
                     </StyledBalance>
                   </StyledBalanceWrapper>
                 </Balances>
-              </Grid>
+              </Card>
             </Grid>
-          </Box>
-          <hr></hr>
-          <h1 style={{fontSize: '60px', textAlign: 'center', marginTop: '30px'}}>Vineyard</h1>
-          <p style={{fontSize: '28px', textAlign: 'center', color: '#fff', margin: '0'}}>
+
+            <Grid item xs={12} md={5} lg={4}>
+              <Card style={{textAlign: 'center', minHeight: '210px'}}>
+                <h1 style={{width: '100%', marginTop: '15px'}}>My Total $ Worth</h1>
+                <p style={{fontSize: '30px', marginBottom: '20px', textAlign: 'center', color: 'white', marginTop: '0'}}>
+                  {totalInvested != null ? (
+                    <CountUp end={getTotalInvested()} separator="," prefix="≈$" />
+                  ) : (
+                    <CircularProgress size={22} color="inherit" />
+                  )}
+                </p>
+
+                <h1 style={{width: '100%'}}>Rewards $ to Claim</h1>
+                <p style={{fontSize: '30px', marginBottom: '20px', textAlign: 'center', color: 'white', marginTop: '0'}}>
+                  {totalRewards != null ? (
+                    <CountUp end={Number(totalRewards)} separator="," prefix="≈$" />
+                  ) : (
+                    <CircularProgress size={22} color="inherit" />
+                  )}
+                </p>
+              </Card>
+            </Grid>
+          </Grid>
+          <hr style={{marginTop: '40px'}}></hr>
+          <Grid container alignItems="center" style={{marginTop: '30px'}}>
+            <Grid item xs={12} md={6} lg={6}>
+              <h1 style={{fontSize: '60px', textAlign: matches ? 'left' : 'center'}}>Vineyard</h1>
+            </Grid>
+            <Grid item xs={12} md={6} lg={6} style={{textAlign: matches ? 'right' : 'center'}}>
+              <Button className="shinyButton" onClick={onReward}>
+                Claim All From Vineyard
+              </Button>
+            </Grid>
+          </Grid>
+          <p style={{fontSize: '28px', textAlign: matches ? 'left' : 'center', color: '#fff', margin: '0', marginTop: matches ? null : '15px'}}>
             My $ Worth:{' '}
             {totalInVineyard ? (
               '≈$' + totalInVineyard
@@ -164,22 +193,63 @@ const Dashboard = () => {
               <CircularProgress style={{marginLeft: '10px'}} size={22} color="inherit" />
             )}
           </p>
-          <Box style={{marginTop: '20px'}} mt={3} display="flex" justifyContent="center">
-            <Button className="shinyButton" onClick={onReward}>
-              Claim All From Vineyard
-            </Button>
-          </Box>
+          <h2 style={{fontSize: '40px', textAlign: 'left', marginTop: '30px'}}>Swapsicle Pools</h2>
           <Box mt={3}>
-            <Grid container justifyContent="center" spacing={3}>
-              {vineyardPools.map((bank) => (
-                <React.Fragment key={bank.name}>
-                  <FarmCard bank={bank} />
-                </React.Fragment>
-              ))}
+            <Grid container spacing={3}>
+              {vineyardPools
+                .filter((bank) => bank.sectionInUI === 6)
+                .map((bank) => (
+                  <React.Fragment key={bank.name}>
+                    <FarmCard bank={bank} />
+                  </React.Fragment>
+                ))}
             </Grid>
           </Box>
-          <h1 style={{fontSize: '60px', textAlign: 'center', marginTop: '50px'}}>Nodes</h1>
-          <p style={{fontSize: '28px', textAlign: 'center', color: '#fff', margin: '0'}}>
+          <h2 style={{fontSize: '40px', textAlign: 'left', marginTop: '30px'}}>Trader Joe Pools</h2>
+          <Box mt={3}>
+            <Grid container spacing={3}>
+              {vineyardPools
+                .filter((bank) => bank.sectionInUI === 2)
+                .map((bank) => (
+                  <React.Fragment key={bank.name}>
+                    <FarmCard bank={bank} />
+                  </React.Fragment>
+                ))}
+            </Grid>
+          </Box>
+          <h2 style={{fontSize: '40px', textAlign: 'left', marginTop: '30px'}}>Single Stake Pools</h2>
+          <Box mt={3}>
+            <Grid container spacing={3}>
+              {vineyardPools
+                .filter((bank) => bank.sectionInUI === 7)
+                .map((bank) => (
+                  <React.Fragment key={bank.name}>
+                    <FarmCard bank={bank} />
+                  </React.Fragment>
+                ))}
+            </Grid>
+          </Box>
+          <hr style={{marginTop: '40px'}}></hr>
+          <Grid container alignItems='center' style={{marginTop: '30px'}}>
+            <Grid item xs={12} md={6} lg={6}>
+              <h1 style={{fontSize: '60px', textAlign: matches ? 'left' : 'center'}}>Nodes</h1>
+            </Grid>
+            <Grid item xs={12} md={6} lg={6} style={{textAlign: matches ? 'right' : 'center'}}>
+              <Grid container>
+                <Grid item xs={6} md={6} lg={6}>
+                  <Button className="shinyButton" onClick={compoundNodes}>
+                    Compound All From Nodes
+                  </Button>
+                </Grid>
+                <Grid item xs={6} md={6} lg={6}>
+                  <Button className="shinyButton" onClick={harvestNodes}>
+                    Claim All From Nodes
+                  </Button>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>{' '}
+          <p style={{fontSize: '28px', color: '#fff', margin: '0', textAlign: matches ? 'left' : 'center', marginTop: matches ? null : '15px'}}>
             My $ Worth (Locked):{' '}
             {totalInNodes ? (
               '≈$' + totalInNodes
@@ -187,21 +257,8 @@ const Dashboard = () => {
               <CircularProgress style={{marginLeft: '10px'}} size={22} color="inherit" />
             )}
           </p>
-          <Grid container style={{marginTop: '20px', textAlign: 'center'}}>
-            <Grid item xs={6} md={6} lg={6}>
-              <Button className="shinyButton" onClick={compoundNodes}>
-                Compound All From Nodes
-              </Button>
-            </Grid>
-            <Grid item xs={6} md={6} lg={6}>
-              <Button className="shinyButton" onClick={harvestNodes}>
-                Claim All From Nodes
-              </Button>
-            </Grid>
-          </Grid>
-
           <Box mt={3}>
-            <Grid container justifyContent="center" spacing={3}>
+            <Grid container spacing={3}>
               {nodePools.map((bank) => (
                 <React.Fragment key={bank.name}>
                   <GrapeNodeCard bank={bank} />
@@ -209,8 +266,9 @@ const Dashboard = () => {
               ))}
             </Grid>
           </Box>
-          <h1 style={{fontSize: '60px', textAlign: 'center', marginTop: '50px'}}>Winery</h1>
-          <p style={{fontSize: '28px', textAlign: 'center', color: '#fff', margin: '0'}}>
+          <hr style={{marginTop: '40px'}}></hr>
+          <h1 style={{fontSize: '60px', marginTop: '50px', textAlign: matches ? 'left' : 'center'}}>Winery</h1>
+          <p style={{fontSize: '28px', color: '#fff', margin: '0', textAlign: matches ? 'left' : 'center'}}>
             My $ Worth:{' '}
             {totalInWinery ? (
               '≈$' + totalInWinery
@@ -218,12 +276,12 @@ const Dashboard = () => {
               <CircularProgress style={{marginLeft: '10px'}} size={22} color="inherit" />
             )}
           </p>
-          <Typography style={{marginTop: '20px', textTransform: 'uppercase', color: '#fff', textAlign: 'center'}}>
+          <Typography style={{marginTop: '20px', textTransform: 'uppercase', color: '#fff', textAlign: matches ? 'left' : 'center'}}>
             <b>Next Epoch: </b>
             <ProgressCountdown base={moment().toDate()} hideBar={true} deadline={to} description="Next Epoch" />
           </Typography>
           <Box mt={3}>
-            <Grid container justifyContent="center" spacing={3}>
+            <Grid container spacing={3}>
               <BoardroomCard />
             </Grid>
           </Box>
