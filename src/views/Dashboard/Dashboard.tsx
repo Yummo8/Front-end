@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import {createGlobalStyle} from 'styled-components';
 import moment from 'moment';
 import Label from '../../components/Label';
-import {Box, Grid, Button, Typography, Card, CircularProgress} from '@material-ui/core';
+import {Box, Grid, Button, Typography, CircularProgress, ButtonGroup} from '@material-ui/core';
 import ProgressCountdown from './ProgressCountdown';
 import UnlockWallet from '../../components/UnlockWallet';
 import TokenSymbol from '../../components/TokenSymbol';
@@ -96,12 +96,30 @@ const Dashboard = () => {
       <BackgroundImage />
       {!!account ? (
         <>
-          <h1 style={{fontSize: '80px', textAlign: 'center'}}>Dashboard</h1>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={5} lg={3}>
-              <Card style={{textAlign: 'center', minHeight: '210px'}}>
-                <h1 style={{width: '100%', marginTop: '15px', textAlign: 'center'}}>Prices</h1>
-                <Balances style={{marginTop: '10px', marginBottom: '15px', display: 'flex'}}>
+
+          <Grid container justifyContent="center">
+            <ButtonGroup color="primary" size="medium" variant="contained" aria-label="center primary button group">
+              <Button>All</Button>
+              <Button>Vineyard</Button>
+              <Button>Nodes</Button>
+              <Button>Winery</Button>
+            </ButtonGroup>
+          </Grid>
+
+          <p style={{fontSize: '40px', textAlign: 'center', color: 'white', margin: '0'}}>
+            My Total $ Worth:{' '}
+            {totalInvested != null ? (
+              <CountUp end={getTotalInvested()} separator="," prefix="≈$" />
+            ) : (
+              <CircularProgress style={{marginLeft: '10px'}} size={22} color="inherit" />
+            )}
+          </p>
+
+          <Box mt={3}>
+            <Grid container justifyContent="center" spacing={4}>
+              <Grid item xs={12} md={6} lg={6} style={{textAlign: 'center'}}>
+                <h1>Prices</h1>
+                <Balances style={{display: 'flex', flexDirection: matches ? 'row' : 'column'}}>
                   <StyledBalanceWrapper style={{paddingBottom: '15px'}}>
                     <TokenSymbol width={40} height={45} symbol="GRAPE" />
                     <StyledBalance>
