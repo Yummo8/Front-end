@@ -412,6 +412,13 @@ export class GrapeFinance {
     }
   }
 
+  async getBoardroomPrintRate() : Promise<number> {
+    const {Boardroom} = this.contracts;
+    const snapshotIndex = await Boardroom.latestSnapshotIndex();
+    const currentEpoch = await Boardroom.epoch();
+    return (snapshotIndex * 100) / currentEpoch;
+  }
+
   async getWalletNodesAndNFTs(): Promise<WalletNodesAndNFTs> {
     const grapeNodesCount = await this.getNodes('GrapeNode', this.myAccount);
     const wineNodesCount = await this.getNodes('WineNode', this.myAccount);

@@ -31,6 +31,7 @@ import HomeImage from '../../assets/img/background.jpg';
 import usebShareStats from '../../hooks/useWineStats';
 import useBondStats from '../../hooks/useBondStats';
 import {roundAndFormatNumber} from '../../0x';
+import useGetBoardroomPrintRate from '../../hooks/useGetBoardroomPrintRate';
 
 const BackgroundImage = createGlobalStyle`
   body {
@@ -56,6 +57,7 @@ const Boardroom = () => {
   const {onRedeem} = useRedeemOnBoardroom();
   const stakedBalance = useStakedBalanceOnBoardroom();
   const currentEpoch = useCurrentEpoch();
+  const printRate = useGetBoardroomPrintRate();
   const cashStat = useCashPriceInEstimatedTWAP();
   const totalStaked = useTotalStakedOnBoardroom();
   const boardroomAPR = useFetchBoardroomAPR();
@@ -114,7 +116,7 @@ const Boardroom = () => {
           
           <Box mt={5}>
             <Grid container justify="center" spacing={3}>
-              <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
+              <Grid item xs={6} md={2} lg={2} className={classes.gridItem}>
                 <Card className={classes.gridItem}>
                   <CardContent style={{textAlign: 'center'}}>
                     <Typography style={{textTransform: 'uppercase', color: '#ccf'}}>Next Epoch</Typography>
@@ -122,7 +124,7 @@ const Boardroom = () => {
                   </CardContent>
                 </Card>
               </Grid>
-              <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
+              <Grid item xs={6} md={2} lg={2} className={classes.gridItem}>
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
                     <Typography style={{textTransform: 'uppercase', color: '#ccf'}}>Epoch / TWAP</Typography>
@@ -132,7 +134,7 @@ const Boardroom = () => {
                   </CardContent>
                 </Card>
               </Grid>
-              <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
+              <Grid item xs={6} md={2} lg={2} className={classes.gridItem}>
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
                     <Typography style={{textTransform: 'uppercase', color: '#ccf'}}>APR / Daily</Typography>
@@ -142,7 +144,7 @@ const Boardroom = () => {
                   </CardContent>
                 </Card>
               </Grid>
-              <Grid item xs={12} md={2} lg={2}>
+              <Grid item xs={6} md={2} lg={2}>
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
                     <Typography style={{textTransform: 'uppercase', color: '#ccf'}}>Staked / %</Typography>
@@ -152,7 +154,7 @@ const Boardroom = () => {
                   </CardContent>
                 </Card>
               </Grid>
-              <Grid item xs={12} md={2} lg={2}>
+              <Grid item xs={6} md={2} lg={2}>
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
                     <Typography style={{textTransform: 'uppercase', color: '#ccf'}}>TVL</Typography>
@@ -160,7 +162,7 @@ const Boardroom = () => {
                   </CardContent>
                 </Card>
               </Grid>
-              <Grid item xs={12} md={2} lg={2}>
+              <Grid item xs={6} md={2} lg={2}>
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
                     <Typography style={{textTransform: 'uppercase', color: '#ccf'}}>Est Reward/Day</Typography>
@@ -168,9 +170,19 @@ const Boardroom = () => {
                   </CardContent>
                 </Card>
               </Grid>
+              <Grid item xs={12} md={3} lg={3} className={classes.gridItem}>
+                <Card className={classes.gridItem}>
+                  <CardContent align="center">
+                    <Typography style={{textTransform: 'uppercase', color: '#ccf'}}>Above Peg Epochs %</Typography>
+                    <Typography>
+                      {printRate.toFixed(2)}%
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
             </Grid>
 
-            <Box mt={4}>
+            <Box mt={6}>
               <StyledBoardroom>
                 <StyledCardsWrapper>
                   <StyledCardWrapper>
