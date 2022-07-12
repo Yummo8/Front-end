@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import {createGlobalStyle} from 'styled-components';
 import moment from 'moment';
 import Label from '../../components/Label';
-import {Box, Grid, Button, Typography, CircularProgress} from '@material-ui/core';
+import {Box, Grid, Button, Typography, CircularProgress, ButtonGroup} from '@material-ui/core';
 import ProgressCountdown from './ProgressCountdown';
 import UnlockWallet from '../../components/UnlockWallet';
 import TokenSymbol from '../../components/TokenSymbol';
@@ -44,7 +44,9 @@ const Dashboard = () => {
   const walletStats = useWalletStats(banks);
   const grapeStats = useGrapeStats();
   const wineStats = useWineStats();
-  const vineyardPools = banks.filter((bank) => !bank.finished && bank.sectionInUI === 2 || bank.sectionInUI === 6 || bank.sectionInUI === 7);
+  const vineyardPools = banks.filter(
+    (bank) => (!bank.finished && bank.sectionInUI === 2) || bank.sectionInUI === 6 || bank.sectionInUI === 7,
+  );
   const nodePools = [useBank('GrapeNode'), useBank('LPNode'), useBank('WineNode'), useBank('LPWlrsNode')];
   const onReward = useHarvestAll(vineyardPools);
   const harvestNodes = useHarvestAll(nodePools);
@@ -81,17 +83,26 @@ const Dashboard = () => {
   );
 
   const getTotalInvested = () => {
-    return totalInvested + 
-    (Number(displayGrapeBalance) * Number(grapePriceInDollars)) +
-    (Number(displayWineBalance) * Number(winePriceInDollars));
-  }
+    return (
+      totalInvested +
+      Number(displayGrapeBalance) * Number(grapePriceInDollars) +
+      Number(displayWineBalance) * Number(winePriceInDollars)
+    );
+  };
 
   return (
     <Page>
       <BackgroundImage />
       {!!account ? (
         <>
-          <h1 style={{fontSize: '80px', textAlign: 'center'}}>Dashboard</h1>
+          <Grid container justifyContent="center">
+            <ButtonGroup color="primary" size="medium" variant="contained" aria-label="center primary button group">
+              <Button>All</Button>
+              <Button>Vineyard</Button>
+              <Button>Nodes</Button>
+              <Button>Winery</Button>
+            </ButtonGroup>
+          </Grid>
 
           <p style={{fontSize: '40px', textAlign: 'center', color: 'white', margin: '0'}}>
             My Total $ Worth:{' '}
