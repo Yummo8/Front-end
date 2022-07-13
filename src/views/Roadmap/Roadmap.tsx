@@ -49,16 +49,14 @@ const Roadmap: React.FC = () => {
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- UI/UX website revamp (ongoing)<span role={'img'} aria-label={'tick'}>✅</span></p>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Chainlink integrations <span role={'img'} aria-label={'tick'}>✅</span></p>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Implement bonding to secure protocol owned liquidity <span role={'img'} aria-label={'tick'}>✅</span></p>
-                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- LP nodes (bonus feature) <span role={'img'} aria-label={'tick'}>✅</span></p>
-                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Lending & borrowing platform including Grape & Wine as collateral</p>
-                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Auto repaying loans using yielding strategies</p>
-                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Leveraged positions</p>                
+                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- LP nodes (bonus feature) <span role={'img'} aria-label={'tick'}>✅</span></p>               
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- NFT based p2e game & staking</p>
 
                   <h1 style={{textAlign:'center', marginTop: '70px' }}>Q3</h1>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Implement cross chain Grape liquidity</p>
-                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Integrate Grape on large lending platforms as a stablecoin</p>
-                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Yield strategies & aggregation of these integrations cross chain</p>
+                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Lending & borrowing platform including Grape & Wine as collateral</p>
+                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Auto repaying loans using yielding strategies</p>
+                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Leveraged positions</p> 
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Partner with projects in the ecosystem to improve token utilization (ongoing)<span role={'img'} aria-label={'tick'}>✅</span></p>
                   
 
