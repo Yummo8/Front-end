@@ -56,6 +56,7 @@ export type WalletNodesAndNFTs = {
 
 export type WalletStats = {
   total: number;
+  totalRewards: number;
   totalInVineyard: number;
   totalInWinery: number;
   totalInNodes: number;
