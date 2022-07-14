@@ -169,7 +169,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     finished: false,
     sort: 0,
     closedForStaking: false,
-    multi: '70.2',
+    multi: '62.16',
     buyLink: 'https://traderjoexyz.com/trade?inputCurrency=0x130966628846BFd36ff31a822705796e8cb8C18D&outputCurrency=0x5541D83EFaD1f281571B343977648B75d95cdAC2#/',
   },
   WineMimLPWineRewardPool: {
@@ -208,7 +208,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     finished: false,
     sort: 1,
     closedForStaking: false,
-    multi: '9.45',
+    multi: '13.51',
     buyLink: 'https://www.swapsicle.io/swap',
   },
   WinePopsSWWineRewardPool: {
@@ -234,7 +234,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     finished: false,
     sort: 3,
     closedForStaking: false,
-    multi: '13.51',
+    multi: '17.56',
     buyLink: 'https://traderjoexyz.com/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0x5541D83EFaD1f281571B343977648B75d95cdAC2#/',
   },
   WampStaking: {

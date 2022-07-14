@@ -27,7 +27,7 @@ const GrapeNodes = () => {
           <h1 style={{fontSize: '80px', textAlign: 'center'}}>NODES</h1>
           <Grid container spacing={3} style={{marginTop: '20px'}}>
             <GrapeCard />
-            <WineMimCard />
+            {/*<WineMimCard />*/}
             <LPCard />
             <LPWlrsCard />
           </Grid>
