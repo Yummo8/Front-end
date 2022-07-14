@@ -42,7 +42,7 @@ const WineMimCard = ({}) => {
           </Box>
         </CardContent>
         <CardActions style={{justifyContent: 'flex-end'}}>
-          <Button className="shinyButtonSecondary" component={Link} to={'/nodes/WineNode'}>
+          <Button className="shinyButton" component={Link} to={'/nodes/WineNode'}>
             View
           </Button>
         </CardActions>

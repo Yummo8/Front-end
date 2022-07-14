@@ -84,7 +84,7 @@ const BoardroomCard = () => {
           </Box>
         </CardContent>
         <CardActions style={{justifyContent: 'flex-end'}}>
-          <Button className="shinyButtonSecondary" component={Link} to={`/winery`}>
+          <Button className="shinyButton" component={Link} to={`/winery`}>
             View
           </Button>
           <Button

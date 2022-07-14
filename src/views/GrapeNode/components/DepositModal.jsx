@@ -62,14 +62,14 @@ const DepositModal = ({ bank, max, decimals, onConfirm, onDismiss, tokenName = '
       />
         <ModalActions>
       
-          <Button className="shinyButtonSecondary" onClick={() => onConfirm(val)}>
+          <Button className="shinyButton" onClick={() => onConfirm(val)}>
             Confirm
           </Button>
         </ModalActions></>
         :
         <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
           <input type="number" value={amount} onChange={handleAmountChange} min="1" max="100" />
-          <Button className="shinyButtonSecondary" onClick={() => onConfirm(amount)}>
+          <Button className="shinyButton" onClick={() => onConfirm(amount)}>
             Confirm
           </Button>
         </div>

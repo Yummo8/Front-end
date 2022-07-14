@@ -21,6 +21,7 @@ h4 {
 html,
 body {
   overflow-y: auto;
+  scroll-behavior: smooth;
   height: 100%;
 }
 
@@ -66,11 +67,10 @@ h6 {
 .MuiListItem-button:hover,
 .MuiButtonBase-root:hover {
   color: #fff !important;
-  
 }
 .MuiButton-containedPrimary{
   background: #930993 !important;
-  
+
 }
 
 .MuiButton-containedPrimary:hover{
@@ -80,6 +80,52 @@ h6 {
 code {
   font-family: 'monospace', monospace;
 }
+
+.menu-item {
+  border-bottom: 0 !important;
+  color: white !important;
+  fill: white !important;
+  margin-left: 0 !important;
+  text-decoration: none !important;
+  transition: padding-left 200ms;
+}
+
+.menu-item:hover {
+  font-weight: bold;
+  margin-left: 5px !important;
+  transition: margin-left 200ms;
+}
+
+
+.price-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.price-item {
+  padding: 7px;
+
+ 
+}
+
+.price-item img {
+  vertical-align: middle;
+}
+
+.token-price {
+  color: white;
+  font-size: 0.8rem;
+  text-decoration: none;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.text-decoration-none {
+  text-decoration: none;
+}
+
 
 .wallet-button {
   color: #fff;
@@ -102,15 +148,12 @@ code {
 }
 
 .shinyButton {
-  margin-top: 5px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding: 7px !important;
   background-color: #930993 !important;
-  border-radius: 5px !important;
+  border-radius: 3px !important;
   font-size: 1rem !important;
-  padding-left: 5px;
   color: #fff !important;
-  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 1);
+  box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 1);
 }
 
 .shinyButtonDisabled {
@@ -120,8 +163,8 @@ code {
 }
 
 .shinyButton:hover {
-  background-color: #72046d !important;
-  color: #fff !important;
+  background-color: #a710a7 !important;
+  transition: background-color 300ms;
 }
 
 /*
@@ -131,18 +174,6 @@ code {
 #FFD2D1 background highlight
 #D19AFF background
 */
-
-.shinyButtonSecondary {
-  padding-top: 5px;
-  padding-bottom: 5px;
-
-  border-radius: 15px;
-  font-size: 1rem !important;
-  padding-left: 5px;
-  background-color: #930993 !important;
-  color: #fff !important;
-  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 1);
-}
 
 .account {
   display: flex;
@@ -161,11 +192,7 @@ code {
   box-shadow: 0px 0px 5px 0px grey;
 }
 
-.shinyButtonSecondary:hover {
-  background-color: #72046d !important;
-  color: #fff !important;
-  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 1);
-}
+
 
 .navTokenPrice {
   padding-top: 5px;
@@ -183,24 +210,27 @@ code {
   overflow: hidden;
 }
 
-.grape {
-  background-image: url('/grape.png');
-  top: -20px;
-}
-
-.wine {
-  background-image: url('/gshare.png');
-}
-
-.btc {
-  background-image: url('/grape3.png');
-}
-
 .MuiPaper-root {
   color: rgb(235, 235, 235) !important;
   background-color: rgba(0, 0, 0, 0.5) !important;
-  border-radius: 20px !important;
-  box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, 0.8) !important;
+}
+
+body, html, .MuiPaper-root {
+  -ms-overflow-style: none !important; /* for Internet Explorer, Edge */
+  scrollbar-width: none !important; /* for Firefox */
+  overflow-y: scroll !important; 
+}
+
+
+.MuiPaper-root::-webkit-scrollbar {
+  display: none !important; /* for Chrome, Safari, and Opera */
+}
+body::-webkit-scrollbar {
+  display: none !important; /* for Chrome, Safari, and Opera */
+}
+
+html::-webkit-scrollbar {
+  display: none !important; /* for Chrome, Safari, and Opera */
 }
 
 .MuiAppBar-positionSticky {

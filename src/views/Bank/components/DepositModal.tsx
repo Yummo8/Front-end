@@ -47,7 +47,7 @@ const DepositModal: React.FC<DepositModalProps> = ({max, decimals, onConfirm, on
       />
       <ModalActions>
         {/* <Button color="secondary" variant="outlined" onClick={onDismiss}>Cancel</Button> */}
-        <Button className="shinyButtonSecondary" onClick={() => onConfirm(val)}>
+        <Button className="shinyButton" onClick={() => onConfirm(val)}>
           Confirm
         </Button>
       </ModalActions>

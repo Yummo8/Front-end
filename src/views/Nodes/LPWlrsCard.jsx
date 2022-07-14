@@ -40,7 +40,7 @@ const LPWlrsCard = ({}) => {
           </Box>
         </CardContent>
         <CardActions style={{justifyContent: 'flex-end'}}>
-          <Button className="shinyButtonSecondary" component={Link} to={'/nodes/LPWlrsNode'}>
+          <Button className="shinyButton" component={Link} to={'/nodes/LPWlrsNode'}>
             View
           </Button>
         </CardActions>

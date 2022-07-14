@@ -177,7 +177,7 @@ console.log(bank.depositTokenName)
           {bank.depositTokenName.includes('SW') && <LPTokenHelpText bank={bank} />}
           <Spacer size="lg" />
           <div>
-            <Button onClick={onRedeem} className="shinyButtonSecondary">
+            <Button onClick={onRedeem} className="shinyButton">
               Claim &amp; Withdraw
             </Button>
           </div>

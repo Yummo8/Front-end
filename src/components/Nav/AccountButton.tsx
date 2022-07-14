@@ -36,11 +36,11 @@ const AccountButton: React.FC<AccountButtonProps> = ({text}) => {
   return (
     <div>
       {!account ? (
-        <Button onClick={handleWalletProviderOpen} className="shinyButtonSecondary">
+        <Button onClick={handleWalletProviderOpen} className="shinyButton">
           {buttonText}
         </Button>
       ) : (
-        <Button onClick={onPresentAccountModal} className="shinyButtonSecondary">
+        <Button onClick={onPresentAccountModal} className="shinyButton">
           <div className="account">
             <Davatar size={20} address={account} />
             <span>{ensName || shorten(account)}</span>

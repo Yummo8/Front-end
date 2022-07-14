@@ -10,7 +10,6 @@ import {ReactComponent as IconDiscord} from '../../assets/img/discord.svg';
 
 const useStyles = makeStyles((theme) => ({
   footer: {
-    position: 'absolute',
     bottom: '0',
     paddingTop: '15px',
     paddingBottom: '15px',

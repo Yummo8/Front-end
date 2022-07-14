@@ -42,7 +42,7 @@ const LPCard = ({}) => {
           </Box>
         </CardContent>
         <CardActions style={{justifyContent: 'flex-end'}}>
-          <Button className="shinyButtonSecondary" component={Link} to={'/nodes/LPNode'}>
+          <Button className="shinyButton" component={Link} to={'/nodes/LPNode'}>
             View
           </Button>
         </CardActions>

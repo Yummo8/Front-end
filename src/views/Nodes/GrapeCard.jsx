@@ -42,7 +42,7 @@ const GrapeCard = ({}) => {
           </Box>
         </CardContent>
         <CardActions style={{justifyContent: 'flex-end'}}>
-          <Button className="shinyButtonSecondary" component={Link} to={'/nodes/GrapeNode'}>
+          <Button className="shinyButton" component={Link} to={'/nodes/GrapeNode'}>
             View
           </Button>
         </CardActions>
