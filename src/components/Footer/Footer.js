@@ -9,10 +9,11 @@ import {ReactComponent as IconDiscord} from '../../assets/img/discord.svg';
 
 const useStyles = makeStyles((theme) => ({
   footer: {
+    position: 'absolute',
     bottom: '0',
-    paddingTop: '15px',
-    paddingBottom: '30px',
-    width: '100%',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    width: '80%',
     color: '#fff',
     backgroundColor: 'rgba(0,0,0,0)',
     textAlign: 'center',
@@ -37,8 +38,8 @@ const Footer = () => {
     <footer className={classes.footer}>
       <Container>
         <Grid container>
-          <Grid item xs={12} md={6} lg={6}>
-            <Typography variant="body2" color="#" align="left">
+          <Grid item xs={12} md={12} lg={12}>
+            <Typography variant="body2" color="#" align="center">
               {'Copyright © '}
               <Link color="inherit" href="/">
                 Grape Finance
@@ -47,7 +48,7 @@ const Footer = () => {
             </Typography>
           </Grid>
 
-          <Grid item xs={12} md={6} lg={6} style={{textAlign: 'right'}}>
+          <Grid item xs={12} md={12} lg={12} style={{textAlign: 'center', marginTop: '10px'}}>
             <a
               href="https://twitter.com/grape_finance"
               rel="noopener noreferrer"

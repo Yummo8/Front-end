@@ -192,7 +192,7 @@ const Home = () => {
                     TOTAL VALUE LOCKED
                   </Typography>
                   {TVL ? (
-                    <CountUp style={{fontSize: '70px'}} end={TVL} separator="," prefix="$" />
+                    <CountUp className="tvl" end={TVL} separator="," prefix="$" />
                   ) : (
                     <CircularProgress style={{marginTop: '20px'}} size={38} color="inherit" />
                   )}
@@ -256,7 +256,7 @@ const Home = () => {
               </Card>
             </Grid>
 
-            <Grid item xs={4} md={1} lg={2} style={{color: 'white', textAlign: 'center'}}>
+            <Grid item xs={6} md={4} lg={2} style={{color: 'white', textAlign: 'center'}}>
               <Typography color="textPrimary" variant="h6">
                 EPOCH
               </Typography>{' '}
@@ -266,7 +266,7 @@ const Home = () => {
                 <CircularProgress size={28} color="inherit" />
               )}
             </Grid>
-            <Grid item xs={4} md={3} lg={2} style={{color: 'white', textAlign: 'center'}}>
+            <Grid item xs={6} md={4} lg={2} style={{color: 'white', textAlign: 'center'}}>
               <Typography color="textPrimary" variant="h6">
                 Above Peg
               </Typography>
@@ -276,13 +276,13 @@ const Home = () => {
                 <CircularProgress size={28} color="inherit" />
               )}
             </Grid>
-            <Grid item xs={4} md={3} lg={3} style={{color: 'white', textAlign: 'center'}}>
+            <Grid item xs={12} md={4} lg={3} style={{color: 'white', textAlign: 'center'}}>
               <Typography color="textPrimary" variant="h6">
                 Started On
               </Typography>
               <span style={{fontSize: '30px'}}>Jan 16, 2022</span>
             </Grid>
-            <Grid item xs={4} md={2} lg={2} style={{color: 'white', textAlign: 'center'}}>
+            <Grid item xs={6} md={6} lg={2} style={{color: 'white', textAlign: 'center'}}>
               <Typography color="textPrimary" variant="h6">
                 KYC
               </Typography>
@@ -294,7 +294,7 @@ const Home = () => {
                 <img alt="0xGuard KYC" style={{height: '50px'}} src={kyc} />
               </a>
             </Grid>
-            <Grid item xs={4} md={2} lg={2} style={{color: 'white', textAlign: 'center'}}>
+            <Grid item xs={6} md={6} lg={2} style={{color: 'white', textAlign: 'center'}}>
               <Typography color="textPrimary" variant="h6">
                 Audit
               </Typography>

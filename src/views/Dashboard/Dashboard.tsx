@@ -113,7 +113,7 @@ const Dashboard = () => {
                     <StyledBalanceWrapper>
                       <TokenSymbol width={40} height={35} symbol="GRAPE" />
                       <StyledBalance>
-                        <StyledValue>{displayGrapeBalance}</StyledValue>
+                        <span className="wallet-token-blanace">{displayGrapeBalance}</span>
                         <Label text="GRAPE" />
                       </StyledBalance>
                     </StyledBalanceWrapper>
@@ -121,7 +121,7 @@ const Dashboard = () => {
                     <StyledBalanceWrapper>
                       <TokenSymbol width={35} height={35} symbol="WINE" />
                       <StyledBalance>
-                        <StyledValue>{displayWineBalance}</StyledValue>
+                      <span className="wallet-token-blanace">{displayWineBalance}</span>
                         <Label text="WINE" />
                       </StyledBalance>
                     </StyledBalanceWrapper>
@@ -129,7 +129,7 @@ const Dashboard = () => {
                     <StyledBalanceWrapper>
                       <TokenSymbol width={40} height={35} symbol="GBOND" />
                       <StyledBalance>
-                        <StyledValue>{displayGbondBalance}</StyledValue>
+                      <span className="wallet-token-blanace">{displayGbondBalance}</span>
                         <Label text="GBOND" />
                       </StyledBalance>
                     </StyledBalanceWrapper>

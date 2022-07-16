@@ -122,6 +122,55 @@ h6 {
 
 }
 
+.tvl {
+  font-size: 4.5rem;
+}
+
+.wallet-token-blanace {
+  font-size: 1.7rem;
+}
+
+@media screen and (max-width: 660px) {
+  .tvl {
+    font-size: 4rem;
+  }
+}
+
+@media screen and (max-width: 482px) {
+
+  .tvl {
+    font-size: 3.5rem;
+  }
+  .wallet-token-blanace {
+    font-size: 1.4rem;
+  }
+}
+
+@media screen and (max-width: 430px) {
+
+  .tvl {
+    font-size: 3rem;
+  }
+  .wallet-token-blanace {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 376px) {
+
+  .tvl {
+    font-size: 2.5rem;
+  }
+}
+
+@media screen and (max-width: 359px) {
+
+  .tvl {
+    font-size: 1rem;
+  }
+}
+
+
 .MuiButton-containedPrimary:hover{
   background: #D19AFF !important;
 }
