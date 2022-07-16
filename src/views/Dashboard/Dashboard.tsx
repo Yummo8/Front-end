@@ -50,7 +50,7 @@ const Dashboard = () => {
   const vineyardPools = banks.filter(
     (bank) => (!bank.finished && bank.sectionInUI === 2) || bank.sectionInUI === 6 || bank.sectionInUI === 7,
   );
-  const nodePools = [useBank('GrapeNode'), useBank('LPNode'), useBank('WineNode'), useBank('LPWlrsNode')];
+  const nodePools = [useBank('GrapeNode'), useBank('LPNode'), useBank('LPWlrsNode')];
   const onReward = useHarvestAll(vineyardPools);
   const harvestNodes = useHarvestAll(nodePools);
   const compoundNodes = useCompoundAll(nodePools);
@@ -240,12 +240,7 @@ const Dashboard = () => {
                           </Typography>{' '}
                         </Grid>
                         <Grid item>
-                          <Typography
-                            color="textPrimary"
-                            align="center"
-                            variant="h5"
-                            style={{fontWeight: 700}}
-                          >
+                          <Typography color="textPrimary" align="center" variant="h5" style={{fontWeight: 700}}>
                             {totalRewards != null ? (
                               <CountUp end={Number(totalRewards)} separator="," prefix="≈$" />
                             ) : (
