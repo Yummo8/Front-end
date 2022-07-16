@@ -3,6 +3,18 @@
   src: local('superstar'), url('./fonts/superstar.ttf') format('truetype');
 }
 
+.MuiTypography-h4 {
+  font-size: 1.925rem !important;
+}
+
+.MuiTypography-h5 {
+  font-size: 1.35rem !important;
+}
+
+.MuiTypography-h6 {
+  font-size: 1.05rem !important;
+}
+
 body,
 html,
 h1,
@@ -106,8 +118,6 @@ code {
 
 .price-item {
   padding: 7px;
-
- 
 }
 
 .price-item img {
@@ -150,22 +160,46 @@ code {
 .shinyButton {
   padding: 7px !important;
   background-color: #930993 !important;
-  border-radius: 3px !important;
   font-size: 1rem !important;
   color: #fff !important;
   box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 1);
 }
 
 .shinyButtonDisabled {
-  border-radius: 15px;
-  color: grey !important;
-  box-shadow: 0px 0px 5px 0px grey;
+  color: #555 !important;
+  padding: 7px !important;
+  background-color: #641d64 !important;
+  font-size: 1rem !important;
+  box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 1);
 }
 
 .shinyButton:hover {
-  background-color: #a710a7 !important;
+  background-color: #780b78 !important;
   transition: background-color 300ms;
 }
+
+.info-card-price {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff !important;
+}
+
+.card-info-value {
+  color: #fff !important;
+}
+
+.grey-text {
+  color: #929292 !important;
+}
+
+.info-card-ratio {
+  font-weight: 700;
+}
+
+.card-info-text {
+  color: #ddd;
+}
+
 
 /*
 #930993 light
@@ -187,7 +221,6 @@ code {
 
 .shinyButtonDisabledSecondary {
   border-radius: 15px;
-
   color: grey !important;
   box-shadow: 0px 0px 5px 0px grey;
 }

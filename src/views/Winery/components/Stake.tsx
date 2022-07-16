@@ -85,7 +85,7 @@ const Stake: React.FC = () => {
           <StyledCardContentInner>
             <StyledCardHeader>
               <CardIcon>
-                <TokenSymbol symbol="WINE" />
+                <TokenSymbol height={65} width={70} symbol="WINE" />
               </CardIcon>
               <Typography style={{textTransform: 'uppercase', color: '#930993'}}>  
               <Value value={getDisplayBalance(stakedBalance)} />
@@ -97,8 +97,7 @@ const Stake: React.FC = () => {
               {approveStatus !== ApprovalState.APPROVED ? (
                 <Button
                 disabled={approveStatus !== ApprovalState.NOT_APPROVED}
-                variant="contained"
-                color="primary"
+                className="shinyButton"
                 style={{ marginTop: '20px' }}
                 onClick={approve}
               >

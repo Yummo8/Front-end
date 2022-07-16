@@ -1,10 +1,11 @@
-import {Container} from '@material-ui/core';
+import {Container, useMediaQuery} from '@material-ui/core';
 import useEagerConnect from '../../hooks/useEagerConnect';
+import Menu, {MenuProps} from '@mui/material/Menu';
 
 import Footer from '../Footer';
 
 import React, {useMemo} from 'react';
-import {styled, useTheme, Theme, CSSObject} from '@mui/material/styles';
+import {styled, alpha, useTheme, Theme, CSSObject} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar, {AppBarProps as MuiAppBarProps} from '@mui/material/AppBar';
@@ -13,9 +14,11 @@ import List from '@mui/material/List';
 import CssBaseline from '@mui/material/CssBaseline';
 import {Link} from 'react-router-dom';
 import AccountButton from '../Nav/AccountButton';
+import useCashPriceInEstimatedTWAP from '../../hooks/useCashPriceInEstimatedTWAP';
 
 import grapeLogo from '../../assets/img/logo1.png';
 import grapeImg from '../../assets/img/grape.png';
+import grapeMimImg from '../../assets/img/twap.png';
 import nodesImg from '../../assets/img/gnode.png';
 import bondImg from '../../assets/img/gbond.png';
 import wineImg from '../../assets/img/gshare.png';
@@ -59,6 +62,10 @@ import StorefrontIcon from '@mui/icons-material/Storefront';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
+import Button from '@mui/material/Button';
+import MenuItem from '@mui/material/MenuItem';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+
 const drawerWidth = 280;
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -77,7 +84,7 @@ const closedMixin = (theme: Theme): CSSObject => ({
     duration: theme.transitions.duration.leavingScreen,
   }),
   overflowX: 'hidden',
-  width: `calc(${theme.spacing(7)} + 1px)`,
+  width: 0,
   [theme.breakpoints.up('sm')]: {
     width: `calc(${theme.spacing(8)} + 1px)`,
   },
@@ -85,7 +92,7 @@ const closedMixin = (theme: Theme): CSSObject => ({
 
 const DrawerHeader = styled('div')(({theme}) => ({
   display: 'flex',
-  marginTop: '10px',
+  marginTop: '25px',
   alignItems: 'center',
   justifyContent: 'flex-end',
   padding: theme.spacing(0, 1),
@@ -136,14 +143,58 @@ const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})
   }),
 }));
 
+const StyledMenu = styled((props: MenuProps) => (
+  <Menu
+    elevation={0}
+    anchorOrigin={{
+      vertical: 'bottom',
+      horizontal: 'right',
+    }}
+    transformOrigin={{
+      vertical: 'top',
+      horizontal: 'right',
+    }}
+    {...props}
+  />
+))(({theme}) => ({
+  '& .MuiPaper-root': {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
+    borderRadius: 6,
+    backgroundColor: 'rgba(147, 9, 147, 0.9) !important',
+    marginTop: theme.spacing(1),
+    minWidth: 190,
+    color: 'rgb(55, 65, 81)',
+    boxShadow:
+      'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
+    '& .MuiMenu-list': {
+      padding: '4px 0',
+    },
+    '& .MuiMenuItem-root': {
+      '& .MuiSvgIcon-root': {
+        fontSize: 18,
+        color: theme.palette.text.secondary,
+        marginRight: theme.spacing(1.5),
+      },
+      '&:active': {
+        backgroundColor: alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity),
+      },
+    },
+  },
+}));
+
 const Page: React.FC = ({children}) => {
   useEagerConnect();
 
   const grapeStats = useGrapeStats();
   const bShareStats = useWineStats();
 
-  const grapePrice = useMemo(() => (grapeStats ? Number(grapeStats.tokenInFtm).toFixed(2) : null), [grapeStats]);
+  const grapePrice = useMemo(() => (grapeStats ? Number(grapeStats.tokenInFtm).toFixed(3) : null), [grapeStats]);
   const winePrice = useMemo(() => (bShareStats ? Number(bShareStats.priceInDollars).toFixed(2) : null), [bShareStats]);
+
+  const cashStat = useCashPriceInEstimatedTWAP();
+  const twap = useMemo(() => (cashStat ? Number(cashStat.priceInDollars).toFixed(4) : null), [cashStat]);
 
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -188,6 +239,17 @@ const Page: React.FC = ({children}) => {
     setUsefulllinksOpen(!usefullLinksOpen);
   };
 
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const buyOpen = Boolean(anchorEl);
+  const handleBuyClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleBuyClose = () => {
+    setAnchorEl(null);
+  };
+
+  const screenSM = useMediaQuery('(min-width:600px)');
+
   return (
     <div style={{position: 'relative', minHeight: '100vh'}}>
       <Box sx={{display: 'flex'}}>
@@ -218,7 +280,7 @@ const Page: React.FC = ({children}) => {
                   rel="noopener noreferrer"
                   href="https://app.bogged.finance/avax/swap?tokenIn=0x130966628846BFd36ff31a822705796e8cb8C18D&tokenOut=0x5541D83EFaD1f281571B343977648B75d95cdAC2"
                 >
-                  <img src={grapeImg} alt="Grape" width={28} height={35} />
+                  <img src={grapeImg} alt="Grape" width={35} height={35} />
                   <span className="token-price">{grapePrice ? '$' + grapePrice : '--'}</span>
                 </a>
               </div>
@@ -229,9 +291,13 @@ const Page: React.FC = ({children}) => {
                   rel="noopener noreferrer"
                   href="https://app.bogged.finance/avax/swap?tokenIn=0x130966628846BFd36ff31a822705796e8cb8C18D&tokenOut=0xC55036B5348CfB45a932481744645985010d3A44"
                 >
-                  <img src={wineImg} alt="Wine" width={30} height={35} />
+                  <img src={wineImg} alt="Wine" width={35} height={35} />
                   <span className="token-price">{winePrice ? '$' + winePrice : '--'}</span>
                 </a>
+              </div>
+              <div className="price-item">
+                <img src={grapeMimImg} alt="TWAP" height={35} />
+                <span className="token-price">{twap ? '$' + twap : '--'}</span>
               </div>
             </div>
             <Box
@@ -247,6 +313,78 @@ const Page: React.FC = ({children}) => {
                 gridGap: '20px',
               }}
             >
+              {screenSM && (
+                <div>
+                  <Button
+                    className="shinyButton"
+                    aria-controls={buyOpen ? 'customized-menu' : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={buyOpen ? 'true' : undefined}
+                    variant="contained"
+                    disableElevation
+                    onClick={handleBuyClick}
+                    endIcon={<KeyboardArrowDownIcon />}
+                  >
+                    Buy
+                  </Button>
+                  <StyledMenu
+                    id="customized-menu"
+                    MenuListProps={{
+                      'aria-labelledby': 'customized-button',
+                    }}
+                    anchorEl={anchorEl}
+                    open={buyOpen}
+                    onClose={handleBuyClose}
+                  >
+                    <a
+                      className="menu-item"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://app.bogged.finance/avax/swap?tokenIn=0x130966628846BFd36ff31a822705796e8cb8C18D&tokenOut=0x5541D83EFaD1f281571B343977648B75d95cdAC2"
+                    >
+                      <MenuItem onClick={handleBuyClose} disableRipple>
+                        Buy Grape
+                      </MenuItem>
+                    </a>
+                    <a
+                      className="menu-item"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://app.bogged.finance/avax/swap?tokenIn=0x130966628846BFd36ff31a822705796e8cb8C18D&tokenOut=0xC55036B5348CfB45a932481744645985010d3A44"
+                    >
+                      <MenuItem onClick={handleBuyClose} disableRipple>
+                        Buy Wine
+                      </MenuItem>
+                    </a>
+                    <a className="menu-item" href="/bond">
+                      <MenuItem onClick={handleBuyClose} disableRipple>
+                        Buy Gbond
+                      </MenuItem>
+                    </a>
+                    <Divider sx={{my: 0.5}} />
+                    <a
+                      className="menu-item"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://nftrade.com/assets/avalanche/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df"
+                    >
+                      <MenuItem onClick={handleBuyClose} disableRipple>
+                        Buy NFTs with Avax
+                      </MenuItem>
+                    </a>
+                    <a
+                      className="menu-item"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://hexagon.market/collections/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df?sort=-highestPrice"
+                    >
+                      <MenuItem onClick={handleBuyClose} disableRipple>
+                        Buy NFTs with Grape
+                      </MenuItem>
+                    </a>
+                  </StyledMenu>
+                </div>
+              )}
               <AccountButton text="Connect" />
             </Box>
           </Toolbar>
@@ -446,7 +584,7 @@ const Page: React.FC = ({children}) => {
               </ListItemButton>
             </ListItem>
 
-            <ListItem className="menu-item" button component={Link} to="/bonds" disablePadding sx={{display: 'block'}}>
+            <ListItem className="menu-item" button component={Link} to="/bond" disablePadding sx={{display: 'block'}}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -481,7 +619,7 @@ const Page: React.FC = ({children}) => {
                   justifyContent: 'center',
                 }}
               >
-                <SportsEsportsIcon sx={{ color: '#14b236'  }}/>
+                <SportsEsportsIcon sx={{color: '#14b236'}} />
               </ListItemIcon>
               <ListItemText primary="Games" sx={{opacity: open ? 1 : 0}} />
               {open ? gamesOpen ? <ExpandLess /> : <ExpandMore /> : null}
@@ -547,7 +685,7 @@ const Page: React.FC = ({children}) => {
                           justifyContent: 'center',
                         }}
                       >
-                        <StadiumIcon/>
+                        <StadiumIcon />
                       </ListItemIcon>
                       <ListItemText primary="King Of Colosseum" />
                     </ListItemButton>
@@ -567,7 +705,7 @@ const Page: React.FC = ({children}) => {
                   justifyContent: 'center',
                 }}
               >
-                <SavingsIcon sx={{ color: '#d232d2'  }}/>
+                <SavingsIcon sx={{color: '#d232d2'}} />
               </ListItemIcon>
               <ListItemText primary="Vaults" sx={{opacity: open ? 1 : 0}} />
               {open ? vaultsOpen ? <ExpandLess /> : <ExpandMore /> : null}
@@ -940,7 +1078,7 @@ const Page: React.FC = ({children}) => {
                           justifyContent: 'center',
                         }}
                       >
-                        <YouTubeIcon sx={{ color: 'red'  }}/>
+                        <YouTubeIcon sx={{color: 'red'}} />
                       </ListItemIcon>
                       <ListItemText primary="Beginner Videos" />
                     </ListItemButton>

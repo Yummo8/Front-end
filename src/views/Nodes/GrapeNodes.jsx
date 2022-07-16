@@ -1,13 +1,11 @@
-import {Grid} from '@material-ui/core';
+import {Grid, Typography} from '@material-ui/core';
 import React from 'react';
 import {Route, Switch, useRouteMatch} from 'react-router-dom';
 import Page from '../../components/Page';
 import GrapeNode from '../GrapeNode';
-import GrapeCard from './GrapeCard';
-import WineMimCard from './WineMimCard';
-import LPCard from './LPCard';
-import LPWlrsCard from './LPWlrsCard';
-import { createGlobalStyle } from 'styled-components';
+import useBank from '../../hooks/useBank';
+import {createGlobalStyle} from 'styled-components';
+import NodesInfoCard from '../../components/NodesInfoCard';
 
 const BackgroundImage = createGlobalStyle`
   body {
@@ -19,17 +17,28 @@ const BackgroundImage = createGlobalStyle`
 
 const GrapeNodes = () => {
   const {path} = useRouteMatch();
+
+  const grapeNodeBank = useBank('GrapeNode');
+  const grapeMimSWBank = useBank('LPNode');
+  const grapeWrlsBank = useBank('LPWlrsNode');
+
   return (
     <Page>
       <BackgroundImage />
       <Switch>
         <Route exact path={path}>
-          <h1 style={{fontSize: '80px', textAlign: 'center'}}>NODES</h1>
+          <Typography color="textPrimary" align="center" variant="h3" gutterBottom>
+            Nodes
+          </Typography>
+          <Typography color="textPrimary" align="center" variant="h6" gutterBottom style={{marginBottom: '40px'}}>
+            Buy Nodes and lock supply to earn daily return
+            <br />
+            Participate to monthly airdrops by buying Nodes and NFTs
+          </Typography>
           <Grid container spacing={3} style={{marginTop: '20px'}}>
-            <GrapeCard />
-            <WineMimCard />
-            <LPCard />
-            <LPWlrsCard />
+            <NodesInfoCard bank={grapeNodeBank} />
+            <NodesInfoCard bank={grapeMimSWBank} />
+            <NodesInfoCard bank={grapeWrlsBank} />
           </Grid>
         </Route>
         <Route path={`${path}/:bankId`}>

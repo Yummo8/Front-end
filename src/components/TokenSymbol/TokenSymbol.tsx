@@ -54,7 +54,7 @@ const TokenSymbol: React.FC<LogoProps> = ({symbol, width, height}) => {
   }
 
   if(symbol === 'GRAPE-MIM-LP' || symbol === 'WINE-MIM-LP' || symbol === 'GRAPE-WINE-LP' || symbol === 'HSHARE-WINE-LP' || symbol === 'GRAPE-MIM-SW' || symbol === 'GRAPE-WLRS-LP' || symbol === 'WINE-POPS-LP'){
-    return <img src={logosBySymbol[symbol]} alt={`${symbol} Logo`} width={width + 40} height={height} />;
+    return <img src={logosBySymbol[symbol]} alt={`${symbol} Logo`} width={width} height={height} />;
   }else if(symbol === 'MIM' || symbol === 'WAVAX' || symbol === 'WAMP'){
     return <img src={logosBySymbol[symbol]} alt={`${symbol} Logo`} width={width + 10} height={height + 5} />;
   }else{

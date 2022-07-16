@@ -5,8 +5,8 @@ const newTheme = createTheme({
   palette: {
     type: 'light',
     text: {
-      primary: '#dddfee',
-      secondary: 'white',
+      primary: '#fafafa',
+      secondary: '#e647e6',
       yellow: '#d19aff',
     },
     background: {
@@ -21,7 +21,7 @@ const newTheme = createTheme({
     },
     secondary: {
       light: '#ff7961',
-      main: '#f44336',
+      main: '#930993',
       dark: '#ba000d',
       contrastText: '#000',
     },
