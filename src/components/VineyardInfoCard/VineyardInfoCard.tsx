@@ -52,7 +52,7 @@ const VineyardInfoCard: React.FC<VineyardInfoCardProps> = ({bank}) => {
                     {bank.closedForStaking ? (
                       <span>Pool Ended Please unstake</span>
                     ) : (
-                      <span>Earn {bank.earnTokenName} {bank.depositTokenName === 'GRAPE-MIM-SW' ?  '+ POPs drops' : null}</span>
+                      <span>Earn {bank.earnTokenName} {bank.depositTokenName === 'GRAPE-MIM-SW' ?  '+ POPs airdrops' : null}</span>
                     )}
                   </Typography>
                 </Grid>

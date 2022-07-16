@@ -32,7 +32,6 @@
 
 }
 
-
 .MuiTypography-h4 {
   font-size: 1.925rem !important;
 }
@@ -49,7 +48,7 @@
   font-family: "TOMMY" !important;
 }
 
-.MuiTypography-h5, .MuiTypography-h6, .MuiAlert-root {
+.MuiTypography-h5, .MuiTypography-h6, .MuiAlert-root, .MuiTypography-body1 {
   font-family: "TOMMY-R" !important;
 }
 
