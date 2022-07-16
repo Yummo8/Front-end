@@ -3,6 +3,36 @@
   src: local('superstar'), url('./fonts/superstar.ttf') format('truetype');
 }
 
+
+@font-face {
+  font-family: "TOMMY";
+  src: local("TOMMY"),
+    url("./fonts/tommy.otf") format("opentype");
+
+}
+
+@font-face {
+  font-family: "TOMMY-L";
+  src: local("TOMMY-L"),
+    url("./fonts/tommy-l.otf") format("opentype");
+
+}
+
+@font-face {
+  font-family: "TOMMY-R";
+  src: local("TOMMY-R"),
+    url("./fonts/tommy-r.otf") format("opentype");
+
+}
+
+@font-face {
+  font-family: "TOMMY-O";
+  src: local("TOMMY-O"),
+    url("./fonts/tommy-o.otf") format("opentype");
+
+}
+
+
 .MuiTypography-h4 {
   font-size: 1.925rem !important;
 }
@@ -15,6 +45,14 @@
   font-size: 1.05rem !important;
 }
 
+.MuiTypography-h1, .MuiTypography-h2, .MuiTypography-h3, .MuiTypography-h4 {
+  font-family: "TOMMY" !important;
+}
+
+.MuiTypography-h5, .MuiTypography-h6, .MuiAlert-root {
+  font-family: "TOMMY-R" !important;
+}
+
 body,
 html,
 h1,
@@ -22,7 +60,7 @@ h2,
 h3,
 h4 {
   margin: 0;
-  font-family: 'MONOSPACE', sans-serif;
+  font-family: 'TOMMY-R', sans-serif !important;
   /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif; */
@@ -65,7 +103,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'superstar', 'monospace';
+  font-family: 'TOMMY', 'monospace';
   text-transform: uppercase;
   color: #fff;
 }
@@ -90,7 +128,7 @@ h6 {
 }
 
 code {
-  font-family: 'monospace', monospace;
+  font-family: 'TOMMY', monospace;
 }
 
 .menu-item {
@@ -158,6 +196,7 @@ code {
 }
 
 .shinyButton {
+  font-family: 'TOMMY-R' !important;
   padding: 7px !important;
   background-color: #930993 !important;
   font-size: 1rem !important;

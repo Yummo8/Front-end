@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react';
 import {Link} from 'react-router-dom';
-import {Box, Button, Card, CardActions, CardContent, Paper, Typography, Grid} from '@material-ui/core';
+import { Button, Card, CardContent, Paper, Typography, Grid} from '@material-ui/core';
 
 import TokenSymbol from '../../components/TokenSymbol';
 
