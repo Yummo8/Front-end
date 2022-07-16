@@ -175,7 +175,7 @@ const DashboardInfoCardNodes = ({bank}) => {
             <Grid item className="card-price-item" xs={12} md={4} lg={4}>
               <Button
                 component={Link}
-                to={`/vineyard/${bank.contract}`}
+                to={`/nodes/${bank.contract}`}
                 className="shinyButton"
                 style={{width: '100%', marginTop: '17px'}}
               >
