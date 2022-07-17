@@ -24,7 +24,7 @@
 }
 
 .MuiTypography-h4 {
-  font-size: 1.925rem !important;
+  font-size: 2.425rem !important;
 }
 
 .MuiTypography-h5 {
@@ -39,7 +39,7 @@
 .MuiTypography-h2,
 .MuiTypography-h3,
 .MuiTypography-h4 {
-  font-family: 'TOMMY' !important;
+  font-family: 'superstar' !important;
 }
 
 .MuiTypography-h5,
@@ -142,7 +142,7 @@ h6 {
   }
 
   .MuiTypography-h4 {
-    font-size: 1.425rem !important;
+    font-size: 1.925rem !important;
   }
 
   .MuiTypography-h5 {
