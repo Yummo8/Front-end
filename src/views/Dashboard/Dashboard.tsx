@@ -266,7 +266,7 @@ const Dashboard = () => {
               </Typography>
             </Grid>
             <Grid item xs={12} md={6} lg={6} style={{textAlign: matches ? 'right' : 'center'}}>
-              <Button className="shinyButton" onClick={onReward}>
+              <Button style={{marginTop: matches ? '0' : '10px'}} className="shinyButton" onClick={onReward}>
                 Claim All From Vineyard
               </Button>
             </Grid>
@@ -321,10 +321,10 @@ const Dashboard = () => {
               </Typography>{' '}
             </Grid>
             <Grid item xs={12} md={6} lg={6} style={{textAlign: matches ? 'right' : 'center'}}>
-              <Button className="shinyButton" onClick={compoundNodes}>
+              <Button style={{marginTop: matches ? '0' : '10px'}} className="shinyButton" onClick={compoundNodes}>
                 Compound All From Nodes
               </Button>
-              <Button style={{marginLeft: '10px'}} className="shinyButton" onClick={harvestNodes}>
+              <Button style={{marginTop: matches ? '0' : '10px', marginLeft: '10px'}} className="shinyButton" onClick={harvestNodes}>
                 Claim All From Nodes
               </Button>
             </Grid>
