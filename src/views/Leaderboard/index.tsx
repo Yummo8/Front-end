@@ -15,7 +15,7 @@ import { createGlobalStyle } from 'styled-components';
 const BackgroundImage = createGlobalStyle`
   body {
     background-size: cover !important;
-    background: radial-gradient(circle at 52.1% -29.6%, rgb(144, 17, 105) 0%, rgb(51, 0, 131) 100.2%);
+    background: linear-gradient(90deg, rgba(144,17,105,1) 0%, rgba(95,17,144,1) 100%);
     ;
   }
 `;

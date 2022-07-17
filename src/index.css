@@ -3,6 +3,52 @@
   src: local('superstar'), url('./fonts/superstar.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: 'TOMMY';
+  src: local('TOMMY'), url('./fonts/tommy.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'TOMMY-L';
+  src: local('TOMMY-L'), url('./fonts/tommy-l.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'TOMMY-R';
+  src: local('TOMMY-R'), url('./fonts/tommy-r.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'TOMMY-O';
+  src: local('TOMMY-O'), url('./fonts/tommy-o.otf') format('opentype');
+}
+
+.MuiTypography-h4 {
+  font-size: 2.425rem !important;
+}
+
+.MuiTypography-h5 {
+  font-size: 1.35rem !important;
+}
+
+.MuiTypography-h6 {
+  font-size: 1.05rem !important;
+}
+
+.MuiTypography-h1,
+.MuiTypography-h2,
+.MuiTypography-h3,
+.MuiTypography-h4 {
+  font-family: 'superstar' !important;
+}
+
+.MuiTypography-h5,
+.MuiTypography-h6,
+.MuiAlert-root,
+.MuiTypography-body1 {
+  font-family: 'TOMMY-R' !important;
+}
+
 body,
 html,
 h1,
@@ -10,7 +56,7 @@ h2,
 h3,
 h4 {
   margin: 0;
-  font-family: 'MONOSPACE', sans-serif;
+  font-family: 'TOMMY-R', sans-serif !important;
   /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif; */
@@ -21,6 +67,7 @@ h4 {
 html,
 body {
   overflow-y: auto;
+  scroll-behavior: smooth;
   height: 100%;
 }
 
@@ -52,7 +99,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'superstar', 'monospace';
+  font-family: 'TOMMY', 'monospace';
   text-transform: uppercase;
   color: #fff;
 }
@@ -66,19 +113,112 @@ h6 {
 .MuiListItem-button:hover,
 .MuiButtonBase-root:hover {
   color: #fff !important;
-  
 }
-.MuiButton-containedPrimary{
+.MuiButton-containedPrimary {
   background: #930993 !important;
-  
 }
 
-.MuiButton-containedPrimary:hover{
-  background: #D19AFF !important;
+.tvl {
+  font-size: 4.5rem;
+}
+
+.wallet-token-blanace {
+  font-size: 1.7rem;
+}
+
+@media screen and (max-width: 660px) {
+  .tvl {
+    font-size: 4rem;
+  }
+
+}
+
+@media screen and (max-width: 482px) {
+  .tvl {
+    font-size: 3.5rem;
+  }
+  .wallet-token-blanace {
+    font-size: 1.4rem;
+  }
+
+  .MuiTypography-h4 {
+    font-size: 1.925rem !important;
+  }
+
+  .MuiTypography-h5 {
+    font-size: 1.15rem !important;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .tvl {
+    font-size: 3rem;
+  }
+  .wallet-token-blanace {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 376px) {
+  .tvl {
+    font-size: 2.5rem;
+  }
+}
+
+@media screen and (max-width: 359px) {
+  .tvl {
+    font-size: 1rem;
+  }
+}
+
+.MuiButton-containedPrimary:hover {
+  background: #d19aff !important;
 }
 
 code {
-  font-family: 'monospace', monospace;
+  font-family: 'TOMMY', monospace;
+}
+
+.menu-item {
+  border-bottom: 0 !important;
+  color: white !important;
+  fill: white !important;
+  margin-left: 0 !important;
+  text-decoration: none !important;
+  transition: padding-left 200ms;
+}
+
+.menu-item:hover {
+  font-weight: bold;
+  margin-left: 5px !important;
+  transition: margin-left 200ms;
+}
+
+.price-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.price-item {
+  padding: 7px;
+}
+
+.price-item img {
+  vertical-align: middle;
+}
+
+.token-price {
+  color: white;
+  font-size: 0.8rem;
+  text-decoration: none;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.text-decoration-none {
+  text-decoration: none;
 }
 
 .wallet-button {
@@ -102,26 +242,47 @@ code {
 }
 
 .shinyButton {
-  margin-top: 5px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  font-family: 'TOMMY-R' !important;
+  padding: 7px !important;
   background-color: #930993 !important;
-  border-radius: 5px !important;
   font-size: 1rem !important;
-  padding-left: 5px;
   color: #fff !important;
-  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 1);
+  box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 1);
 }
 
 .shinyButtonDisabled {
-  border-radius: 15px;
-  color: grey !important;
-  box-shadow: 0px 0px 5px 0px grey;
+  color: #555 !important;
+  padding: 7px !important;
+  background-color: #641d64 !important;
+  font-size: 1rem !important;
+  box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 1);
 }
 
 .shinyButton:hover {
-  background-color: #72046d !important;
+  background-color: #780b78 !important;
+  transition: background-color 300ms;
+}
+
+.info-card-price {
+  font-size: 20px;
+  font-weight: 700;
   color: #fff !important;
+}
+
+.card-info-value {
+  color: #fff !important;
+}
+
+.grey-text {
+  color: #929292 !important;
+}
+
+.info-card-ratio {
+  font-weight: 700;
+}
+
+.card-info-text {
+  color: #ddd;
 }
 
 /*
@@ -131,18 +292,6 @@ code {
 #FFD2D1 background highlight
 #D19AFF background
 */
-
-.shinyButtonSecondary {
-  padding-top: 5px;
-  padding-bottom: 5px;
-
-  border-radius: 15px;
-  font-size: 1rem !important;
-  padding-left: 5px;
-  background-color: #930993 !important;
-  color: #fff !important;
-  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 1);
-}
 
 .account {
   display: flex;
@@ -156,15 +305,8 @@ code {
 
 .shinyButtonDisabledSecondary {
   border-radius: 15px;
-
   color: grey !important;
   box-shadow: 0px 0px 5px 0px grey;
-}
-
-.shinyButtonSecondary:hover {
-  background-color: #72046d !important;
-  color: #fff !important;
-  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 1);
 }
 
 .navTokenPrice {
@@ -183,24 +325,28 @@ code {
   overflow: hidden;
 }
 
-.grape {
-  background-image: url('/grape.png');
-  top: -20px;
-}
-
-.wine {
-  background-image: url('/gshare.png');
-}
-
-.btc {
-  background-image: url('/grape3.png');
-}
-
 .MuiPaper-root {
   color: rgb(235, 235, 235) !important;
   background-color: rgba(0, 0, 0, 0.5) !important;
-  border-radius: 20px !important;
-  box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, 0.8) !important;
+}
+
+body,
+html,
+.MuiPaper-root {
+  -ms-overflow-style: none !important; /* for Internet Explorer, Edge */
+  scrollbar-width: none !important; /* for Firefox */
+  overflow-y: scroll !important;
+}
+
+.MuiPaper-root::-webkit-scrollbar {
+  display: none !important; /* for Chrome, Safari, and Opera */
+}
+body::-webkit-scrollbar {
+  display: none !important; /* for Chrome, Safari, and Opera */
+}
+
+html::-webkit-scrollbar {
+  display: none !important; /* for Chrome, Safari, and Opera */
 }
 
 .MuiAppBar-positionSticky {
@@ -216,7 +362,7 @@ code {
   color: #930993;
 }
 .dropbtn {
-  background-color: rgba(0,0,0,0);
+  background-color: rgba(0, 0, 0, 0);
   color: white;
   padding: 16px;
   font-size: 16px;
@@ -230,10 +376,10 @@ code {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: rgba(0,0,0,0.9);
+  background-color: rgba(0, 0, 0, 0.9);
   border-radius: 20px;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
@@ -244,7 +390,11 @@ code {
   display: block;
 }
 
+.dropdown-content a:hover {
+  border-radius: 10px;
+  color: #ccf;
+}
 
-.dropdown-content a:hover { border-radius: 10px; color: #ccf}
-
-.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropdown-content {
+  display: block;
+}

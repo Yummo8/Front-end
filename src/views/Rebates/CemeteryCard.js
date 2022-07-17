@@ -49,7 +49,7 @@ const CemeteryCard = ({ bank }) => {
   return (
     <Grid item xs={12} md={4} lg={4}>
       
-      <Card variant="outlined" style={{ border: '1px solid var(--white)' }}>
+      <Card variant="outlined" style={{ padding: '10px', border: '1px solid var(--white)' }}>
         <CardContent>
           <Box style={{ position: 'relative' }}>
             <Box
@@ -82,8 +82,7 @@ const CemeteryCard = ({ bank }) => {
           {approveStatus !== ApprovalState.APPROVED ? (
               <Button
               disabled={approveStatus !== ApprovalState.NOT_APPROVED}
-              variant="contained"
-              color="primary"
+              className="shinyButton"
               onClick={approve}
               >
               Approve {bank.depositTokenName}

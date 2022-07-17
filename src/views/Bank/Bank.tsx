@@ -51,7 +51,7 @@ const Bank: React.FC = () => {
   const bShareStats = usebShareStats();
   const cashPrice = useCashPriceInLastTWAP();
 
-  const bondScale = (Number(cashPrice) / 1e18).toFixed(2); 
+  const bondScale = (Number(cashPrice) / 1e18).toFixed(2);
   const bSharePriceInDollars = useMemo(
     () => (bShareStats ? Number(bShareStats.priceInDollars).toFixed(2) : null),
     [bShareStats],
@@ -65,7 +65,7 @@ const Bank: React.FC = () => {
   } else {
     curStrat = zone3;
   }
-console.log(bank.depositTokenName)
+  console.log(bank.depositTokenName);
   let name: string;
   let vaultUrl: string;
   let strat: string;
@@ -101,26 +101,28 @@ console.log(bank.depositTokenName)
     vaultUrl = 'https://app.asgarddao.fi/#/pledge';
     strat = wampStrat;
     stratText = 'Click here to see the optimal strategy for this vault';
-  } 
+  }
 
   const [onPresentDeposit, onDismissDeposit] = useModal(<StratModal strat={strat} />);
 
   return account && bank ? (
     <>
-      <PageHeader icon="🏦" subtitle={''} title={bank?.name} />
+      <Typography color="textPrimary" align="center" variant="h3" gutterBottom>
+        {bank?.name}
+      </Typography>
+
       {name !== '' ? (
-      <Box mt={5}>
-        <Grid container justify="center" spacing={3} style={{marginBottom: '30px'}}>
-  
+        <Box mt={5}>
+          <Grid container justify="center" spacing={3} style={{marginBottom: '30px'}}>
             <Alert variant="filled">
               {' '}
               <a href={vaultUrl} target={'_blank'} rel="noopener noreferrer">
                 <span style={{color: '#fff'}}>{name}</span>
               </a>
             </Alert>
-        
-        </Grid>
-      </Box>  ) : null}
+          </Grid>
+        </Box>
+      ) : null}
 
       {stratText !== '' ? (
         <Box mt={5}>
@@ -140,7 +142,10 @@ console.log(bank.depositTokenName)
             <Card className={classes.gridItem}>
               <CardContent style={{textAlign: 'center'}}>
                 <Typography style={{color: '#ccf'}}>Pool Wine p/day</Typography>
-                <Typography>{bank.closedForStaking ? '0.00' : bank.multi} | ${(Number((Number(bSharePriceInDollars)*Number(bank.multi)).toFixed(0))).toLocaleString('en-US')}</Typography>
+                <Typography>
+                  {bank.closedForStaking ? '0.00' : bank.multi} | $
+                  {Number((Number(bSharePriceInDollars) * Number(bank.multi)).toFixed(0)).toLocaleString('en-US')}
+                </Typography>
               </CardContent>
             </Card>
           </Grid>
@@ -148,7 +153,10 @@ console.log(bank.depositTokenName)
             <Card className={classes.gridItem}>
               <CardContent style={{textAlign: 'center'}}>
                 <Typography style={{color: '#ccf'}}>APR | DAILY</Typography>
-                <Typography>{bank.closedForStaking ? '0.00' : statsOnPool?.yearlyAPR}% | {bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}%</Typography>
+                <Typography>
+                  {bank.closedForStaking ? '0.00' : statsOnPool?.yearlyAPR}% |{' '}
+                  {bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}%
+                </Typography>
               </CardContent>
             </Card>
           </Grid>
@@ -156,7 +164,9 @@ console.log(bank.depositTokenName)
             <Card className={classes.gridItem}>
               <CardContent style={{textAlign: 'center'}}>
                 <Typography style={{color: '#ccf'}}>TVL</Typography>
-                <Typography>${statsOnPool?.TVL ? (Number((Number(statsOnPool?.TVL).toFixed(0)))).toLocaleString('en-US') : '-.--'}</Typography>
+                <Typography>
+                  ${statsOnPool?.TVL ? Number(Number(statsOnPool?.TVL).toFixed(0)).toLocaleString('en-US') : '-.--'}
+                </Typography>
               </CardContent>
             </Card>
           </Grid>
@@ -177,7 +187,7 @@ console.log(bank.depositTokenName)
           {bank.depositTokenName.includes('SW') && <LPTokenHelpText bank={bank} />}
           <Spacer size="lg" />
           <div>
-            <Button onClick={onRedeem} className="shinyButtonSecondary">
+            <Button onClick={onRedeem} className="shinyButton">
               Claim &amp; Withdraw
             </Button>
           </div>
@@ -193,8 +203,6 @@ console.log(bank.depositTokenName)
 };
 
 const LPTokenHelpText: React.FC<{bank: BankEntity}> = ({bank}) => {
-
-
   let pairName: string;
   let uniswapUrl: string;
   let exchange: string;
@@ -208,7 +216,7 @@ const LPTokenHelpText: React.FC<{bank: BankEntity}> = ({bank}) => {
     uniswapUrl =
       'https://www.swapsicle.io/add/0x130966628846BFd36ff31a822705796e8cb8C18D/0x5541D83EFaD1f281571B343977648B75d95cdAC2';
     exchange = 'Swapsicle';
-  }else if (bank.depositTokenName.includes('WINE-MIM')) {
+  } else if (bank.depositTokenName.includes('WINE-MIM')) {
     pairName = 'WINE-MIM pair';
     uniswapUrl =
       'https://traderjoexyz.com/pool/0x130966628846bfd36ff31a822705796e8cb8c18d/0xc55036b5348cfb45a932481744645985010d3a44';
@@ -223,7 +231,7 @@ const LPTokenHelpText: React.FC<{bank: BankEntity}> = ({bank}) => {
     uniswapUrl =
       'https://www.swapsicle.io/add/0xC55036B5348CfB45a932481744645985010d3A44/0x240248628B7B6850352764C5dFa50D1592A033A8';
     exchange = 'Swapsicle';
-  } 
+  }
   return (
     <Card>
       <CardContent>

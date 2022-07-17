@@ -4,7 +4,6 @@ import {createGlobalStyle} from 'styled-components';
 import {Route, Switch, useRouteMatch} from 'react-router-dom';
 import {useWallet} from 'use-wallet';
 import UnlockWallet from '../../components/UnlockWallet';
-import PageHeader from '../../components/PageHeader';
 import ExchangeCard from './components/ExchangeCard';
 import styled from 'styled-components';
 import Spacer from '../../components/Spacer';
@@ -21,17 +20,16 @@ import {Alert} from '@material-ui/lab';
 import {roundAndFormatNumber} from '../../0x';
 
 import HomeImage from '../../assets/img/background.jpg';
-import {Grid, Box} from '@material-ui/core';
+import {Grid, Box, Typography} from '@material-ui/core';
 const BackgroundImage = createGlobalStyle`
   body {
     //background: url(${HomeImage}) repeat !important;
     background-size: cover !important;
-    background: radial-gradient(circle at 52.1% -29.6%, rgb(144, 17, 105) 0%, rgb(51, 0, 131) 100.2%);
+    background: linear-gradient(90deg, rgba(144,17,105,1) 0%, rgba(95,17,144,1) 100%);
   }
 `;
 
 const Bond: React.FC = () => {
-  const {path} = useRouteMatch();
   const {account} = useWallet();
   const grapeFinance = useGrapeFinance();
   const addTransaction = useTransactionAdder();
@@ -72,11 +70,13 @@ const Bond: React.FC = () => {
         <BackgroundImage />
         {!!account ? (
           <>
-            <Route exact path={path}>
-              <PageHeader icon={'🏦'} title="Buy &amp; Redeem Bonds" subtitle="Earn premiums upon redemption" />
-            </Route>
-
-            <Box mt={5}>
+            <Typography color="textPrimary" align="center" variant="h3" gutterBottom>
+              Buy & Redeem Bonds
+            </Typography>
+            <Typography color="textPrimary" align="center" variant="h6" gutterBottom style={{marginBottom: '40px'}}>
+              Exchange Grapes for Bonds and burns Grape supply<br />Exchange Bonds for Grapes and earn premiums upon redemption
+            </Typography>
+            <Box mt={2}>
               <Grid item xs={12} sm={12} justify="center" style={{margin: '18px', display: 'flex'}}>
                 <Alert variant="filled" severity="error">
                   <b>Bonds are emitted & premiums redeemable based on last epoch TWAP prices not the current TWAP!</b>
@@ -114,7 +114,7 @@ const Bond: React.FC = () => {
                   price={Number(bondStat?.tokenInFtm).toFixed(2) || '-'}
                 />
 
-                <Box mt={5}>
+                <Box mt={3}>
                   <Grid item xs={12} sm={12} justify="center" style={{display: 'flex'}}>
                     <Alert variant="filled" severity="error">
                       <b>Grape Reserves:</b>{' '}

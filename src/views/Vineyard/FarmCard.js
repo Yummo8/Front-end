@@ -82,11 +82,11 @@ const FarmCard = ({bank}) => {
         </CardContent>
         <CardActions style={{justifyContent: 'flex-end'}}>
           {bank.buyLink !== null ? (
-            <Button className="shinyButtonSecondary" target="_blank" href={`${bank.buyLink}`}>
+            <Button className="shinyButton" target="_blank" href={`${bank.buyLink}`}>
               Trade
             </Button>
           ) : null}
-          <Button className="shinyButtonSecondary" component={Link} to={`/vineyard/${bank.contract}`}>
+          <Button className="shinyButton" component={Link} to={`/vineyard/${bank.contract}`}>
             Stake
           </Button>
         </CardActions>

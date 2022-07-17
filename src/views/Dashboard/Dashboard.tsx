@@ -4,14 +4,13 @@ import styled from 'styled-components';
 import {createGlobalStyle} from 'styled-components';
 import moment from 'moment';
 import Label from '../../components/Label';
-import {Box, Grid, Button, Typography, Card, CircularProgress} from '@material-ui/core';
+import {Box, Grid, Button, Typography, Card, CircularProgress, CardContent, Paper} from '@material-ui/core';
 import ProgressCountdown from './ProgressCountdown';
 import UnlockWallet from '../../components/UnlockWallet';
 import TokenSymbol from '../../components/TokenSymbol';
 import Page from '../../components/Page';
-import FarmCard from './FarmCard';
-import GrapeNodeCard from './GrapeNodeCard';
-import BoardroomCard from './BoardroomCard';
+import DashboardInfoCard from '../../components/DashboardInfoCard';
+import DashboardInfoCardNodes from './DashboardInfoCardNodes';
 import HomeImage from '../../assets/img/background.jpg';
 import useTreasuryAllocationTimes from '../../hooks/useTreasuryAllocationTimes';
 import useBanks from '../../hooks/useBanks';
@@ -26,12 +25,16 @@ import {useMediaQuery} from '@material-ui/core';
 import useTokenBalance from '../../hooks/useTokenBalance';
 import {getDisplayBalance} from '../../utils/formatBalance';
 import useGrapeFinance from '../../hooks/useGrapeFinance';
+import grapeImg from '../../assets/img/grape.png';
+import nodesImg from '../../assets/img/gnode.png';
+import wineImg from '../../assets/img/gshare.png';
+import DashboardBoardroomCard from './DashboardBoardroomCard';
 
 const BackgroundImage = createGlobalStyle`
   body {
     //background: url(${HomeImage}) repeat !important;
     background-size: cover !important;
-    background: radial-gradient(circle at 52.1% -29.6%, rgb(144, 17, 105) 0%, rgb(51, 0, 131) 100.2%);
+    background: linear-gradient(90deg, rgba(144,17,105,1) 0%, rgba(95,17,144,1) 100%);
   }
 `;
 
@@ -51,7 +54,6 @@ const Dashboard = () => {
   const onReward = useHarvestAll(vineyardPools);
   const harvestNodes = useHarvestAll(nodePools);
   const compoundNodes = useCompoundAll(nodePools);
-  const matches = useMediaQuery('(min-width:900px)');
 
   const grapeBalance = useTokenBalance(grapeFinance.GRAPE);
   const displayGrapeBalance = useMemo(() => getDisplayBalance(grapeBalance), [grapeBalance]);
@@ -68,6 +70,10 @@ const Dashboard = () => {
     () => (wineStats ? Number(wineStats.priceInDollars).toFixed(2) : null),
     [wineStats],
   );
+
+  const matches = useMediaQuery('(min-width:900px)');
+  const matches960 = useMediaQuery('(max-width:960px)');
+
 
   const [totalInvested, totalRewards, totalInVineyard, totalInNodes, totalInWinery] = useMemo(
     () =>
@@ -96,193 +102,260 @@ const Dashboard = () => {
       <BackgroundImage />
       {!!account ? (
         <>
-          <h1 style={{fontSize: '80px', textAlign: 'center'}}>Dashboard</h1>
+          <Typography color="textPrimary" align="center" variant="h3" gutterBottom>
+            Dashboard
+          </Typography>
           <Grid container spacing={3}>
-            <Grid item xs={12} md={5} lg={3}>
-              <Card style={{textAlign: 'center', minHeight: '210px'}}>
-                <h1 style={{width: '100%', marginTop: '15px', textAlign: 'center'}}>Prices</h1>
-                <Balances style={{marginTop: '10px', marginBottom: '15px', display: 'flex'}}>
-                  <StyledBalanceWrapper style={{paddingBottom: '15px'}}>
-                    <TokenSymbol width={40} height={45} symbol="GRAPE" />
-                    <StyledBalance>
-                      <StyledValue>${grapePriceInDollars ? grapePriceInDollars : '-.--'}</StyledValue>
-                      <Label text="GRAPE" />
-                    </StyledBalance>
-                  </StyledBalanceWrapper>
+            <Grid item xs={12} md={6} lg={6}>
+              <Card style={{textAlign: 'center', minHeight: matches960 ? '0' : '232px'}}>
+                <CardContent>
+                  <Typography color="textPrimary" align="center" variant="h5" gutterBottom>
+                    My Wallet
+                  </Typography>{' '}
+                  <Balances style={{display: 'flex', marginBottom: '0', marginTop: '20px'}}>
+                    <StyledBalanceWrapper>
+                      <TokenSymbol width={40} height={35} symbol="GRAPE" />
+                      <StyledBalance>
+                        <span className="wallet-token-blanace">{displayGrapeBalance}</span>
+                        <Label text="GRAPE" />
+                      </StyledBalance>
+                    </StyledBalanceWrapper>
 
-                  <StyledBalanceWrapper style={{paddingBottom: '15px'}}>
-                    <TokenSymbol width={40} height={45} symbol="WINE" />
-                    <StyledBalance>
-                      <StyledValue>${winePriceInDollars ? winePriceInDollars : '-.--'}</StyledValue>
-                      <Label text="WINE" />
-                    </StyledBalance>
-                  </StyledBalanceWrapper>
-                </Balances>
+                    <StyledBalanceWrapper>
+                      <TokenSymbol width={35} height={35} symbol="WINE" />
+                      <StyledBalance>
+                      <span className="wallet-token-blanace">{displayWineBalance}</span>
+                        <Label text="WINE" />
+                      </StyledBalance>
+                    </StyledBalanceWrapper>
+
+                    <StyledBalanceWrapper>
+                      <TokenSymbol width={40} height={35} symbol="GBOND" />
+                      <StyledBalance>
+                      <span className="wallet-token-blanace">{displayGbondBalance}</span>
+                        <Label text="GBOND" />
+                      </StyledBalance>
+                    </StyledBalanceWrapper>
+                  </Balances>
+                </CardContent>
               </Card>
             </Grid>
 
-            <Grid item xs={12} md={7} lg={5}>
-              <Card style={{textAlign: 'center', minHeight: '210px'}}>
-                <h1 style={{width: '100%', marginTop: '15px', textAlign: 'center'}}>My Wallet</h1>
-                <Balances style={{display: 'flex', marginTop: '10px'}}>
-                  <StyledBalanceWrapper style={{paddingBottom: '15px'}}>
-                    <TokenSymbol width={40} height={45} symbol="GRAPE" />
-                    <StyledBalance>
-                      <StyledValue>{displayGrapeBalance}</StyledValue>
-                      <Label text="GRAPE" />
-                    </StyledBalance>
-                  </StyledBalanceWrapper>
-
-                  <StyledBalanceWrapper style={{paddingBottom: '15px'}}>
-                    <TokenSymbol width={40} height={45} symbol="WINE" />
-                    <StyledBalance>
-                      <StyledValue>{displayWineBalance}</StyledValue>
-                      <Label text="WINE" />
-                    </StyledBalance>
-                  </StyledBalanceWrapper>
-
-                  <StyledBalanceWrapper style={{paddingBottom: '15px'}}>
-                    <TokenSymbol width={40} height={45} symbol="GBOND" />
-                    <StyledBalance>
-                      <StyledValue>{displayGbondBalance}</StyledValue>
-                      <Label text="GBOND" />
-                    </StyledBalance>
-                  </StyledBalanceWrapper>
-                </Balances>
-              </Card>
-            </Grid>
-
-            <Grid item xs={12} md={5} lg={4}>
-              <Card style={{textAlign: 'center', minHeight: '210px'}}>
-                <h1 style={{width: '100%', marginTop: '15px'}}>My Total $ Worth</h1>
-                <p style={{fontSize: '30px', marginBottom: '20px', textAlign: 'center', color: 'white', marginTop: '0'}}>
-                  {totalInvested != null ? (
-                    <CountUp end={getTotalInvested()} separator="," prefix="≈$" />
-                  ) : (
-                    <CircularProgress size={22} color="inherit" />
-                  )}
-                </p>
-
-                <h1 style={{width: '100%'}}>Rewards $ to Claim</h1>
-                <p style={{fontSize: '30px', marginBottom: '20px', textAlign: 'center', color: 'white', marginTop: '0'}}>
-                  {totalRewards != null ? (
-                    <CountUp end={Number(totalRewards)} separator="," prefix="≈$" />
-                  ) : (
-                    <CircularProgress size={22} color="inherit" />
-                  )}
-                </p>
+            <Grid item xs={12} md={6} lg={6}>
+              <Card style={{textAlign: 'center', minHeight: '190px'}}>
+                <CardContent>
+                  <Grid container direction="column" spacing={1}>
+                    <Grid item>
+                      <Grid container justifyContent="space-between">
+                        <Grid item>
+                          <Typography color="textPrimary" align="center" variant="h5">
+                            My Total worth
+                          </Typography>
+                        </Grid>
+                        <Grid item>
+                          <Typography color="textPrimary" align="center" variant="h5" style={{fontWeight: 700}}>
+                            {totalInvested != null ? (
+                              <CountUp end={getTotalInvested()} separator="," prefix="≈$" />
+                            ) : (
+                              <CircularProgress size={22} color="inherit" />
+                            )}
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                    <Grid item>
+                      <Grid container justifyContent="space-between" alignItems="baseline">
+                        <Grid item>
+                          <Typography color="textSecondary" align="center" variant="h6">
+                            <img
+                              src={grapeImg}
+                              alt="Grape"
+                              height={30}
+                              style={{verticalAlign: 'text-bottom', marginRight: '10px'}}
+                            />
+                            Vineyard
+                          </Typography>
+                        </Grid>
+                        <Grid item>
+                          <Typography color="textPrimary" align="center" variant="h6" style={{fontWeight: 700}}>
+                            {totalInVineyard ? (
+                              <CountUp end={totalInVineyard} separator="," prefix="≈$" />
+                            ) : (
+                              <CircularProgress style={{marginLeft: '10px'}} size={22} color="inherit" />
+                            )}
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                    <Grid item>
+                      <Grid container justifyContent="space-between" alignItems="baseline">
+                        <Grid item>
+                          <Typography color="textSecondary" align="center" variant="h6">
+                            <img
+                              src={nodesImg}
+                              alt="Grape"
+                              height={30}
+                              style={{verticalAlign: 'text-bottom', marginRight: '10px'}}
+                            />
+                            Nodes (locked)
+                          </Typography>
+                        </Grid>
+                        <Grid item>
+                          <Typography color="textPrimary" align="center" variant="h6" style={{fontWeight: 700}}>
+                            {totalInNodes != null ? (
+                              <CountUp end={totalInNodes} separator="," prefix="≈$" />
+                            ) : (
+                              <CircularProgress size={22} color="inherit" />
+                            )}
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                    <Grid item>
+                      <Grid container justifyContent="space-between" alignItems="baseline">
+                        <Grid item>
+                          <Typography color="textSecondary" align="center" variant="h6">
+                            <img
+                              src={wineImg}
+                              alt="Grape"
+                              height={30}
+                              style={{verticalAlign: 'text-bottom', marginRight: '10px'}}
+                            />
+                            Winery
+                          </Typography>
+                        </Grid>
+                        <Grid item>
+                          <Typography color="textPrimary" align="center" variant="h6" style={{fontWeight: 700}}>
+                            {totalInWinery ? (
+                              <CountUp end={Number(totalInWinery)} separator="," prefix="≈$" />
+                            ) : (
+                              <CircularProgress style={{marginLeft: '10px'}} size={22} color="inherit" />
+                            )}
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                    <Grid item>
+                      <Grid container justifyContent="space-between" alignItems="baseline">
+                        <Grid item>
+                          <Typography color="textPrimary" align="center" variant="h5">
+                            Rewards to claim
+                          </Typography>{' '}
+                        </Grid>
+                        <Grid item>
+                          <Typography color="textPrimary" align="center" variant="h5" style={{fontWeight: 700}}>
+                            {totalRewards != null ? (
+                              <CountUp end={Number(totalRewards)} separator="," prefix="≈$" />
+                            ) : (
+                              <CircularProgress size={22} color="inherit" />
+                            )}
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </CardContent>
               </Card>
             </Grid>
           </Grid>
-          <hr style={{marginTop: '40px'}}></hr>
+          <Paper style={{marginTop: '30px', marginBottom: '10px', height: '3px'}}></Paper>
           <Grid container alignItems="center" style={{marginTop: '30px'}}>
             <Grid item xs={12} md={6} lg={6}>
-              <h1 style={{fontSize: '60px', textAlign: matches ? 'left' : 'center'}}>Vineyard</h1>
+              <Typography color="textPrimary" style={{textAlign: matches ? 'left' : 'center'}} variant="h4">
+                Vineyard
+              </Typography>
             </Grid>
             <Grid item xs={12} md={6} lg={6} style={{textAlign: matches ? 'right' : 'center'}}>
-              <Button className="shinyButton" onClick={onReward}>
+              <Button style={{marginTop: matches ? '0' : '10px'}} className="shinyButton" onClick={onReward}>
                 Claim All From Vineyard
               </Button>
             </Grid>
           </Grid>
-          <p style={{fontSize: '28px', textAlign: matches ? 'left' : 'center', color: '#fff', margin: '0', marginTop: matches ? null : '15px'}}>
-            My $ Worth:{' '}
-            {totalInVineyard ? (
-              '≈$' + totalInVineyard
-            ) : (
-              <CircularProgress style={{marginLeft: '10px'}} size={22} color="inherit" />
-            )}
-          </p>
-          <h2 style={{fontSize: '40px', textAlign: 'left', marginTop: '30px'}}>Swapsicle Pools</h2>
-          <Box mt={3}>
+          <Typography color="textPrimary" style={{marginTop: '30px'}} variant="h5">
+            Swapsicle pools
+          </Typography>{' '}
+          <Box mt={2}>
             <Grid container spacing={3}>
               {vineyardPools
                 .filter((bank) => bank.sectionInUI === 6)
                 .map((bank) => (
                   <React.Fragment key={bank.name}>
-                    <FarmCard bank={bank} />
+                    <DashboardInfoCard bank={bank} />
                   </React.Fragment>
                 ))}
             </Grid>
           </Box>
-          <h2 style={{fontSize: '40px', textAlign: 'left', marginTop: '30px'}}>Trader Joe Pools</h2>
-          <Box mt={3}>
+          <Typography color="textPrimary" style={{marginTop: '30px'}} variant="h5">
+            Trader Joe pools
+          </Typography>{' '}
+          <Box mt={2}>
             <Grid container spacing={3}>
               {vineyardPools
                 .filter((bank) => bank.sectionInUI === 2)
                 .map((bank) => (
                   <React.Fragment key={bank.name}>
-                    <FarmCard bank={bank} />
+                    <DashboardInfoCard bank={bank} />
                   </React.Fragment>
                 ))}
             </Grid>
           </Box>
-          <h2 style={{fontSize: '40px', textAlign: 'left', marginTop: '30px'}}>Single Stake Pools</h2>
+          <Typography color="textPrimary" style={{marginTop: '30px'}} variant="h5">
+            Single Stake pools
+          </Typography>{' '}
           <Box mt={3}>
             <Grid container spacing={3}>
               {vineyardPools
                 .filter((bank) => bank.sectionInUI === 7)
                 .map((bank) => (
                   <React.Fragment key={bank.name}>
-                    <FarmCard bank={bank} />
+                    <DashboardInfoCard bank={bank} />
                   </React.Fragment>
                 ))}
             </Grid>
           </Box>
-          <hr style={{marginTop: '40px'}}></hr>
-          <Grid container alignItems='center' style={{marginTop: '30px'}}>
+          <Paper style={{marginTop: '40px', marginBottom: '10px', height: '3px'}}></Paper>
+          <Grid container alignItems="center" style={{marginTop: '30px'}}>
             <Grid item xs={12} md={6} lg={6}>
-              <h1 style={{fontSize: '60px', textAlign: matches ? 'left' : 'center'}}>Nodes</h1>
+              <Typography color="textPrimary" style={{textAlign: matches ? 'left' : 'center'}} variant="h4">
+                Nodes
+              </Typography>{' '}
             </Grid>
             <Grid item xs={12} md={6} lg={6} style={{textAlign: matches ? 'right' : 'center'}}>
-              <Grid container>
-                <Grid item xs={6} md={6} lg={6}>
-                  <Button className="shinyButton" onClick={compoundNodes}>
-                    Compound All From Nodes
-                  </Button>
-                </Grid>
-                <Grid item xs={6} md={6} lg={6}>
-                  <Button className="shinyButton" onClick={harvestNodes}>
-                    Claim All From Nodes
-                  </Button>
-                </Grid>
-              </Grid>
+              <Button style={{marginTop: matches ? '0' : '10px'}} className="shinyButton" onClick={compoundNodes}>
+                Compound All From Nodes
+              </Button>
+              <Button style={{marginTop: matches ? '0' : '10px', marginLeft: '10px'}} className="shinyButton" onClick={harvestNodes}>
+                Claim All From Nodes
+              </Button>
             </Grid>
-          </Grid>{' '}
-          <p style={{fontSize: '28px', color: '#fff', margin: '0', textAlign: matches ? 'left' : 'center', marginTop: matches ? null : '15px'}}>
-            My $ Worth (Locked):{' '}
-            {totalInNodes ? (
-              '≈$' + totalInNodes
-            ) : (
-              <CircularProgress style={{marginLeft: '10px'}} size={22} color="inherit" />
-            )}
-          </p>
+          </Grid>
           <Box mt={3}>
             <Grid container spacing={3}>
               {nodePools.map((bank) => (
                 <React.Fragment key={bank.name}>
-                  <GrapeNodeCard bank={bank} />
+                  <DashboardInfoCardNodes bank={bank} />
                 </React.Fragment>
               ))}
             </Grid>
           </Box>
-          <hr style={{marginTop: '40px'}}></hr>
-          <h1 style={{fontSize: '60px', marginTop: '50px', textAlign: matches ? 'left' : 'center'}}>Winery</h1>
-          <p style={{fontSize: '28px', color: '#fff', margin: '0', textAlign: matches ? 'left' : 'center'}}>
-            My $ Worth:{' '}
-            {totalInWinery ? (
-              '≈$' + totalInWinery
-            ) : (
-              <CircularProgress style={{marginLeft: '10px'}} size={22} color="inherit" />
-            )}
-          </p>
-          <Typography style={{marginTop: '20px', textTransform: 'uppercase', color: '#fff', textAlign: matches ? 'left' : 'center'}}>
+          <Paper style={{marginTop: '40px', marginBottom: '40px', height: '3px'}}></Paper>
+          <Typography color="textPrimary" style={{textAlign: matches ? 'left' : 'center'}} variant="h4">
+            Winery
+          </Typography>{' '}
+          <Typography
+            style={{
+              marginTop: '20px',
+              textTransform: 'uppercase',
+              color: '#fff',
+              textAlign: matches ? 'left' : 'center',
+            }}
+          >
             <b>Next Epoch: </b>
             <ProgressCountdown base={moment().toDate()} hideBar={true} deadline={to} description="Next Epoch" />
           </Typography>
           <Box mt={3}>
             <Grid container spacing={3}>
-              <BoardroomCard />
+              <DashboardBoardroomCard />
             </Grid>
           </Box>
         </>

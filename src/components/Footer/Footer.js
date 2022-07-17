@@ -7,20 +7,17 @@ import {ReactComponent as IconTwitter} from '../../assets/img/twitter.svg';
 import {ReactComponent as IconGithub} from '../../assets/img/github.svg';
 import {ReactComponent as IconDiscord} from '../../assets/img/discord.svg';
 
-
 const useStyles = makeStyles((theme) => ({
   footer: {
     position: 'absolute',
     bottom: '0',
-    paddingTop: '15px',
-    paddingBottom: '15px',
-    width: '100%',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    width: '80%',
     color: '#fff',
     backgroundColor: 'rgba(0,0,0,0)',
     textAlign: 'center',
     height: '1.3rem',
-    fontFamily: 'superstar',
-      
   },
   link: {
     width: '24px',
@@ -30,8 +27,8 @@ const useStyles = makeStyles((theme) => ({
   },
 
   img: {
-    width: '24px',
-    height: '24px',
+    width: '35px',
+    height: '35px',
   },
 }));
 
@@ -39,10 +36,10 @@ const Footer = () => {
   const classes = useStyles();
   return (
     <footer className={classes.footer}>
-      <Container maxWidth="lg">
+      <Container>
         <Grid container>
-          <Grid item xs={12}>
-            <Typography variant="body2" color="#" align="left">
+          <Grid item xs={12} md={12} lg={12}>
+            <Typography variant="body2" color="#" align="center">
               {'Copyright © '}
               <Link color="inherit" href="/">
                 Grape Finance
@@ -50,24 +47,8 @@ const Footer = () => {
               {new Date().getFullYear()}
             </Typography>
           </Grid>
-          <Grid item xs={12} style={{textAlign: 'right', height: '20px'}}>
-          {/*<a
-              href="mailto:grapefinance@protonmail.com"
-              rel="noopener noreferrer"
-              target="_blank"
-              className={'navLink ' + classes.link}
-            >
-              Email
-  </a>*/}
-          <a
-              href="https://grapefinance.gitbook.io/grape-finance-docs/"
-              rel="noopener noreferrer"
-              target="_blank"
-              className={'navLink ' + classes.link}
-            >
-              Grape Docs
-            </a>
-            
+
+          <Grid item xs={12} md={12} lg={12} style={{textAlign: 'center', marginTop: '10px'}}>
             <a
               href="https://twitter.com/grape_finance"
               rel="noopener noreferrer"
@@ -76,9 +57,14 @@ const Footer = () => {
             >
               <IconTwitter style={{fill: '#fff'}} />
             </a>
-            <a href="https://github.com/grapefi/contracts" rel="noopener noreferrer" target="_blank" className={classes.link}>
+            <a
+              href="https://github.com/grapefi/contracts"
+              rel="noopener noreferrer"
+              target="_blank"
+              className={classes.link}
+            >
               <IconGithub style={{fill: '#fff', height: '20px'}} />
-              </a>
+            </a>
             <a href="https://t.me/GrapeDefi" rel="noopener noreferrer" target="_blank" className={classes.link}>
               <IconTelegram style={{fill: '#fff', height: '20px'}} />
             </a>

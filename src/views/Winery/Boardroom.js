@@ -37,7 +37,7 @@ const BackgroundImage = createGlobalStyle`
   body {
     //background: url(${HomeImage}) repeat !important;
     background-size: cover !important;
-    background: radial-gradient(circle at 52.1% -29.6%, rgb(144, 17, 105) 0%, rgb(51, 0, 131) 100.2%);
+    background: linear-gradient(90deg, rgba(144,17,105,1) 0%, rgba(95,17,144,1) 100%);
   }
 `;
 
@@ -92,29 +92,42 @@ const Boardroom = () => {
 
       {!!account ? (
         <>
-          <h1 style={{fontSize: '80px', textAlign: 'center'}}>Winery</h1>
+          <Typography color="textPrimary" align="center" variant="h3" gutterBottom>
+            Winery
+          </Typography>
+          <Typography color="textPrimary" align="center" variant="h6" gutterBottom style={{marginBottom: '40px'}}>
+            Stake your Wine to earn Grape
+          </Typography>
 
           <Alert variant="filled" severity="info">
             The winery does not print Grape when below 1.01 TWAP, staking here below 1.01 TWAP will not generate
             rewards. Staked WINE can only be withdrawn every 4 epochs (24hrs) & rewards claimed every 2 epochs (12hrs).
             Staking or claiming resets this timer.
           </Alert>
-          { bondStat && (bondSupply - grapeReserves) > 0 &&
-            <Box mt={4}>
-            <Grid item justify="center">
-              <Alert variant="outlined" severity="warning">
-                <div>
-                  Winery APR is temporarly reduced during debt phase. Debt is paid by the Winery when an epoch ends above 1.01 TWAP. Once Grape reserves are higher than bond supply, debt phase ends, and normal APR resumes.
-                </div>
-                <b>Grape Reserves:</b>{' '} {bondStat?.treasuryGrapes ? roundAndFormatNumber(Number(grapeReserves), 0) : '-'} {'  |  '}
-                <b>Bond supply:</b>{' '} {bondStat?.circulatingSupply ? roundAndFormatNumber(Number(bondSupply), 0) : '-'} {'  |  '}
-                <b>Debt to be paid by Winery:</b>{' '} {bondStat?.circulatingSupply ? roundAndFormatNumber(Number(bondSupply) - Number(grapeReserves), 0) : '-'}<br/>
-              </Alert>
-            </Grid>
-          </Box>
-          }
-          
-          <Box mt={5}>
+          {bondStat && bondSupply - grapeReserves > 0 && (
+            <Box mt={2}>
+              <Grid item justify="center">
+                <Alert variant="outlined" severity="warning">
+                  <div>
+                    Winery APR is temporarly reduced during debt phase. Debt is paid by the Winery when an epoch ends
+                    above 1.01 TWAP. Once Grape reserves are higher than bond supply, debt phase ends, and normal APR
+                    resumes.
+                  </div>
+                  <b>Grape Reserves:</b>{' '}
+                  {bondStat?.treasuryGrapes ? roundAndFormatNumber(Number(grapeReserves), 0) : '-'} {'  |  '}
+                  <b>Bond supply:</b> {bondStat?.circulatingSupply ? roundAndFormatNumber(Number(bondSupply), 0) : '-'}{' '}
+                  {'  |  '}
+                  <b>Debt to be paid by Winery:</b>{' '}
+                  {bondStat?.circulatingSupply
+                    ? roundAndFormatNumber(Number(bondSupply) - Number(grapeReserves), 0)
+                    : '-'}
+                  <br />
+                </Alert>
+              </Grid>
+            </Box>
+          )}
+
+          <Box mt={2}>
             <Grid container justify="center" spacing={3}>
               <Grid item xs={6} md={2} lg={2} className={classes.gridItem}>
                 <Card className={classes.gridItem}>
@@ -173,10 +186,8 @@ const Boardroom = () => {
               <Grid item xs={12} md={3} lg={3} className={classes.gridItem}>
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
-                    <Typography style={{textTransform: 'uppercase', color: '#ccf'}}>Above Peg Epochs %</Typography>
-                    <Typography>
-                      {printRate.toFixed(2)}%
-                    </Typography>
+                    <Typography style={{textTransform: 'uppercase', color: '#ccf'}}>EPOCHS Above Peg</Typography>
+                    <Typography>{printRate.toFixed(2)}%</Typography>
                   </CardContent>
                 </Card>
               </Grid>
@@ -195,36 +206,6 @@ const Boardroom = () => {
                 </StyledCardsWrapper>
               </StyledBoardroom>
             </Box>
-
-            {/* <Grid container justify="center" spacing={3}>
-            <Grid item xs={4}>
-              <Card>
-                <CardContent align="center">
-                  <Typography>Rewards</Typography>
-
-                </CardContent>
-                <CardActions style={{justifyContent: 'center'}}>
-                  <Button color="primary" variant="outlined">Claim Reward</Button>
-                </CardActions>
-                <CardContent align="center">
-                  <Typography>Claim Countdown</Typography>
-                  <Typography>00:00:00</Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid item xs={4}>
-              <Card>
-                <CardContent align="center">
-                  <Typography>Stakings</Typography>
-                  <Typography>{getDisplayBalance(stakedBalance)}</Typography>
-                </CardContent>
-                <CardActions style={{justifyContent: 'center'}}>
-                  <Button>+</Button>
-                  <Button>-</Button>
-                </CardActions>
-              </Card>
-            </Grid>
-          </Grid> */}
           </Box>
 
           <Box mt={5}>
@@ -235,7 +216,7 @@ const Boardroom = () => {
                 className={
                   stakedBalance.eq(0) || (!canWithdraw && !canClaimReward)
                     ? 'shinyButtonDisabledSecondary'
-                    : 'shinyButtonSecondary'
+                    : 'shinyButton'
                 }
               >
                 Claim &amp; Withdraw

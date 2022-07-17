@@ -57,7 +57,7 @@ const Harvest = ({bank}) => {
         <StyledCardContentInner>
           <StyledCardHeader>
             <CardIcon>
-              <TokenSymbol symbol={bank.earnTokenName} />
+              <TokenSymbol height={65} width={70} symbol={bank.earnTokenName} />
             </CardIcon>
             <Typography style={{textTransform: 'uppercase', color: '#930993'}}>
               <Value value={getDisplayBalance(earnings)} />

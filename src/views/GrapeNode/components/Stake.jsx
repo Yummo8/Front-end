@@ -88,7 +88,7 @@ const Stake = ({bank}) => {
         <StyledCardContentInner>
           <StyledCardHeader>
             <CardIcon>
-              <TokenSymbol symbol={'GNODE'} size={54} />
+              <TokenSymbol height={65} width={70} symbol={'GNODE'} />
             </CardIcon>
             <Typography style={{textTransform: 'uppercase', color: '#930993'}}>
               <Value value={getDisplayBalance(nodePrice, bank.depositToken.decimal, 1)} />
@@ -123,6 +123,7 @@ const Stake = ({bank}) => {
             ) : (
               <>
                 <IconButton
+                  className="shinyButton"
                   disabled={bank.closedForStaking}
                   onClick={() => (bank.closedForStaking ? null : onPresentDeposit())}
                 >
