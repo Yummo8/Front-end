@@ -186,7 +186,7 @@ const Home = () => {
         <Grid item sm={12} md={12} lg={12} style={{marginTop: '10px'}}>
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={6} style={{color: 'white'}}>
-              <Card style={{minHeight: '222px'}}>
+              <Card style={{minHeight: '234px'}}>
                 <CardContent>
                   <Typography color="textPrimary" variant="h4" gutterBottom>
                     TOTAL VALUE LOCKED
