@@ -31,9 +31,9 @@ const GrapeNodes = () => {
             Nodes
           </Typography>
           <Typography color="textPrimary" align="center" variant="h6" gutterBottom style={{marginBottom: '40px'}}>
-            Buy Nodes and lock supply to earn daily return
+            Buy Nodes and lock supply to earn daily returns
             <br />
-            Participate to monthly airdrops by buying Nodes and NFTs
+            Earn monthly airdrops by buying Nodes and NFTs
           </Typography>
           <Grid container spacing={3} style={{marginTop: '20px'}}>
             <NodesInfoCard bank={grapeNodeBank} />

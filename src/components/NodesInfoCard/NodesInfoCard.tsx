@@ -47,8 +47,10 @@ const NodesInfoCard: React.FC<NodesInfoCardProps> = ({bank}) => {
       return GRAPE_NODE_MULTIPLIER;
     } else if (bank.earnTokenName === 'GRAPE-MIM-SW') {
       return GRAPEMIMSW_NODE_MULTIPLIER;
+    }else if (bank.earnTokenName === 'GRAPE-WLRS-LP') {
+      return 0;
     }
-    return 1;
+    return 0;
   };
 
   const tokenPriceInDollars = useMemo(
