@@ -87,6 +87,16 @@ const DashboardBoardroomCard = () => {
             <Grid item>
               <Grid container justifyContent="space-between">
                 <Grid item>
+                  <span className="card-info-text">Daily APR</span>
+                </Grid>
+                <Grid item>
+                  <b className={'card-info-value'}>{(boardroomAPR / 365).toFixed(2)}%</b>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item>
+              <Grid container justifyContent="space-between">
+                <Grid item>
                   <span className="card-info-text">Staked</span>
                 </Grid>
                 <Grid item>

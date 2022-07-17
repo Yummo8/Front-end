@@ -88,7 +88,7 @@ const Stake = ({bank}) => {
         <StyledCardContentInner>
           <StyledCardHeader>
             <CardIcon>
-              <TokenSymbol height={65} width={70} symbol={'GNODE'} />
+              <TokenSymbol height={70} width={70} symbol={'GNODE'} />
             </CardIcon>
             <Typography style={{textTransform: 'uppercase', color: '#930993'}}>
               <Value value={getDisplayBalance(nodePrice, bank.depositToken.decimal, 1)} />

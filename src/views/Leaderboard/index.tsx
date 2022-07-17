@@ -10,7 +10,8 @@ import Paper from '@material-ui/core/Paper';
 import Page from '../../components/Page';
 import {useGetEventQuery} from '../../services/event';
 import {convertTime} from '../../utils/convertTime';
-import { createGlobalStyle } from 'styled-components';
+import {createGlobalStyle} from 'styled-components';
+import { Typography } from '@material-ui/core';
 
 const BackgroundImage = createGlobalStyle`
   body {
@@ -55,7 +56,7 @@ const LeaderBoard = () => {
   const classes = useStyles();
 
   const {data: eventResponse} = useGetEventQuery();
-  
+
   const [leaderBoardEntire, setLeaderBoardEntire] = React.useState([]);
   const [leaderBoardLastWeek, setLeaderBoardLastWeek] = React.useState([]);
   React.useEffect(() => {
@@ -68,8 +69,14 @@ const LeaderBoard = () => {
   return (
     <Page>
       <BackgroundImage />
-      <h1 style={{fontSize: '65px', textAlign: 'center', marginBottom: '15px'}}>Node LeaderBoard</h1>
-      <h1 style={{fontSize: '45px', textAlign: 'left', marginBottom: '15px'}}>All Time</h1>
+      <Typography color="textPrimary" align="center" variant="h3" gutterBottom>
+        Node Leaderboard
+      </Typography>
+
+      <Typography color="textSecondary" align="left" variant="h4">
+        All Time
+      </Typography>
+
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
@@ -86,7 +93,7 @@ const LeaderBoard = () => {
                 <StyledTableCell component="th" scope="row">
                   {index + 1}
                 </StyledTableCell>
-                <StyledTableCell>{(row._id).substring(35)}</StyledTableCell>
+                <StyledTableCell>{row._id.substring(35)}</StyledTableCell>
                 <StyledTableCell>{convertTime(row.timestamp)}</StyledTableCell>
                 <StyledTableCell>{row.num}</StyledTableCell>
               </StyledTableRow>
@@ -94,7 +101,12 @@ const LeaderBoard = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <h1 style={{fontSize: '45px', textAlign: 'left', marginTop: '15px', marginBottom: '15px'}}>Last Week</h1>
+      
+      
+      <Typography color="textSecondary" style={{textAlign: 'left', marginTop: '15px', marginBottom: '15px'}} align="left" variant="h4">
+        Last Week
+      </Typography>
+      
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
@@ -111,7 +123,7 @@ const LeaderBoard = () => {
                 <StyledTableCell component="th" scope="row">
                   {index + 1}
                 </StyledTableCell>
-                <StyledTableCell>{(row._id).substring(35)}</StyledTableCell>
+                <StyledTableCell>{row._id.substring(35)}</StyledTableCell>
                 <StyledTableCell>{convertTime(row.timestamp)}</StyledTableCell>
                 <StyledTableCell>{row.num}</StyledTableCell>
               </StyledTableRow>

@@ -37,7 +37,7 @@ const Harvest: React.FC = () => {
           <StyledCardContentInner>
             <StyledCardHeader>
               <CardIcon>
-                <TokenSymbol height={65} width={70} symbol="GRAPE" />
+                <TokenSymbol height={70} width={70} symbol="GRAPE" />
               </CardIcon>
               <Typography style={{textTransform: 'uppercase', color: '#930993'}}>  
               <Value value={getDisplayBalance(earnings)} />

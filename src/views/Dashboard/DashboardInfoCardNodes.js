@@ -15,7 +15,7 @@ import useGrapeStats from '../../hooks/useGrapeStats';
 import useShareStats from '../../hooks/useWineStats';
 import useNodes from '../../hooks/useNodes';
 import useLpStatsBTC from '../../hooks/useLpStatsBTC';
-import {GRAPE_NODE_MULTIPLIER, WINE_NODE_MULTIPLIER, GRAPEMIMSW_NODE_MULTIPLIER} from '../../utils/constants';
+import {useGetMultiplierForNode} from '../../utils/constants';
 
 const DashboardInfoCardNodes = ({bank}) => {
   const {account} = useWallet();
@@ -42,16 +42,7 @@ const DashboardInfoCardNodes = ({bank}) => {
     tokenStats = grapeWLRSLpStats;
   }
 
-  const getMultiplierForNode = () => {
-    if (bank.earnTokenName === 'WINE') {
-      return WINE_NODE_MULTIPLIER;
-    } else if (bank.earnTokenName === 'GRAPE') {
-      return GRAPE_NODE_MULTIPLIER;
-    } else if (bank.earnTokenName === 'GRAPE-MIM-SW') {
-      return GRAPEMIMSW_NODE_MULTIPLIER;
-    }
-    return 1;
-  };
+  const ticketRewards = useGetMultiplierForNode(bank.earnTokenName);
 
   const tokenPriceInDollars = useMemo(
     () => (tokenStats ? Number(tokenStats.priceInDollars).toFixed(2) : null),
@@ -122,28 +113,26 @@ const DashboardInfoCardNodes = ({bank}) => {
             <Grid item>
               <Grid container justifyContent="space-between">
                 <Grid item>
-                  <span className="card-info-text">Your Nodes / Airdrop Tickets</span>
+                  <span className="card-info-text">Daily APR</span>
                 </Grid>
                 <Grid item>
-                  <b className={Number(nodes[0]) > 0 ? 'card-info-value' : 'card-info-value grey-text'}>
-                    {nodes[0] ? Number(nodes[0]) : null} / {Number(nodes[0] * getMultiplierForNode())}
-                  </b>
+                  <b className={'card-info-value'}>{bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}%</b>
                 </Grid>
               </Grid>
             </Grid>
             <Grid item>
               <Grid container justifyContent="space-between">
                 <Grid item>
-                  <span className="card-info-text">Airdrop Tickets</span>
+                  <span className="card-info-text">Your Nodes / Airdrop Tickets</span>
                 </Grid>
                 <Grid item>
                   <b className={Number(nodes[0]) > 0 ? 'card-info-value' : 'card-info-value grey-text'}>
-                    {' '}
-                    {nodes[0] ? Number(nodes[0] * getMultiplierForNode()) : null}
+                    {nodes[0] ? Number(nodes[0]) : null} / {Number(nodes[0] * ticketRewards)}
                   </b>
                 </Grid>
               </Grid>
             </Grid>
+
             <Grid item>
               <Grid container justifyContent="space-between">
                 <Grid item>

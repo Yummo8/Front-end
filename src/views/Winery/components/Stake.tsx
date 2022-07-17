@@ -85,7 +85,7 @@ const Stake: React.FC = () => {
           <StyledCardContentInner>
             <StyledCardHeader>
               <CardIcon>
-                <TokenSymbol height={65} width={70} symbol="WINE" />
+                <TokenSymbol height={70} width={70} symbol="WINE" />
               </CardIcon>
               <Typography style={{textTransform: 'uppercase', color: '#930993'}}>  
               <Value value={getDisplayBalance(stakedBalance)} />

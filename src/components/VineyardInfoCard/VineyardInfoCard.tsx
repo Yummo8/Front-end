@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React, {useMemo, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {Button, Card, CardContent, Grid, Paper, Typography} from '@material-ui/core';
 import TokenSymbol from '../TokenSymbol';
@@ -10,6 +10,9 @@ import useStakedTokenPriceInDollars from '../../hooks/useStakedTokenPriceInDolla
 import useGrapeStats from '../../hooks/useGrapeStats';
 import useShareStats from '../../hooks/useWineStats';
 import {Bank} from '../../grape-finance';
+import AprModal from '../../views/Vineyard/AprModal';
+import SwapVerticalCircleIcon from '@material-ui/icons/SwapVerticalCircle';
+import {Box} from '@mui/material';
 
 interface VineyardInfoCardProps {
   bank: Bank;
@@ -34,8 +37,25 @@ const VineyardInfoCard: React.FC<VineyardInfoCardProps> = ({bank}) => {
   const stakedTokenPriceInDollars = useStakedTokenPriceInDollars(bank.depositTokenName, bank.depositToken);
   const stakedInDollars = (Number(stakedTokenPriceInDollars) * stakedInToken).toFixed(2);
 
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
+  const handleOpenModal = () => {
+    setModalOpen(true);
+  };
+
   return (
     <Grid item xs={12} md={6} lg={4}>
+      <AprModal
+        open={modalOpen}
+        amountDeposited={stakedInToken ? stakedInToken : 100}
+        handleClose={handleCloseModal}
+        statsOnPool={statsOnPool}
+        coin={bank.depositTokenName}
+      />
       <Card>
         <CardContent>
           <Grid container style={{position: 'relative'}} spacing={1}>
@@ -87,6 +107,23 @@ const VineyardInfoCard: React.FC<VineyardInfoCardProps> = ({bank}) => {
                 </Grid>
               </Grid>
             </Grid>
+            <Box
+              onClick={handleOpenModal}
+              sx={{
+                position: 'absolute',
+                top: '5px',
+                right: '0',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '2px',
+                cursor: 'pointer',
+              }}
+            >
+              <Typography style={{fontSize: '10px'}}>
+                <u>APR Calc</u>
+              </Typography>
+              <SwapVerticalCircleIcon />
+            </Box>
           </Grid>
           <Paper style={{marginTop: '10px', marginBottom: '10px', height: '3px'}}></Paper>
           <Grid container direction="column" spacing={1}>
@@ -161,7 +198,7 @@ const VineyardInfoCard: React.FC<VineyardInfoCardProps> = ({bank}) => {
                 className="shinyButton"
                 style={{width: '100%', marginTop: '17px'}}
               >
-                Go To POol
+                Go To Pool
               </Button>
             </Grid>
           </Grid>

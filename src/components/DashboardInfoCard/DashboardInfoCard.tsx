@@ -93,6 +93,16 @@ const DashboardInfoCard: React.FC<DashboardInfoCardProps> = ({bank}) => {
             <Grid item>
               <Grid container justifyContent="space-between">
                 <Grid item>
+                  <span className="card-info-text">Daily APR</span>
+                </Grid>
+                <Grid item>
+                  <b className={'card-info-value'}>{bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}%</b>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item>
+              <Grid container justifyContent="space-between">
+                <Grid item>
                   <span className="card-info-text">Staked</span>
                 </Grid>
                 <Grid item>

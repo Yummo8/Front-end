@@ -26,14 +26,13 @@ const logosBySymbol: {[title: string]: string} = {
   WAMP: wamp,
   HSHARE: wamp,
   GNODE: gnode,
-  'GRAPE-MIM-LP' : grapeMimLpLogo,
-  'GRAPE-MIM-SW' : grapeMimLpLogo,
-  'GRAPE-WLRS-LP' : grapewlrs,
-  'GRAPE-WINE-LP' : grapeWine,
-  'WINE-MIM-LP' : wineMimLpLogo,
-  'HSHARE-WINE-LP' : hsharewine,
-  'WINE-POPS-LP' : winePops,
-  
+  'GRAPE-MIM-LP': grapeMimLpLogo,
+  'GRAPE-MIM-SW': grapeMimLpLogo,
+  'GRAPE-WLRS-LP': grapewlrs,
+  'GRAPE-WINE-LP': grapeWine,
+  'WINE-MIM-LP': wineMimLpLogo,
+  'HSHARE-WINE-LP': hsharewine,
+  'WINE-POPS-LP': winePops,
 };
 
 type LogoProps = {
@@ -47,20 +46,13 @@ const TokenSymbol: React.FC<LogoProps> = ({symbol, width, height}) => {
     throw new Error(`Invalid Token Logo symbol: ${symbol}`);
   }
   if (!width) {
-    width = 55;
+    width = 60;
   }
   if (!height) {
-    height = 60
+    height = 60;
   }
 
-  if(symbol === 'GRAPE-MIM-LP' || symbol === 'WINE-MIM-LP' || symbol === 'GRAPE-WINE-LP' || symbol === 'HSHARE-WINE-LP' || symbol === 'GRAPE-MIM-SW' || symbol === 'GRAPE-WLRS-LP' || symbol === 'WINE-POPS-LP'){
-    return <img src={logosBySymbol[symbol]} alt={`${symbol} Logo`} width={width} height={height} />;
-  }else if(symbol === 'MIM' || symbol === 'WAVAX' || symbol === 'WAMP'){
-    return <img src={logosBySymbol[symbol]} alt={`${symbol} Logo`} width={width + 10} height={height + 5} />;
-  }else{
-    return <img src={logosBySymbol[symbol]} alt={`${symbol} Logo`} width={width} height={height + 8} />;
-  }
-    
+  return <img src={logosBySymbol[symbol]} alt={`${symbol} Logo`} width={width} height={height} />;
 };
 
 export default TokenSymbol;
