@@ -3,33 +3,24 @@
   src: local('superstar'), url('./fonts/superstar.ttf') format('truetype');
 }
 
-
 @font-face {
-  font-family: "TOMMY";
-  src: local("TOMMY"),
-    url("./fonts/tommy.otf") format("opentype");
-
+  font-family: 'TOMMY';
+  src: local('TOMMY'), url('./fonts/tommy.otf') format('opentype');
 }
 
 @font-face {
-  font-family: "TOMMY-L";
-  src: local("TOMMY-L"),
-    url("./fonts/tommy-l.otf") format("opentype");
-
+  font-family: 'TOMMY-L';
+  src: local('TOMMY-L'), url('./fonts/tommy-l.otf') format('opentype');
 }
 
 @font-face {
-  font-family: "TOMMY-R";
-  src: local("TOMMY-R"),
-    url("./fonts/tommy-r.otf") format("opentype");
-
+  font-family: 'TOMMY-R';
+  src: local('TOMMY-R'), url('./fonts/tommy-r.otf') format('opentype');
 }
 
 @font-face {
-  font-family: "TOMMY-O";
-  src: local("TOMMY-O"),
-    url("./fonts/tommy-o.otf") format("opentype");
-
+  font-family: 'TOMMY-O';
+  src: local('TOMMY-O'), url('./fonts/tommy-o.otf') format('opentype');
 }
 
 .MuiTypography-h4 {
@@ -44,12 +35,18 @@
   font-size: 1.05rem !important;
 }
 
-.MuiTypography-h1, .MuiTypography-h2, .MuiTypography-h3, .MuiTypography-h4 {
-  font-family: "TOMMY" !important;
+.MuiTypography-h1,
+.MuiTypography-h2,
+.MuiTypography-h3,
+.MuiTypography-h4 {
+  font-family: 'TOMMY' !important;
 }
 
-.MuiTypography-h5, .MuiTypography-h6, .MuiAlert-root, .MuiTypography-body1 {
-  font-family: "TOMMY-R" !important;
+.MuiTypography-h5,
+.MuiTypography-h6,
+.MuiAlert-root,
+.MuiTypography-body1 {
+  font-family: 'TOMMY-R' !important;
 }
 
 body,
@@ -117,9 +114,8 @@ h6 {
 .MuiButtonBase-root:hover {
   color: #fff !important;
 }
-.MuiButton-containedPrimary{
+.MuiButton-containedPrimary {
   background: #930993 !important;
-
 }
 
 .tvl {
@@ -134,20 +130,27 @@ h6 {
   .tvl {
     font-size: 4rem;
   }
+
 }
 
 @media screen and (max-width: 482px) {
-
   .tvl {
     font-size: 3.5rem;
   }
   .wallet-token-blanace {
     font-size: 1.4rem;
   }
+
+  .MuiTypography-h4 {
+    font-size: 1.425rem !important;
+  }
+
+  .MuiTypography-h5 {
+    font-size: 1.15rem !important;
+  }
 }
 
 @media screen and (max-width: 430px) {
-
   .tvl {
     font-size: 3rem;
   }
@@ -157,22 +160,19 @@ h6 {
 }
 
 @media screen and (max-width: 376px) {
-
   .tvl {
     font-size: 2.5rem;
   }
 }
 
 @media screen and (max-width: 359px) {
-
   .tvl {
     font-size: 1rem;
   }
 }
 
-
-.MuiButton-containedPrimary:hover{
-  background: #D19AFF !important;
+.MuiButton-containedPrimary:hover {
+  background: #d19aff !important;
 }
 
 code {
@@ -193,7 +193,6 @@ code {
   margin-left: 5px !important;
   transition: margin-left 200ms;
 }
-
 
 .price-flex {
   display: flex;
@@ -221,7 +220,6 @@ code {
 .text-decoration-none {
   text-decoration: none;
 }
-
 
 .wallet-button {
   color: #fff;
@@ -287,7 +285,6 @@ code {
   color: #ddd;
 }
 
-
 /*
 #930993 light
 #72046D dark
@@ -312,8 +309,6 @@ code {
   box-shadow: 0px 0px 5px 0px grey;
 }
 
-
-
 .navTokenPrice {
   padding-top: 5px;
   padding-right: 15px;
@@ -335,12 +330,13 @@ code {
   background-color: rgba(0, 0, 0, 0.5) !important;
 }
 
-body, html, .MuiPaper-root {
+body,
+html,
+.MuiPaper-root {
   -ms-overflow-style: none !important; /* for Internet Explorer, Edge */
   scrollbar-width: none !important; /* for Firefox */
-  overflow-y: scroll !important; 
+  overflow-y: scroll !important;
 }
-
 
 .MuiPaper-root::-webkit-scrollbar {
   display: none !important; /* for Chrome, Safari, and Opera */
@@ -366,7 +362,7 @@ html::-webkit-scrollbar {
   color: #930993;
 }
 .dropbtn {
-  background-color: rgba(0,0,0,0);
+  background-color: rgba(0, 0, 0, 0);
   color: white;
   padding: 16px;
   font-size: 16px;
@@ -380,10 +376,10 @@ html::-webkit-scrollbar {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: rgba(0,0,0,0.9);
+  background-color: rgba(0, 0, 0, 0.9);
   border-radius: 20px;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
@@ -394,7 +390,11 @@ html::-webkit-scrollbar {
   display: block;
 }
 
+.dropdown-content a:hover {
+  border-radius: 10px;
+  color: #ccf;
+}
 
-.dropdown-content a:hover { border-radius: 10px; color: #ccf}
-
-.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropdown-content {
+  display: block;
+}

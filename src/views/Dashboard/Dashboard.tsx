@@ -54,7 +54,6 @@ const Dashboard = () => {
   const onReward = useHarvestAll(vineyardPools);
   const harvestNodes = useHarvestAll(nodePools);
   const compoundNodes = useCompoundAll(nodePools);
-  const matches = useMediaQuery('(min-width:900px)');
 
   const grapeBalance = useTokenBalance(grapeFinance.GRAPE);
   const displayGrapeBalance = useMemo(() => getDisplayBalance(grapeBalance), [grapeBalance]);
@@ -71,6 +70,10 @@ const Dashboard = () => {
     () => (wineStats ? Number(wineStats.priceInDollars).toFixed(2) : null),
     [wineStats],
   );
+
+  const matches = useMediaQuery('(min-width:900px)');
+  const matches960 = useMediaQuery('(max-width:960px)');
+
 
   const [totalInvested, totalRewards, totalInVineyard, totalInNodes, totalInWinery] = useMemo(
     () =>
@@ -104,7 +107,7 @@ const Dashboard = () => {
           </Typography>
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={6}>
-              <Card style={{textAlign: 'center', minHeight: '232px'}}>
+              <Card style={{textAlign: 'center', minHeight: matches960 ? '0' : '232px'}}>
                 <CardContent>
                   <Typography color="textPrimary" align="center" variant="h5" gutterBottom>
                     My Wallet

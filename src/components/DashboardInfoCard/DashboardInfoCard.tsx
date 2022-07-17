@@ -40,11 +40,11 @@ const DashboardInfoCard: React.FC<DashboardInfoCardProps> = ({bank}) => {
     <Grid item xs={12} md={6} lg={4}>
       <Card>
         <CardContent>
-          <Grid container style={{position: 'relative'}}>
-            <Grid item sm={3}>
+          <Grid container style={{position: 'relative'}} spacing={1}>
+            <Grid item xs={3} sm={2} md={3} lg={3}>
               <TokenSymbol symbol={bank.depositTokenName} height={70} width={70} />
             </Grid>
-            <Grid item sm={9}>
+            <Grid item xs={9} sm={10} md={9} lg={9}>
               <Grid container direction="column">
                 <Grid item>
                   <Typography color="textPrimary" variant="h5">
@@ -59,7 +59,7 @@ const DashboardInfoCard: React.FC<DashboardInfoCardProps> = ({bank}) => {
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Grid container justifyContent="space-between">
+                  <Grid container alignItems="baseline" justifyContent="space-between">
                     <Grid item>
                       <span className="card-info-text">APR</span>
                     </Grid>

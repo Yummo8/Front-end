@@ -29,19 +29,19 @@ const InfoCard: React.FC<InfoCardProps> = ({
   return (
     <Card>
       <CardContent>
-        <Grid container style={{position: 'relative'}}>
-          <Grid item sm={3}>
+      <Grid container style={{position: 'relative'}} spacing={1}>
+          <Grid item xs={3} sm={2} md={3} lg={3}>
             <TokenSymbol symbol={name.toUpperCase()} height={70} width={70} />
           </Grid>
-          <Grid item sm={9}>
+          <Grid item xs={9} sm={10} md={9} lg={9}>
             <Grid container direction="column">
-              <Grid item style={{marginBottom: '8px'}}>
-              <Typography color="textPrimary" variant="h5">
-                {name}
-              </Typography>
+              <Grid item sm={12} md={12} lg={12} style={{marginBottom: '8px'}}>
+                <Typography color="textPrimary" variant="h5">
+                  {name}
+                </Typography>
               </Grid>
-              <Grid item>
-                <Grid container justifyContent="space-between">
+              <Grid item xs={12} sm={12} md={12} lg={12}>
+                <Grid container alignItems="baseline" justifyContent="space-between">
                   <Grid item>
                     <span className="card-info-text">Price</span>
                   </Grid>

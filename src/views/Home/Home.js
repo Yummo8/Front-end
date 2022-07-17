@@ -202,7 +202,7 @@ const Home = () => {
             <Grid item xs={12} sm={12} md={6} lg={6}>
               <Card style={{minHeight: '200px'}}>
                 <CardContent>
-                  <Typography color="textPrimary" variant="h4" gutterBottom>
+                  <Typography className="reward-pool-text" color="textPrimary" variant="h4" gutterBottom>
                     NFT REWARD POOL
                   </Typography>
 

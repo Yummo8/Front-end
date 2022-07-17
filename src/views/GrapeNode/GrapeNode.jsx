@@ -52,7 +52,7 @@ const GrapeNode = () => {
   return bank ? (
     <>
       <Typography color="textPrimary" align="center" variant="h3" gutterBottom>
-        {bank?.name}
+        {bank.earnTokenName} Nodes
       </Typography>
       <Box>
         <Alert variant="filled" severity="info">
