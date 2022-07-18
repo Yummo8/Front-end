@@ -67,7 +67,7 @@ const LPInfoCard: React.FC<LPInfoCardProps> = ({
         </Grid>
         <Paper style={{marginTop: '10px', marginBottom: '10px', height: '3px'}}></Paper>
         <Grid container direction="column" spacing={1}>
-          <Grid item>
+          {/*<Grid item>
             <Grid container justifyContent="space-between">
               <Grid item>
                 <span className="card-info-text">Market Cap</span>
@@ -76,14 +76,14 @@ const LPInfoCard: React.FC<LPInfoCardProps> = ({
                 <b className="card-info-value">${roundAndFormatNumber(circulatingSupply * price, 0)}</b>
               </Grid>
             </Grid>
-          </Grid>
+  </Grid>*/}
           <Grid item>
             <Grid container justifyContent="space-between">
               <Grid item>
-                <span className="card-info-text">Circulating Supply</span>
+                <span className="card-info-text">Liquidity</span>
               </Grid>
               <Grid item>
-                <b className="card-info-value">{roundAndFormatNumber(circulatingSupply, 2)}</b>
+                <b className="card-info-value">${roundAndFormatNumber(circulatingSupply, 2)}</b>
               </Grid>
             </Grid>
           </Grid>
