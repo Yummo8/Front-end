@@ -7,10 +7,9 @@ import useEarnings from '../../hooks/useEarnings';
 import useGrapeStats from '../../hooks/useGrapeStats';
 import useShareStats from '../../hooks/useWineStats';
 import {Bank} from '../../grape-finance';
-import {GRAPE_NODE_MULTIPLIER, WINE_NODE_MULTIPLIER, GRAPEMIMSW_NODE_MULTIPLIER} from '../../utils/constants';
+import {useGetMultiplierForNode} from '../../utils/constants';
 import {Link} from 'react-router-dom';
 import {useWallet} from 'use-wallet';
-import useNodePrice from '../../hooks/useNodePrice';
 import useNodes from '../../hooks/useNodes';
 import useLpStatsBTC from '../../hooks/useLpStatsBTC';
 
@@ -28,6 +27,7 @@ const NodesInfoCard: React.FC<NodesInfoCardProps> = ({bank}) => {
   const grapeWLRSLpStats = useLpStatsBTC('GRAPE-WLRS-LP');
 
   const nodes = useNodes(bank?.contract, bank?.sectionInUI, account);
+  const ticketRewards = useGetMultiplierForNode(bank.earnTokenName);
 
   let tokenStats: any = 0;
   if (bank.earnTokenName === 'WINE') {
@@ -39,19 +39,6 @@ const NodesInfoCard: React.FC<NodesInfoCardProps> = ({bank}) => {
   } else if (bank.earnTokenName === 'GRAPE-WLRS-LP') {
     tokenStats = grapeWLRSLpStats;
   }
-
-  const getMultiplierForNode = () => {
-    if (bank.earnTokenName === 'WINE') {
-      return WINE_NODE_MULTIPLIER;
-    } else if (bank.earnTokenName === 'GRAPE') {
-      return GRAPE_NODE_MULTIPLIER;
-    } else if (bank.earnTokenName === 'GRAPE-MIM-SW') {
-      return GRAPEMIMSW_NODE_MULTIPLIER;
-    }else if (bank.earnTokenName === 'GRAPE-WLRS-LP') {
-      return 0;
-    }
-    return 0;
-  };
 
   const tokenPriceInDollars = useMemo(
     () => (tokenStats ? Number(tokenStats.priceInDollars).toFixed(2) : null),
@@ -135,7 +122,7 @@ const NodesInfoCard: React.FC<NodesInfoCardProps> = ({bank}) => {
                     <Grid item>
                       <b className={'card-info-value'}>
                         {' '}
-                        {nodes[0] ? `${Number(nodes[0])} / ${Number(nodes[0]) * getMultiplierForNode()}` : null}
+                        {nodes[0] ? `${Number(nodes[0])} / ${Number(nodes[0]) * ticketRewards}` : null}
                       </b>
                     </Grid>
                   </Grid>
@@ -150,7 +137,7 @@ const NodesInfoCard: React.FC<NodesInfoCardProps> = ({bank}) => {
                       <span className="card-info-text">Airdrop Tickets</span>
                     </Grid>
                     <Grid item>
-                      <b className={'card-info-value'}>{getMultiplierForNode()} per Node</b>
+                      <b className={'card-info-value'}>{ticketRewards} per Node</b>
                     </Grid>
                   </Grid>
                 </Grid>
@@ -194,7 +181,7 @@ const NodesInfoCard: React.FC<NodesInfoCardProps> = ({bank}) => {
                 className="shinyButton"
                 style={{width: '100%', marginTop: '17px'}}
               >
-                Go To POol
+                Go To Pool
               </Button>
             </Grid>
           </Grid>

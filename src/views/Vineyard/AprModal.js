@@ -79,8 +79,8 @@ function nFormatter(num) {
   return num;
 }
 
-const AprModal = ({open, handleClose, statsOnPool, coin}) => {
-  const [aprAmount, setAprAmount] = useState(100);
+const AprModal = ({open, amountDeposited, handleClose, statsOnPool, coin}) => {
+  const [aprAmount, setAprAmount] = useState(amountDeposited);
   const classes = useStyles();
 
   const calculateAprGain = (apr) => {
@@ -102,7 +102,7 @@ const AprModal = ({open, handleClose, statsOnPool, coin}) => {
             }}
             onClick={() => {
               handleClose();
-              setAprAmount(100);
+              setAprAmount(amountDeposited);
             }}
           >
             <CloseIcon />

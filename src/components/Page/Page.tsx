@@ -1,6 +1,7 @@
 import {Container, useMediaQuery} from '@material-ui/core';
 import useEagerConnect from '../../hooks/useEagerConnect';
 import Menu, {MenuProps} from '@mui/material/Menu';
+import Tooltip from '@mui/material/Tooltip';
 
 import Footer from '../Footer';
 
@@ -61,6 +62,7 @@ import MapIcon from '@mui/icons-material/Map';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
@@ -412,477 +414,530 @@ const Page: React.FC = ({children}) => {
             </IconButton>
           </DrawerHeader>
           <Link to="/" color="inherit">
-            <img
-              alt="Grape Finance"
-              src={grapeLogo}
-              width={drawerWidth}
-              style={{paddingLeft: '14px', paddingRight: '10px'}}
-            />
+            <Tooltip arrow followCursor title={open ? '' : 'Home'} placement="top-start">
+              <img
+                alt="Grape Finance"
+                src={grapeLogo}
+                width={drawerWidth}
+                style={{paddingLeft: '14px', paddingRight: '10px'}}
+              />
+            </Tooltip>
           </Link>
 
           <List>
-            <a
-              href="https://grape.liquidcapital.finance/"
-              target="_blank"
-              className="menu-item"
-              rel="noopener noreferrer"
-              style={{padding: 0, display: 'block'}}
-            >
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
+            <Tooltip arrow followCursor title={open ? '' : 'LC Presale'} placement="top-start">
+              <a
+                href="https://grape.liquidcapital.finance/"
+                target="_blank"
+                className="menu-item"
+                rel="noopener noreferrer"
+                style={{padding: 0, display: 'block'}}
               >
-                <ListItemIcon
+                <ListItemButton
                   sx={{
-                    color: 'white',
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
+                    minHeight: 48,
+                    justifyContent: open ? 'initial' : 'center',
+                    px: 2.5,
                   }}
                 >
-                  <img src={lcImg} alt="LC" height={25} />
-                </ListItemIcon>
-                <ListItemText primary="LC Presale" sx={{opacity: open ? 1 : 0}} />
-              </ListItemButton>
-            </a>
+                  <ListItemIcon
+                    sx={{
+                      color: 'white',
+                      minWidth: 0,
+                      mr: open ? 3 : 'auto',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <img src={lcImg} alt="LC" height={25} />
+                  </ListItemIcon>
+
+                  <ListItemText primary="LC Presale" sx={{opacity: open ? 1 : 0}} />
+                </ListItemButton>
+              </a>
+            </Tooltip>
           </List>
           <Divider color="#aaa" />
 
           <List>
-            <ListItem
-              className="menu-item"
-              button
-              component={Link}
-              to="/dashboard"
-              disablePadding
-              sx={{display: 'block'}}
-            >
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
+            <Tooltip arrow followCursor title={open ? '' : 'Dashboard'} placement="top-start">
+              <ListItem
+                className="menu-item"
+                button
+                component={Link}
+                to="/dashboard"
+                disablePadding
+                sx={{display: 'block'}}
               >
-                <ListItemIcon
+                <ListItemButton
                   sx={{
-                    color: 'white',
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
+                    minHeight: 48,
+                    justifyContent: open ? 'initial' : 'center',
+                    px: 2.5,
                   }}
                 >
-                  <img src={dashboardImg} alt="LC" width={25} />
-                </ListItemIcon>
-                <ListItemText primary="Dashboard" sx={{opacity: open ? 1 : 0}} />
-              </ListItemButton>
-            </ListItem>
+                  <ListItemIcon
+                    sx={{
+                      color: 'white',
+                      minWidth: 0,
+                      mr: open ? 3 : 'auto',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <img src={dashboardImg} alt="LC" width={25} />
+                  </ListItemIcon>
+                  <ListItemText primary="Dashboard" sx={{opacity: open ? 1 : 0}} />
+                </ListItemButton>
+              </ListItem>
+            </Tooltip>
 
-            <ListItem
-              className="menu-item"
-              button
-              component={Link}
-              to="/vineyard"
-              disablePadding
-              sx={{display: 'block'}}
-            >
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
+            <Tooltip arrow followCursor title={open ? '' : 'VIneyard'} placement="top-start">
+              <ListItem
+                className="menu-item"
+                button
+                component={Link}
+                to="/vineyard"
+                disablePadding
+                sx={{display: 'block'}}
               >
-                <ListItemIcon
+                <ListItemButton
                   sx={{
-                    color: 'white',
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
+                    minHeight: 48,
+                    justifyContent: open ? 'initial' : 'center',
+                    px: 2.5,
                   }}
                 >
-                  <img src={grapeImg} alt="Grape" height={30} />
-                </ListItemIcon>
+                  <ListItemIcon
+                    sx={{
+                      color: 'white',
+                      minWidth: 0,
+                      mr: open ? 3 : 'auto',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <img src={grapeImg} alt="Grape" height={30} />
+                  </ListItemIcon>
 
-                <ListItemText primary="Vineyard" sx={{opacity: open ? 1 : 0}} />
-              </ListItemButton>
-            </ListItem>
-
-            <ListItem className="menu-item" button component={Link} to="/winery" disablePadding sx={{display: 'block'}}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
+                  <ListItemText primary="Vineyard" sx={{opacity: open ? 1 : 0}} />
+                </ListItemButton>
+              </ListItem>
+            </Tooltip>
+            <Tooltip arrow followCursor title={open ? '' : 'Winery'} placement="top-start">
+              <ListItem
+                className="menu-item"
+                button
+                component={Link}
+                to="/winery"
+                disablePadding
+                sx={{display: 'block'}}
               >
-                <ListItemIcon
+                <ListItemButton
                   sx={{
-                    color: 'white',
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
+                    minHeight: 48,
+                    justifyContent: open ? 'initial' : 'center',
+                    px: 2.5,
                   }}
                 >
-                  <img src={wineImg} alt="Wine" height={30} />
-                </ListItemIcon>
-                <ListItemText primary="Winery" sx={{opacity: open ? 1 : 0}} />
-              </ListItemButton>
-            </ListItem>
-
-            <ListItem className="menu-item" button component={Link} to="/nodes" disablePadding sx={{display: 'block'}}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
+                  <ListItemIcon
+                    sx={{
+                      color: 'white',
+                      minWidth: 0,
+                      mr: open ? 3 : 'auto',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <img src={wineImg} alt="Wine" height={30} />
+                  </ListItemIcon>
+                  <ListItemText primary="Winery" sx={{opacity: open ? 1 : 0}} />
+                </ListItemButton>
+              </ListItem>
+            </Tooltip>
+            <Tooltip arrow followCursor title={open ? '' : 'Nodes'} placement="top-start">
+              <ListItem
+                className="menu-item"
+                button
+                component={Link}
+                to="/nodes"
+                disablePadding
+                sx={{display: 'block'}}
               >
-                <ListItemIcon
+                <ListItemButton
                   sx={{
-                    color: 'white',
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
+                    minHeight: 48,
+                    justifyContent: open ? 'initial' : 'center',
+                    px: 2.5,
                   }}
                 >
-                  <img src={nodesImg} alt="Nodes" height={24} width={24} />
-                </ListItemIcon>
-                <ListItemText primary="Nodes" sx={{opacity: open ? 1 : 0}} />
-              </ListItemButton>
-            </ListItem>
-
-            <ListItem
-              className="menu-item"
-              button
-              component={Link}
-              to="/rebates"
-              disablePadding
-              sx={{display: 'block'}}
-            >
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
+                  <ListItemIcon
+                    sx={{
+                      color: 'white',
+                      minWidth: 0,
+                      mr: open ? 3 : 'auto',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <img src={nodesImg} alt="Nodes" height={28} width={28} />
+                  </ListItemIcon>
+                  <ListItemText primary="Nodes" sx={{opacity: open ? 1 : 0}} />
+                </ListItemButton>
+              </ListItem>
+            </Tooltip>
+            <Tooltip arrow followCursor title={open ? '' : 'Rebates'} placement="top-start">
+              <ListItem
+                className="menu-item"
+                button
+                component={Link}
+                to="/rebates"
+                disablePadding
+                sx={{display: 'block'}}
               >
-                <ListItemIcon
+                <ListItemButton
                   sx={{
-                    color: 'white',
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
+                    minHeight: 48,
+                    justifyContent: open ? 'initial' : 'center',
+                    px: 2.5,
                   }}
                 >
-                  <img src={rebatesImg} alt="Rebates" height={30} />
-                </ListItemIcon>
-                <ListItemText primary="Rebates" sx={{opacity: open ? 1 : 0}} />
-              </ListItemButton>
-            </ListItem>
-
-            <ListItem className="menu-item" button component={Link} to="/bond" disablePadding sx={{display: 'block'}}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
+                  <ListItemIcon
+                    sx={{
+                      color: 'white',
+                      minWidth: 0,
+                      mr: open ? 3 : 'auto',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <img src={rebatesImg} alt="Rebates" height={30} />
+                  </ListItemIcon>
+                  <ListItemText primary="Rebates" sx={{opacity: open ? 1 : 0}} />
+                </ListItemButton>
+              </ListItem>
+            </Tooltip>
+            <Tooltip arrow followCursor title={open ? '' : 'Bonds'} placement="top-start">
+              <ListItem className="menu-item" button component={Link} to="/bond" disablePadding sx={{display: 'block'}}>
+                <ListItemButton
                   sx={{
-                    color: 'white',
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
+                    minHeight: 48,
+                    justifyContent: open ? 'initial' : 'center',
+                    px: 2.5,
                   }}
                 >
-                  <img src={bondImg} alt="Wine" height={30} />{' '}
-                </ListItemIcon>
-                <ListItemText primary="Bonds" sx={{opacity: open ? 1 : 0}} />
-              </ListItemButton>
-            </ListItem>
+                  <ListItemIcon
+                    sx={{
+                      color: 'white',
+                      minWidth: 0,
+                      mr: open ? 3 : 'auto',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <img src={bondImg} alt="Wine" height={30} />{' '}
+                  </ListItemIcon>
+                  <ListItemText primary="Bonds" sx={{opacity: open ? 1 : 0}} />
+                </ListItemButton>
+              </ListItem>
+            </Tooltip>
           </List>
 
           <Divider color="#aaa" />
 
           <List>
-            <ListItemButton onClick={handleGamesClick}>
-              <ListItemIcon
-                sx={{
-                  color: 'white',
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
-                  justifyContent: 'center',
-                }}
-              >
-                <SportsEsportsIcon sx={{color: '#14b236'}} />
-              </ListItemIcon>
-              <ListItemText primary="Games" sx={{opacity: open ? 1 : 0}} />
-              {open ? gamesOpen ? <ExpandLess /> : <ExpandMore /> : null}
-            </ListItemButton>
+            <Tooltip arrow followCursor title={open ? '' : 'Games'} placement="top-start">
+              <ListItemButton onClick={handleGamesClick}>
+                <ListItemIcon
+                  sx={{
+                    color: 'white',
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <SportsEsportsIcon sx={{color: '#14b236'}} />
+                </ListItemIcon>
+                <ListItemText primary="Games" sx={{opacity: open ? 1 : 0}} />
+                {open ? gamesOpen ? <ExpandLess /> : <ExpandMore /> : null}
+              </ListItemButton>
+            </Tooltip>
             {open && (
               <Collapse in={gamesOpen} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
-                  <a
-                    className="menu-item"
-                    href="https://lianyou.io/burnforfun"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <CasinoIcon />
-                      </ListItemIcon>
-                      <ListItemText primary="Slots" />
-                    </ListItemButton>
-                  </a>
-                  <a
-                    className="menu-item"
-                    href="https://slot.grapefinance.app/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <RocketLaunchIcon />
-                      </ListItemIcon>
-                      <ListItemText primary="Space Shooter" />
-                    </ListItemButton>
-                  </a>
-                  <a
-                    className="menu-item"
-                    href="https://koc.money/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <StadiumIcon />
-                      </ListItemIcon>
-                      <ListItemText primary="King Of Colosseum" />
-                    </ListItemButton>
-                  </a>
+                  <Tooltip arrow followCursor title={open ? '' : 'Slots'} placement="top-start">
+                    <a
+                      className="menu-item"
+                      href="https://slot.grapefinance.app/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{padding: 0, display: 'block'}}
+                    >
+                      <ListItemButton sx={{pl: 4}}>
+                        <ListItemIcon
+                          sx={{
+                            color: 'white',
+                            minWidth: 0,
+                            mr: open ? 3 : 'auto',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          <CasinoIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Slots" />
+                      </ListItemButton>
+                    </a>
+                  </Tooltip>
+                  <Tooltip arrow followCursor title={open ? '' : 'Space Shooter'} placement="top-start">
+                    <a
+                      className="menu-item"
+                      href="https://lianyou.io/burnforfun"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{padding: 0, display: 'block'}}
+                    >
+                      <ListItemButton sx={{pl: 4}}>
+                        <ListItemIcon
+                          sx={{
+                            color: 'white',
+                            minWidth: 0,
+                            mr: open ? 3 : 'auto',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          <RocketLaunchIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Space Shooter" />
+                      </ListItemButton>
+                    </a>
+                  </Tooltip>
+                  <Tooltip arrow followCursor title={open ? '' : 'King Of Colosseum'} placement="top-start">
+                    <a
+                      className="menu-item"
+                      href="https://koc.money/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{padding: 0, display: 'block'}}
+                    >
+                      <ListItemButton sx={{pl: 4}}>
+                        <ListItemIcon
+                          sx={{
+                            color: 'white',
+                            minWidth: 0,
+                            mr: open ? 3 : 'auto',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          <StadiumIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="King Of Colosseum" />
+                      </ListItemButton>
+                    </a>
+                  </Tooltip>
                 </List>
               </Collapse>
             )}
           </List>
 
           <List>
-            <ListItemButton onClick={handleVaultsClick}>
-              <ListItemIcon
-                sx={{
-                  color: 'white',
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
-                  justifyContent: 'center',
-                }}
-              >
-                <SavingsIcon sx={{color: '#d232d2'}} />
-              </ListItemIcon>
-              <ListItemText primary="Vaults" sx={{opacity: open ? 1 : 0}} />
-              {open ? vaultsOpen ? <ExpandLess /> : <ExpandMore /> : null}
-            </ListItemButton>
+            <Tooltip arrow followCursor title={open ? '' : 'Vaults'} placement="top-start">
+              <ListItemButton onClick={handleVaultsClick}>
+                <ListItemIcon
+                  sx={{
+                    color: 'white',
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <SavingsIcon sx={{color: '#d232d2'}} />
+                </ListItemIcon>
+                <ListItemText primary="Vaults" sx={{opacity: open ? 1 : 0}} />
+                {open ? vaultsOpen ? <ExpandLess /> : <ExpandMore /> : null}
+              </ListItemButton>
+            </Tooltip>
             {open && (
               <Collapse in={vaultsOpen} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
-                  <a
-                    className="menu-item"
-                    href="https://magik.farm/#/avax"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <img src={magikImg} alt="Magik" height={30} />{' '}
-                      </ListItemIcon>
-                      <ListItemText primary="Magik" />
-                    </ListItemButton>
-                  </a>
-                  <a
-                    className="menu-item"
-                    href="https://froyo.farm/#/avax"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <img src={creamImg} alt="Froyo IceCream" height={30} />{' '}
-                      </ListItemIcon>
-                      <ListItemText primary="Ice Cream" />
-                    </ListItemButton>
-                  </a>
-                  <a
-                    className="menu-item"
-                    href="https://app.beefy.finance/#/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <img src={beefyImg} alt="Beefy" height={30} />{' '}
-                      </ListItemIcon>
-                      <ListItemText primary="Beefy" />
-                    </ListItemButton>
-                  </a>
-                  <a
-                    className="menu-item"
-                    href="https://yieldwolf.finance/avalanche"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <img src={yieldwolfImg} alt="YieldWolf" height={30} />{' '}
-                      </ListItemIcon>
-                      <ListItemText primary="Yield Wolf" />
-                    </ListItemButton>
-                  </a>
+                  <Tooltip arrow followCursor title={open ? '' : 'Magik'} placement="top-start">
+                    <a
+                      className="menu-item"
+                      href="https://magik.farm/#/avax"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{padding: 0, display: 'block'}}
+                    >
+                      <ListItemButton sx={{pl: 4}}>
+                        <ListItemIcon
+                          sx={{
+                            color: 'white',
+                            minWidth: 0,
+                            mr: open ? 3 : 'auto',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          <img src={magikImg} alt="Magik" height={30} />{' '}
+                        </ListItemIcon>
+                        <ListItemText primary="Magik" />
+                      </ListItemButton>
+                    </a>
+                  </Tooltip>
+                  <Tooltip arrow followCursor title={open ? '' : 'Ice Cream'} placement="top-start">
+                    <a
+                      className="menu-item"
+                      href="https://froyo.farm/#/avax"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{padding: 0, display: 'block'}}
+                    >
+                      <ListItemButton sx={{pl: 4}}>
+                        <ListItemIcon
+                          sx={{
+                            color: 'white',
+                            minWidth: 0,
+                            mr: open ? 3 : 'auto',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          <img src={creamImg} alt="Froyo IceCream" height={30} />{' '}
+                        </ListItemIcon>
+                        <ListItemText primary="Ice Cream" />
+                      </ListItemButton>
+                    </a>
+                  </Tooltip>
+                  <Tooltip arrow followCursor title={open ? '' : 'Beefy'} placement="top-start">
+                    <a
+                      className="menu-item"
+                      href="https://app.beefy.finance/#/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{padding: 0, display: 'block'}}
+                    >
+                      <ListItemButton sx={{pl: 4}}>
+                        <ListItemIcon
+                          sx={{
+                            color: 'white',
+                            minWidth: 0,
+                            mr: open ? 3 : 'auto',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          <img src={beefyImg} alt="Beefy" height={30} />{' '}
+                        </ListItemIcon>
+                        <ListItemText primary="Beefy" />
+                      </ListItemButton>
+                    </a>
+                  </Tooltip>
+                  <Tooltip arrow followCursor title={open ? '' : 'Yield Wolf'} placement="top-start">
+                    <a
+                      className="menu-item"
+                      href="https://yieldwolf.finance/avalanche"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{padding: 0, display: 'block'}}
+                    >
+                      <ListItemButton sx={{pl: 4}}>
+                        <ListItemIcon
+                          sx={{
+                            color: 'white',
+                            minWidth: 0,
+                            mr: open ? 3 : 'auto',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          <img src={yieldwolfImg} alt="YieldWolf" height={30} />{' '}
+                        </ListItemIcon>
+                        <ListItemText primary="Yield Wolf" />
+                      </ListItemButton>
+                    </a>
+                  </Tooltip>
                 </List>
               </Collapse>
             )}
           </List>
 
           <List>
-            <ListItemButton onClick={handleWalletsClick}>
-              <ListItemIcon
-                sx={{
-                  color: 'white',
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
-                  justifyContent: 'center',
-                }}
-              >
-                <AccountBalanceWalletIcon sx={{color: '#e88f38'}} />
-              </ListItemIcon>
-              <ListItemText primary="Grape Wallets" sx={{opacity: open ? 1 : 0}} />
-              {open ? walletsOpen ? <ExpandLess /> : <ExpandMore /> : null}
-            </ListItemButton>
+            <Tooltip arrow followCursor title={open ? '' : 'Grape Wallets'} placement="top-start">
+              <ListItemButton onClick={handleWalletsClick}>
+                <ListItemIcon
+                  sx={{
+                    color: 'white',
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <AccountBalanceWalletIcon sx={{color: '#e88f38'}} />
+                </ListItemIcon>
+                <ListItemText primary="Grape Wallets" sx={{opacity: open ? 1 : 0}} />
+                {open ? walletsOpen ? <ExpandLess /> : <ExpandMore /> : null}
+              </ListItemButton>
+            </Tooltip>
             {open && (
               <Collapse in={walletsOpen} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
-                  <a
-                    className="menu-item"
-                    href="https://debank.com/profile/0xEB755b81A786832705a3c0658127216eD36fE898"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <img src={debankImg} alt="Debank" height={25} />{' '}
-                      </ListItemIcon>
-                      <ListItemText primary="Treasury" />
-                    </ListItemButton>
-                  </a>
-                  <a
-                    className="menu-item"
-                    href="https://debank.com/profile/0xf29fD03Df2Cb7F81d8Ae4d10A76f8b1C898786BD"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <img src={debankImg} alt="Debank" height={25} />{' '}
-                      </ListItemIcon>
-                      <ListItemText primary="DAO" />
-                    </ListItemButton>
-                  </a>
-                  <a
-                    className="menu-item"
-                    href="https://debank.com/profile/0xa3C4C965BA6aA9382a8Edd965D13CB495F8da6F5"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <img src={debankImg} alt="Debank" height={25} />{' '}
-                      </ListItemIcon>
-                      <ListItemText primary="Node Rewards" />
-                    </ListItemButton>
-                  </a>
+                  <Tooltip arrow followCursor title={open ? '' : 'Treasury'} placement="top-start">
+                    <a
+                      className="menu-item"
+                      href="https://debank.com/profile/0xEB755b81A786832705a3c0658127216eD36fE898"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{padding: 0, display: 'block'}}
+                    >
+                      <ListItemButton sx={{pl: 4}}>
+                        <ListItemIcon
+                          sx={{
+                            color: 'white',
+                            minWidth: 0,
+                            mr: open ? 3 : 'auto',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          <img src={debankImg} alt="Debank" height={22} />{' '}
+                        </ListItemIcon>
+                        <ListItemText primary="Treasury" />
+                      </ListItemButton>
+                    </a>
+                  </Tooltip>
+                  <Tooltip arrow followCursor title={open ? '' : 'DAO'} placement="top-start">
+                    <a
+                      className="menu-item"
+                      href="https://debank.com/profile/0xf29fD03Df2Cb7F81d8Ae4d10A76f8b1C898786BD"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{padding: 0, display: 'block'}}
+                    >
+                      <ListItemButton sx={{pl: 4}}>
+                        <ListItemIcon
+                          sx={{
+                            color: 'white',
+                            minWidth: 0,
+                            mr: open ? 3 : 'auto',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          <img src={debankImg} alt="Debank" height={22} />{' '}
+                        </ListItemIcon>
+                        <ListItemText primary="DAO" />
+                      </ListItemButton>
+                    </a>
+                  </Tooltip>
+                  <Tooltip arrow followCursor title={open ? '' : 'Node Rewards'} placement="top-start">
+                    <a
+                      className="menu-item"
+                      href="https://debank.com/profile/0xa3C4C965BA6aA9382a8Edd965D13CB495F8da6F5"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{padding: 0, display: 'block'}}
+                    >
+                      <ListItemButton sx={{pl: 4}}>
+                        <ListItemIcon
+                          sx={{
+                            color: 'white',
+                            minWidth: 0,
+                            mr: open ? 3 : 'auto',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          <img src={debankImg} alt="Debank" height={22} />{' '}
+                        </ListItemIcon>
+                        <ListItemText primary="Node Rewards" />
+                      </ListItemButton>
+                    </a>
+                  </Tooltip>
                 </List>
               </Collapse>
             )}
@@ -890,199 +945,237 @@ const Page: React.FC = ({children}) => {
 
           <Divider color="#aaa" />
           <List>
-            <ListItemButton onClick={handleUsefullLinksClick}>
-              <ListItemIcon
-                sx={{
-                  color: 'white',
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
-                  justifyContent: 'center',
-                }}
-              >
-                <LinkIcon sx={{color: '#fff3d7'}} />
-              </ListItemIcon>
-              <ListItemText primary="Useful Links" sx={{opacity: open ? 1 : 0}} />
-              {open ? usefullLinksOpen ? <ExpandLess /> : <ExpandMore /> : null}
-            </ListItemButton>
+            <Tooltip arrow followCursor title={open ? '' : 'Useful Links'} placement="top-start">
+              <ListItemButton onClick={handleUsefullLinksClick}>
+                <ListItemIcon
+                  sx={{
+                    color: 'white',
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <LinkIcon sx={{color: '#fff3d7'}} />
+                </ListItemIcon>
+                <ListItemText primary="Useful Links" sx={{opacity: open ? 1 : 0}} />
+                {open ? usefullLinksOpen ? <ExpandLess /> : <ExpandMore /> : null}
+              </ListItemButton>
+            </Tooltip>
             {open && (
               <Collapse in={usefullLinksOpen} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
-                  <a
-                    className="menu-item"
-                    href="https://grapefinance.gitbook.io/grape-finance-docs/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <MenuBookIcon />
-                      </ListItemIcon>
-                      <ListItemText primary="Docs" />
-                    </ListItemButton>
-                  </a>
-                  <a
-                    className="menu-item"
-                    href="https://nftrade.com/assets/avalanche/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <ShoppingCartIcon />
-                      </ListItemIcon>
-                      <ListItemText primary="Buy NFTs with Avax" />
-                    </ListItemButton>
-                  </a>
-                  <a
-                    className="menu-item"
-                    href="https://hexagon.market/collections/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df?sort=-highestPrice"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <ShoppingCartIcon />
-                      </ListItemIcon>
-                      <ListItemText primary="Buy NFTs with Grape" />
-                    </ListItemButton>
-                  </a>
-                  <ListItem
-                    className="menu-item"
-                    button
-                    component={Link}
-                    to="/strategies"
-                    disablePadding
-                    sx={{display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <StarBorder />
-                      </ListItemIcon>
-                      <ListItemText primary="Strategies" />
-                    </ListItemButton>
-                  </ListItem>
-
-                  <ListItem
-                    className="menu-item"
-                    button
-                    component={Link}
-                    to="/stats"
-                    disablePadding
-                    sx={{display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <QueryStatsIcon />
-                      </ListItemIcon>
-                      <ListItemText primary="Stats" />
-                    </ListItemButton>
-                  </ListItem>
-
-                  <ListItem
-                    className="menu-item"
-                    button
-                    component={Link}
-                    to="/roadmap"
-                    disablePadding
-                    sx={{display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <MapIcon />
-                      </ListItemIcon>
-                      <ListItemText primary="Roadmap" />
-                    </ListItemButton>
-                  </ListItem>
-
-                  <a
-                    className="menu-item"
-                    href="https://shop.grapefinance.app/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <StorefrontIcon />
-                      </ListItemIcon>
-                      <ListItemText primary="Merch" />
-                    </ListItemButton>
-                  </a>
-
-                  <ListItem
-                    className="menu-item"
-                    button
-                    component={Link}
-                    to="/help"
-                    disablePadding
-                    sx={{display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <YouTubeIcon sx={{color: 'red'}} />
-                      </ListItemIcon>
-                      <ListItemText primary="Beginner Videos" />
-                    </ListItemButton>
-                  </ListItem>
+                  <Tooltip arrow followCursor title={open ? '' : 'Docs'} placement="top-start">
+                    <a
+                      className="menu-item"
+                      href="https://grapefinance.gitbook.io/grape-finance-docs/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{padding: 0, display: 'block'}}
+                    >
+                      <ListItemButton sx={{pl: 4}}>
+                        <ListItemIcon
+                          sx={{
+                            color: 'white',
+                            minWidth: 0,
+                            mr: open ? 3 : 'auto',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          <MenuBookIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Docs" />
+                      </ListItemButton>
+                    </a>
+                  </Tooltip>
+                  <Tooltip arrow followCursor title={open ? '' : 'Leaderboard'} placement="top-start">
+                    <ListItem
+                      className="menu-item"
+                      button
+                      component={Link}
+                      to="/leaderboard"
+                      disablePadding
+                      sx={{display: 'block'}}
+                    >
+                      <ListItemButton sx={{pl: 4}}>
+                        <ListItemIcon
+                          sx={{
+                            color: 'white',
+                            minWidth: 0,
+                            mr: open ? 3 : 'auto',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          <LeaderboardIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Leaderboard" />
+                      </ListItemButton>
+                    </ListItem>
+                  </Tooltip>
+                  <Tooltip arrow followCursor title={open ? '' : 'Buy NFTs with Avax'} placement="top-start">
+                    <a
+                      className="menu-item"
+                      href="https://nftrade.com/assets/avalanche/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{padding: 0, display: 'block'}}
+                    >
+                      <ListItemButton sx={{pl: 4}}>
+                        <ListItemIcon
+                          sx={{
+                            color: 'white',
+                            minWidth: 0,
+                            mr: open ? 3 : 'auto',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          <ShoppingCartIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Buy NFTs with Avax" />
+                      </ListItemButton>
+                    </a>
+                  </Tooltip>
+                  <Tooltip arrow followCursor title={open ? '' : 'Buy NFTs with Grape'} placement="top-start">
+                    <a
+                      className="menu-item"
+                      href="https://hexagon.market/collections/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df?sort=-highestPrice"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{padding: 0, display: 'block'}}
+                    >
+                      <ListItemButton sx={{pl: 4}}>
+                        <ListItemIcon
+                          sx={{
+                            color: 'white',
+                            minWidth: 0,
+                            mr: open ? 3 : 'auto',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          <ShoppingCartIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Buy NFTs with Grape" />
+                      </ListItemButton>
+                    </a>
+                  </Tooltip>
+                  <Tooltip arrow followCursor title={open ? '' : 'Strategies'} placement="top-start">
+                    <ListItem
+                      className="menu-item"
+                      button
+                      component={Link}
+                      to="/strategies"
+                      disablePadding
+                      sx={{display: 'block'}}
+                    >
+                      <ListItemButton sx={{pl: 4}}>
+                        <ListItemIcon
+                          sx={{
+                            color: 'white',
+                            minWidth: 0,
+                            mr: open ? 3 : 'auto',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          <StarBorder />
+                        </ListItemIcon>
+                        <ListItemText primary="Strategies" />
+                      </ListItemButton>
+                    </ListItem>
+                  </Tooltip>
+                  <Tooltip arrow followCursor title={open ? '' : 'Node Rewards'} placement="top-start">
+                    <ListItem
+                      className="menu-item"
+                      button
+                      component={Link}
+                      to="/stats"
+                      disablePadding
+                      sx={{display: 'block'}}
+                    >
+                      <ListItemButton sx={{pl: 4}}>
+                        <ListItemIcon
+                          sx={{
+                            color: 'white',
+                            minWidth: 0,
+                            mr: open ? 3 : 'auto',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          <QueryStatsIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Stats" />
+                      </ListItemButton>
+                    </ListItem>
+                  </Tooltip>
+                  <Tooltip arrow followCursor title={open ? '' : 'Roadmap'} placement="top-start">
+                    <ListItem
+                      className="menu-item"
+                      button
+                      component={Link}
+                      to="/roadmap"
+                      disablePadding
+                      sx={{display: 'block'}}
+                    >
+                      <ListItemButton sx={{pl: 4}}>
+                        <ListItemIcon
+                          sx={{
+                            color: 'white',
+                            minWidth: 0,
+                            mr: open ? 3 : 'auto',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          <MapIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Roadmap" />
+                      </ListItemButton>
+                    </ListItem>
+                  </Tooltip>
+                  <Tooltip arrow followCursor title={open ? '' : 'Merch'} placement="top-start">
+                    <a
+                      className="menu-item"
+                      href="https://shop.grapefinance.app/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{padding: 0, display: 'block'}}
+                    >
+                      <ListItemButton sx={{pl: 4}}>
+                        <ListItemIcon
+                          sx={{
+                            color: 'white',
+                            minWidth: 0,
+                            mr: open ? 3 : 'auto',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          <StorefrontIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Merch" />
+                      </ListItemButton>
+                    </a>
+                  </Tooltip>
+                  <Tooltip arrow followCursor title={open ? '' : 'Beginner Videos'} placement="top-start">
+                    <ListItem
+                      className="menu-item"
+                      button
+                      component={Link}
+                      to="/help"
+                      disablePadding
+                      sx={{display: 'block'}}
+                    >
+                      <ListItemButton sx={{pl: 4}}>
+                        <ListItemIcon
+                          sx={{
+                            color: 'white',
+                            minWidth: 0,
+                            mr: open ? 3 : 'auto',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          <YouTubeIcon sx={{color: 'red'}} />
+                        </ListItemIcon>
+                        <ListItemText primary="Beginner Videos" />
+                      </ListItemButton>
+                    </ListItem>
+                  </Tooltip>
                 </List>
               </Collapse>
             )}
