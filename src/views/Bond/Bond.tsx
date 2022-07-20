@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo} from 'react';
+import React, {useCallback, useMemo, useState} from 'react';
 import Page from '../../components/Page';
 import {createGlobalStyle} from 'styled-components';
 import {Route, Switch, useRouteMatch} from 'react-router-dom';
@@ -18,9 +18,13 @@ import {getDisplayBalance} from '../../utils/formatBalance';
 import {BOND_REDEEM_PRICE, BOND_REDEEM_PRICE_BN} from '../../grape-finance/constants';
 import {Alert} from '@material-ui/lab';
 import {roundAndFormatNumber} from '../../0x';
+import BondEstimatorModal from './BondEstimatorModal';
+import SwapVerticalCircleIcon from '@material-ui/icons/SwapVerticalCircle';
 
 import HomeImage from '../../assets/img/background.jpg';
-import {Grid, Box, Typography} from '@material-ui/core';
+import {Grid, Typography, Box} from '@material-ui/core';
+import {Box as MetarialBox} from '@mui/material';
+
 const BackgroundImage = createGlobalStyle`
   body {
     //background: url(${HomeImage}) repeat !important;
@@ -39,6 +43,9 @@ const Bond: React.FC = () => {
   const bondsPurchasable = useBondsPurchasable();
 
   const bondBalance = useTokenBalance(grapeFinance?.GBOND);
+  const memoizedBondBalance = useMemo(() => {
+    return bondBalance != null && Number(bondBalance) > 0 ? bondBalance : null;
+  }, [bondBalance]);
 
   const handleBuyBonds = useCallback(
     async (amount: string) => {
@@ -64,17 +71,36 @@ const Bond: React.FC = () => {
   const bondSupply = useMemo(() => bondStat?.circulatingSupply, [bondStat]);
   const bondScale = (Number(cashPrice) / 1e18).toFixed(2);
 
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
+  const handleOpenModal = () => {
+    setModalOpen(true);
+  };
+
   return (
     <Switch>
       <Page>
-        <BackgroundImage />
+        <BackgroundImage />{' '}
         {!!account ? (
           <>
+            {memoizedBondBalance && (
+              <BondEstimatorModal
+                open={modalOpen}
+                walletBondAmount={Number(memoizedBondBalance) / Math.pow(10, 18)}
+                handleClose={handleCloseModal}
+              />
+            )}
             <Typography color="textPrimary" align="center" variant="h3" gutterBottom>
               Buy & Redeem Bonds
             </Typography>
             <Typography color="textPrimary" align="center" variant="h6" gutterBottom style={{marginBottom: '40px'}}>
-              Exchange Grapes for Bonds and burns Grape supply<br />Exchange Bonds for Grapes and earn premiums upon redemption
+              Exchange Grapes for Bonds and burns Grape supply
+              <br />
+              Exchange Bonds for Grapes and earn premiums upon redemption
             </Typography>
             <Box mt={2}>
               <Grid item xs={12} sm={12} justify="center" style={{margin: '18px', display: 'flex'}}>
@@ -83,7 +109,21 @@ const Bond: React.FC = () => {
                 </Alert>
               </Grid>
             </Box>
-
+            <MetarialBox
+              onClick={handleOpenModal}
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'flex-end',
+                gap: '2px',
+                cursor: 'pointer',
+              }}
+            >
+              <Typography style={{fontSize: '15px', color: 'white'}}>
+                <u>Estimate your GBonds redeem bonus</u>
+              </Typography>
+              <SwapVerticalCircleIcon style={{color: 'white'}} />
+            </MetarialBox>
             <StyledBond>
               <StyledCardWrapper>
                 <ExchangeCard
@@ -105,13 +145,13 @@ const Bond: React.FC = () => {
                   tokenName="1 GRAPE"
                   description="Last-Hour TWAP Price"
                   //price={Number(grapeStat?.tokenInFtm).toFixed(4) || '-'}
-                  price={bondScale || '-'}
+                  price={bondScale + ' GBOND' || '-'}
                 />
                 <Spacer size="md" />
                 <ExchangeStat
                   tokenName="1 GBOND"
                   description="Bond Price"
-                  price={Number(bondStat?.tokenInFtm).toFixed(2) || '-'}
+                  price={Number(bondStat?.tokenInFtm).toFixed(2) + ' GRAPE' || '-'}
                 />
 
                 <Box mt={3}>
