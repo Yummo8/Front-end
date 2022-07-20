@@ -16,9 +16,9 @@ import useTotalValueLocked from '../../hooks/useTotalValueLocked';
 import useNodeRewardPoolStats from '../../hooks/useNodesRewardBalance';
 import {roundAndFormatNumber} from '../../0x';
 import {Button, Card, CardContent, Grid, Paper, CircularProgress, Typography} from '@material-ui/core';
-import kyc from '../../assets/img/kyc.jpg';
+import kyc from '../../assets/img/kyc.png';
 import heroImg from '../../assets/img/hero.png';
-import audit from '../../assets/img/audit1.jpg';
+import audit from '../../assets/img/audit1.png';
 import HomeImage from '../../assets/img/background.jpg';
 import {ReactComponent as IconTelegram} from '../../assets/img/telegram.svg';
 import {ReactComponent as IconDiscord} from '../../assets/img/discord.svg';
@@ -291,7 +291,7 @@ const Home = () => {
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                <img alt="0xGuard KYC" style={{height: '50px'}} src={kyc} />
+                <img alt="0xGuard KYC" style={{height: '70px'}} src={kyc} />
               </a>
             </Grid>
             <Grid item xs={6} md={6} lg={2} style={{color: 'white', textAlign: 'center'}}>
