@@ -54,7 +54,9 @@ const DashboardInfoCard: React.FC<DashboardInfoCardProps> = ({bank}) => {
                     {bank.closedForStaking ? (
                       <span>Pool Ended Please unstake</span>
                     ) : (
-                      <span>Earn {bank.earnTokenName}</span>
+                      <span>
+                        Earn {bank.earnTokenName} {bank.depositTokenName === 'GRAPE-MIM-SW' && `+ POPs airdrops`}
+                      </span>
                     )}
                   </Typography>
                 </Grid>
