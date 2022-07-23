@@ -490,7 +490,7 @@ const Page: React.FC = ({children}) => {
               </ListItem>
             </Tooltip>
 
-            <Tooltip arrow followCursor title={open ? '' : 'VIneyard'} placement="top-start">
+            <Tooltip arrow followCursor title={open ? '' : 'Vineyard'} placement="top-start">
               <ListItem
                 className="menu-item"
                 button
