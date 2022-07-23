@@ -37,12 +37,12 @@ const GrapeNode = () => {
   const classes = useStyles();
   const statsOnPool = useStatsForPool(bank);
   const nodes = useNodes(bank?.contract, bank?.sectionInUI, account);
-  const nodePrice = useNodePrice(bank.contract, bank.poolId, bank.sectionInUI);
+  const nodePrice = useNodePrice(bank?.contract, bank.poolId, bank.sectionInUI);
   const total = totalNodes(bank?.contract, bank?.sectionInUI);
   const max = useMaxPayout(bank?.contract, bank?.sectionInUI, account);
   const daily = useDailyDrip(bank?.contract, bank?.sectionInUI, account);
   const userDetails = useUserDetails(bank?.contract, bank?.sectionInUI, account);
-  const stakedTokenPriceInDollars = useStakedTokenPriceInDollars(bank.depositTokenName, bank.depositToken);
+  const stakedTokenPriceInDollars = useStakedTokenPriceInDollars(bank?.depositTokenName, bank?.depositToken);
 
   const tokenPriceInDollars = useMemo(
     () => (stakedTokenPriceInDollars ? stakedTokenPriceInDollars : null),

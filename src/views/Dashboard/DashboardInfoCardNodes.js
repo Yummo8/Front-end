@@ -93,15 +93,10 @@ const DashboardInfoCardNodes = ({bank}) => {
                 <Grid item>
                   <Grid container alignItems="baseline" justifyContent="space-between">
                     <Grid item>
-                      <span className="card-info-text">TVL</span>
+                      <span className="card-info-text">Daily</span>
                     </Grid>
                     <Grid item>
-                      <span className="info-card-price">
-                        $
-                        {statsOnPool?.TVL
-                          ? Number(Number(statsOnPool?.TVL).toFixed(0)).toLocaleString('en-US')
-                          : '-.--'}
-                      </span>
+                      <span className="info-card-price">{bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}%</span>
                     </Grid>
                   </Grid>
                 </Grid>
@@ -113,10 +108,13 @@ const DashboardInfoCardNodes = ({bank}) => {
             <Grid item>
               <Grid container justifyContent="space-between">
                 <Grid item>
-                  <span className="card-info-text">Daily APR</span>
+                  <span className="card-info-text">TVL</span>
                 </Grid>
                 <Grid item>
-                  <b className={'card-info-value'}>{bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}%</b>
+                  <b className={'card-info-value'}>
+                    {' '}
+                    ${statsOnPool?.TVL ? Number(Number(statsOnPool?.TVL).toFixed(0)).toLocaleString('en-US') : '-.--'}
+                  </b>
                 </Grid>
               </Grid>
             </Grid>

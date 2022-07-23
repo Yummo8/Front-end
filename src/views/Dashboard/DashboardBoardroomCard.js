@@ -70,12 +70,10 @@ const DashboardBoardroomCard = () => {
                 <Grid item>
                   <Grid container alignItems="baseline" justifyContent="space-between">
                     <Grid item>
-                      <span className="card-info-text">TVL</span>
+                      <span className="card-info-text">Daily</span>
                     </Grid>
                     <Grid item>
-                      <span className="info-card-price">
-                        ${tvl ? Number(Number(tvl).toFixed(0)).toLocaleString('en-US') : '-.--'}
-                      </span>
+                      <span className="info-card-price">{(boardroomAPR / 365).toFixed(2)}%</span>
                     </Grid>
                   </Grid>
                 </Grid>
@@ -87,10 +85,13 @@ const DashboardBoardroomCard = () => {
             <Grid item>
               <Grid container justifyContent="space-between">
                 <Grid item>
-                  <span className="card-info-text">Daily APR</span>
+                  <span className="card-info-text">TVL</span>
                 </Grid>
                 <Grid item>
-                  <b className={'card-info-value'}>{(boardroomAPR / 365).toFixed(2)}%</b>
+                  <b className={'card-info-value'}>
+                    {' '}
+                    ${tvl ? Number(Number(tvl).toFixed(0)).toLocaleString('en-US') : '-.--'}
+                  </b>
                 </Grid>
               </Grid>
             </Grid>
