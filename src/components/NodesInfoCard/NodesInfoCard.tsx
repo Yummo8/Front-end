@@ -69,7 +69,7 @@ const NodesInfoCard: React.FC<NodesInfoCardProps> = ({bank}) => {
                   <Typography color="textSecondary">
                     <span>
                       Lock your {bank.depositTokenName} to earn daily yields{' '}
-                      {bank.depositTokenName !== 'GRAPE-MIM-SW' && `+ POPs airdrops`}
+                      {bank.depositTokenName === 'GRAPE-MIM-SW' && `+ POPs airdrops`}
                     </span>
                   </Typography>
                 </Grid>
