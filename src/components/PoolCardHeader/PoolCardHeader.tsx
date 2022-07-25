@@ -6,6 +6,7 @@ import AprModal from '../../views/Vineyard/AprModal';
 import SwapVerticalCircleIcon from '@material-ui/icons/SwapVerticalCircle';
 import {PoolStats} from '../../grape-finance/types';
 import {Button} from '@mui/material';
+import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 
 interface PoolCardHeaderProps {
   bank: Bank;
@@ -36,8 +37,8 @@ const PoolCardHeader: React.FC<PoolCardHeaderProps> = ({bank, statsOnPool, stake
       />
       <Grid
         item
-        xs={3}
-        sm={2}
+        xs={4}
+        sm={3}
         md={3}
         lg={3}
         style={{backgroundColor: 'rgba(255, 255, 255, 0.1)', borderTopLeftRadius: 5, borderBottomLeftRadius: 5}}
@@ -48,8 +49,8 @@ const PoolCardHeader: React.FC<PoolCardHeaderProps> = ({bank, statsOnPool, stake
       </Grid>
       <Grid
         item
-        xs={9}
-        sm={10}
+        xs={8}
+        sm={9}
         md={9}
         lg={9}
         style={{backgroundColor: 'rgba(255, 255, 255, 0.1)', borderTopRightRadius: 5, borderBottomRightRadius: 5}}
@@ -72,11 +73,21 @@ const PoolCardHeader: React.FC<PoolCardHeaderProps> = ({bank, statsOnPool, stake
             </Typography>
           </Grid>
           <Grid item style={{marginTop: '5px', marginBottom: '5px'}}>
-            <Grid container>
+            <Grid container spacing={1} >
+              <Grid item>
+                <Button
+                  className="action-button"
+                  onClick={handleOpenModal}
+                  variant="outlined"
+                  startIcon={<RocketLaunchIcon />}
+                >
+                  Recommendations
+                </Button>
+              </Grid>
               {showAPRCalc && (
                 <Grid item>
                   <Button
-                    className="action-button"
+                  className="action-button apr-calc"
                     onClick={handleOpenModal}
                     variant="outlined"
                     startIcon={<SwapVerticalCircleIcon />}

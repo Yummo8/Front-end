@@ -12,6 +12,7 @@ import useGrapeStats from '../../hooks/useGrapeStats';
 import useShareStats from '../../hooks/useWineStats';
 import {Bank} from '../../grape-finance';
 import PoolCardHeader from '../PoolCardHeader';
+import PoolCardContent from '../PoolCardContent';
 
 interface DashboardInfoCardProps {
   bank: Bank;
@@ -42,91 +43,36 @@ const DashboardInfoCard: React.FC<DashboardInfoCardProps> = ({bank}) => {
       <Card>
         <CardContent>
           <PoolCardHeader bank={bank} statsOnPool={statsOnPool} stakedInToken={stakedInToken} showAPRCalc />
-          <Paper style={{marginTop: '10px', marginBottom: '10px', height: '3px'}}></Paper>
-          <Grid container direction="column" spacing={1}>
-            <Grid item>
-              <Grid container justifyContent="space-between">
-                <Grid item>
-                  <span className="card-info-text">TVL</span>
-                </Grid>
-                <Grid item>
-                  <b className={'card-info-value'}>
-                    ${statsOnPool?.TVL ? Number(Number(statsOnPool?.TVL).toFixed(0)).toLocaleString('en-US') : '-.--'}
-                  </b>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item>
-              <Grid container justifyContent="space-between">
-                <Grid item>
-                  <span className="card-info-text">Staked</span>
-                </Grid>
-                <Grid item>
-                  <b
-                    className={stakedInToken > 0 ? 'card-info-value' : 'card-info-value grey-text'}
-                  >{`${stakedInToken} ${bank.depositTokenName}`}</b>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item>
-              <Grid container justifyContent="space-between">
-                <Grid item>
-                  <span className="card-info-text">Value $</span>
-                </Grid>
-                <Grid item>
-                  <b className={stakedInToken > 0 ? 'card-info-value' : 'card-info-value grey-text'}>{`≈$${Number(
-                    stakedInDollars,
-                  ).toLocaleString('en-US')}`}</b>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item>
-              <Grid container justifyContent="space-between">
-                <Grid item>
-                  <span className="card-info-text">Earned</span>
-                </Grid>
-                <Grid item>
-                  <b
-                    className={stakedInToken > 0 ? 'card-info-value' : 'card-info-value grey-text'}
-                  >{`${earnedInToken} ${bank.earnTokenName}`}</b>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item>
-              <Grid container justifyContent="space-between">
-                <Grid item>
-                  <span className="card-info-text">Earned $</span>
-                </Grid>
-                <Grid item>
-                  <b className={stakedInToken > 0 ? 'card-info-value' : 'card-info-value grey-text'}>{`≈$${Number(
-                    earnedInDollars,
-                  ).toLocaleString('en-US')}`}</b>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
+          <PoolCardContent
+            bank={bank}
+            statsOnPool={statsOnPool}
+            stakedInToken={stakedInToken}
+            stakedInDollars={stakedInDollars}
+            earnedInToken={earnedInToken}
+            earnedInDollars={earnedInDollars}
+          />
           <Grid container spacing={1}>
-            <Grid item className="card-price-item" xs={6} md={6} lg={6}>
+            <Grid item className="card-price-item" xs={12} md={6} lg={6}>
               <Button
                 component={Link}
                 to={`/vineyard/${bank.contract}`}
                 className="shinyButton"
-                style={{width: '100%', marginTop: '17px'}}
+                style={{width: '100%', marginTop: '10px'}}
               >
                 View
               </Button>
             </Grid>
-            <Grid item className="card-price-item" xs={6} md={6} lg={6}>
+            <Grid item className="card-price-item" xs={12} md={6} lg={6}>
               <Button
                 disabled={earnings.eq(0)}
                 className={earnings.eq(0) ? 'shinyButtonDisabled' : 'shinyButton'}
                 onClick={onReward}
-                style={{width: '100%', marginTop: '17px'}}
+                style={{width: '100%', marginTop: '10px'}}
               >
                 Claim
               </Button>
             </Grid>
-          </Grid>
+          </Grid>{' '}
         </CardContent>
       </Card>
     </Grid>

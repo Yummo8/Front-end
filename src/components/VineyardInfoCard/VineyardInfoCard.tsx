@@ -1,5 +1,6 @@
 import React, {useMemo} from 'react';
-import {Card, CardContent, Grid} from '@material-ui/core';
+import {Link} from 'react-router-dom';
+import {Button, Card, CardContent, Grid} from '@material-ui/core';
 import {getDisplayBalance} from '../../utils/formatBalance';
 import useStatsForPool from '../../hooks/useStatsForPool';
 import useEarnings from '../../hooks/useEarnings';
@@ -10,7 +11,6 @@ import useShareStats from '../../hooks/useWineStats';
 import {Bank} from '../../grape-finance';
 import PoolCardHeader from '../PoolCardHeader';
 import PoolCardContent from '../PoolCardContent';
-import PoolCardFooter from '../PoolCardFooter';
 
 interface VineyardInfoCardProps {
   bank: Bank;
@@ -48,7 +48,18 @@ const VineyardInfoCard: React.FC<VineyardInfoCardProps> = ({bank}) => {
             earnedInToken={earnedInToken}
             earnedInDollars={earnedInDollars}
           />
-          <PoolCardFooter actions={['View']} links={[`/vineyard/${bank.contract}`]} />
+          <Grid container spacing={1}>
+            <Grid item className="card-price-item" xs={12} md={12} lg={12}>
+              <Button
+                component={Link}
+                to={`/vineyard/${bank.contract}`}
+                className="shinyButton"
+                style={{width: '100%', marginTop: '10px'}}
+              >
+                View
+              </Button>
+            </Grid>
+          </Grid>
         </CardContent>
       </Card>
     </Grid>

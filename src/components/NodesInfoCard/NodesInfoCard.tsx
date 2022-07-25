@@ -5,7 +5,6 @@ import {Bank} from '../../grape-finance';
 import {Link} from 'react-router-dom';
 import PoolCardHeader from '../PoolCardHeader';
 import NodeCardContent from '../NodeCardContent';
-import PoolCardFooter from '../PoolCardFooter';
 
 interface NodesInfoCardProps {
   bank: Bank;
@@ -20,7 +19,18 @@ const NodesInfoCard: React.FC<NodesInfoCardProps> = ({bank}) => {
         <CardContent>
           <PoolCardHeader bank={bank} statsOnPool={statsOnPool} />
           <NodeCardContent bank={bank} statsOnPool={statsOnPool} />
-          <PoolCardFooter actions={['View']} links={[`/nodes/${bank.contract}`]} />
+          <Grid container spacing={1}>
+            <Grid item className="card-price-item" xs={12} md={12} lg={12}>
+              <Button
+                component={Link}
+                to={`/nodes/${bank.contract}`}
+                className="shinyButton"
+                style={{width: '100%', marginTop: '10px'}}
+              >
+                View
+              </Button>
+            </Grid>
+          </Grid>
         </CardContent>
       </Card>
     </Grid>

@@ -92,7 +92,7 @@ const GrapeCard = ({}) => {
             <Grid item className="card-price-item" xs={6} md={6} lg={6}>
               <Button
                 className="shinyButton"
-                style={{width: '100%', marginTop: '17px'}}
+                style={{width: '100%', marginTop: '10px'}}
                 component={Link}
                 to={'/nodes/GrapeNode'}
               >

@@ -103,7 +103,7 @@ const LPInfoCard: React.FC<LPInfoCardProps> = ({
             <Button
               href={poolAddress}
               className="shinyButton"
-              style={{width: '100%', marginTop: '17px', borderRadius: '0px !important'}}
+              style={{width: '100%', marginTop: '10px', borderRadius: '0px !important'}}
             >
               Go to {token1Name}-{token2Name} Pool
             </Button>
