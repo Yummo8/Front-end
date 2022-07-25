@@ -16,6 +16,7 @@ import useShareStats from '../../hooks/useWineStats';
 import useNodes from '../../hooks/useNodes';
 import useLpStatsBTC from '../../hooks/useLpStatsBTC';
 import {useGetMultiplierForNode} from '../../utils/constants';
+import PoolCardHeader from '../../components/PoolCardHeader';
 
 const DashboardInfoCardNodes = ({bank}) => {
   const {account} = useWallet();
@@ -60,49 +61,7 @@ const DashboardInfoCardNodes = ({bank}) => {
     <Grid item xs={12} md={6} lg={4}>
       <Card>
         <CardContent>
-          <Grid container style={{position: 'relative'}} spacing={1}>
-            <Grid item xs={3} sm={2} md={3} lg={3}>
-              <TokenSymbol symbol={bank.depositTokenName} height={70} width={70} />
-            </Grid>
-            <Grid item xs={9} sm={10} md={9} lg={9}>
-              <Grid container direction="column">
-                <Grid item>
-                  <Typography color="textPrimary" variant="h5">
-                    {bank.depositTokenName}
-                  </Typography>
-                  <Typography color="textSecondary">
-                    {bank.closedForStaking ? (
-                      <span>Pool Ended Please unstake</span>
-                    ) : (
-                      <span>Earn {bank.earnTokenName}</span>
-                    )}
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <Grid container alignItems="baseline" justifyContent="space-between">
-                    <Grid item>
-                      <span className="card-info-text">APR</span>
-                    </Grid>
-                    <Grid item>
-                      <span className="info-card-price">
-                        {bank.closedForStaking ? '0.00' : statsOnPool?.yearlyAPR}%
-                      </span>
-                    </Grid>
-                  </Grid>
-                </Grid>
-                <Grid item>
-                  <Grid container alignItems="baseline" justifyContent="space-between">
-                    <Grid item>
-                      <span className="card-info-text">Daily</span>
-                    </Grid>
-                    <Grid item>
-                      <span className="info-card-price">{bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}%</span>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
+          <PoolCardHeader bank={bank} statsOnPool={statsOnPool} />
           <Paper style={{marginTop: '10px', marginBottom: '10px', height: '3px'}}></Paper>
           <Grid container direction="column" spacing={1}>
             <Grid item>
