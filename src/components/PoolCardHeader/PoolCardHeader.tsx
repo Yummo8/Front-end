@@ -44,7 +44,7 @@ const PoolCardHeader: React.FC<PoolCardHeaderProps> = ({bank, statsOnPool, stake
         style={{backgroundColor: 'rgba(255, 255, 255, 0.1)', borderTopLeftRadius: 5, borderBottomLeftRadius: 5}}
       >
         <div style={{padding: '5px'}}>
-          <TokenSymbol symbol={bank.depositTokenName} height={70} width={70} />
+          <TokenSymbol symbol={bank.depositTokenName} height={50} width={50} />
         </div>
       </Grid>
       <Grid
@@ -53,7 +53,12 @@ const PoolCardHeader: React.FC<PoolCardHeaderProps> = ({bank, statsOnPool, stake
         sm={9}
         md={9}
         lg={9}
-        style={{backgroundColor: 'rgba(255, 255, 255, 0.1)', borderTopRightRadius: 5, borderBottomRightRadius: 5}}
+        style={{
+          paddingTop: '10px',
+          backgroundColor: 'rgba(255, 255, 255, 0.1)',
+          borderTopRightRadius: 5,
+          borderBottomRightRadius: 5,
+        }}
       >
         <Grid container direction="column">
           <Grid item>
@@ -93,16 +98,6 @@ const PoolCardHeader: React.FC<PoolCardHeaderProps> = ({bank, statsOnPool, stake
               </Button>
             </Grid>
           )}
-          <Grid item>
-            <Button
-              className="action-button"
-              onClick={handleOpenModal}
-              variant="outlined"
-              startIcon={<RocketLaunchIcon />}
-            >
-              Recommendations
-            </Button>
-          </Grid>
         </Grid>
       </Grid>
       <Grid item xs={12} md={12} lg={12}>

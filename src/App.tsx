@@ -16,7 +16,6 @@ import Updaters from './state/Updaters';
 import Loader from './components/Loader';
 import Popups from './components/Popups';
 import {RefreshContextProvider} from './contexts/RefreshContext';
-import FirebaseProvider from './contexts/FirebaseProvider';
 
 const Home = lazy(() => import('./views/Home'));
 const Dashboard = lazy(() => import('./views/Dashboard'));
@@ -130,7 +129,6 @@ const Providers: React.FC = ({children}) => {
             <Updaters />
             <RefreshContextProvider>
               <GrapeFinanceProvider>
-                <FirebaseProvider>
                   <ModalsProvider>
                     <BanksProvider>
                       <>
@@ -139,8 +137,7 @@ const Providers: React.FC = ({children}) => {
                       </>
                     </BanksProvider>
                   </ModalsProvider>
-                </FirebaseProvider>
-              </GrapeFinanceProvider>
+             </GrapeFinanceProvider>
             </RefreshContextProvider>
           </Provider>
         </UseWalletProvider>

@@ -11,7 +11,7 @@ const GrapeCard = ({}) => {
   const statsOnPool = useStatsForPool(tombBank);
 
   return (
-    <Grid item xs={12} md={6} lg={4}>
+    <Grid item xs={12} sm={6} md={6} lg={4}>
       <Card>
         <CardContent>
           <Grid container style={{position: 'relative'}}>
