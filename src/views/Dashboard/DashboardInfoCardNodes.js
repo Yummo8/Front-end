@@ -22,14 +22,9 @@ const DashboardInfoCardNodes = ({bank}) => {
         <CardContent>
           <PoolCardHeader bank={bank} statsOnPool={statsOnPool} />
           <NodeCardContent bank={bank} statsOnPool={statsOnPool} />
-          <Grid container spacing={1}>
+          <Grid container spacing={1} style={{marginTop: '10px'}}>
             <Grid item className="card-price-item" xs={6} md={3} lg={3}>
-              <Button
-                component={Link}
-                to={`/nodes/${bank.contract}`}
-                className="shinyButton"
-                style={{width: '100%', marginTop: '10px'}}
-              >
+              <Button component={Link} to={`/nodes/${bank.contract}`} className="shinyButton" style={{width: '100%'}}>
                 View
               </Button>
             </Grid>
@@ -39,7 +34,7 @@ const DashboardInfoCardNodes = ({bank}) => {
                 disabled={earnings.eq(0)}
                 className={earnings.eq(0) ? 'shinyButtonDisabled' : 'shinyButton'}
                 onClick={onReward}
-                style={{width: '100%', marginTop: '10px'}}
+                style={{width: '100%'}}
               >
                 Claim
               </Button>
@@ -49,7 +44,7 @@ const DashboardInfoCardNodes = ({bank}) => {
                 onClick={onCompound}
                 disabled={Number(earnings) < Number(nodePrice)}
                 className={Number(earnings) < Number(nodePrice) ? 'shinyButtonDisabled' : 'shinyButton'}
-                style={{width: '100%', marginTop: '10px'}}
+                style={{width: '100%'}}
               >
                 Compound
               </Button>

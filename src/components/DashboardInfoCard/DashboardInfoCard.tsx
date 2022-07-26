@@ -1,7 +1,6 @@
 import React, {useMemo} from 'react';
 import {Link} from 'react-router-dom';
-import {Button, Card, CardContent, Grid, Paper, Typography} from '@material-ui/core';
-import TokenSymbol from '../TokenSymbol';
+import {Button, Card, CardContent, Grid} from '@material-ui/core';
 import {getDisplayBalance} from '../../utils/formatBalance';
 import useStatsForPool from '../../hooks/useStatsForPool';
 import useEarnings from '../../hooks/useEarnings';
@@ -51,28 +50,28 @@ const DashboardInfoCard: React.FC<DashboardInfoCardProps> = ({bank}) => {
             earnedInToken={earnedInToken}
             earnedInDollars={earnedInDollars}
           />
-          <Grid container spacing={1}>
-            <Grid item className="card-price-item" xs={12} md={6} lg={6}>
+          <Grid container spacing={1} style={{marginTop: '15px'}}>
+            <Grid item className="card-price-item" xs={6} md={6} lg={6}>
               <Button
                 component={Link}
                 to={`/vineyard/${bank.contract}`}
-                className="shinyButton"
-                style={{width: '100%', marginTop: '10px'}}
+                className="shinyButton action"
+                style={{width: '100%'}}
               >
                 View
               </Button>
             </Grid>
-            <Grid item className="card-price-item" xs={12} md={6} lg={6}>
+            <Grid item className="card-price-item" xs={6} md={6} lg={6}>
               <Button
                 disabled={earnings.eq(0)}
                 className={earnings.eq(0) ? 'shinyButtonDisabled' : 'shinyButton'}
                 onClick={onReward}
-                style={{width: '100%', marginTop: '10px'}}
+                style={{width: '100%'}}
               >
                 Claim
               </Button>
             </Grid>
-          </Grid>{' '}
+          </Grid>
         </CardContent>
       </Card>
     </Grid>
