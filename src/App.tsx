@@ -129,15 +129,15 @@ const Providers: React.FC = ({children}) => {
             <Updaters />
             <RefreshContextProvider>
               <GrapeFinanceProvider>
-                <ModalsProvider>
-                  <BanksProvider>
-                    <>
-                      <Popups />
-                      {children}
-                    </>
-                  </BanksProvider>
-                </ModalsProvider>
-              </GrapeFinanceProvider>
+                  <ModalsProvider>
+                    <BanksProvider>
+                      <>
+                        <Popups />
+                        {children}
+                      </>
+                    </BanksProvider>
+                  </ModalsProvider>
+             </GrapeFinanceProvider>
             </RefreshContextProvider>
           </Provider>
         </UseWalletProvider>

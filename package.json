@@ -15,7 +15,7 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.58",
     "@mui/icons-material": "^5.8.4",
-    "@mui/material": "^5.9.0",
+    "@mui/material": "^5.9.2",
     "@pancakeswap/sdk": "^2.4.0",
     "@pangolindex/sdk": "^1.1.0",
     "@reduxjs/toolkit": "^1.8.0",
