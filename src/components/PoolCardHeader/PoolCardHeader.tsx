@@ -72,37 +72,38 @@ const PoolCardHeader: React.FC<PoolCardHeaderProps> = ({bank, statsOnPool, stake
               )}
             </Typography>
           </Grid>
-          <Grid item style={{marginTop: '5px', marginBottom: '5px'}}>
-            <Grid container spacing={1} >
-              <Grid item>
-                <Button
-                  className="action-button"
-                  onClick={handleOpenModal}
-                  variant="outlined"
-                  startIcon={<RocketLaunchIcon />}
-                >
-                  Recommendations
-                </Button>
-              </Grid>
-              {showAPRCalc && (
-                <Grid item>
-                  <Button
-                  className="action-button apr-calc"
-                    onClick={handleOpenModal}
-                    variant="outlined"
-                    startIcon={<SwapVerticalCircleIcon />}
-                  >
-                    Apr Calc
-                  </Button>
-                </Grid>
-              )}
-            </Grid>
-          </Grid>
+          <Grid item style={{marginTop: '5px', marginBottom: '5px'}}></Grid>
         </Grid>
       </Grid>
 
-      <Grid item style={{marginTop: 5}}>
-        <h5 style={{padding: 0, margin: 0}}>{bank.sectionInUI === 3 ? 'Node' : 'Pool'} stats</h5>
+      <Grid item xs={2} style={{marginTop: 5}}>
+        <h5 style={{padding: 0, margin: 0}}>Stats</h5>
+      </Grid>
+      <Grid item xs={10}>
+        <Grid container spacing={1} justifyContent="flex-end">
+          {showAPRCalc && (
+            <Grid item>
+              <Button
+                className="action-button apr-calc"
+                onClick={handleOpenModal}
+                variant="outlined"
+                startIcon={<SwapVerticalCircleIcon />}
+              >
+                Apr Calc
+              </Button>
+            </Grid>
+          )}
+          <Grid item>
+            <Button
+              className="action-button"
+              onClick={handleOpenModal}
+              variant="outlined"
+              startIcon={<RocketLaunchIcon />}
+            >
+              Recommendations
+            </Button>
+          </Grid>
+        </Grid>
       </Grid>
       <Grid item xs={12} md={12} lg={12}>
         <Grid container justifyContent="space-between">
