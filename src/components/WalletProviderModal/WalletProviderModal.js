@@ -3,7 +3,7 @@ import WalletCard from './WalletCard';
 
 import {Modal, List} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
-
+import trustWalletLogo from '../../assets/img/trust-wallet.svg';
 import metamaskLogo from '../../assets/img/metamask-fox.svg';
 import walletConnectLogo from '../../assets/img/wallet-connect.svg';
 import coingBaseLogo from '../../assets/img/coinbase_logo.jpeg';
@@ -49,6 +49,13 @@ const WalletProviderModal = ({open, handleClose}) => {
               connect('injected');
             }}
             title="Metamask"
+          />
+          <WalletCard
+            icon={<img src={trustWalletLogo} alt="Trust Wallet logo" style={{height: 32}} />}
+            onConnect={() => {
+              connect('injected');
+            }}
+            title="Trust Wallet"
           />
           <WalletCard
             icon={<img src={walletConnectLogo} alt="Wallet Connect logo" style={{height: 24, color: 'white'}} />}
