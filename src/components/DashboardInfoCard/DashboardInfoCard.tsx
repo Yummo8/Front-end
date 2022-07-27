@@ -1,7 +1,6 @@
 import React, {useMemo} from 'react';
 import {Link} from 'react-router-dom';
-import {Button, Card, CardContent, Grid, Paper, Typography} from '@material-ui/core';
-import TokenSymbol from '../TokenSymbol';
+import {Button, Card, CardContent, Grid} from '@material-ui/core';
 import {getDisplayBalance} from '../../utils/formatBalance';
 import useStatsForPool from '../../hooks/useStatsForPool';
 import useEarnings from '../../hooks/useEarnings';
@@ -11,6 +10,8 @@ import useStakedTokenPriceInDollars from '../../hooks/useStakedTokenPriceInDolla
 import useGrapeStats from '../../hooks/useGrapeStats';
 import useShareStats from '../../hooks/useWineStats';
 import {Bank} from '../../grape-finance';
+import PoolCardHeader from '../PoolCardHeader';
+import PoolCardContent from '../PoolCardContent';
 
 interface DashboardInfoCardProps {
   bank: Bank;
@@ -37,126 +38,25 @@ const DashboardInfoCard: React.FC<DashboardInfoCardProps> = ({bank}) => {
   const stakedInDollars = (Number(stakedTokenPriceInDollars) * stakedInToken).toFixed(2);
 
   return (
-    <Grid item xs={12} md={6} lg={4}>
+    <Grid item xs={12} sm={6} md={6} lg={4}>
       <Card>
         <CardContent>
-          <Grid container style={{position: 'relative'}} spacing={1}>
-            <Grid item xs={3} sm={2} md={3} lg={3}>
-              <TokenSymbol symbol={bank.depositTokenName} height={70} width={70} />
-            </Grid>
-            <Grid item xs={9} sm={10} md={9} lg={9}>
-              <Grid container direction="column">
-                <Grid item>
-                  <Typography color="textPrimary" variant="h5">
-                    {bank.depositTokenName}
-                  </Typography>
-                  <Typography color="textSecondary">
-                    {bank.closedForStaking ? (
-                      <span>Pool Ended Please unstake</span>
-                    ) : (
-                      <span>
-                        Earn {bank.earnTokenName} {bank.depositTokenName === 'GRAPE-MIM-SW' && `+ POPs airdrops`}
-                      </span>
-                    )}
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <Grid container alignItems="baseline" justifyContent="space-between">
-                    <Grid item>
-                      <span className="card-info-text">APR</span>
-                    </Grid>
-                    <Grid item>
-                      <span className="info-card-price">
-                        {bank.closedForStaking ? '0.00' : statsOnPool?.yearlyAPR}%
-                      </span>
-                    </Grid>
-                  </Grid>
-                </Grid>
-                <Grid item>
-                  <Grid container justifyContent="space-between">
-                    <Grid item>
-                      <span className="card-info-text">Daily</span>
-                    </Grid>
-                    <Grid item>
-                      <span className="info-card-price">
-                        {bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}%
-                      </span>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-          <Paper style={{marginTop: '10px', marginBottom: '10px', height: '3px'}}></Paper>
-          <Grid container direction="column" spacing={1}>
-            <Grid item>
-              <Grid container justifyContent="space-between">
-                <Grid item>
-                  <span className="card-info-text">TVL</span>
-                </Grid>
-                <Grid item>
-                  <b className={'card-info-value'}>
-                    ${statsOnPool?.TVL ? Number(Number(statsOnPool?.TVL).toFixed(0)).toLocaleString('en-US') : '-.--'}
-                  </b>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item>
-              <Grid container justifyContent="space-between">
-                <Grid item>
-                  <span className="card-info-text">Staked</span>
-                </Grid>
-                <Grid item>
-                  <b
-                    className={stakedInToken > 0 ? 'card-info-value' : 'card-info-value grey-text'}
-                  >{`${stakedInToken} ${bank.depositTokenName}`}</b>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item>
-              <Grid container justifyContent="space-between">
-                <Grid item>
-                  <span className="card-info-text">Value $</span>
-                </Grid>
-                <Grid item>
-                  <b className={stakedInToken > 0 ? 'card-info-value' : 'card-info-value grey-text'}>{`≈$${Number(
-                    stakedInDollars,
-                  ).toLocaleString('en-US')}`}</b>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item>
-              <Grid container justifyContent="space-between">
-                <Grid item>
-                  <span className="card-info-text">Earned</span>
-                </Grid>
-                <Grid item>
-                  <b
-                    className={stakedInToken > 0 ? 'card-info-value' : 'card-info-value grey-text'}
-                  >{`${earnedInToken} ${bank.earnTokenName}`}</b>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item>
-              <Grid container justifyContent="space-between">
-                <Grid item>
-                  <span className="card-info-text">Earned $</span>
-                </Grid>
-                <Grid item>
-                  <b className={stakedInToken > 0 ? 'card-info-value' : 'card-info-value grey-text'}>{`≈$${Number(
-                    earnedInDollars,
-                  ).toLocaleString('en-US')}`}</b>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid container spacing={1}>
+          <PoolCardHeader bank={bank} statsOnPool={statsOnPool} stakedInToken={stakedInToken} showAPRCalc />
+          <PoolCardContent
+            bank={bank}
+            statsOnPool={statsOnPool}
+            stakedInToken={stakedInToken}
+            stakedInDollars={stakedInDollars}
+            earnedInToken={earnedInToken}
+            earnedInDollars={earnedInDollars}
+          />
+          <Grid container spacing={1} style={{marginTop: '15px'}}>
             <Grid item className="card-price-item" xs={6} md={6} lg={6}>
               <Button
                 component={Link}
                 to={`/vineyard/${bank.contract}`}
-                className="shinyButton"
-                style={{width: '100%', marginTop: '17px'}}
+                className="shinyButton action"
+                style={{width: '100%'}}
               >
                 View
               </Button>
@@ -166,7 +66,7 @@ const DashboardInfoCard: React.FC<DashboardInfoCardProps> = ({bank}) => {
                 disabled={earnings.eq(0)}
                 className={earnings.eq(0) ? 'shinyButtonDisabled' : 'shinyButton'}
                 onClick={onReward}
-                style={{width: '100%', marginTop: '17px'}}
+                style={{width: '100%'}}
               >
                 Claim
               </Button>

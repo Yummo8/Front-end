@@ -248,7 +248,7 @@ const Home = () => {
                   <Button
                     onClick={handleOpenModal}
                     className="shinyButton"
-                    style={{width: '100%', marginTop: '17px'}}
+                    style={{width: '100%', marginTop: '10px'}}
                   >
                     Estimate my Rewards
                   </Button>

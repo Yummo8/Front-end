@@ -11,7 +11,7 @@ const GrapeCard = ({}) => {
   const statsOnPool = useStatsForPool(tombBank);
 
   return (
-    <Grid item xs={12} md={6} lg={4}>
+    <Grid item xs={12} sm={6} md={6} lg={4}>
       <Card>
         <CardContent>
           <Grid container style={{position: 'relative'}}>
@@ -92,7 +92,7 @@ const GrapeCard = ({}) => {
             <Grid item className="card-price-item" xs={6} md={6} lg={6}>
               <Button
                 className="shinyButton"
-                style={{width: '100%', marginTop: '17px'}}
+                style={{width: '100%', marginTop: '10px'}}
                 component={Link}
                 to={'/nodes/GrapeNode'}
               >

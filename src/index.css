@@ -130,7 +130,6 @@ h6 {
   .tvl {
     font-size: 4rem;
   }
-
 }
 
 @media screen and (max-width: 482px) {
@@ -155,7 +154,7 @@ h6 {
     font-size: 3rem;
   }
   .wallet-token-blanace {
-    font-size: 1rem;
+    font-size: 0.8rem;
   }
 }
 
@@ -263,8 +262,21 @@ code {
   transition: background-color 300ms;
 }
 
+.action-button {
+  font-size: 0.5rem !important;
+  color: white !important;
+  font-family: 'TOMMY-R' !important;
+  padding: 2px 7px 2px 7px !important;
+  background-color: #c61fc6 !important;
+  box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 1);
+  border: 0 !important;
+}
+.apr-calc {
+  background-color: rgba(155, 155, 155, 0.5) !important;
+}
+
 .info-card-price {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 700;
   color: #fff !important;
 }

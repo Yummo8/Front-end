@@ -1,7 +1,6 @@
-import React, {useMemo, useState} from 'react';
+import React, {useMemo} from 'react';
 import {Link} from 'react-router-dom';
-import {Button, Card, CardContent, Grid, Paper, Typography} from '@material-ui/core';
-import TokenSymbol from '../TokenSymbol';
+import {Button, Card, CardContent, Grid} from '@material-ui/core';
 import {getDisplayBalance} from '../../utils/formatBalance';
 import useStatsForPool from '../../hooks/useStatsForPool';
 import useEarnings from '../../hooks/useEarnings';
@@ -10,9 +9,8 @@ import useStakedTokenPriceInDollars from '../../hooks/useStakedTokenPriceInDolla
 import useGrapeStats from '../../hooks/useGrapeStats';
 import useShareStats from '../../hooks/useWineStats';
 import {Bank} from '../../grape-finance';
-import AprModal from '../../views/Vineyard/AprModal';
-import SwapVerticalCircleIcon from '@material-ui/icons/SwapVerticalCircle';
-import {Box} from '@mui/material';
+import PoolCardHeader from '../PoolCardHeader';
+import PoolCardContent from '../PoolCardContent';
 
 interface VineyardInfoCardProps {
   bank: Bank;
@@ -37,166 +35,28 @@ const VineyardInfoCard: React.FC<VineyardInfoCardProps> = ({bank}) => {
   const stakedTokenPriceInDollars = useStakedTokenPriceInDollars(bank.depositTokenName, bank.depositToken);
   const stakedInDollars = (Number(stakedTokenPriceInDollars) * stakedInToken).toFixed(2);
 
-  const [modalOpen, setModalOpen] = useState(false);
-
-  const handleCloseModal = () => {
-    setModalOpen(false);
-  };
-
-  const handleOpenModal = () => {
-    setModalOpen(true);
-  };
-
   return (
-    <Grid item xs={12} md={6} lg={4}>
-      <AprModal
-        open={modalOpen}
-        amountDeposited={stakedInToken ? stakedInToken : 100}
-        handleClose={handleCloseModal}
-        statsOnPool={statsOnPool}
-        coin={bank.depositTokenName}
-      />
+    <Grid item xs={12} sm={6} md={6} lg={4}>
       <Card>
         <CardContent>
-          <Grid container style={{position: 'relative'}} spacing={1}>
-            <Grid item xs={3} sm={2} md={3} lg={3}>
-              <TokenSymbol symbol={bank.depositTokenName} height={70} width={70} />
-            </Grid>
-            <Grid item xs={9} sm={10} md={9} lg={9}>
-              <Grid container direction="column">
-                <Grid item>
-                  <Typography color="textPrimary" variant="h5">
-                    {bank.depositTokenName}
-                  </Typography>
-                  <Typography color="textSecondary">
-                    {bank.closedForStaking ? (
-                      <span>Pool Ended Please unstake</span>
-                    ) : (
-                      <span>
-                        Earn {bank.earnTokenName} {bank.depositTokenName === 'GRAPE-MIM-SW' ? '+ POPs airdrops' : null}
-                      </span>
-                    )}
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <Grid container alignItems="baseline" justifyContent="space-between">
-                    <Grid item>
-                      <span className="card-info-text">APR</span>
-                    </Grid>
-                    <Grid item>
-                      <span className="info-card-price">
-                        {bank.closedForStaking ? '0.00' : statsOnPool?.yearlyAPR}%
-                      </span>
-                    </Grid>
-                  </Grid>
-                </Grid>
-                <Grid item>
-                  <Grid container alignItems="baseline" justifyContent="space-between">
-                    <Grid item>
-                      <span className="card-info-text">Daily</span>
-                    </Grid>
-                    <Grid item>
-                      <span className="info-card-price">{bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}%</span>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Box
-              onClick={handleOpenModal}
-              sx={{
-                position: 'absolute',
-                top: '5px',
-                right: '0',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '2px',
-                cursor: 'pointer',
-              }}
-            >
-              <Typography style={{fontSize: '10px'}}>
-                <u>APR Calc</u>
-              </Typography>
-              <SwapVerticalCircleIcon />
-            </Box>
-          </Grid>
-          <Paper style={{marginTop: '10px', marginBottom: '10px', height: '3px'}}></Paper>
-          <Grid container direction="column" spacing={1}>
-            <Grid item>
-              <Grid container justifyContent="space-between">
-                <Grid item>
-                  <span className="card-info-text">TVL</span>
-                </Grid>
-                <Grid item>
-                  <b className={'card-info-value'}>
-                    {' '}
-                    ${statsOnPool?.TVL ? Number(Number(statsOnPool?.TVL).toFixed(0)).toLocaleString('en-US') : '-.--'}
-                  </b>
-                </Grid>
-              </Grid>
-            </Grid>
-            {stakedInToken > 0 && (
-              <>
-                <Grid item>
-                  <Grid container justifyContent="space-between">
-                    <Grid item>
-                      <span className="card-info-text">Staked</span>
-                    </Grid>
-                    <Grid item>
-                      <b
-                        className={stakedInToken > 0 ? 'card-info-value' : 'card-info-value grey-text'}
-                      >{`${stakedInToken} ${bank.depositTokenName}`}</b>
-                    </Grid>
-                  </Grid>
-                </Grid>
-                <Grid item>
-                  <Grid container justifyContent="space-between">
-                    <Grid item>
-                      <span className="card-info-text">Value $</span>
-                    </Grid>
-                    <Grid item>
-                      <b className={stakedInToken > 0 ? 'card-info-value' : 'card-info-value grey-text'}>{`≈$${Number(
-                        stakedInDollars,
-                      ).toLocaleString('en-US')}`}</b>
-                    </Grid>
-                  </Grid>
-                </Grid>
-                <Grid item>
-                  <Grid container justifyContent="space-between">
-                    <Grid item>
-                      <span className="card-info-text">Earned</span>
-                    </Grid>
-                    <Grid item>
-                      <b
-                        className={stakedInToken > 0 ? 'card-info-value' : 'card-info-value grey-text'}
-                      >{`${earnedInToken} ${bank.earnTokenName}`}</b>
-                    </Grid>
-                  </Grid>
-                </Grid>
-                <Grid item>
-                  <Grid container justifyContent="space-between">
-                    <Grid item>
-                      <span className="card-info-text">Earned $</span>
-                    </Grid>
-                    <Grid item>
-                      <b className={stakedInToken > 0 ? 'card-info-value' : 'card-info-value grey-text'}>{`≈$${Number(
-                        earnedInDollars,
-                      ).toLocaleString('en-US')}`}</b>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </>
-            )}
-          </Grid>
+          <PoolCardHeader bank={bank} statsOnPool={statsOnPool} stakedInToken={stakedInToken} showAPRCalc />
+          <PoolCardContent
+            bank={bank}
+            statsOnPool={statsOnPool}
+            stakedInToken={stakedInToken}
+            stakedInDollars={stakedInDollars}
+            earnedInToken={earnedInToken}
+            earnedInDollars={earnedInDollars}
+          />
           <Grid container spacing={1}>
             <Grid item className="card-price-item" xs={12} md={12} lg={12}>
               <Button
                 component={Link}
                 to={`/vineyard/${bank.contract}`}
                 className="shinyButton"
-                style={{width: '100%', marginTop: '17px'}}
+                style={{width: '100%', marginTop: '10px'}}
               >
-                Go To Pool
+                View
               </Button>
             </Grid>
           </Grid>

@@ -103,7 +103,7 @@ const InfoCard: React.FC<InfoCardProps> = ({
                 href={buyAddress}
                 target={internalLink === true ? null : '_blank'}
                 className="shinyButton"
-                style={{width: '100%', marginTop: '17px', borderRadius: '0px !important'}}
+                style={{width: '100%', marginTop: '10px', borderRadius: '0px !important'}}
               >
                 Buy {name}
               </Button>
@@ -115,7 +115,7 @@ const InfoCard: React.FC<InfoCardProps> = ({
                 href={chartAddress}
                 target="_blank"
                 className="shinyButton"
-                style={{width: '100%', marginTop: '17px', borderRadius: '0px !important'}}
+                style={{width: '100%', marginTop: '10px', borderRadius: '0px !important'}}
               >
                 {name} Chart
               </Button>
