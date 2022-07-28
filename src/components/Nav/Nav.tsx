@@ -107,13 +107,13 @@ const Nav = () => {
             </Typography>
             <Box style={{paddingLeft: '15px', paddingTop: '10px', fontSize: '1rem', flexGrow: '1'}}>
             <a
-                    href="https://grape.liquidcapital.finance/"
+                    href="https://mint.grapefinance.app/"
                     className={classes.link}
                     rel="noopener noreferrer"
                     target="_blank"
                     style={{color: '#fff'}}
                   >
-                    LC Presale
+                    Winemaker Mint
                   </a>
               <Link to="/" className={'navLink ' + classes.link}>
                 Home
@@ -360,8 +360,8 @@ const Nav = () => {
                 <ListItem>
                   <AccountButton text="Connect" />
                 </ListItem>
-                <ListItem button component="a" href="https://grape.liquidcapital.finance/">
-                  <ListItemText>LC Presale</ListItemText>
+                <ListItem button component="a" href="https://mint.grapefinance.app/">
+                  <ListItemText>Winemaker Mint</ListItemText>
                 </ListItem>
                 <ListItemLink primary="Home" to="/" />
                 <ListItemLink primary="Dashboard" to="/dashboard" />
