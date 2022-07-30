@@ -30,6 +30,7 @@ import yieldwolfImg from '../../assets/img/yieldwolf.png';
 import debankImg from '../../assets/img/debank.png';
 import rebatesImg from '../../assets/img/rebates.png';
 import vintage from '../../assets/img/vintage-token.png';
+import winemaker from '../../assets/img/Winemaker.png';
 import dashboardImg from '../../assets/img/dashboard.png';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
@@ -423,7 +424,38 @@ const Page: React.FC = ({children}) => {
               />
             </Tooltip>
           </Link>
+          <List>
+            <Tooltip arrow followCursor title={open ? '' : 'Winemaker Game'} placement="top-start">
+              <a
+                href="https://winemaker.grapefinance.app/"
+                target="_blank"
+                className="menu-item"
+                rel="noopener noreferrer"
+                style={{padding: 0, display: 'block'}}
+              >
+                <ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: open ? 'initial' : 'center',
+                    px: 2.5,
+                  }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      color: 'white',
+                      minWidth: 0,
+                      mr: open ? 3 : 'auto',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <img src={winemaker} alt="Winemaker Game" height={25} />
+                  </ListItemIcon>
 
+                  <ListItemText primary="Winemaker Game" sx={{opacity: open ? 1 : 0}} />
+                </ListItemButton>
+              </a>
+            </Tooltip>
+          </List>
           <List>
             <Tooltip arrow followCursor title={open ? '' : 'Winemaker Mint'} placement="top-start">
               <a
