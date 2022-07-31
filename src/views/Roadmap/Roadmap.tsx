@@ -50,7 +50,7 @@ const Roadmap: React.FC = () => {
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Chainlink integrations <span role={'img'} aria-label={'tick'}>✅</span></p>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Implement bonding to secure protocol owned liquidity <span role={'img'} aria-label={'tick'}>✅</span></p>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- LP nodes (bonus feature) <span role={'img'} aria-label={'tick'}>✅</span></p>               
-                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- NFT based p2e game & staking</p>
+                  <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- NFT based p2e game & staking <span role={'img'} aria-label={'tick'}>✅</span></p>
 
                   <h1 style={{textAlign:'center', marginTop: '70px' }}>Q3</h1>
                   <p style={{ fontSize: '20px', textAlign:'center', color: '#fff' }}>- Implement cross chain Grape liquidity</p>
