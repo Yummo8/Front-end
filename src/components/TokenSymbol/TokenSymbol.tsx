@@ -14,6 +14,7 @@ import hsharewine from '../../assets/img/hshare-wine.png';
 import gnode from '../../assets/img/gnode.png';
 import grapewlrs from '../../assets/img/grape-wlrs.png';
 import winePops from '../../assets/img/wine-pops.png';
+import vintage from '../../assets/img/vintage-token.png';
 
 const logosBySymbol: {[title: string]: string} = {
   //Real tokens
@@ -26,6 +27,7 @@ const logosBySymbol: {[title: string]: string} = {
   WAMP: wamp,
   HSHARE: wamp,
   GNODE: gnode,
+  sVintage: vintage,
   'GRAPE-MIM-LP': grapeMimLpLogo,
   'GRAPE-MIM-SW': grapeMimLpLogo,
   'GRAPE-WLRS-LP': grapewlrs,

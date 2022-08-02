@@ -54,6 +54,8 @@ export class GrapeFinance {
   SW: ERC20;
   DAI: ERC20;
   HSHARE: ERC20;
+  VINTAGELP: ERC20;
+  VINTAGE: ERC20;
 
   constructor(cfg: Configuration) {
     const {deployments, externalTokens} = cfg;
@@ -89,7 +91,8 @@ export class GrapeFinance {
     this.SW = this.externalTokens['GRAPE-MIM-SW'];
     this.DAI = this.externalTokens['DAI'];
     this.HSHARE = this.externalTokens['HSHARE'];
-
+    this.VINTAGELP = this.externalTokens['sVintageLP'];
+    this.VINTAGE = this.externalTokens['Vintage'];
     // Uniswap V2 Pair
     //this.GRAPEMIM_LP = new Contract(externalTokens['GRAPE-MIM-LP'][0], IUniswapV2PairABI, provider);
 
@@ -478,6 +481,26 @@ export class GrapeFinance {
     };
   }
 
+  async getVintagePrice(): Promise<TokenStat> {
+    const {cellar} = this.contracts;
+    let balance = await this.MIM.balanceOf(this.VINTAGELP.address);
+    let balance2 = await this.VINTAGE.balanceOf(this.VINTAGELP.address);
+    let price = (Number(balance))/Number(balance2);
+
+    let vintageBal = await cellar.vintageWineBalance();
+    let svintageBal = await cellar.totalSupply();
+    
+    let ratio = Number(vintageBal)/Number(svintageBal);
+
+    let sPrice = price*ratio;
+    return {
+      tokenInFtm: ratio.toFixed(4),
+      priceInDollars: sPrice.toFixed(4),
+      totalSupply: '1',
+      circulatingSupply: '1',
+    };
+  }
+
   async getGrapePriceInLastTWAP(): Promise<BigNumber> {
     const {Treasury} = this.contracts;
     return Treasury.getGrapeUpdatedPrice();
@@ -711,11 +734,13 @@ export class GrapeFinance {
     } else if (depositTokenName === 'WAMP') {
       return rewardPerSecond.mul(250).div(41000);
     } else if (depositTokenName === 'GRAPE-MIM-SW') {
-      return rewardPerSecond.mul(7000).div(41000);
+      return rewardPerSecond.mul(7500).div(41000);
     } else if (depositTokenName === 'WINE-POPS-LP') {
       return rewardPerSecond.mul(250).div(41000);
-    } else {
-      return rewardPerSecond.mul(21000).div(41000);
+    } else if (depositTokenName === 'sVintage') {
+      return rewardPerSecond.mul(500).div(41000);
+    }else {
+      return rewardPerSecond.mul(20000).div(41000);
     }
   }
 
@@ -736,6 +761,9 @@ export class GrapeFinance {
     } else {
       if (tokenName === 'GRAPE-MIM-LP') {
         tokenPrice = await this.getLPTokenPrice(token, this.GRAPE, true);
+      }else if (tokenName === 'sVintage') {
+        let a = await this.getVintagePrice();
+        tokenPrice = a.priceInDollars;
       } else if (tokenName === 'WINE-MIM-LP') {
         tokenPrice = await this.getLPTokenPrice(token, this.WINE, false);
       } else if (tokenName === 'GRAPE-WINE-LP') {
@@ -837,7 +865,7 @@ export class GrapeFinance {
   async getLPTokenPrice(lpToken: ERC20, token: ERC20, isGrape: boolean): Promise<string> {
     const totalSupply = getFullDisplayBalance(await lpToken.totalSupply(), lpToken.decimal);
     //Get amount of tokenA
-    console.log(lpToken)
+  
     const tokenSupply = getFullDisplayBalance(await token.balanceOf(lpToken.address), token.decimal);
 
     const stat = isGrape === true ? await this.getGrapeStat() : await this.getShareStat();
