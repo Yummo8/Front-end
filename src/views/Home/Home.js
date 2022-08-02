@@ -25,6 +25,8 @@ import {ReactComponent as IconDiscord} from '../../assets/img/discord.svg';
 import AirdropRewardModal from './AirdropRewardModal';
 import useCurrentEpoch from '../../hooks/useCurrentEpoch';
 import useGetBoardroomPrintRate from '../../hooks/useGetBoardroomPrintRate';
+import NewspaperIcon from '@mui/icons-material/Newspaper';
+import Alert from '@mui/material/Alert';
 
 const BackgroundImage = createGlobalStyle`
   body {
@@ -128,28 +130,73 @@ const Home = () => {
       <BackgroundImage />
 
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={8}>
+        <Grid item xs={12} sm={9} md={9} lg={9}>
+          <Alert variant="outlined" severity="info">
+            <b style={{color: '#e647e6'}}>Grape Finance's Strategies Suggestions</b>
+            <br />
+            <br />
+            <b>Grape & Wine -</b> Below Peg, do not sell. Keep compounding.
+            <br />
+            <b>Nodes -</b> Compound 3 times, Claim 1 time. You can use your claimed Grapes in{' '}
+            <a style={{color: '#e647e6'}} href="https://winemaker.grapefinance.app/">
+              Winemaker
+            </a>{' '}
+            Game.
+            <br />
+            <b>Wineyard -</b> If you use AutoCompounders (Beefy, Yieldwolf), move your LPs to{' '}
+            <a style={{color: '#e647e6'}} href="https://magik.farm/#/avax">
+              Magik
+            </a>
+            . Same returns, but burns Grape🔥.
+            <br />
+            <b>Winery -</b> If you have extra MIM, unstake your wine and use the{' '}
+            <a style={{color: '#e647e6'}} href="/vineyard/WineMimLPWineRewardPool">
+              Wine-MIM LP
+            </a>
+            . Otherwise, leave your wine in Winery. <br />
+          </Alert>
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          sm={3}
+          style={{display: 'flex', justifyContent: 'center', verticalAlign: 'middle', overflow: 'hidden'}}
+        >
+          <img src={heroImg} alt={'GRAPE Logo'} style={{maxHeight: '160px'}} />
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
           <Card>
             <CardContent>
-              <Typography color="textPrimary" variant="h4" gutterBottom>
-                Earn Daily Yields at Grape Finance
+              <Typography color="textSecondary" variant="h3" gutterBottom>
+                🔥Grape News🔥
               </Typography>
-              <p style={{fontSize: '17px'}}>
-                <b>We're pegged to MIM helping to reduce your volatility during a market downturn</b>
-              </p>
-              <p style={{fontSize: '17px'}}>
-                GRAPE is an algorithmic stable coin designed to maintain a 1:1 peg to MIM.
-              </p>
+              <Grid container direction="column">
+                <Grid item>
+                  🍭<b>Swapsicle POPs -</b> GRAPE-MIM LPs will now be claimable on{' '}
+                  <a style={{color: '#e647e6'}} href="https://www.swapsicle.io/rewards">
+                    Swapsicle
+                  </a>
+                  , instead of airdrops.
+                </Grid>
+                <Grid item>
+                  🔥<b>Keep it burnin' -</b> <span style={{color: '#e647e6'}}>225,000</span> Grape burned thanks to
+                  Winemaker!
+                </Grid>
+                <Grid item>
+                  🍷<b>Winemaker Updates -</b> Winemaker tweaks & new features coming soon.
+                </Grid>
+                <Grid item>
+                  🍷<b>Wine Press -</b> Additional burns with the coming soon{' '}
+                  <span style={{color: '#e647e6'}}>Wine Press fixed APR </span>pool for WINE-MIM LPs!
+                </Grid>
+                <Grid item>
+                  🧊<b>Nodes -</b> Revamp of our Nodes are in the works. Goal?{' '}
+                  <span style={{color: '#e647e6'}}>To better reward investors and the protocol at the same time</span>.
+                </Grid>
+              </Grid>
               <p>
-                Please join our{' '}
-                <a href="https://t.me/GrapeDefi" rel="noopener noreferrer" target="_blank" style={{color: '#fff'}}>
-                  <b>
-                    {' '}
-                    <IconTelegram width="25" style={{fill: '#fff', height: '15px'}} />
-                    Telegram
-                  </b>
-                </a>{' '}
-                or{' '}
+                📖Please join our{' '}
                 <a
                   href="https://discord.gg/ZP9aYaXeCJ"
                   rel="noopener noreferrer"
@@ -157,36 +204,26 @@ const Home = () => {
                   style={{color: '#fff'}}
                 >
                   <b>
-                    <IconDiscord width="25" style={{fill: '#fff', height: '15px'}} /> Discord
+                    <IconDiscord width="40" style={{fill: '#fff', height: '40px'}} /> Discord
                   </b>
                 </a>{' '}
-                & read our{' '}
-                <a
-                  href="https://grapefinance.gitbook.io/grape-finance-docs/"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  style={{color: '#fff'}}
-                >
-                  <b> Docs & Disclaimer</b>
-                </a>{' '}
-                before joining!
+                or
+                <a href="https://t.me/GrapeDefi" rel="noopener noreferrer" target="_blank" style={{color: '#fff'}}>
+                  <b>
+                    <IconTelegram width="40" style={{fill: '#fff', height: '40px'}} />
+                    Telegram
+                  </b>
+                </a>
+                &nbsp;to learn more about what exciting stuff is coming next!
               </p>
             </CardContent>
           </Card>
         </Grid>
-        <Grid
-          item
-          xs={12}
-          sm={4}
-          style={{display: 'flex', justifyContent: 'center', verticalAlign: 'middle', overflow: 'hidden'}}
-        >
-          <img src={heroImg} alt={'GRAPE Logo'} style={{maxHeight: '240px'}} />
-        </Grid>
 
-        <Grid item sm={12} md={12} lg={12} style={{marginTop: '10px'}}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={6} lg={6} style={{color: 'white'}}>
-              <Card style={{minHeight: '234px'}}>
+        <Grid item xs={12} sm={6}>
+          <Grid container xs={12} spacing={1}>
+            <Grid item xs={12} style={{color: 'white'}}>
+              <Card style={{minHeight: '210px'}}>
                 <CardContent>
                   <Typography color="textPrimary" variant="h4" gutterBottom>
                     TOTAL VALUE LOCKED
@@ -199,8 +236,8 @@ const Home = () => {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item xs={12} sm={12} md={6} lg={6}>
-              <Card style={{minHeight: '200px'}}>
+            <Grid item xs={12}>
+              <Card>
                 <CardContent>
                   <Typography className="reward-pool-text" color="textPrimary" variant="h4" gutterBottom>
                     NFT REWARD POOL
@@ -245,17 +282,17 @@ const Home = () => {
                     </Grid>
                   </Grid>
 
-                  <Button
-                    onClick={handleOpenModal}
-                    className="shinyButton"
-                    style={{width: '100%', marginTop: '10px'}}
-                  >
+                  <Button onClick={handleOpenModal} className="shinyButton" style={{width: '100%', marginTop: '10px'}}>
                     Estimate my Rewards
                   </Button>
                 </CardContent>
               </Card>
             </Grid>
+          </Grid>
+        </Grid>
 
+        <Grid item sm={12} md={12} lg={12} style={{marginTop: '10px'}}>
+          <Grid container spacing={3}>
             <Grid item xs={6} md={4} lg={2} style={{color: 'white', textAlign: 'center'}}>
               <Typography color="textPrimary" variant="h6">
                 EPOCH
