@@ -367,8 +367,6 @@ export class GrapeFinance {
   async getVintagePrice(): Promise<string> {
     const mimBalance = await this.MIM.balanceOf(this.VINTAGEMIMLP.address);
     const vintageBalance = await this.VINTAGEWINE.balanceOf(this.VINTAGEMIMLP.address);
-    console.log('mim balance = ' + mimBalance)
-    console.log('vintageBalance balance = ' + vintageBalance)
     return (+mimBalance / +vintageBalance).toFixed(3)
   }
 
