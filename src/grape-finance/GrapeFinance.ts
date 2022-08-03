@@ -13,7 +13,7 @@ import {
   PoolStats,
   WineSwapperStat,
   WalletNodesAndNFTs,
-  WalletStats
+  WalletStats,
 } from './types';
 import {BigNumber, BigNumberish, Contract, ethers, EventFilter} from 'ethers';
 import {decimalToBalance} from './ether-utils';
@@ -26,7 +26,7 @@ import {bankDefinitions} from '../config';
 import moment from 'moment';
 import {parseUnits} from 'ethers/lib/utils';
 import {MIM_TICKER, SPOOKY_ROUTER_ADDR, GRAPE_TICKER, WINE_TICKER} from '../utils/constants';
-import { Console } from 'console';
+import {Console} from 'console';
 
 /**
  * An API module of Grape Finance contracts.
@@ -46,6 +46,8 @@ export class GrapeFinance {
   GRAPEBTCB_LP: Contract;
   GRAPE: ERC20;
   WINE: ERC20;
+  VINTAGEWINE: ERC20;
+  VINTAGEMIMLP: ERC20;
   GBOND: ERC20;
   WAVAX: ERC20;
   MIM: ERC20;
@@ -84,6 +86,8 @@ export class GrapeFinance {
     this.WINE = new ERC20(deployments.Wine.address, provider, 'WINE');
     this.GBOND = new ERC20(deployments.BBond.address, provider, 'GBOND');
     this.MIM = this.externalTokens['MIM'];
+    this.VINTAGEWINE = this.externalTokens['VINTAGEWINE'];
+    this.VINTAGEMIMLP = this.externalTokens['VINTAGE-MIM-LP'];
     this.WAMP = this.externalTokens['WAMP'];
     this.VOLT = this.externalTokens['VOLT'];
     this.SW = this.externalTokens['GRAPE-MIM-SW'];
@@ -360,66 +364,85 @@ export class GrapeFinance {
     };
   }
 
-  async getWalletStats(banks: Bank[]): Promise<WalletStats> {
-    const vineyardBanks = banks.filter((bank) => !bank.finished && (bank.sectionInUI === 2 || bank.sectionInUI === 6 || bank.sectionInUI === 7))
-    const nodeBanks = banks.filter((bank) => !bank.finished && bank.sectionInUI === 3)
-    let totalInVineyard = 0, totalInNodes = 0, totalInWinery = 0, totalRewards = 0;
+  async getVintagePrice(): Promise<string> {
+    const mimBalance = await this.MIM.balanceOf(this.VINTAGEMIMLP.address);
+    const vintageBalance = await this.VINTAGEWINE.balanceOf(this.VINTAGEMIMLP.address);
+    console.log('mim balance = ' + mimBalance)
+    console.log('vintageBalance balance = ' + vintageBalance)
+    return (+mimBalance / +vintageBalance).toFixed(3)
+  }
 
-    const winePriceInDollars = Number(await this.getDepositTokenPriceInDollars('WINE', this.WINE)) 
-    const grapePriceInDollars = Number(await this.getDepositTokenPriceInDollars('GRAPE', this.GRAPE)) 
+  async getWalletStats(banks: Bank[]): Promise<WalletStats> {
+    const vineyardBanks = banks.filter(
+      (bank) => !bank.finished && (bank.sectionInUI === 2 || bank.sectionInUI === 6 || bank.sectionInUI === 7),
+    );
+    const nodeBanks = banks.filter((bank) => !bank.finished && bank.sectionInUI === 3);
+    let totalInVineyard = 0,
+      totalInNodes = 0,
+      totalInWinery = 0,
+      totalRewards = 0;
+
+    const winePriceInDollars = Number(await this.getDepositTokenPriceInDollars('WINE', this.WINE));
+    const grapePriceInDollars = Number(await this.getDepositTokenPriceInDollars('GRAPE', this.GRAPE));
 
     // Vineyard
     for (let i = 0; i < vineyardBanks.length; i++) {
-      const bank = vineyardBanks[i]
+      const bank = vineyardBanks[i];
       // bank Value
-      const stakedBalance = await this.stakedBalanceOnBank(bank.contract, bank.poolId, this.myAccount)
-      const stakedInToken = Number(getDisplayBalance(stakedBalance, bank.depositToken.decimal))
-      const stakedTokenPriceInDollars = Number(await this.getDepositTokenPriceInDollars(bank.depositTokenName, bank.depositToken))
-      totalInVineyard += stakedTokenPriceInDollars * stakedInToken
+      const stakedBalance = await this.stakedBalanceOnBank(bank.contract, bank.poolId, this.myAccount);
+      const stakedInToken = Number(getDisplayBalance(stakedBalance, bank.depositToken.decimal));
+      const stakedTokenPriceInDollars = Number(
+        await this.getDepositTokenPriceInDollars(bank.depositTokenName, bank.depositToken),
+      );
+      totalInVineyard += stakedTokenPriceInDollars * stakedInToken;
 
       // bank Earnings
-      const bankEarnings = await this.earnedFromBank(bank.contract, bank.earnTokenName, bank.poolId, this.myAccount)
-      const earningInDollars = winePriceInDollars * Number(getDisplayBalance(bankEarnings, bank.depositToken.decimal))
-      totalRewards += earningInDollars
-      totalInVineyard += earningInDollars
+      const bankEarnings = await this.earnedFromBank(bank.contract, bank.earnTokenName, bank.poolId, this.myAccount);
+      const earningInDollars = winePriceInDollars * Number(getDisplayBalance(bankEarnings, bank.depositToken.decimal));
+      totalRewards += earningInDollars;
+      totalInVineyard += earningInDollars;
     }
 
     // Nodes
     for (let i = 0; i < nodeBanks.length; i++) {
-      const bank = nodeBanks[i]
+      const bank = nodeBanks[i];
       // Node value
-      const nodesCount = Number((await this.getNodes(bank.contract, this.myAccount))[0])
-      const nodePrice = await this.getNodePrice(bank.contract, bank.poolId)
-      const stakedTokenPriceInDollars = Number(await this.getDepositTokenPriceInDollars(bank.depositTokenName, bank.depositToken))
-      totalInNodes += nodesCount * (stakedTokenPriceInDollars * Number(getDisplayBalance(nodePrice, bank.depositToken.decimal)))
+      const nodesCount = Number((await this.getNodes(bank.contract, this.myAccount))[0]);
+      const nodePrice = await this.getNodePrice(bank.contract, bank.poolId);
+      const stakedTokenPriceInDollars = Number(
+        await this.getDepositTokenPriceInDollars(bank.depositTokenName, bank.depositToken),
+      );
+      totalInNodes +=
+        nodesCount * (stakedTokenPriceInDollars * Number(getDisplayBalance(nodePrice, bank.depositToken.decimal)));
 
       // Node earnings
-      const nodeEarnings = await this.earnedFromBank(bank.contract, bank.earnTokenName, bank.poolId, this.myAccount)
-      const earningInDollars = stakedTokenPriceInDollars * Number(getDisplayBalance(nodeEarnings, bank.depositToken.decimal))
-      totalRewards += earningInDollars
-      totalInNodes += earningInDollars
+      const nodeEarnings = await this.earnedFromBank(bank.contract, bank.earnTokenName, bank.poolId, this.myAccount);
+      const earningInDollars =
+        stakedTokenPriceInDollars * Number(getDisplayBalance(nodeEarnings, bank.depositToken.decimal));
+      totalRewards += earningInDollars;
+      totalInNodes += earningInDollars;
     }
 
     // Winery deposit
-    const wineryStakedBalance = await this.getStakedSharesOnBoardroom()
-    const wineryStakedInToken = Number(getDisplayBalance(wineryStakedBalance))
+    const wineryStakedBalance = await this.getStakedSharesOnBoardroom();
+    const wineryStakedInToken = Number(getDisplayBalance(wineryStakedBalance));
     // Winery earnings
-    const earnings = await this.getEarningsOnBoardroom()
-    const wineryEarnings = Number(getDisplayBalance(earnings))
-    totalRewards += (grapePriceInDollars * wineryEarnings)
+    const earnings = await this.getEarningsOnBoardroom();
+    const wineryEarnings = Number(getDisplayBalance(earnings));
+    totalRewards += grapePriceInDollars * wineryEarnings;
 
-    totalInWinery = (winePriceInDollars * wineryStakedInToken) + (grapePriceInDollars * wineryEarnings)
+    totalInWinery = winePriceInDollars * wineryStakedInToken + grapePriceInDollars * wineryEarnings;
 
     return {
       total: totalInVineyard + totalInNodes + totalInWinery,
       totalRewards: totalRewards,
       totalInVineyard: totalInVineyard,
       totalInWinery: totalInWinery,
-      totalInNodes: totalInNodes
-    }
+      totalInNodes: totalInNodes,
+    };
   }
 
-  async getBoardroomPrintRate() : Promise<number> {
+  async getBoardroomPrintRate(): Promise<number> {
     const {Boardroom} = this.contracts;
     const snapshotIndex = await Boardroom.latestSnapshotIndex();
     const currentEpoch = await Boardroom.epoch();
@@ -748,7 +771,7 @@ export class GrapeFinance {
         tokenPrice = await this.getLPTokenPrice(token, this.GRAPE, true);
       } else if (tokenName === 'WINE-POPS-LP') {
         tokenPrice = await this.getLPTokenPrice(token, this.WINE, false);
-      }else if (tokenName === 'MIM') {
+      } else if (tokenName === 'MIM') {
         tokenPrice = '1';
       } else if (tokenName === 'WAMP') {
         const {WAMP} = this.contracts;
@@ -837,7 +860,7 @@ export class GrapeFinance {
   async getLPTokenPrice(lpToken: ERC20, token: ERC20, isGrape: boolean): Promise<string> {
     const totalSupply = getFullDisplayBalance(await lpToken.totalSupply(), lpToken.decimal);
     //Get amount of tokenA
-    console.log(lpToken)
+    console.log(lpToken);
     const tokenSupply = getFullDisplayBalance(await token.balanceOf(lpToken.address), token.decimal);
 
     const stat = isGrape === true ? await this.getGrapeStat() : await this.getShareStat();
@@ -1060,7 +1083,6 @@ export class GrapeFinance {
 
     try {
       const wmimToToken = await Fetcher.fetchPairData(wmim, token, this.provider);
-
       const priceInBUSD = new Route([wmimToToken], token);
 
       return priceInBUSD.midPrice.toFixed(4);

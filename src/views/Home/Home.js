@@ -165,7 +165,7 @@ const Home = () => {
           <img src={heroImg} alt={'GRAPE Logo'} style={{maxHeight: '160px'}} />
         </Grid>
 
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={12} md={6}>
           <Card>
             <CardContent>
               <Typography color="textSecondary" variant="h3" gutterBottom>
@@ -220,8 +220,8 @@ const Home = () => {
           </Card>
         </Grid>
 
-        <Grid item xs={12} sm={6}>
-          <Grid container xs={12} spacing={1}>
+        <Grid item xs={12} sm={12} md={6}>
+          <Grid container xs={12}>
             <Grid item xs={12} style={{color: 'white'}}>
               <Card style={{minHeight: '210px'}}>
                 <CardContent>
@@ -236,7 +236,7 @@ const Home = () => {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} style={{marginTop: '20px'}}>
               <Card>
                 <CardContent>
                   <Typography className="reward-pool-text" color="textPrimary" variant="h4" gutterBottom>
