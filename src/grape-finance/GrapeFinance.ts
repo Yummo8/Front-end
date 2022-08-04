@@ -46,8 +46,6 @@ export class GrapeFinance {
   GRAPEBTCB_LP: Contract;
   GRAPE: ERC20;
   WINE: ERC20;
-  VINTAGEWINE: ERC20;
-  VINTAGEMIMLP: ERC20;
   GBOND: ERC20;
   WAVAX: ERC20;
   MIM: ERC20;
@@ -88,8 +86,6 @@ export class GrapeFinance {
     this.WINE = new ERC20(deployments.Wine.address, provider, 'WINE');
     this.GBOND = new ERC20(deployments.BBond.address, provider, 'GBOND');
     this.MIM = this.externalTokens['MIM'];
-    this.VINTAGEWINE = this.externalTokens['VINTAGEWINE'];
-    this.VINTAGEMIMLP = this.externalTokens['VINTAGE-MIM-LP'];
     this.WAMP = this.externalTokens['WAMP'];
     this.VOLT = this.externalTokens['VOLT'];
     this.SW = this.externalTokens['GRAPE-MIM-SW'];
@@ -368,8 +364,8 @@ export class GrapeFinance {
   }
 
   async getVintagePrice(): Promise<string> {
-    const mimBalance = await this.MIM.balanceOf(this.VINTAGEMIMLP.address);
-    const vintageBalance = await this.VINTAGEWINE.balanceOf(this.VINTAGEMIMLP.address);
+    const mimBalance = await this.MIM.balanceOf(this.VINTAGELP.address);
+    const vintageBalance = await this.VINTAGE.balanceOf(this.VINTAGELP.address);
     return (+mimBalance / +vintageBalance).toFixed(3)
   }
 
@@ -502,7 +498,7 @@ export class GrapeFinance {
     };
   }
 
-  async getVintagePrice(): Promise<TokenStat> {
+  async getVintageStats(): Promise<TokenStat> {
     const {cellar} = this.contracts;
     let balance = await this.MIM.balanceOf(this.VINTAGELP.address);
     let balance2 = await this.VINTAGE.balanceOf(this.VINTAGELP.address);
@@ -783,7 +779,7 @@ export class GrapeFinance {
       if (tokenName === 'GRAPE-MIM-LP') {
         tokenPrice = await this.getLPTokenPrice(token, this.GRAPE, true);
       }else if (tokenName === 'sVintage') {
-        let a = await this.getVintagePrice();
+        let a = await this.getVintageStats();
         tokenPrice = a.priceInDollars;
       } else if (tokenName === 'WINE-MIM-LP') {
         tokenPrice = await this.getLPTokenPrice(token, this.WINE, false);
