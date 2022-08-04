@@ -3,7 +3,7 @@ import {Provider} from 'react-redux';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import {ThemeProvider as TP} from '@material-ui/core/styles';
 import {ThemeProvider as TP1} from 'styled-components';
-import {UseWalletProvider} from 'use-wallet';
+import useWallet, {UseWalletProvider} from 'use-wallet';
 import usePromptNetwork from './hooks/useNetworkPrompt';
 import BanksProvider from './contexts/Banks';
 import GrapeFinanceProvider from './contexts/GrapeFinanceProvider';
@@ -16,6 +16,7 @@ import Updaters from './state/Updaters';
 import Loader from './components/Loader';
 import Popups from './components/Popups';
 import {RefreshContextProvider} from './contexts/RefreshContext';
+import NetworkVerifier from './components/NetworkVerifier';
 
 const Home = lazy(() => import('./views/Home'));
 const Dashboard = lazy(() => import('./views/Dashboard'));
@@ -51,6 +52,7 @@ const App: React.FC = () => {
 
   return (
     <Providers>
+      <NetworkVerifier />
       <Router>
         <Suspense fallback={<Loader />}>
           <Switch>
@@ -129,15 +131,15 @@ const Providers: React.FC = ({children}) => {
             <Updaters />
             <RefreshContextProvider>
               <GrapeFinanceProvider>
-                  <ModalsProvider>
-                    <BanksProvider>
-                      <>
-                        <Popups />
-                        {children}
-                      </>
-                    </BanksProvider>
-                  </ModalsProvider>
-             </GrapeFinanceProvider>
+                <ModalsProvider>
+                  <BanksProvider>
+                    <>
+                      <Popups />
+                      {children}
+                    </>
+                  </BanksProvider>
+                </ModalsProvider>
+              </GrapeFinanceProvider>
             </RefreshContextProvider>
           </Provider>
         </UseWalletProvider>

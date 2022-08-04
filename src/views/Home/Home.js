@@ -143,7 +143,7 @@ const Home = () => {
             </a>{' '}
             Game.
             <br />
-            <b>Wineyard -</b> If you use AutoCompounders (Beefy, Yieldwolf), move your LPs to{' '}
+            <b>Vineyard -</b> If you use AutoCompounders (Beefy, Yieldwolf), move your LPs to{' '}
             <a style={{color: '#e647e6'}} href="https://magik.farm/#/avax">
               Magik
             </a>
@@ -165,13 +165,16 @@ const Home = () => {
           <img src={heroImg} alt={'GRAPE Logo'} style={{maxHeight: '160px'}} />
         </Grid>
 
-        <Grid item xs={12} sm={12} md={6}>
+        <Grid item xs={12} sm={12} md={7}>
           <Card>
             <CardContent>
               <Typography color="textSecondary" variant="h3" gutterBottom>
                 🔥Grape News🔥
               </Typography>
               <Grid container direction="column">
+                <Grid item>
+                  🧊<b>Grape-Wlrs Node -</b> Grape/Walrus LP were boosted, now printing at 1.8% Daily💲
+                </Grid>
                 <Grid item>
                   🍭<b>Swapsicle POPs -</b> GRAPE-MIM LPs will now be claimable on{' '}
                   <a style={{color: '#e647e6'}} href="https://www.swapsicle.io/rewards">
@@ -220,12 +223,12 @@ const Home = () => {
           </Card>
         </Grid>
 
-        <Grid item xs={12} sm={12} md={6}>
+        <Grid item xs={12} sm={12} md={5}>
           <Grid container xs={12}>
             <Grid item xs={12} style={{color: 'white'}}>
-              <Card style={{minHeight: '210px'}}>
+              <Card style={{minHeight: '200px'}}>
                 <CardContent>
-                  <Typography color="textPrimary" variant="h4" gutterBottom>
+                  <Typography color="textPrimary" variant="h4" >
                     TOTAL VALUE LOCKED
                   </Typography>
                   {TVL ? (
