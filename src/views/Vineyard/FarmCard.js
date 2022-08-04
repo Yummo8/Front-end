@@ -52,7 +52,6 @@ const FarmCard = ({bank}) => {
             <Typography color="#322f32">
               {/* {bank.name} */}
               {bank.closedForStaking ? <span>Pool Ended Please unstake</span> : <span>Earn {bank.earnTokenName}</span>}
-              {bank.depositTokenName === 'GRAPE-MIM-SW' ? <span> + POPs drops</span> : null}
             </Typography>
             {/*<Typography color="#322f32">
            

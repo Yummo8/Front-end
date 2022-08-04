@@ -2,7 +2,6 @@ import {Configuration} from './grape-finance/config';
 import {BankInfo} from './grape-finance';
 
 const configurations: {[env: string]: Configuration} = {
-
   development: {
     chainId: 43114,
     networkName: 'Avalanche',
@@ -29,7 +28,7 @@ const configurations: {[env: string]: Configuration} = {
       'WINE-POPS-LP': ['0xE9b9FA7f3A047d77655A9Ff8df5055f1d7826A6e', 18],
       'WINE-MIM-LP': ['0x00cB5b42684DA62909665d8151fF80D1567722c3', 18],
       'MIM-WAVAX-LP': ['0x781655d802670bba3c89aebaaea59d3182fd755d', 18],
-      'HSHARE-WINE-LP': ['0x9E8abB3A78cF9Ae9D6eA3282566e36B91C92db5b', 18]
+      'HSHARE-WINE-LP': ['0x9E8abB3A78cF9Ae9D6eA3282566e36B91C92db5b', 18],
     },
     baseLaunchDate: new Date('2022-1-13 17:00:00Z'),
     bondLaunchesAt: new Date('2020-01-03T15:00:00Z'),
@@ -62,7 +61,7 @@ const configurations: {[env: string]: Configuration} = {
       'WINE-MIM-LP': ['0x00cB5b42684DA62909665d8151fF80D1567722c3', 18],
       'GRAPE-WINE-LP': ['0xd3d477Df7f63A2623464Ff5Be6746981FdeD026F', 18],
       'MIM-WAVAX-LP': ['0x781655d802670bba3c89aebaaea59d3182fd755d', 18],
-      'HSHARE-WINE-LP': ['0x9E8abB3A78cF9Ae9D6eA3282566e36B91C92db5b', 18]
+      'HSHARE-WINE-LP': ['0x9E8abB3A78cF9Ae9D6eA3282566e36B91C92db5b', 18],
     },
     baseLaunchDate: new Date('2021-12-30 1:00:00Z'),
     bondLaunchesAt: new Date('2020-12-03T15:00:00Z'),
@@ -189,7 +188,8 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     sort: 1,
     closedForStaking: false,
     multi: '13.51',
-    buyLink: 'https://traderjoexyz.com/trade?inputCurrency=0x130966628846BFd36ff31a822705796e8cb8C18D&outputCurrency=0xc55036b5348cfb45a932481744645985010d3a44#/',
+    buyLink:
+      'https://traderjoexyz.com/trade?inputCurrency=0x130966628846BFd36ff31a822705796e8cb8C18D&outputCurrency=0xc55036b5348cfb45a932481744645985010d3a44#/',
   },
   GrapeWineLPWineRewardPool: {
     name: 'Earn WINE with GRAPE-WINE LP',
@@ -202,7 +202,8 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     sort: 2,
     closedForStaking: false,
     multi: '3.70',
-    buyLink: 'https://traderjoexyz.com/trade?inputCurrency=0xC55036B5348CfB45a932481744645985010d3A44&outputCurrency=0x5541D83EFaD1f281571B343977648B75d95cdAC2#/',
+    buyLink:
+      'https://traderjoexyz.com/trade?inputCurrency=0xC55036B5348CfB45a932481744645985010d3A44&outputCurrency=0x5541D83EFaD1f281571B343977648B75d95cdAC2#/',
   },
   GrapeMimSWWineRewardPool: {
     name: 'Earn WINE with GRAPE-MIM SW LP',
@@ -241,7 +242,8 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     sort: 3,
     closedForStaking: false,
     multi: '16.2',
-    buyLink: 'https://traderjoexyz.com/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0x5541D83EFaD1f281571B343977648B75d95cdAC2#/',
+    buyLink:
+      'https://traderjoexyz.com/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0x5541D83EFaD1f281571B343977648B75d95cdAC2#/',
   },
   WampStaking: {
     name: 'Earn WINE with WAMP',
@@ -280,7 +282,8 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     sort: 5,
     closedForStaking: true,
     multi: '0',
-    buyLink: 'https://app.pangolin.exchange/#/swap?inputCurrency=0xfa4B6db72A650601E7Bd50a0A9f537c9E98311B2&outputCurrency=0xC55036B5348CfB45a932481744645985010d3A44',
+    buyLink:
+      'https://app.pangolin.exchange/#/swap?inputCurrency=0xfa4B6db72A650601E7Bd50a0A9f537c9E98311B2&outputCurrency=0xC55036B5348CfB45a932481744645985010d3A44',
   },
   GrapeNode: {
     name: 'Generate Grape with Nodes',
@@ -385,7 +388,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     buyLink: null,
     sort: 2,
     closedForStaking: false,
-  }
+  },
 };
 
 export default configurations[process.env.NODE_ENV || 'production'];

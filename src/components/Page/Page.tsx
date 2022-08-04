@@ -23,6 +23,7 @@ import grapeMimImg from '../../assets/img/twap.png';
 import nodesImg from '../../assets/img/gnode.png';
 import bondImg from '../../assets/img/gbond.png';
 import wineImg from '../../assets/img/gshare.png';
+import vintageImg from '../../assets/img/vintage-token.png';
 import magikImg from '../../assets/img/magik.png';
 import creamImg from '../../assets/img/cream.png';
 import beefyImg from '../../assets/img/beefy.png';
@@ -44,6 +45,7 @@ import Collapse from '@mui/material/Collapse';
 import StarBorder from '@mui/icons-material/StarBorder';
 import useGrapeStats from '../../hooks/useGrapeStats';
 import useWineStats from '../../hooks/useWineStats';
+import useVintagePrice from '../../hooks/useVintagePrice';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import ExpandLess from '@mui/icons-material/ExpandLess';
@@ -192,6 +194,7 @@ const Page: React.FC = ({children}) => {
 
   const grapeStats = useGrapeStats();
   const bShareStats = useWineStats();
+  const vintagePrice = useVintagePrice();
 
   const grapePrice = useMemo(() => (grapeStats ? Number(grapeStats.tokenInFtm).toFixed(3) : null), [grapeStats]);
   const winePrice = useMemo(() => (bShareStats ? Number(bShareStats.priceInDollars).toFixed(2) : null), [bShareStats]);
@@ -296,6 +299,17 @@ const Page: React.FC = ({children}) => {
                 >
                   <img src={wineImg} alt="Wine" width={35} height={35} />
                   <span className="token-price">{winePrice ? '$' + winePrice : '--'}</span>
+                </a>
+              </div>
+              <div className="price-item">
+                <a
+                  className="text-decoration-none"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://www.swapsicle.io/swap?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0x01Af64EF39AEB5612202AA07B3A3829f20c395fd#/"
+                >
+                  <img src={vintageImg} alt="Wine" width={35} height={35} />
+                  <span className="token-price">{vintagePrice ? '$' + vintagePrice : '--'}</span>
                 </a>
               </div>
               <div className="price-item">
