@@ -96,6 +96,11 @@ const Bank: React.FC = () => {
     vaultUrl = '';
     strat = '';
     stratText = '';
+  }else if (bank.depositTokenName === 'sVintage') {
+    name = 'Get sVintage by staking Vintage in the Winemaker Cellar here';
+    vaultUrl = 'https://winemaker.grapefinance.app/app/Cellar';
+    strat = '';
+    stratText = '';
   } else if (bank.depositTokenName === 'WAMP') {
     name = 'Get WAMP to stake for WINE here';
     vaultUrl = 'https://app.asgarddao.fi/#/pledge';
