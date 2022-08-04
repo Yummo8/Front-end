@@ -143,7 +143,7 @@ const Home = () => {
             </a>{' '}
             Game.
             <br />
-            <b>Wineyard -</b> If you use AutoCompounders (Beefy, Yieldwolf), move your LPs to{' '}
+            <b>Vineyard -</b> If you use AutoCompounders (Beefy, Yieldwolf), move your LPs to{' '}
             <a style={{color: '#e647e6'}} href="https://magik.farm/#/avax">
               Magik
             </a>
