@@ -25,11 +25,11 @@ const Harvest = ({bank}) => {
   let tokenStats = 0;
   if (bank.earnTokenName === 'WINE') {
     tokenStats = tShareStats;
-  }else if(bank.earnTokenName === 'GRAPE') {
+  } else if (bank.earnTokenName === 'GRAPE') {
     tokenStats = grapeStats;
-  }else if(bank.earnTokenName === 'GRAPE-MIM-SW'){
+  } else if (bank.earnTokenName === 'GRAPE-MIM-SW') {
     tokenStats = grapemimLpStats;
-  }else if(bank.earnTokenName === 'GRAPE-WLRS-LP'){
+  } else if (bank.earnTokenName === 'GRAPE-WLRS-LP') {
     tokenStats = grapeWLRSLpStats;
   }
 
@@ -44,8 +44,8 @@ const Harvest = ({bank}) => {
   );
   const earnedInDollars = (Number(tokenPriceInDollars) * Number(getDisplayBalance(earnings))).toFixed(2);
   const earnedInDollarsLP = (Number(tokenPriceInDollarsLP) * Number(getDisplayBalance(earnings))).toFixed(2);
-  const { onReward } = useHarvest(bank);
-  const { onCompound } = useCompound(bank);
+  const {onReward} = useHarvest(bank);
+  const {onCompound} = useCompound(bank);
 
   return (
     <Card>
@@ -58,11 +58,17 @@ const Harvest = ({bank}) => {
             <Typography style={{textTransform: 'uppercase', color: '#930993'}}>
               <Value value={getDisplayBalance(earnings)} />
             </Typography>
-            <Label text={bank.earnTokenName === 'GRAPE-MIM-SW' || bank.earnTokenName === 'GRAPE-WLRS-LP' ? `≈ $${earnedInDollarsLP}` : `≈ $${earnedInDollars}`} />
+            <Label
+              text={
+                bank.earnTokenName === 'GRAPE-MIM-SW' || bank.earnTokenName === 'GRAPE-WLRS-LP'
+                  ? `≈ $${earnedInDollarsLP}`
+                  : `≈ $${earnedInDollars}`
+              }
+            />
             <Typography style={{textTransform: 'uppercase', color: '#fff'}}>{bank.earnTokenName} Earned</Typography>
           </StyledCardHeader>
           <StyledCardActions>
-          <Button
+            <Button
               onClick={onReward}
               disabled={earnings.eq(0)}
               className={earnings.eq(0) ? 'shinyButtonDisabled' : 'shinyButton'}
@@ -71,15 +77,18 @@ const Harvest = ({bank}) => {
             </Button>
           </StyledCardActions>
           <Button
-          style={{marginTop: '20px'}}
-              onClick={onCompound}
-              disabled={Number(earnings) < Number(nodePrice)}
-              className={Number(earnings) < Number(nodePrice) ? 'shinyButtonDisabled' : 'shinyButton'}
-            >
-              Compound {(Number(earnings)/Number(nodePrice))|0} Nodes
+            style={{marginTop: '20px'}}
+            onClick={onCompound}
+            disabled={Number(earnings) < Number(nodePrice)}
+            className={Number(earnings) < Number(nodePrice) ? 'shinyButtonDisabled' : 'shinyButton'}
+          >
+            Compound {(Number(earnings) / Number(nodePrice)) | 0} Nodes
           </Button>
-
         </StyledCardContentInner>
+        <span style={{fontSize: '11px'}}>
+          If you are not seeing the amount of rewards you expected, please wait until contract refills. Refills are
+          automatic and happen multiple times per hour.
+        </span>
       </CardContent>
     </Card>
   );
