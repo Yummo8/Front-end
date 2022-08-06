@@ -20,6 +20,7 @@ import kyc from '../../assets/img/kyc.png';
 import heroImg from '../../assets/img/hero.png';
 import audit from '../../assets/img/audit1.png';
 import HomeImage from '../../assets/img/background.jpg';
+import grapeGold from '../../assets/img/golden-grape.png';
 import {ReactComponent as IconTelegram} from '../../assets/img/telegram.svg';
 import {ReactComponent as IconDiscord} from '../../assets/img/discord.svg';
 import AirdropRewardModal from './AirdropRewardModal';
@@ -135,7 +136,7 @@ const Home = () => {
             <b style={{color: '#e647e6'}}>Grape Finance's Strategies Suggestions</b>
             <br />
             <br />
-            <b>Grape & Wine -</b> Below Peg, do not sell. Keep compounding.
+            <b>Grape & Wine -</b> Below Peg, compounding is recommended. Avoid selling.
             <br />
             <b>Nodes -</b> Compound 3 times, Claim 1 time. You can use your claimed Grapes in{' '}
             <a style={{color: '#e647e6'}} href="https://winemaker.grapefinance.app/">
@@ -169,55 +170,58 @@ const Home = () => {
           <Card>
             <CardContent>
               <Typography color="textSecondary" variant="h3" gutterBottom>
-                🔥Grape News🔥
+                🔥Grape News
               </Typography>
               <Grid container direction="column">
                 <Grid item>
-                  🧊<b>Grape-Wlrs Node -</b> Grape/Walrus LP were boosted, now printing at 1.8% Daily💲
+                  <b>#1 GRAPE CASINO IS NOW OPEN!</b>
+                  <Button
+                    href="https://casino.grapefinance.app"
+                    variant="contained"
+                    className="golden"
+                    style={{marginLeft: '30px'}}
+                    endIcon={<img width={30} height={30} src={grapeGold} />}
+                  >
+                    Play Now!
+                  </Button>
+                </Grid>
+                <Grid item style={{marginTop: '20px'}}>
+                  #2 🧊<b>Grape-Wlrs Node</b> were boosted, now printing at 1.8% Daily💲
                 </Grid>
                 <Grid item>
-                  🍭<b>Swapsicle POPs -</b> GRAPE-MIM LPs will now be claimable on{' '}
+                  #3 🍭<b>Swapsicle POPs </b> for GRAPE-MIM LP are now claimed on{' '}
                   <a style={{color: '#e647e6'}} href="https://www.swapsicle.io/rewards">
                     Swapsicle
                   </a>
                   , instead of airdrops.
                 </Grid>
                 <Grid item>
-                  🔥<b>Keep it burnin' -</b> <span style={{color: '#e647e6'}}>225,000</span> Grape burned thanks to
+                  #4 🔥<b>Keep it burnin',</b> <span style={{color: '#e647e6'}}>225,000</span> Grape burned thanks to
                   Winemaker!
                 </Grid>
                 <Grid item>
-                  🍷<b>Winemaker Updates -</b> Winemaker tweaks & new features coming soon.
+                  #5 🍷<b>Winemaker Updates</b> & new features coming soon. Play <a style={{color: '#e647e6'}} href="https://winemaker.grapefinance.app/">here!</a>
                 </Grid>
                 <Grid item>
-                  🍷<b>Wine Press -</b> Additional burns with the coming soon{' '}
-                  <span style={{color: '#e647e6'}}>Wine Press fixed APR </span>pool for WINE-MIM LPs!
+                  #6 🍇<b>Wine Press,</b> the famous <span style={{color: '#e647e6'}}>Detonator Pool </span>coming soon to
+                  Grape Finance!{' '}
                 </Grid>
                 <Grid item>
-                  🧊<b>Nodes -</b> Revamp of our Nodes are in the works. Goal?{' '}
-                  <span style={{color: '#e647e6'}}>To better reward investors and the protocol at the same time</span>.
+                  #7 🧊<b>Nodes v2 </b> are in the works. <span style={{color: '#e647e6'}}>Sustainable strategies and incentivize good actors.</span>.
                 </Grid>
               </Grid>
-              <p>
-                📖Please join our{' '}
+              <p style={{textAlign: 'center'}}>
                 <a
                   href="https://discord.gg/ZP9aYaXeCJ"
                   rel="noopener noreferrer"
                   target="_blank"
                   style={{color: '#fff'}}
                 >
-                  <b>
-                    <IconDiscord width="40" style={{fill: '#fff', height: '40px'}} /> Discord
-                  </b>
+                  <IconDiscord width="40" style={{fill: '#fff', height: '40px'}} />
                 </a>{' '}
-                or
-                <a href="https://t.me/GrapeDefi" rel="noopener noreferrer" target="_blank" style={{color: '#fff'}}>
-                  <b>
-                    <IconTelegram width="40" style={{fill: '#fff', height: '40px'}} />
-                    Telegram
-                  </b>
+                <a href="https://t.me/GrapeDefi" rel="noopener noreferrer" target="_blank" style={{marginLeft: '20px', color: '#fff'}}>
+                  <IconTelegram width="40" style={{fill: '#fff', height: '40px'}} />
                 </a>
-                &nbsp;to learn more about what exciting stuff is coming next!
               </p>
             </CardContent>
           </Card>
@@ -228,7 +232,7 @@ const Home = () => {
             <Grid item xs={12} style={{color: 'white'}}>
               <Card style={{minHeight: '200px'}}>
                 <CardContent>
-                  <Typography color="textPrimary" variant="h4" >
+                  <Typography color="textPrimary" variant="h4">
                     TOTAL VALUE LOCKED
                   </Typography>
                   {TVL ? (

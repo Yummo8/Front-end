@@ -32,6 +32,7 @@ import debankImg from '../../assets/img/debank.png';
 import rebatesImg from '../../assets/img/rebates.png';
 import vintage from '../../assets/img/vintage-token.png';
 import winemaker from '../../assets/img/Winemaker.png';
+import goldenGrape from '../../assets/img/golden-grape.png';
 import dashboardImg from '../../assets/img/dashboard.png';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
@@ -438,70 +439,38 @@ const Page: React.FC = ({children}) => {
               />
             </Tooltip>
           </Link>
-          <List>
-            <Tooltip arrow followCursor title={open ? '' : 'Winemaker Game'} placement="top-start">
-              <a
-                href="https://winemaker.grapefinance.app/"
-                target="_blank"
-                className="menu-item"
-                rel="noopener noreferrer"
-                style={{padding: 0, display: 'block'}}
+          
+          <Tooltip arrow followCursor title={open ? '' : 'Winemaker Mint'} placement="top-start">
+            <a
+              href="https://mint.grapefinance.app/"
+              target="_blank"
+              className="menu-item"
+              rel="noopener noreferrer"
+              style={{padding: 0, display: 'block'}}
+            >
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}
               >
-                <ListItemButton
+                <ListItemIcon
                   sx={{
-                    minHeight: 48,
-                    justifyContent: open ? 'initial' : 'center',
-                    px: 2.5,
+                    color: 'white',
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
                   }}
                 >
-                  <ListItemIcon
-                    sx={{
-                      color: 'white',
-                      minWidth: 0,
-                      mr: open ? 3 : 'auto',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <img src={winemaker} alt="Winemaker Game" height={25} />
-                  </ListItemIcon>
+                  <img src={vintage} alt="Winemaker Mint" height={25} />
+                </ListItemIcon>
 
-                  <ListItemText primary="Winemaker Game" sx={{opacity: open ? 1 : 0}} />
-                </ListItemButton>
-              </a>
-            </Tooltip>
-          </List>
-          <List>
-            <Tooltip arrow followCursor title={open ? '' : 'Winemaker Mint'} placement="top-start">
-              <a
-                href="https://mint.grapefinance.app/"
-                target="_blank"
-                className="menu-item"
-                rel="noopener noreferrer"
-                style={{padding: 0, display: 'block'}}
-              >
-                <ListItemButton
-                  sx={{
-                    minHeight: 48,
-                    justifyContent: open ? 'initial' : 'center',
-                    px: 2.5,
-                  }}
-                >
-                  <ListItemIcon
-                    sx={{
-                      color: 'white',
-                      minWidth: 0,
-                      mr: open ? 3 : 'auto',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <img src={vintage} alt="Winemaker Mint" height={25} />
-                  </ListItemIcon>
+                <ListItemText primary="Winemaker Mint" sx={{opacity: open ? 1 : 0}} />
+              </ListItemButton>
+            </a>
+          </Tooltip>
 
-                  <ListItemText primary="Winemaker Mint" sx={{opacity: open ? 1 : 0}} />
-                </ListItemButton>
-              </a>
-            </Tooltip>
-          </List>
           <Divider color="#aaa" />
 
           <List>
@@ -704,11 +673,11 @@ const Page: React.FC = ({children}) => {
             {open && (
               <Collapse in={gamesOpen} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
-                  <Tooltip arrow followCursor title={open ? '' : 'Slots'} placement="top-start">
+                <Tooltip arrow followCursor title={open ? '' : 'Wine Maker'} placement="top-start">
                     <a
-                      className="menu-item"
-                      href="https://slot.grapefinance.app/"
+                      href="https://winemaker.grapefinance.app/"
                       target="_blank"
+                      className="menu-item"
                       rel="noopener noreferrer"
                       style={{padding: 0, display: 'block'}}
                     >
@@ -721,12 +690,38 @@ const Page: React.FC = ({children}) => {
                             justifyContent: 'center',
                           }}
                         >
-                          <CasinoIcon />
+                          <img src={winemaker} alt="Wine Maker" height={25} />
                         </ListItemIcon>
-                        <ListItemText primary="Slots" />
+
+                        <ListItemText primary="Wine Maker" sx={{opacity: open ? 1 : 0}} />
                       </ListItemButton>
                     </a>
                   </Tooltip>
+                  <Tooltip arrow followCursor title={open ? '' : 'Grape Casino'} placement="top-start">
+                    <a
+                      href="https://casino.grapefinance.app/"
+                      target="_blank"
+                      className="menu-item"
+                      rel="noopener noreferrer"
+                      style={{padding: 0, display: 'block'}}
+                    >
+                      <ListItemButton sx={{pl: 4}}>
+                        <ListItemIcon
+                          sx={{
+                            color: 'white',
+                            minWidth: 0,
+                            mr: open ? 3 : 'auto',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          <img src={goldenGrape} alt="Grape Casino" height={25} />
+                        </ListItemIcon>
+
+                        <ListItemText primary="Grape Casino" sx={{opacity: open ? 1 : 0}} />
+                      </ListItemButton>
+                    </a>
+                  </Tooltip>
+                  
                   <Tooltip arrow followCursor title={open ? '' : 'Space Shooter'} placement="top-start">
                     <a
                       className="menu-item"
