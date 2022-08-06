@@ -114,7 +114,7 @@ const AprModal = ({open, amountDeposited, handleClose, statsOnPool, coin}) => {
             flexDirection: 'column',
           }}
         >
-          <Typography className={classes.text}>{coin} Deposited:</Typography>
+          <Typography className={classes.text}>$ value of {coin} deposited:</Typography>
           <Box
             sx={{
               borderRadius: '10px',
@@ -132,7 +132,7 @@ const AprModal = ({open, amountDeposited, handleClose, statsOnPool, coin}) => {
                 mb: '10px',
               }}
             >
-              $
+              <span style={{color: 'black'}}>$</span>
               <input
                 type="number"
                 value={aprAmount}

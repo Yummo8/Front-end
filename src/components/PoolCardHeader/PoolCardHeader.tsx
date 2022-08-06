@@ -30,7 +30,7 @@ const PoolCardHeader: React.FC<PoolCardHeaderProps> = ({bank, statsOnPool, stake
     <Grid container style={{position: 'relative'}} spacing={1}>
       <AprModal
         open={modalOpen}
-        amountDeposited={stakedInToken ? stakedInToken : 100}
+        amountDeposited={100}
         handleClose={handleCloseModal}
         statsOnPool={statsOnPool}
         coin={bank.depositTokenName}
