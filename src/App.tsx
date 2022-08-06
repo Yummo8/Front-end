@@ -29,6 +29,7 @@ const Roadmap = lazy(() => import('./views/Roadmap'));
 const Raffle = lazy(() => import('./views/Raffle'));
 const Strategies = lazy(() => import('./views/Strategies'));
 const Help = lazy(() => import('./views/Help'));
+const Sommelier = lazy(() => import('./views/Sommelier'));
 const Nodes = lazy(() => import('./views/Nodes'));
 const Leaderboard = lazy(() => import('./views/Leaderboard'));
 const Stats = lazy(() => import('./views/Stats'));
@@ -103,7 +104,9 @@ const App: React.FC = () => {
             <Route path="/help">
               <Help />
             </Route>
-
+            <Route path="/sommelier">
+              <Sommelier />
+            </Route>
             <Route path="*">
               <NoMatch />
             </Route>
