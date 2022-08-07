@@ -151,16 +151,16 @@ const ZapModal: React.FC<ZapProps> = ({onConfirm, onDismiss, LPtokenName = '', d
             max={zappingTokenBalance}
             symbol={zappingToken}
           />
-          <Label text="Zap Estimations" />
+          {/*<Label text="Zap Estimations" />
           <StyledDescriptionText>
             {' '}
             {LPtokenName} tokens: {Number(estimate.token0) / Number(mimAmountPerLP)}
-          </StyledDescriptionText>
-          <StyledDescriptionText>
-            {/* Spaghetti bolognese right here! */} (
+      </StyledDescriptionText>*/}
+          {/*<StyledDescriptionText>
+          (
             {Number(normalizeOrder(zappingToken, estimate.token0, estimate.token1)[0])} {tokenA} /{' '}
             {Number(normalizeOrder(zappingToken, estimate.token0, estimate.token1)[1])} {tokenB}){' '}
-          </StyledDescriptionText>
+          </StyledDescriptionText>*/}
           <ModalActions>
             <Button
               color="primary"
