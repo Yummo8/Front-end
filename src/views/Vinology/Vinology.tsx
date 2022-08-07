@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Page from '../../components/Page';
 import {createGlobalStyle} from 'styled-components';
 import {Switch} from 'react-router-dom';
 
 import HomeImage from '../../assets/img/background.jpg';
-import {Grid, Container, ListSubheader, ListItemIcon, ListItemText} from '@material-ui/core';
+import {Grid, ListSubheader, ListItemText, FormGroup, FormControlLabel, Checkbox} from '@material-ui/core';
 import {List, ListItemButton, Typography} from '@mui/material';
 
 const BackgroundImage = createGlobalStyle`
@@ -15,7 +15,13 @@ const BackgroundImage = createGlobalStyle`
   }
 `;
 
-const Sommelier: React.FC = () => {
+const Vinology: React.FC = () => {
+  const [completedCount, setCompletedCount] = useState(0);
+
+  const updateCompleted = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCompletedCount(e.target.checked === true ? completedCount + 1 : completedCount - 1);
+  };
+
   return (
     <Switch>
       <Page>
@@ -23,7 +29,7 @@ const Sommelier: React.FC = () => {
         <Grid container>
           <Grid item xs={12} md={12} lg={12}>
             <Typography color="white" align="center" variant="h3" gutterBottom>
-              Become a Sommelier
+              Vinology
             </Typography>
             <Typography color="white" align="center" variant="h6" gutterBottom style={{marginBottom: '40px'}}>
               Learn more about Grape Finance, our best practices, strategies and how to maximum your returns.
@@ -79,132 +85,203 @@ const Sommelier: React.FC = () => {
 
             <Typography color="white" variant="h4" gutterBottom style={{marginTop: '40px'}}>
               1. Intro to Grape Finance
+              <FormGroup>
+                <FormControlLabel
+                  control={<Checkbox onChange={updateCompleted} color="default" />}
+                  label="Mark Completed"
+                />
+              </FormGroup>
             </Typography>
-            <Typography color="white" variant="h6" gutterBottom >
+            <Typography color="white" variant="h6" gutterBottom>
               a. A message from Grape Finance
             </Typography>
-            <Typography color="white" variant="h6" gutterBottom >
+            <Typography color="white" variant="h6" gutterBottom>
               b. Grape questionnaire
             </Typography>
-            <Typography color="white" variant="h6" gutterBottom >
+            <Typography color="white" variant="h6" gutterBottom>
               c. The Vision of our Ecosystem
             </Typography>
 
             <Typography color="white" variant="h4" gutterBottom style={{marginTop: '40px'}}>
               2. Seigniorage Basics
+              <FormGroup>
+                <FormControlLabel
+                  control={<Checkbox onChange={updateCompleted} color="default" />}
+                  label="Mark Completed"
+                />
+              </FormGroup>
             </Typography>
-            <Typography color="white" variant="h6" gutterBottom >
+            <Typography color="white" variant="h6" gutterBottom>
               a. Seigniorage Protocol Methodology Video
             </Typography>
-            <Typography color="white" variant="h6" gutterBottom >
+            <Typography color="white" variant="h6" gutterBottom>
               b. Protocol Tokens and Profits
             </Typography>
-            
+
             <Typography color="white" variant="h4" gutterBottom style={{marginTop: '40px'}}>
               3. Liquidity
+              <FormGroup>
+                <FormControlLabel
+                  control={<Checkbox onChange={updateCompleted} color="default" />}
+                  label="Mark Completed"
+                />
+              </FormGroup>
             </Typography>
-            <Typography color="white" variant="h6" gutterBottom >
+            <Typography color="white" variant="h6" gutterBottom>
               a. Liquidity Pools video
             </Typography>
-            <Typography color="white" variant="h6" gutterBottom >
+            <Typography color="white" variant="h6" gutterBottom>
               b. Trading Term video
             </Typography>
 
             <Typography color="white" variant="h4" gutterBottom style={{marginTop: '40px'}}>
               4. Vineyard
+              <FormGroup>
+                <FormControlLabel
+                  control={<Checkbox onChange={updateCompleted} color="default" />}
+                  label="Mark Completed"
+                />
+              </FormGroup>
             </Typography>
-            <Typography color="white" variant="h6" gutterBottom >
+            <Typography color="white" variant="h6" gutterBottom>
               a. Pool allocations video
             </Typography>
-            
+
             <Typography color="white" variant="h4" gutterBottom style={{marginTop: '40px'}}>
               5. Winery
+              <FormGroup>
+                <FormControlLabel
+                  control={<Checkbox onChange={updateCompleted} color="default" />}
+                  label="Mark Completed"
+                />
+              </FormGroup>
             </Typography>
-            <Typography color="white" variant="h6" gutterBottom >
+            <Typography color="white" variant="h6" gutterBottom>
               a. Staking/Locking Timer
             </Typography>
-            <Typography color="white" variant="h6" gutterBottom >
+            <Typography color="white" variant="h6" gutterBottom>
               b. TWAP, PEG, EPOCH
             </Typography>
-            <Typography color="white" variant="h6" gutterBottom >
+            <Typography color="white" variant="h6" gutterBottom>
               c. Debt phase
             </Typography>
-            <Typography color="white" variant="h6" gutterBottom >
+            <Typography color="white" variant="h6" gutterBottom>
               b. Continuation past Wine emissions
             </Typography>
 
             <Typography color="white" variant="h4" gutterBottom style={{marginTop: '40px'}}>
               6. Features
+              <FormGroup>
+                <FormControlLabel
+                  control={<Checkbox onChange={updateCompleted} color="default" />}
+                  label="Mark Completed"
+                />
+              </FormGroup>
             </Typography>
-            <Typography color="white" variant="h6" gutterBottom >
+            <Typography color="white" variant="h6" gutterBottom>
               a. Nodes - Locked Staking Pools
             </Typography>
-            <Typography color="white" variant="h6" gutterBottom >
+            <Typography color="white" variant="h6" gutterBottom>
               b. NFTs
             </Typography>
-            <Typography color="white" variant="h6" gutterBottom >
+            <Typography color="white" variant="h6" gutterBottom>
               c. GBonds - Peg Protection Bonds
             </Typography>
-            <Typography color="white" variant="h6" gutterBottom >
+            <Typography color="white" variant="h6" gutterBottom>
               d. Rebates - Treasury Bonds
             </Typography>
-            <Typography color="white" variant="h6" gutterBottom >
+            <Typography color="white" variant="h6" gutterBottom>
               d. Autocompounders
             </Typography>
 
             <Typography color="white" variant="h4" gutterBottom style={{marginTop: '40px'}}>
               7. Strategies
+              <FormGroup>
+                <FormControlLabel
+                  control={<Checkbox onChange={updateCompleted} color="default" />}
+                  label="Mark Completed"
+                />
+              </FormGroup>
             </Typography>
-            <Typography color="white" variant="h6" gutterBottom >
+            <Typography color="white" variant="h6" gutterBottom>
               a. Zones
             </Typography>
-            <Typography color="white" variant="h6" gutterBottom >
+            <Typography color="white" variant="h6" gutterBottom>
               b. Profit Taking
             </Typography>
-            <Typography color="white" variant="h6" gutterBottom >
-              c. Peg protection 
+            <Typography color="white" variant="h6" gutterBottom>
+              c. Peg protection
             </Typography>
 
             <Typography color="white" variant="h4" gutterBottom style={{marginTop: '40px'}}>
               8. Utility
+              <FormGroup>
+                <FormControlLabel
+                  control={<Checkbox onChange={updateCompleted} color="default" />}
+                  label="Mark Completed"
+                />
+              </FormGroup>
             </Typography>
-            <Typography color="white" variant="h6" gutterBottom >
+            <Typography color="white" variant="h6" gutterBottom>
               a. Lending & Borrowing
             </Typography>
-            <Typography color="white" variant="h6" gutterBottom >
+            <Typography color="white" variant="h6" gutterBottom>
               b. The Wine Maker Game
             </Typography>
-            <Typography color="white" variant="h6" gutterBottom >
+            <Typography color="white" variant="h6" gutterBottom>
               c. Partner Games
             </Typography>
-            <Typography color="white" variant="h6" gutterBottom >
+            <Typography color="white" variant="h6" gutterBottom>
               d. Genesis Pools
             </Typography>
 
             <Typography color="white" variant="h4" gutterBottom style={{marginTop: '40px'}}>
               9. Getting Started
+              <FormGroup>
+                <FormControlLabel
+                  control={<Checkbox onChange={updateCompleted} color="default" />}
+                  label="Mark Completed"
+                />
+              </FormGroup>
             </Typography>
-            <Typography color="white" variant="h6" gutterBottom >
+            <Typography color="white" variant="h6" gutterBottom>
               a. Buying Grape & Wine
             </Typography>
-            <Typography color="white" variant="h6" gutterBottom >
+            <Typography color="white" variant="h6" gutterBottom>
               b. Creating an LP
             </Typography>
-            <Typography color="white" variant="h6" gutterBottom >
+            <Typography color="white" variant="h6" gutterBottom>
               c. Creating a Node
             </Typography>
-            <Typography color="white" variant="h6" gutterBottom >
+            <Typography color="white" variant="h6" gutterBottom>
               d. Buying an NFT
             </Typography>
 
             <Typography color="white" variant="h4" gutterBottom style={{marginTop: '40px'}}>
               10. Links
+              <FormGroup>
+                <FormControlLabel
+                  control={<Checkbox onChange={updateCompleted} color="default" />}
+                  label="Mark Completed"
+                />
+              </FormGroup>
             </Typography>
-           
+
             <Typography color="white" variant="h4" gutterBottom style={{marginTop: '40px'}}>
               11. Partnerships
+              <FormGroup>
+                <FormControlLabel
+                  control={<Checkbox onChange={updateCompleted} color="default" />}
+                  label="Mark Completed"
+                />
+              </FormGroup>
             </Typography>
-            
+
+            <Typography color="white" variant="h4" gutterBottom style={{marginTop: '40px'}}>
+              12. Final Quiz - Complete other sections first {completedCount}
+              {completedCount === 11 && <span>Show quizz here</span>}
+            </Typography>
+
             <iframe
               width="100%"
               height="550px"
@@ -271,4 +348,4 @@ const Sommelier: React.FC = () => {
   );
 };
 
-export default Sommelier;
+export default Vinology;
