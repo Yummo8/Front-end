@@ -7,6 +7,9 @@ import HomeImage from '../../assets/img/background.jpg';
 import {Grid, ListSubheader, ListItemText, FormGroup, FormControlLabel, Checkbox} from '@material-ui/core';
 import {List, ListItemButton, Typography} from '@mui/material';
 
+import questions from '../../assets/jsons/questions.json';
+import {verify} from 'crypto';
+
 const BackgroundImage = createGlobalStyle`
   body {
     //background: url(${HomeImage}) repeat !important;
@@ -16,10 +19,51 @@ const BackgroundImage = createGlobalStyle`
 `;
 
 const Vinology: React.FC = () => {
-  const [completedCount, setCompletedCount] = useState(0);
+  const [completedCount, setCompletedCount] = useState(11);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [quizSuccess, setQuizSuccess] = useState(false);
+
 
   const updateCompleted = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCompletedCount(e.target.checked === true ? completedCount + 1 : completedCount - 1);
+  };
+
+  const previous = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    }
+  };
+
+  const next = () => {
+    const result = verifyAnswer();
+    if (!result) {
+      alert('WRONG');
+    } else {
+      if (currentIndex < questions.length - 1) {
+        setCurrentIndex(currentIndex + 1);
+        userAnswers = [false, false, false, false];
+      } else {
+        // Finish Quizz
+        alert('congrats')
+        setQuizSuccess(true)
+      }
+    }
+  };
+
+  let userAnswers = [false, false, false, false];
+  const markAnswer = (checked: boolean, answerIndex: number) => {
+    userAnswers[answerIndex] = checked;
+  };
+
+  const verifyAnswer = (): boolean => {
+    let isValid = true;
+    userAnswers.forEach((userAnswer, index) => {
+      const answer = questions[currentIndex].answers[index];
+      if (userAnswer !== answer.correct) {
+        isValid = false;
+      }
+    });
+    return isValid;
   };
 
   return (
@@ -279,68 +323,37 @@ const Vinology: React.FC = () => {
 
             <Typography color="white" variant="h4" gutterBottom style={{marginTop: '40px'}}>
               12. Final Quiz - Complete other sections first {completedCount}
-              {completedCount === 11 && <span>Show quizz here</span>}
             </Typography>
 
-            <iframe
-              width="100%"
-              height="550px"
-              src="https://www.youtube.com/embed/L9oo4yj-HIM"
-              title="Grape Finance Videos"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            ></iframe>
-
-            <h1 style={{textAlign: 'center', marginTop: '60px'}}>Beginner tutorial on Grape staking & adding to LPs</h1>
-            <br></br>
-            <iframe
-              width="100%"
-              height="550px"
-              src="https://www.youtube.com/embed/JBWCOadvqbw"
-              title="Grape Finance Videos"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            ></iframe>
-
-            <h1 style={{textAlign: 'center', marginTop: '60px'}}>
-              Zone 1 - Introductions & what to do when Grape is above $2
-            </h1>
-            <br></br>
-            <iframe
-              width="100%"
-              height="550px"
-              src="https://www.youtube.com/embed/videoseries?list=PL_Nr1FoFNB03Ep-LDgn0_nHdFGuYcO030"
-              title="Grape Finance Videos"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            ></iframe>
-
-            <h1 style={{textAlign: 'center', marginTop: '60px'}}>Grape Finance Pool Priorities</h1>
-            <br></br>
-            <iframe
-              width="100%"
-              height="550px"
-              src="https://www.youtube.com/embed/videoseries?list=PL_Nr1FoFNB0004BPaACfcqYMZKcunv6Cq"
-              title="Grape Finance Videos"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            ></iframe>
-
-            <h1 style={{textAlign: 'center', marginTop: '60px'}}>The Basics of Seigniorage Protocols</h1>
-            <br></br>
-            <iframe
-              width="100%"
-              height="550px"
-              src="https://www.youtube.com/embed/videoseries?list=PL_Nr1FoFNB02T0LSnRbFMFJoLTU4yszqJ"
-              title="Grape Finance Videos"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            ></iframe>
-
-            <h1 style={{textAlign: 'center', marginTop: '60px'}}>How to stake LP tokens & Wine at Grape Finance</h1>
-            <br></br>
-            <iframe
-              width="100%"
-              height="550px"
-              src="https://www.youtube.com/embed/xHVqLK_Segw?rel=0"
-              title="Grape Finance Videos"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            ></iframe>
+            {completedCount === 11 && (
+              <Grid container direction="column">
+                <Grid item>
+                  Question {currentIndex + 1}:{questions.length}
+                </Grid>
+                <Grid item>{questions[currentIndex].questionTitle}</Grid>
+                <Grid item>Answers:</Grid>
+                <Grid item>
+                  {questions[currentIndex].answers.map((answer, answerIndex) => (
+                    <React.Fragment key={`${currentIndex}-${answerIndex}`}>
+                      <div>
+                        <FormGroup>
+                          <FormControlLabel
+                            control={
+                              <Checkbox onChange={(e) => markAnswer(e.target.checked, answerIndex)} color="default" />
+                            }
+                            label={answer.text}
+                          />
+                        </FormGroup>
+                      </div>
+                    </React.Fragment>
+                  ))}
+                </Grid>
+                <Grid item>
+                  <button onClick={previous}>Previous</button> |{' '}
+                  <button onClick={next}>{currentIndex === questions.length - 1 ? 'Finish Quiz' : 'Next'}</button>
+                </Grid>
+              </Grid>
+            )}
           </Grid>
         </Grid>
       </Page>
@@ -349,3 +362,6 @@ const Vinology: React.FC = () => {
 };
 
 export default Vinology;
+function verifyAnswer() {
+  throw new Error('Function not implemented.');
+}

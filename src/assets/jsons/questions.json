@@ -1,0 +1,112 @@
+[
+    {
+        "category": "General",
+        "questionTitle": "Who is LB?",
+        "answers": [
+            {
+                "correct": true,
+                "text": "a kiddo"
+            },
+            {
+                "correct": false,
+                "text": "an animal"
+            },
+            {
+                "correct": false,
+                "text": "a boat"
+            },
+            {
+                "correct": false,
+                "text": "a car"
+            }
+        ]
+    },
+    {
+        "category": "General",
+        "questionTitle": "What is Grape?",
+        "answers": [
+            {
+                "correct": true,
+                "text": "a fruit"
+            },
+            {
+                "correct": false,
+                "text": "a token"
+            },
+            {
+                "correct": false,
+                "text": "a prince"
+            },
+            {
+                "correct": false,
+                "text": "a star"
+            }
+        ]
+    },
+    {
+        "category": "General",
+        "questionTitle": "What are we pegged?",
+        "answers": [
+            {
+                "correct": true,
+                "text": "mim"
+            },
+            {
+                "correct": false,
+                "text": "avax"
+            },
+            {
+                "correct": false,
+                "text": "wine"
+            },
+            {
+                "correct": false,
+                "text": "a troll"
+            }
+        ]
+    },
+    {
+        "category": "General",
+        "questionTitle": "Who is MIM?",
+        "answers": [
+            {
+                "correct": true,
+                "text": "a clown"
+            },
+            {
+                "correct": false,
+                "text": "steve"
+            },
+            {
+                "correct": false,
+                "text": "pacman"
+            },
+            {
+                "correct": false,
+                "text": "bla"
+            }
+        ]
+    },
+    {
+        "category": "General",
+        "questionTitle": "Winery?",
+        "answers": [
+            {
+                "correct": true,
+                "text": "a clown"
+            },
+            {
+                "correct": false,
+                "text": "steve"
+            },
+            {
+                "correct": false,
+                "text": "pacman"
+            },
+            {
+                "correct": false,
+                "text": "bla"
+            }
+        ]
+    }
+]
