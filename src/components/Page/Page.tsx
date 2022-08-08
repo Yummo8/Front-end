@@ -334,7 +334,7 @@ const Page: React.FC = ({children}) => {
               {screenSM && (
                 <div>
                   <Button
-                    className="buy-button"
+                    className="shinyButton"
                     aria-haspopup="true"
                     aria-expanded={buyOpen ? 'true' : undefined}
                     disableElevation
