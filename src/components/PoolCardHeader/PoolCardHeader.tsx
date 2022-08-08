@@ -72,7 +72,7 @@ const PoolCardHeader: React.FC<PoolCardHeaderProps> = ({bank, statsOnPool, stake
                 <span>Lock your {bank.depositTokenName} to earn daily yields</span>
               ) : (
                 <span>
-                  Earn {bank.earnTokenName} {bank.contract === 'GrapeMimSWWineRewardPool' ? '+ POPs airdrops' : null}
+                  Earn {bank.earnTokenName} {bank.contract === 'GrapeMimSWWineRewardPool' ? '+ POPs to claim' : null}
                 </span>
               )}
             </Typography>
