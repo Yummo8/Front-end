@@ -334,11 +334,9 @@ const Page: React.FC = ({children}) => {
               {screenSM && (
                 <div>
                   <Button
-                    className="shinyButton"
-                    aria-controls={buyOpen ? 'customized-menu' : undefined}
+                    className="buy-button"
                     aria-haspopup="true"
                     aria-expanded={buyOpen ? 'true' : undefined}
-                    variant="contained"
                     disableElevation
                     onClick={handleBuyClick}
                     endIcon={<KeyboardArrowDownIcon />}
@@ -377,6 +375,16 @@ const Page: React.FC = ({children}) => {
                     <a className="menu-item" href="/bond">
                       <MenuItem onClick={handleBuyClose} disableRipple>
                         Buy Gbond
+                      </MenuItem>
+                    </a>
+                    <a
+                      className="menu-item"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://www.swapsicle.io/swap?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0x01Af64EF39AEB5612202AA07B3A3829f20c395fd#/"
+                    >
+                      <MenuItem onClick={handleBuyClose} disableRipple>
+                        Buy Vintage
                       </MenuItem>
                     </a>
                     <Divider sx={{my: 0.5}} />
