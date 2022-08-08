@@ -5,6 +5,7 @@ import {Modal, List} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import trustWalletLogo from '../../assets/img/trust-wallet.svg';
 import metamaskLogo from '../../assets/img/metamask-fox.svg';
+import coreLogo from '../../assets/img/core.png';
 import walletConnectLogo from '../../assets/img/wallet-connect.svg';
 import coingBaseLogo from '../../assets/img/coinbase_logo.jpeg';
 import {useWallet} from 'use-wallet';
@@ -41,7 +42,7 @@ const WalletProviderModal = ({open, handleClose}) => {
       onClose={handleClose}
     >
       <div className={classes.paper}>
-        <h2>Connect Wallet</h2>
+        <h3>Connect Wallet</h3>
         <List component="nav" aria-label="main mailbox folders">
           <WalletCard
             icon={<img src={metamaskLogo} alt="Metamask logo" style={{height: 32}} />}
@@ -49,6 +50,13 @@ const WalletProviderModal = ({open, handleClose}) => {
               connect('injected');
             }}
             title="Metamask"
+          />
+                    <WalletCard
+            icon={<img src={coreLogo} alt="Core logo" style={{height: 32}} />}
+            onConnect={() => {
+              connect('injected');
+            }}
+            title="Core"
           />
           <WalletCard
             icon={<img src={trustWalletLogo} alt="Trust Wallet logo" style={{height: 32}} />}
