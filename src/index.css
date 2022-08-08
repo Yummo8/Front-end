@@ -122,10 +122,19 @@ h6 {
   font-size: 4.5rem;
 }
 
-.wallet-token-blanace {
+.wallet-token-balance {
   font-size: 1.7rem;
 }
-
+@media screen and (max-width: 1300px) {
+  .wallet-token-balance {
+    font-size: 1.4rem;
+  }
+}
+@media screen and (max-width: 1150px) {
+  .wallet-token-balance {
+    font-size: 1.2rem;
+  }
+}
 @media screen and (max-width: 660px) {
   .tvl {
     font-size: 4rem;
@@ -136,7 +145,7 @@ h6 {
   .tvl {
     font-size: 3.5rem;
   }
-  .wallet-token-blanace {
+  .wallet-token-balance {
     font-size: 1.4rem;
   }
 
@@ -153,7 +162,7 @@ h6 {
   .tvl {
     font-size: 3rem;
   }
-  .wallet-token-blanace {
+  .wallet-token-balance {
     font-size: 0.8rem;
   }
 }

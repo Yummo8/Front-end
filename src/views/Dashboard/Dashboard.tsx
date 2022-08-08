@@ -61,6 +61,8 @@ const Dashboard = () => {
   const displayWineBalance = useMemo(() => getDisplayBalance(wineBalance), [wineBalance]);
   const gbondBalance = useTokenBalance(grapeFinance.GBOND);
   const displayGbondBalance = useMemo(() => getDisplayBalance(gbondBalance), [gbondBalance]);
+  const vintageBalance = useTokenBalance(grapeFinance.VINTAGE);
+  const displayVintageBalance = useMemo(() => getDisplayBalance(vintageBalance), [vintageBalance]);
 
   const grapePriceInDollars = useMemo(
     () => (grapeStats ? Number(grapeStats.priceInDollars).toFixed(2) : null),
@@ -106,7 +108,7 @@ const Dashboard = () => {
             Dashboard
           </Typography>
           <Grid container spacing={3}>
-            <Grid item xs={12} md={6} lg={6}>
+            <Grid item xs={12} md={7} lg={7}>
               <Card style={{textAlign: 'center', minHeight: matches960 ? '0' : '232px'}}>
                 <CardContent>
                   <Typography color="textPrimary" align="center" variant="h5" gutterBottom>
@@ -116,7 +118,7 @@ const Dashboard = () => {
                     <StyledBalanceWrapper>
                       <TokenSymbol width={40} height={35} symbol="GRAPE" />
                       <StyledBalance>
-                        <span className="wallet-token-blanace">{displayGrapeBalance}</span>
+                        <span className="wallet-token-balance">{displayGrapeBalance}</span>
                         <Label text="GRAPE" />
                       </StyledBalance>
                     </StyledBalanceWrapper>
@@ -124,7 +126,7 @@ const Dashboard = () => {
                     <StyledBalanceWrapper>
                       <TokenSymbol width={35} height={35} symbol="WINE" />
                       <StyledBalance>
-                      <span className="wallet-token-blanace">{displayWineBalance}</span>
+                      <span className="wallet-token-balance">{displayWineBalance}</span>
                         <Label text="WINE" />
                       </StyledBalance>
                     </StyledBalanceWrapper>
@@ -132,8 +134,16 @@ const Dashboard = () => {
                     <StyledBalanceWrapper>
                       <TokenSymbol width={40} height={35} symbol="GBOND" />
                       <StyledBalance>
-                      <span className="wallet-token-blanace">{displayGbondBalance}</span>
+                      <span className="wallet-token-balance">{displayGbondBalance}</span>
                         <Label text="GBOND" />
+                      </StyledBalance>
+                    </StyledBalanceWrapper>
+
+                    <StyledBalanceWrapper>
+                      <TokenSymbol width={40} height={35} symbol="sVintage" />
+                      <StyledBalance>
+                      <span className="wallet-token-balance">{displayVintageBalance}</span>
+                        <Label text="VINTAGE" />
                       </StyledBalance>
                     </StyledBalanceWrapper>
                   </Balances>
@@ -141,7 +151,7 @@ const Dashboard = () => {
               </Card>
             </Grid>
 
-            <Grid item xs={12} md={6} lg={6}>
+            <Grid item xs={12} md={5} lg={5}>
               <Card style={{textAlign: 'center', minHeight: '190px'}}>
                 <CardContent>
                   <Grid container direction="column" spacing={1}>
