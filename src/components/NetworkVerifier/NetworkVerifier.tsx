@@ -18,7 +18,7 @@ const NetworkVerifier: React.FC = () => {
       }
     }
 
-    setTimeout(verifyEthereum, 1000);
+    setTimeout(verifyEthereum, 3000);
   }, []);
 
   return (
