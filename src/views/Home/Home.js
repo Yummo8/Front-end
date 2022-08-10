@@ -21,6 +21,8 @@ import heroImg from '../../assets/img/hero.png';
 import audit from '../../assets/img/audit1.png';
 import HomeImage from '../../assets/img/background.jpg';
 import grapeGold from '../../assets/img/golden-grape.png';
+import pressImg from '../../assets/img/press.png';
+import newsImg from '../../assets/img/news.png';
 import {ReactComponent as IconTelegram} from '../../assets/img/telegram.svg';
 import {ReactComponent as IconDiscord} from '../../assets/img/discord.svg';
 import AirdropRewardModal from './AirdropRewardModal';
@@ -174,16 +176,28 @@ const Home = () => {
               </Typography>
               <Grid container direction="column">
                 <Grid item>
-                  <b>#1 GRAPE CASINO IS NOW OPEN!</b>
+                  <b>#1 WINE PRESS IS OPENED!</b>
+                  <Button
+                    href="https://winepress.grapefinance.app/"
+                    variant="contained"
+                    className="winepress"
+                    startIcon={<img width={30} height={30} src={pressImg} />}
+                    style={{marginLeft: '30px'}}
+                  >
+                    PRESS WINE NOW!
+                  </Button>
+                </Grid>
+                <Grid item>
+                  #2{' '}
                   <Button
                     href="https://casino.grapefinance.app"
                     variant="contained"
                     className="golden"
-                    style={{marginLeft: '30px'}}
-                    endIcon={<img width={30} height={30} src={grapeGold} />}
+                    startIcon={<img width={30} height={30} src={grapeGold} />}
                   >
-                    Play Now!
+                    Play
                   </Button>
+                  <b> GRAPE CASINO NOW!</b>
                 </Grid>
                 <Grid item style={{marginTop: '20px'}}>
                   #2 🧊<b>Grape-Wlrs Node</b> were boosted, now printing at 1.8% Daily💲
@@ -200,14 +214,18 @@ const Home = () => {
                   Winemaker!
                 </Grid>
                 <Grid item>
-                  #5 🍷<b>Winemaker Updates</b> & new features coming soon. Play <a style={{color: '#e647e6'}} href="https://winemaker.grapefinance.app/">here!</a>
+                  #5 🍷<b>Winemaker Updates</b> & new features coming soon. Play{' '}
+                  <a style={{color: '#e647e6'}} href="https://winemaker.grapefinance.app/">
+                    here!
+                  </a>
                 </Grid>
                 <Grid item>
-                  #6 🍇<b>Wine Press,</b> the famous <span style={{color: '#e647e6'}}>Detonator Pool </span>coming soon to
-                  Grape Finance!{' '}
+                  #6 🍇<b>Wine Press,</b> the famous <span style={{color: '#e647e6'}}>Detonator Pool </span>coming soon
+                  to Grape Finance!{' '}
                 </Grid>
                 <Grid item>
-                  #7 🧊<b>Nodes v2 </b> are in the works. <span style={{color: '#e647e6'}}>Sustainable strategies and incentivize good actors.</span>.
+                  #7 🧊<b>Nodes v2 </b> are in the works.{' '}
+                  <span style={{color: '#e647e6'}}>Sustainable strategies and incentivize good actors.</span>.
                 </Grid>
               </Grid>
               <p style={{textAlign: 'center'}}>
@@ -219,7 +237,12 @@ const Home = () => {
                 >
                   <IconDiscord width="40" style={{fill: '#fff', height: '40px'}} />
                 </a>{' '}
-                <a href="https://t.me/GrapeDefi" rel="noopener noreferrer" target="_blank" style={{marginLeft: '20px', color: '#fff'}}>
+                <a
+                  href="https://t.me/GrapeDefi"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  style={{marginLeft: '20px', color: '#fff'}}
+                >
                   <IconTelegram width="40" style={{fill: '#fff', height: '40px'}} />
                 </a>
               </p>

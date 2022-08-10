@@ -54,7 +54,6 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
-import CasinoIcon from '@mui/icons-material/Casino';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import StadiumIcon from '@mui/icons-material/Stadium';
 import SavingsIcon from '@mui/icons-material/Savings';
@@ -67,7 +66,7 @@ import StorefrontIcon from '@mui/icons-material/Storefront';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
-
+import pressIcon from '../../assets/img/press.png';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -447,7 +446,7 @@ const Page: React.FC = ({children}) => {
               />
             </Tooltip>
           </Link>
-          
+
           <Tooltip arrow followCursor title={open ? '' : 'Winemaker Mint'} placement="top-start">
             <a
               href="https://mint.grapefinance.app/"
@@ -482,6 +481,43 @@ const Page: React.FC = ({children}) => {
           <Divider color="#aaa" />
 
           <List>
+            <Tooltip arrow followCursor title={open ? '' : 'Wine Press'} placement="top-start">
+              <a
+                href="https://winepress.grapefinance.app/"
+                target="_blank"
+                className="menu-item"
+                rel="noopener noreferrer"
+                style={{padding: 0, display: 'block'}}
+              >
+                <ListItem
+                  className="menu-item"
+                  button
+                  disablePadding
+                  sx={{display: 'block'}}
+                >
+                  <ListItemButton
+                    sx={{
+                      minHeight: 48,
+                      justifyContent: open ? 'initial' : 'center',
+                      px: 2.5,
+                    }}
+                  >
+                    <ListItemIcon
+                      sx={{
+                        color: 'white',
+                        minWidth: 0,
+                        mr: open ? 3 : 'auto',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      <img src={pressIcon} alt="WinePress" width={25} />
+                    </ListItemIcon>
+                    <ListItemText primary="Wine Press" sx={{opacity: open ? 1 : 0}} />
+                  </ListItemButton>
+                </ListItem>
+              </a>
+            </Tooltip>
+
             <Tooltip arrow followCursor title={open ? '' : 'Dashboard'} placement="top-start">
               <ListItem
                 className="menu-item"
@@ -681,7 +717,7 @@ const Page: React.FC = ({children}) => {
             {open && (
               <Collapse in={gamesOpen} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
-                <Tooltip arrow followCursor title={open ? '' : 'Wine Maker'} placement="top-start">
+                  <Tooltip arrow followCursor title={open ? '' : 'Wine Maker'} placement="top-start">
                     <a
                       href="https://winemaker.grapefinance.app/"
                       target="_blank"
@@ -729,7 +765,7 @@ const Page: React.FC = ({children}) => {
                       </ListItemButton>
                     </a>
                   </Tooltip>
-                  
+
                   <Tooltip arrow followCursor title={open ? '' : 'Space Shooter'} placement="top-start">
                     <a
                       className="menu-item"

@@ -260,24 +260,43 @@ code {
 
 @keyframes golden-background {
   0% {
-    transform: scale(1);
     background-image: linear-gradient(to right bottom, #ffd700, #f5ca0a, #eabc12, #dfb016, #d4a31a);
   }
   25% {
-    transform: scale(1.02);
     background-image: linear-gradient(to right bottom, #d4a31a, #ffd700, #f5ca0a, #eabc12, #dfb016);
   }
   50% {
-    transform: scale(1.04);
     background-image: linear-gradient(to right bottom, #dfb016, #d4a31a, #ffd700, #f5ca0a, #eabc12);
   }
   75% {
-    transform: scale(1.02);
     background-image: linear-gradient(to right bottom, #eabc12, #dfb016, #d4a31a, #ffd700, #f5ca0a);
   }
   100% {
-    transform: scale(1);
     background-image: linear-gradient(to right bottom, #f5ca0a, #eabc12, #dfb016, #d4a31a, #ffd700);
+  }
+}
+
+
+@keyframes winepress-background {
+  0% {
+    transform: scale(1);
+    background-image: linear-gradient(to right top, #b712b7, #ab17ab, #9e179e, #8f158f, #841484);
+  }
+  25% {
+    transform: scale(1.02);
+    background-image: linear-gradient(to right top, #841484, #b712b7, #ab17ab, #9e179e, #8f158f);
+  }
+  50% {
+    transform: scale(1.04);
+    background-image: linear-gradient(to right top, #8f158f, #841484, #b712b7, #ab17ab, #9e179e);
+  }
+  75% {
+    transform: scale(1.02);
+    background-image: linear-gradient(to right top, #9e179e, #8f158f, #841484, #b712b7, #ab17ab);
+  }
+  100% {
+    transform: scale(1);
+    background-image: linear-gradient(to right top, #ab17ab, #9e179e, #8f158f, #841484, #b712b7);
   }
 }
 
@@ -287,6 +306,12 @@ code {
   transform: scale(1);
   background-image: linear-gradient(to right bottom, #ffd700, #f5ca0a, #eabc12, #dfb016, #d4a31a);
   animation: golden-background 0.6s linear infinite;
+}
+
+.winepress {
+  color: white !important;
+  background-image: linear-gradient(to right bottom, #ffd700, #f5ca0a, #eabc12, #dfb016, #d4a31a);
+  animation: winepress-background 0.6s linear infinite;
 }
 
 .shinyButtonDisabled {
