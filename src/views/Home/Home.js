@@ -21,7 +21,7 @@ import heroImg from '../../assets/img/hero.png';
 import audit from '../../assets/img/audit1.png';
 import HomeImage from '../../assets/img/background.jpg';
 import grapeGold from '../../assets/img/golden-grape.png';
-import pressImg from '../../assets/img/press.png';
+import pressImg from '../../assets/img/barrel.png';
 import newsImg from '../../assets/img/news.png';
 import {ReactComponent as IconTelegram} from '../../assets/img/telegram.svg';
 import {ReactComponent as IconDiscord} from '../../assets/img/discord.svg';
@@ -181,10 +181,10 @@ const Home = () => {
                     href="https://winepress.grapefinance.app/"
                     variant="contained"
                     className="winepress"
-                    startIcon={<img width={30} height={30} src={pressImg} />}
+                    startIcon={<img width={50} height={30} src={pressImg} />}
                     style={{marginLeft: '15px'}}
                   >
-                    PRESS WINE NOW!
+                    PRESS WINE!
                   </Button>
                 </Grid>
                 <Grid item>

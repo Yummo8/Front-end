@@ -66,7 +66,7 @@ import StorefrontIcon from '@mui/icons-material/Storefront';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
-import pressIcon from '../../assets/img/press.png';
+import pressIcon from '../../assets/img/barrel.png';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -510,7 +510,7 @@ const Page: React.FC = ({children}) => {
                         justifyContent: 'center',
                       }}
                     >
-                      <img src={pressIcon} alt="WinePress" width={25} />
+                      <img src={pressIcon} alt="WinePress" width={30} />
                     </ListItemIcon>
                     <ListItemText primary="Wine Press" sx={{opacity: open ? 1 : 0}} />
                   </ListItemButton>
