@@ -176,13 +176,13 @@ const Home = () => {
               </Typography>
               <Grid container direction="column">
                 <Grid item>
-                  <b>#1 WINE PRESS IS OPENED!</b>
+                  <b>#1 WINE PRESS IS OPENED! </b> Earn 1.25% daily + bonus + lottery!
                   <Button
                     href="https://winepress.grapefinance.app/"
                     variant="contained"
                     className="winepress"
                     startIcon={<img width={30} height={30} src={pressImg} />}
-                    style={{marginLeft: '30px'}}
+                    style={{marginLeft: '15px'}}
                   >
                     PRESS WINE NOW!
                   </Button>
