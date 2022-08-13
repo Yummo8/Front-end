@@ -447,7 +447,7 @@ const Page: React.FC = ({children}) => {
             </Tooltip>
           </Link>
 
-          <Tooltip arrow followCursor title={open ? '' : 'Winemaker Mint'} placement="top-start">
+          {/*<Tooltip arrow followCursor title={open ? '' : 'Winemaker Mint'} placement="top-start">
             <a
               href="https://mint.grapefinance.app/"
               target="_blank"
@@ -476,7 +476,7 @@ const Page: React.FC = ({children}) => {
                 <ListItemText primary="Winemaker Mint" sx={{opacity: open ? 1 : 0}} />
               </ListItemButton>
             </a>
-          </Tooltip>
+                </Tooltip>*/}
 
           <Divider color="#aaa" />
 

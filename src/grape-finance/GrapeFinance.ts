@@ -14,6 +14,11 @@ import {
   WineSwapperStat,
   WalletNodesAndNFTs,
   WalletStats,
+  ExtinctionPoolInfo,
+  ExtinctionRewardToken,
+  PegPool,
+  PegPoolToken,
+  PegPoolUserInfo,
 } from './types';
 import {BigNumber, BigNumberish, Contract, ethers, EventFilter} from 'ethers';
 import {decimalToBalance} from './ether-utils';
@@ -24,7 +29,7 @@ import {getDefaultProvider} from '../utils/provider';
 
 import {bankDefinitions} from '../config';
 import moment from 'moment';
-import {parseUnits} from 'ethers/lib/utils';
+import {parseUnits, formatEther} from 'ethers/lib/utils';
 import {MIM_TICKER, SPOOKY_ROUTER_ADDR, GRAPE_TICKER, WINE_TICKER} from '../utils/constants';
 import {Console} from 'console';
 
@@ -743,7 +748,7 @@ export class GrapeFinance {
     const rewardPerSecond = await poolContract.winePerSecond();
 
     if (depositTokenName.startsWith('WINE-MIM')) {
-      return rewardPerSecond.mul(5000).div(41000);
+      return rewardPerSecond.mul(4000).div(41000);
     } else if (depositTokenName.startsWith('GRAPE-WINE')) {
       return rewardPerSecond.mul(1500).div(41000);
     } else if (depositTokenName === 'GRAPE') {
@@ -755,9 +760,9 @@ export class GrapeFinance {
     } else if (depositTokenName === 'WINE-POPS-LP') {
       return rewardPerSecond.mul(250).div(41000);
     } else if (depositTokenName === 'sVintage') {
-      return rewardPerSecond.mul(500).div(41000);
+      return rewardPerSecond.mul(3500).div(41000);
     }else {
-      return rewardPerSecond.mul(20000).div(41000);
+      return rewardPerSecond.mul(18000).div(41000);
     }
   }
 
@@ -1727,5 +1732,99 @@ export class GrapeFinance {
       // winePrice: winePriceBN.toString(),
       rateWinePerGrape: rateWinePerGrapeBN.toString(),
     };
+  }
+
+  async getPegPool(): Promise<PegPool> {
+    const contract = this.contracts.PegPool;
+    const mim = new ERC20('0x130966628846BFd36ff31a822705796e8cb8C18D', this.signer, 'MIM');
+    const [depositsEnabled, totalDepositTokenAmount, userInfo, approval] = await Promise.all([
+      contract.depositsEnabled(),
+      contract.totalDepositTokenAmount(),
+      this.getPegPoolUserInfo(),
+      mim.allowance(this.myAccount, contract.address),
+    ]);
+
+    return {
+      depositsEnabled,
+      totalDesposits: Number(formatEther(totalDepositTokenAmount)).toFixed(2),
+      depositTokenName: 'MIM',
+      depositToken: mim,
+      userInfo,
+      approved: approval.gt(0),
+    };
+  }
+
+  async getPegPoolUserInfo(): Promise<PegPoolUserInfo> {
+    const amount: BigNumber = await this.contracts.PegPool.userInfo(this.myAccount);
+    return {
+      amountDeposited: getDisplayBalance(amount),
+      isDeposited: amount.gt(0),
+      amountDepositedBN: amount,
+    };
+  }
+
+  async getPegPoolPendingRewards(): Promise<PegPoolToken[]> {
+    const tokenMap: {
+      [key: string]: {
+        name: string;
+        pair: string;
+        injection: number;
+      };
+    } = {
+      '0xC55036B5348CfB45a932481744645985010d3A44': {
+        name: 'WINE',
+        pair: '0x00cb5b42684da62909665d8151ff80d1567722c3',
+        injection: 0,
+      },
+      '0x130966628846BFd36ff31a822705796e8cb8C18D': {
+        name: 'MIM',
+        pair: '0x0b212115882252e3640839feacf6cd45a8f419f5',
+        injection: 0,
+      },
+    };
+
+    const [tks, tokens] = await Promise.all([
+      this.contracts.PegPool.getRewardTokens(),
+      this.contracts.PegPool.pendingRewards(this.myAccount),
+    ]);
+    const addresses = tokens[0];
+    const amounts = tokens[1];
+    const rewards: PegPoolToken[] = [];
+
+    for (let i = 0; i < addresses.length; i++) {
+      const info = tokenMap[addresses[i]];
+      console.log(info)
+      rewards.push({
+        token: new ERC20(addresses[i], this.provider.getSigner(), info.name),
+        name: info.name,
+        pairAddress: info.pair,
+        amount: Number(formatEther(amounts[i])).toFixed(8),
+        pendingValueBN: amounts[i],
+        rewardPerBlock: Number(formatEther(tks[i].rewardPerBlock)),
+        canCompound: info.name != 'AALTO',
+      });
+    }
+
+    return rewards;
+  }
+
+  async depositPegPool(amount: BigNumber) {
+    return this.contracts.PegPool.deposit(amount);
+  }
+
+  async compoundRewardsPegPool() {
+    return this.contracts.PegPool.compound();
+  }
+
+  async compoundTokenPegPool() {
+    return this.contracts.PegPool.compound();
+  }
+
+  async withdrawPegPool(amount: BigNumber) {
+    return this.contracts.PegPool.withdraw(amount);
+  }
+
+  async claimPegPool() {
+    return this.contracts.PegPool.claim();
   }
 }

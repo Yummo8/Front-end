@@ -1,5 +1,5 @@
 import ERC20 from './ERC20';
-
+import { BigNumber } from 'ethers';
 export type ContractName = string;
 
 export interface BankInfo {
@@ -8,7 +8,7 @@ export interface BankInfo {
   sectionInUI: number;
   contract: ContractName;
   depositTokenName: ContractName;
-earnTokenName: ContractName;
+  earnTokenName: ContractName;
   sort: number;
   finished: boolean;
   closedForStaking: boolean;
@@ -29,6 +29,73 @@ export type PoolStats = {
   yearlyAPR: string;
   TVL: string;
 };
+
+export interface ExtinctionRewardToken {
+  address: string;
+  pairAddress?: string;
+  rewardPerBlock?: string;
+  name?: string;
+  userPendingAmount?: string;
+  userPendingValue?: string;
+  userPendingValueBN?: BigNumber;
+  injectedAmount?: number;
+  totalValue?: string;
+}
+
+export interface ExtinctionUserInfo {
+  amountDeposited: string;
+  pendingRewards?: ExtinctionRewardToken[];
+}
+
+export interface ExtinctionPoolInfo {
+  name: string;
+  depositTokenName: string;
+  depositToken?: ERC20;
+  contract: ContractName;
+  active?: boolean;
+  startBlock?: number;
+  starTimestamp?: number;
+  endBlock?: number;
+  blocksUntilEnd?: number;
+  lockBlock?: number;
+  blockUntilLock?: number;
+  totalDepositTokenAmount?: string;
+  maxDepositAmount?: string;
+  APR?: number;
+  rewardTokens?: ExtinctionRewardToken[];
+  userInfo?: ExtinctionUserInfo;
+  hasRewardsToClaim?: boolean;
+  canDeposit?: boolean;
+}
+
+export interface PegPool {
+  depositsEnabled: boolean;
+  totalDesposits: string;
+  depositToken: ERC20;
+  depositTokenName: string;
+  userInfo?: PegPoolUserInfo;
+  approved: boolean;
+}
+
+export interface PegPoolToken {
+  name: string;
+  token: ERC20;
+  pairAddress: string;
+  amount?: string;
+  image?: string;
+  pendingValue?: string;
+  pendingValueBN?: BigNumber;
+  currentPrice?: string;
+  currentPriceNum?: number;
+  rewardPerBlock: number;
+  canCompound: boolean;
+}
+
+export interface PegPoolUserInfo {
+  amountDeposited: string;
+  amountDepositedBN: BigNumber;
+  isDeposited: boolean;
+}
 
 export type NodesRewardWalletBalance = {
   grapes: string;

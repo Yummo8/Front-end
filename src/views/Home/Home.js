@@ -246,7 +246,7 @@ const Home = () => {
                 WINEMAKER
               </Button>
             </Grid>
-            <Grid item>
+           {/*} <Grid item>
               <Button
                 href="https://mint.grapefinance.app/"
                 variant="contained"
@@ -255,7 +255,7 @@ const Home = () => {
               >
                 MINT VINTNERS
               </Button>
-            </Grid>
+      </Grid>*/}
           </Grid>
         </Grid>
         <Grid item xs={12} sm={12} md={7}>

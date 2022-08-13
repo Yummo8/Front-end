@@ -1,6 +1,6 @@
 import {Configuration} from './grape-finance/config';
 import {BankInfo} from './grape-finance';
-
+import { ExtinctionPoolInfo } from './grape-finance/types';
 const configurations: {[env: string]: Configuration} = {
   development: {
     chainId: 43114,
@@ -174,7 +174,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     finished: false,
     sort: 0,
     closedForStaking: false,
-    multi: '54',
+    multi: '48.64',
     buyLink: 'https://traderjoexyz.com/trade?inputCurrency=0x130966628846BFd36ff31a822705796e8cb8C18D&outputCurrency=0x5541D83EFaD1f281571B343977648B75d95cdAC2#/',
   },
   WineMimLPWineRewardPool: {
@@ -187,7 +187,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     finished: false,
     sort: 1,
     closedForStaking: false,
-    multi: '13.51',
+    multi: '10.81',
     buyLink:
       'https://traderjoexyz.com/trade?inputCurrency=0x130966628846BFd36ff31a822705796e8cb8C18D&outputCurrency=0xc55036b5348cfb45a932481744645985010d3a44#/',
   },
@@ -268,7 +268,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     finished: false,
     sort: 4,
     closedForStaking: false,
-    multi: '1.35',
+    multi: '9.45',
     buyLink: 'https://www.swapsicle.io/swap?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0x01Af64EF39AEB5612202AA07B3A3829f20c395fd#/',
   },
   PartnerPool: {
@@ -388,6 +388,27 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     buyLink: null,
     sort: 2,
     closedForStaking: false,
+  },
+  peg: {
+    name: 'Bond WINE-MIM LP, earn WINE',
+    poolId: 0,
+    sectionInUI: 10,
+    contract: 'MIMtest',
+    depositTokenName: 'MIM',
+    earnTokenName: 'MIM',
+    finished: false,
+    multi: '0',
+    buyLink: null,
+    sort: 2,
+    closedForStaking: false,
+  },
+  
+};
+export const extinctionPoolDefinitions: { [contractName: string]: ExtinctionPoolInfo } = {
+  AmesExtinction: {
+    name: 'AMES Peg Pool 1',
+    contract: 'AmesExtinction',
+    depositTokenName: 'AMES',
   },
 };
 
