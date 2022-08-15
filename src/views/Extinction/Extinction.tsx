@@ -1,7 +1,7 @@
 import React from 'react';
-import { useWallet } from 'use-wallet';
-import { Route, Switch, useRouteMatch } from 'react-router-dom';
-import { Box, Container, Typography, Grid, Card, CardContent } from '@material-ui/core';
+import {useWallet} from 'use-wallet';
+import {Route, Switch, useRouteMatch} from 'react-router-dom';
+import {Box, Container, Typography, Grid, Card, CardContent, CircularProgress} from '@material-ui/core';
 import UnlockWallet from '../../components/UnlockWallet';
 import Page from '../../components/Page';
 
@@ -9,93 +9,73 @@ import PegPoolInfo from './components/PegPoolInfo';
 import usePegPool from '../../hooks/usePegPool';
 import usePegPoolRewards from '../../hooks/usePegPoolRewards';
 import TokenSymbol from '../../components/TokenSymbol';
+import CountUp from 'react-countup';
+import Alert from '@mui/material/Alert';
 
 const Extinction: React.FC = () => {
-  const { account } = useWallet();
-  const { path } = useRouteMatch();
-  const { pegPool } = usePegPool();
-  const { rewardTokens, totalRewardValue, apr } = usePegPoolRewards(pegPool);
+  const {account} = useWallet();
+  const {path} = useRouteMatch();
+  const {pegPool} = usePegPool();
+  const {rewardTokens, totalRewardValue, apr} = usePegPoolRewards(pegPool);
 
   return (
     <Switch>
       <Page>
         <Route exact path={path}>
-
-          {!!account ? (
-            <Container maxWidth="lg">
-              {pegPool && rewardTokens && (
-                <Box mt={5}>
-                  <Grid container justifyContent="center" alignItems="center">
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={12} md={6}>
+              <Card style={{textAlign: 'center'}}>
+                <CardContent>
+                  <Typography color="textSecondary" variant="h3" gutterBottom>
+                    🔥Peg Campaign🔥
+                  </Typography>
+                  <Grid container direction="column">
                     <Grid item>
-                      <TokenSymbol symbol={'MIM'} />
-                    </Grid>
-                  </Grid>
-                  <Grid
-                    container
-                    justifyContent="center"
-                    spacing={2}
-                    style={{
-                      marginTop: '15px',
-                    }}
-                  >
-                    <Grid item>
-                      <TokenSymbol symbol={'WINE'} />
-                    </Grid>
-                    <Grid item>
-                      <TokenSymbol symbol={'MIM'} />
-                    </Grid>
-                    <Grid item>
-                      <Typography style={{ fontSize: '18px', lineHeight: '22px', paddingTop: '15px' }}>
-                        Dual Reward Pool
+                      <Typography variant="h6" gutterBottom>
+                        Deposit MIM, Get WINE and MIM rewards
                       </Typography>
                     </Grid>
+                    <Grid item>
+                      <Grid container justifyContent="center" spacing={2}>
+                        <Grid item>
+                          <TokenSymbol symbol={'WINE'} />
+                        </Grid>
+                        <Grid item>
+                          <TokenSymbol symbol={'MIM'} />
+                        </Grid>
+                      </Grid>
+                    </Grid>
                   </Grid>
-                  <div>
-                    <Typography
-                      style={{ textTransform: 'none', fontWeight: 'bold', marginTop: '20px' }}
-                      color="textPrimary"
-                      align="center"
-                      variant="h3"
-                    >
-                      Peg Campaign Pool
-                    </Typography>
-
-                    <Typography style={{ marginTop: '15px' }} align="center">
-                      Deposit MIM - Get WINE and MIM rewards
-                    </Typography>
-
-                    <Typography style={{ marginTop: '15px', fontWeight: 'bold' }} align="center">
-                      There is a scaling withdrawal fee based on TWAP
-                    </Typography>
-                    <Typography style={{ marginTop: '5px', fontWeight: 'bold' }} align="center">
-                      The further away from 1.00 TWAP the larger the withdrawal fee.
-                    </Typography>
-
-                    <Typography
-                      style={{ textTransform: 'none', fontWeight: 'bold', marginTop: '20px' }}
-                      color="textPrimary"
-                      align="center"
-                      variant="h5"
-                    >
-                      Total Value Locked: ${pegPool.totalDesposits}
-                    </Typography>
-
-                    <div
-                      style={{
-                        marginTop: '35px',
-                      }}
-                    >
-                      <PegPoolInfo
-                        pegPool={pegPool}
-                        rewardTokens={rewardTokens}
-                        totalRewardValue={totalRewardValue}
-                        apr={apr}
-                      />
-                    </div>
-                  </div>
-                </Box>
-              )}
-            </Container>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item xs={12} sm={12} md={6}>
+              <Card style={{textAlign: 'center', minHeight: '212px'}}>
+                <CardContent>
+                  <Typography variant="h3">TOTAL VALUE LOCKED</Typography>
+                  {pegPool != null ? (
+                    <CountUp className="tvl" end={Number(pegPool.totalDesposits)} separator="," prefix="$" />
+                  ) : (
+                    <CircularProgress style={{marginTop: '20px'}} size={38} color="inherit" />
+                  )}
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
+          <Alert style={{marginTop: '20px'}} variant="outlined" severity="info">
+            There is a scaling withdrawal fee based on TWAP. The further away from 1.05 TWAP, the larger the withdrawal
+            fee.
+          </Alert>
+          {!!account ? (
+            pegPool &&
+            rewardTokens && (
+              <PegPoolInfo
+                pegPool={pegPool}
+                rewardTokens={rewardTokens}
+                totalRewardValue={totalRewardValue}
+                apr={apr}
+              />
+            )
           ) : (
             <UnlockWallet />
           )}

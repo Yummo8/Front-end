@@ -317,6 +317,11 @@ code {
   background-image: linear-gradient(to right top, #810e81, #d01fd0);
 }
 
+.pegcampaign {
+  color: white !important;
+  background-image: linear-gradient(to left top, #1ec38f, #1d8e6a);
+}
+
 .shinyButtonDisabled {
   color: #555 !important;
   padding: 7px !important;

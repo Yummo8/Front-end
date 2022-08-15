@@ -32,6 +32,7 @@ import NewspaperIcon from '@mui/icons-material/Newspaper';
 import Alert from '@mui/material/Alert';
 import vintageImg from '../../assets/img/vintage-token.png';
 import vintnersGif from '../../assets/img/vintners.gif';
+import grapeMimImg from '../../assets/img/twap.png';
 
 const BackgroundImage = createGlobalStyle`
   body {
@@ -215,13 +216,22 @@ const Home = () => {
         </Grid>
         <Grid item xs={12}>
           <Grid container spacing={2}>
+            {/* <Grid item>
+              <Button
+                href="/pegpool"
+                variant="contained"
+                className="pegcampaign"
+                startIcon={<img width={45} height={30} src={grapeMimImg} />}
+              >
+                Peg Campaign
+              </Button>
+            </Grid> */}
             <Grid item>
               <Button
                 href="https://winepress.grapefinance.app/"
                 variant="contained"
                 className="winepress"
                 startIcon={<img width={50} height={30} src={pressImg} />}
-                style={{marginLeft: '15px'}}
               >
                 WINEPRESS
               </Button>
@@ -246,7 +256,7 @@ const Home = () => {
                 WINEMAKER
               </Button>
             </Grid>
-           {/*} <Grid item>
+            {/*} <Grid item>
               <Button
                 href="https://mint.grapefinance.app/"
                 variant="contained"
@@ -266,10 +276,22 @@ const Home = () => {
               </Typography>
               <Grid container direction="column">
                 <Grid item>
-                  #1 🏺<b><a style={{color: '#e647e6'}} href="https://winepress.grapefinance.app/">WINE PRESS</a></b> IS OPENED! Earn 1.25% daily + bonus + lottery!
+                  #1 🏺
+                  <b>
+                    <a style={{color: '#e647e6'}} href="https://winepress.grapefinance.app/">
+                      WINE PRESS
+                    </a>
+                  </b>{' '}
+                  IS OPENED! Earn 1.25% daily + bonus + lottery!
                 </Grid>
                 <Grid item>
-                  #2 🎲 Play <b><a style={{color: '#e647e6'}} href="https://casino.grapefinance.app">GRAPE CASINO</a></b> NOW!
+                  #2 🎲 Play{' '}
+                  <b>
+                    <a style={{color: '#e647e6'}} href="https://casino.grapefinance.app">
+                      GRAPE CASINO
+                    </a>
+                  </b>{' '}
+                  NOW!
                 </Grid>
                 <Grid item>
                   #3 🧊<b>Grape-Wlrs Node</b> were boosted, now printing at 1.8% Daily💲

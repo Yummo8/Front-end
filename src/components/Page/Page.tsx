@@ -481,6 +481,37 @@ const Page: React.FC = ({children}) => {
           <Divider color="#aaa" />
 
           <List>
+            {/* <Tooltip arrow followCursor title={open ? '' : 'Peg Campaign'} placement="top-start">
+              <ListItem
+                className="menu-item"
+                button
+                component={Link}
+                to="/pegpool"
+                disablePadding
+                sx={{display: 'block'}}
+              >
+                <ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: open ? 'initial' : 'center',
+                    px: 2.5,
+                  }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      color: 'white',
+                      minWidth: 0,
+                      mr: open ? 3 : 'auto',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <img src={grapeMimImg} alt="Peg Campaign" width={40} />
+                  </ListItemIcon>
+                  <ListItemText primary="Peg Campaign" sx={{opacity: open ? 1 : 0}} />
+                </ListItemButton>
+              </ListItem>
+            </Tooltip> */}
+
             <Tooltip arrow followCursor title={open ? '' : 'Wine Press'} placement="top-start">
               <a
                 href="https://winepress.grapefinance.app/"
@@ -489,12 +520,7 @@ const Page: React.FC = ({children}) => {
                 rel="noopener noreferrer"
                 style={{padding: 0, display: 'block'}}
               >
-                <ListItem
-                  className="menu-item"
-                  button
-                  disablePadding
-                  sx={{display: 'block'}}
-                >
+                <ListItem className="menu-item" button disablePadding sx={{display: 'block'}}>
                   <ListItemButton
                     sx={{
                       minHeight: 48,
