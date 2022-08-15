@@ -33,6 +33,7 @@ import Alert from '@mui/material/Alert';
 import vintageImg from '../../assets/img/vintage-token.png';
 import vintnersGif from '../../assets/img/vintners.gif';
 import grapeMimImg from '../../assets/img/twap.png';
+// import useCashPriceInEstimatedTWAP from '../../hooks/useCashPriceInEstimatedTWAP';
 
 const BackgroundImage = createGlobalStyle`
   body {
@@ -108,6 +109,9 @@ const Home = () => {
   );
   const tBondTotalSupply = useMemo(() => (tBondStats ? String(tBondStats.totalSupply) : null), [tBondStats]);
 
+  // const cashStat = useCashPriceInEstimatedTWAP();
+  // const twap = useMemo(() => (cashStat ? Number(cashStat.priceInDollars).toFixed(4) : null), [cashStat]);
+
   const handleCloseModal = () => {
     setModalOpen(false);
   };
@@ -138,32 +142,39 @@ const Home = () => {
         <img src={heroImg} alt={'GRAPE Logo'} style={{maxHeight: '400px'}} />
       </div>
       <Grid container spacing={3}>
-        {/* <Grid item xs={12}>
+        {/* <Grid item xs={12} style={{color: 'white'}}>
           <Grid container justifyContent="space-between">
             <div style={{display: 'flex', flexDirection: 'column', textAlign: 'center'}}>
               <div>EPOCH</div>
-              <div>800</div>
+              <div>
+                {currentEpoch ? <CountUp end={currentEpoch} /> : <CircularProgress size={15} color="inherit" />}
+              </div>
             </div>
             <div style={{display: 'flex', flexDirection: 'column', textAlign: 'center'}}>
               <div>ABOVE PEG</div>
-              <div>75%</div>
+              <div>
+                {' '}
+                {printRate ? <span>{printRate.toFixed(2)}%</span> : <CircularProgress size={15} color="inherit" />}
+              </div>
             </div>
-            <div style={{display: 'flex', flexDirection: 'column', textAlign: 'center'}}>
-              <div>TWAP</div>
-              <div>800</div>
-            </div>
+
             <div style={{display: 'flex', flexDirection: 'column', textAlign: 'center'}}>
               <div>SUPPLY</div>
-              <div>800</div>
+              <div>{grapeTotalSupply ? grapeTotalSupply : '--'}</div>
+            </div>
+            <div style={{display: 'flex', flexDirection: 'column', textAlign: 'center'}}>
+              <div>LAST EPOCH PRINTED</div>
+              <div>616</div>
+            </div>
+            <div style={{display: 'flex', flexDirection: 'column', textAlign: 'center'}}>
+              <div>LAST EPOCH EXPANSION AMOUNT</div>
+              <div>{13793195024491149517051 / 1e18}</div>
             </div>
             <div style={{display: 'flex', flexDirection: 'column', textAlign: 'center'}}>
               <div>EXPANSION RATE</div>
               <div>800</div>
             </div>
-            <div style={{display: 'flex', flexDirection: 'column', textAlign: 'center'}}>
-              <div>EXPANSION AMOUNT</div>
-              <div>800</div>
-            </div>
+
             <div style={{display: 'flex', flexDirection: 'column', textAlign: 'center'}}>
               <div>CONTRACTION RATE</div>
               <div>800</div>

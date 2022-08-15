@@ -62,19 +62,22 @@ const Extinction: React.FC = () => {
               </Card>
             </Grid>
           </Grid>
-          <Alert style={{marginTop: '20px'}} variant="outlined" severity="info">
-            There is a scaling withdrawal fee based on TWAP. The further away from 1.05 TWAP, the larger the withdrawal
-            fee.
-          </Alert>
+
           {!!account ? (
             pegPool &&
             rewardTokens && (
-              <PegPoolInfo
-                pegPool={pegPool}
-                rewardTokens={rewardTokens}
-                totalRewardValue={totalRewardValue}
-                apr={apr}
-              />
+              <>
+                <Alert style={{marginTop: '20px'}} variant="outlined" severity="info">
+                  There is a scaling withdrawal fee based on TWAP. The further away from 1.05 TWAP, the larger the
+                  withdrawal fee.
+                </Alert>
+                <PegPoolInfo
+                  pegPool={pegPool}
+                  rewardTokens={rewardTokens}
+                  totalRewardValue={totalRewardValue}
+                  apr={apr}
+                />
+              </>
             )
           ) : (
             <UnlockWallet />

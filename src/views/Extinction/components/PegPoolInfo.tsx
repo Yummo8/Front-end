@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {Box, Button, Grid, Card, CardContent, Typography} from '@material-ui/core';
 import useModal from '../../../hooks/useModal';
 import DepositModal from '../../Bank/components/DepositModal';
@@ -14,6 +14,7 @@ import {Skeleton} from '@material-ui/lab';
 import usePegPoolWithdraw from '../../../hooks/usePegPoolWithdraw';
 import WithdrawModal from '../../Bank/components/WithdrawModal';
 import useApprove, {ApprovalState} from '../../../hooks/useApprove';
+import useCashPriceInEstimatedTWAP from '../../../hooks/useCashPriceInEstimatedTWAP';
 
 const PegPoolInfo: React.FC<{
   pegPool: PegPool;
@@ -26,7 +27,9 @@ const PegPoolInfo: React.FC<{
   const {onWithdraw} = usePegPoolWithdraw(pegPool);
   const [approveStatus, approve] = useApprove(pegPool.depositToken, '0x6Cc4D2653aaaCD005E076300796d4981339C5fAF');
   const {withdrawFeePercent} = usePegPoolWithdrawFee();
-
+  const cashStat = useCashPriceInEstimatedTWAP();
+  const twap = useMemo(() => (cashStat ? Number(cashStat.priceInDollars).toFixed(4) : null), [cashStat]);
+  
   const [onPresentDeposit, onDismissDeposit] = useModal(
     <DepositModal
       max={tokenBalance}
@@ -68,6 +71,15 @@ const PegPoolInfo: React.FC<{
               <Grid item>
                 <Typography align="right"></Typography>
                 <Typography variant="h6">{pegPool.userInfo?.amountDeposited} MIM</Typography>
+              </Grid>
+            </Grid>
+            <Grid container alignItems="baseline" justifyContent="space-between">
+              <Grid item>
+                <Typography variant="h6">CURRENT TWAP / TARGET</Typography>
+              </Grid>
+              <Grid item>
+                <Typography align="right"></Typography>
+                <Typography variant="h6">{twap ? twap : '--'} / 1.05</Typography>
               </Grid>
             </Grid>
             <Grid container justifyContent="center" alignItems="center" style={{marginTop: '20px'}}>
