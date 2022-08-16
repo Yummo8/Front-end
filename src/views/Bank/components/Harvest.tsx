@@ -16,6 +16,8 @@ import TokenSymbol from '../../../components/TokenSymbol';
 import {Bank} from '../../../grape-finance';
 import useGrapeStats from '../../../hooks/useGrapeStats';
 import useShareStats from '../../../hooks/useWineStats';
+import ReactTooltip from 'react-tooltip';
+import rewards from '../../../assets/jsons/rewards.json';
 
 interface HarvestProps {
   bank: Bank;
@@ -59,9 +61,28 @@ const Harvest: React.FC<HarvestProps> = ({bank}) => {
             <Button
               onClick={onReward}
               disabled={earnings.eq(0)}
+              style={{width: '100%'}}
               className={earnings.eq(0) ? 'shinyButtonDisabled' : 'shinyButton'}
             >
               Claim
+              <span
+                  style={{
+                    color: 'white',
+                    display: 'inline-block',
+                    marginLeft: '8px',
+                    borderRadius: '50%',
+                    width: '21px',
+                    background: '#e647e6',
+                    textAlign: 'center',
+                    fontSize: '12px',
+                    cursor: 'pointer',
+                  }}
+                  data-for={`${(rewards as any)[bank.address]}-tooltip`}
+                  data-tip={(rewards as any)[bank.earnTokenName]}
+                >
+                  ?
+                </span>
+                <ReactTooltip id={`${(rewards as any)[bank.address]}-tooltip`} effect='solid' multiline />
             </Button>
           </StyledCardActions>
         </StyledCardContentInner>

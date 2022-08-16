@@ -15,6 +15,8 @@ import useEarningsOnBoardroom from '../../hooks/useEarningsOnBoardroom';
 import useHarvestFromBoardroom from '../../hooks/useHarvestFromBoardroom';
 import useClaimRewardCheck from '../../hooks/boardroom/useClaimRewardCheck';
 import useStakedBalanceOnBoardroom from '../../hooks/useStakedBalanceOnBoardroom';
+import ReactTooltip from 'react-tooltip';
+import rewards from '../../assets/jsons/rewards.json';
 
 const DashboardBoardroomCard = () => {
   const {onReward} = useHarvestFromBoardroom();
@@ -191,6 +193,25 @@ const DashboardBoardroomCard = () => {
                 style={{width: '100%', marginTop: '10px'}}
               >
                 Claim
+                <span
+                  id="wine-rewards"
+                  style={{
+                    color: 'white',
+                    display: 'inline-block',
+                    marginLeft: '8px',
+                    borderRadius: '50%',
+                    width: '21px',
+                    background: '#e647e6',
+                    textAlign: 'center',
+                    fontSize: '12px',
+                    cursor: 'pointer',
+                  }}
+                  data-for="wine-tooltip"
+                  data-tip={rewards["WINE"]}
+                >
+                  ?
+                </span>
+                <ReactTooltip id="wine-tooltip" backgroundColor='rgba(0, 0, 0, 0.8)' effect='solid' multiline />
               </Button>
             </Grid>
           </Grid>

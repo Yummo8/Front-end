@@ -76,7 +76,6 @@ const Dashboard = () => {
   const matches = useMediaQuery('(min-width:900px)');
   const matches960 = useMediaQuery('(max-width:960px)');
 
-
   const [totalInvested, totalRewards, totalInVineyard, totalInNodes, totalInWinery] = useMemo(
     () =>
       walletStats
@@ -126,7 +125,7 @@ const Dashboard = () => {
                     <StyledBalanceWrapper>
                       <TokenSymbol width={35} height={35} symbol="WINE" />
                       <StyledBalance>
-                      <span className="wallet-token-balance">{displayWineBalance}</span>
+                        <span className="wallet-token-balance">{displayWineBalance}</span>
                         <Label text="WINE" />
                       </StyledBalance>
                     </StyledBalanceWrapper>
@@ -134,7 +133,7 @@ const Dashboard = () => {
                     <StyledBalanceWrapper>
                       <TokenSymbol width={40} height={35} symbol="GBOND" />
                       <StyledBalance>
-                      <span className="wallet-token-balance">{displayGbondBalance}</span>
+                        <span className="wallet-token-balance">{displayGbondBalance}</span>
                         <Label text="GBOND" />
                       </StyledBalance>
                     </StyledBalanceWrapper>
@@ -142,7 +141,7 @@ const Dashboard = () => {
                     <StyledBalanceWrapper>
                       <TokenSymbol width={40} height={35} symbol="sVintage" />
                       <StyledBalance>
-                      <span className="wallet-token-balance">{displayVintageBalance}</span>
+                        <span className="wallet-token-balance">{displayVintageBalance}</span>
                         <Label text="VINTAGE" />
                       </StyledBalance>
                     </StyledBalanceWrapper>
@@ -334,7 +333,11 @@ const Dashboard = () => {
               <Button style={{marginTop: matches ? '0' : '10px'}} className="shinyButton" onClick={compoundNodes}>
                 Compound All From Nodes
               </Button>
-              <Button style={{marginTop: matches ? '0' : '10px', marginLeft: '10px'}} className="shinyButton" onClick={harvestNodes}>
+              <Button
+                style={{marginTop: matches ? '0' : '10px', marginLeft: '10px'}}
+                className="shinyButton"
+                onClick={harvestNodes}
+              >
                 Claim All From Nodes
               </Button>
             </Grid>

@@ -8,6 +8,8 @@ import useCompound from '../../hooks/useCompound';
 import useNodePrice from '../../hooks/useNodePrice';
 import useHarvest from '../../hooks/useHarvest';
 import PoolCardHeader from '../../components/PoolCardHeader';
+import ReactTooltip from 'react-tooltip';
+import rewards from '../../assets/jsons/rewards.json';
 
 const DashboardInfoCardNodes = ({bank}) => {
   const statsOnPool = useStatsForPool(bank);
@@ -29,7 +31,7 @@ const DashboardInfoCardNodes = ({bank}) => {
               </Button>
             </Grid>
 
-            <Grid item className="card-price-item" xs={6} md={3} lg={3}>
+            <Grid item className="card-price-item" xs={6} md={4} lg={4}>
               <Button
                 disabled={earnings.eq(0)}
                 className={earnings.eq(0) ? 'shinyButtonDisabled' : 'shinyButton'}
@@ -37,9 +39,27 @@ const DashboardInfoCardNodes = ({bank}) => {
                 style={{width: '100%'}}
               >
                 Claim
+                <span
+                  style={{
+                    color: 'white',
+                    display: 'inline-block',
+                    marginLeft: '8px',
+                    borderRadius: '50%',
+                    width: '21px',
+                    background: '#e647e6',
+                    textAlign: 'center',
+                    fontSize: '12px',
+                    cursor: 'pointer',
+                  }}
+                  data-for={`${rewards[bank.address]}-tooltip`}
+                  data-tip={rewards[bank.earnTokenName]}
+                >
+                  ?
+                </span>
+                <ReactTooltip id={`${rewards[bank.address]}-tooltip`} effect='solid' multiline />
               </Button>
             </Grid>
-            <Grid item className="card-price-item" xs={12} md={6} lg={6}>
+            <Grid item className="card-price-item" xs={12} md={5} lg={5}>
               <Button
                 onClick={onCompound}
                 disabled={Number(earnings) < Number(nodePrice)}
@@ -50,7 +70,10 @@ const DashboardInfoCardNodes = ({bank}) => {
               </Button>
             </Grid>
             <Grid item className="card-price-item" xs={12}>
-              <span style={{fontSize: '11px'}}>If you are not seeing the amount of rewards you expected, please wait until contract refills. Refills are automatic and happen multiple times per hour.</span>
+              <span style={{fontSize: '11px'}}>
+                If you are not seeing the amount of rewards you expected, please wait until contract refills. Refills
+                are automatic and happen multiple times per hour.
+              </span>
             </Grid>
           </Grid>
         </CardContent>

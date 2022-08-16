@@ -12,6 +12,8 @@ import useShareStats from '../../hooks/useWineStats';
 import {Bank} from '../../grape-finance';
 import PoolCardHeader from '../PoolCardHeader';
 import PoolCardContent from '../PoolCardContent';
+import ReactTooltip from 'react-tooltip';
+import rewards from '../../assets/jsons/rewards.json';
 
 interface DashboardInfoCardProps {
   bank: Bank;
@@ -69,6 +71,24 @@ const DashboardInfoCard: React.FC<DashboardInfoCardProps> = ({bank}) => {
                 style={{width: '100%'}}
               >
                 Claim
+                <span
+                  style={{
+                    color: 'white',
+                    display: 'inline-block',
+                    marginLeft: '8px',
+                    borderRadius: '50%',
+                    width: '21px',
+                    background: '#e647e6',
+                    textAlign: 'center',
+                    fontSize: '12px',
+                    cursor: 'pointer',
+                  }}
+                  data-for={`${(rewards as any)[bank.address]}-tooltip`}
+                  data-tip={(rewards as any)[bank.earnTokenName]}
+                >
+                  ?
+                </span>
+                <ReactTooltip id={`${(rewards as any)[bank.address]}-tooltip`} effect='solid' multiline />
               </Button>
             </Grid>
           </Grid>

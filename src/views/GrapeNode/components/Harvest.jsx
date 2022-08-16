@@ -14,6 +14,8 @@ import useGrapeStats from '../../../hooks/useGrapeStats';
 import useShareStats from '../../../hooks/useWineStats';
 import useNodePrice from '../../../hooks/useNodePrice';
 import useLpStatsBTC from '../../../hooks/useLpStatsBTC';
+import ReactTooltip from 'react-tooltip';
+import rewards from '../../../assets/jsons/rewards.json';
 
 const Harvest = ({bank}) => {
   const earnings = useEarnings(bank.contract, bank.earnTokenName, bank.poolId);
@@ -70,14 +72,34 @@ const Harvest = ({bank}) => {
           <StyledCardActions>
             <Button
               onClick={onReward}
+              style={{width: '100%'}}
               disabled={earnings.eq(0)}
               className={earnings.eq(0) ? 'shinyButtonDisabled' : 'shinyButton'}
             >
               Claim
+              <span
+                  style={{
+                    color: 'white',
+                    display: 'inline-block',
+                    marginLeft: '8px',
+                    borderRadius: '50%',
+                    width: '21px',
+                    background: '#e647e6',
+                    textAlign: 'center',
+                    fontSize: '12px',
+                    cursor: 'pointer',
+                  }}
+                  data-for="node-tooltip"
+                  data-tip={rewards[bank.earnTokenName]}
+                >
+                  ?
+                </span>
+                <ReactTooltip id="node-tooltip" effect='solid' multiline />
+
             </Button>
           </StyledCardActions>
           <Button
-            style={{marginTop: '20px'}}
+            style={{marginTop: '10px', width: '100%'}}
             onClick={onCompound}
             disabled={Number(earnings) < Number(nodePrice)}
             className={Number(earnings) < Number(nodePrice) ? 'shinyButtonDisabled' : 'shinyButton'}

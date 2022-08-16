@@ -14,6 +14,8 @@ import useHarvestFromBoardroom from '../../../hooks/useHarvestFromBoardroom';
 import useEarningsOnBoardroom from '../../../hooks/useEarningsOnBoardroom';
 import useGrapeStats from '../../../hooks/useGrapeStats';
 import {getDisplayBalance} from '../../../utils/formatBalance';
+import ReactTooltip from 'react-tooltip';
+import rewards from '../../../assets/jsons/rewards.json';
 
 const Harvest: React.FC = () => {
   const grapeStats = useGrapeStats();
@@ -48,10 +50,29 @@ const Harvest: React.FC = () => {
             <StyledCardActions>
               <Button
                 onClick={onReward}
+                style={{width: '100%'}}
                 className={earnings.eq(0) || !canClaimReward ? 'shinyButtonDisabled' : 'shinyButton'}
                 disabled={earnings.eq(0) || !canClaimReward}
               >
-                Claim Reward
+                Claim
+                <span
+                  style={{
+                    color: 'white',
+                    display: 'inline-block',
+                    marginLeft: '8px',
+                    borderRadius: '50%',
+                    width: '21px',
+                    background: '#e647e6',
+                    textAlign: 'center',
+                    fontSize: '12px',
+                    cursor: 'pointer',
+                  }}
+                  data-for="winery-tooltip"
+                  data-tip={(rewards as any)["GRAPE"]}
+                >
+                  ?
+                </span>
+                <ReactTooltip id="winery-tooltip" effect='solid' multiline />
               </Button>
             </StyledCardActions>
           </StyledCardContentInner>
