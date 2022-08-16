@@ -127,7 +127,7 @@ h6 {
 }
 @media screen and (max-width: 1300px) {
   .wallet-token-balance {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
   }
 }
 @media screen and (max-width: 1150px) {
@@ -146,7 +146,7 @@ h6 {
     font-size: 3.5rem;
   }
   .wallet-token-balance {
-    font-size: 1.4rem;
+    font-size: 0.8rem;
   }
 
   .MuiTypography-h4 {

@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react';
 import styled from 'styled-components';
 
-import {Box, Button, Card, CardContent, Typography} from '@material-ui/core';
+import {Box, Button, Card, CardContent, Grid, Typography} from '@material-ui/core';
 
 import TokenSymbol from '../../../components/TokenSymbol';
 import Label from '../../../components/Label';
@@ -27,7 +27,7 @@ const Harvest: React.FC = () => {
     () => (grapeStats ? Number(grapeStats.priceInDollars).toFixed(2) : null),
     [grapeStats],
   );
-    
+
   const earnedInDollars = (Number(tokenPriceInDollars) * Number(getDisplayBalance(earnings))).toFixed(2);
 
   const {from, to} = useClaimRewardTimerBoardroom();
@@ -41,39 +41,44 @@ const Harvest: React.FC = () => {
               <CardIcon>
                 <TokenSymbol height={70} width={70} symbol="GRAPE" />
               </CardIcon>
-              <Typography style={{textTransform: 'uppercase', color: '#930993'}}>  
-              <Value value={getDisplayBalance(earnings)} />
+              <Typography style={{textTransform: 'uppercase', color: '#930993'}}>
+                <Value value={getDisplayBalance(earnings)} />
               </Typography>
               <Label text={`≈ $${Number(earnedInDollars).toLocaleString('en-US')}`} color="#fff" />
               <Label text="GRAPE Earned" color="#fff" />
             </StyledCardHeader>
             <StyledCardActions>
-              <Button
-                onClick={onReward}
-                style={{width: '100%'}}
-                className={earnings.eq(0) || !canClaimReward ? 'shinyButtonDisabled' : 'shinyButton'}
-                disabled={earnings.eq(0) || !canClaimReward}
-              >
-                Claim
-                <span
-                  style={{
-                    color: 'white',
-                    display: 'inline-block',
-                    marginLeft: '8px',
-                    borderRadius: '50%',
-                    width: '21px',
-                    background: '#e647e6',
-                    textAlign: 'center',
-                    fontSize: '12px',
-                    cursor: 'pointer',
-                  }}
-                  data-for="winery-tooltip"
-                  data-tip={(rewards as any)["GRAPE"]}
-                >
-                  ?
-                </span>
-                <ReactTooltip id="winery-tooltip" effect='solid' multiline />
-              </Button>
+              <Grid container spacing={1}>
+                <Grid item xs={10}>
+                  <Button
+                    onClick={onReward}
+                    style={{width: '100%'}}
+                    className={earnings.eq(0) || !canClaimReward ? 'shinyButtonDisabled' : 'shinyButton'}
+                    disabled={earnings.eq(0) || !canClaimReward}
+                  >
+                    Claim
+                  </Button>
+                </Grid>
+                <Grid item xs={2}>
+                  <span
+                    style={{
+                      color: 'white',
+                      display: 'block',
+                      borderRadius: '4px',
+                      height: '100%',
+                      background: '#e647e6',
+                      textAlign: 'center',
+                      fontSize: '25px',
+                      cursor: 'pointer',
+                    }}
+                    data-for="bank-tooltip"
+                    data-tip={(rewards as any)["GRAPE"]}
+                  >
+                    ?
+                  </span>
+                  <ReactTooltip id="bank-tooltip" effect="solid" multiline />
+                </Grid>
+              </Grid>
             </StyledCardActions>
           </StyledCardContentInner>
         </CardContent>

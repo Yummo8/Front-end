@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react';
 import styled from 'styled-components';
 
-import {Button, Card, CardContent, Typography} from '@material-ui/core';
+import {Button, Card, CardContent, Typography, Grid} from '@material-ui/core';
 // import Button from '../../../components/Button';
 // import Card from '../../../components/Card';
 // import CardContent from '../../../components/CardContent';
@@ -24,9 +24,7 @@ interface HarvestProps {
 }
 
 const Harvest: React.FC<HarvestProps> = ({bank}) => {
-
   const earnings = useEarnings(bank.contract, bank.earnTokenName, bank.poolId);
-  
 
   const {onReward} = useHarvest(bank);
   const grapeStats = useGrapeStats();
@@ -39,7 +37,6 @@ const Harvest: React.FC<HarvestProps> = ({bank}) => {
     [tokenStats],
   );
   const earnedInDollars = (Number(tokenPriceInDollars) * Number(getDisplayBalance(earnings))).toFixed(2);
-  
 
   return (
     <Card>
@@ -49,32 +46,34 @@ const Harvest: React.FC<HarvestProps> = ({bank}) => {
             <CardIcon>
               <TokenSymbol symbol={bank.earnTokenName} />
             </CardIcon>
-            <Typography style={{textTransform: 'uppercase', color: '#930993'}}>  
-            <Value value={getDisplayBalance(earnings)} />
+            <Typography style={{textTransform: 'uppercase', color: '#930993'}}>
+              <Value value={getDisplayBalance(earnings)} />
             </Typography>
-             <Label text={`≈ $${Number(earnedInDollars).toLocaleString('en-US')}`} /> 
-                  <Typography style={{textTransform: 'uppercase', color: '#fff'}}>
-              {`${tokenName} Earned`}
-                    </Typography>
+            <Label text={`≈ $${Number(earnedInDollars).toLocaleString('en-US')}`} />
+            <Typography style={{textTransform: 'uppercase', color: '#fff'}}>{`${tokenName} Earned`}</Typography>
           </StyledCardHeader>
           <StyledCardActions>
-            <Button
-              onClick={onReward}
-              disabled={earnings.eq(0)}
-              style={{width: '100%'}}
-              className={earnings.eq(0) ? 'shinyButtonDisabled' : 'shinyButton'}
-            >
-              Claim
-              <span
+            <Grid container spacing={1}>
+              <Grid item xs={10}>
+                <Button
+                  onClick={onReward}
+                  disabled={earnings.eq(0)}
+                  style={{width: '100%'}}
+                  className={earnings.eq(0) ? 'shinyButtonDisabled' : 'shinyButton'}
+                >
+                  Claim
+                </Button>
+              </Grid>
+              <Grid item xs={2}>
+                <span
                   style={{
                     color: 'white',
-                    display: 'inline-block',
-                    marginLeft: '8px',
-                    borderRadius: '50%',
-                    width: '21px',
+                    display: 'block',
+                    borderRadius: '4px',
+                    height: '100%',
                     background: '#e647e6',
                     textAlign: 'center',
-                    fontSize: '12px',
+                    fontSize: '25px',
                     cursor: 'pointer',
                   }}
                   data-for={`${(rewards as any)[bank.address]}-tooltip`}
@@ -82,8 +81,9 @@ const Harvest: React.FC<HarvestProps> = ({bank}) => {
                 >
                   ?
                 </span>
-                <ReactTooltip id={`${(rewards as any)[bank.address]}-tooltip`} effect='solid' multiline />
-            </Button>
+                <ReactTooltip id={`${(rewards as any)[bank.address]}-tooltip`} effect="solid" multiline />
+              </Grid>
+            </Grid>
           </StyledCardActions>
         </StyledCardContentInner>
       </CardContent>

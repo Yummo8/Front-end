@@ -40,7 +40,7 @@ const DashboardInfoCard: React.FC<DashboardInfoCardProps> = ({bank}) => {
   const stakedInDollars = (Number(stakedTokenPriceInDollars) * stakedInToken).toFixed(2);
 
   return (
-    <Grid item xs={12} sm={6} md={6} lg={4}>
+    <Grid item xs={12} sm={12} md={6} lg={4}>
       <Card>
         <CardContent>
           <PoolCardHeader bank={bank} statsOnPool={statsOnPool} stakedInToken={stakedInToken} showAPRCalc />
@@ -53,7 +53,7 @@ const DashboardInfoCard: React.FC<DashboardInfoCardProps> = ({bank}) => {
             earnedInDollars={earnedInDollars}
           />
           <Grid container spacing={1} style={{marginTop: '15px'}}>
-            <Grid item className="card-price-item" xs={6} md={6} lg={6}>
+            <Grid item className="card-price-item" xs={5} md={5} lg={5}>
               <Button
                 component={Link}
                 to={`/vineyard/${bank.contract}`}
@@ -63,7 +63,7 @@ const DashboardInfoCard: React.FC<DashboardInfoCardProps> = ({bank}) => {
                 View
               </Button>
             </Grid>
-            <Grid item className="card-price-item" xs={6} md={6} lg={6}>
+            <Grid item className="card-price-item" xs={5} md={5} lg={5}>
               <Button
                 disabled={earnings.eq(0)}
                 className={earnings.eq(0) ? 'shinyButtonDisabled' : 'shinyButton'}
@@ -71,25 +71,26 @@ const DashboardInfoCard: React.FC<DashboardInfoCardProps> = ({bank}) => {
                 style={{width: '100%'}}
               >
                 Claim
-                <span
-                  style={{
-                    color: 'white',
-                    display: 'inline-block',
-                    marginLeft: '8px',
-                    borderRadius: '50%',
-                    width: '21px',
-                    background: '#e647e6',
-                    textAlign: 'center',
-                    fontSize: '12px',
-                    cursor: 'pointer',
-                  }}
-                  data-for={`${(rewards as any)[bank.address]}-tooltip`}
-                  data-tip={(rewards as any)[bank.earnTokenName]}
-                >
-                  ?
-                </span>
-                <ReactTooltip id={`${(rewards as any)[bank.address]}-tooltip`} effect='solid' multiline />
               </Button>
+            </Grid>
+            <Grid item xs={2}>
+              <span
+                style={{
+                  color: 'white',
+                  display: 'block',
+                  borderRadius: '4px',
+                  height: '100%',
+                  background: '#e647e6',
+                  textAlign: 'center',
+                  fontSize: '25px',
+                  cursor: 'pointer',
+                }}
+                data-for={`${(rewards as any)[bank.address]}-tooltip`}
+                data-tip={(rewards as any)[bank.earnTokenName]}
+              >
+                ?
+              </span>
+              <ReactTooltip id={`${(rewards as any)[bank.address]}-tooltip`} effect="solid" multiline />
             </Grid>
           </Grid>
         </CardContent>

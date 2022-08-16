@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react';
 import styled from 'styled-components';
 
-import {Button, Card, CardContent, Typography} from '@material-ui/core';
+import {Button, Card, CardContent, Typography, Grid} from '@material-ui/core';
 import CardIcon from '../../../components/CardIcon';
 import Label from '../../../components/Label';
 import Value from '../../../components/Value';
@@ -70,33 +70,37 @@ const Harvest = ({bank}) => {
             <Typography style={{textTransform: 'uppercase', color: '#fff'}}>{bank.earnTokenName} Earned</Typography>
           </StyledCardHeader>
           <StyledCardActions>
-            <Button
-              onClick={onReward}
-              style={{width: '100%'}}
-              disabled={earnings.eq(0)}
-              className={earnings.eq(0) ? 'shinyButtonDisabled' : 'shinyButton'}
-            >
-              Claim
-              <span
+            <Grid container spacing={1}>
+              <Grid item xs={10}>
+                <Button
+                  onClick={onReward}
+                  style={{width: '100%'}}
+                  disabled={earnings.eq(0)}
+                  className={earnings.eq(0) ? 'shinyButtonDisabled' : 'shinyButton'}
+                >
+                  Claim
+                </Button>
+              </Grid>
+              <Grid item xs={2}>
+                <span
                   style={{
                     color: 'white',
-                    display: 'inline-block',
-                    marginLeft: '8px',
-                    borderRadius: '50%',
-                    width: '21px',
+                    display: 'block',
+                    borderRadius: '4px',
+                    height: '100%',
                     background: '#e647e6',
                     textAlign: 'center',
-                    fontSize: '12px',
+                    fontSize: '25px',
                     cursor: 'pointer',
                   }}
-                  data-for="node-tooltip"
+                  data-for={`${rewards[bank.address]}-tooltip`}
                   data-tip={rewards[bank.earnTokenName]}
                 >
                   ?
                 </span>
-                <ReactTooltip id="node-tooltip" effect='solid' multiline />
-
-            </Button>
+                <ReactTooltip id={`${rewards[bank.address]}-tooltip`} effect="solid" multiline />
+              </Grid>
+            </Grid>
           </StyledCardActions>
           <Button
             style={{marginTop: '10px', width: '100%'}}

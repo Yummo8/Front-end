@@ -156,7 +156,7 @@ export class GrapeFinance {
     const priceOfGrapeInDollars = (Number(priceInBTC) * Number(priceOfOneBTC)).toFixed(2);
 
     return {
-      tokenInFtm: priceInBTC.toString(),
+      tokenInFtm: priceInBTC?.toString(),
       priceInDollars: priceOfGrapeInDollars,
       totalSupply: getDisplayBalance(supply, 18, 0),
       circulatingSupply: minusAirdrop,
@@ -237,7 +237,7 @@ export class GrapeFinance {
     }
 
     return {
-      tokenInFtm: priceInBTC.toString(),
+      tokenInFtm: priceInBTC?.toString(),
       priceInDollars: total.toString(),
       totalSupply: getDisplayBalance(balOfRaffle, 18, 0),
       circulatingSupply: raffleAddress.toString(),

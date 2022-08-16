@@ -16,8 +16,8 @@ const Loader = () => {
       }}
     >
       <Typography variant="h3">Collecting Grapes...</Typography>
-      <img alt="grape logo" src={grapeImg} width="100px" />
-      <img alt="grape logo" src={wineImg} width="100px" />
+      <img alt="grape logo" src={grapeImg} width="50px" />
+      <img alt="grape logo" src={wineImg} width="50px" />
     </div>
   );
 };

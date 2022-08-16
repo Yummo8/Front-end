@@ -14,7 +14,7 @@ const NodesInfoCard: React.FC<NodesInfoCardProps> = ({bank}) => {
   const statsOnPool = useStatsForPool(bank);
 
   return (
-    <Grid item xs={12} sm={6} md={6} lg={4}>
+    <Grid item xs={12} sm={12} md={6} lg={4}>
       <Card>
         <CardContent>
           <PoolCardHeader bank={bank} statsOnPool={statsOnPool} />

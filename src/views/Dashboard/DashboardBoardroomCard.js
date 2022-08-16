@@ -18,6 +18,7 @@ import useStakedBalanceOnBoardroom from '../../hooks/useStakedBalanceOnBoardroom
 import ReactTooltip from 'react-tooltip';
 import rewards from '../../assets/jsons/rewards.json';
 
+
 const DashboardBoardroomCard = () => {
   const {onReward} = useHarvestFromBoardroom();
   const earnings = useEarningsOnBoardroom();
@@ -42,7 +43,7 @@ const DashboardBoardroomCard = () => {
   const stakedInDollars = (Number(stakedTokenPriceInDollars) * stakedInToken).toFixed(2);
 
   return (
-    <Grid item xs={12} sm={6} md={6} lg={4}>
+    <Grid item xs={12} sm={12} md={6} lg={4}>
       <Card>
         <CardContent>
           <Grid container style={{position: 'relative'}} spacing={1}>
@@ -174,45 +175,45 @@ const DashboardBoardroomCard = () => {
               </Grid>
             </Grid>
           </Grid>
-          <Grid container spacing={1}>
-            <Grid item className="card-price-item" xs={6} md={6} lg={6}>
+          <Grid container spacing={1} style={{marginTop: '10px'}}>
+            <Grid item className="card-price-item" xs={5}>
               <Button
                 component={Link}
                 to={`/winery`}
                 className="shinyButton"
-                style={{width: '100%', marginTop: '10px'}}
+                style={{width: '100%'}}
               >
                 View
               </Button>
             </Grid>
-            <Grid item className="card-price-item" xs={6} md={6} lg={6}>
+            <Grid item className="card-price-item" xs={5}>
               <Button
                 className={earnings.eq(0) || !canClaimReward ? 'shinyButtonDisabled' : 'shinyButton'}
                 disabled={earnings.eq(0) || !canClaimReward}
                 onClick={onReward}
-                style={{width: '100%', marginTop: '10px'}}
+                style={{width: '100%'}}
               >
                 Claim
-                <span
-                  id="wine-rewards"
-                  style={{
-                    color: 'white',
-                    display: 'inline-block',
-                    marginLeft: '8px',
-                    borderRadius: '50%',
-                    width: '21px',
-                    background: '#e647e6',
-                    textAlign: 'center',
-                    fontSize: '12px',
-                    cursor: 'pointer',
-                  }}
-                  data-for="wine-tooltip"
-                  data-tip={rewards["WINE"]}
-                >
-                  ?
-                </span>
-                <ReactTooltip id="wine-tooltip" backgroundColor='rgba(0, 0, 0, 0.8)' effect='solid' multiline />
               </Button>
+            </Grid>
+            <Grid item xs={2}>
+              <span
+                style={{
+                  color: 'white',
+                  display: 'block',
+                  borderRadius: '4px',
+                  height: '100%',
+                  background: '#e647e6',
+                  textAlign: 'center',
+                  fontSize: '25px',
+                  cursor: 'pointer',
+                }}
+                data-for="wine-tooltip"
+                data-tip={rewards["GRAPE"]}
+              >
+                ?
+              </span>
+              <ReactTooltip id="wine-tooltip" effect="solid" multiline />
             </Grid>
           </Grid>
         </CardContent>
