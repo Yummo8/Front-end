@@ -25,7 +25,10 @@ import pressImg from '../../assets/img/barrel.png';
 import newsImg from '../../assets/img/news.png';
 import {ReactComponent as IconTelegram} from '../../assets/img/telegram.svg';
 import {ReactComponent as IconDiscord} from '../../assets/img/discord.svg';
+import {ReactComponent as IconTwitter} from '../../assets/img/twitter.svg';
+
 import AirdropRewardModal from './AirdropRewardModal';
+import GetStartedModal from './GetStartedModal';
 import useCurrentEpoch from '../../hooks/useCurrentEpoch';
 import useGetBoardroomPrintRate from '../../hooks/useGetBoardroomPrintRate';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
@@ -33,6 +36,7 @@ import Alert from '@mui/material/Alert';
 import vintageImg from '../../assets/img/vintage-token.png';
 import vintnersGif from '../../assets/img/vintners.gif';
 import grapeMimImg from '../../assets/img/twap.png';
+
 // import useCashPriceInEstimatedTWAP from '../../hooks/useCashPriceInEstimatedTWAP';
 
 const BackgroundImage = createGlobalStyle`
@@ -60,6 +64,7 @@ const Home = () => {
   const useWineTotal = useWineTotalNode();
   const useGrapeMimSWTotal = useGrapeMimSWTotalNode();
   const [rewardModelOpen, setModalOpen] = useState(false);
+  const [getStartedModalOpen, setGetStartedModalOpen] = useState(false);
   const currentEpoch = useCurrentEpoch();
 
   const buyGrapeAddress =
@@ -114,16 +119,22 @@ const Home = () => {
 
   const handleCloseModal = () => {
     setModalOpen(false);
+    setGetStartedModalOpen(false);
   };
 
   const handleOpenModal = () => {
     setModalOpen(true);
   };
 
+  const openGetStarted = () => {
+    setGetStartedModalOpen(true);
+  };
+
   const printRate = useGetBoardroomPrintRate();
 
   return (
     <Page>
+      <GetStartedModal open={getStartedModalOpen} handleClose={handleCloseModal} />
       <AirdropRewardModal
         open={rewardModelOpen}
         handleClose={handleCloseModal}
@@ -193,26 +204,34 @@ const Home = () => {
             </div>
           </Grid>
         </Grid> */}
+        <Grid item xs={12} style={{textAlign: 'center'}}>
+          <Typography color="white" variant="h3" gutterBottom>
+            Welcome to Grape Finance
+            <Button style={{marginLeft: '15px'}} onClick={openGetStarted} variant="contained" className="winepress get-started">
+              Get Started
+            </Button>
+          </Typography>
+        </Grid>
         <Grid item xs={12}>
           <Alert variant="outlined" severity="info">
-            <b style={{fontSize: '1.1rem', color: '#e647e6'}}>Grape Finance's Strategies Suggestions</b>
+            <b style={{fontSize: '1.1rem', color: '#e647e6'}}>Grape Finance Suggestions</b>
             <br />
             <br />
-            <b>Grape & Wine -</b> Below Peg, compounding is recommended. Avoid selling.
+            <b>🟣 General -</b> Below Peg, compounding is recommended. Avoid selling.
             <br />
-            <b>Nodes -</b> Compound 3 times, Claim 1 time. You can use your claimed Grapes in{' '}
+            <b>🟣 Nodes -</b> Compound 3 times, Claim 1 time. You can use your claimed Grapes in{' '}
             <a style={{color: '#e647e6'}} href="https://winemaker.grapefinance.app/">
               Winemaker
             </a>{' '}
             Game.
             <br />
-            <b>Vineyard -</b> If you use AutoCompounders (Beefy, Yieldwolf), move your LPs to{' '}
+            <b>🟣 Vineyard -</b> If you use AutoCompounders (Beefy, Yieldwolf), move your LPs to{' '}
             <a style={{color: '#e647e6'}} href="https://magik.farm/#/avax">
               Magik
             </a>
             . Same returns, but burns Grape🔥.
             <br />
-            <b>Winery -</b> If you have extra MIM, unstake your wine, provide{' '}
+            <b>🟣 Winery -</b> If you have extra MIM, unstake your wine, provide{' '}
             <a
               style={{color: '#e647e6'}}
               href="https://traderjoexyz.com/pool/0x130966628846bfd36ff31a822705796e8cb8c18d/0xc55036b5348cfb45a932481744645985010d3a44#/"
@@ -225,8 +244,9 @@ const Home = () => {
             </a>
           </Alert>
         </Grid>
+
         <Grid item xs={12}>
-          <Grid container spacing={2}>
+          <Grid container spacing={2} justifyContent="center">
             {/* <Grid item>
               <Button
                 href="/pegpool"
@@ -302,38 +322,37 @@ const Home = () => {
                       GRAPE CASINO
                     </a>
                   </b>{' '}
-                  NOW!
+                  NOW and Burn Grape!
                 </Grid>
                 <Grid item>
-                  #3 🧊<b>Grape-Wlrs Node</b> were boosted, now printing at 1.8% Daily💲
+                  #3 👫 Come and say Hi to our newest Core Team Members:{' '}
+                  <b>
+                    Vintner (Head of Marketing), Fizzyl (Head of Education & Strategy), and Tazz (Head of FE
+                    Engineering)
+                  </b>
                 </Grid>
                 <Grid item>
-                  #4 🍭<b>Swapsicle POPs </b> for GRAPE-MIM LP are now claimed on{' '}
+                  #4 🍭 <b>Swapsicle POPs </b> for GRAPE-MIM LP are now claimable on{' '}
                   <a style={{color: '#e647e6'}} href="https://www.swapsicle.io/rewards">
                     Swapsicle
                   </a>
                   , instead of airdrops.
                 </Grid>
                 <Grid item>
-                  #5 🔥<b>Keep it burnin',</b> <span style={{color: '#e647e6'}}>225,000</span> Grape burned thanks to
+                  #5 🔥 <b>Keep it burnin',</b> <span style={{color: '#e647e6'}}>225,000</span> Grape burned thanks to
                   Winemaker!
                 </Grid>
                 <Grid item>
-                  #6 🍷<b>Winemaker Updates</b> & new features coming soon. Play{' '}
-                  <a style={{color: '#e647e6'}} href="https://winemaker.grapefinance.app/">
-                    here!
-                  </a>
-                </Grid>
-                <Grid item>
-                  #7 🍇<b>Wine Press,</b> the famous <span style={{color: '#e647e6'}}>Detonator Pool </span>coming soon
-                  to Grape Finance!{' '}
-                </Grid>
-                <Grid item>
-                  #8 🧊<b>Nodes v2 </b> are in the works.{' '}
+                  #6 🧊 <b>Nodes v2 </b> are in the works.{' '}
                   <span style={{color: '#e647e6'}}>Sustainable strategies and incentivize good actors.</span>.
                 </Grid>
+                <Grid item>
+                  #7 🍷 A lot of progress on <b>Vinium </b>. Can't wait to release it!
+                </Grid>
               </Grid>
+
               <p style={{textAlign: 'center'}}>
+                To Follow the latest news, join us on Discord, Telegram and Twitter <br />
                 <a
                   href="https://discord.gg/ZP9aYaXeCJ"
                   rel="noopener noreferrer"
@@ -349,6 +368,14 @@ const Home = () => {
                   style={{marginLeft: '20px', color: '#fff'}}
                 >
                   <IconTelegram width="40" style={{fill: '#fff', height: '40px'}} />
+                </a>
+                <a
+                  href="https://twitter.com/grape_finance"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  style={{marginLeft: '30px', color: '#fff'}}
+                >
+                  <IconTwitter width="40" style={{fill: '#fff', height: '40px'}} />
                 </a>
               </p>
             </CardContent>

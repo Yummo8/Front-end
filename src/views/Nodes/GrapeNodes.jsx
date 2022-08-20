@@ -30,7 +30,7 @@ const GrapeNodes = () => {
       <Switch>
         <Route exact path={path}>
           <Typography color="textPrimary" align="center" variant="h3" gutterBottom>
-            Nodes
+            Nodes (Locked Staking)
           </Typography>
           <Typography color="textPrimary" align="center" variant="h6" gutterBottom style={{marginBottom: '20px'}}>
             Buy Nodes and lock supply to earn daily returns

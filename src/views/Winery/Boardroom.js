@@ -93,10 +93,10 @@ const Boardroom = () => {
       {!!account ? (
         <>
           <Typography color="textPrimary" align="center" variant="h3" gutterBottom>
-            Winery
+            Winery (Boardroom)
           </Typography>
           <Typography color="textPrimary" align="center" variant="h6" gutterBottom style={{marginBottom: '40px'}}>
-            Stake your Wine to earn Grape
+            Stake your Wine to earn Grape when TWAP above 1.01
           </Typography>
 
           <Alert variant="filled" severity="info">

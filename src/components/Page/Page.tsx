@@ -5,7 +5,7 @@ import Tooltip from '@mui/material/Tooltip';
 
 import Footer from '../Footer';
 
-import React, {useMemo} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import {styled, alpha, useTheme, Theme, CSSObject} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -478,6 +478,37 @@ const Page: React.FC = ({children}) => {
             </a>
                 </Tooltip>*/}
 
+<Tooltip arrow followCursor title={open ? '' : 'Wine Press'} placement="top-start">
+              <a
+                href="https://winepress.grapefinance.app/"
+                target="_blank"
+                className="menu-item"
+                rel="noopener noreferrer"
+                style={{padding: 0, display: 'block'}}
+              >
+                <ListItem className="menu-item" button disablePadding sx={{display: 'block'}}>
+                  <ListItemButton
+                    sx={{
+                      minHeight: 48,
+                      justifyContent: open ? 'initial' : 'center',
+                      px: 2.5,
+                    }}
+                  >
+                    <ListItemIcon
+                      sx={{
+                        color: 'white',
+                        minWidth: 0,
+                        mr: open ? 3 : 'auto',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      <img src={pressIcon} alt="WinePress" width={30} />
+                    </ListItemIcon>
+                    <ListItemText primary="Wine Press" sx={{opacity: open ? 1 : 0}} />
+                  </ListItemButton>
+                </ListItem>
+              </a>
+            </Tooltip>
           <Divider color="#aaa" />
 
           <List>
@@ -512,37 +543,7 @@ const Page: React.FC = ({children}) => {
               </ListItem>
             </Tooltip> */}
 
-            <Tooltip arrow followCursor title={open ? '' : 'Wine Press'} placement="top-start">
-              <a
-                href="https://winepress.grapefinance.app/"
-                target="_blank"
-                className="menu-item"
-                rel="noopener noreferrer"
-                style={{padding: 0, display: 'block'}}
-              >
-                <ListItem className="menu-item" button disablePadding sx={{display: 'block'}}>
-                  <ListItemButton
-                    sx={{
-                      minHeight: 48,
-                      justifyContent: open ? 'initial' : 'center',
-                      px: 2.5,
-                    }}
-                  >
-                    <ListItemIcon
-                      sx={{
-                        color: 'white',
-                        minWidth: 0,
-                        mr: open ? 3 : 'auto',
-                        justifyContent: 'center',
-                      }}
-                    >
-                      <img src={pressIcon} alt="WinePress" width={30} />
-                    </ListItemIcon>
-                    <ListItemText primary="Wine Press" sx={{opacity: open ? 1 : 0}} />
-                  </ListItemButton>
-                </ListItem>
-              </a>
-            </Tooltip>
+            
 
             <Tooltip arrow followCursor title={open ? '' : 'Dashboard'} placement="top-start">
               <ListItem
@@ -575,7 +576,7 @@ const Page: React.FC = ({children}) => {
               </ListItem>
             </Tooltip>
 
-            <Tooltip arrow followCursor title={open ? '' : 'Vineyard'} placement="top-start">
+            <Tooltip arrow followCursor title={open ? '' : 'Vineyard (Farms)'} placement="top-start">
               <ListItem
                 className="menu-item"
                 button
@@ -602,11 +603,11 @@ const Page: React.FC = ({children}) => {
                     <img src={grapeImg} alt="Grape" height={30} />
                   </ListItemIcon>
 
-                  <ListItemText primary="Vineyard" sx={{opacity: open ? 1 : 0}} />
+                  <ListItemText primary="Vineyard (Farms)" sx={{opacity: open ? 1 : 0}} />
                 </ListItemButton>
               </ListItem>
             </Tooltip>
-            <Tooltip arrow followCursor title={open ? '' : 'Winery'} placement="top-start">
+            <Tooltip arrow followCursor title={open ? '' : 'Winery (Boardroom)'} placement="top-start">
               <ListItem
                 className="menu-item"
                 button
@@ -632,11 +633,11 @@ const Page: React.FC = ({children}) => {
                   >
                     <img src={wineImg} alt="Wine" height={30} />
                   </ListItemIcon>
-                  <ListItemText primary="Winery" sx={{opacity: open ? 1 : 0}} />
+                  <ListItemText primary="Winery (Boardroom)" sx={{opacity: open ? 1 : 0}} />
                 </ListItemButton>
               </ListItem>
             </Tooltip>
-            <Tooltip arrow followCursor title={open ? '' : 'Nodes'} placement="top-start">
+            <Tooltip arrow followCursor title={open ? '' : 'Nodes (Locked Staking)'} placement="top-start">
               <ListItem
                 className="menu-item"
                 button
@@ -660,9 +661,9 @@ const Page: React.FC = ({children}) => {
                       justifyContent: 'center',
                     }}
                   >
-                    <img src={nodesImg} alt="Nodes" height={28} width={28} />
+                    <img src={nodesImg} alt="Nodes (Locked Staking)" height={28} width={28} />
                   </ListItemIcon>
-                  <ListItemText primary="Nodes" sx={{opacity: open ? 1 : 0}} />
+                  <ListItemText primary="Nodes (Locked Staking)" sx={{opacity: open ? 1 : 0}} />
                 </ListItemButton>
               </ListItem>
             </Tooltip>

@@ -40,7 +40,7 @@ const Farm = () => {
           {!!account ? (
             <Container maxWidth="lg">
               <Typography color="textPrimary" align="center" variant="h3" gutterBottom>
-                Vineyard
+                Vineyard (Farms)
               </Typography>
               <Typography color="textPrimary" align="center" variant="h6" gutterBottom style={{marginBottom: '40px'}}>
                 Stake tokens or LPs to earn Wine
