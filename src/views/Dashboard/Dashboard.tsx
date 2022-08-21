@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React, { useMemo} from 'react';
 import {useWallet} from 'use-wallet';
 import styled from 'styled-components';
 import {createGlobalStyle} from 'styled-components';
@@ -102,9 +102,12 @@ const Dashboard = () => {
     <Page>
       <BackgroundImage />
       {!!account ? (
-        <>
+        <div>
           <Typography color="textPrimary" align="center" variant="h3" gutterBottom>
             Dashboard
+          </Typography>
+          <Typography color="textPrimary" align="center" variant="h6" gutterBottom style={{marginBottom: '40px'}}>
+            Manage all your funds, from one page. 
           </Typography>
           <Grid container spacing={3}>
             <Grid item xs={12} md={7} lg={7}>
@@ -371,7 +374,7 @@ const Dashboard = () => {
               <DashboardBoardroomCard />
             </Grid>
           </Box>
-        </>
+        </div>
       ) : (
         <UnlockWallet />
       )}
