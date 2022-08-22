@@ -1,4 +1,4 @@
-import React, { useMemo} from 'react';
+import React, {useMemo} from 'react';
 import {useWallet} from 'use-wallet';
 import styled from 'styled-components';
 import {createGlobalStyle} from 'styled-components';
@@ -28,7 +28,9 @@ import useGrapeFinance from '../../hooks/useGrapeFinance';
 import grapeImg from '../../assets/img/grape.png';
 import nodesImg from '../../assets/img/gnode.png';
 import wineImg from '../../assets/img/gshare.png';
+import wineMimLP from '../../assets/img/gshare-mim.png';
 import DashboardBoardroomCard from './DashboardBoardroomCard';
+import useWinepressUserInfo from '../../hooks/useWinepressUserInfo';
 
 const BackgroundImage = createGlobalStyle`
   body {
@@ -62,7 +64,9 @@ const Dashboard = () => {
   const gbondBalance = useTokenBalance(grapeFinance.GBOND);
   const displayGbondBalance = useMemo(() => getDisplayBalance(gbondBalance), [gbondBalance]);
   const vintageBalance = useTokenBalance(grapeFinance.VINTAGE);
+  const svintageBalance = useTokenBalance(grapeFinance.SVINTAGE);
   const displayVintageBalance = useMemo(() => getDisplayBalance(vintageBalance), [vintageBalance]);
+  const displaySVintageBalance = useMemo(() => getDisplayBalance(svintageBalance), [svintageBalance]);
 
   const grapePriceInDollars = useMemo(
     () => (grapeStats ? Number(grapeStats.priceInDollars).toFixed(2) : null),
@@ -75,19 +79,22 @@ const Dashboard = () => {
 
   const matches = useMediaQuery('(min-width:900px)');
   const matches960 = useMediaQuery('(max-width:960px)');
+  const winepressUserInfo = useWinepressUserInfo();
 
   const [totalInvested, totalRewards, totalInVineyard, totalInNodes, totalInWinery] = useMemo(
     () =>
       walletStats
         ? [
             walletStats.total,
-            walletStats.totalRewards,
+            winepressUserInfo
+              ? walletStats.totalRewards + winepressUserInfo.totalClaimable * Number(winepressUserInfo.wineMIMLPPrice)
+              : walletStats.totalRewards,
             walletStats.totalInVineyard.toFixed(2),
             walletStats.totalInNodes.toFixed(2),
             walletStats.totalInWinery.toFixed(2),
           ]
         : [null, null, null, null],
-    [walletStats],
+    [walletStats, winepressUserInfo],
   );
 
   const getTotalInvested = () => {
@@ -107,18 +114,149 @@ const Dashboard = () => {
             Dashboard
           </Typography>
           <Typography color="textPrimary" align="center" variant="h6" gutterBottom style={{marginBottom: '40px'}}>
-            Manage all your funds, from one page. 
+            Manage all your funds, from one page.
           </Typography>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={7} lg={7}>
-              <Card style={{textAlign: 'center', minHeight: matches960 ? '0' : '232px'}}>
+          <Grid container spacing={1}>
+            <Grid item xs={12}>
+              <Grid container spacing={1}>
+                <Grid item xs={6} sm={6} md={4} lg={2}>
+                  <Card style={{height: '100px'}}>
+                    <CardContent>
+                      <Typography color="textPrimary" align="center" variant="h6" gutterBottom>
+                        MY TOTAL
+                      </Typography>
+
+                      <Typography color="textPrimary" align="center" variant="h5" style={{fontWeight: 700}}>
+                        {totalInvested != null ? (
+                          <CountUp end={getTotalInvested()} separator="," prefix="≈$" />
+                        ) : (
+                          <CircularProgress size={22} color="inherit" />
+                        )}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+                <Grid item xs={6} sm={6} md={4} lg={2}>
+                  <Card style={{height: '100px'}}>
+                    <CardContent>
+                      <Typography color="textSecondary" align="center" variant="h6" gutterBottom>
+                        <img
+                          src={grapeImg}
+                          alt="Grape"
+                          height={25}
+                          style={{verticalAlign: 'text-bottom', marginRight: '10px'}}
+                        />
+                        Vineyard
+                      </Typography>
+
+                      <Typography color="textPrimary" align="center" variant="h5" style={{fontWeight: 700}}>
+                        {totalInVineyard ? (
+                          <CountUp end={totalInVineyard} separator="," prefix="≈$" />
+                        ) : (
+                          <CircularProgress size={27} color="inherit" />
+                        )}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+                <Grid item xs={6} sm={6} md={4} lg={2}>
+                  <Card style={{height: '100px'}}>
+                    <CardContent>
+                      <Typography color="textSecondary" align="center" variant="h6" gutterBottom>
+                        <img
+                          src={nodesImg}
+                          alt="Nodes"
+                          height={25}
+                          style={{verticalAlign: 'text-bottom', marginRight: '10px'}}
+                        />
+                        Nodes
+                      </Typography>
+
+                      <Typography color="textPrimary" align="center" variant="h5" style={{fontWeight: 700}}>
+                        {totalInNodes != null ? (
+                          <CountUp end={totalInNodes} separator="," prefix="≈$" />
+                        ) : (
+                          <CircularProgress size={22} color="inherit" />
+                        )}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+                <Grid item xs={6} sm={6} md={4} lg={2}>
+                  <Card style={{height: '100px'}}>
+                    <CardContent>
+                      <Typography color="textSecondary" align="center" variant="h6" gutterBottom>
+                        <img
+                          src={wineImg}
+                          alt="Wine"
+                          height={25}
+                          style={{verticalAlign: 'text-bottom', marginRight: '10px'}}
+                        />
+                        Winery
+                      </Typography>
+
+                      <Typography color="textPrimary" align="center" variant="h5" style={{fontWeight: 700}}>
+                        {totalInWinery != null ? (
+                          <CountUp end={Number(totalInWinery)} separator="," prefix="≈$" />
+                        ) : (
+                          <CircularProgress size={22} color="inherit" />
+                        )}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+                <Grid item xs={6} sm={6} md={4} lg={2}>
+                  <Card style={{height: '100px'}}>
+                    <CardContent>
+                      <Typography color="textSecondary" align="center" variant="h6" gutterBottom>
+                        <img
+                          src={wineMimLP}
+                          alt="Wine MIM"
+                          height={25}
+                          style={{verticalAlign: 'text-bottom', marginRight: '10px'}}
+                        />
+                        Winepress
+                      </Typography>
+
+                      <Typography color="textPrimary" align="center" variant="h5" style={{fontWeight: 700}}>
+                        {winepressUserInfo ? (
+                          <CountUp
+                            end={Number(winepressUserInfo.totalBalance * Number(winepressUserInfo.wineMIMLPPrice))}
+                            separator=","
+                            prefix="≈$"
+                          />
+                        ) : (
+                          <CircularProgress style={{marginLeft: '10px'}} size={22} color="inherit" />
+                        )}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+                <Grid item xs={6} sm={6} md={4} lg={2}>
+                  <Card style={{height: '100px'}}>
+                    <CardContent>
+                      <Typography color="textPrimary" align="center" variant="h6" gutterBottom>
+                        MY REWARDS
+                      </Typography>
+
+                      <Typography color="textPrimary" align="center" variant="h5" style={{fontWeight: 700}}>
+                        {totalRewards != null ? (
+                          <CountUp end={Number(totalRewards)} separator="," prefix="≈$" />
+                        ) : (
+                          <CircularProgress size={22} color="inherit" />
+                        )}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item xs={12}>
+              <Card style={{textAlign: 'center'}}>
                 <CardContent>
-                  <Typography color="textPrimary" align="center" variant="h5" gutterBottom>
-                    My Wallet
-                  </Typography>{' '}
-                  <Balances style={{display: 'flex', marginBottom: '0', marginTop: '20px'}}>
+                  <Balances style={{display: 'flex', justifyContent:'space-evenly', flexWrap: 'wrap', marginBottom: '0'}}>
                     <StyledBalanceWrapper>
-                      <TokenSymbol width={40} height={35} symbol="GRAPE" />
+                      <TokenSymbol width={35} height={35} symbol="GRAPE" />
                       <StyledBalance>
                         <span className="wallet-token-balance">{displayGrapeBalance}</span>
                         <Label text="GRAPE" />
@@ -134,7 +272,7 @@ const Dashboard = () => {
                     </StyledBalanceWrapper>
 
                     <StyledBalanceWrapper>
-                      <TokenSymbol width={40} height={35} symbol="GBOND" />
+                      <TokenSymbol width={35} height={35} symbol="GBOND" />
                       <StyledBalance>
                         <span className="wallet-token-balance">{displayGbondBalance}</span>
                         <Label text="GBOND" />
@@ -142,130 +280,21 @@ const Dashboard = () => {
                     </StyledBalanceWrapper>
 
                     <StyledBalanceWrapper>
-                      <TokenSymbol width={40} height={35} symbol="sVintage" />
+                      <TokenSymbol width={35} height={35} symbol="sVintage" />
                       <StyledBalance>
                         <span className="wallet-token-balance">{displayVintageBalance}</span>
                         <Label text="VINTAGE" />
                       </StyledBalance>
                     </StyledBalanceWrapper>
-                  </Balances>
-                </CardContent>
-              </Card>
-            </Grid>
 
-            <Grid item xs={12} md={5} lg={5}>
-              <Card style={{textAlign: 'center', minHeight: '190px'}}>
-                <CardContent>
-                  <Grid container direction="column" spacing={1}>
-                    <Grid item>
-                      <Grid container justifyContent="space-between">
-                        <Grid item>
-                          <Typography color="textPrimary" align="center" variant="h5">
-                            My Total worth
-                          </Typography>
-                        </Grid>
-                        <Grid item>
-                          <Typography color="textPrimary" align="center" variant="h5" style={{fontWeight: 700}}>
-                            {totalInvested != null ? (
-                              <CountUp end={getTotalInvested()} separator="," prefix="≈$" />
-                            ) : (
-                              <CircularProgress size={22} color="inherit" />
-                            )}
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item>
-                      <Grid container justifyContent="space-between" alignItems="baseline">
-                        <Grid item>
-                          <Typography color="textSecondary" align="center" variant="h6">
-                            <img
-                              src={grapeImg}
-                              alt="Grape"
-                              height={30}
-                              style={{verticalAlign: 'text-bottom', marginRight: '10px'}}
-                            />
-                            Vineyard
-                          </Typography>
-                        </Grid>
-                        <Grid item>
-                          <Typography color="textPrimary" align="center" variant="h6" style={{fontWeight: 700}}>
-                            {totalInVineyard ? (
-                              <CountUp end={totalInVineyard} separator="," prefix="≈$" />
-                            ) : (
-                              <CircularProgress style={{marginLeft: '10px'}} size={22} color="inherit" />
-                            )}
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item>
-                      <Grid container justifyContent="space-between" alignItems="baseline">
-                        <Grid item>
-                          <Typography color="textSecondary" align="center" variant="h6">
-                            <img
-                              src={nodesImg}
-                              alt="Grape"
-                              height={30}
-                              style={{verticalAlign: 'text-bottom', marginRight: '10px'}}
-                            />
-                            Nodes (locked)
-                          </Typography>
-                        </Grid>
-                        <Grid item>
-                          <Typography color="textPrimary" align="center" variant="h6" style={{fontWeight: 700}}>
-                            {totalInNodes != null ? (
-                              <CountUp end={totalInNodes} separator="," prefix="≈$" />
-                            ) : (
-                              <CircularProgress size={22} color="inherit" />
-                            )}
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item>
-                      <Grid container justifyContent="space-between" alignItems="baseline">
-                        <Grid item>
-                          <Typography color="textSecondary" align="center" variant="h6">
-                            <img
-                              src={wineImg}
-                              alt="Grape"
-                              height={30}
-                              style={{verticalAlign: 'text-bottom', marginRight: '10px'}}
-                            />
-                            Winery
-                          </Typography>
-                        </Grid>
-                        <Grid item>
-                          <Typography color="textPrimary" align="center" variant="h6" style={{fontWeight: 700}}>
-                            {totalInWinery ? (
-                              <CountUp end={Number(totalInWinery)} separator="," prefix="≈$" />
-                            ) : (
-                              <CircularProgress style={{marginLeft: '10px'}} size={22} color="inherit" />
-                            )}
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item>
-                      <Grid container justifyContent="space-between" alignItems="baseline">
-                        <Grid item>
-                          <Typography color="textPrimary" align="center" variant="h5">
-                            Rewards to claim
-                          </Typography>{' '}
-                        </Grid>
-                        <Grid item>
-                          <Typography color="textPrimary" align="center" variant="h5" style={{fontWeight: 700}}>
-                            {totalRewards != null ? (
-                              <CountUp end={Number(totalRewards)} separator="," prefix="≈$" />
-                            ) : (
-                              <CircularProgress size={22} color="inherit" />
-                            )}
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  </Grid>
+                    <StyledBalanceWrapper>
+                      <TokenSymbol width={35} height={35} symbol="sVintage" />
+                      <StyledBalance>
+                        <span className="wallet-token-balance">{displaySVintageBalance}</span>
+                        <Label text="sVINTAGE" />
+                      </StyledBalance>
+                    </StyledBalanceWrapper>
+                  </Balances>
                 </CardContent>
               </Card>
             </Grid>

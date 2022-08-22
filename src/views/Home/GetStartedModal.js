@@ -1,7 +1,7 @@
 import {Modal, Box, makeStyles} from '@material-ui/core';
 import React from 'react';
 import CloseIcon from '@material-ui/icons/Close';
-import getStartedImg from '../../assets/img/getStarted.png';
+import getStartedImg from '../../assets/img/getStarted.jpg';
 
 const style = {
   position: 'absolute',

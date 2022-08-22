@@ -111,6 +111,12 @@ export type TokenStat = {
   treasuryGrapes?: string;
 };
 
+export type WinepressUserInfo = {
+  totalBalance: number;
+  totalClaimable: number;
+  wineMIMLPPrice: string;
+}
+
 export type WalletNodesAndNFTs = {
   grapes: number;
   wines: number;

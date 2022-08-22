@@ -314,7 +314,7 @@ const Page: React.FC = ({children}) => {
               </div>
               <div className="price-item">
                 <img src={grapeMimImg} alt="TWAP" height={35} />
-                <span className="token-price">{twap ? '$' + twap : '--'}</span>
+                <span className="token-price">{twap ? twap : '--'}/1.01</span>
               </div>
             </div>
             <Box
@@ -491,7 +491,6 @@ const Page: React.FC = ({children}) => {
                     sx={{
                       minHeight: 48,
                       justifyContent: open ? 'initial' : 'center',
-                      px: 2.5,
                     }}
                   >
                     <ListItemIcon
@@ -558,7 +557,6 @@ const Page: React.FC = ({children}) => {
                   sx={{
                     minHeight: 48,
                     justifyContent: open ? 'initial' : 'center',
-                    px: 2.5,
                   }}
                 >
                   <ListItemIcon
@@ -569,7 +567,7 @@ const Page: React.FC = ({children}) => {
                       justifyContent: 'center',
                     }}
                   >
-                    <img src={dashboardImg} alt="LC" width={25} />
+                    <img src={dashboardImg} alt="Dashboard" width={25} />
                   </ListItemIcon>
                   <ListItemText primary="Dashboard" sx={{opacity: open ? 1 : 0}} />
                 </ListItemButton>
@@ -583,13 +581,12 @@ const Page: React.FC = ({children}) => {
                 component={Link}
                 to="/vineyard"
                 disablePadding
-                sx={{display: 'block'}}
+                sx={{display: 'block', textAlign: 'left'}}
               >
                 <ListItemButton
                   sx={{
                     minHeight: 48,
                     justifyContent: open ? 'initial' : 'center',
-                    px: 2.5,
                   }}
                 >
                   <ListItemIcon
@@ -620,7 +617,6 @@ const Page: React.FC = ({children}) => {
                   sx={{
                     minHeight: 48,
                     justifyContent: open ? 'initial' : 'center',
-                    px: 2.5,
                   }}
                 >
                   <ListItemIcon
@@ -650,7 +646,6 @@ const Page: React.FC = ({children}) => {
                   sx={{
                     minHeight: 48,
                     justifyContent: open ? 'initial' : 'center',
-                    px: 2.5,
                   }}
                 >
                   <ListItemIcon
@@ -680,7 +675,6 @@ const Page: React.FC = ({children}) => {
                   sx={{
                     minHeight: 48,
                     justifyContent: open ? 'initial' : 'center',
-                    px: 2.5,
                   }}
                 >
                   <ListItemIcon
@@ -703,7 +697,6 @@ const Page: React.FC = ({children}) => {
                   sx={{
                     minHeight: 48,
                     justifyContent: open ? 'initial' : 'center',
-                    px: 2.5,
                   }}
                 >
                   <ListItemIcon

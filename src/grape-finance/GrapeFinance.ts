@@ -19,6 +19,7 @@ import {
   PegPool,
   PegPoolToken,
   PegPoolUserInfo,
+  WinepressUserInfo,
 } from './types';
 import {BigNumber, BigNumberish, Contract, ethers, EventFilter} from 'ethers';
 import {decimalToBalance} from './ether-utils';
@@ -61,6 +62,7 @@ export class GrapeFinance {
   HSHARE: ERC20;
   VINTAGELP: ERC20;
   VINTAGE: ERC20;
+  SVINTAGE: ERC20;
 
   constructor(cfg: Configuration) {
     const {deployments, externalTokens} = cfg;
@@ -98,6 +100,7 @@ export class GrapeFinance {
     this.HSHARE = this.externalTokens['HSHARE'];
     this.VINTAGELP = this.externalTokens['sVintageLP'];
     this.VINTAGE = this.externalTokens['Vintage'];
+    this.SVINTAGE = this.externalTokens['sVintage'];
     // Uniswap V2 Pair
     //this.GRAPEMIM_LP = new Contract(externalTokens['GRAPE-MIM-LP'][0], IUniswapV2PairABI, provider);
 
@@ -139,6 +142,18 @@ export class GrapeFinance {
   //===================FROM APE TO DISPLAY =========================
   //=========================IN HOME PAGE==============================
   //===================================================================
+
+  async getWinepressUserInfo(): Promise<WinepressUserInfo> {
+    const {MINER} = this.contracts;
+    const userInfo = await MINER.userInfo(this.myAccount);
+    const pendingRewards = await MINER.pendingRewards(this.myAccount);
+    const wineStats = await this.getLPStat('WINE-MIM-LP')
+    return {
+      totalBalance: Number(userInfo.trackedTokenBalance / 1e18),
+      totalClaimable: Number(pendingRewards / 1e18),
+      wineMIMLPPrice: wineStats.priceOfOne
+    }
+  }
 
   async getGrapeStat(): Promise<TokenStat> {
     const {GrapeRewardPool, GrapeGenesisRewardPool} = this.contracts;
@@ -371,7 +386,7 @@ export class GrapeFinance {
   async getVintagePrice(): Promise<string> {
     const mimBalance = await this.MIM.balanceOf(this.VINTAGELP.address);
     const vintageBalance = await this.VINTAGE.balanceOf(this.VINTAGELP.address);
-    return (+mimBalance / +vintageBalance).toFixed(3)
+    return (+mimBalance / +vintageBalance).toFixed(3);
   }
 
   async getWalletStats(banks: Bank[]): Promise<WalletStats> {
@@ -451,6 +466,11 @@ export class GrapeFinance {
     return (snapshotIndex * 100) / currentEpoch;
   }
 
+  async getBoardroomLatestSnapshotIndex(): Promise<number> {
+    const {Boardroom} = this.contracts;
+    return await Boardroom.latestSnapshotIndex();
+  }
+
   async getWalletNodesAndNFTs(): Promise<WalletNodesAndNFTs> {
     const grapeNodesCount = await this.getNodes('GrapeNode', this.myAccount);
     const wineNodesCount = await this.getNodes('WineNode', this.myAccount);
@@ -507,14 +527,14 @@ export class GrapeFinance {
     const {cellar} = this.contracts;
     let balance = await this.MIM.balanceOf(this.VINTAGELP.address);
     let balance2 = await this.VINTAGE.balanceOf(this.VINTAGELP.address);
-    let price = (Number(balance))/Number(balance2);
+    let price = Number(balance) / Number(balance2);
 
     let vintageBal = await cellar.vintageWineBalance();
     let svintageBal = await cellar.totalSupply();
-    
-    let ratio = Number(vintageBal)/Number(svintageBal);
 
-    let sPrice = price*ratio;
+    let ratio = Number(vintageBal) / Number(svintageBal);
+
+    let sPrice = price * ratio;
     return {
       tokenInFtm: ratio.toFixed(4),
       priceInDollars: sPrice.toFixed(4),
@@ -761,7 +781,7 @@ export class GrapeFinance {
       return rewardPerSecond.mul(250).div(41000);
     } else if (depositTokenName === 'sVintage') {
       return rewardPerSecond.mul(3500).div(41000);
-    }else {
+    } else {
       return rewardPerSecond.mul(18000).div(41000);
     }
   }
@@ -783,7 +803,7 @@ export class GrapeFinance {
     } else {
       if (tokenName === 'GRAPE-MIM-LP') {
         tokenPrice = await this.getLPTokenPrice(token, this.GRAPE, true);
-      }else if (tokenName === 'sVintage') {
+      } else if (tokenName === 'sVintage') {
         let a = await this.getVintageStats();
         tokenPrice = a.priceInDollars;
       } else if (tokenName === 'WINE-MIM-LP') {
@@ -822,6 +842,11 @@ export class GrapeFinance {
   async getCurrentEpoch(): Promise<BigNumber> {
     const {Treasury} = this.contracts;
     return Treasury.epoch();
+  }
+
+  async getExpansionRate(): Promise<Number> {
+    const {Treasury} = this.contracts;
+    return Treasury.maxExpansionTiers(8);
   }
 
   async getBondOraclePriceInLastTWAP(): Promise<BigNumber> {
@@ -888,7 +913,7 @@ export class GrapeFinance {
     const totalSupply = getFullDisplayBalance(await lpToken.totalSupply(), lpToken.decimal);
     //Get amount of tokenA
 
-     const tokenSupply = getFullDisplayBalance(await token.balanceOf(lpToken.address), token.decimal);
+    const tokenSupply = getFullDisplayBalance(await token.balanceOf(lpToken.address), token.decimal);
 
     const stat = isGrape === true ? await this.getGrapeStat() : await this.getShareStat();
 
@@ -1225,6 +1250,19 @@ export class GrapeFinance {
   //===================== MASONRY METHODS =============================
   //===================================================================
   //===================================================================
+
+  async getBoardroomLastPrint() {
+    const Boardroom = this.currentBoardroom();
+    const {Treasury} = this.contracts;
+    const currentEpoch = await Treasury.epoch();
+    try {
+      const lastHistory = await Boardroom.boardroomHistory(currentEpoch);
+      return lastHistory[1];
+    } catch (e) {
+      console.error(e);
+    }
+    return 0;
+  }
 
   async getBoardroomAPR() {
     const Boardroom = this.currentBoardroom();
@@ -1793,7 +1831,7 @@ export class GrapeFinance {
 
     for (let i = 0; i < addresses.length; i++) {
       const info = tokenMap[addresses[i]];
-      console.log(info)
+      console.log(info);
       rewards.push({
         token: new ERC20(addresses[i], this.provider.getSigner(), info.name),
         name: info.name,

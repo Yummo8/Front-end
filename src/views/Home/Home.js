@@ -131,7 +131,9 @@ const Home = () => {
   };
 
   const printRate = useGetBoardroomPrintRate();
-
+  // const lastSnapshot = useBoardroomLastSnapshot();
+  // const lastPrintAmount = useBoardroomLastPrintAmount();
+  
   return (
     <Page>
       <GetStartedModal open={getStartedModalOpen} handleClose={handleCloseModal} />
