@@ -245,6 +245,25 @@ const Page: React.FC = ({children}) => {
     setUsefulllinksOpen(!usefullLinksOpen);
   };
 
+
+  const [anchorElContracts, setAnchorElContracts] = React.useState<null | HTMLElement>(null);
+  const contractsOpen = Boolean(anchorElContracts);
+  const handleContractsClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElContracts(event.currentTarget);
+  };
+  const handleContractsClose = () => {
+    setAnchorElContracts(null);
+  };
+  
+  const [anchorElTokens, setAnchorElTokens] = React.useState<null | HTMLElement>(null);
+  const tokensOpen = Boolean(anchorElTokens);
+  const handleTokensClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElTokens(event.currentTarget);
+  };
+  const handleTokensClose = () => {
+    setAnchorElTokens(null);
+  };
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const buyOpen = Boolean(anchorEl);
   const handleBuyClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -332,6 +351,197 @@ const Page: React.FC = ({children}) => {
             >
               {screenSM && (
                 <div>
+                  <Button
+                    className="shinyButton"
+                    aria-haspopup="true"
+                    aria-expanded={buyOpen ? 'true' : undefined}
+                    disableElevation
+                    style={{marginRight: '25px'}}
+                    onClick={handleContractsClick}
+                    endIcon={<KeyboardArrowDownIcon />}
+                  >
+                    Contracts
+                  </Button>
+                  <StyledMenu
+                    id="customized-menu"
+                    MenuListProps={{
+                      'aria-labelledby': 'customized-button',
+                    }}
+                    anchorEl={anchorElContracts}
+                    open={contractsOpen}
+                    onClose={handleContractsClose}
+                  >
+                    <a
+                      className="menu-item"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://snowtrace.io/address/0x3ce7bC78a7392197C569504970017B6Eb0d7A972"
+                    >
+                      <MenuItem disableRipple>Winery (Boardroom)</MenuItem>
+                    </a>
+                    <a
+                      className="menu-item"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://snowtrace.io/address/0xb260547c37bC80fBD1a0D742Af71C2324151640c"
+                    >
+                      <MenuItem disableRipple>Treasury</MenuItem>
+                    </a>
+                    <a
+                      className="menu-item"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://snowtrace.io/address/0x4cDE1deb1FD11FeC61b6e2d322c1520527992196"
+                    >
+                      <MenuItem disableRipple>Grape Node</MenuItem>
+                    </a>
+                    <a
+                      className="menu-item"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://snowtrace.io/address/LPNode"
+                    >
+                      <MenuItem disableRipple>Grape-MIM SW Node</MenuItem>
+                    </a>
+                    <a
+                      className="menu-item"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://snowtrace.io/address/0x153d78155d1d579F8CC56dD110aBf6343184cA55"
+                    >
+                      <MenuItem disableRipple>Grape-Wlrs Node</MenuItem>
+                    </a>
+                    <Divider sx={{my: 0.5}} />
+                    <a
+                      className="menu-item"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://snowtrace.io/address/0x2707ccc10D6C1ce49f72867aB5b85dE11e64979f"
+                    >
+                      <MenuItem disableRipple>WinePress</MenuItem>
+                    </a> 
+                    <a
+                      className="menu-item"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://snowtrace.io/address/0x567971069EdCe50235c33FAb133e1EcdF838d3b3"
+                    >
+                      <MenuItem disableRipple>WinePress (Lotto)</MenuItem>
+                    </a> 
+                  </StyledMenu>
+
+                  <Button
+                    className="shinyButton"
+                    aria-haspopup="true"
+                    aria-expanded={buyOpen ? 'true' : undefined}
+                    disableElevation
+                    style={{marginRight: '25px'}}
+                    onClick={handleTokensClick}
+                    endIcon={<KeyboardArrowDownIcon />}
+                  >
+                    Tokens / LPs
+                  </Button>
+                  <StyledMenu
+                    id="customized-menu"
+                    MenuListProps={{
+                      'aria-labelledby': 'customized-button',
+                    }}
+                    anchorEl={anchorElTokens}
+                    open={tokensOpen}
+                    onClose={handleTokensClose}
+                  >
+                    <a
+                      className="menu-item"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://snowtrace.io/address/0x130966628846BFd36ff31a822705796e8cb8C18D"
+                    >
+                      <MenuItem disableRipple>MIM</MenuItem>
+                    </a>
+                    <a
+                      className="menu-item"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://snowtrace.io/address/0x5541D83EFaD1f281571B343977648B75d95cdAC2"
+                    >
+                      <MenuItem disableRipple>Grape</MenuItem>
+                    </a>
+                    <a
+                      className="menu-item"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://snowtrace.io/address/0xC55036B5348CfB45a932481744645985010d3A44"
+                    >
+                      <MenuItem disableRipple>Wine</MenuItem>
+                    </a>
+                    <a
+                      className="menu-item"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://snowtrace.io/address/0x01Af64EF39AEB5612202AA07B3A3829f20c395fd"
+                    >
+                      <MenuItem disableRipple>Vintage</MenuItem>
+                    </a>
+                    <a
+                      className="menu-item"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://snowtrace.io/address/0xf016e69F2c08a0b743a7d815d1059318DCa8Fc0e"
+                    >
+                      <MenuItem disableRipple>sVintage</MenuItem>
+                    </a>
+                    <Divider sx={{my: 0.5}} />
+                    <a
+                      className="menu-item"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://snowtrace.io/address/0x9076C15D7b2297723ecEAC17419D506AE320CbF1"
+                    >
+                      <MenuItem disableRipple>Grape-MIM SW</MenuItem>
+                    </a>
+                    <a
+                      className="menu-item"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://snowtrace.io/address/0xb382247667fe8ca5327ca1fa4835ae77a9907bc8"
+                    >
+                      <MenuItem disableRipple>Grape-MIM TJ</MenuItem>
+                    </a>
+                    <a
+                      className="menu-item"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://snowtrace.io/address/0xA3F24b18608606079a0317Cbe6Cda54CED931420"
+                    >
+                      <MenuItem disableRipple>Grape-Wlrs LP</MenuItem>
+                    </a>
+                    <a
+                      className="menu-item"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://snowtrace.io/address/0xd3d477Df7f63A2623464Ff5Be6746981FdeD026F"
+                    >
+                      <MenuItem disableRipple>Grape-Wine LP</MenuItem>
+                    </a>
+                    <a
+                      className="menu-item"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://snowtrace.io/address/0x00cB5b42684DA62909665d8151fF80D1567722c3"
+                    >
+                      <MenuItem disableRipple>Wine-MIM LP</MenuItem>
+                    </a>
+                    <a
+                      className="menu-item"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://snowtrace.io/address/0xE9b9FA7f3A047d77655A9Ff8df5055f1d7826A6e"
+                    >
+                      <MenuItem disableRipple>Wine-POPs LP</MenuItem>
+                    </a>
+                   
+                  </StyledMenu>
+
                   <Button
                     className="shinyButton"
                     aria-haspopup="true"
@@ -478,36 +688,36 @@ const Page: React.FC = ({children}) => {
             </a>
                 </Tooltip>*/}
 
-<Tooltip arrow followCursor title={open ? '' : 'Wine Press'} placement="top-start">
-              <a
-                href="https://winepress.grapefinance.app/"
-                target="_blank"
-                className="menu-item"
-                rel="noopener noreferrer"
-                style={{padding: 0, display: 'block'}}
-              >
-                <ListItem className="menu-item" button disablePadding sx={{display: 'block'}}>
-                  <ListItemButton
+          <Tooltip arrow followCursor title={open ? '' : 'Wine Press'} placement="top-start">
+            <a
+              href="https://winepress.grapefinance.app/"
+              target="_blank"
+              className="menu-item"
+              rel="noopener noreferrer"
+              style={{padding: 0, display: 'block'}}
+            >
+              <ListItem className="menu-item" button disablePadding sx={{display: 'block'}}>
+                <ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: open ? 'initial' : 'center',
+                  }}
+                >
+                  <ListItemIcon
                     sx={{
-                      minHeight: 48,
-                      justifyContent: open ? 'initial' : 'center',
+                      color: 'white',
+                      minWidth: 0,
+                      mr: open ? 3 : 'auto',
+                      justifyContent: 'center',
                     }}
                   >
-                    <ListItemIcon
-                      sx={{
-                        color: 'white',
-                        minWidth: 0,
-                        mr: open ? 3 : 'auto',
-                        justifyContent: 'center',
-                      }}
-                    >
-                      <img src={pressIcon} alt="WinePress" width={30} />
-                    </ListItemIcon>
-                    <ListItemText primary="Wine Press" sx={{opacity: open ? 1 : 0}} />
-                  </ListItemButton>
-                </ListItem>
-              </a>
-            </Tooltip>
+                    <img src={pressIcon} alt="WinePress" width={30} />
+                  </ListItemIcon>
+                  <ListItemText primary="Wine Press" sx={{opacity: open ? 1 : 0}} />
+                </ListItemButton>
+              </ListItem>
+            </a>
+          </Tooltip>
           <Divider color="#aaa" />
 
           <List>
@@ -541,8 +751,6 @@ const Page: React.FC = ({children}) => {
                 </ListItemButton>
               </ListItem>
             </Tooltip> */}
-
-            
 
             <Tooltip arrow followCursor title={open ? '' : 'Dashboard'} placement="top-start">
               <ListItem
