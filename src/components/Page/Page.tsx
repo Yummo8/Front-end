@@ -273,7 +273,7 @@ const Page: React.FC = ({children}) => {
     setAnchorEl(null);
   };
 
-  const screenSM = useMediaQuery('(min-width:600px)');
+  const screenSM = useMediaQuery('(min-width:1065px)');
 
   return (
     <div style={{position: 'relative', minHeight: '100vh'}}>
