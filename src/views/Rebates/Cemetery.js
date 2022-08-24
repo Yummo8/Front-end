@@ -94,10 +94,10 @@ const Cemetery = () => {
           {!!account ? (
             <>
               <Typography color="textPrimary" align="center" variant="h3" gutterBottom>
-                WINE Rebates
+                Peg Health Campaign
               </Typography>
               <Typography color="textPrimary" align="center" variant="h6" gutterBottom style={{marginBottom: '40px'}}>
-                Buy Wine at a discount, vested over 3 days
+                Buy Wine at a discount & burn Grape, vested over 3 days
               </Typography>
               <Box mt={2}>
                 <Grid container justify="center" spacing={3}>
@@ -117,8 +117,8 @@ const Cemetery = () => {
                   variant="filled"
                   severity="warning"
                 >
-                  Rebates replenish everyday at 3pm & 3am UTC. Bond LPs or MIM and receive discounted WINE vested
-                  linearly over 3 days. WINE available will be limited and deposited to the contract daily.
+                  Wine available replenishes every epoch. Bond GRAPE, GRAPE-MIM LP or MIM and receive discounted WINE vested
+                  linearly over 3 days. GRAPE will be burnt, MIM will be used to buy and burn GRAPE.
                 </Alert>
                 <Grid container spacing={3}>
                   {activeBanks
