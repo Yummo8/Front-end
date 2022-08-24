@@ -17,6 +17,7 @@ import useBanks from '../../hooks/useBanks';
 import useRebateTreasury from '../../hooks/useRebateTreasury';
 import useTombStats from '../../hooks/useWineStats';
 import daoImg from '../../assets/img/1.jpg';
+import TokenSymbol from '../../components/TokenSymbol';
 
 const web3 = new Web3();
 const BN = (n) => new web3.utils.BN(n);
@@ -94,31 +95,71 @@ const Cemetery = () => {
           {!!account ? (
             <>
               <Typography color="textPrimary" align="center" variant="h3" gutterBottom>
-                Peg Health Campaign
+                🔥Peg Health Campaign🔥
               </Typography>
               <Typography color="textPrimary" align="center" variant="h6" gutterBottom style={{marginBottom: '40px'}}>
                 Buy Wine at a discount & burn Grape, vested over 3 days
               </Typography>
               <Box mt={2}>
                 <Grid container justify="center" spacing={3}>
-                  <Grid item xs={12} md={3} lg={3} className={classes.gridItem}>
+                  <Grid item xs={12} md={6} lg={6} className={classes.gridItem}>
                     <Card className={classes.gridItem}>
                       <CardContent align="center">
-                        <Typography variant="h5">WINE TWAP</Typography>
-                        <Typography variant="h6">{tombPriceInFTM ? tombPriceInFTM : '-.----'} MIM</Typography>
+                        <TokenSymbol symbol={'WINE'} />
+                        <Typography variant="h6">WINE Available to Buy</Typography>
+                        <Typography variant="h3" style={{marginTop: '5px'}}>
+                          {rebateStats ? Number(rebateStats.tombAvailable).toFixed(3) : '--'}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                  <Grid item xs={12} md={6} lg={6} className={classes.gridItem}>
+                    <Card className={classes.gridItem}>
+                      <CardContent align="center">
+                        <Typography variant="h5">Your WINE Vesting (over 3 days)</Typography>
+                        <Grid style={{marginTop: '20px'}} container justifyContent="space-between">
+                          <Grid item>
+                            <Typography variant="h6">Total Vested</Typography>
+                          </Grid>
+                          <Grid item>
+                            <Typography variant="h6">{vested.toFixed(4)}</Typography>
+                          </Grid>
+                        </Grid>
+
+                        <Grid container justifyContent="space-between">
+                          <Grid item>
+                            <Typography variant="h6">Claimable</Typography>
+                          </Grid>
+                          <Grid item>
+                            <Typography variant="h6">{claimablewine.toFixed(4)}</Typography>
+                          </Grid>
+                        </Grid>
+
+                        <Button
+                          color="primary"
+                          className="shinyButton"
+                          variant="contained"
+                          onClick={claimTomb}
+                          style={{marginTop: '8px', width: '100%'}}
+                        >
+                          CLAIM
+                        </Button>
                       </CardContent>
                     </Card>
                   </Grid>
                 </Grid>
               </Box>
-              <div style={{ marginTop: '35px'}} hidden={activeBanks.filter((bank) => bank.sectionInUI === 4).length === 0}>
+              <div
+                style={{marginTop: '35px'}}
+                hidden={activeBanks.filter((bank) => bank.sectionInUI === 4).length === 0}
+              >
                 <Alert
                   style={{backgroundColor: 'black', color: 'white', marginBottom: '15px'}}
                   variant="filled"
                   severity="warning"
                 >
-                  Wine available replenishes every epoch. Bond GRAPE, GRAPE-MIM LP or MIM and receive discounted WINE vested
-                  linearly over 3 days. GRAPE will be burnt, MIM will be used to buy and burn GRAPE.
+                  Wine available replenishes every epoch. Bond GRAPE, GRAPE-MIM LP or MIM and receive discounted WINE
+                  vested linearly over 3 days. GRAPE will be burnt, MIM will be used to buy and burn GRAPE.
                 </Alert>
                 <Grid container spacing={3}>
                   {activeBanks
@@ -130,31 +171,6 @@ const Cemetery = () => {
                     ))}
                 </Grid>
               </div>
-              <Box mt={2}>
-                <Grid container justify="center" spacing={3}>
-                  <Grid item xs={12} md={6} lg={6} className={classes.gridItem}>
-                    <Card style={{height: 'auto'}}>
-                      <CardContent align="center">
-                        <Typography variant="h5">
-                          WINE Vesting (3 days)
-                        </Typography>
-                        <Typography variant="h6">{vested.toFixed(4)} Total Vested</Typography>
-                        <Typography variant="h6">{claimablewine.toFixed(4)} Claimable</Typography>
-
-                        <Button
-                          color="primary"
-                          size="small"
-                          variant="contained"
-                          onClick={claimTomb}
-                          style={{marginTop: '8px'}}
-                        >
-                          CLAIM
-                        </Button>
-                      </CardContent>
-                    </Card>
-                  </Grid>
-                </Grid>
-              </Box>
             </>
           ) : (
             <UnlockWallet />
