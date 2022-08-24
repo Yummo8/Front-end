@@ -16,6 +16,7 @@ import {createGlobalStyle} from 'styled-components';
 import useBanks from '../../hooks/useBanks';
 import useRebateTreasury from '../../hooks/useRebateTreasury';
 import useTombStats from '../../hooks/useWineStats';
+import serGrape from '../../assets/img/ser_grape.png';
 import daoImg from '../../assets/img/1.jpg';
 import TokenSymbol from '../../components/TokenSymbol';
 
@@ -95,7 +96,7 @@ const Cemetery = () => {
           {!!account ? (
             <>
               <Typography color="textPrimary" align="center" variant="h3" gutterBottom>
-                🔥Peg Health Campaign🔥
+                🔥Peg Health Campaign <img src={serGrape} width={50} height={50} />
               </Typography>
               <Typography color="textPrimary" align="center" variant="h6" gutterBottom style={{marginBottom: '40px'}}>
                 Buy Wine at a discount & burn Grape, vested over 3 days
