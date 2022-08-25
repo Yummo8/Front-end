@@ -4,7 +4,7 @@ import {Route, Switch, useRouteMatch} from 'react-router-dom';
 import {makeStyles} from '@material-ui/core/styles';
 import Web3 from 'web3';
 
-import {Box, Card, CardContent, Button, Typography, Grid} from '@material-ui/core';
+import {Box, Card, CardContent, Button, Typography, Grid, Tooltip} from '@material-ui/core';
 
 import {Alert} from '@material-ui/lab';
 
@@ -99,8 +99,10 @@ const Cemetery = () => {
                 🔥Peg Health Campaign <img src={serGrape} width={50} height={50} />
               </Typography>
               <Typography color="textPrimary" align="center" variant="h6" gutterBottom style={{marginBottom: '40px'}}>
-                Buy Wine at a discount & burn Grape, vested over 3 days
+                Bond GRAPE, GRAPE-MIM LP or MIM and receive discounted WINE vested linearly over 3 days. <br/>All GRAPE will
+                be burnt, MIM will be used to buy and burn GRAPE.
               </Typography>
+
               <Box mt={2}>
                 <Grid container justify="center" spacing={3}>
                   <Grid item xs={12} md={6} lg={6} className={classes.gridItem}>
@@ -151,17 +153,9 @@ const Cemetery = () => {
                 </Grid>
               </Box>
               <div
-                style={{marginTop: '35px'}}
+                style={{marginTop: '10px'}}
                 hidden={activeBanks.filter((bank) => bank.sectionInUI === 4).length === 0}
               >
-                <Alert
-                  style={{backgroundColor: 'black', color: 'white', marginBottom: '15px'}}
-                  variant="filled"
-                  severity="warning"
-                >
-                  Wine available replenishes every epoch. Bond GRAPE, GRAPE-MIM LP or MIM and receive discounted WINE
-                  vested linearly over 3 days. GRAPE will be burnt, MIM will be used to buy and burn GRAPE.
-                </Alert>
                 <Grid container spacing={3}>
                   {activeBanks
                     .filter((bank) => bank.sectionInUI === 4)
