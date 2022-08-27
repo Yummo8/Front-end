@@ -597,6 +597,7 @@ const Page: React.FC = ({children}) => {
                       </MenuItem>
                     </a>
                     <Divider sx={{my: 0.5}} />
+
                     <a
                       className="menu-item"
                       target="_blank"
@@ -870,7 +871,7 @@ const Page: React.FC = ({children}) => {
                 </ListItemButton>
               </ListItem>
             </Tooltip>
-            <Tooltip arrow followCursor title={open ? '' : 'Rebates'} placement="top-start">
+            <Tooltip arrow followCursor title={open ? '' : 'Peg Health Campaign'} placement="top-start">
               <ListItem
                 className="menu-item"
                 button
@@ -895,7 +896,7 @@ const Page: React.FC = ({children}) => {
                   >
                     <img src={rebatesImg} alt="Rebates" height={30} />
                   </ListItemIcon>
-                  <ListItemText primary="Rebates" sx={{opacity: open ? 1 : 0}} />
+                  <ListItemText primary="Peg Health Campaign" sx={{opacity: open ? 1 : 0}} />
                 </ListItemButton>
               </ListItem>
             </Tooltip>
@@ -1017,6 +1018,7 @@ const Page: React.FC = ({children}) => {
                       </ListItemButton>
                     </a>
                   </Tooltip>
+                  
                   <Tooltip arrow followCursor title={open ? '' : 'King Of Colosseum'} placement="top-start">
                     <a
                       className="menu-item"
@@ -1324,29 +1326,6 @@ const Page: React.FC = ({children}) => {
                       </ListItemButton>
                     </ListItem>
                   </Tooltip>
-                  <Tooltip arrow followCursor title={open ? '' : 'Buy NFTs with Avax'} placement="top-start">
-                    <a
-                      className="menu-item"
-                      href="https://nftrade.com/assets/avalanche/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{padding: 0, display: 'block'}}
-                    >
-                      <ListItemButton sx={{pl: 4}}>
-                        <ListItemIcon
-                          sx={{
-                            color: 'white',
-                            minWidth: 0,
-                            mr: open ? 3 : 'auto',
-                            justifyContent: 'center',
-                          }}
-                        >
-                          <ShoppingCartIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Buy NFTs with Avax" />
-                      </ListItemButton>
-                    </a>
-                  </Tooltip>
                   <Tooltip arrow followCursor title={open ? '' : 'Buy NFTs with Grape'} placement="top-start">
                     <a
                       className="menu-item"
@@ -1370,6 +1349,53 @@ const Page: React.FC = ({children}) => {
                       </ListItemButton>
                     </a>
                   </Tooltip>
+                  <Tooltip arrow followCursor title={open ? '' : 'Buy NFTs with Avax (NFT Trade)'} placement="top-start">
+                    <a
+                      className="menu-item"
+                      href="https://nftrade.com/assets/avalanche/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{padding: 0, display: 'block'}}
+                    >
+                      <ListItemButton sx={{pl: 4}}>
+                        <ListItemIcon
+                          sx={{
+                            color: 'white',
+                            minWidth: 0,
+                            mr: open ? 3 : 'auto',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          <ShoppingCartIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Buy NFTs on NFT Trade" />
+                      </ListItemButton>
+                    </a>
+                  </Tooltip>
+                  <Tooltip arrow followCursor title={open ? '' : 'Buy NFTs with Avax (NFT Trade)'} placement="top-start">
+                    <a
+                      className="menu-item"
+                      href="https://nftrade.com/assets/avalanche/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{padding: 0, display: 'block'}}
+                    >
+                      <ListItemButton sx={{pl: 4}}>
+                        <ListItemIcon
+                          sx={{
+                            color: 'white',
+                            minWidth: 0,
+                            mr: open ? 3 : 'auto',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          <ShoppingCartIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Buy NFTs on Alpha Shares" />
+                      </ListItemButton>
+                    </a>
+                  </Tooltip>
+                  
                   <Tooltip arrow followCursor title={open ? '' : 'Strategies'} placement="top-start">
                     <ListItem
                       className="menu-item"
@@ -1393,6 +1419,29 @@ const Page: React.FC = ({children}) => {
                         <ListItemText primary="Strategies" />
                       </ListItemButton>
                     </ListItem>
+                  </Tooltip>
+                  <Tooltip arrow followCursor title={open ? '' : 'Dashboard'} placement="top-start">
+                    <a
+                      className="menu-item"
+                      href="https://stats.grapefinance.app/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{padding: 0, display: 'block'}}
+                    >
+                      <ListItemButton sx={{pl: 4}}>
+                        <ListItemIcon
+                          sx={{
+                            color: 'white',
+                            minWidth: 0,
+                            mr: open ? 3 : 'auto',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          <QueryStatsIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Dashboard" />
+                      </ListItemButton>
+                    </a>
                   </Tooltip>
                   <Tooltip arrow followCursor title={open ? '' : 'Node Rewards'} placement="top-start">
                     <ListItem
