@@ -772,17 +772,17 @@ export class GrapeFinance {
     } else if (depositTokenName.startsWith('GRAPE-WINE')) {
       return rewardPerSecond.mul(1500).div(41000);
     } else if (depositTokenName === 'GRAPE') {
-      return rewardPerSecond.mul(6000).div(41000);
+      return rewardPerSecond.mul(4000).div(41000);
     } else if (depositTokenName === 'WAMP') {
-      return rewardPerSecond.mul(250).div(41000);
+      return rewardPerSecond.mul(100).div(41000);
     } else if (depositTokenName === 'GRAPE-MIM-SW') {
-      return rewardPerSecond.mul(7500).div(41000);
+      return rewardPerSecond.mul(15500).div(41000);
     } else if (depositTokenName === 'WINE-POPS-LP') {
-      return rewardPerSecond.mul(250).div(41000);
+      return rewardPerSecond.mul(100).div(41000);
     } else if (depositTokenName === 'sVintage') {
-      return rewardPerSecond.mul(3500).div(41000);
+      return rewardPerSecond.mul(5800).div(41000);
     } else {
-      return rewardPerSecond.mul(18000).div(41000);
+      return rewardPerSecond.mul(10000).div(41000);
     }
   }
 
