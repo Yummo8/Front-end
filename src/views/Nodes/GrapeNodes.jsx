@@ -21,6 +21,7 @@ const GrapeNodes = () => {
   const {path} = useRouteMatch();
 
   const grapeNodeBank = useBank('GrapeNode');
+  // const grapeNodeV2Bank = useBank('GrapeNodeV2');
   const grapeMimSWBank = useBank('LPNode');
   const grapeWrlsBank = useBank('LPWlrsNode');
 
@@ -49,6 +50,7 @@ const GrapeNodes = () => {
           </Grid>
 
           <Grid container spacing={3} style={{marginTop: '30px'}}>
+            {/* <NodesInfoCard bank={grapeNodeV2Bank} /> */}
             <NodesInfoCard bank={grapeNodeBank} />
             <NodesInfoCard bank={grapeMimSWBank} />
             <NodesInfoCard bank={grapeWrlsBank} />

@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React, {useMemo, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import {useWallet} from 'use-wallet';
 import PageHeader from '../../components/PageHeader';
@@ -44,6 +44,34 @@ const GrapeNode = () => {
   const userDetails = useUserDetails(bank?.contract, bank?.sectionInUI, account);
   const stakedTokenPriceInDollars = useStakedTokenPriceInDollars(bank?.depositTokenName, bank?.depositToken);
 
+  const computedTotalNodes = useMemo(() => {
+    if (total) {
+      let nodeTotal;
+      try {
+        nodeTotal = total[0];
+      } catch (e) {}
+      if (!nodeTotal) {
+        nodeTotal = Number(total)
+      }
+      console.log('NODES TOTAL = ' + nodeTotal);
+      return nodeTotal;
+    }
+  }, [total]);
+
+  const computedNodes = useMemo(() => {
+    if (nodes) {
+      let nodeCount;
+      try {
+        nodeCount = nodes[0];
+      } catch (e) {}
+      if (!nodeCount) {
+        nodeCount = Number(nodes)
+      }
+      console.log('NODES = ' + nodeCount);
+      return nodeCount;
+    }
+  }, [nodes]);
+
   const tokenPriceInDollars = useMemo(
     () => (stakedTokenPriceInDollars ? stakedTokenPriceInDollars : null),
     [stakedTokenPriceInDollars],
@@ -73,19 +101,19 @@ const GrapeNode = () => {
           your daily returns increase it also keeps the APR stable and can help boost it. A good ratio for node health
           is to compound 3 nodes for every 1 nodes worth of claims.
         </Alert>
-        <Grid container justify="center" spacing={2} style={{marginBottom: '50px', marginTop: '20px'}}>
+        <Grid container justifyContent="center" spacing={2} style={{marginBottom: '50px', marginTop: '20px'}}>
           <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
             <Card className={classes.gridItem}>
               <CardContent style={{textAlign: 'center'}}>
                 <Typography style={{color: '#ccf'}}>Your Nodes | Value</Typography>
                 <Typography>
-                  {nodes[0] && (
+                  {computedNodes && (
                     <>
-                      <b style={{color: 'rgb(255, 255, 255)', marginRight: '0px'}}>{nodes[0].toString()}</b> |{' '}
+                      <b style={{color: 'rgb(255, 255, 255)', marginRight: '0px'}}>{computedNodes.toString()}</b> |{' '}
                       <b style={{color: 'rgb(255, 255, 255)', marginRight: '0px'}}>
                         $
                         {(
-                          nodes[0] *
+                          computedNodes *
                           (tokenPriceInDollars * getDisplayBalance(nodePrice, bank.depositToken.decimal, 1))
                         ).toFixed(0)}
                       </b>
@@ -117,7 +145,7 @@ const GrapeNode = () => {
             <Card className={classes.gridItem}>
               <CardContent style={{textAlign: 'center'}}>
                 <Typography style={{color: '#ccf'}}>Max Possible Pay</Typography>
-                <Typography>{Number(max) / 1e18} </Typography>
+                <Typography>{(Number(max) / 1e18).toFixed(2)} </Typography>
               </CardContent>
             </Card>
           </Grid>
@@ -138,7 +166,7 @@ const GrapeNode = () => {
               <CardContent style={{textAlign: 'center'}}>
                 <Typography style={{color: '#ccf'}}>Total Nodes | TVL</Typography>
                 <Typography>
-                  {Number(total[0])} | $
+                  {Number(computedTotalNodes)} | $
                   {statsOnPool?.TVL ? Number(Number(statsOnPool?.TVL).toFixed(0)).toLocaleString('en-US') : '-.--'}
                 </Typography>
               </CardContent>
