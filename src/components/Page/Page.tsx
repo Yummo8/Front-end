@@ -27,6 +27,7 @@ import vintageImg from '../../assets/img/vintage-token.png';
 import magikImg from '../../assets/img/magik.png';
 import creamImg from '../../assets/img/cream.png';
 import beefyImg from '../../assets/img/beefy.png';
+import houseFlip from '../../assets/img/houseflip.png';
 import yieldwolfImg from '../../assets/img/yieldwolf.png';
 import debankImg from '../../assets/img/debank.png';
 import rebatesImg from '../../assets/img/rebates.png';
@@ -967,6 +968,31 @@ const Page: React.FC = ({children}) => {
                         </ListItemIcon>
 
                         <ListItemText primary="Wine Maker" sx={{opacity: open ? 1 : 0}} />
+                      </ListItemButton>
+                    </a>
+                  </Tooltip>
+                  
+                  <Tooltip arrow followCursor title={open ? '' : 'Double Your Grape'} placement="top-start">
+                    <a
+                      href="https://avax.fantom.house/grapeflip"
+                      target="_blank"
+                      className="menu-item"
+                      rel="noopener noreferrer"
+                      style={{padding: 0, display: 'block'}}
+                    >
+                      <ListItemButton sx={{pl: 4}}>
+                        <ListItemIcon
+                          sx={{
+                            color: 'white',
+                            minWidth: 0,
+                            mr: open ? 3 : 'auto',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          <img src={houseFlip} alt="Double Your Grape" height={25} />
+                        </ListItemIcon>
+
+                        <ListItemText primary="Double Your Grape" sx={{opacity: open ? 1 : 0}} />
                       </ListItemButton>
                     </a>
                   </Tooltip>

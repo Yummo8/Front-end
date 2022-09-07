@@ -133,7 +133,7 @@ const Home = () => {
   const printRate = useGetBoardroomPrintRate();
   // const lastSnapshot = useBoardroomLastSnapshot();
   // const lastPrintAmount = useBoardroomLastPrintAmount();
-  
+
   return (
     <Page>
       <GetStartedModal open={getStartedModalOpen} handleClose={handleCloseModal} />
@@ -209,7 +209,12 @@ const Home = () => {
         <Grid item xs={12} style={{textAlign: 'center'}}>
           <Typography color="white" variant="h3" gutterBottom>
             Welcome to Grape Finance
-            <Button style={{marginLeft: '15px'}} onClick={openGetStarted} variant="contained" className="winepress get-started">
+            <Button
+              style={{marginLeft: '15px'}}
+              onClick={openGetStarted}
+              variant="contained"
+              className="winepress get-started"
+            >
               Get Started
             </Button>
           </Typography>
@@ -225,7 +230,11 @@ const Home = () => {
             <a style={{color: '#e647e6'}} href="https://winemaker.grapefinance.app/">
               Winemaker
             </a>{' '}
-            Game.
+            Game, or in{' '}
+            <a style={{color: '#e647e6'}} href="https://winepress.grapefinance.app/">
+              Wine Press
+            </a>{' '}
+            to buy Lotto tickets.
             <br />
             <b>🟣 Vineyard -</b> If you use AutoCompounders (Beefy, Yieldwolf), move your LPs to{' '}
             <a style={{color: '#e647e6'}} href="https://magik.farm/#/avax">
@@ -309,16 +318,19 @@ const Home = () => {
               </Typography>
               <Grid container direction="column">
                 <Grid item>
-                  #1 🏺
-                  <b>
-                    <a style={{color: '#e647e6'}} href="https://winepress.grapefinance.app/">
-                      WINE PRESS
-                    </a>
-                  </b>{' '}
-                  IS OPENED! Earn 1.25% daily + bonus + lottery!
+                  #1 🧊 <b>Nodes v2 </b> officially released Thursday 8th!{' '}
                 </Grid>
                 <Grid item>
-                  #2 🎲 Play{' '}
+                  #2 🏺
+                  <b>
+                    <a style={{color: '#e647e6'}} href="https://winepress.grapefinance.app/">
+                      WINE PRESS:
+                    </a>
+                  </b>{' '}
+                  Earn 1.25% daily + bonus + lottery!
+                </Grid>
+                <Grid item>
+                  #3 🎲 Play{' '}
                   <b>
                     <a style={{color: '#e647e6'}} href="https://casino.grapefinance.app">
                       GRAPE CASINO
@@ -327,29 +339,26 @@ const Home = () => {
                   NOW and Burn Grape!
                 </Grid>
                 <Grid item>
-                  #3 👫 Come and say Hi to our newest Core Team Members:{' '}
+                  #4 👫 Come and say Hi to our newest Core Team Members:{' '}
                   <b>
                     Vintner (Head of Marketing), Fizzyl (Head of Education & Strategy), and Tazz (Head of FE
                     Engineering)
                   </b>
                 </Grid>
                 <Grid item>
-                  #4 🍭 <b>Swapsicle POPs </b> for GRAPE-MIM LP are now claimable on{' '}
+                  #5 🍭 <b>Swapsicle POPs </b> for GRAPE-MIM LP are now claimable on{' '}
                   <a style={{color: '#e647e6'}} href="https://www.swapsicle.io/rewards">
                     Swapsicle
                   </a>
                   , instead of airdrops.
                 </Grid>
                 <Grid item>
-                  #5 🔥 <b>Keep it burnin',</b> <span style={{color: '#e647e6'}}>225,000</span> Grape burned thanks to
+                  #6 🔥 <b>Keep it burnin',</b> <span style={{color: '#e647e6'}}>300,000+</span> Grape burned thanks to
                   Winemaker!
                 </Grid>
+
                 <Grid item>
-                  #6 🧊 <b>Nodes v2 </b> are in the works.{' '}
-                  <span style={{color: '#e647e6'}}>Sustainable strategies and incentivize good actors.</span>.
-                </Grid>
-                <Grid item>
-                  #7 🍷 A lot of progress on <b>Vinium </b>. Can't wait to release it!
+                  #7 🍷 <b>Vinium </b> will be audited the first week of September. Official release expected soon after. 
                 </Grid>
               </Grid>
 
