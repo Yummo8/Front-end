@@ -71,6 +71,7 @@ import pressIcon from '../../assets/img/barrel.png';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import {ReactComponent as IconDiscord} from '../../assets/img/discord-plain.svg';
 
 const drawerWidth = 280;
 
@@ -246,7 +247,6 @@ const Page: React.FC = ({children}) => {
     setUsefulllinksOpen(!usefullLinksOpen);
   };
 
-
   const [anchorElContracts, setAnchorElContracts] = React.useState<null | HTMLElement>(null);
   const contractsOpen = Boolean(anchorElContracts);
   const handleContractsClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -255,7 +255,7 @@ const Page: React.FC = ({children}) => {
   const handleContractsClose = () => {
     setAnchorElContracts(null);
   };
-  
+
   const [anchorElTokens, setAnchorElTokens] = React.useState<null | HTMLElement>(null);
   const tokensOpen = Boolean(anchorElTokens);
   const handleTokensClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -274,7 +274,7 @@ const Page: React.FC = ({children}) => {
     setAnchorEl(null);
   };
 
-  const screenSM = useMediaQuery('(min-width:1065px)');
+  const screenSM = useMediaQuery('(min-width:1115px)');
 
   return (
     <div style={{position: 'relative', minHeight: '100vh'}}>
@@ -420,7 +420,7 @@ const Page: React.FC = ({children}) => {
                       href="https://snowtrace.io/address/0x2707ccc10D6C1ce49f72867aB5b85dE11e64979f"
                     >
                       <MenuItem disableRipple>WinePress</MenuItem>
-                    </a> 
+                    </a>
                     <a
                       className="menu-item"
                       target="_blank"
@@ -428,7 +428,7 @@ const Page: React.FC = ({children}) => {
                       href="https://snowtrace.io/address/0x567971069EdCe50235c33FAb133e1EcdF838d3b3"
                     >
                       <MenuItem disableRipple>WinePress (Lotto)</MenuItem>
-                    </a> 
+                    </a>
                   </StyledMenu>
 
                   <Button
@@ -540,7 +540,6 @@ const Page: React.FC = ({children}) => {
                     >
                       <MenuItem disableRipple>Wine-POPs LP</MenuItem>
                     </a>
-                   
                   </StyledMenu>
 
                   <Button
@@ -623,6 +622,14 @@ const Page: React.FC = ({children}) => {
                 </div>
               )}
               <AccountButton text="Connect" />
+              <a
+                href="https://discord.gg/grapefinance"
+                rel="noopener noreferrer"
+                target="_blank"
+                style={{color: '#fff'}}
+              >
+                <IconDiscord width={30} style={{fill: '#fff', height: '42px'}} />
+              </a>{' '}
             </Box>
           </Toolbar>
         </AppBar>
@@ -971,7 +978,7 @@ const Page: React.FC = ({children}) => {
                       </ListItemButton>
                     </a>
                   </Tooltip>
-                  
+
                   <Tooltip arrow followCursor title={open ? '' : 'Double Your Grape'} placement="top-start">
                     <a
                       href="https://avax.fantom.house/grapeflip"
@@ -1044,7 +1051,7 @@ const Page: React.FC = ({children}) => {
                       </ListItemButton>
                     </a>
                   </Tooltip>
-                  
+
                   <Tooltip arrow followCursor title={open ? '' : 'King Of Colosseum'} placement="top-start">
                     <a
                       className="menu-item"
@@ -1375,7 +1382,12 @@ const Page: React.FC = ({children}) => {
                       </ListItemButton>
                     </a>
                   </Tooltip>
-                  <Tooltip arrow followCursor title={open ? '' : 'Buy NFTs with Avax (NFT Trade)'} placement="top-start">
+                  <Tooltip
+                    arrow
+                    followCursor
+                    title={open ? '' : 'Buy NFTs with Avax (NFT Trade)'}
+                    placement="top-start"
+                  >
                     <a
                       className="menu-item"
                       href="https://nftrade.com/assets/avalanche/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df"
@@ -1398,7 +1410,12 @@ const Page: React.FC = ({children}) => {
                       </ListItemButton>
                     </a>
                   </Tooltip>
-                  <Tooltip arrow followCursor title={open ? '' : 'Buy NFTs with Avax (NFT Trade)'} placement="top-start">
+                  <Tooltip
+                    arrow
+                    followCursor
+                    title={open ? '' : 'Buy NFTs with Avax (NFT Trade)'}
+                    placement="top-start"
+                  >
                     <a
                       className="menu-item"
                       href="https://nftrade.com/assets/avalanche/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df"
@@ -1421,7 +1438,7 @@ const Page: React.FC = ({children}) => {
                       </ListItemButton>
                     </a>
                   </Tooltip>
-                  
+
                   <Tooltip arrow followCursor title={open ? '' : 'Strategies'} placement="top-start">
                     <ListItem
                       className="menu-item"
