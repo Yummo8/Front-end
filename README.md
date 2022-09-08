@@ -38,6 +38,6 @@ npx prettier --write .
 
 
 - [Our project documentation] (https://grapefinance.gitbook.io/grape-finance-docs/) will help you understand before start contributing
-- Join our Discord (https://discord.gg/mZ4QrZwH5M) community to get in on the discussion
+- Join our Discord (https://discord.gg/grapefinance) community to get in on the discussion
 - Or if you are more of a [Telegram person](https://t.me/GrapeDefi) we have that too
 - Bugs? Use the Issues section of our github to report them

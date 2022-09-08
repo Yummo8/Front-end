@@ -68,7 +68,7 @@ const Footer = () => {
             <a href="https://t.me/GrapeDefi" rel="noopener noreferrer" target="_blank" className={classes.link}>
               <IconTelegram style={{fill: '#fff', height: '20px'}} />
             </a>
-            <a href="https://discord.gg/mZ4QrZwH5M" rel="noopener noreferrer" target="_blank" className={classes.link}>
+            <a href="https://discord.gg/grapefinance" rel="noopener noreferrer" target="_blank" className={classes.link}>
               <IconDiscord style={{fill: '#fff', height: '20px'}} />
             </a>
           </Grid>

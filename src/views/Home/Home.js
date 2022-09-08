@@ -365,7 +365,7 @@ const Home = () => {
               <p style={{textAlign: 'center'}}>
                 To Follow the latest news, join us on Discord, Telegram and Twitter <br />
                 <a
-                  href="https://discord.gg/ZP9aYaXeCJ"
+                  href="https://discord.gg/grapefinance"
                   rel="noopener noreferrer"
                   target="_blank"
                   style={{color: '#fff'}}
