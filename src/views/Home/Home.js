@@ -317,11 +317,14 @@ const Home = () => {
                 🔥Grape News
               </Typography>
               <Grid container direction="column">
-                <Grid item>
-                  #1 🧊 <b>Nodes v2 </b> officially released Thursday 8th!{' '}
+              <Grid item>
+                  #1 ✨ <b>Discord Server Migration</b> will occur today (8th)! Please follow official announcements in the discord{' '}
                 </Grid>
                 <Grid item>
-                  #2 🏺
+                  #2 🧊 <b>Nodes v2 </b> officially released day after server migration - Friday 9th! Will require some Grape node downtime, official time TBA{' '}
+                </Grid>
+                <Grid item>
+                  #3 🏺
                   <b>
                     <a style={{color: '#e647e6'}} href="https://winepress.grapefinance.app/">
                       WINE PRESS:
@@ -330,7 +333,7 @@ const Home = () => {
                   Earn 1.25% daily + bonus + lottery!
                 </Grid>
                 <Grid item>
-                  #3 🎲 Play{' '}
+                  #4 🎲 Play{' '}
                   <b>
                     <a style={{color: '#e647e6'}} href="https://casino.grapefinance.app">
                       GRAPE CASINO
@@ -339,26 +342,26 @@ const Home = () => {
                   NOW and Burn Grape!
                 </Grid>
                 <Grid item>
-                  #4 👫 Come and say Hi to our newest Core Team Members:{' '}
+                  #5 👫 Come and say Hi to our newest Core Team Members:{' '}
                   <b>
                     Vintner (Head of Marketing), Fizzyl (Head of Education & Strategy), and Tazz (Head of FE
                     Engineering)
                   </b>
                 </Grid>
                 <Grid item>
-                  #5 🍭 <b>Swapsicle POPs </b> for GRAPE-MIM LP are now claimable on{' '}
+                  #6 🍭 <b>Swapsicle POPs </b> for GRAPE-MIM LP are now claimable on{' '}
                   <a style={{color: '#e647e6'}} href="https://www.swapsicle.io/rewards">
                     Swapsicle
                   </a>
                   , instead of airdrops.
                 </Grid>
                 <Grid item>
-                  #6 🔥 <b>Keep it burnin',</b> <span style={{color: '#e647e6'}}>300,000+</span> Grape burned thanks to
+                  #7 🔥 <b>Keep it burnin',</b> <span style={{color: '#e647e6'}}>340,000+</span> Grape burned thanks to
                   Winemaker!
                 </Grid>
 
                 <Grid item>
-                  #7 🍷 <b>Vinium </b> will be audited the first week of September. Official release expected soon after. 
+                  #8 🍷 <b>Vinium </b> will be audited the first week of September. Official release expected soon after. 
                 </Grid>
               </Grid>
 
