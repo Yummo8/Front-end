@@ -139,10 +139,13 @@ const GrapeNode = () => {
                 <Typography style={{color: '#ccf'}}>APR | Daily</Typography>
                 <Typography>
                   {bank.contract === 'GrapeNodeV2' ? (
+                    daily && computedNodes ?
                     <>
                       {((((Number(daily) / 1e18).toFixed(2) * 100) / (computedNodes * 50)) * 365).toFixed(2)}% |{' '}
                       {(((Number(daily) / 1e18).toFixed(2) * 100) / (computedNodes * 50)).toFixed(2)}%
                     </>
+                    : 
+                    '~365% | ~1.00%'
                   ) : (
                     <>
                       {bank.closedForStaking ? '0.00' : statsOnPool?.yearlyAPR}% |{' '}

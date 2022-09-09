@@ -127,39 +127,19 @@ const PoolCardHeader: React.FC<PoolCardHeaderProps> = ({
       <Grid item xs={12} md={12} lg={12}>
         <Grid container alignItems="baseline" justifyContent="space-between">
           <Grid item>
-            <span className="card-info-text">APR</span>
-          </Grid>
-          <Grid item>
-            {bank.contract === 'GrapeNodeV2' ? (
-              <span className="info-card-price">
-                {nodeDaily && nodeCount ? (
-                  <>{((((Number(nodeDaily) / 1e18) * 100) / (nodeCount * 50)) * 365).toFixed(2)}%</>
-                ) : (
-                  '~1%'
-                )}{' '}
-              </span>
-            ) : (
-              <span className="info-card-price">{bank.closedForStaking ? '0.00' : statsOnPool?.yearlyAPR}%</span>
-            )}
-          </Grid>
-        </Grid>
-      </Grid>
-      <Grid item xs={12} md={12} lg={12}>
-        <Grid container alignItems="baseline" justifyContent="space-between">
-          <Grid item>
             <span className="card-info-text">Daily</span>
           </Grid>
           <Grid item>
             {bank.contract === 'GrapeNodeV2' ? (
               <span className="info-card-price">
-              {nodeDaily && nodeCount ? (
-                <>{((((Number(nodeDaily) / 1e18) * 100) / (nodeCount * 50))).toFixed(2)}%</>
-              ) : (
-                '~365%'
-              )}{' '}
-            </span>
+                {nodeDaily && nodeCount ? (
+                  <>{(((Number(nodeDaily) / 1e18) * 100) / (nodeCount * 50)).toFixed(2)}%</>
+                ) : (
+                  '~1.00%'
+                )}{' '}
+              </span>
             ) : (
-              <span className="info-card-price">{bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR }%</span>
+              <span className="info-card-price">{bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}%</span>
             )}{' '}
           </Grid>
         </Grid>

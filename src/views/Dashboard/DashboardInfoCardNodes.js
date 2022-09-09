@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {Link} from 'react-router-dom';
 import {Button, Card, CardContent, Grid} from '@material-ui/core';
 import NodeCardContent from '../../components/NodeCardContent';
@@ -10,6 +10,9 @@ import useHarvest from '../../hooks/useHarvest';
 import PoolCardHeader from '../../components/PoolCardHeader';
 import ReactTooltip from 'react-tooltip';
 import rewards from '../../assets/jsons/rewards.json';
+import useDailyDrip from '../../hooks/useDailyDrip';
+import useNodes from '../../hooks/useNodes';
+import {useWallet} from 'use-wallet';
 
 const DashboardInfoCardNodes = ({bank}) => {
   const statsOnPool = useStatsForPool(bank);
@@ -17,12 +20,28 @@ const DashboardInfoCardNodes = ({bank}) => {
   const nodePrice = useNodePrice(bank.contract, bank.poolId, bank.sectionInUI);
   const {onReward} = useHarvest(bank);
   const {onCompound} = useCompound(bank);
+  const {account} = useWallet();
+  const daily = useDailyDrip(bank?.contract, bank?.sectionInUI, account);
+  const nodes = useNodes(bank?.contract, bank?.sectionInUI, account);
+
+  const computedTotalNodes = useMemo(() => {
+    if (nodes && bank.contract === 'GrapeNodeV2') {
+      let nodeTotal;
+      try {
+        nodeTotal = Number(nodes[0]);
+      } catch (e) {}
+      if (!nodeTotal) {
+        nodeTotal = Number(nodes);
+      }
+      return nodeTotal;
+    }
+  }, [nodes]);
 
   return (
     <Grid item xs={12} sm={12} md={6} lg={4}>
       <Card>
         <CardContent>
-          <PoolCardHeader bank={bank} statsOnPool={statsOnPool} />
+          <PoolCardHeader bank={bank} statsOnPool={statsOnPool} nodeDaily={daily} nodeCount={computedTotalNodes} />
           <NodeCardContent bank={bank} statsOnPool={statsOnPool} />
           <Grid container spacing={1} style={{marginTop: '10px'}}>
             <Grid item className="card-price-item" xs={5}>
