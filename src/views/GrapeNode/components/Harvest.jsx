@@ -112,8 +112,7 @@ const Harvest = ({bank}) => {
           </Button>
         </StyledCardContentInner>
         <span style={{fontSize: '11px'}}>
-          If you are not seeing the amount of rewards you expected, please wait until contract refills. Refills are
-          automatic and happen multiple times per hour.
+          Grape Node migration is currently ongoing please check the official discord announcement. Migration should be completed soon.
         </span>
       </CardContent>
     </Card>
