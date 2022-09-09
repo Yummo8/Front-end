@@ -1,0 +1,139 @@
+[
+  {
+    "label": "Wine Press",
+    "subLabel": "Locked Staking & Lotto",
+    "color": "#e647e6",
+    "description": "Lock Wine-MIM LP and earn 350% back. Assassinate other players to get extra returns",
+    "isNew": false,
+    "linkTo": "https://winepress.grapefinance.app/",
+    "isInternalLink": false, 
+    "image": "barrel.png"
+  },
+  {
+    "label": "Peg Health Campaign",
+    "subLabel": "Locked Staking & Lotto",
+    "color": "#e647e6",
+    "description": "Bond Grape, Grape-MIM LP or MIM and receive discounted Wine vested linearly over 3 days",
+    "isNew": false,
+    "linkTo": "rebates",
+    "isInternalLink": true, 
+    "image": "rebates.png"
+  },
+  {
+    "label": "Nodes",
+    "subLabel": "Locked Staking & Lotto",
+    "color": "#e647e6",
+    "description": "Buy Nodes and lock your tokens to earn daily returns. Earn Monthly airdrops by buying nodes and NFTs",
+    "isNew": false,
+    "linkTo": "nodes",
+    "isInternalLink": true, 
+    "image": "gnode.png"
+  },
+  {
+    "label": "Wine Maker",
+    "subLabel": "Locked Staking & Lotto",
+    "color": "#e647e6",
+    "description": "Stake Vintners, earn $Vintage & become a master Winemaker",
+    "isNew": false,
+    "linkTo": "https://winemaker.grapefinance.app/",
+    "isInternalLink": false, 
+    "image": "Winemaker.png"
+  },
+  {
+    "label": "Casino",
+    "subLabel": "Locked Staking & Lotto",
+    "color": "#e647e6",
+    "description": "Buy tickets with Grape and pick a game to start playing",
+    "isNew": false,
+    "image": "casinocoins.png",
+    "backgroundImage": "roulettebackground.png",
+    "items": [
+      {
+        "label": "Grape Casino",
+        "color": "#eabc12",
+        "isNew": false, 
+        "linkTo": "https://casino.grapefinance.app/", 
+        "isInternalLink": false,
+        "image": "golden-grape.png"
+      },
+      {
+        "label": "Double Your Grapes",
+        "color": "#f5ca0a",
+        "isNew": false, 
+        "linkTo": "https://avax.fantom.house/grapeflip", 
+        "isInternalLink": false,
+        "image": "houseflip.png"
+      }
+    ]
+  },
+  {
+    "label": "Burn Grape Games",
+    "subLabel": "Locked Staking & Lotto",
+    "color": "#e647e6",
+    "description": "Buy tickets with Grape and pick a game to start playing and burning Grape",
+    "isNew": false,
+    "image": "burninggrape.png",
+    "items": [
+      {
+        "label": "Space Shooter",
+        "color": "#e647e6",
+        "isNew": false, 
+        "linkTo": "https://www.lianyou.io/burnforfun", 
+        "isInternalLink": false,
+        "image": "golden-grape.png"
+      },
+      {
+        "label": "King of Colosseum",
+        "color": "#e647e6",
+        "isNew": false, 
+        "linkTo": "https://koc.money/", 
+        "isInternalLink": false,
+        "image": "houseflip.png"
+      }
+    ]
+  },
+  {
+    "label": "Seigniorage Protocol",
+    "subLabel": "Locked Staking & Lotto",
+    "color": "#e647e6",
+    "description": "Earn daily returns by staking your token and LPs in the Vineyard, or stake your Wine in the Winery",
+    "isNew": false,
+    "image": "grape-wine.png", 
+    "items": [
+      {
+        "label": "Vineyard",
+        "color": "#e647e6",
+        "isNew": false, 
+        "linkTo": "vineyard", 
+        "isInternalLink": true,
+        "image": "grape.png"
+      },
+      {
+        "label": "Winery",
+        "color": "#e647e6",
+        "isNew": false, 
+        "linkTo": "winery", 
+        "isInternalLink": true,
+        "image": "gshare.png"
+      },
+      {
+        "label": "Bonds",
+        "color": "#e647e6",
+        "isNew": false, 
+        "linkTo": "bond", 
+        "isInternalLink": true,
+        "image": "gbond.png"
+      }
+    ]
+  },
+  {
+    "label": "NFTs & Rewards",
+    "subLabel": "Locked Staking & Lotto",
+    "color": "#e647e6",
+    "description": "Buy NFTs and earn extra monthly returns",
+    "isNew": false,
+    "linkTo": "rebates",
+    "isInternalLink": true, 
+    "image": "goblet.png"
+  }
+]

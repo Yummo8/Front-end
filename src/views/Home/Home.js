@@ -22,7 +22,6 @@ import audit from '../../assets/img/audit1.png';
 import HomeImage from '../../assets/img/background.jpg';
 import grapeGold from '../../assets/img/golden-grape.png';
 import pressImg from '../../assets/img/barrel.png';
-import newsImg from '../../assets/img/news.png';
 import {ReactComponent as IconTelegram} from '../../assets/img/telegram.svg';
 import {ReactComponent as IconDiscord} from '../../assets/img/discord.svg';
 import {ReactComponent as IconTwitter} from '../../assets/img/twitter.svg';
@@ -31,11 +30,10 @@ import AirdropRewardModal from './AirdropRewardModal';
 import GetStartedModal from './GetStartedModal';
 import useCurrentEpoch from '../../hooks/useCurrentEpoch';
 import useGetBoardroomPrintRate from '../../hooks/useGetBoardroomPrintRate';
-import NewspaperIcon from '@mui/icons-material/Newspaper';
 import Alert from '@mui/material/Alert';
 import vintageImg from '../../assets/img/vintage-token.png';
-import vintnersGif from '../../assets/img/vintners.gif';
-import grapeMimImg from '../../assets/img/twap.png';
+import homeItems from '../../homePageItems.json';
+import HomeCard from './HomeCard';
 
 // import useCashPriceInEstimatedTWAP from '../../hooks/useCashPriceInEstimatedTWAP';
 
@@ -219,6 +217,15 @@ const Home = () => {
             </Button>
           </Typography>
         </Grid>
+
+        <Grid item xs={12}>
+          <Grid container spacing={5}>
+            {homeItems.map((item) => (
+              <HomeCard item={item} />
+            ))}
+          </Grid>
+        </Grid>
+
         <Grid item xs={12}>
           <Alert variant="outlined" severity="info">
             <b style={{fontSize: '1.1rem', color: '#e647e6'}}>Grape Finance Suggestions</b>
@@ -317,11 +324,13 @@ const Home = () => {
                 🔥Grape News
               </Typography>
               <Grid container direction="column">
-              <Grid item>
-                  #1 ✨ <b>Discord Server Migration</b> will occur today (8th)! Please follow official announcements in the discord{' '}
+                <Grid item>
+                  #1 ✨ <b>Discord Server Migration</b> will occur today (8th)! Please follow official announcements in
+                  the discord{' '}
                 </Grid>
                 <Grid item>
-                  #2 🧊 <b>Nodes v2 </b> officially released day after server migration - Friday 9th! Will require some Grape node downtime, official time TBA{' '}
+                  #2 🧊 <b>Nodes v2 </b> officially released day after server migration - Friday 9th! Will require some
+                  Grape node downtime, official time TBA{' '}
                 </Grid>
                 <Grid item>
                   #3 🏺
@@ -361,7 +370,8 @@ const Home = () => {
                 </Grid>
 
                 <Grid item>
-                  #8 🍷 <b>Vinium </b> will be audited the first week of September. Official release expected soon after. 
+                  #8 🍷 <b>Vinium </b> will be audited the first week of September. Official release expected soon
+                  after.
                 </Grid>
               </Grid>
 

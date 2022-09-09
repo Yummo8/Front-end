@@ -76,7 +76,7 @@ body {
 /* .MuiTypography-body1,
 .MuiPaper-root, */
 h2 {
-  color: #ccf !important;
+  color: #ccf;
   font-size: 2.5em;
 }
 
