@@ -613,7 +613,17 @@ export class GrapeFinance {
     const poolContract = this.contracts[bank.contract];
 
     if (bank.sectionInUI === 3) {
-      const [depositTokenPrice, points, totalPoints, tierAmount, poolBalance, totalBalance, dripRate, dailyUserDrip] =
+      const [depositTokenPrice, points, totalPoints, tierAmount, poolBalance, totalBalance, dripRate, dailyUserDrip] = bank.contract == 'GrapeNodeV2' ?
+        await Promise.all([
+          this.getDepositTokenPriceInDollars(bank.depositTokenName, depositToken),
+          poolContract.tierAllocPoints(),
+          poolContract.totalAllocPoints(),
+          poolContract.tierAmounts(),
+          poolContract.getBalancePool(),
+          depositToken.balanceOf(bank.address),
+          poolContract.dripRate(),
+          poolContract.getDayDripEstimate(this.myAccount),
+        ]):
         await Promise.all([
           this.getDepositTokenPriceInDollars(bank.depositTokenName, depositToken),
           poolContract.tierAllocPoints(bank.poolId),
@@ -1015,7 +1025,13 @@ export class GrapeFinance {
   async getNodePrice(poolName: ContractName, poolId: Number): Promise<BigNumber> {
     const pool = this.contracts[poolName];
     try {
-      return await pool.tierAmounts(poolId);
+      if(poolName == 'GrapeNodeV2'){
+        return await pool.tierAmounts();
+      }else{
+        return await pool.tierAmounts(poolId);
+      }
+      
+      
     } catch (err) {
       console.error(`Failed to call tierAmounts on contract ${pool.address}: ${err}`);
       return BigNumber.from(0);

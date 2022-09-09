@@ -144,7 +144,7 @@ const GrapeNode = () => {
           <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
             <Card className={classes.gridItem}>
               <CardContent style={{textAlign: 'center'}}>
-                <Typography style={{color: '#ccf'}}>Max Possible Pay</Typography>
+                <Typography style={{color: '#ccf'}}>{bank.contract =='GrapeNodeV2' ? 'Remaining allocation': 'Max Possible Pay'}</Typography>
                 <Typography>{(Number(max) / 1e18).toFixed(2)} </Typography>
               </CardContent>
             </Card>

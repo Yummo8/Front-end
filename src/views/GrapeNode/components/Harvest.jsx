@@ -112,7 +112,7 @@ const Harvest = ({bank}) => {
           </Button>
         </StyledCardContentInner>
         <span style={{fontSize: '11px'}}>
-          Grape Node migration is currently ongoing please check the official discord announcement. Migration should be completed soon.
+        If you are not seeing the amount of rewards you expected, please wait until contract refills. Refills are automatic and happen multiple times per hour.
         </span>
       </CardContent>
     </Card>
