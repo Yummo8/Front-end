@@ -127,7 +127,7 @@ const GrapeNode = () => {
             <Card className={classes.gridItem}>
               <CardContent style={{textAlign: 'center'}}>
                 <Typography style={{color: '#ccf'}}>
-                  {bank.contract == 'GrapeNodeV2' ? 'Remaining allocation' : 'Max Possible Pay'}
+                  {bank.contract === 'GrapeNodeV2' ? 'Remaining allocation' : 'Max Possible Pay'}
                 </Typography>
                 <Typography>{(Number(max) / 1e18).toFixed(2)} </Typography>
               </CardContent>
@@ -138,8 +138,17 @@ const GrapeNode = () => {
               <CardContent style={{textAlign: 'center'}}>
                 <Typography style={{color: '#ccf'}}>APR | Daily</Typography>
                 <Typography>
-                  {bank.closedForStaking ? '0.00' : statsOnPool?.yearlyAPR}% |{' '}
-                  {bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}%
+                  {bank.contract === 'GrapeNodeV2' ? (
+                    <>
+                      {((((Number(daily) / 1e18).toFixed(2) * 100) / (computedNodes * 50)) * 365).toFixed(2)}% |{' '}
+                      {(((Number(daily) / 1e18).toFixed(2) * 100) / (computedNodes * 50)).toFixed(2)}%
+                    </>
+                  ) : (
+                    <>
+                      {bank.closedForStaking ? '0.00' : statsOnPool?.yearlyAPR}% |{' '}
+                      {bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}%
+                    </>
+                  )}
                 </Typography>
               </CardContent>
             </Card>
