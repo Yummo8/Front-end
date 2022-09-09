@@ -147,12 +147,12 @@ export class GrapeFinance {
     const {MINER} = this.contracts;
     const userInfo = await MINER.userInfo(this.myAccount);
     const pendingRewards = await MINER.pendingRewards(this.myAccount);
-    const wineStats = await this.getLPStat('WINE-MIM-LP')
+    const wineStats = await this.getLPStat('WINE-MIM-LP');
     return {
       totalBalance: Number(userInfo.trackedTokenBalance / 1e18),
       totalClaimable: Number(pendingRewards / 1e18),
-      wineMIMLPPrice: wineStats.priceOfOne
-    }
+      wineMIMLPPrice: wineStats.priceOfOne,
+    };
   }
 
   async getGrapeStat(): Promise<TokenStat> {
@@ -424,7 +424,14 @@ export class GrapeFinance {
     for (let i = 0; i < nodeBanks.length; i++) {
       const bank = nodeBanks[i];
       // Node value
-      const nodesCount = Number((await this.getNodes(bank.contract, this.myAccount))[0]);
+      const nodes = await this.getNodes(bank.contract, this.myAccount);
+      let nodesCount;
+      try {
+        nodesCount = Number(nodes[0]);
+      } catch (e) {}
+      if (!nodesCount) {
+        nodesCount = Number(nodes);
+      }
       const nodePrice = await this.getNodePrice(bank.contract, bank.poolId);
       const stakedTokenPriceInDollars = Number(
         await this.getDepositTokenPriceInDollars(bank.depositTokenName, bank.depositToken),
@@ -613,27 +620,28 @@ export class GrapeFinance {
     const poolContract = this.contracts[bank.contract];
 
     if (bank.sectionInUI === 3) {
-      const [depositTokenPrice, points, totalPoints, tierAmount, poolBalance, totalBalance, dripRate, dailyUserDrip] = bank.contract == 'GrapeNodeV2' ?
-        await Promise.all([
-          this.getDepositTokenPriceInDollars(bank.depositTokenName, depositToken),
-          poolContract.tierAllocPoints(),
-          poolContract.totalAllocPoints(),
-          poolContract.tierAmounts(),
-          poolContract.getBalancePool(),
-          depositToken.balanceOf(bank.address),
-          poolContract.dripRate(),
-          poolContract.getDayDripEstimate(this.myAccount),
-        ]):
-        await Promise.all([
-          this.getDepositTokenPriceInDollars(bank.depositTokenName, depositToken),
-          poolContract.tierAllocPoints(bank.poolId),
-          poolContract.totalAllocPoints(),
-          poolContract.tierAmounts(bank.poolId),
-          poolContract.getBalancePool(),
-          depositToken.balanceOf(bank.address),
-          poolContract.dripRate(),
-          poolContract.getDayDripEstimate(this.myAccount),
-        ]);
+      const [depositTokenPrice, points, totalPoints, tierAmount, poolBalance, totalBalance, dripRate, dailyUserDrip] =
+        bank.contract == 'GrapeNodeV2'
+          ? await Promise.all([
+              this.getDepositTokenPriceInDollars(bank.depositTokenName, depositToken),
+              poolContract.tierAllocPoints(),
+              poolContract.totalAllocPoints(),
+              poolContract.tierAmounts(),
+              poolContract.getBalancePool(),
+              depositToken.balanceOf(bank.address),
+              poolContract.dripRate(),
+              poolContract.getDayDripEstimate(this.myAccount),
+            ])
+          : await Promise.all([
+              this.getDepositTokenPriceInDollars(bank.depositTokenName, depositToken),
+              poolContract.tierAllocPoints(bank.poolId),
+              poolContract.totalAllocPoints(),
+              poolContract.tierAmounts(bank.poolId),
+              poolContract.getBalancePool(),
+              depositToken.balanceOf(bank.address),
+              poolContract.dripRate(),
+              poolContract.getDayDripEstimate(this.myAccount),
+            ]);
       const stakeAmount = Number(getDisplayBalance(tierAmount));
 
       const dailyDrip =
@@ -1025,13 +1033,11 @@ export class GrapeFinance {
   async getNodePrice(poolName: ContractName, poolId: Number): Promise<BigNumber> {
     const pool = this.contracts[poolName];
     try {
-      if(poolName == 'GrapeNodeV2'){
+      if (poolName == 'GrapeNodeV2') {
         return await pool.tierAmounts();
-      }else{
+      } else {
         return await pool.tierAmounts(poolId);
       }
-      
-      
     } catch (err) {
       console.error(`Failed to call tierAmounts on contract ${pool.address}: ${err}`);
       return BigNumber.from(0);

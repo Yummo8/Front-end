@@ -51,7 +51,7 @@ const GrapeNode = () => {
         nodeTotal = total[0];
       } catch (e) {}
       if (!nodeTotal) {
-        nodeTotal = Number(total)
+        nodeTotal = Number(total);
       }
       console.log('NODES TOTAL = ' + nodeTotal);
       return nodeTotal;
@@ -65,7 +65,7 @@ const GrapeNode = () => {
         nodeCount = nodes[0];
       } catch (e) {}
       if (!nodeCount) {
-        nodeCount = Number(nodes)
+        nodeCount = Number(nodes);
       }
       console.log('NODES = ' + nodeCount);
       return nodeCount;
@@ -83,25 +83,7 @@ const GrapeNode = () => {
         {bank.earnTokenName} Nodes
       </Typography>
       <Box>
-        <Alert variant="filled" severity="info">
-          Please read our{' '}
-          <a
-            style={{color: '#fff'}}
-            rel="noopener noreferrer"
-            target={'_blank'}
-            href="https://grapefinance.gitbook.io/grape-finance-docs/unique-features/locked-staking-grape-nodes"
-          >
-            Node Docs & Strategy
-          </a>{' '}
-          in order to fully understand how our node pools work before purchasing, by partaking you accept the risks
-          outlined in the docs & disclaimer.
-        </Alert>
-        <Alert variant="filled" severity="info" style={{marginTop: '20px'}}>
-          Node APRs are determined by overall claim to compound ratio of the pool, a higher compound rate not only means
-          your daily returns increase it also keeps the APR stable and can help boost it. A good ratio for node health
-          is to compound 3 nodes for every 1 nodes worth of claims.
-        </Alert>
-        <Grid container justifyContent="center" spacing={2} style={{marginBottom: '50px', marginTop: '20px'}}>
+        <Grid container justifyContent="center" spacing={2} style={{marginBottom: '30px', marginTop: '20px'}}>
           <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
             <Card className={classes.gridItem}>
               <CardContent style={{textAlign: 'center'}}>
@@ -144,7 +126,9 @@ const GrapeNode = () => {
           <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
             <Card className={classes.gridItem}>
               <CardContent style={{textAlign: 'center'}}>
-                <Typography style={{color: '#ccf'}}>{bank.contract =='GrapeNodeV2' ? 'Remaining allocation': 'Max Possible Pay'}</Typography>
+                <Typography style={{color: '#ccf'}}>
+                  {bank.contract == 'GrapeNodeV2' ? 'Remaining allocation' : 'Max Possible Pay'}
+                </Typography>
                 <Typography>{(Number(max) / 1e18).toFixed(2)} </Typography>
               </CardContent>
             </Card>
@@ -174,8 +158,12 @@ const GrapeNode = () => {
           </Grid>
         </Grid>
       </Box>
-
-      <Box mt={5}>
+      <Alert variant="filled" severity="info">
+        Node APRs are determined by overall claim to compound ratio of the pool, a higher compound rate not only means
+        your daily returns increase it also keeps the APR stable and can help boost it. A good ratio for node health is
+        to compound 3 nodes for every 1 nodes worth of claims.
+      </Alert>
+      <Box mt={3}>
         <StyledBank>
           <StyledCardsWrapper>
             <StyledCardWrapper>
@@ -217,6 +205,20 @@ const GrapeNode = () => {
           ) : null}
         </StyledBank>
       </Box>
+
+      <Alert variant="filled" severity="info">
+        Please read our{' '}
+        <a
+          style={{color: '#fff'}}
+          rel="noopener noreferrer"
+          target={'_blank'}
+          href="https://grapefinance.gitbook.io/grape-finance-docs/unique-features/locked-staking-grape-nodes"
+        >
+          Node Docs & Strategy
+        </a>{' '}
+        in order to fully understand how our node pools work before purchasing, by partaking you accept the risks
+        outlined in the docs & disclaimer.
+      </Alert>
     </>
   ) : (
     <BankNotFound />
