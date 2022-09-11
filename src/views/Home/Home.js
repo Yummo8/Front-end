@@ -9,24 +9,16 @@ import useLpStats from '../../hooks/useLpStats';
 import useLpStatsBTC from '../../hooks/useLpStatsBTC';
 import useBondStats from '../../hooks/useBondStats';
 import useWineStats from '../../hooks/useWineStats';
-import useGrapeTotalNode from '../../hooks/useGrapeTotalNodes';
-import useWineTotalNode from '../../hooks/useWineTotalNodes';
-import useGrapeMimSWTotalNode from '../../hooks/useGrapeMimSWTotalNode';
+
 import useTotalValueLocked from '../../hooks/useTotalValueLocked';
 import useNodeRewardPoolStats from '../../hooks/useNodesRewardBalance';
-import {roundAndFormatNumber} from '../../0x';
 import {Button, Card, CardContent, Grid, Paper, CircularProgress, Typography} from '@material-ui/core';
 import kyc from '../../assets/img/kyc.png';
 import audit from '../../assets/img/audit1.png';
-import {ReactComponent as IconTelegram} from '../../assets/img/telegram.svg';
-import {ReactComponent as IconDiscord} from '../../assets/img/discord.svg';
-import {ReactComponent as IconTwitter} from '../../assets/img/twitter.svg';
 
-import AirdropRewardModal from './AirdropRewardModal';
 import GetStartedModal from './GetStartedModal';
 import useCurrentEpoch from '../../hooks/useCurrentEpoch';
 import useGetBoardroomPrintRate from '../../hooks/useGetBoardroomPrintRate';
-import Alert from '@mui/material/Alert';
 import homeItems from '../../homePageItems.json';
 import HomeCard from './HomeCard';
 
@@ -36,16 +28,12 @@ const Home = () => {
   const bSharemimLpStats = useLpStats('WINE-MIM-LP');
 
   const newPair = useLpStats('GRAPE-WINE-LP');
-  const grapeMimSWStats = useLpStats('GRAPE-MIM-SW');
 
   const grapeStats = useGrapeStats();
   const bShareStats = useWineStats();
   const tBondStats = useBondStats();
   const nodeRewardPoolStats = useNodeRewardPoolStats();
-  const useGrapeTotal = useGrapeTotalNode();
-  const useWineTotal = useWineTotalNode();
-  const useGrapeMimSWTotal = useGrapeMimSWTotalNode();
-  const [rewardModelOpen, setModalOpen] = useState(false);
+
   const [getStartedModalOpen, setGetStartedModalOpen] = useState(false);
   const currentEpoch = useCurrentEpoch();
 
@@ -74,10 +62,6 @@ const Home = () => {
     () => (bShareStats ? Number(bShareStats.priceInDollars).toFixed(2) : null),
     [bShareStats],
   );
-  const grapeMimSWPriceInDollars = useMemo(
-    () => (grapeMimSWStats ? Number(grapeMimSWStats.priceOfOne).toFixed(2) : null),
-    [grapeMimSWStats],
-  );
 
   const bShareCirculatingSupply = useMemo(
     () => (bShareStats ? String(bShareStats.circulatingSupply) : null),
@@ -100,12 +84,7 @@ const Home = () => {
   // const twap = useMemo(() => (cashStat ? Number(cashStat.priceInDollars).toFixed(4) : null), [cashStat]);
 
   const handleCloseModal = () => {
-    setModalOpen(false);
     setGetStartedModalOpen(false);
-  };
-
-  const handleOpenModal = () => {
-    setModalOpen(true);
   };
 
   const openGetStarted = () => {
@@ -122,19 +101,6 @@ const Home = () => {
   return (
     <Page>
       <GetStartedModal open={getStartedModalOpen} handleClose={handleCloseModal} />
-      <AirdropRewardModal
-        open={rewardModelOpen}
-        handleClose={handleCloseModal}
-        grapes={useGrapeTotal[0]}
-        grapePrice={grapePriceInDollars}
-        wines={useWineTotal[0]}
-        winePrice={winePriceInDollars}
-        grapeMimSW={useGrapeMimSWTotal[0]}
-        grapeMimSWPrice={grapeMimSWPriceInDollars}
-        totalGrapes={nodeRewardPoolStats?.grapes}
-        totalWine={nodeRewardPoolStats?.wines}
-        totalGrapeMimSW={nodeRewardPoolStats?.grapeMimSWs}
-      />
 
       <Grid container direction="column" justifyContent="space-between" style={{minHeight: '80vh'}}>
         <Grid item xs={12} style={{textAlign: 'center'}}>
@@ -187,189 +153,11 @@ const Home = () => {
           </Grid>
         </Grid>
 
-        <Grid item xs={12}>
-          <Alert variant="outlined" severity="info">
-            <b style={{fontSize: '1.1rem', color: '#e647e6'}}>Grape Finance Suggestions</b>
-            <br />
-            <br />
-            <b>🟣 General -</b> Below Peg, compounding is recommended. Avoid selling.
-            <br />
-            <b>🟣 Nodes -</b> Compound 3 times, Claim 1 time. You can use your claimed Grapes in{' '}
-            <a style={{color: '#e647e6'}} href="https://winemaker.grapefinance.app/">
-              Winemaker
-            </a>{' '}
-            Game, or in{' '}
-            <a style={{color: '#e647e6'}} href="https://winepress.grapefinance.app/">
-              Wine Press
-            </a>{' '}
-            to buy Lotto tickets.
-            <br />
-            <b>🟣 Vineyard -</b> If you use AutoCompounders (Beefy, Yieldwolf), move your LPs to{' '}
-            <a style={{color: '#e647e6'}} href="https://magik.farm/#/avax">
-              Magik
-            </a>
-            . Same returns, but burns Grape🔥.
-            <br />
-            <b>🟣 Winery -</b> If you have extra MIM, unstake your wine, provide{' '}
-            <a
-              style={{color: '#e647e6'}}
-              href="https://traderjoexyz.com/pool/0x130966628846bfd36ff31a822705796e8cb8c18d/0xc55036b5348cfb45a932481744645985010d3a44#/"
-            >
-              WINE-MIM LP
-            </a>{' '}
-            and use it in{' '}
-            <a style={{color: '#e647e6'}} href="https://winepress.grapefinance.app/">
-              Wine Press!
-            </a>
-          </Alert>
+        
+
+        <Grid item sm={12} style={{textAlign: 'center'}}>
+          <span className="welcome-text">More Info...</span>
         </Grid>
-
-        <Grid item xs={12} sm={12} md={7}>
-          <Card>
-            <CardContent>
-              <Typography color="textSecondary" variant="h3" gutterBottom>
-                🔥Grape News
-              </Typography>
-              <Grid container direction="column">
-                <Grid item>
-                  #1 ✨ <b>Discord Server Migration</b> will occur today (8th)! Please follow official announcements in
-                  the discord{' '}
-                </Grid>
-                <Grid item>
-                  #2 🧊 <b>Nodes v2 </b> officially released day after server migration - Friday 9th! Will require some
-                  Grape node downtime, official time TBA{' '}
-                </Grid>
-                <Grid item>
-                  #3 🏺
-                  <b>
-                    <a style={{color: '#e647e6'}} href="https://winepress.grapefinance.app/">
-                      WINE PRESS:
-                    </a>
-                  </b>{' '}
-                  Earn 1.25% daily + bonus + lottery!
-                </Grid>
-                <Grid item>
-                  #4 🎲 Play{' '}
-                  <b>
-                    <a style={{color: '#e647e6'}} href="https://casino.grapefinance.app">
-                      GRAPE CASINO
-                    </a>
-                  </b>{' '}
-                  NOW and Burn Grape!
-                </Grid>
-                <Grid item>
-                  #5 👫 Come and say Hi to our newest Core Team Members:{' '}
-                  <b>
-                    Vintner (Head of Marketing), Fizzyl (Head of Education & Strategy), and Tazz (Head of FE
-                    Engineering)
-                  </b>
-                </Grid>
-                <Grid item>
-                  #6 🍭 <b>Swapsicle POPs </b> for GRAPE-MIM LP are now claimable on{' '}
-                  <a style={{color: '#e647e6'}} href="https://www.swapsicle.io/rewards">
-                    Swapsicle
-                  </a>
-                  , instead of airdrops.
-                </Grid>
-                <Grid item>
-                  #7 🔥 <b>Keep it burnin',</b> <span style={{color: '#e647e6'}}>340,000+</span> Grape burned thanks to
-                  Winemaker!
-                </Grid>
-
-                <Grid item>
-                  #8 🍷 <b>Vinium </b> will be audited the first week of September. Official release expected soon
-                  after.
-                </Grid>
-              </Grid>
-
-              <p style={{textAlign: 'center'}}>
-                To Follow the latest news, join us on Discord, Telegram and Twitter <br />
-                <a
-                  href="https://discord.gg/grapefinance"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  style={{color: '#fff'}}
-                >
-                  <IconDiscord width="40" style={{fill: '#fff', height: '40px'}} />
-                </a>{' '}
-                <a
-                  href="https://t.me/GrapeDefi"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  style={{marginLeft: '20px', color: '#fff'}}
-                >
-                  <IconTelegram width="40" style={{fill: '#fff', height: '40px'}} />
-                </a>
-                <a
-                  href="https://twitter.com/grape_finance"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  style={{marginLeft: '30px', color: '#fff'}}
-                >
-                  <IconTwitter width="40" style={{fill: '#fff', height: '40px'}} />
-                </a>
-              </p>
-            </CardContent>
-          </Card>
-        </Grid>
-
-        <Grid item xs={12} sm={12} md={5}>
-          <Grid container xs={12}>
-            <Grid item xs={12} style={{marginTop: '20px'}}>
-              <Card>
-                <CardContent>
-                  <Typography className="reward-pool-text" color="textPrimary" variant="h4" gutterBottom>
-                    NFT REWARD POOL
-                  </Typography>
-
-                  <Grid container direction="column" spacing={2}>
-                    <Grid item>
-                      <Grid container justifyContent="space-between">
-                        <Grid item>
-                          <Typography color="textPrimary" align="center" variant="h5">
-                            {nodeRewardPoolStats?.grapes} Grape
-                          </Typography>
-                        </Grid>
-                        <Grid item>
-                          <Typography color="textSecondary" align="center" variant="h5" style={{fontWeight: 700}}>
-                            {nodeRewardPoolStats != null ? (
-                              `≈$${roundAndFormatNumber(nodeRewardPoolStats?.grapes * grapePriceInDollars, 0)}`
-                            ) : (
-                              <CircularProgress size={22} color="inherit" />
-                            )}
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item>
-                      <Grid container justifyContent="space-between">
-                        <Grid item>
-                          <Typography color="textPrimary" align="center" variant="h5">
-                            {nodeRewardPoolStats?.wines} Wine
-                          </Typography>
-                        </Grid>
-                        <Grid item>
-                          <Typography color="textSecondary" align="center" variant="h5" style={{fontWeight: 700}}>
-                            {nodeRewardPoolStats != null ? (
-                              `≈$${roundAndFormatNumber(nodeRewardPoolStats?.wines * winePriceInDollars, 0)}`
-                            ) : (
-                              <CircularProgress size={22} color="inherit" />
-                            )}{' '}
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-
-                  <Button onClick={handleOpenModal} className="shinyButton" style={{width: '100%', marginTop: '10px'}}>
-                    Estimate my Rewards
-                  </Button>
-                </CardContent>
-              </Card>
-            </Grid>
-          </Grid>
-        </Grid>
-
         <Grid item sm={12} md={12} lg={12} style={{marginTop: '10px'}}>
           <Grid container spacing={3}>
             <Grid item xs={6} md={4} lg={2} style={{color: 'white', textAlign: 'center'}}>

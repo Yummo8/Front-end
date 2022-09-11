@@ -19,34 +19,24 @@
     "items": [
       {
         "label": "Vineyard",
-        "color": "#e647e6",
-        "isNew": false,
         "linkTo": "/vineyard",
-        "isInternalLink": true,
-        "image": "grape.png"
+        "isInternalLink": true
       },
       {
         "label": "Winery",
-        "color": "#e647e6",
-        "isNew": false,
         "linkTo": "/winery",
-        "isInternalLink": true,
-        "image": "gshare.png"
+        "isInternalLink": true
       },
       {
         "label": "Bonds",
-        "color": "#e647e6",
-        "isNew": false,
         "linkTo": "/bond",
-        "isInternalLink": true,
-        "image": "gbond.png"
+        "isInternalLink": true
       }
     ]
   },
   {
     "label": "Nodes",
     "subLabel": "Locked Staking",
-    "color": "#e647e6",
     "description": "Use your Grape to purchase nodes and get up to 1.5% daily. Node holders receive additional monthly airdrops.",
     "isNew": false,
     "linkTo": "/nodes",
@@ -56,7 +46,6 @@
   {
     "label": "Wine Press",
     "subLabel": "Locked LP Staking",
-    "color": "#e647e6",
     "description": "Lock Wine-MIM LP and earn up to ~1.25% daily + bonus. Assassinate players for more returns.",
     "isNew": false,
     "linkTo": "https://winepress.grapefinance.app/",
@@ -66,7 +55,6 @@
   {
     "label": "Peg Health Campaign",
     "subLabel": "Discount Rebates",
-    "color": "#e647e6",
     "description": "Bond Grape, MIM, or Grape-MIM LP, and receive discounted Wine over a vesting period of 72 hours.",
     "isNew": false,
     "linkTo": "/rebates",
@@ -76,7 +64,6 @@
   {
     "label": "Wine Maker",
     "subLabel": "NFT Staking RPG",
-    "color": "#e647e6",
     "description": "Stake Vinters, equip & train them to become a Master Winemaker. Earn $Vintage and get up to ~1.5% daily.",
     "isNew": false,
     "linkTo": "https://winemaker.grapefinance.app/",
@@ -93,19 +80,15 @@
     "items": [
       {
         "label": "Grape Casino",
-        "color": "#eabc12",
         "isNew": false,
         "linkTo": "https://casino.grapefinance.app/",
-        "isInternalLink": false,
-        "image": "golden-grape.png"
+        "isInternalLink": false
       },
       {
         "label": "Fantom House",
-        "color": "#f5ca0a",
         "isNew": false,
         "linkTo": "https://avax.fantom.house/grapeflip",
-        "isInternalLink": false,
-        "image": "houseflip.png"
+        "isInternalLink": false
       }
     ]
   },
@@ -119,19 +102,15 @@
     "items": [
       {
         "label": "Space Shooter",
-        "color": "#e647e6",
         "isNew": false,
         "linkTo": "https://www.lianyou.io/burnforfun",
-        "isInternalLink": false,
-        "image": "golden-grape.png"
+        "isInternalLink": false
       },
       {
         "label": "KOC",
-        "color": "#e647e6",
         "isNew": false,
         "linkTo": "https://koc.money/",
-        "isInternalLink": false,
-        "image": "houseflip.png"
+        "isInternalLink": false
       }
     ]
   },
@@ -141,8 +120,20 @@
     "color": "#e647e6",
     "description": "NFTs provide bonuses for holders and grant premier access to Grape Finance Ecosystem.",
     "isNew": false,
-    "linkTo": "/rebates",
-    "isInternalLink": true,
-    "image": "goblet.png"
+    "image": "goblet.png",
+    "items": [
+      {
+        "label": "Winery NFT",
+        "isNew": false,
+        "linkTo": "https://nftrade.com/assets/avalanche/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df",
+        "isInternalLink": false
+      },
+      {
+        "label": "Vintners",
+        "isNew": false,
+        "linkTo": "https://nftrade.com/assets/avalanche/0xe26168f45030e1eb7477fa5f9a4a28d93c0658b4",
+        "isInternalLink": false
+      }
+    ]
   }
 ]
