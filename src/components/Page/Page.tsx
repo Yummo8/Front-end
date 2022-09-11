@@ -19,6 +19,7 @@ import useCashPriceInEstimatedTWAP from '../../hooks/useCashPriceInEstimatedTWAP
 
 import grapeLogo from '../../assets/img/logo1.png';
 import grapeImg from '../../assets/img/grape.png';
+import xGrapeImg from '../../assets/img/xGrape2.png';
 import grapeMimImg from '../../assets/img/twap.png';
 import nodesImg from '../../assets/img/gnode.png';
 import bondImg from '../../assets/img/gbond.png';
@@ -75,7 +76,7 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import {ReactComponent as IconDiscord} from '../../assets/img/discord-plain.svg';
-
+import AddBoxIcon from '@mui/icons-material/AddBox';
 const drawerWidth = 280;
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -313,7 +314,7 @@ const Page: React.FC = ({children}) => {
                   rel="noopener noreferrer"
                   href="https://app.bogged.finance/avax/swap?tokenIn=0x130966628846BFd36ff31a822705796e8cb8C18D&tokenOut=0x5541D83EFaD1f281571B343977648B75d95cdAC2"
                 >
-                  <img src={grapeImg} alt="Grape" width={35} height={35} />
+                  <img src={grapeImg} alt="Grape" width={24} height={24} />
                   <span className="token-price">{grapePrice ? '$' + grapePrice : '--'}</span>
                 </a>
               </div>
@@ -324,7 +325,7 @@ const Page: React.FC = ({children}) => {
                   rel="noopener noreferrer"
                   href="https://app.bogged.finance/avax/swap?tokenIn=0x130966628846BFd36ff31a822705796e8cb8C18D&tokenOut=0xC55036B5348CfB45a932481744645985010d3A44"
                 >
-                  <img src={wineImg} alt="Wine" width={35} height={35} />
+                  <img src={wineImg} alt="Wine" width={24} height={24} />
                   <span className="token-price">{winePrice ? '$' + winePrice : '--'}</span>
                 </a>
               </div>
@@ -335,8 +336,19 @@ const Page: React.FC = ({children}) => {
                   rel="noopener noreferrer"
                   href="https://www.swapsicle.io/swap?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0x01Af64EF39AEB5612202AA07B3A3829f20c395fd#/"
                 >
-                  <img src={vintageImg} alt="Wine" width={35} height={35} />
+                  <img src={vintageImg} alt="Wine" width={24} height={24} />
                   <span className="token-price">{vintagePrice ? '$' + vintagePrice : '--'}</span>
+                </a>
+              </div>
+              <div className="price-item">
+                <a
+                  className="text-decoration-none"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://app.bogged.finance/avax/swap?tokenIn=0x130966628846BFd36ff31a822705796e8cb8C18D&tokenOut=0x5541D83EFaD1f281571B343977648B75d95cdAC2"
+                >
+                  <img src={xGrapeImg} alt="xGrape" width={24} height={24} />
+                  <span className="token-price">{grapePrice ? '$' + grapePrice : '--'}</span>
                 </a>
               </div>
               {/* <div className="price-item">
@@ -411,6 +423,16 @@ const Page: React.FC = ({children}) => {
                     >
                       <MenuItem onClick={handleBuyClose} disableRipple>
                         Buy Vintage
+                      </MenuItem>
+                    </a>
+                    <a
+                      className="menu-item"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://nftrade.com/assets/avalanche/0xe26168f45030e1eb7477fa5f9a4a28d93c0658b4"
+                    >
+                      <MenuItem onClick={handleBuyClose} disableRipple>
+                        Buy Vintners
                       </MenuItem>
                     </a>
                     <Divider sx={{my: 0.5}} />
@@ -532,7 +554,7 @@ const Page: React.FC = ({children}) => {
                       justifyContent: 'center',
                     }}
                   >
-                    <HomeSharpIcon />
+                    <HomeSharpIcon style={{fill: '#e4a2e4'}} />
                   </ListItemIcon>
                   <ListItemText primary="Home" sx={{opacity: open ? 1 : 0}} />
                 </ListItemButton>
@@ -562,7 +584,7 @@ const Page: React.FC = ({children}) => {
                       justifyContent: 'center',
                     }}
                   >
-                    <DashboardSharpIcon />
+                    <DashboardSharpIcon style={{fill: '#e4a2e4'}}/>
                   </ListItemIcon>
                   <ListItemText primary="Dashboard" sx={{opacity: open ? 1 : 0}} />
                 </ListItemButton>
@@ -583,7 +605,7 @@ const Page: React.FC = ({children}) => {
                     justifyContent: 'center',
                   }}
                 >
-                  <SavingsIcon />
+                  <SavingsIcon style={{ fill: '#cd72f6'}} />
                 </ListItemIcon>
                 <ListItemText primary="Vaults" sx={{opacity: open ? 1 : 0}} />
                 {open ? vaultsOpen ? <ExpandLess /> : <ExpandMore /> : null}
@@ -700,7 +722,7 @@ const Page: React.FC = ({children}) => {
                     justifyContent: 'center',
                   }}
                 >
-                  <AccountBalanceWalletSharpIcon />
+                  <AccountBalanceWalletSharpIcon  style={{ fill: '#cd72f6'}} />
                 </ListItemIcon>
                 <ListItemText primary="Grape Wallets" sx={{opacity: open ? 1 : 0}} />
                 {open ? walletsOpen ? <ExpandLess /> : <ExpandMore /> : null}
@@ -795,7 +817,7 @@ const Page: React.FC = ({children}) => {
                     justifyContent: 'center',
                   }}
                 >
-                  <FeedIcon />
+                  <FeedIcon style={{fill: '#f1d1ff' }}/>
                 </ListItemIcon>
                 <ListItemText primary="Contracts" sx={{opacity: open ? 1 : 0}} />
                 {open ? contractsOpen ? <ExpandLess /> : <ExpandMore /> : null}
@@ -897,7 +919,7 @@ const Page: React.FC = ({children}) => {
                     justifyContent: 'center',
                   }}
                 >
-                  <FeedIcon />
+                  <AddBoxIcon  style={{fill: '#f1d1ff' }} />
                 </ListItemIcon>
                 <ListItemText primary="Tokens / LPs" sx={{opacity: open ? 1 : 0}} />
                 {open ? tokensOpen ? <ExpandLess /> : <ExpandMore /> : null}
@@ -1043,7 +1065,7 @@ const Page: React.FC = ({children}) => {
                     justifyContent: 'center',
                   }}
                 >
-                  <LinkIcon />
+                  <LinkIcon  style={{fill: '#f1d1ff' }}/>
                 </ListItemIcon>
                 <ListItemText primary="Useful Links" sx={{opacity: open ? 1 : 0}} />
                 {open ? usefullLinksOpen ? <ExpandLess /> : <ExpandMore /> : null}

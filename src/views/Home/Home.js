@@ -18,8 +18,6 @@ import {roundAndFormatNumber} from '../../0x';
 import {Button, Card, CardContent, Grid, Paper, CircularProgress, Typography} from '@material-ui/core';
 import kyc from '../../assets/img/kyc.png';
 import audit from '../../assets/img/audit1.png';
-import grapeGold from '../../assets/img/golden-grape.png';
-import pressImg from '../../assets/img/barrel.png';
 import {ReactComponent as IconTelegram} from '../../assets/img/telegram.svg';
 import {ReactComponent as IconDiscord} from '../../assets/img/discord.svg';
 import {ReactComponent as IconTwitter} from '../../assets/img/twitter.svg';
@@ -29,10 +27,8 @@ import GetStartedModal from './GetStartedModal';
 import useCurrentEpoch from '../../hooks/useCurrentEpoch';
 import useGetBoardroomPrintRate from '../../hooks/useGetBoardroomPrintRate';
 import Alert from '@mui/material/Alert';
-import vintageImg from '../../assets/img/vintage-token.png';
 import homeItems from '../../homePageItems.json';
 import HomeCard from './HomeCard';
-import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 
 const Home = () => {
   const TVL = useTotalValueLocked();
@@ -140,22 +136,22 @@ const Home = () => {
         totalGrapeMimSW={nodeRewardPoolStats?.grapeMimSWs}
       />
 
-      <Grid container direction="column" justifyContent="space-around" style={{minHeight: '85vh'}}>
-        <Grid item xs={12}>
-          <Typography color="white" variant="h3">
-            Welcome to Grape Finance
-            <span aria-label="fire-emoji" role="img">
-              🔥
-            </span>
-            <Button
-              style={{marginLeft: '15px'}}
-              onClick={openGetStarted}
-              variant="contained"
-              className="winepress get-started"
-            >
-              Get Started
-            </Button>
-          </Typography>
+      <Grid container direction="column" justifyContent="space-between" style={{minHeight: '80vh'}}>
+        <Grid item xs={12} style={{textAlign: 'center'}}>
+          <Grid container justifyContent="center" spacing={2} alignItems="center">
+            <Grid item>
+              <img alt="burning grape" src={require('../../assets/img/burninggrape.png')} className="burning-grape" />
+            </Grid>
+            <Grid item>
+              <span className="welcome-text">Welcome to Grape Finance</span>
+            </Grid>
+            <Grid item>
+              {' '}
+              <Button onClick={openGetStarted} variant="contained" className="winepress get-started">
+                Get Started
+              </Button>
+            </Grid>
+          </Grid>
         </Grid>
 
         <Grid item xs={12}>
@@ -176,8 +172,8 @@ const Home = () => {
             onClick={scrollDown}
             alt="down arrow"
             src={require('../../assets/img/arrow-down-animated.gif')}
-            width={35}
-            height={25}
+            width={55}
+            height={35}
           />
         </Grid>
       </Grid>
@@ -228,50 +224,6 @@ const Home = () => {
           </Alert>
         </Grid>
 
-        <Grid item xs={12}>
-          <Grid container spacing={2} justifyContent="center">
-            {/* <Grid item>
-              <Button
-                href="/pegpool"
-                variant="contained"
-                className="pegcampaign"
-                startIcon={<img width={45} height={30} src={grapeMimImg} />}
-              >
-                Peg Campaign
-              </Button>
-            </Grid> */}
-            <Grid item>
-              <Button
-                href="https://winepress.grapefinance.app/"
-                variant="contained"
-                className="winepress"
-                startIcon={<img width={50} height={30} src={pressImg} />}
-              >
-                WINEPRESS
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button
-                href="https://casino.grapefinance.app"
-                variant="contained"
-                className="golden"
-                startIcon={<img width={30} height={30} src={grapeGold} />}
-              >
-                GRAPE CASINO
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button
-                href="https://winemaker.grapefinance.app/"
-                variant="contained"
-                className="winemaker"
-                startIcon={<img width={30} height={30} src={vintageImg} />}
-              >
-                WINEMAKER
-              </Button>
-            </Grid>
-          </Grid>
-        </Grid>
         <Grid item xs={12} sm={12} md={7}>
           <Card>
             <CardContent>
@@ -363,18 +315,6 @@ const Home = () => {
 
         <Grid item xs={12} sm={12} md={5}>
           <Grid container xs={12}>
-            <Grid item xs={12} style={{color: 'white'}}>
-              <Card style={{minHeight: '200px'}}>
-                <CardContent>
-                  <div className="front-text-top">TOTAL VALUE LOCKED</div>
-                  {TVL ? (
-                    <CountUp className="tvl" end={TVL} separator="," prefix="$" />
-                  ) : (
-                    <CircularProgress style={{marginTop: '20px'}} size={38} color="inherit" />
-                  )}
-                </CardContent>
-              </Card>
-            </Grid>
             <Grid item xs={12} style={{marginTop: '20px'}}>
               <Card>
                 <CardContent>

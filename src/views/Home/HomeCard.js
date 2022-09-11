@@ -6,6 +6,7 @@ import {Stack} from '@mui/material';
 import Button from '@material-ui/core/Button';
 import {Row, Item} from '@mui-treasury/components/flex';
 import {Paper} from '@material-ui/core';
+import {Link} from 'react-router-dom';
 
 const useStyles = makeStyles(({palette}) => ({
   root: ({color}) => ({
@@ -52,74 +53,86 @@ const useStyles = makeStyles(({palette}) => ({
 
 const CustomCard = ({item, styles, title, subTitle, subItems}) => {
   return (
-    <a style={{textDecoration: 'none'}} target={item.isInternalLink === false ? '_blank' : ''} href={item.linkTo}>
-      <Stack
-        direction="column"
-        className={cx(styles.root, styles.color)}
-        // style={{
-        //   backgroundImage:
-        //     item.backgroundImage != null ? 'url(' + require('../../assets/img/' + item.backgroundImage) + ')' : '',
-        // }}
-        justifyContent="space-between"
-        spacing={0}
-      >
-        <Row p={2}>
-          <Grid container justifyContent="space-between" style={{textAlign: 'center'}}>
-            <Grid item xs={12}>
-              <h1 className={styles.title} style={{color: item.color}}>
-                {title}
-              </h1>
-              <h3 className={styles.subtitle}>{subTitle}</h3>
-            </Grid>
-            <Grid item xs={12}>
-              <img alt={item.image} className={styles.logo} src={require(`../../assets/img/${item.image}`)} />
-            </Grid>
+    <Stack
+      direction="column"
+      className={cx(styles.root, styles.color)}
+      // style={{
+      //   backgroundImage:
+      //     item.backgroundImage != null ? 'url(' + require('../../assets/img/' + item.backgroundImage) + ')' : '',
+      // }}
+      justifyContent="space-between"
+      spacing={0}
+    >
+      <Row p={2}>
+        <Grid container justifyContent="space-between" style={{textAlign: 'center'}}>
+          <Grid item xs={12}>
+            <h1 className={styles.title} style={{color: item.color}}>
+              {title}
+            </h1>
+            <h3 className={styles.subtitle}>{subTitle}</h3>
           </Grid>
+          <Grid item xs={12}>
+            <img alt={item.image} className={styles.logo} src={require(`../../assets/img/${item.image}`)} />
+          </Grid>
+        </Grid>
+      </Row>
+
+      <div
+        style={{
+          borderBottomLeftRadius: '5px',
+          borderBottomRightRadius: '5px',
+          backgroundColor: 'rgba(200,200,200, 0.1)',
+        }}
+      >
+        <Row px={2} pt={2}>
+          <Item>
+            <div className={styles.contentText}>{item.description}</div>
+          </Item>
         </Row>
 
-        <div
-          style={{
-            borderBottomLeftRadius: '5px',
-            borderBottomRightRadius: '5px',
-            backgroundColor: 'rgba(200,200,200, 0.1)',
-          }}
-        >
-          <Row px={2} pt={2}>
-            <Item>
-              <div className={styles.contentText}>{item.description}</div>
-            </Item>
-          </Row>
-
-          <Grid container style={{padding: '15px'}} justifyContent="space-evenly" spacing={2}>
-            {subItems == null && (
-              <Grid item style={{width: '100%'}}>
-                <Button
-                  className="shinyButton full-width"
+        <Grid container style={{padding: '15px'}} justifyContent="space-evenly" spacing={2}>
+          {subItems == null && (
+            <Grid item style={{width: '100%'}}>
+              {item.isInternalLink === true ? (
+                <Link to={item.linkTo} style={{textDecoration: 'none'}}>
+                  <Button className="shinyButton full-width">Go to {item.label}</Button>
+                </Link>
+              ) : (
+                <a
+                  style={{textDecoration: 'none'}}
                   target={item.isInternalLink === false ? '_blank' : ''}
                   href={item.linkTo}
                 >
-                  Go to {item.label}
-                </Button>
-              </Grid>
-            )}
+                  <Button className="shinyButton full-width" target="_blank" href={item.linkTo}>
+                    Go to {item.label}
+                  </Button>
+                </a>
+              )}
+            </Grid>
+          )}
 
-            {subItems != null && subItems.length > 0
-              ? subItems.map((subItem) => (
-                  <Grid item xs={subItems.length % 2 ? 4 : 6}>
-                    <Button
-                      className="shinyButton full-width"
+          {subItems != null && subItems.length > 0
+            ? subItems.map((subItem) => (
+                <Grid item xs={subItems.length % 2 ? 4 : 6}>
+                  {subItem.isInternalLink === true ? (
+                    <Link to={subItem.linkTo} style={{textDecoration: 'none'}}>
+                      <Button className="shinyButton full-width">{subItem.label}</Button>{' '}
+                    </Link>
+                  ) : (
+                    <a
+                      style={{textDecoration: 'none'}}
                       target={subItem.isInternalLink === false ? '_blank' : ''}
                       href={subItem.linkTo}
                     >
-                      {subItem.label}
-                    </Button>
-                  </Grid>
-                ))
-              : null}
-          </Grid>
-        </div>
-      </Stack>
-    </a>
+                      <Button className="shinyButton full-width">{subItem.label}</Button>
+                    </a>
+                  )}
+                </Grid>
+              ))
+            : null}
+        </Grid>
+      </div>
+    </Stack>
   );
 };
 

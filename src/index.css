@@ -286,6 +286,20 @@ code {
   width: 100% !important;
 }
 
+.burning-grape {
+  width: 70px;
+  height: 70px;
+}
+
+.welcome-text {
+  font-size: 3.8rem;
+  font-family: 'superstar';
+  text-shadow: 0 0 1vw #6e256c, 0 0 3vw #6e256c, 0 0 20vw #6e256c, 0 0 10vw #6e256c, 0 0 0.4vw #e647e6,
+    0vw 0vw 0vw #5b2959 !important;
+  color: #fff !important;
+  overflow: visible !important;
+}
+
 .front-text-tvl {
   font-family: 'TOMMY';
   font-size: 9rem;
@@ -309,6 +323,10 @@ code {
   .front-text-top {
     font-size: 2.2rem;
   }
+  .welcome-text {
+    font-size: 3.4rem;
+  }
+
 }
 
 @media screen and (max-width: 1080px) {
@@ -318,6 +336,13 @@ code {
 
   .front-text-top {
     font-size: 2rem;
+  }
+  .welcome-text {
+    font-size: 2.7rem;
+  }
+  .burning-grape {
+    width: 45px;
+    height: 45px;
   }
 }
 
@@ -329,6 +354,13 @@ code {
   .front-text-top {
     font-size: 1.8rem;
   }
+  .welcome-text {
+    font-size: 2.5rem;
+  }
+  .burning-grape {
+    width: 40px;
+    height: 40px;
+  }
 }
 
 @media screen and (max-width: 720px) {
@@ -339,6 +371,9 @@ code {
   .front-text-top {
     font-size: 1.6rem;
   }
+  .welcome-text {
+    font-size: 2.5rem;
+  }
 }
 
 @media screen and (max-width: 550px) {
@@ -347,6 +382,9 @@ code {
   }
   .front-text-top {
     font-size: 1.4rem;
+  }
+  .welcome-text {
+    font-size: 2.2rem;
   }
 }
 

@@ -5,7 +5,7 @@
     "color": "#e647e6",
     "description": "Whether you buy or sell xGrape, price only goes up. Each transaction increases its backing price.",
     "isNew": false,
-    "linkTo": "xgrape",
+    "linkTo": "/xgrape",
     "isInternalLink": true,
     "image": "xGrape2.png"
   },
@@ -21,7 +21,7 @@
         "label": "Vineyard",
         "color": "#e647e6",
         "isNew": false,
-        "linkTo": "vineyard",
+        "linkTo": "/vineyard",
         "isInternalLink": true,
         "image": "grape.png"
       },
@@ -29,7 +29,7 @@
         "label": "Winery",
         "color": "#e647e6",
         "isNew": false,
-        "linkTo": "winery",
+        "linkTo": "/winery",
         "isInternalLink": true,
         "image": "gshare.png"
       },
@@ -37,7 +37,7 @@
         "label": "Bonds",
         "color": "#e647e6",
         "isNew": false,
-        "linkTo": "bond",
+        "linkTo": "/bond",
         "isInternalLink": true,
         "image": "gbond.png"
       }
@@ -49,7 +49,7 @@
     "color": "#e647e6",
     "description": "Use your Grape to purchase nodes and get up to 1.5% daily. Node holders receive additional monthly airdrops.",
     "isNew": false,
-    "linkTo": "nodes",
+    "linkTo": "/nodes",
     "isInternalLink": true,
     "image": "gnode.png"
   },
@@ -69,7 +69,7 @@
     "color": "#e647e6",
     "description": "Bond Grape, MIM, or Grape-MIM LP, and receive discounted Wine over a vesting period of 72 hours.",
     "isNew": false,
-    "linkTo": "rebates",
+    "linkTo": "/rebates",
     "isInternalLink": true,
     "image": "rebates.png"
   },
@@ -141,7 +141,7 @@
     "color": "#e647e6",
     "description": "NFTs provide bonuses for holders and grant premier access to Grape Finance Ecosystem.",
     "isNew": false,
-    "linkTo": "rebates",
+    "linkTo": "/rebates",
     "isInternalLink": true,
     "image": "goblet.png"
   }

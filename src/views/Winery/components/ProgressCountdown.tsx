@@ -47,7 +47,7 @@ const StyledCountdown = styled.p`
   // font-size: 14px;
   font-weight: 700;
   // color: ${(props) => props.theme.color.grey[100]};
-  margin: 0 0 6px 0;
+  margin: 0 0 0px 0;
 `;
 
 const StyledProgressOuter = styled.div`

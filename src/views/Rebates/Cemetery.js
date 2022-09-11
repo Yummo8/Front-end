@@ -23,16 +23,6 @@ import TokenSymbol from '../../components/TokenSymbol';
 const web3 = new Web3();
 const BN = (n) => new web3.utils.BN(n);
 
-const BackgroundImage = createGlobalStyle`
-  body {
-    //background: url(${daoImg}) no-repeat !important;
-    background-size: cover !important;
-    background: radial-gradient(circle at 52.1% -29.6%, rgb(144, 17, 105) 0%, rgb(51, 0, 131) 100.2%);
-}
-
-
-`;
-
 const useStyles = makeStyles((theme) => ({
   gridItem: {
     height: '100%',
@@ -92,7 +82,6 @@ const Cemetery = () => {
     <Switch>
       <Page>
         <Route exact path={path}>
-          <BackgroundImage />
           {!!account ? (
             <>
               <Typography color="textPrimary" align="center" variant="h3" gutterBottom>

@@ -111,9 +111,9 @@ const Harvest = ({bank}) => {
             Compound {(Number(earnings) / Number(nodePrice)) | 0} Nodes
           </Button>
         </StyledCardContentInner>
-        <span style={{fontSize: '11px'}}>
+        {/* <span style={{fontSize: '11px'}}>
         If you are not seeing the amount of rewards you expected, please wait until contract refills. Refills are automatic and happen multiple times per hour.
-        </span>
+        </span> */}
       </CardContent>
     </Card>
   );
