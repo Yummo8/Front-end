@@ -242,6 +242,20 @@ const GrapeNode = () => {
           outlined in the docs & disclaimer.
         </Alert>
       </Box>
+
+      <Alert variant="filled" severity="info">
+        Please read our{' '}
+        <a
+          style={{color: '#fff'}}
+          rel="noopener noreferrer"
+          target={'_blank'}
+          href="https://grapefinance.gitbook.io/grape-finance-docs/unique-features/locked-staking-grape-nodes"
+        >
+          Node Docs & Strategy
+        </a>{' '}
+        in order to fully understand how our node pools work before purchasing, by partaking you accept the risks
+        outlined in the docs & disclaimer.
+      </Alert>
     </>
   ) : (
     <BankNotFound />

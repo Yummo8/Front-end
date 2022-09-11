@@ -43,7 +43,6 @@ const GrapeNodes = () => {
 
           <Grid container spacing={3} style={{marginTop: '30px'}}>
             <NodesInfoCard bank={grapeNodeV2Bank} />
-            {/*<NodesInfoCard bank={grapeNodeBank} />*/}
             <NodesInfoCard bank={grapeMimSWBank} />
             <NodesInfoCard bank={grapeWrlsBank} />
           </Grid>

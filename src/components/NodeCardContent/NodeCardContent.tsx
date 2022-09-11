@@ -23,7 +23,19 @@ interface NodeCardContentProps {
 const NodeCardContent: React.FC<NodeCardContentProps> = ({bank, statsOnPool}) => {
   const {account} = useWallet();
   const nodes = useNodes(bank?.contract, bank?.sectionInUI, account);
-  const nodeCount = nodes[0];
+
+  const nodeCount = useMemo(() => {
+    if (nodes) {
+      let nodeTotal
+      try {
+        nodeTotal = Number(nodes[0]);
+      } catch (e) {}
+      if (!nodeTotal) {
+        nodeTotal = Number(nodes);
+      }
+      return nodeTotal;
+    }
+  }, [nodes]);
   const ticketRewards = useGetMultiplierForNode(bank.earnTokenName);
   const earnings = useEarnings(bank.contract, bank.earnTokenName, bank.poolId);
   const grapeStats = useGrapeStats();
