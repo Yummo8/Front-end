@@ -7,15 +7,25 @@ import SwapVerticalCircleIcon from '@material-ui/icons/SwapVerticalCircle';
 import {PoolStats} from '../../grape-finance/types';
 import {Button} from '@mui/material';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
+import {BigNumber} from 'ethers';
 
 interface PoolCardHeaderProps {
   bank: Bank;
   statsOnPool: PoolStats;
+  nodeDaily?: BigNumber[];
+  nodeCount?: number;
   stakedInToken?: number;
   showAPRCalc?: boolean;
 }
 
-const PoolCardHeader: React.FC<PoolCardHeaderProps> = ({bank, statsOnPool, stakedInToken, showAPRCalc = false}) => {
+const PoolCardHeader: React.FC<PoolCardHeaderProps> = ({
+  bank,
+  statsOnPool,
+  nodeDaily,
+  nodeCount,
+  stakedInToken,
+  showAPRCalc = false,
+}) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const handleCloseModal = () => {
@@ -113,23 +123,24 @@ const PoolCardHeader: React.FC<PoolCardHeaderProps> = ({bank, statsOnPool, stake
           </Grid>
         </Grid>
       </Grid>
-      <Grid item xs={12} md={12} lg={12}>
-        <Grid container alignItems="baseline" justifyContent="space-between">
-          <Grid item>
-            <span className="card-info-text">APR</span>
-          </Grid>
-          <Grid item>
-            <span className="info-card-price">{bank.closedForStaking ? '0.00' : statsOnPool?.yearlyAPR}%</span>
-          </Grid>
-        </Grid>
-      </Grid>
+
       <Grid item xs={12} md={12} lg={12}>
         <Grid container alignItems="baseline" justifyContent="space-between">
           <Grid item>
             <span className="card-info-text">Daily</span>
           </Grid>
           <Grid item>
-            <span className="info-card-price">{bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}%</span>
+            {bank.contract === 'GrapeNodeV2' ? (
+              <span className="info-card-price">
+                {nodeDaily && nodeCount ? (
+                  <>{(((Number(nodeDaily) / 1e18) * 100) / (nodeCount * 50)).toFixed(2)}%</>
+                ) : (
+                  '~1.00%'
+                )}{' '}
+              </span>
+            ) : (
+              <span className="info-card-price">{bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}%</span>
+            )}{' '}
           </Grid>
         </Grid>
       </Grid>

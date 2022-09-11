@@ -307,7 +307,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     contract: 'GrapeNode',
     depositTokenName: 'GRAPE',
     earnTokenName: 'GRAPE',
-    finished: false,
+    finished: true,
     sort: 2,
     closedForStaking: false,
     multi: '0',
