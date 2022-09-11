@@ -18,6 +18,7 @@ import Popups from './components/Popups';
 import {RefreshContextProvider} from './contexts/RefreshContext';
 import NetworkVerifier from './components/NetworkVerifier';
 import BackgroundDecoration from './components/BackgroundDecoration';
+import BackgroundGlows from './views/BackgroundGlows';
 
 const Home = lazy(() => import('./views/Home'));
 const Dashboard = lazy(() => import('./views/Dashboard'));
@@ -57,7 +58,7 @@ const App: React.FC = () => {
       <NetworkVerifier />
       <Router>
         <Suspense fallback={<Loader />}>
-          <BackgroundDecoration />
+          <BackgroundGlows />
           <Switch>
             <Route exact path="/">
               <Home />

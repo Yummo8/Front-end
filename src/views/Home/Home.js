@@ -2,7 +2,7 @@ import React, {useMemo, useState} from 'react';
 import Page from '../../components/Page';
 import InfoCard from '../../components/InfoCard';
 import LPInfoCard from '../../components/LPInfoCard';
-import {createGlobalStyle} from 'styled-components';
+import {SyncLoader} from 'react-spinners';
 import CountUp from 'react-countup';
 import useGrapeStats from '../../hooks/useGrapeStats';
 import useLpStats from '../../hooks/useLpStats';
@@ -17,9 +17,7 @@ import useNodeRewardPoolStats from '../../hooks/useNodesRewardBalance';
 import {roundAndFormatNumber} from '../../0x';
 import {Button, Card, CardContent, Grid, Paper, CircularProgress, Typography} from '@material-ui/core';
 import kyc from '../../assets/img/kyc.png';
-import heroImg from '../../assets/img/hero.png';
 import audit from '../../assets/img/audit1.png';
-import HomeImage from '../../assets/img/background.jpg';
 import grapeGold from '../../assets/img/golden-grape.png';
 import pressImg from '../../assets/img/barrel.png';
 import {ReactComponent as IconTelegram} from '../../assets/img/telegram.svg';
@@ -34,17 +32,7 @@ import Alert from '@mui/material/Alert';
 import vintageImg from '../../assets/img/vintage-token.png';
 import homeItems from '../../homePageItems.json';
 import HomeCard from './HomeCard';
-
-// import useCashPriceInEstimatedTWAP from '../../hooks/useCashPriceInEstimatedTWAP';
-
-const BackgroundImage = createGlobalStyle`
-  body {
-   //background: url(${HomeImage}) repeat !important;
-    background-size: cover !important;
-    background: linear-gradient(90deg, rgba(144,17,105,1) 0%, rgba(95,17,144,1) 100%);
-    ;
-  }
-`;
+import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 
 const Home = () => {
   const TVL = useTotalValueLocked();
@@ -129,8 +117,11 @@ const Home = () => {
   };
 
   const printRate = useGetBoardroomPrintRate();
-  // const lastSnapshot = useBoardroomLastSnapshot();
-  // const lastPrintAmount = useBoardroomLastPrintAmount();
+
+  const scrollDown = () => {
+    console.log('going down');
+    document.getElementById('apps').scrollIntoView();
+  };
 
   return (
     <Page>
@@ -148,65 +139,14 @@ const Home = () => {
         totalWine={nodeRewardPoolStats?.wines}
         totalGrapeMimSW={nodeRewardPoolStats?.grapeMimSWs}
       />
-      <BackgroundImage />
-      <div style={{position: 'fixed', top: '30%', right: '-35px', opacity: '0.3', zIndex: '-1'}}>
-        <img src={heroImg} alt={'GRAPE Logo'} style={{maxHeight: '400px'}} />
-      </div>
-      <Grid container spacing={3}>
-        {/* <Grid item xs={12} style={{color: 'white'}}>
-          <Grid container justifyContent="space-between">
-            <div style={{display: 'flex', flexDirection: 'column', textAlign: 'center'}}>
-              <div>EPOCH</div>
-              <div>
-                {currentEpoch ? <CountUp end={currentEpoch} /> : <CircularProgress size={15} color="inherit" />}
-              </div>
-            </div>
-            <div style={{display: 'flex', flexDirection: 'column', textAlign: 'center'}}>
-              <div>ABOVE PEG</div>
-              <div>
-                {' '}
-                {printRate ? <span>{printRate.toFixed(2)}%</span> : <CircularProgress size={15} color="inherit" />}
-              </div>
-            </div>
 
-            <div style={{display: 'flex', flexDirection: 'column', textAlign: 'center'}}>
-              <div>SUPPLY</div>
-              <div>{grapeTotalSupply ? grapeTotalSupply : '--'}</div>
-            </div>
-            <div style={{display: 'flex', flexDirection: 'column', textAlign: 'center'}}>
-              <div>LAST EPOCH PRINTED</div>
-              <div>616</div>
-            </div>
-            <div style={{display: 'flex', flexDirection: 'column', textAlign: 'center'}}>
-              <div>LAST EPOCH EXPANSION AMOUNT</div>
-              <div>{13793195024491149517051 / 1e18}</div>
-            </div>
-            <div style={{display: 'flex', flexDirection: 'column', textAlign: 'center'}}>
-              <div>EXPANSION RATE</div>
-              <div>800</div>
-            </div>
-
-            <div style={{display: 'flex', flexDirection: 'column', textAlign: 'center'}}>
-              <div>CONTRACTION RATE</div>
-              <div>800</div>
-            </div>
-            <div style={{display: 'flex', flexDirection: 'column', textAlign: 'center'}}>
-              <div>CONTRACTION AMOUNT</div>
-              <div>800</div>
-            </div>
-            <div style={{display: 'flex', flexDirection: 'column', textAlign: 'center'}}>
-              <div>BUYS 24h</div>
-              <div>800</div>
-            </div>
-            <div style={{display: 'flex', flexDirection: 'column', textAlign: 'center'}}>
-              <div>SELLS 24h</div>
-              <div>800</div>
-            </div>
-          </Grid>
-        </Grid> */}
-        <Grid item xs={12} style={{textAlign: 'center'}}>
-          <Typography color="white" variant="h3" gutterBottom>
+      <Grid container direction="column" justifyContent="space-around" style={{minHeight: '85vh'}}>
+        <Grid item xs={12}>
+          <Typography color="white" variant="h3">
             Welcome to Grape Finance
+            <span aria-label="fire-emoji" role="img">
+              🔥
+            </span>
             <Button
               style={{marginLeft: '15px'}}
               onClick={openGetStarted}
@@ -218,6 +158,31 @@ const Home = () => {
           </Typography>
         </Grid>
 
+        <Grid item xs={12}>
+          <div className="front-text-top">TOTAL VALUE LOCKED</div>
+          <div className="front-text-tvl">
+            {TVL ? (
+              <CountUp end={TVL} separator="," prefix="$" />
+            ) : (
+              <span className="loading-tvl">
+                <SyncLoader color="#E647E6" size={40} />
+              </span>
+            )}
+          </div>
+        </Grid>
+        <Grid item xs={12} style={{textAlign: 'center'}} id="apps">
+          <img
+            style={{cursor: 'pointer'}}
+            onClick={scrollDown}
+            alt="down arrow"
+            src={require('../../assets/img/arrow-down-animated.gif')}
+            width={35}
+            height={25}
+          />
+        </Grid>
+      </Grid>
+
+      <Grid container spacing={3} style={{marginTop: '30px'}}>
         <Grid item xs={12}>
           <Grid container spacing={5}>
             {homeItems.map((item) => (
@@ -305,16 +270,6 @@ const Home = () => {
                 WINEMAKER
               </Button>
             </Grid>
-            {/*} <Grid item>
-              <Button
-                href="https://mint.grapefinance.app/"
-                variant="contained"
-                className="mintvintners"
-                startIcon={<img width={30} height={30} src={vintnersGif} />}
-              >
-                MINT VINTNERS
-              </Button>
-      </Grid>*/}
           </Grid>
         </Grid>
         <Grid item xs={12} sm={12} md={7}>
@@ -411,9 +366,7 @@ const Home = () => {
             <Grid item xs={12} style={{color: 'white'}}>
               <Card style={{minHeight: '200px'}}>
                 <CardContent>
-                  <Typography color="textPrimary" variant="h4">
-                    TOTAL VALUE LOCKED
-                  </Typography>
+                  <div className="front-text-top">TOTAL VALUE LOCKED</div>
                   {TVL ? (
                     <CountUp className="tvl" end={TVL} separator="," prefix="$" />
                   ) : (

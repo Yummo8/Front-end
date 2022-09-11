@@ -15,14 +15,6 @@ import {Card, Grid, CircularProgress} from '@material-ui/core';
 
 import LaunchCountdown from '../../components/LaunchCountdown';
 
-const BackgroundImage = createGlobalStyle`
-  body {
-    //background: url(${HomeImage}) repeat !important;
-    background-size: cover !important;
-    background: linear-gradient(90deg, rgba(144,17,105,1) 0%, rgba(95,17,144,1) 100%);
-  }
-`;
-
 const Raffle: React.FC = () => {
   // compatible format for most browser + metamask browser. Needs to be YYYY-MM-ddTHH:mm:ssZ
   const startDate = new Date('2022-07-01T23:00:00Z');
@@ -57,7 +49,6 @@ const Raffle: React.FC = () => {
   return (
     <Switch>
       <Page>
-        <BackgroundImage />
         {!!account ? (
           <>
             <Grid item xs={12} md={12} lg={12}>

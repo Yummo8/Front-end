@@ -119,7 +119,33 @@ h6 {
 }
 
 .tvl {
-  font-size: 4rem;
+  font-size: 2.5rem;
+}
+
+.back-logo3 {
+  position: fixed;
+  z-index: -999;
+  opacity: 0.3;
+  filter: blur(40px);
+  -webkit-filter: blur(40px);
+  transform: translateZ(-10px) scale(2);
+  width: 100%;
+  left: 0%;
+  right: 0%;
+  top: 90%;
+  max-width: 1920px;
+}
+
+.back-glow-2 {
+  position: fixed;
+  z-index: -999;
+  filter: blur(200px);
+  -webkit-filter: blur(200px);
+  width: 60%;
+  opacity: 0.5;
+  left: 50%;
+  top: 0;
+  transform: translateZ(-10px) scale(2);
 }
 
 .wallet-token-balance {
@@ -256,6 +282,104 @@ code {
   box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 1);
 }
 
+.full-width {
+  width: 100% !important;
+}
+
+.front-text-tvl {
+  font-family: 'TOMMY';
+  font-size: 9rem;
+  text-shadow: 0 0 1vw #6e256c, 0 0 3vw #6e256c, 0 0 20vw #6e256c, 0 0 10vw #6e256c, 0 0 0.4vw #e647e6,
+    0vw 0vw 0vw #5b2959;
+  color: #e647e6;
+  overflow: visible;
+}
+
+.front-text-top {
+  font-size: 2.5rem;
+  font-family: 'TOMMY-R';
+  text-shadow: 0 0 2vw #fff, 0 0 3vw #ffd, 0 0 20vw #ffa, 0 0 10vw #ffe, 0 0 0.4vw #e647e6, 0vw 0vw 0vw #ffc;
+  color: #fff;
+}
+
+@media screen and (max-width: 1488px) {
+  .front-text-tvl {
+    font-size: 8rem;
+  }
+  .front-text-top {
+    font-size: 2.2rem;
+  }
+}
+
+@media screen and (max-width: 1080px) {
+  .front-text-tvl {
+    font-size: 7rem;
+  }
+
+  .front-text-top {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .front-text-tvl {
+    font-size: 6rem;
+  }
+
+  .front-text-top {
+    font-size: 1.8rem;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .front-text-tvl {
+    font-size: 5rem;
+  }
+
+  .front-text-top {
+    font-size: 1.6rem;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .front-text-tvl {
+    font-size: 3.8rem;
+  }
+  .front-text-top {
+    font-size: 1.4rem;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .front-text-tvl {
+    font-size: 3.3rem;
+  }
+
+  .front-text-top {
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 399px) {
+  .front-text-tvl {
+    font-size: 3.2rem;
+  }
+
+  .front-text-top {
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 359px) {
+  .front-text-tvl {
+    font-size: 2.8rem;
+  }
+
+  .front-text-top {
+    font-size: 1.1rem;
+  }
+}
+
 @keyframes golden-background {
   0% {
     background-image: linear-gradient(to right bottom, #ffd700, #f5ca0a, #eabc12, #dfb016, #d4a31a);
@@ -274,7 +398,6 @@ code {
   }
 }
 
-
 @keyframes winepress-background {
   0% {
     background-image: linear-gradient(to right top, #ab17ab, #b91ab9, #c51dc5, #cd1ecd, #db21db);
@@ -292,7 +415,6 @@ code {
     background-image: linear-gradient(to right top, #ab17ab, #b91ab9, #cd1ecd, #db21db, #ab17ab);
   }
 }
-
 
 .golden {
   color: white !important;

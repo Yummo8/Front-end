@@ -17,14 +17,6 @@ import useBanks from '../../hooks/useBanks';
 import HomeImage from '../../assets/img/background.jpg';
 import VineyardInfoCard from '../../components/VineyardInfoCard';
 
-const BackgroundImage = createGlobalStyle`
-  body {
-    //background: url(${HomeImage}) repeat !important;
-    background-size: cover !important;
-    background-size: cover !important;
-    background: linear-gradient(90deg, rgba(144,17,105,1) 0%, rgba(95,17,144,1) 100%);
-  }
-`;
 
 const Farm = () => {
   const [banks] = useBanks();
@@ -36,7 +28,6 @@ const Farm = () => {
     <Switch>
       <Page>
         <Route exact path={path}>
-          <BackgroundImage />
           {!!account ? (
             <Container maxWidth="lg">
               <Typography color="textPrimary" align="center" variant="h3" gutterBottom>
@@ -146,7 +137,6 @@ const Farm = () => {
           )}
         </Route>
         <Route path={`${path}/:bankId`}>
-          <BackgroundImage />
           <Bank />
         </Route>
       </Page>

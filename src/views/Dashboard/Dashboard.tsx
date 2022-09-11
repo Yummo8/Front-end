@@ -31,14 +31,7 @@ import wineImg from '../../assets/img/gshare.png';
 import wineMimLP from '../../assets/img/gshare-mim.png';
 import DashboardBoardroomCard from './DashboardBoardroomCard';
 import useWinepressUserInfo from '../../hooks/useWinepressUserInfo';
-
-const BackgroundImage = createGlobalStyle`
-  body {
-    //background: url(${HomeImage}) repeat !important;
-    background-size: cover !important;
-    background: linear-gradient(90deg, rgba(144,17,105,1) 0%, rgba(95,17,144,1) 100%);
-  }
-`;
+import {SyncLoader} from 'react-spinners';
 
 const Dashboard = () => {
   const {account} = useWallet();
@@ -107,7 +100,6 @@ const Dashboard = () => {
 
   return (
     <Page>
-      <BackgroundImage />
       {!!account ? (
         <div>
           <Typography color="textPrimary" align="center" variant="h3" gutterBottom>
@@ -130,7 +122,7 @@ const Dashboard = () => {
                         {totalInvested != null ? (
                           <CountUp end={getTotalInvested()} separator="," prefix="≈$" />
                         ) : (
-                          <CircularProgress size={22} color="inherit" />
+                          <SyncLoader color="white" size={22} />
                         )}
                       </Typography>
                     </CardContent>

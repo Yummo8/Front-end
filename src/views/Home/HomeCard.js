@@ -1,38 +1,37 @@
 import React from 'react';
 import cx from 'clsx';
-import Color from 'color';
 import {makeStyles} from '@material-ui/core/styles';
-import Avatar from '@material-ui/core/Avatar';
-import Box from '@material-ui/core/Box';
-import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
 import {Stack} from '@mui/material';
 import Button from '@material-ui/core/Button';
-import {useCoverCardMediaStyles} from '@mui-treasury/styles/cardMedia/cover';
 import {Row, Item} from '@mui-treasury/components/flex';
-import LaunchIcon from '@mui/icons-material/Launch';
+import {Paper} from '@material-ui/core';
 
 const useStyles = makeStyles(({palette}) => ({
   root: ({color}) => ({
-    borderRadius: '5px',
-    // border: '2px solid',
-    // borderImageSlice: 1,
-    // borderWidth: '5px',
-    // borderImageSource: '',
-    minHeight: '260px',
-    background: `linear-gradient(to bottom, ${Color('#930993').darken(0.3).toString()}, ${Color('#930993')
-      .darken(0.4)
-      .toString()})`,
+    borderRadius: '5px !important',
+    border: 'solid',
+    borderWidth: '3px',
+    borderColor: '#000',
+    // background: `rgba(0, 0, 0, 0.5) !important;`,
+    background: `linear-gradient(to bottom, #1a1a1a, #333333)`,
   }),
+
   content: ({color}) => ({
     zIndex: 1,
-    borderRadius: '0.5rem',
     bottom: 0,
   }),
   title: {
     transition: '0.3s',
-    fontSize: '1.3rem !important',
+    fontSize: '1.6rem !important',
     margin: 0,
+  },
+
+  subtitle: {
+    fontSize: '1.1rem !important',
+    margin: 0,
+    padding: 0,
+    color: '#fff',
   },
   description: {
     fontSize: '1rem !important',
@@ -40,78 +39,85 @@ const useStyles = makeStyles(({palette}) => ({
     margin: 0,
   },
   logo: {
+    marginTop: '20px',
     transition: '0.3s',
-    width: 60,
-    borderRadius: '0',
+    height: 110,
     objectFit: 'contain !important',
   },
-  team: {
-    // fontFamily: 'Sen',
-    fontSize: '0.75rem !imporatant',
+  contentText: {
+    fontSize: '0.8rem !important',
     color: '#fff',
   },
 }));
 
-const CustomCard = ({item, styles, title, subTitle, brand, subItems}) => {
+const CustomCard = ({item, styles, title, subTitle, subItems}) => {
   return (
     <a style={{textDecoration: 'none'}} target={item.isInternalLink === false ? '_blank' : ''} href={item.linkTo}>
       <Stack
         direction="column"
         className={cx(styles.root, styles.color)}
-        style={{backgroundImage:  item.backgroundImage != null ? 'url(' + require('../../assets/img/' + item.backgroundImage) + ')' : ''}}
+        // style={{
+        //   backgroundImage:
+        //     item.backgroundImage != null ? 'url(' + require('../../assets/img/' + item.backgroundImage) + ')' : '',
+        // }}
         justifyContent="space-between"
         spacing={0}
       >
         <Row p={2}>
-          <Grid container justifyContent="space-between">
-            <Grid item>
+          <Grid container justifyContent="space-between" style={{textAlign: 'center'}}>
+            <Grid item xs={12}>
               <h1 className={styles.title} style={{color: item.color}}>
                 {title}
               </h1>
-              <h5 style={{margin: 0, padding: 0}}>{subTitle}</h5>
+              <h3 className={styles.subtitle}>{subTitle}</h3>
             </Grid>
-            <Grid item>
+            <Grid item xs={12}>
               <img alt={item.image} className={styles.logo} src={require(`../../assets/img/${item.image}`)} />
             </Grid>
           </Grid>
         </Row>
-        <Row px={2}>
-          <Item>
-            <div className={styles.team}>{brand}</div>
-          </Item>
-        </Row>
-        <Row p={2}>
-          {subItems == null && (
-            <Item style={{width: '100%'}}>
-              <Button
-                className="shinyButton"
-                style={{width: '100%'}}
-                target={item.isInternalLink === false ? '_blank' : ''}
-                href={item.linkTo}
-              >
-                Go to {item.label}
-              </Button>
-            </Item>
-          )}
-          {subItems != null && subItems.length > 0 ? (
+
+        <div
+          style={{
+            borderBottomLeftRadius: '5px',
+            borderBottomRightRadius: '5px',
+            backgroundColor: 'rgba(200,200,200, 0.1)',
+          }}
+        >
+          <Row px={2} pt={2}>
             <Item>
-              <Grid container wrap="wrap" alignItems="stretch" justifyContent="space-evenly" spacing={2}>
-                {subItems.map((subItem) => (
-                  <Grid item>
+              <div className={styles.contentText}>{item.description}</div>
+            </Item>
+          </Row>
+
+          <Grid container style={{padding: '15px'}} justifyContent="space-evenly" spacing={2}>
+            {subItems == null && (
+              <Grid item style={{width: '100%'}}>
+                <Button
+                  className="shinyButton full-width"
+                  target={item.isInternalLink === false ? '_blank' : ''}
+                  href={item.linkTo}
+                >
+                  Go to {item.label}
+                </Button>
+              </Grid>
+            )}
+
+            {subItems != null && subItems.length > 0
+              ? subItems.map((subItem) => (
+                  <Grid item xs={subItems.length % 2 ? 4 : 6}>
                     <Button
-                      className="shinyButton"
-                      style={{backgroundColor: subItem.color, width: '100% !important'}}
+                      className="shinyButton full-width"
                       target={subItem.isInternalLink === false ? '_blank' : ''}
                       href={subItem.linkTo}
                     >
                       {subItem.label}
                     </Button>
                   </Grid>
-                ))}
-              </Grid>
-            </Item>
-          ) : null}
-        </Row>
+                ))
+              : null}
+          </Grid>
+        </div>
       </Stack>
     </a>
   );
@@ -120,27 +126,10 @@ const CustomCard = ({item, styles, title, subTitle, brand, subItems}) => {
 export const HomeCard = ({item}) => {
   const styles1 = useStyles({color: item.color});
   return (
-    <Grid item xs={12} sm={6} md={4}>
-      <CustomCard
-        item={item}
-        styles={styles1}
-        brand={item.description}
-        subItems={item.items}
-        title={item.label}
-        subTitle={item.subLabel}
-        description={item.description}
-      />
+    <Grid item xs={12} sm={12} md={6} lg={4}>
+      <CustomCard item={item} styles={styles1} subItems={item.items} title={item.label} subTitle={item.subLabel} />
     </Grid>
   );
 };
 
 export default HomeCard;
-
-// <Box className={styles.content} p={2}>
-//               <Box position={'relative'} zIndex={1}>
-
-//
-//
-//
-//               </Box>
-//             </Box>

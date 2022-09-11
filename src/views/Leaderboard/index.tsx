@@ -13,13 +13,6 @@ import {convertTime} from '../../utils/convertTime';
 import {createGlobalStyle} from 'styled-components';
 import { Typography } from '@material-ui/core';
 
-const BackgroundImage = createGlobalStyle`
-  body {
-    background-size: cover !important;
-    background: linear-gradient(90deg, rgba(144,17,105,1) 0%, rgba(95,17,144,1) 100%);
-    ;
-  }
-`;
 
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
@@ -68,7 +61,6 @@ const LeaderBoard = () => {
 
   return (
     <Page>
-      <BackgroundImage />
       <Typography color="textPrimary" align="center" variant="h3" gutterBottom>
         Node Leaderboard
       </Typography>

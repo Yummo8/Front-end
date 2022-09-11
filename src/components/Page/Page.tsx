@@ -118,7 +118,7 @@ const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })<AppBarProps>(({theme, open}) => ({
   color: '#322f32 !important',
-  background: 'linear-gradient(90deg, rgba(144,17,105,1) 0%, rgba(95,17,144,1) 100%);',
+  // background: 'linear-gradient(90deg, rgba(144,17,105,1) 0%, rgba(95,17,144,1) 100%);',
   boxShadow: '50px 4px 26px -18px rgba(0,0,0,0.99) !important',
   borderRadius: '0 !important',
   zIndex: theme.zIndex.drawer + 1,
@@ -277,11 +277,11 @@ const Page: React.FC = ({children}) => {
 
   const screenSM = useMediaQuery('(min-width:1050px)');
 
-  useEffect(() => {
-    if (screenSM) {
-      setOpen(true);
-    }
-  }, [screenSM]);
+  // useEffect(() => {
+  //   if (screenSM) {
+  //     setOpen(true);
+  //   }
+  // }, [screenSM]);
 
   return (
     <div style={{position: 'relative', minHeight: '100vh'}}>
@@ -339,10 +339,10 @@ const Page: React.FC = ({children}) => {
                   <span className="token-price">{vintagePrice ? '$' + vintagePrice : '--'}</span>
                 </a>
               </div>
-              <div className="price-item">
+              {/* <div className="price-item">
                 <img src={grapeMimImg} alt="TWAP" height={35} />
                 <span className="token-price">{twap ? twap : '--'}/1.01</span>
-              </div>
+              </div> */}
             </div>
             <Box
               style={{

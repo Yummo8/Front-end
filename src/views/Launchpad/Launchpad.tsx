@@ -8,22 +8,12 @@ import { Grid , Container, Card } from '@material-ui/core';
 import asgard from '../../assets/img/asgard.jpg';
 import hermes from '../../assets/img/hermes.png';
 
-const BackgroundImage = createGlobalStyle`
-  body {
-    //background: url(${HomeImage}) repeat !important;
-    background-size: cover !important;
-    background: linear-gradient(90deg, rgba(144,17,105,1) 0%, rgba(95,17,144,1) 100%);
-  }
-`;
-
-
 
 const Launchpad: React.FC = () => {
 
   return (
     <Switch>
       <Page>
-      <BackgroundImage />
       <Container>   
               <Grid item xs={12} md={12} lg={12} >     
               

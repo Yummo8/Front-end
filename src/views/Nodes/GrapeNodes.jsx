@@ -9,13 +9,6 @@ import useBank from '../../hooks/useBank';
 import {createGlobalStyle} from 'styled-components';
 import NodesInfoCard from '../../components/NodesInfoCard';
 
-const BackgroundImage = createGlobalStyle`
-  body {
-    background-size: cover !important;
-    background: linear-gradient(90deg, rgba(144,17,105,1) 0%, rgba(95,17,144,1) 100%);
-    ;
-  }
-`;
 
 const GrapeNodes = () => {
   const {path} = useRouteMatch();
@@ -27,7 +20,6 @@ const GrapeNodes = () => {
 
   return (
     <Page>
-      <BackgroundImage />
       <Switch>
         <Route exact path={path}>
           <Typography color="textPrimary" align="center" variant="h3" gutterBottom>

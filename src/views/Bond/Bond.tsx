@@ -25,14 +25,6 @@ import HomeImage from '../../assets/img/background.jpg';
 import {Grid, Typography, Box} from '@material-ui/core';
 import {Box as MetarialBox} from '@mui/material';
 
-const BackgroundImage = createGlobalStyle`
-  body {
-    //background: url(${HomeImage}) repeat !important;
-    background-size: cover !important;
-    background: linear-gradient(90deg, rgba(144,17,105,1) 0%, rgba(95,17,144,1) 100%);
-  }
-`;
-
 const Bond: React.FC = () => {
   const {account} = useWallet();
   const grapeFinance = useGrapeFinance();
@@ -84,7 +76,6 @@ const Bond: React.FC = () => {
   return (
     <Switch>
       <Page>
-        <BackgroundImage />{' '}
         {!!account ? (
           <>
             {memoizedBondBalance && (
