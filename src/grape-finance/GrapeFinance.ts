@@ -427,7 +427,7 @@ export class GrapeFinance {
       const nodes = await this.getNodes(bank.contract, this.myAccount);
       let nodesCount;
       try {
-        nodesCount = Number(nodes[0]);
+        nodesCount = nodes[0].toNumber();
       } catch (e) {}
       if (!nodesCount) {
         nodesCount = Number(nodes);
@@ -437,7 +437,7 @@ export class GrapeFinance {
         await this.getDepositTokenPriceInDollars(bank.depositTokenName, bank.depositToken),
       );
       totalInNodes +=
-        nodesCount * (stakedTokenPriceInDollars * Number(getDisplayBalance(nodePrice, bank.depositToken.decimal)));
+        Number(nodesCount) * (stakedTokenPriceInDollars * Number(getDisplayBalance(nodePrice, bank.depositToken.decimal)));
 
       // Node earnings
       const nodeEarnings = await this.earnedFromBank(bank.contract, bank.earnTokenName, bank.poolId, this.myAccount);
