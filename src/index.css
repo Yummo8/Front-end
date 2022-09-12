@@ -281,7 +281,7 @@ code {
   font-size: 1rem !important;
   color: #fff !important;
   border-radius: 5px !important;
-}
+} 
 
 .shinyButton:hover {
   background-image: linear-gradient(150deg, #930993, #781278 45%, #c43cc4);

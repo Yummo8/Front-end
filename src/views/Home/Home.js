@@ -11,18 +11,20 @@ import useBondStats from '../../hooks/useBondStats';
 import useWineStats from '../../hooks/useWineStats';
 
 import useTotalValueLocked from '../../hooks/useTotalValueLocked';
-import useNodeRewardPoolStats from '../../hooks/useNodesRewardBalance';
-import {Button, Card, CardContent, Grid, Paper, CircularProgress, Typography} from '@material-ui/core';
+import {Button, Card, Grid, Paper, CircularProgress, Typography} from '@material-ui/core';
 import kyc from '../../assets/img/kyc.png';
 import audit from '../../assets/img/audit1.png';
 
-import GetStartedModal from './GetStartedModal';
 import useCurrentEpoch from '../../hooks/useCurrentEpoch';
 import useGetBoardroomPrintRate from '../../hooks/useGetBoardroomPrintRate';
 import homeItems from '../../homePageItems.json';
 import HomeCard from './HomeCard';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+
+import {ReactComponent as IconDiscord} from '../../assets/img/discord-plain.svg';
+import YouTubeIcon from '@mui/icons-material/YouTube';
+import {ReactComponent as IconTwitter} from '../../assets/img/twitter.svg';
 
 const Home = () => {
   const TVL = useTotalValueLocked();
@@ -34,9 +36,7 @@ const Home = () => {
   const grapeStats = useGrapeStats();
   const bShareStats = useWineStats();
   const tBondStats = useBondStats();
-  const nodeRewardPoolStats = useNodeRewardPoolStats();
 
-  const [getStartedModalOpen, setGetStartedModalOpen] = useState(false);
   const currentEpoch = useCurrentEpoch();
 
   const buyGrapeAddress =
@@ -49,10 +49,6 @@ const Home = () => {
   const grapeLPStats = useMemo(() => (grapemimLpStats ? grapemimLpStats : null), [grapemimLpStats]);
   const wineLPStats = useMemo(() => (bSharemimLpStats ? bSharemimLpStats : null), [bSharemimLpStats]);
   const newPairLPStats = useMemo(() => (newPair ? newPair : null), [newPair]);
-  const grapePriceInDollars = useMemo(
-    () => (grapeStats ? Number(grapeStats.priceInDollars).toFixed(2) : null),
-    [grapeStats],
-  );
   const grapePriceInAVAX = useMemo(() => (grapeStats ? Number(grapeStats.tokenInFtm).toFixed(4) : null), [grapeStats]);
   const grapeCirculatingSupply = useMemo(
     () => (grapeStats ? Number(grapeStats.circulatingSupply) : null),
@@ -85,14 +81,6 @@ const Home = () => {
   // const cashStat = useCashPriceInEstimatedTWAP();
   // const twap = useMemo(() => (cashStat ? Number(cashStat.priceInDollars).toFixed(4) : null), [cashStat]);
 
-  const handleCloseModal = () => {
-    setGetStartedModalOpen(false);
-  };
-
-  const openGetStarted = () => {
-    setGetStartedModalOpen(true);
-  };
-
   const printRate = useGetBoardroomPrintRate();
 
   const scrollDown = () => {
@@ -101,8 +89,6 @@ const Home = () => {
 
   return (
     <Page>
-      <GetStartedModal open={getStartedModalOpen} handleClose={handleCloseModal} />
-
       <Grid container direction="column" justifyContent="space-between" style={{minHeight: '75vh'}}>
         <Grid item xs={12} style={{textAlign: 'center'}}>
           <Grid container justifyContent="center" spacing={2} alignItems="center">
@@ -114,7 +100,12 @@ const Home = () => {
             </Grid>
             <Grid item>
               {' '}
-              <Button onClick={openGetStarted} variant="contained" className="winepress get-started">
+              <Button
+                href="https://grape-finance.gitbook.io/grape-finance-docs/"
+                target="_blank"
+                variant="contained"
+                className="winepress get-started"
+              >
                 Get Started
               </Button>
             </Grid>
@@ -154,7 +145,43 @@ const Home = () => {
           </Grid>
         </Grid>
 
-        <Grid item sm={12} style={{textAlign: 'center', marginTop: '30px'}} >
+        <Grid item xs={12} style={{marginTop: '50px'}}>
+          <Grid container justifyContent="center">
+            <Grid item xs={12} sm={8} md={6}>
+              <Card
+                style={{backgroundImage: 'linear-gradient(150deg, #930993, #781278 50%, #e647e6)', textAlign: 'center'}}
+              >
+                <h3 style={{marginTop: '10px'}}>Connect with us</h3>
+                <Grid
+                  container
+                  justifyContent="space-evenly"
+                  spacing={2}
+                  alignItems="center"
+                  style={{paddingTop: '3px'}}
+                >
+                  <Grid item>
+                    <a href="https://discord.gg/grapefinance" rel="noopener noreferrer" target="_blank">
+                      <IconDiscord style={{fill: '#fff', width: '50px', transform: 'scale(0.8)'}} />
+                    </a>
+                  </Grid>
+                  <Grid item>
+                    <a href="https://discord.gg/grapefinance" rel="noopener noreferrer" target="_blank">
+                      <YouTubeIcon style={{fill: 'white', width: '50px', transform: 'scale(2)'}} />
+                    </a>
+                  </Grid>
+                  <Grid item>
+                    {' '}
+                    <a href="https://twitter.com/grape_finance" rel="noopener noreferrer" target="_blank">
+                      <IconTwitter style={{fill: '#fff', width: '50px', transform: 'scale(1.5)'}} />
+                    </a>
+                  </Grid>
+                </Grid>
+              </Card>
+            </Grid>
+          </Grid>
+        </Grid>
+
+        <Grid item sm={12} style={{textAlign: 'center', marginTop: '30px'}}>
           <Button
             className="shinyButton"
             onClick={() => {

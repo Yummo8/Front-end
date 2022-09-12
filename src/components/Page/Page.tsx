@@ -1180,7 +1180,7 @@ const Page: React.FC = ({children}) => {
                   >
                     <a
                       className="menu-item"
-                      href="https://nftrade.com/assets/avalanche/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df"
+                      href="https://www.alphashares.io/explore/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df"
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{padding: 0, display: 'block'}}
