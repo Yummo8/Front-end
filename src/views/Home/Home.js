@@ -21,12 +21,14 @@ import useCurrentEpoch from '../../hooks/useCurrentEpoch';
 import useGetBoardroomPrintRate from '../../hooks/useGetBoardroomPrintRate';
 import homeItems from '../../homePageItems.json';
 import HomeCard from './HomeCard';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 const Home = () => {
   const TVL = useTotalValueLocked();
   const grapemimLpStats = useLpStatsBTC('GRAPE-MIM-LP');
   const bSharemimLpStats = useLpStats('WINE-MIM-LP');
-
+  const [seeMoreInfo, setSeeMoreInfo] = useState(false);
   const newPair = useLpStats('GRAPE-WINE-LP');
 
   const grapeStats = useGrapeStats();
@@ -94,7 +96,6 @@ const Home = () => {
   const printRate = useGetBoardroomPrintRate();
 
   const scrollDown = () => {
-    console.log('going down');
     document.getElementById('apps').scrollIntoView();
   };
 
@@ -102,7 +103,7 @@ const Home = () => {
     <Page>
       <GetStartedModal open={getStartedModalOpen} handleClose={handleCloseModal} />
 
-      <Grid container direction="column" justifyContent="space-between" style={{minHeight: '80vh'}}>
+      <Grid container direction="column" justifyContent="space-between" style={{minHeight: '75vh'}}>
         <Grid item xs={12} style={{textAlign: 'center'}}>
           <Grid container justifyContent="center" spacing={2} alignItems="center">
             <Grid item>
@@ -127,7 +128,7 @@ const Home = () => {
               <CountUp end={TVL} separator="," prefix="$" />
             ) : (
               <span className="loading-tvl">
-                <SyncLoader color="#E647E6" size={40} />
+                <SyncLoader color="#E647E6" size={30} />
               </span>
             )}
           </div>
@@ -144,7 +145,7 @@ const Home = () => {
         </Grid>
       </Grid>
 
-      <Grid container spacing={3} style={{marginTop: '30px'}}>
+      <Grid container spacing={3} style={{marginTop: '50px'}}>
         <Grid item xs={12}>
           <Grid container spacing={5}>
             {homeItems.map((item) => (
@@ -153,136 +154,147 @@ const Home = () => {
           </Grid>
         </Grid>
 
-        
-
-        <Grid item sm={12} style={{textAlign: 'center'}}>
-          <span className="welcome-text">More Info...</span>
-        </Grid>
-        <Grid item sm={12} md={12} lg={12} style={{marginTop: '10px'}}>
-          <Grid container spacing={3}>
-            <Grid item xs={6} md={4} lg={2} style={{color: 'white', textAlign: 'center'}}>
-              <Typography color="textPrimary" variant="h6">
-                EPOCH
-              </Typography>{' '}
-              {currentEpoch ? (
-                <CountUp style={{fontSize: '30px'}} end={currentEpoch} />
-              ) : (
-                <CircularProgress size={28} color="inherit" />
-              )}
-            </Grid>
-            <Grid item xs={6} md={4} lg={2} style={{color: 'white', textAlign: 'center'}}>
-              <Typography color="textPrimary" variant="h6">
-                Above Peg
-              </Typography>
-              {printRate ? (
-                <span style={{fontSize: '30px'}}>{printRate.toFixed(2)}%</span>
-              ) : (
-                <CircularProgress size={28} color="inherit" />
-              )}
-            </Grid>
-            <Grid item xs={12} md={4} lg={3} style={{color: 'white', textAlign: 'center'}}>
-              <Typography color="textPrimary" variant="h6">
-                Started On
-              </Typography>
-              <span style={{fontSize: '30px'}}>Jan 16, 2022</span>
-            </Grid>
-            <Grid item xs={6} md={6} lg={2} style={{color: 'white', textAlign: 'center'}}>
-              <Typography color="textPrimary" variant="h6">
-                KYC
-              </Typography>
-              <a
-                href="https://twitter.com/0xGuard/status/1480457336082907137"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img alt="0xGuard KYC" style={{height: '70px'}} src={kyc} />
-              </a>
-            </Grid>
-            <Grid item xs={6} md={6} lg={2} style={{color: 'white', textAlign: 'center'}}>
-              <Typography color="textPrimary" variant="h6">
-                Audit
-              </Typography>
-              <a href="https://grapefinance.app/audit.pdf" rel="noopener noreferrer" target="_blank">
-                <img alt="0xGuard Audit" style={{height: '50px'}} src={audit} />
-              </a>
-            </Grid>
-          </Grid>
+        <Grid item sm={12} style={{textAlign: 'center', marginTop: '30px'}} >
+          <Button
+            className="shinyButton"
+            onClick={() => {
+              setSeeMoreInfo(!seeMoreInfo);
+            }}
+          >
+            See More Info
+            {!seeMoreInfo ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
+          </Button>
         </Grid>
 
-        <Grid item lg={12} md={12} xs={12} sm={12}>
-          <Paper style={{height: '5px'}}></Paper>
-        </Grid>
+        {seeMoreInfo && (
+          <>
+            <Grid item sm={12} md={12} lg={12} style={{marginTop: '10px'}}>
+              <Grid container spacing={3}>
+                <Grid item xs={6} md={4} lg={2} style={{color: 'white', textAlign: 'center'}}>
+                  <Typography color="textPrimary" variant="h6">
+                    EPOCH
+                  </Typography>{' '}
+                  {currentEpoch ? (
+                    <CountUp style={{fontSize: '30px'}} end={currentEpoch} />
+                  ) : (
+                    <CircularProgress size={28} color="inherit" />
+                  )}
+                </Grid>
+                <Grid item xs={6} md={4} lg={2} style={{color: 'white', textAlign: 'center'}}>
+                  <Typography color="textPrimary" variant="h6">
+                    Above Peg
+                  </Typography>
+                  {printRate ? (
+                    <span style={{fontSize: '30px'}}>{printRate.toFixed(2)}%</span>
+                  ) : (
+                    <CircularProgress size={28} color="inherit" />
+                  )}
+                </Grid>
+                <Grid item xs={12} md={4} lg={3} style={{color: 'white', textAlign: 'center'}}>
+                  <Typography color="textPrimary" variant="h6">
+                    Started On
+                  </Typography>
+                  <span style={{fontSize: '30px'}}>Jan 13, 2022</span>
+                </Grid>
+                <Grid item xs={6} md={6} lg={2} style={{color: 'white', textAlign: 'center'}}>
+                  <Typography color="textPrimary" variant="h6">
+                    KYC
+                  </Typography>
+                  <a
+                    href="https://twitter.com/0xGuard/status/1480457336082907137"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <img alt="0xGuard KYC" style={{height: '70px'}} src={kyc} />
+                  </a>
+                </Grid>
+                <Grid item xs={6} md={6} lg={2} style={{color: 'white', textAlign: 'center'}}>
+                  <Typography color="textPrimary" variant="h6">
+                    Audit
+                  </Typography>
+                  <a href="https://grapefinance.app/audit.pdf" rel="noopener noreferrer" target="_blank">
+                    <img alt="0xGuard Audit" style={{height: '50px'}} src={audit} />
+                  </a>
+                </Grid>
+              </Grid>
+            </Grid>
 
-        {/* GRAPE */}
-        <Grid item xs={12} sm={12} md={6} lg={4}>
-          <InfoCard
-            name="Grape"
-            buyAddress={buyGrapeAddress}
-            chartAddress={grapeChart}
-            price={grapePriceInAVAX}
-            circulatingSupply={grapeCirculatingSupply}
-            totalSupply={grapeTotalSupply}
-          />
-        </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={4}>
-          <InfoCard
-            name="Wine"
-            buyAddress={buyWineAddress}
-            chartAddress={wineChart}
-            price={winePriceInDollars}
-            circulatingSupply={bShareCirculatingSupply}
-            totalSupply={bShareTotalSupply}
-          />
-        </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={4}>
-          <InfoCard
-            name="Gbond"
-            buyAddress="/bond"
-            internalLink={true}
-            price={tBondPriceInDollars}
-            circulatingSupply={tBondCirculatingSupply}
-            totalSupply={tBondTotalSupply}
-          />
-        </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={4}>
-          <LPInfoCard
-            name="Grape-MIM-LP"
-            token1Name="Grape"
-            token1Value={grapeLPStats?.tokenAmount}
-            token2Name="MIM"
-            token2Value={grapeLPStats?.mimAmount}
-            poolAddress="/vineyard/GrapeMimLPWineRewardPool"
-            price={grapeLPStats?.priceOfOne}
-            circulatingSupply={grapeLPStats?.totalLiquidity}
-            totalSupply={grapeLPStats?.totalSupply}
-          />
-        </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={4}>
-          <LPInfoCard
-            name="Wine-MIM-LP"
-            token1Name="Wine"
-            token1Value={wineLPStats?.tokenAmount}
-            token2Name="MIM"
-            token2Value={wineLPStats?.mimAmount}
-            poolAddress="/vineyard/WineMimLPWineRewardPool"
-            price={wineLPStats?.priceOfOne}
-            circulatingSupply={wineLPStats?.totalLiquidity}
-            totalSupply={wineLPStats?.totalSupply}
-          />
-        </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={4}>
-          <LPInfoCard
-            name="Grape-Wine-LP"
-            token1Name="Grape"
-            token1Value={newPairLPStats?.tokenAmount}
-            token2Name="Wine"
-            token2Value={newPairLPStats?.mimAmount}
-            poolAddress="/vineyard/GrapeWineLPWineRewardPool"
-            price={newPairLPStats?.priceOfOne}
-            circulatingSupply={newPairLPStats?.totalLiquidity}
-            totalSupply={newPairLPStats?.totalSupply}
-          />
-        </Grid>
+            <Grid item lg={12} md={12} xs={12} sm={12}>
+              <Paper style={{height: '5px'}}></Paper>
+            </Grid>
+
+            {/* GRAPE */}
+            <Grid item xs={12} sm={12} md={6} lg={4}>
+              <InfoCard
+                name="Grape"
+                buyAddress={buyGrapeAddress}
+                chartAddress={grapeChart}
+                price={grapePriceInAVAX}
+                circulatingSupply={grapeCirculatingSupply}
+                totalSupply={grapeTotalSupply}
+              />
+            </Grid>
+            <Grid item xs={12} sm={12} md={6} lg={4}>
+              <InfoCard
+                name="Wine"
+                buyAddress={buyWineAddress}
+                chartAddress={wineChart}
+                price={winePriceInDollars}
+                circulatingSupply={bShareCirculatingSupply}
+                totalSupply={bShareTotalSupply}
+              />
+            </Grid>
+            <Grid item xs={12} sm={12} md={6} lg={4}>
+              <InfoCard
+                name="Gbond"
+                buyAddress="/bond"
+                internalLink={true}
+                price={tBondPriceInDollars}
+                circulatingSupply={tBondCirculatingSupply}
+                totalSupply={tBondTotalSupply}
+              />
+            </Grid>
+            <Grid item xs={12} sm={12} md={6} lg={4}>
+              <LPInfoCard
+                name="Grape-MIM-LP"
+                token1Name="Grape"
+                token1Value={grapeLPStats?.tokenAmount}
+                token2Name="MIM"
+                token2Value={grapeLPStats?.mimAmount}
+                poolAddress="/vineyard/GrapeMimLPWineRewardPool"
+                price={grapeLPStats?.priceOfOne}
+                circulatingSupply={grapeLPStats?.totalLiquidity}
+                totalSupply={grapeLPStats?.totalSupply}
+              />
+            </Grid>
+            <Grid item xs={12} sm={12} md={6} lg={4}>
+              <LPInfoCard
+                name="Wine-MIM-LP"
+                token1Name="Wine"
+                token1Value={wineLPStats?.tokenAmount}
+                token2Name="MIM"
+                token2Value={wineLPStats?.mimAmount}
+                poolAddress="/vineyard/WineMimLPWineRewardPool"
+                price={wineLPStats?.priceOfOne}
+                circulatingSupply={wineLPStats?.totalLiquidity}
+                totalSupply={wineLPStats?.totalSupply}
+              />
+            </Grid>
+            <Grid item xs={12} sm={12} md={6} lg={4}>
+              <LPInfoCard
+                name="Grape-Wine-LP"
+                token1Name="Grape"
+                token1Value={newPairLPStats?.tokenAmount}
+                token2Name="Wine"
+                token2Value={newPairLPStats?.mimAmount}
+                poolAddress="/vineyard/GrapeWineLPWineRewardPool"
+                price={newPairLPStats?.priceOfOne}
+                circulatingSupply={newPairLPStats?.totalLiquidity}
+                totalSupply={newPairLPStats?.totalSupply}
+              />
+            </Grid>
+          </>
+        )}
       </Grid>
     </Page>
   );

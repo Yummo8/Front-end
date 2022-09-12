@@ -26,6 +26,7 @@ const useStyles = makeStyles(({palette}) => ({
     transition: '0.3s',
     fontSize: '1.6rem !important',
     margin: 0,
+    color: '#e647e6'
   },
 
   subtitle: {
