@@ -427,17 +427,19 @@ export class GrapeFinance {
       const nodes = await this.getNodes(bank.contract, this.myAccount);
       let nodesCount;
       try {
-        nodesCount = Number(nodes[0]);
+        nodesCount = nodes[0];
       } catch (e) {}
       if (!nodesCount) {
         nodesCount = Number(nodes);
       }
+
       const nodePrice = await this.getNodePrice(bank.contract, bank.poolId);
       const stakedTokenPriceInDollars = Number(
         await this.getDepositTokenPriceInDollars(bank.depositTokenName, bank.depositToken),
       );
       totalInNodes +=
-        nodesCount * (stakedTokenPriceInDollars * Number(getDisplayBalance(nodePrice, bank.depositToken.decimal)));
+        Number(nodesCount) *
+        (stakedTokenPriceInDollars * Number(getDisplayBalance(nodePrice, bank.depositToken.decimal)));
 
       // Node earnings
       const nodeEarnings = await this.earnedFromBank(bank.contract, bank.earnTokenName, bank.poolId, this.myAccount);
@@ -479,12 +481,12 @@ export class GrapeFinance {
   }
 
   async getWalletNodesAndNFTs(): Promise<WalletNodesAndNFTs> {
-    const grapeNodesCount = await this.getNodes('GrapeNode', this.myAccount);
+    const grapeNodesCount = await this.getNodes('GrapeNodeV2', this.myAccount);
     const wineNodesCount = await this.getNodes('WineNode', this.myAccount);
     const grapeMimSWNodesCount = await this.getNodes('LPNode', this.myAccount);
 
     let walletNodesAndNFTs = {
-      grapes: grapeNodesCount[0].toNumber(),
+      grapes: Number(grapeNodesCount),
       wines: wineNodesCount[0].toNumber(),
       grapeMimSWs: grapeMimSWNodesCount[0].toNumber(),
       goonBags: 0,
