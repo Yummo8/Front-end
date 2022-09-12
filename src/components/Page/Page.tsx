@@ -584,7 +584,7 @@ const Page: React.FC = ({children}) => {
                       justifyContent: 'center',
                     }}
                   >
-                    <DashboardSharpIcon style={{fill: '#e4a2e4'}}/>
+                    <DashboardSharpIcon style={{fill: '#e4a2e4'}} />
                   </ListItemIcon>
                   <ListItemText primary="Dashboard" sx={{opacity: open ? 1 : 0}} />
                 </ListItemButton>
@@ -605,7 +605,7 @@ const Page: React.FC = ({children}) => {
                     justifyContent: 'center',
                   }}
                 >
-                  <SavingsIcon style={{ fill: '#cd72f6'}} />
+                  <SavingsIcon style={{fill: '#cd72f6'}} />
                 </ListItemIcon>
                 <ListItemText primary="Vaults" sx={{opacity: open ? 1 : 0}} />
                 {open ? vaultsOpen ? <ExpandLess /> : <ExpandMore /> : null}
@@ -722,7 +722,7 @@ const Page: React.FC = ({children}) => {
                     justifyContent: 'center',
                   }}
                 >
-                  <AccountBalanceWalletSharpIcon  style={{ fill: '#cd72f6'}} />
+                  <AccountBalanceWalletSharpIcon style={{fill: '#cd72f6'}} />
                 </ListItemIcon>
                 <ListItemText primary="Grape Wallets" sx={{opacity: open ? 1 : 0}} />
                 {open ? walletsOpen ? <ExpandLess /> : <ExpandMore /> : null}
@@ -817,7 +817,7 @@ const Page: React.FC = ({children}) => {
                     justifyContent: 'center',
                   }}
                 >
-                  <FeedIcon style={{fill: '#f1d1ff' }}/>
+                  <FeedIcon style={{fill: '#f1d1ff'}} />
                 </ListItemIcon>
                 <ListItemText primary="Contracts" sx={{opacity: open ? 1 : 0}} />
                 {open ? contractsOpen ? <ExpandLess /> : <ExpandMore /> : null}
@@ -919,7 +919,7 @@ const Page: React.FC = ({children}) => {
                     justifyContent: 'center',
                   }}
                 >
-                  <AddBoxIcon  style={{fill: '#f1d1ff' }} />
+                  <AddBoxIcon style={{fill: '#f1d1ff'}} />
                 </ListItemIcon>
                 <ListItemText primary="Tokens / LPs" sx={{opacity: open ? 1 : 0}} />
                 {open ? tokensOpen ? <ExpandLess /> : <ExpandMore /> : null}
@@ -1065,7 +1065,7 @@ const Page: React.FC = ({children}) => {
                     justifyContent: 'center',
                   }}
                 >
-                  <LinkIcon  style={{fill: '#f1d1ff' }}/>
+                  <LinkIcon style={{fill: '#f1d1ff'}} />
                 </ListItemIcon>
                 <ListItemText primary="Useful Links" sx={{opacity: open ? 1 : 0}} />
                 {open ? usefullLinksOpen ? <ExpandLess /> : <ExpandMore /> : null}
@@ -1353,9 +1353,9 @@ const Page: React.FC = ({children}) => {
           <Container maxWidth="lg" style={{paddingBottom: '5rem'}}>
             {children}
           </Container>
-          <Footer />
         </Box>
       </Box>
+      <Footer />
     </div>
   );
 };

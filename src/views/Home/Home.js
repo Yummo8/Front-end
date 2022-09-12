@@ -145,41 +145,7 @@ const Home = () => {
           </Grid>
         </Grid>
 
-        <Grid item xs={12} style={{marginTop: '50px'}}>
-          <Grid container justifyContent="center">
-            <Grid item xs={12} sm={8} md={6}>
-              <Card
-                style={{backgroundImage: 'linear-gradient(150deg, #930993, #781278 50%, #e647e6)', textAlign: 'center'}}
-              >
-                <h3 style={{marginTop: '10px'}}>Connect with us</h3>
-                <Grid
-                  container
-                  justifyContent="space-evenly"
-                  spacing={2}
-                  alignItems="center"
-                  style={{paddingTop: '3px'}}
-                >
-                  <Grid item>
-                    <a href="https://discord.gg/grapefinance" rel="noopener noreferrer" target="_blank">
-                      <IconDiscord style={{fill: '#fff', width: '50px', transform: 'scale(0.8)'}} />
-                    </a>
-                  </Grid>
-                  <Grid item>
-                    <a href="https://discord.gg/grapefinance" rel="noopener noreferrer" target="_blank">
-                      <YouTubeIcon style={{fill: 'white', width: '50px', transform: 'scale(2)'}} />
-                    </a>
-                  </Grid>
-                  <Grid item>
-                    {' '}
-                    <a href="https://twitter.com/grape_finance" rel="noopener noreferrer" target="_blank">
-                      <IconTwitter style={{fill: '#fff', width: '50px', transform: 'scale(1.5)'}} />
-                    </a>
-                  </Grid>
-                </Grid>
-              </Card>
-            </Grid>
-          </Grid>
-        </Grid>
+        
 
         <Grid item sm={12} style={{textAlign: 'center', marginTop: '30px'}}>
           <Button
