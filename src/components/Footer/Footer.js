@@ -1,6 +1,6 @@
 import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
-import {Container, Grid, Typography, Link, Card} from '@material-ui/core';
+import { Grid, Typography, Link, Box} from '@material-ui/core';
 
 import {ReactComponent as IconDiscord} from '../../assets/img/discord-plain.svg';
 import YouTubeIcon from '@mui/icons-material/YouTube';
@@ -8,6 +8,7 @@ import {ReactComponent as IconTwitter} from '../../assets/img/twitter.svg';
 
 const useStyles = makeStyles((theme) => ({
   footer: {
+    position: 'absolute',
     bottom: '0',
     marginLeft: 'auto',
     marginRight: 'auto',
@@ -24,14 +25,15 @@ const Footer = () => {
   return (
     <footer className={classes.footer}>
       <Grid container justifyContent="center" style={{padding: '20px'}}>
-        <Grid item xs={12} sm={8} md={6}>
-          <Card
+        <Grid item xs={12} sm={10} md={6} lg={4}>
+          <div
             style={{
-              backgroundImage: 'linear-gradient(140deg, #930993, #781278 50%, #e647e6)',
+              borderRadius: '5px',
+              backgroundImage: 'linear-gradient(144deg, rgba(147, 9, 147, 0.2), rgba(120, 19, 120, 0.2) 50%, rgba(230, 71, 230, 0.5))',
               textAlign: 'center',
             }}
           >
-            <Grid container justifyContent="center" spacing={3} alignItems="center" style={{paddingTop: '3px'}}>
+            <Grid container justifyContent="space-evenly" alignItems="center">
               <Grid item>
                 <Typography variant="body2" color="#fff" align="center">
                   {'Copyright © '}
@@ -58,7 +60,7 @@ const Footer = () => {
                 </a>
               </Grid>
             </Grid>
-          </Card>
+          </div>
         </Grid>
       </Grid>
     </footer>
