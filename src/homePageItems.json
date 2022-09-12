@@ -1,9 +1,9 @@
 [
   {
     "label": "xGrape",
-    "subLabel": "Only Up Token",
+    "subLabel": "Always Up Token",
     "color": "#e647e6",
-    "description": "Whether you buy or sell xGrape, price only goes up. Each transaction increases its backing price.",
+    "description": "Holding xGrape gives you a dual yield, while its backing per token increases on every sell, buy and transfer.",
     "isNew": false,
     "linkTo": "/xgrape",
     "isInternalLink": true,
