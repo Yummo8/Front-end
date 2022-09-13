@@ -5,9 +5,19 @@
     "color": "#e647e6",
     "description": "Holding xGrape gives you a dual yield, while its backing per token increases on every sell, buy and transfer.",
     "isNew": false,
-    "linkTo": "/xgrape",
-    "isInternalLink": true,
-    "image": "xGrape2.png"
+    "image": "xGrape2.png",
+    "items": [
+      {
+        "label": "Mint xGrape",
+        "linkTo": "https://xgrape.grapefinance.app/",
+        "isInternalLink": false
+      },
+      {
+        "label": "xGrape Press",
+        "linkTo": "https://xgrapepress.grapefinance.app/",
+        "isInternalLink": false
+      }
+    ]
   },
   {
     "label": "Seigniorage Protocol",
