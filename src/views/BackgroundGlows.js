@@ -3,7 +3,7 @@ import heroImg from '../assets/img/grape-glass-bg.png';
 
 function BackgroundGlows() {
   return (
-    <div className="background">
+    <div className="">
       <div
         style={{
           opacity: 0.7,
@@ -15,8 +15,8 @@ function BackgroundGlows() {
       >
         <img src={heroImg} alt={'GRAPE Logo'} style={{width: 'auto', height: '100%'}} />
       </div>
-      <img alt="" src="https://i.imgur.com/8GcQUEL.png" className="back-logo3" />
-      <img alt="" className="back-glow-2" src="https://i.imgur.com/iWh7X3D.png" />
+      <img alt="" src={require('../assets/img/background1.png')} className="back-logo3" />
+      <img alt="" className="back-glow-2" src={require('../assets/img/background2.png')} />
       {/*<img
         alt=""
         className="back-glow-3"

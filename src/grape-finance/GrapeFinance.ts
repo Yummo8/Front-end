@@ -51,6 +51,7 @@ export class GrapeFinance {
 
   GRAPEBTCB_LP: Contract;
   GRAPE: ERC20;
+  XGRAPE: ERC20;
   WINE: ERC20;
   GBOND: ERC20;
   WAVAX: ERC20;
@@ -61,6 +62,7 @@ export class GrapeFinance {
   DAI: ERC20;
   HSHARE: ERC20;
   VINTAGELP: ERC20;
+  XGRAPELP: ERC20;
   VINTAGE: ERC20;
   SVINTAGE: ERC20;
 
@@ -90,6 +92,7 @@ export class GrapeFinance {
       this.externalTokens[symbol] = new ERC20(address, provider, symbol, decimal);
     }
     this.GRAPE = new ERC20(deployments.Grape.address, provider, 'GRAPE');
+    // this.XGRAPE = new ERC20(deployments.xGrape.address, provider, 'XGRAPE');
     this.WINE = new ERC20(deployments.Wine.address, provider, 'WINE');
     this.GBOND = new ERC20(deployments.BBond.address, provider, 'GBOND');
     this.MIM = this.externalTokens['MIM'];
@@ -99,6 +102,7 @@ export class GrapeFinance {
     this.DAI = this.externalTokens['DAI'];
     this.HSHARE = this.externalTokens['HSHARE'];
     this.VINTAGELP = this.externalTokens['sVintageLP'];
+    // this.XGRAPELP = this.externalTokens['xGrapeLP'];
     this.VINTAGE = this.externalTokens['Vintage'];
     this.SVINTAGE = this.externalTokens['sVintage'];
     // Uniswap V2 Pair
@@ -153,6 +157,12 @@ export class GrapeFinance {
       totalClaimable: Number(pendingRewards / 1e18),
       wineMIMLPPrice: wineStats.priceOfOne,
     };
+  }
+
+  async getXGrapePrice(): Promise<string> {
+    const grapeBalance = await this.GRAPE.balanceOf(this.XGRAPELP.address);
+    const xGrapeBalance = await this.XGRAPE.balanceOf(this.XGRAPELP.address);
+    return (+grapeBalance / +xGrapeBalance).toFixed(3);
   }
 
   async getGrapeStat(): Promise<TokenStat> {

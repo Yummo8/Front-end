@@ -49,6 +49,7 @@ import StarBorder from '@mui/icons-material/StarBorder';
 import useGrapeStats from '../../hooks/useGrapeStats';
 import useWineStats from '../../hooks/useWineStats';
 import useVintagePrice from '../../hooks/useVintagePrice';
+import useXGrapePrice from '../../hooks/useXGrapePrice';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import HomeSharpIcon from '@mui/icons-material/HomeSharp';
@@ -201,6 +202,7 @@ const Page: React.FC = ({children}) => {
   const grapeStats = useGrapeStats();
   const bShareStats = useWineStats();
   const vintagePrice = useVintagePrice();
+  // const xGrapePrice = useXGrapePrice();
 
   const grapePrice = useMemo(() => (grapeStats ? Number(grapeStats.tokenInFtm).toFixed(3) : null), [grapeStats]);
   const winePrice = useMemo(() => (bShareStats ? Number(bShareStats.priceInDollars).toFixed(2) : null), [bShareStats]);
@@ -340,7 +342,7 @@ const Page: React.FC = ({children}) => {
                   <span className="token-price">{vintagePrice ? '$' + vintagePrice : '--'}</span>
                 </a>
               </div>
-              <div className="price-item">
+              {/* <div className="price-item">
                 <a
                   className="text-decoration-none"
                   target="_blank"
@@ -348,9 +350,9 @@ const Page: React.FC = ({children}) => {
                   href="https://app.bogged.finance/avax/swap?tokenIn=0x130966628846BFd36ff31a822705796e8cb8C18D&tokenOut=0x5541D83EFaD1f281571B343977648B75d95cdAC2"
                 >
                   <img src={xGrapeImg} alt="xGrape" width={24} height={24} />
-                  <span className="token-price">{grapePrice ? '$' + grapePrice : '--'}</span>
+                  <span className="token-price">{xGrapePrice ? '$' + xGrapePrice : '--'}</span>
                 </a>
-              </div>
+              </div> */}
               {/* <div className="price-item">
                 <img src={grapeMimImg} alt="TWAP" height={35} />
                 <span className="token-price">{twap ? twap : '--'}/1.01</span>
