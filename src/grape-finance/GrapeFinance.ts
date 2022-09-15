@@ -532,6 +532,11 @@ export class GrapeFinance {
     };
   }
 
+  async getGrapeNodeClaimFee(): Promise<Number> {
+    const claimFee = await this.contracts['GrapeNodeV2'].pegFee()
+    return await Number(claimFee);
+  }
+
   async getVintageStats(): Promise<TokenStat> {
     const {cellar} = this.contracts;
     let balance = await this.MIM.balanceOf(this.VINTAGELP.address);
