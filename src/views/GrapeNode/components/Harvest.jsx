@@ -78,7 +78,8 @@ const Harvest = ({bank}) => {
                   disabled={earnings.eq(0)}
                   className={earnings.eq(0) ? 'shinyButtonDisabled' : 'shinyButton'}
                 >
-                  Claim
+                  Claim<br />
+                  {bank.contract === 'GrapeNodeV2' && <span style={{fontSize: '0.5rem'}}><br/>Claiming Fee: 50%</span>}
                 </Button>
               </Grid>
               <Grid item xs={2}>
