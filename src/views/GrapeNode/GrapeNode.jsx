@@ -67,6 +67,7 @@ const GrapeNode = () => {
     [stakedTokenPriceInDollars],
   );
 
+  
   return bank ? (
     <>
       <Typography color="textPrimary" align="center" variant="h3" gutterBottom>
@@ -143,13 +144,13 @@ const GrapeNode = () => {
                     <Grid item>
                       <Typography style={{color: '#ccf'}}>APR</Typography>
                     </Grid>
-                    <Grid item>{bank.closedForStaking ? '0.00' : statsOnPool?.yearlyAPR}%</Grid>
+                    <Grid item>{bank.contract == 'GrapeNodeV2' && computedNodes > 0 ? ((daily/(userDetails?.total_deposits - (userDetails?.compounds * nodePrice)))*36500).toFixed(2) : statsOnPool?.yearlyAPR}%</Grid>
                   </Grid>
                   <Grid container justifyContent="space-between">
                     <Grid item>
                       <Typography style={{color: '#ccf'}}>Daily</Typography>
                     </Grid>
-                    <Grid item>{bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}%</Grid>
+                    <Grid item>{bank.contract == 'GrapeNodeV2' && computedNodes > 0 ? ((daily/(userDetails?.total_deposits - (userDetails?.compounds * nodePrice)))*100).toFixed(2) : statsOnPool?.dailyAPR}%</Grid>
                   </Grid>
                 </CardContent>
               </Card>
@@ -169,7 +170,7 @@ const GrapeNode = () => {
                       <Typography style={{color: '#ccf'}}>TVL</Typography>
                     </Grid>
                     <Grid item>
-                      {statsOnPool?.TVL ? Number(Number(statsOnPool?.TVL).toFixed(0)).toLocaleString('en-US') : '-.--'}
+                      ${statsOnPool?.TVL ? Number(Number(statsOnPool?.TVL).toFixed(0)).toLocaleString('en-US') : '-.--'}
                     </Grid>
                   </Grid>
                 </CardContent>
@@ -243,19 +244,7 @@ const GrapeNode = () => {
         </Alert>
       </Box>
 
-      <Alert variant="filled" severity="info">
-        Please read our{' '}
-        <a
-          style={{color: '#fff'}}
-          rel="noopener noreferrer"
-          target={'_blank'}
-          href="https://grapefinance.gitbook.io/grape-finance-docs/unique-features/locked-staking-grape-nodes"
-        >
-          Node Docs & Strategy
-        </a>{' '}
-        in order to fully understand how our node pools work before purchasing, by partaking you accept the risks
-        outlined in the docs & disclaimer.
-      </Alert>
+      
     </>
   ) : (
     <BankNotFound />

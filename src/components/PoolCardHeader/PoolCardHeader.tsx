@@ -15,6 +15,7 @@ interface PoolCardHeaderProps {
   nodeDaily?: BigNumber[];
   nodeCount?: number;
   stakedInToken?: number;
+  userDetails?: BigNumber[];
   showAPRCalc?: boolean;
 }
 
@@ -24,6 +25,7 @@ const PoolCardHeader: React.FC<PoolCardHeaderProps> = ({
   nodeDaily,
   nodeCount,
   stakedInToken,
+  userDetails,
   showAPRCalc = false,
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -35,7 +37,7 @@ const PoolCardHeader: React.FC<PoolCardHeaderProps> = ({
   const handleOpenModal = () => {
     setModalOpen(true);
   };
-
+  console.log((userDetails))
   return (
     <Grid container style={{position: 'relative'}} spacing={1}>
       <AprModal
@@ -133,10 +135,11 @@ const PoolCardHeader: React.FC<PoolCardHeaderProps> = ({
             {bank.contract === 'GrapeNodeV2' ? (
               <span className="info-card-price">
                 {nodeDaily && nodeCount ? (
-                  <>{(((Number(nodeDaily) / 1e18) * 100) / (nodeCount * 50)).toFixed(2)}%</>
+                  
+                  <>{((Number(nodeDaily)/(Number(userDetails[0]) - (Number(userDetails[4]) * 50)))*100).toFixed(2)}</>
                 ) : (
-                  '~1.00%'
-                )}{' '}
+                  statsOnPool?.dailyAPR 
+                )}{'%'}
               </span>
             ) : (
               <span className="info-card-price">{bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}%</span>

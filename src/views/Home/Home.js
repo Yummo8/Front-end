@@ -163,7 +163,7 @@ const Home = () => {
           <>
             <Grid item sm={12} md={12} lg={12} style={{marginTop: '10px'}}>
               <Grid container spacing={3}>
-                <Grid item xs={6} md={4} lg={2} style={{color: 'white', textAlign: 'center'}}>
+                <Grid item xs={6} md={4} lg={3} style={{color: 'white', textAlign: 'center'}}>
                   <Typography color="textPrimary" variant="h6">
                     EPOCH
                   </Typography>{' '}
@@ -173,7 +173,7 @@ const Home = () => {
                     <CircularProgress size={28} color="inherit" />
                   )}
                 </Grid>
-                <Grid item xs={6} md={4} lg={2} style={{color: 'white', textAlign: 'center'}}>
+                {/*<Grid item xs={6} md={4} lg={2} style={{color: 'white', textAlign: 'center'}}>
                   <Typography color="textPrimary" variant="h6">
                     Above Peg
                   </Typography>
@@ -182,14 +182,14 @@ const Home = () => {
                   ) : (
                     <CircularProgress size={28} color="inherit" />
                   )}
-                </Grid>
+                  </Grid>*/}
                 <Grid item xs={12} md={4} lg={3} style={{color: 'white', textAlign: 'center'}}>
                   <Typography color="textPrimary" variant="h6">
-                    Started On
+                    Launched
                   </Typography>
                   <span style={{fontSize: '30px'}}>Jan 13, 2022</span>
                 </Grid>
-                <Grid item xs={6} md={6} lg={2} style={{color: 'white', textAlign: 'center'}}>
+                <Grid item xs={6} md={6} lg={3} style={{color: 'white', textAlign: 'center'}}>
                   <Typography color="textPrimary" variant="h6">
                     KYC
                   </Typography>
@@ -201,7 +201,7 @@ const Home = () => {
                     <img alt="0xGuard KYC" style={{height: '70px'}} src={kyc} />
                   </a>
                 </Grid>
-                <Grid item xs={6} md={6} lg={2} style={{color: 'white', textAlign: 'center'}}>
+                <Grid item xs={6} md={6} lg={3} style={{color: 'white', textAlign: 'center'}}>
                   <Typography color="textPrimary" variant="h6">
                     Audit
                   </Typography>

@@ -13,6 +13,7 @@ import rewards from '../../assets/jsons/rewards.json';
 import useDailyDrip from '../../hooks/useDailyDrip';
 import useNodes from '../../hooks/useNodes';
 import {useWallet} from 'use-wallet';
+import useUserDetails from '../../hooks/useUserDetails';
 
 const DashboardInfoCardNodes = ({bank}) => {
   const statsOnPool = useStatsForPool(bank);
@@ -23,6 +24,7 @@ const DashboardInfoCardNodes = ({bank}) => {
   const {account} = useWallet();
   const daily = useDailyDrip(bank?.contract, bank?.sectionInUI, account);
   const nodes = useNodes(bank?.contract, bank?.sectionInUI, account);
+  const userDetails = useUserDetails(bank?.contract, bank?.sectionInUI, account);
 
   const computedTotalNodes = useMemo(() => {
     if (nodes && bank.contract === 'GrapeNodeV2') {
@@ -41,7 +43,7 @@ const DashboardInfoCardNodes = ({bank}) => {
     <Grid item xs={12} sm={12} md={6} lg={4}>
       <Card>
         <CardContent>
-          <PoolCardHeader bank={bank} statsOnPool={statsOnPool} nodeDaily={daily} nodeCount={computedTotalNodes} />
+          <PoolCardHeader bank={bank} statsOnPool={statsOnPool} nodeDaily={daily} nodeCount={computedTotalNodes} userDetails={userDetails}/>
           <NodeCardContent bank={bank} statsOnPool={statsOnPool} />
           <Grid container spacing={1} style={{marginTop: '10px'}}>
             <Grid item className="card-price-item" xs={5}>
