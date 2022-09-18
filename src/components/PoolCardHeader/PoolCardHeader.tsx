@@ -136,7 +136,7 @@ const PoolCardHeader: React.FC<PoolCardHeaderProps> = ({
               <span className="info-card-price">
                 {nodeDaily && nodeCount ? (
                   
-                  <>{((Number(nodeDaily)/(Number(userDetails[0]) - (Number(userDetails[4]) * 50)))*100).toFixed(2)}</>
+                  <>{((Number(nodeDaily)/(Number(userDetails[0]) - (Number(userDetails[4]) * 50e18)))*100).toFixed(2)}</>
                 ) : (
                   statsOnPool?.dailyAPR 
                 )}{'%'}
