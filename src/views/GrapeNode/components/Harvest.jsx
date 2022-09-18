@@ -6,6 +6,7 @@ import CardIcon from '../../../components/CardIcon';
 import Label from '../../../components/Label';
 import Value from '../../../components/Value';
 import useEarnings from '../../../hooks/useEarnings';
+import useGrapeNodeClaimFee from '../../../hooks/useGrapeNodeClaimFee';
 import useHarvest from '../../../hooks/useHarvest';
 import useCompound from '../../../hooks/useCompound';
 import {getDisplayBalance} from '../../../utils/formatBalance';
@@ -23,6 +24,7 @@ const Harvest = ({bank}) => {
   const tShareStats = useShareStats();
   const grapemimLpStats = useLpStatsBTC('GRAPE-MIM-SW');
   const grapeWLRSLpStats = useLpStatsBTC('GRAPE-WLRS-LP');
+  const claimFee = useGrapeNodeClaimFee();
 
   let tokenStats = 0;
   if (bank.earnTokenName === 'WINE') {
@@ -78,8 +80,8 @@ const Harvest = ({bank}) => {
                   disabled={earnings.eq(0)}
                   className={earnings.eq(0) ? 'shinyButtonDisabled' : 'shinyButton'}
                 >
-                  Claim<br />
-                  {bank.contract === 'GrapeNodeV2' && <span style={{fontSize: '0.5rem'}}><br/>Claiming Fee: 50%</span>}
+
+                  Claim {bank.contract === 'GrapeNodeV2' && claimFee && <span style={{marginLeft: '5px'}}>({claimFee}% fee)</span>}
                 </Button>
               </Grid>
               <Grid item xs={2}>

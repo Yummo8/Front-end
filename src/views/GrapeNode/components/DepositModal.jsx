@@ -51,6 +51,7 @@ const DepositModal = ({bank, max, decimals, onConfirm, onDismiss, tokenName = ''
       <ReactTooltip effect="solid" clickable type="dark" place="bottom" />
       <ModalTitle text={bank.sectionInUI !== 3 ? `Deposit ${tokenName}` : `Purchase ${getNodeText(bank.poolId)}s`} />
 
+
       {bank.contract === 'GrapeNodeV2' && (
         <p style={{fontSize: '0.7rem'}}>
           If you have unclaimed earned Grape, it is recommended to compound (if possible) before creating new nodes
@@ -74,6 +75,7 @@ const DepositModal = ({bank, max, decimals, onConfirm, onDismiss, tokenName = ''
         </>
       ) : (
         <div style={{display: 'flex', justifyContent: 'space-evenly'}}>
+
           <input type="number" value={amount} onChange={handleAmountChange} min="1" max="100" />
           <Button className="shinyButton" onClick={() => onConfirm(amount)}>
             Confirm

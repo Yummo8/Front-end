@@ -437,17 +437,22 @@ export class GrapeFinance {
       const nodes = await this.getNodes(bank.contract, this.myAccount);
       let nodesCount;
       try {
+
         nodesCount = nodes[0].toNumber();
+
       } catch (e) {}
       if (!nodesCount) {
         nodesCount = Number(nodes);
       }
+
       const nodePrice = await this.getNodePrice(bank.contract, bank.poolId);
       const stakedTokenPriceInDollars = Number(
         await this.getDepositTokenPriceInDollars(bank.depositTokenName, bank.depositToken),
       );
       totalInNodes +=
+
         Number(nodesCount) * (stakedTokenPriceInDollars * Number(getDisplayBalance(nodePrice, bank.depositToken.decimal)));
+
 
       // Node earnings
       const nodeEarnings = await this.earnedFromBank(bank.contract, bank.earnTokenName, bank.poolId, this.myAccount);
@@ -538,6 +543,11 @@ export class GrapeFinance {
       totalSupply: getDisplayBalance(supply, this.GRAPE.decimal, 0),
       circulatingSupply: getDisplayBalance(grapeCirculatingSupply, this.GRAPE.decimal, 0),
     };
+  }
+
+  async getGrapeNodeClaimFee(): Promise<Number> {
+    const claimFee = await this.contracts['GrapeNodeV2'].pegFee()
+    return await Number(claimFee);
   }
 
   async getVintageStats(): Promise<TokenStat> {
