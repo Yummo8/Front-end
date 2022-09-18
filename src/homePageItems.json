@@ -1,0 +1,149 @@
+[
+  {
+    "label": "xGrape",
+    "subLabel": "Always Up Token",
+    "color": "#e647e6",
+    "description": "Holding xGrape gives you a dual yield, while its backing per token increases on every sell, buy and transfer.",
+    "isNew": false,
+    "image": "xGrape.png",
+    "items": [
+      {
+        "label": "Mint xGrape",
+        "linkTo": "https://xgrape.grapefinance.app/",
+        "isInternalLink": false
+      },
+      {
+        "label": "Grape Soda Press",
+        "linkTo": "https://soda.grapefinance.app/",
+        "isInternalLink": false
+      }
+    ]
+  },
+  {
+    "label": "Seigniorage Protocol",
+    "subLabel": "Passive Income",
+    "color": "#e647e6",
+    "description": "Stake Grape, Wine, or provide liquidity to earn daily rewards. No lock period. ",
+    "isNew": false,
+    "image": "grape-wine.png",
+    "items": [
+      {
+        "label": "Vineyard",
+        "linkTo": "/vineyard",
+        "isInternalLink": true
+      },
+      {
+        "label": "Winery",
+        "linkTo": "/winery",
+        "isInternalLink": true
+      },
+      {
+        "label": "Bonds",
+        "linkTo": "/bond",
+        "isInternalLink": true
+      }
+    ]
+  },
+  {
+    "label": "Nodes",
+    "subLabel": "Locked Staking",
+    "description": "Use your Grape to purchase nodes and get up to 1.5% daily. Node holders receive additional monthly airdrops.",
+    "isNew": false,
+    "linkTo": "/nodes",
+    "isInternalLink": true,
+    "image": "gnode.png"
+  },
+  {
+    "label": "Wine Press",
+    "subLabel": "Locked LP Staking",
+    "description": "Lock Wine-MIM LP and earn up to ~1.25% daily + bonus. Assassinate players for more returns.",
+    "isNew": false,
+    "linkTo": "https://winepress.grapefinance.app/",
+    "isInternalLink": false,
+    "image": "barrel.png"
+  },
+  {
+    "label": "Peg Health Campaign",
+    "subLabel": "Discount Rebates",
+    "description": "Bond Grape, MIM, or Grape-MIM LP, and receive discounted Wine over a vesting period of 72 hours.",
+    "isNew": false,
+    "linkTo": "/rebates",
+    "isInternalLink": true,
+    "image": "rebates.png"
+  },
+  {
+    "label": "Wine Maker",
+    "subLabel": "NFT Staking RPG",
+    "description": "Stake Vinters, equip & train them to become a Master Winemaker. Earn $Vintage and get up to ~1.5% daily.",
+    "isNew": false,
+    "linkTo": "https://winemaker.grapefinance.app/",
+    "isInternalLink": false,
+    "image": "Winemaker.png"
+  },
+  {
+    "label": "Casino",
+    "subLabel": "Lottery Games",
+    "color": "#e647e6",
+    "description": "Buy tickets with Grape and play games with a chance to win BIG! Read our docs and play responsibly.",
+    "isNew": false,
+    "image": "casinocoins.png",
+    "items": [
+      {
+        "label": "Grape Casino",
+        "isNew": false,
+        "linkTo": "https://casino.grapefinance.app/",
+        "isInternalLink": false
+      },
+      {
+        "label": "Fantom House",
+        "isNew": false,
+        "linkTo": "https://avax.fantom.house/grapeflip",
+        "isInternalLink": false
+      }
+    ]
+  },
+  {
+    "label": "Burn Games",
+    "subLabel": "Burn Grape for Fun",
+    "color": "#e647e6",
+    "description": "Buy tickets with Grape to play a variety of classic & new arcade games. Top players earn prizes!",
+    "isNew": false,
+    "image": "burninggrape.png",
+    "items": [
+      {
+        "label": "Space Shooter",
+        "isNew": false,
+        "linkTo": "https://www.lianyou.io/burnforfun",
+        "isInternalLink": false
+      },
+      {
+        "label": "KOC",
+        "isNew": false,
+        "linkTo": "https://koc.money/",
+        "isInternalLink": false
+      }
+    ]
+  },
+  {
+    "label": "NFTs & Rewards",
+    "subLabel": "VIP Access",
+    "color": "#e647e6",
+    "description": "NFTs provide bonuses for holders and grant premier access to Grape Finance.",
+    "isNew": false,
+    "image": "goblet.png",
+    "items": [
+      {
+        "label": "Winery NFT",
+        "isNew": false,
+        "linkTo": "https://nftrade.com/assets/avalanche/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df",
+        "isInternalLink": false
+      },
+      {
+        "label": "Vintners",
+        "isNew": false,
+        "linkTo": "https://nftrade.com/assets/avalanche/0xe26168f45030e1eb7477fa5f9a4a28d93c0658b4",
+        "isInternalLink": false
+      }
+    ]
+  }
+]

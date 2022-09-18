@@ -96,7 +96,7 @@ const Bank: React.FC = () => {
     vaultUrl = '';
     strat = '';
     stratText = '';
-  }else if (bank.depositTokenName === 'sVintage') {
+  } else if (bank.depositTokenName === 'sVintage') {
     name = 'Get sVintage by staking Vintage in the Winemaker Cellar here';
     vaultUrl = 'https://winemaker.grapefinance.app/app/Cellar';
     strat = '';
@@ -116,22 +116,9 @@ const Bank: React.FC = () => {
         {bank?.name}
       </Typography>
 
-      {name !== '' ? (
-        <Box mt={5}>
-          <Grid container justify="center" spacing={3} style={{marginBottom: '30px'}}>
-            <Alert variant="filled">
-              {' '}
-              <a href={vaultUrl} target={'_blank'} rel="noopener noreferrer">
-                <span style={{color: '#fff'}}>{name}</span>
-              </a>
-            </Alert>
-          </Grid>
-        </Box>
-      ) : null}
-
       {stratText !== '' ? (
         <Box mt={5}>
-          <Grid container justify="center" spacing={3} style={{marginBottom: '30px'}}>
+          <Grid container justifyContent="center" spacing={3} style={{marginBottom: '30px'}}>
             <Alert variant="filled">
               <a onClick={onPresentDeposit}>
                 <span style={{color: '#fff'}}>{stratText}</span>
@@ -140,36 +127,52 @@ const Bank: React.FC = () => {
           </Grid>
         </Box>
       ) : null}
-
       <Box>
-        <Grid container justify="center" spacing={3} style={{marginBottom: '50px'}}>
-          <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
-            <Card className={classes.gridItem}>
-              <CardContent style={{textAlign: 'center'}}>
-                <Typography style={{color: '#ccf'}}>Pool Wine p/day</Typography>
-                <Typography>
-                  {bank.closedForStaking ? '0.00' : bank.multi} | $
-                  {Number((Number(bSharePriceInDollars) * Number(bank.multi)).toFixed(0)).toLocaleString('en-US')}
-                </Typography>
+        <Grid container justifyContent="center" spacing={2}>
+        <Grid item xs={6} sm={4} md={3}>
+            <Card>
+              <CardContent>
+                <Grid container justifyContent="space-between">
+                  <Grid item>
+                    <Typography style={{color: '#ccf'}}>Pool Wine per/day</Typography>
+                  </Grid>
+                  <Grid item>{bank.closedForStaking ? '0.00' : bank.multi}</Grid>
+                </Grid>
+                <Grid container justifyContent="space-between">
+                  <Grid item>
+                    <Typography style={{color: '#ccf'}}>Value</Typography>
+                  </Grid>
+                  <Grid item>
+                    ${Number((Number(bSharePriceInDollars) * Number(bank.multi)).toFixed(0)).toLocaleString('en-US')}
+                  </Grid>
+                </Grid>
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
-            <Card className={classes.gridItem}>
-              <CardContent style={{textAlign: 'center'}}>
-                <Typography style={{color: '#ccf'}}>APR | DAILY</Typography>
-                <Typography>
-                  {bank.closedForStaking ? '0.00' : statsOnPool?.yearlyAPR}% |{' '}
-                  {bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}%
-                </Typography>
+          <Grid item xs={6} sm={4} md={3}>
+            <Card>
+              <CardContent>
+                <Grid container justifyContent="space-between">
+                  <Grid item>
+                    <Typography style={{color: '#ccf'}}>APR</Typography>
+                  </Grid>
+                  <Grid item>{bank.closedForStaking ? '0.00' : statsOnPool?.yearlyAPR}%</Grid>
+                </Grid>
+                <Grid container justifyContent="space-between">
+                  <Grid item>
+                    <Typography style={{color: '#ccf'}}>Daily</Typography>
+                  </Grid>
+                  <Grid item>{bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}%</Grid>
+                </Grid>
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
-            <Card className={classes.gridItem}>
+          <Grid item xs={6} sm={4} md={3}>
+            <Card>
               <CardContent style={{textAlign: 'center'}}>
                 <Typography style={{color: '#ccf'}}>TVL</Typography>
                 <Typography>
+                  {' '}
                   ${statsOnPool?.TVL ? Number(Number(statsOnPool?.TVL).toFixed(0)).toLocaleString('en-US') : '-.--'}
                 </Typography>
               </CardContent>
@@ -190,13 +193,24 @@ const Bank: React.FC = () => {
           <Spacer size="lg" />
           {bank.depositTokenName.includes('LP') && <LPTokenHelpText bank={bank} />}
           {bank.depositTokenName.includes('SW') && <LPTokenHelpText bank={bank} />}
-          <Spacer size="lg" />
+          <Spacer size="sm" />
           <div>
             <Button onClick={onRedeem} className="shinyButton">
               Claim &amp; Withdraw
             </Button>
           </div>
-          <Spacer size="lg" />
+          {name !== '' ? (
+            <Box mt={5}>
+              <Grid container justify="center" spacing={3} style={{marginBottom: '30px'}}>
+                <Alert variant="filled">
+                  {' '}
+                  <a href={vaultUrl} target={'_blank'} rel="noopener noreferrer">
+                    <span style={{color: '#fff'}}>{name}</span>
+                  </a>
+                </Alert>
+              </Grid>
+            </Box>
+          ) : null}
         </StyledBank>
       </Box>
     </>
@@ -238,15 +252,9 @@ const LPTokenHelpText: React.FC<{bank: BankEntity}> = ({bank}) => {
     exchange = 'Swapsicle';
   }
   return (
-    <Card>
-      <CardContent>
-        <StyledLink href={uniswapUrl} target="_blank" rel="noopener noreferrer">
-          <span style={{color: '#fff'}}>
-            Provide liquidity for {pairName} on {exchange}
-          </span>
-        </StyledLink>
-      </CardContent>
-    </Card>
+    <Button href={uniswapUrl} target="_blank" className="shinyButton">
+      Provide liquidity for {pairName} on {exchange}
+    </Button>
   );
 };
 

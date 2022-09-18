@@ -14,14 +14,6 @@ import Collage from '../../assets/img/collage.jpg';
 import { Card,  Grid } from '@material-ui/core';
 import LaunchCountdown from '../../components/LaunchCountdown';
 
-const BackgroundImage = createGlobalStyle`
-  body {
-    //background: url(${HomeImage}) repeat !important;
-    background-size: cover !important;
-    background: linear-gradient(90deg, rgba(144,17,105,1) 0%, rgba(95,17,144,1) 100%);
-  }
-`;
-
 
 const NFTRaffle: React.FC = () => {
 
@@ -63,7 +55,6 @@ const NFTRaffle: React.FC = () => {
   return (   
 <Switch>
 <Page>
-  <BackgroundImage />
   {!!account ? (
     <>
     

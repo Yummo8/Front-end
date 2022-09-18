@@ -1,11 +1,10 @@
 import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
-import {Container, Grid, Typography, Link} from '@material-ui/core';
+import { Grid, Typography, Link, Box} from '@material-ui/core';
 
-import {ReactComponent as IconTelegram} from '../../assets/img/telegram.svg';
+import {ReactComponent as IconDiscord} from '../../assets/img/discord-plain.svg';
+import YouTubeIcon from '@mui/icons-material/YouTube';
 import {ReactComponent as IconTwitter} from '../../assets/img/twitter.svg';
-import {ReactComponent as IconGithub} from '../../assets/img/github.svg';
-import {ReactComponent as IconDiscord} from '../../assets/img/discord.svg';
 
 const useStyles = makeStyles((theme) => ({
   footer: {
@@ -13,67 +12,57 @@ const useStyles = makeStyles((theme) => ({
     bottom: '0',
     marginLeft: 'auto',
     marginRight: 'auto',
-    width: '80%',
+    width: '100%',
     color: '#fff',
     backgroundColor: 'rgba(0,0,0,0)',
     textAlign: 'center',
     height: '1.3rem',
-  },
-  link: {
-    width: '24px',
-    height: '24px',
-    display: 'inline',
-    marginLeft: '20px',
-  },
-
-  img: {
-    width: '35px',
-    height: '35px',
-  },
+  }
 }));
 
 const Footer = () => {
   const classes = useStyles();
   return (
     <footer className={classes.footer}>
-      <Container>
-        <Grid container>
-          <Grid item xs={12} md={12} lg={12}>
-            <Typography variant="body2" color="#" align="center">
-              {'Copyright © '}
-              <Link color="inherit" href="/">
-                Grape Finance
-              </Link>{' '}
-              {new Date().getFullYear()}
-            </Typography>
-          </Grid>
-
-          <Grid item xs={12} md={12} lg={12} style={{textAlign: 'center', marginTop: '10px'}}>
-            <a
-              href="https://twitter.com/grape_finance"
-              rel="noopener noreferrer"
-              target="_blank"
-              className={classes.link}
-            >
-              <IconTwitter style={{fill: '#fff'}} />
-            </a>
-            <a
-              href="https://github.com/grapefi/contracts"
-              rel="noopener noreferrer"
-              target="_blank"
-              className={classes.link}
-            >
-              <IconGithub style={{fill: '#fff', height: '20px'}} />
-            </a>
-            <a href="https://t.me/GrapeDefi" rel="noopener noreferrer" target="_blank" className={classes.link}>
-              <IconTelegram style={{fill: '#fff', height: '20px'}} />
-            </a>
-            <a href="https://discord.gg/grapefinance" rel="noopener noreferrer" target="_blank" className={classes.link}>
-              <IconDiscord style={{fill: '#fff', height: '20px'}} />
-            </a>
-          </Grid>
+      <Grid container justifyContent="center" style={{padding: '20px'}}>
+        <Grid item xs={12} sm={10} md={6} lg={4}>
+          <div
+            style={{
+              borderRadius: '5px',
+              backgroundImage: 'linear-gradient(144deg, rgba(147, 9, 147, 0.2), rgba(120, 19, 120, 0.2) 50%, rgba(230, 71, 230, 0.5))',
+              textAlign: 'center',
+            }}
+          >
+            <Grid container justifyContent="space-evenly" alignItems="center">
+              <Grid item>
+                <Typography variant="body2" color="#fff" align="center">
+                  {'Copyright © '}
+                  <Link color="inherit" href="/">
+                    Grape Finance
+                  </Link>{' '}
+                  {new Date().getFullYear()}
+                </Typography>
+              </Grid>
+              <Grid item>
+                <a href="https://discord.gg/grapefinance" rel="noopener noreferrer" target="_blank">
+                  <IconDiscord style={{fill: '#fff', width: '50px', transform: 'scale(0.6)'}} />
+                </a>
+              </Grid>
+              <Grid item>
+                <a href="https://discord.gg/grapefinance" rel="noopener noreferrer" target="_blank">
+                  <YouTubeIcon style={{fill: 'white', width: '50px', transform: 'scale(1.5)'}} />
+                </a>
+              </Grid>
+              <Grid item>
+                {' '}
+                <a href="https://twitter.com/grape_finance" rel="noopener noreferrer" target="_blank">
+                  <IconTwitter style={{fill: '#fff', width: '50px', transform: 'scale(1.0)'}} />
+                </a>
+              </Grid>
+            </Grid>
+          </div>
         </Grid>
-      </Container>
+      </Grid>
     </footer>
   );
 };

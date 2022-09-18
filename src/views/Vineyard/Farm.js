@@ -17,15 +17,6 @@ import useBanks from '../../hooks/useBanks';
 import HomeImage from '../../assets/img/background.jpg';
 import VineyardInfoCard from '../../components/VineyardInfoCard';
 
-const BackgroundImage = createGlobalStyle`
-  body {
-    //background: url(${HomeImage}) repeat !important;
-    background-size: cover !important;
-    background-size: cover !important;
-    background: linear-gradient(90deg, rgba(144,17,105,1) 0%, rgba(95,17,144,1) 100%);
-  }
-`;
-
 const Farm = () => {
   const [banks] = useBanks();
   const {path} = useRouteMatch();
@@ -36,7 +27,6 @@ const Farm = () => {
     <Switch>
       <Page>
         <Route exact path={path}>
-          <BackgroundImage />
           {!!account ? (
             <Container maxWidth="lg">
               <Typography color="textPrimary" align="center" variant="h3" gutterBottom>
@@ -47,23 +37,10 @@ const Farm = () => {
               </Typography>
               <Box mt={5}>
                 <div hidden={activeBanks.filter((bank) => bank.sectionInUI === 2).length === 0}>
-                  <Alert variant="filled" severity="warning">
-                    Follow the{' '}
-                    <a style={{color: '#fff'}} href="http://grapefinance.app/strategies">
-                      Strategies guide here
-                    </a>
-                    . If autocompounding be sure to use{' '}
-                    <a style={{color: '#fff'}} href="https://magik.farm/#/avax">
-                      Magik Farms
-                    </a>{' '}
-                    to help buy back and burn the peg! Sticking to the current strategy helps support the protocol which
-                    in turn helps you to continue to earn rewards!
-                  </Alert>
-
-                  <Typography color="textPrimary" align="left" variant="h4"  style={{marginTop: '40px'}}>
+                  <Typography color="textPrimary" align="left" variant="h4" style={{marginTop: '40px'}}>
                     Swapsicle Pools
                   </Typography>
-                 
+
                   <Grid container spacing={3} style={{marginTop: '0px'}}>
                     {activeBanks
                       .filter((bank) => bank.sectionInUI === 6)
@@ -74,7 +51,7 @@ const Farm = () => {
                       ))}
                   </Grid>
 
-                  <Typography color="textPrimary" align="left" variant="h4"  style={{marginTop: '40px'}}>
+                  <Typography color="textPrimary" align="left" variant="h4" style={{marginTop: '40px'}}>
                     Trader Joe Pools
                   </Typography>
                   <Grid container spacing={3} style={{marginTop: '0px'}}>
@@ -87,7 +64,7 @@ const Farm = () => {
                       ))}
                   </Grid>
 
-                  <Typography color="textPrimary" align="left" variant="h4"  style={{marginTop: '40px'}}>
+                  <Typography color="textPrimary" align="left" variant="h4" style={{marginTop: '40px'}}>
                     Single Stake Pools
                   </Typography>
                   <Grid container spacing={3} style={{marginTop: '0px', marginBottom: '40px'}}>
@@ -100,7 +77,18 @@ const Farm = () => {
                       ))}
                   </Grid>
                 </div>
-
+                <Alert variant="filled" severity="warning">
+                  Follow the{' '}
+                  <a style={{color: '#fff'}} href="http://grapefinance.app/strategies">
+                    Strategies guide here
+                  </a>
+                  . If autocompounding be sure to use{' '}
+                  <a style={{color: '#fff'}} href="https://magik.farm/#/avax">
+                    Magik Farms
+                  </a>{' '}
+                  to help buy back and burn the peg! Sticking to the current strategy helps support the protocol which
+                  in turn helps you to continue to earn rewards!
+                </Alert>
                 <div hidden={activeBanks.filter((bank) => bank.sectionInUI === 1).length === 0}>
                   <Typography color="textPrimary" variant="h4" gutterBottom style={{marginTop: '100px', color: '#fff'}}>
                     Grape Reward Farms (Finished)
@@ -146,7 +134,6 @@ const Farm = () => {
           )}
         </Route>
         <Route path={`${path}/:bankId`}>
-          <BackgroundImage />
           <Bank />
         </Route>
       </Page>

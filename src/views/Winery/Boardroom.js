@@ -33,14 +33,6 @@ import useBondStats from '../../hooks/useBondStats';
 import {roundAndFormatNumber} from '../../0x';
 import useGetBoardroomPrintRate from '../../hooks/useGetBoardroomPrintRate';
 
-const BackgroundImage = createGlobalStyle`
-  body {
-    //background: url(${HomeImage}) repeat !important;
-    background-size: cover !important;
-    background: linear-gradient(90deg, rgba(144,17,105,1) 0%, rgba(95,17,144,1) 100%);
-  }
-`;
-
 const useStyles = makeStyles((theme) => ({
   gridItem: {
     height: '100%',
@@ -64,7 +56,7 @@ const Boardroom = () => {
   const canClaimReward = useClaimRewardCheck();
   const canWithdraw = useWithdrawCheck();
   const bShareStats = usebShareStats();
-  const scalingFactor = useMemo(() => (cashStat ? Number(cashStat.priceInDollars).toFixed(4) : null), [cashStat]);
+  const scalingFactor = useMemo(() => (cashStat ? Number(cashStat.priceInDollars).toFixed(3) : null), [cashStat]);
   const {to} = useTreasuryAllocationTimes();
   const bondStat = useBondStats();
 
@@ -88,8 +80,6 @@ const Boardroom = () => {
 
   return (
     <Page>
-      <BackgroundImage />
-
       {!!account ? (
         <>
           <Typography color="textPrimary" align="center" variant="h3" gutterBottom>
@@ -99,11 +89,6 @@ const Boardroom = () => {
             Stake your Wine to earn Grape when TWAP above 1.01
           </Typography>
 
-          <Alert variant="filled" severity="info">
-            The winery does not print Grape when below 1.01 TWAP, staking here below 1.01 TWAP will not generate
-            rewards. Staked WINE can only be withdrawn every 4 epochs (24hrs) & rewards claimed every 2 epochs (12hrs).
-            Staking or claiming resets this timer.
-          </Alert>
           {bondStat && bondSupply - grapeReserves > 0 && (
             <Box mt={2}>
               <Grid item justify="center">
@@ -128,65 +113,94 @@ const Boardroom = () => {
           )}
 
           <Box mt={2}>
-            <Grid container justify="center" spacing={3}>
-              <Grid item xs={6} md={2} lg={2} className={classes.gridItem}>
-                <Card className={classes.gridItem}>
+            <Grid container justifyContent="center" spacing={2}>
+              <Grid item xs={6} sm={6} md={2}>
+                <Card>
                   <CardContent style={{textAlign: 'center'}}>
-                    <Typography style={{textTransform: 'uppercase', color: '#ccf'}}>Next Epoch</Typography>
-                    <ProgressCountdown base={moment().toDate()} hideBar={true} deadline={to} description="Next Epoch" />
+                    <Typography style={{color: '#ccf'}}>Next Epoch</Typography>
+                    <ProgressCountdown base={moment().toDate()} hideBar={true} deadline={to} />
                   </CardContent>
                 </Card>
               </Grid>
-              <Grid item xs={6} md={2} lg={2} className={classes.gridItem}>
-                <Card className={classes.gridItem}>
-                  <CardContent align="center">
-                    <Typography style={{textTransform: 'uppercase', color: '#ccf'}}>Epoch / TWAP</Typography>
-                    <Typography>
-                      {Number(currentEpoch)} / {scalingFactor} MIM
-                    </Typography>
+              <Grid item xs={6} sm={6} md={2}>
+                <Card>
+                  <CardContent>
+                    <Grid container justifyContent="space-between">
+                      <Grid item>
+                        <Typography style={{color: '#ccf'}}>EPOCH</Typography>
+                      </Grid>
+                      <Grid item>{Number(currentEpoch)}</Grid>
+                    </Grid>
+                    <Grid container justifyContent="space-between">
+                      <Grid item>
+                        <Typography style={{color: '#ccf'}}>TWAP</Typography>
+                      </Grid>
+                      <Grid item>{scalingFactor} MIM</Grid>
+                    </Grid>
                   </CardContent>
                 </Card>
               </Grid>
-              <Grid item xs={6} md={2} lg={2} className={classes.gridItem}>
-                <Card className={classes.gridItem}>
-                  <CardContent align="center">
-                    <Typography style={{textTransform: 'uppercase', color: '#ccf'}}>APR / Daily</Typography>
-                    <Typography>
-                      {boardroomAPR.toFixed(0)}% / {(boardroomAPR / 365).toFixed(2)}%
-                    </Typography>
+
+              <Grid item xs={6} sm={6} md={2}>
+                <Card>
+                  <CardContent>
+                    <Grid container justifyContent="space-between">
+                      <Grid item>
+                        <Typography style={{color: '#ccf'}}>APR</Typography>
+                      </Grid>
+                      <Grid item> {boardroomAPR.toFixed(0)}%</Grid>
+                    </Grid>
+                    <Grid container justifyContent="space-between">
+                      <Grid item>
+                        <Typography style={{color: '#ccf'}}>Daily</Typography>
+                      </Grid>
+                      <Grid item>{(boardroomAPR / 365).toFixed(2)}%</Grid>
+                    </Grid>
                   </CardContent>
                 </Card>
               </Grid>
-              <Grid item xs={6} md={2} lg={2}>
-                <Card className={classes.gridItem}>
-                  <CardContent align="center">
-                    <Typography style={{textTransform: 'uppercase', color: '#ccf'}}>Staked / %</Typography>
-                    <Typography>
-                      {stake} / {percentageStaked}%
-                    </Typography>
+
+              <Grid item xs={6} sm={6} md={2}>
+                <Card>
+                  <CardContent>
+                    <Grid container justifyContent="space-between">
+                      <Grid item>
+                        <Typography style={{color: '#ccf'}}>Staked</Typography>
+                      </Grid>
+                      <Grid item>{stake}</Grid>
+                    </Grid>
+                    <Grid container justifyContent="space-between">
+                      <Grid item>
+                        <Typography style={{color: '#ccf'}}>%</Typography>
+                      </Grid>
+                      <Grid item>{percentageStaked}%</Grid>
+                    </Grid>
                   </CardContent>
                 </Card>
               </Grid>
-              <Grid item xs={6} md={2} lg={2}>
-                <Card className={classes.gridItem}>
-                  <CardContent align="center">
-                    <Typography style={{textTransform: 'uppercase', color: '#ccf'}}>TVL</Typography>
+
+              <Grid item xs={6} sm={6} md={2}>
+                <Card>
+                  <CardContent style={{textAlign: 'center'}}>
+                    <Typography style={{color: '#ccf'}}>TVL</Typography>
                     <Typography>${tvl ? Number(Number(tvl).toFixed(0)).toLocaleString('en-US') : '-.--'}</Typography>
                   </CardContent>
                 </Card>
               </Grid>
-              <Grid item xs={6} md={2} lg={2}>
-                <Card className={classes.gridItem}>
-                  <CardContent align="center">
-                    <Typography style={{textTransform: 'uppercase', color: '#ccf'}}>Est Reward/Day</Typography>
+
+              <Grid item xs={6} sm={6} md={2}>
+                <Card>
+                  <CardContent style={{textAlign: 'center'}}>
+                    <Typography style={{color: '#ccf'}}>Est Reward /Day</Typography>
                     <Typography>~${rewards ? Number(rewards).toLocaleString('en-US') : '0.00'}</Typography>
                   </CardContent>
                 </Card>
               </Grid>
-              <Grid item xs={12} md={3} lg={3} className={classes.gridItem}>
-                <Card className={classes.gridItem}>
-                  <CardContent align="center">
-                    <Typography style={{textTransform: 'uppercase', color: '#ccf'}}>EPOCHS Above Peg</Typography>
+
+              <Grid item xs={6} sm={6} md={2}>
+                <Card>
+                  <CardContent style={{textAlign: 'center'}}>
+                    <Typography style={{color: '#ccf'}}>EPOCHS Above Peg</Typography>
                     <Typography>{printRate.toFixed(2)}%</Typography>
                   </CardContent>
                 </Card>
@@ -222,6 +236,14 @@ const Boardroom = () => {
                 Claim &amp; Withdraw
               </Button>
             </Grid>
+          </Box>
+
+          <Box mt={3}>
+            <Alert variant="filled" severity="info">
+              The winery does not print Grape when below 1.01 TWAP, staking here below 1.01 TWAP will not generate
+              rewards. Staked WINE can only be withdrawn every 4 epochs (24hrs) & rewards claimed every 2 epochs
+              (12hrs). Staking or claiming resets this timer.
+            </Alert>
           </Box>
         </>
       ) : (

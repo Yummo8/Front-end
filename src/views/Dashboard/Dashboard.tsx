@@ -31,14 +31,7 @@ import wineImg from '../../assets/img/gshare.png';
 import wineMimLP from '../../assets/img/gshare-mim.png';
 import DashboardBoardroomCard from './DashboardBoardroomCard';
 import useWinepressUserInfo from '../../hooks/useWinepressUserInfo';
-
-const BackgroundImage = createGlobalStyle`
-  body {
-    //background: url(${HomeImage}) repeat !important;
-    background-size: cover !important;
-    background: linear-gradient(90deg, rgba(144,17,105,1) 0%, rgba(95,17,144,1) 100%);
-  }
-`;
+import {SyncLoader} from 'react-spinners';
 
 const Dashboard = () => {
   const {account} = useWallet();
@@ -52,7 +45,7 @@ const Dashboard = () => {
   const vineyardPools = banks.filter(
     (bank) => (!bank.finished && bank.sectionInUI === 2) || bank.sectionInUI === 6 || bank.sectionInUI === 7,
   );
-  const nodePools = [useBank('GrapeNodeV2'),useBank('LPNode'), useBank('LPWlrsNode')];
+  const nodePools = [useBank('GrapeNodeV2'), useBank('LPNode'), useBank('LPWlrsNode')];
   const onReward = useHarvestAll(vineyardPools);
   const harvestNodes = useHarvestAll(nodePools);
   const compoundNodes = useCompoundAll(nodePools);
@@ -107,7 +100,6 @@ const Dashboard = () => {
 
   return (
     <Page>
-      <BackgroundImage />
       {!!account ? (
         <div>
           <Typography color="textPrimary" align="center" variant="h3" gutterBottom>
@@ -130,7 +122,7 @@ const Dashboard = () => {
                         {totalInvested != null ? (
                           <CountUp end={getTotalInvested()} separator="," prefix="≈$" />
                         ) : (
-                          <CircularProgress size={22} color="inherit" />
+                          <SyncLoader color="white" size={8} />
                         )}
                       </Typography>
                     </CardContent>
@@ -153,7 +145,7 @@ const Dashboard = () => {
                         {totalInVineyard ? (
                           <CountUp end={totalInVineyard} separator="," prefix="≈$" />
                         ) : (
-                          <CircularProgress size={27} color="inherit" />
+                          <SyncLoader color="white" size={8} />
                         )}
                       </Typography>
                     </CardContent>
@@ -176,7 +168,7 @@ const Dashboard = () => {
                         {totalInNodes != null ? (
                           <CountUp end={totalInNodes} separator="," prefix="≈$" />
                         ) : (
-                          <CircularProgress size={22} color="inherit" />
+                          <SyncLoader color="white" size={8} />
                         )}
                       </Typography>
                     </CardContent>
@@ -199,7 +191,7 @@ const Dashboard = () => {
                         {totalInWinery != null ? (
                           <CountUp end={Number(totalInWinery)} separator="," prefix="≈$" />
                         ) : (
-                          <CircularProgress size={22} color="inherit" />
+                          <SyncLoader color="white" size={8} />
                         )}
                       </Typography>
                     </CardContent>
@@ -226,7 +218,7 @@ const Dashboard = () => {
                             prefix="≈$"
                           />
                         ) : (
-                          <CircularProgress style={{marginLeft: '10px'}} size={22} color="inherit" />
+                          <SyncLoader color="white" size={8} />
                         )}
                       </Typography>
                     </CardContent>
@@ -243,7 +235,7 @@ const Dashboard = () => {
                         {totalRewards != null ? (
                           <CountUp end={Number(totalRewards)} separator="," prefix="≈$" />
                         ) : (
-                          <CircularProgress size={22} color="inherit" />
+                          <SyncLoader color="white" size={8} />
                         )}
                       </Typography>
                     </CardContent>
@@ -254,7 +246,9 @@ const Dashboard = () => {
             <Grid item xs={12}>
               <Card style={{textAlign: 'center'}}>
                 <CardContent>
-                  <Balances style={{display: 'flex', justifyContent:'space-evenly', flexWrap: 'wrap', marginBottom: '0'}}>
+                  <Balances
+                    style={{display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap', marginBottom: '0'}}
+                  >
                     <StyledBalanceWrapper>
                       <TokenSymbol width={35} height={35} symbol="GRAPE" />
                       <StyledBalance>

@@ -80,6 +80,7 @@ const Harvest = ({bank}) => {
                   disabled={earnings.eq(0)}
                   className={earnings.eq(0) ? 'shinyButtonDisabled' : 'shinyButton'}
                 >
+
                   Claim {bank.contract === 'GrapeNodeV2' && claimFee && <span style={{marginLeft: '5px'}}>({claimFee}% fee)</span>}
                 </Button>
               </Grid>
@@ -113,6 +114,9 @@ const Harvest = ({bank}) => {
             Compound {(Number(earnings) / Number(nodePrice)) | 0} Nodes
           </Button>
         </StyledCardContentInner>
+        {/* <span style={{fontSize: '11px'}}>
+        If you are not seeing the amount of rewards you expected, please wait until contract refills. Refills are automatic and happen multiple times per hour.
+        </span> */}
       </CardContent>
     </Card>
   );
