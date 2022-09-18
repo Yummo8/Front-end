@@ -310,8 +310,8 @@ code {
 .welcome-text {
   font-size: 3.8rem;
   font-family: 'superstar';
-  text-shadow: 0 0 1vw #6e256c, 0 0 3vw #6e256c, 0 0 20vw #6e256c, 0 0 10vw #6e256c, 0 0 0.4vw #e647e6,
-    0vw 0vw 0vw #5b2959 !important;
+  /* text-shadow: 0 0 1vw #6e256c, 0 0 3vw #6e256c, 0 0 20vw #6e256c, 0 0 10vw #6e256c, 0 0 0.4vw #e647e6,
+    0vw 0vw 0vw #5b2959 !important; */
   color: #fff !important;
   overflow: visible !important;
 }
@@ -319,8 +319,8 @@ code {
 .front-text-tvl {
   font-family: 'TOMMY';
   font-size: 9rem;
-  text-shadow: 0 0 1vw #6e256c, 0 0 3vw #6e256c, 0 0 20vw #6e256c, 0 0 10vw #6e256c, 0 0 0.4vw #e647e6,
-    0vw 0vw 0vw #5b2959;
+  /* text-shadow: 0 0 1vw #6e256c, 0 0 3vw #6e256c, 0 0 20vw #6e256c, 0 0 10vw #6e256c, 0 0 0.4vw #e647e6, */
+    /* 0vw 0vw 0vw #5b2959; */
   color: #e647e6;
   overflow: visible;
 }
@@ -328,7 +328,7 @@ code {
 .front-text-top {
   font-size: 2.5rem;
   font-family: 'TOMMY-R';
-  text-shadow: 0 0 2vw #fff, 0 0 3vw #ffd, 0 0 20vw #ffa, 0 0 10vw #ffe, 0 0 0.4vw #e647e6, 0vw 0vw 0vw #ffc;
+  /* text-shadow: 0 0 2vw #fff, 0 0 3vw #ffd, 0 0 20vw #ffa, 0 0 10vw #ffe, 0 0 0.4vw #e647e6, 0vw 0vw 0vw #ffc; */
   color: #fff;
 }
 
