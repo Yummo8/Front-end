@@ -86,7 +86,7 @@ const Boardroom = () => {
             Winery (Boardroom)
           </Typography>
           <Typography color="textPrimary" align="center" variant="h6" gutterBottom style={{marginBottom: '40px'}}>
-            Stake your Wine to earn Grape when TWAP above 1.01
+            Stake your WINE to earn GRAPE when the TWAP is above 1.01
           </Typography>
 
           {bondStat && bondSupply - grapeReserves > 0 && (
@@ -94,8 +94,8 @@ const Boardroom = () => {
               <Grid item justify="center">
                 <Alert variant="outlined" severity="warning">
                   <div>
-                    Winery APR is temporarly reduced during debt phase. Debt is paid by the Winery when an epoch ends
-                    above 1.01 TWAP. Once Grape reserves are higher than bond supply, debt phase ends, and normal APR
+                    Winery APR is temporarily reduced during the debt phase. Debt is paid by the Winery when an Epoch ends
+                    above 1.01 TWAP. Once the GRAPE reserves are higher than the GBOND supply, the debt phase ends and the normal APR
                     resumes.
                   </div>
                   <b>Grape Reserves:</b>{' '}
@@ -191,7 +191,7 @@ const Boardroom = () => {
               <Grid item xs={6} sm={6} md={2}>
                 <Card>
                   <CardContent style={{textAlign: 'center'}}>
-                    <Typography style={{color: '#ccf'}}>Est Reward /Day</Typography>
+                    <Typography style={{color: '#ccf'}}>Est Reward /day</Typography>
                     <Typography>~${rewards ? Number(rewards).toLocaleString('en-US') : '0.00'}</Typography>
                   </CardContent>
                 </Card>
@@ -240,8 +240,8 @@ const Boardroom = () => {
 
           <Box mt={3}>
             <Alert variant="filled" severity="info">
-              The winery does not print Grape when below 1.01 TWAP, staking here below 1.01 TWAP will not generate
-              rewards. Staked WINE can only be withdrawn every 4 epochs (24hrs) & rewards claimed every 2 epochs
+              The Winery does not print GRAPE when below 1.01 TWAP. Staking here below 1.01 TWAP will not generate
+              rewards. Staked WINE can only be withdrawn every 4 Epochs (24hrs) & rewards claimed every 2 Epochs
               (12hrs). Staking or claiming resets this timer.
             </Alert>
           </Box>
