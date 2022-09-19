@@ -283,7 +283,7 @@ const Dashboard = () => {
                       <TokenSymbol width={35} height={35} symbol="XGRAPE" />
                       <StyledBalance>
                         <span className="wallet-token-balance">{displayXGrapeBalance}</span>
-                        <Label text="xGrape" />
+                        <Label text="xGRAPE" />
                         <span className="wallet-token-value">
                           ~$
                           {xGrapePrice && displayXGrapeBalance && (
