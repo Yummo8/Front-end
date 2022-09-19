@@ -30,14 +30,10 @@ import vintageImg from '../../assets/img/vintage-token.png';
 import magikImg from '../../assets/img/magik.png';
 import creamImg from '../../assets/img/cream.png';
 import beefyImg from '../../assets/img/beefy.png';
-import houseFlip from '../../assets/img/houseflip.png';
 import yieldwolfImg from '../../assets/img/yieldwolf.png';
 import debankImg from '../../assets/img/debank.png';
 import rebatesImg from '../../assets/img/rebates.png';
-import vintage from '../../assets/img/vintage-token.png';
 import winemaker from '../../assets/img/Winemaker.png';
-import goldenGrape from '../../assets/img/golden-grape.png';
-import dashboardImg from '../../assets/img/dashboard.png';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 
@@ -51,7 +47,7 @@ import StarBorder from '@mui/icons-material/StarBorder';
 import useGrapeStats from '../../hooks/useGrapeStats';
 import useWineStats from '../../hooks/useWineStats';
 import useVintagePrice from '../../hooks/useVintagePrice';
-// import useXGrapePrice from '../../hooks/useXGrapePrice';
+import useXGrapePrice from '../../hooks/useXGrapePrice';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import AppsIcon from '@mui/icons-material/Apps';
@@ -61,9 +57,6 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
-import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
-import StadiumIcon from '@mui/icons-material/Stadium';
 import SavingsIcon from '@mui/icons-material/Savings';
 import AccountBalanceWalletSharpIcon from '@mui/icons-material/AccountBalanceWalletSharp';
 import LinkIcon from '@mui/icons-material/Link';
@@ -204,13 +197,13 @@ const Page: React.FC = ({children}) => {
   const grapeStats = useGrapeStats();
   const bShareStats = useWineStats();
   const vintagePrice = useVintagePrice();
-  // const xGrapePrice = useXGrapePrice();
+  const xGrapePrice = useXGrapePrice();
 
   const grapePrice = useMemo(() => (grapeStats ? Number(grapeStats.tokenInFtm).toFixed(3) : null), [grapeStats]);
   const winePrice = useMemo(() => (bShareStats ? Number(bShareStats.priceInDollars).toFixed(2) : null), [bShareStats]);
 
   const cashStat = useCashPriceInEstimatedTWAP();
-  const twap = useMemo(() => (cashStat ? Number(cashStat.priceInDollars).toFixed(4) : null), [cashStat]);
+  // const twap = useMemo(() => (cashStat ? Number(cashStat.priceInDollars).toFixed(4) : null), [cashStat]);
 
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -339,6 +332,17 @@ const Page: React.FC = ({children}) => {
                 >
                   <img src={wineImg} alt="Wine" width={24} height={24} />
                   <span className="token-price">{winePrice ? '$' + winePrice : '--'}</span>
+                </a>
+              </div>
+              <div className="price-item">
+                <a
+                  className="text-decoration-none"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://app.bogged.finance/avax/swap?tokenIn=0x130966628846BFd36ff31a822705796e8cb8C18D&tokenOut=0xC55036B5348CfB45a932481744645985010d3A44"
+                >
+                  <img src={xGrapeImg} alt="xGrape" width={21} height={21} />
+                  <span className="token-price">{xGrapePrice ? '$' + xGrapePrice : '--'}</span>
                 </a>
               </div>
               <div className="price-item">
