@@ -86,7 +86,7 @@ const Boardroom = () => {
             Winery (Boardroom)
           </Typography>
           <Typography color="textPrimary" align="center" variant="h6" gutterBottom style={{marginBottom: '40px'}}>
-            Stake your WINE to earn GRAPE when the TWAP is above 1.01
+            Stake your WINE to earn GRAPE when the TWAP is at or above 1.01
           </Typography>
 
           {bondStat && bondSupply - grapeReserves > 0 && (
