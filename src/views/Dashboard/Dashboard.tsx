@@ -32,6 +32,8 @@ import wineMimLP from '../../assets/img/gshare-mim.png';
 import DashboardBoardroomCard from './DashboardBoardroomCard';
 import useWinepressUserInfo from '../../hooks/useWinepressUserInfo';
 import {SyncLoader} from 'react-spinners';
+import useXGrapePrice from '../../hooks/useXGrapePrice';
+import useVintagePrice from '../../hooks/useVintagePrice';
 
 const Dashboard = () => {
   const {account} = useWallet();
@@ -56,8 +58,10 @@ const Dashboard = () => {
   const displayWineBalance = useMemo(() => getDisplayBalance(wineBalance), [wineBalance]);
   const gbondBalance = useTokenBalance(grapeFinance.GBOND);
   const displayGbondBalance = useMemo(() => getDisplayBalance(gbondBalance), [gbondBalance]);
+  const xGrapeBalance = useTokenBalance(grapeFinance.XGRAPE);
   const vintageBalance = useTokenBalance(grapeFinance.VINTAGE);
   const svintageBalance = useTokenBalance(grapeFinance.SVINTAGE);
+  const displayXGrapeBalance = useMemo(() => getDisplayBalance(xGrapeBalance), [xGrapeBalance]);
   const displayVintageBalance = useMemo(() => getDisplayBalance(vintageBalance), [vintageBalance]);
   const displaySVintageBalance = useMemo(() => getDisplayBalance(svintageBalance), [svintageBalance]);
 
@@ -69,6 +73,9 @@ const Dashboard = () => {
     () => (wineStats ? Number(wineStats.priceInDollars).toFixed(2) : null),
     [wineStats],
   );
+
+  const xGrapePrice = useXGrapePrice();
+  const vintagePrice = useVintagePrice();
 
   const matches = useMediaQuery('(min-width:900px)');
   const matches960 = useMediaQuery('(max-width:960px)');
@@ -112,7 +119,7 @@ const Dashboard = () => {
             <Grid item xs={12}>
               <Grid container spacing={1}>
                 <Grid item xs={6} sm={6} md={4} lg={2}>
-                  <Card style={{height: '100px'}}>
+                  <Card>
                     <CardContent>
                       <Typography color="textPrimary" align="center" variant="h6" gutterBottom>
                         MY TOTAL
@@ -129,7 +136,7 @@ const Dashboard = () => {
                   </Card>
                 </Grid>
                 <Grid item xs={6} sm={6} md={4} lg={2}>
-                  <Card style={{height: '100px'}}>
+                  <Card>
                     <CardContent>
                       <Typography color="textSecondary" align="center" variant="h6" gutterBottom>
                         <img
@@ -152,7 +159,7 @@ const Dashboard = () => {
                   </Card>
                 </Grid>
                 <Grid item xs={6} sm={6} md={4} lg={2}>
-                  <Card style={{height: '100px'}}>
+                  <Card>
                     <CardContent>
                       <Typography color="textSecondary" align="center" variant="h6" gutterBottom>
                         <img
@@ -175,7 +182,7 @@ const Dashboard = () => {
                   </Card>
                 </Grid>
                 <Grid item xs={6} sm={6} md={4} lg={2}>
-                  <Card style={{height: '100px'}}>
+                  <Card>
                     <CardContent>
                       <Typography color="textSecondary" align="center" variant="h6" gutterBottom>
                         <img
@@ -198,7 +205,7 @@ const Dashboard = () => {
                   </Card>
                 </Grid>
                 <Grid item xs={6} sm={6} md={4} lg={2}>
-                  <Card style={{height: '100px'}}>
+                  <Card>
                     <CardContent>
                       <Typography color="textSecondary" align="center" variant="h6" gutterBottom>
                         <img
@@ -225,7 +232,7 @@ const Dashboard = () => {
                   </Card>
                 </Grid>
                 <Grid item xs={6} sm={6} md={4} lg={2}>
-                  <Card style={{height: '100px'}}>
+                  <Card>
                     <CardContent>
                       <Typography color="textPrimary" align="center" variant="h6" gutterBottom>
                         MY REWARDS
@@ -244,7 +251,7 @@ const Dashboard = () => {
               </Grid>
             </Grid>
             <Grid item xs={12}>
-              <Card style={{textAlign: 'center'}}>
+              <Card>
                 <CardContent>
                   <Balances
                     style={{display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap', marginBottom: '0'}}
@@ -254,6 +261,9 @@ const Dashboard = () => {
                       <StyledBalance>
                         <span className="wallet-token-balance">{displayGrapeBalance}</span>
                         <Label text="GRAPE" />
+                        <span className="wallet-token-value">
+                          ~${(Number(displayGrapeBalance) * Number(grapePriceInDollars)).toFixed(2)}
+                        </span>
                       </StyledBalance>
                     </StyledBalanceWrapper>
 
@@ -261,7 +271,25 @@ const Dashboard = () => {
                       <TokenSymbol width={35} height={35} symbol="WINE" />
                       <StyledBalance>
                         <span className="wallet-token-balance">{displayWineBalance}</span>
+
                         <Label text="WINE" />
+                        <span className="wallet-token-value">
+                          ~${(Number(displayWineBalance) * Number(winePriceInDollars)).toFixed(2)}
+                        </span>
+                      </StyledBalance>
+                    </StyledBalanceWrapper>
+
+                    <StyledBalanceWrapper>
+                      <TokenSymbol width={35} height={35} symbol="XGRAPE" />
+                      <StyledBalance>
+                        <span className="wallet-token-balance">{displayXGrapeBalance}</span>
+                        <Label text="xGrape" />
+                        <span className="wallet-token-value">
+                          ~$
+                          {xGrapePrice && displayXGrapeBalance && (
+                            <span>{(Number(displayXGrapeBalance) * Number(xGrapePrice)).toFixed(2)}</span>
+                          )}
+                        </span>
                       </StyledBalance>
                     </StyledBalanceWrapper>
 
@@ -278,6 +306,12 @@ const Dashboard = () => {
                       <StyledBalance>
                         <span className="wallet-token-balance">{displayVintageBalance}</span>
                         <Label text="VINTAGE" />
+                        <span className="wallet-token-value">
+                          ~$
+                          {vintagePrice && displayVintageBalance && (
+                            <span>{(Number(displayVintageBalance) * Number(vintagePrice)).toFixed(2)}</span>
+                          )}
+                        </span>
                       </StyledBalance>
                     </StyledBalanceWrapper>
 

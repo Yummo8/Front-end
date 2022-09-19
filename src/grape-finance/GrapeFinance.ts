@@ -92,7 +92,7 @@ export class GrapeFinance {
       this.externalTokens[symbol] = new ERC20(address, provider, symbol, decimal);
     }
     this.GRAPE = new ERC20(deployments.Grape.address, provider, 'GRAPE');
-    // this.XGRAPE = new ERC20(deployments.xGrape.address, provider, 'XGRAPE');
+    this.XGRAPE = new ERC20(deployments.xGrape.address, provider, 'XGRAPE');
     this.WINE = new ERC20(deployments.Wine.address, provider, 'WINE');
     this.GBOND = new ERC20(deployments.BBond.address, provider, 'GBOND');
     this.MIM = this.externalTokens['MIM'];
@@ -160,6 +160,17 @@ export class GrapeFinance {
   }
 
   async getXGrapePrice(): Promise<string> {
+    
+    const {xGrape, GrapeMIMSW} = this.contracts;
+    const xGrapeToMagik = Number(await xGrape.calculatePrice()) / 1e18
+    const magikLpToGrapeMIM = Number(await GrapeMIMSW.getPricePerFullShare()) / 1e18
+    const grapeMIMTotalSupply = Number(await this.SW.totalSupply()) / 1e18
+    const mimBalance = Number(await this.MIM.balanceOf(this.SW.address)) / 1e18
+    const fixedLPPrice = ((Number(mimBalance) * 2) / Number(grapeMIMTotalSupply))
+    return ((xGrapeToMagik * magikLpToGrapeMIM * fixedLPPrice)).toFixed(3)
+  }
+
+  async getGrapeXGrapePrice(): Promise<string> {
     const grapeBalance = await this.GRAPE.balanceOf(this.XGRAPELP.address);
     const xGrapeBalance = await this.XGRAPE.balanceOf(this.XGRAPELP.address);
     return (+grapeBalance / +xGrapeBalance).toFixed(3);

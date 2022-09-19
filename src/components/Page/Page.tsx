@@ -18,9 +18,11 @@ import AccountButton from '../Nav/AccountButton';
 import useCashPriceInEstimatedTWAP from '../../hooks/useCashPriceInEstimatedTWAP';
 
 import grapeLogo from '../../assets/img/logo1.png';
+import coinsImg from '../../assets/img/casinocoins.png';
+import fantomHouseImg from '../../assets/img/houseflip.png';
 import grapeImg from '../../assets/img/grape.png';
-import xGrapeImg from '../../assets/img/xGrape2.png';
-import grapeMimImg from '../../assets/img/twap.png';
+import xGrapeImg from '../../assets/img/xGrape.png';
+import sodaImg from '../../assets/img/soda.png';
 import nodesImg from '../../assets/img/gnode.png';
 import bondImg from '../../assets/img/gbond.png';
 import wineImg from '../../assets/img/gshare.png';
@@ -49,10 +51,10 @@ import StarBorder from '@mui/icons-material/StarBorder';
 import useGrapeStats from '../../hooks/useGrapeStats';
 import useWineStats from '../../hooks/useWineStats';
 import useVintagePrice from '../../hooks/useVintagePrice';
-import useXGrapePrice from '../../hooks/useXGrapePrice';
+// import useXGrapePrice from '../../hooks/useXGrapePrice';
 
 import MenuIcon from '@mui/icons-material/Menu';
-import HomeSharpIcon from '@mui/icons-material/HomeSharp';
+import AppsIcon from '@mui/icons-material/Apps';
 import DashboardSharpIcon from '@mui/icons-material/DashboardSharp';
 import FeedIcon from '@mui/icons-material/Feed';
 import ExpandLess from '@mui/icons-material/ExpandLess';
@@ -227,6 +229,14 @@ const Page: React.FC = ({children}) => {
       handleDrawerOpen();
     }
     setGamesOpen(!gamesOpen);
+  };
+
+  const [appsOpen, setAppsOpen] = React.useState(false);
+  const handleAppsClick = () => {
+    if (!open) {
+      handleDrawerOpen();
+    }
+    setAppsOpen(!appsOpen);
   };
 
   const [vaultsOpen, setVaultsOpen] = React.useState(false);
@@ -508,21 +518,9 @@ const Page: React.FC = ({children}) => {
             </Tooltip>
           </Link>
 
-          {/*<Tooltip arrow followCursor title={open ? '' : 'Winemaker Mint'} placement="top-start">
-            <a
-              href="https://mint.grapefinance.app/"
-              target="_blank"
-              className="menu-item"
-              rel="noopener noreferrer"
-              style={{padding: 0, display: 'block'}}
-            >
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
+          <List>
+            <Tooltip arrow followCursor title={open ? '' : 'Apps'} placement="top-start">
+              <ListItemButton onClick={handleAppsClick}>
                 <ListItemIcon
                   sx={{
                     color: 'white',
@@ -531,47 +529,268 @@ const Page: React.FC = ({children}) => {
                     justifyContent: 'center',
                   }}
                 >
-                  <img src={vintage} alt="Winemaker Mint" height={25} />
+                  <AppsIcon style={{fill: '#e647e6'}} />
                 </ListItemIcon>
-
-                <ListItemText primary="Winemaker Mint" sx={{opacity: open ? 1 : 0}} />
+                <ListItemText primary="Apps" sx={{opacity: open ? 1 : 0}} />
+                {open ? appsOpen ? <ExpandLess /> : <ExpandMore /> : null}
               </ListItemButton>
-            </a>
-                </Tooltip>*/}
-
-          <List>
-            <Tooltip arrow followCursor title={open ? '' : 'Home'} placement="top-start">
-              <ListItem className="menu-item" component={Link} to="/" disablePadding sx={{display: 'block'}}>
-                <ListItemButton
-                  sx={{
-                    minHeight: 48,
-                    justifyContent: open ? 'initial' : 'center',
-                  }}
-                >
-                  <ListItemIcon
-                    sx={{
-                      color: 'white',
-                      minWidth: 0,
-                      mr: open ? 3 : 'auto',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <HomeSharpIcon style={{fill: '#e4a2e4'}} />
-                  </ListItemIcon>
-                  <ListItemText primary="Home" sx={{opacity: open ? 1 : 0}} />
-                </ListItemButton>
-              </ListItem>
             </Tooltip>
+            {open && (
+              <Collapse in={appsOpen} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                  <a
+                    className="menu-item"
+                    href="https://xgrape.grapefinance.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{padding: 0, display: 'block'}}
+                  >
+                    <ListItemButton sx={{pl: 4}}>
+                      <ListItemIcon
+                        sx={{
+                          color: 'white',
+                          minWidth: 0,
+                          mr: open ? 3 : 'auto',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <img src={xGrapeImg} alt="xGrape" width={30}  />{' '}
+                      </ListItemIcon>
+                      <ListItemText primary="Mint xGrape" />
+                    </ListItemButton>
+                  </a>
+
+                  <a
+                    className="menu-item"
+                    href="https://soda.grapefinance.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{padding: 0, display: 'block'}}
+                  >
+                    <ListItemButton sx={{pl: 4}}>
+                      <ListItemIcon
+                        sx={{
+                          color: 'white',
+                          minWidth: 0,
+                          mr: open ? 3 : 'auto',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <img src={sodaImg} alt="Grape Soda Press" height={30} />{' '}
+                      </ListItemIcon>
+                      <ListItemText primary="Grape Soda" />
+                    </ListItemButton>
+                  </a>
+
+                  <ListItem
+                    className="menu-item"
+                    component={Link}
+                    to="/vineyard"
+                    disablePadding
+                    sx={{display: 'block'}}
+                  >
+                    <ListItemButton
+                      sx={{
+                        pl: 4,
+                        minHeight: 48,
+                        justifyContent: open ? 'initial' : 'center',
+                      }}
+                    >
+                      <ListItemIcon
+                        sx={{
+                          color: 'white',
+                          minWidth: 0,
+                          mr: open ? 3 : 'auto',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <img alt="grape" height={30} src={grapeImg} />
+                      </ListItemIcon>
+                      <ListItemText primary="Vineyard" sx={{opacity: open ? 1 : 0}} />
+                    </ListItemButton>
+                  </ListItem>
+
+                  <ListItem className="menu-item" component={Link} to="/winery" disablePadding sx={{display: 'block'}}>
+                    <ListItemButton
+                      sx={{
+                        pl: 4,
+                        minHeight: 48,
+                        justifyContent: open ? 'initial' : 'center',
+                      }}
+                    >
+                      <ListItemIcon
+                        sx={{
+                          color: 'white',
+                          minWidth: 0,
+                          mr: open ? 3 : 'auto',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <img alt="Wine" height={30} src={wineImg} />
+                      </ListItemIcon>
+                      <ListItemText primary="Winery" sx={{opacity: open ? 1 : 0}} />
+                    </ListItemButton>
+                  </ListItem>
+
+                  <ListItem className="menu-item" component={Link} to="/bond" disablePadding sx={{display: 'block'}}>
+                    <ListItemButton
+                      sx={{
+                        pl: 4,
+                        minHeight: 48,
+                        justifyContent: open ? 'initial' : 'center',
+                      }}
+                    >
+                      <ListItemIcon
+                        sx={{
+                          color: 'white',
+                          minWidth: 0,
+                          mr: open ? 3 : 'auto',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <img alt="bonds" height={30} src={bondImg} />
+                      </ListItemIcon>
+                      <ListItemText primary="Bonds" sx={{opacity: open ? 1 : 0}} />
+                    </ListItemButton>
+                  </ListItem>
+
+                  <ListItem className="menu-item" component={Link} to="/nodes" disablePadding sx={{display: 'block'}}>
+                    <ListItemButton
+                      sx={{
+                        pl: 4,
+                        minHeight: 48,
+                        justifyContent: open ? 'initial' : 'center',
+                      }}
+                    >
+                      <ListItemIcon
+                        sx={{
+                          color: 'white',
+                          minWidth: 0,
+                          mr: open ? 3 : 'auto',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <img alt="Nodes" height={30} src={nodesImg} />
+                      </ListItemIcon>
+                      <ListItemText primary="Nodes" sx={{opacity: open ? 1 : 0}} />
+                    </ListItemButton>
+                  </ListItem>
+
+                  <a
+                    className="menu-item"
+                    href="https://winepress.grapefinance.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{padding: 0, display: 'block'}}
+                  >
+                    <ListItemButton sx={{pl: 4}}>
+                      <ListItemIcon
+                        sx={{
+                          color: 'white',
+                          minWidth: 0,
+                          mr: open ? 3 : 'auto',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <img src={pressIcon} alt="WinePress" width={30} />{' '}
+                      </ListItemIcon>
+                      <ListItemText primary="Wine Press" />
+                    </ListItemButton>
+                  </a>
+
+                  <ListItem className="menu-item" component={Link} to="/rebates" disablePadding sx={{display: 'block'}}>
+                    <ListItemButton
+                      sx={{
+                        pl: 4,
+                        minHeight: 48,
+                        justifyContent: open ? 'initial' : 'center',
+                      }}
+                    >
+                      <ListItemIcon
+                        sx={{
+                          color: 'white',
+                          minWidth: 0,
+                          mr: open ? 3 : 'auto',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <img alt="Rebates" height={30} src={rebatesImg} />
+                      </ListItemIcon>
+                      <ListItemText primary="Peg Health Campaign" sx={{opacity: open ? 1 : 0}} />
+                    </ListItemButton>
+                  </ListItem>
+
+                  <a
+                    className="menu-item"
+                    href="https://winemaker.grapefinance.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{display: 'block'}}
+                  >
+                    <ListItemButton sx={{pl: 4}}>
+                      <ListItemIcon
+                        sx={{
+                          color: 'white',
+                          minWidth: 0,
+                          mr: open ? 3 : 'auto',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <img src={winemaker} alt="winemaker" height={30} />{' '}
+                      </ListItemIcon>
+                      <ListItemText primary="Wine Maker" />
+                    </ListItemButton>
+                  </a>
+
+                  <a
+                    className="menu-item"
+                    href="https://casino.grapefinance.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{display: 'block'}}
+                  >
+                    <ListItemButton sx={{pl: 4}}>
+                      <ListItemIcon
+                        sx={{
+                          color: 'white',
+                          minWidth: 0,
+                          mr: open ? 3 : 'auto',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <img src={coinsImg} alt="Grape Casino" height={30} />{' '}
+                      </ListItemIcon>
+                      <ListItemText primary="Grape Casino" />
+                    </ListItemButton>
+                  </a>
+
+                  <a
+                    className="menu-item"
+                    href="https://avax.fantom.house/grapeflip"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{display: 'block'}}
+                  >
+                    <ListItemButton sx={{pl: 4}}>
+                      <ListItemIcon
+                        sx={{
+                          color: 'white',
+                          minWidth: 0,
+                          mr: open ? 3 : 'auto',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <img src={fantomHouseImg} alt="Fantom House" height={30} />{' '}
+                      </ListItemIcon>
+                      <ListItemText primary="Fantom House" />
+                    </ListItemButton>
+                  </a>
+                </List>
+              </Collapse>
+            )}
 
             <Tooltip arrow followCursor title={open ? '' : 'Dashboard'} placement="top-start">
-              <ListItem
-                className="menu-item"
-                button
-                component={Link}
-                to="/dashboard"
-                disablePadding
-                sx={{display: 'block'}}
-              >
+              <ListItem className="menu-item" component={Link} to="/dashboard" disablePadding sx={{display: 'block'}}>
                 <ListItemButton
                   sx={{
                     minHeight: 48,
@@ -586,7 +805,7 @@ const Page: React.FC = ({children}) => {
                       justifyContent: 'center',
                     }}
                   >
-                    <DashboardSharpIcon style={{fill: '#e4a2e4'}} />
+                    <DashboardSharpIcon style={{fill: '#e647e6'}} />
                   </ListItemIcon>
                   <ListItemText primary="Dashboard" sx={{opacity: open ? 1 : 0}} />
                 </ListItemButton>

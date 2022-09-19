@@ -148,6 +148,10 @@ h6 {
   transform: translateZ(-10px) scale(2);
 }
 
+.wallet-token-value {
+  color:#e646e6;
+}
+
 .wallet-token-balance {
   font-size: 1.4rem;
 }

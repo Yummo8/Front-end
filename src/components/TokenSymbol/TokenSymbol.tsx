@@ -2,6 +2,7 @@ import React from 'react';
 
 //Graveyard ecosystem logos
 import grapeLogo from '../../assets/img/grape.png';
+import xGrape from '../../assets/img/xGrape.png';
 import wine from '../../assets/img/gshare.png';
 import gbondLogo from '../../assets/img/gbond.png';
 import mimLogo from '../../assets/img/mim.png';
@@ -20,6 +21,7 @@ const logosBySymbol: {[title: string]: string} = {
   //Real tokens
   //=====================
   GRAPE: grapeLogo,
+  XGRAPE: xGrape,
   WAVAX: wavax,
   WINE: wine,
   GBOND: gbondLogo,
