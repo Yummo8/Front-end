@@ -160,11 +160,8 @@ export class GrapeFinance {
   }
 
   async getXGrapePrice(): Promise<string> {
-    
-
     const {xGrapeOracle} = this.contracts;
     const xGrapePrice = Number(await xGrapeOracle.xGrapePrice()) / 1e18
-    console.log('xgrape price = ' + xGrapePrice)
     return (xGrapePrice).toFixed(3)
   }
 
