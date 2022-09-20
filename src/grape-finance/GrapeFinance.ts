@@ -161,13 +161,11 @@ export class GrapeFinance {
 
   async getXGrapePrice(): Promise<string> {
     
-    const {xGrape, GrapeMIMSW} = this.contracts;
-    const xGrapeToMagik = Number(await xGrape.calculatePrice()) / 1e18
-    const magikLpToGrapeMIM = Number(await GrapeMIMSW.getPricePerFullShare()) / 1e18
-    const grapeMIMTotalSupply = Number(await this.SW.totalSupply()) / 1e18
-    const mimBalance = Number(await this.MIM.balanceOf(this.SW.address)) / 1e18
-    const fixedLPPrice = ((Number(mimBalance) * 2) / Number(grapeMIMTotalSupply))
-    return ((xGrapeToMagik * magikLpToGrapeMIM * fixedLPPrice)).toFixed(3)
+
+    const {xGrapeOracle} = this.contracts;
+    const xGrapePrice = Number(await xGrapeOracle.xGrapePrice()) / 1e18
+    console.log('xgrape price = ' + xGrapePrice)
+    return (xGrapePrice).toFixed(3)
   }
 
   async getGrapeXGrapePrice(): Promise<string> {
