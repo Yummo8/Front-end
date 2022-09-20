@@ -122,6 +122,15 @@ h6 {
   font-size: 2.5rem;
 }
 
+.background-blur {
+  position: fixed;
+  z-index: -999;
+  width: 100%;
+  left: 0%;
+  right: 0%;
+  max-width: 1920px;
+}
+
 .back-logo3 {
   position: fixed;
   z-index: -999;

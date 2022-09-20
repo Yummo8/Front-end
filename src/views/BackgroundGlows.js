@@ -15,8 +15,8 @@ function BackgroundGlows() {
       >
         <img src={heroImg} alt={'GRAPE Logo'} style={{width: 'auto', height: '100%'}} />
       </div>
-      <img alt="" src={require('../assets/img/background1.png')} className="back-logo3" />
-      <img alt="" className="back-glow-2" src={require('../assets/img/background2.png')} />
+      <img alt="" src={require('../assets/img/backgroundblur.png')} className="background-blur" />
+      {/* <img alt="" className="back-glow-2" src={require('../assets/img/background2.png')} /> */}
       {/*<img
         alt=""
         className="back-glow-3"
