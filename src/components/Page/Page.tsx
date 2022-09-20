@@ -339,7 +339,7 @@ const Page: React.FC = ({children}) => {
                   className="text-decoration-none"
                   target="_blank"
                   rel="noopener noreferrer"
-                  href="https://app.bogged.finance/avax/swap?tokenIn=0x130966628846BFd36ff31a822705796e8cb8C18D&tokenOut=0xC55036B5348CfB45a932481744645985010d3A44"
+                  href="https://xgrape.grapefinance.app/"
                 >
                   <img src={xGrapeImg} alt="xGrape" width={21} height={21} />
                   <span className="token-price">{xGrapePrice ? '$' + xGrapePrice : '--'}</span>
