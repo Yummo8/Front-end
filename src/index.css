@@ -122,30 +122,14 @@ h6 {
   font-size: 2.5rem;
 }
 
-.back-logo3 {
+.background-blur {
   position: fixed;
   z-index: -999;
-  opacity: 0.3;
-  filter: blur(40px);
-  -webkit-filter: blur(40px);
-  transform: translateZ(-10px) scale(2);
   width: 100%;
+  height: 100%;
   left: 0%;
   right: 0%;
-  top: 90%;
-  max-width: 1920px;
-}
-
-.back-glow-2 {
-  position: fixed;
-  z-index: -999;
-  filter: blur(200px);
-  -webkit-filter: blur(200px);
-  width: 60%;
-  opacity: 0.5;
-  left: 50%;
-  top: 0;
-  transform: translateZ(-10px) scale(2);
+  max-width: 100%;
 }
 
 .wallet-token-value {
