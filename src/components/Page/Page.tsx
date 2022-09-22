@@ -1450,7 +1450,7 @@ const Page: React.FC = ({children}) => {
                       </ListItemButton>
                     </ListItem>
                   </Tooltip>
-                  <Tooltip arrow followCursor title={open ? '' : 'Dashboard'} placement="top-start">
+                  {/*<Tooltip arrow followCursor title={open ? '' : 'Dashboard'} placement="top-start">
                     <a
                       className="menu-item"
                       href="https://stats.grapefinance.app/"
@@ -1472,7 +1472,7 @@ const Page: React.FC = ({children}) => {
                         <ListItemText primary="Dashboard" />
                       </ListItemButton>
                     </a>
-                  </Tooltip>
+                    </Tooltip>
                   <Tooltip arrow followCursor title={open ? '' : 'Node Rewards'} placement="top-start">
                     <ListItem
                       className="menu-item"
@@ -1496,7 +1496,7 @@ const Page: React.FC = ({children}) => {
                         <ListItemText primary="Stats" />
                       </ListItemButton>
                     </ListItem>
-                  </Tooltip>
+                  </Tooltip>*/}
                   <Tooltip arrow followCursor title={open ? '' : 'Roadmap'} placement="top-start">
                     <ListItem
                       className="menu-item"

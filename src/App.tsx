@@ -32,7 +32,7 @@ const Strategies = lazy(() => import('./views/Strategies'));
 const Help = lazy(() => import('./views/Help'));
 const Nodes = lazy(() => import('./views/Nodes'));
 const Leaderboard = lazy(() => import('./views/Leaderboard'));
-const Stats = lazy(() => import('./views/Stats'));
+//const Stats = lazy(() => import('./views/Stats'));
 const NFTRaffle = lazy(() => import('./views/NFTRaffle'));
 const Rebates = lazy(() => import('./views/Rebates'));
 const Peg = lazy(() => import('./views/Extinction'));
@@ -93,9 +93,9 @@ const App: React.FC = () => {
             <Route path="/strategies">
               <Strategies />
             </Route>
-            <Route path="/stats">
+            {/*<Route path="/stats">
               <Stats />
-            </Route>
+              </Route>*/}
             <Route path="/raffle">
               <Raffle />
             </Route>
