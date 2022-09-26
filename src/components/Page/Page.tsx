@@ -21,7 +21,7 @@ import grapeLogo from '../../assets/img/logo1.png';
 import coinsImg from '../../assets/img/casinocoins.png';
 import fantomHouseImg from '../../assets/img/houseflip.png';
 import grapeImg from '../../assets/img/grape.png';
-import xGrapeImg from '../../assets/img/xGrape.png';
+import xGrapeImg from '../../assets/img/xgrape-small.png';
 import sodaImg from '../../assets/img/soda.png';
 import nodesImg from '../../assets/img/gnode.png';
 import bondImg from '../../assets/img/gbond.png';
@@ -33,7 +33,7 @@ import beefyImg from '../../assets/img/beefy.png';
 import yieldwolfImg from '../../assets/img/yieldwolf.png';
 import debankImg from '../../assets/img/debank.png';
 import rebatesImg from '../../assets/img/rebates.png';
-import winemaker from '../../assets/img/Winemaker.png';
+import winemaker from '../../assets/img/vintage-token.png';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 
