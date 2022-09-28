@@ -50,7 +50,12 @@ const StyledButton = styled.button<StyledButtonProps>`
   width: 56px;
 
   &:hover {
-    background-color: #D19AFF;
+    background-color: #e646e6;
+    color: #fff;
+  }
+
+  &:disabled {
+    background-color: #5c095c;
     color: #fff;
   }
 `;
