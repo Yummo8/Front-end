@@ -862,29 +862,7 @@ const Page: React.FC = ({children}) => {
                       </ListItemButton>
                     </a>
                   </Tooltip>
-                  <Tooltip arrow followCursor title={open ? '' : 'Ice Cream'} placement="top-start">
-                    <a
-                      className="menu-item"
-                      href="https://froyo.farm/#/avax"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{padding: 0, display: 'block'}}
-                    >
-                      <ListItemButton sx={{pl: 4}}>
-                        <ListItemIcon
-                          sx={{
-                            color: 'white',
-                            minWidth: 0,
-                            mr: open ? 3 : 'auto',
-                            justifyContent: 'center',
-                          }}
-                        >
-                          <img src={creamImg} alt="Froyo IceCream" height={30} />{' '}
-                        </ListItemIcon>
-                        <ListItemText primary="Ice Cream" />
-                      </ListItemButton>
-                    </a>
-                  </Tooltip>
+                  
                   <Tooltip arrow followCursor title={open ? '' : 'Beefy'} placement="top-start">
                     <a
                       className="menu-item"
