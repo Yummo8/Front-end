@@ -26,7 +26,7 @@ const useStyles = makeStyles(({palette}) => ({
     transition: '0.3s',
     fontSize: '1.6rem !important',
     margin: 0,
-    color: '#e647e6'
+    color: '#e647e6',
   },
 
   subtitle: {
@@ -114,7 +114,7 @@ const CustomCard = ({item, styles, title, subTitle, subItems}) => {
 
           {subItems != null && subItems.length > 0
             ? subItems.map((subItem) => (
-                <Grid item xs={subItems.length % 2 ? 4 : 6}>
+                <Grid item xs={subItems.length === 1 ? 12 : subItems.length % 2 ? 4 : 6}>
                   {subItem.isInternalLink === true ? (
                     <Link to={subItem.linkTo} style={{textDecoration: 'none'}}>
                       <Button className="shinyButton full-width">{subItem.label}</Button>{' '}
