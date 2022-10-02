@@ -106,7 +106,7 @@ const GrapeNode = () => {
                 <CardContent>
                   <Grid container justifyContent="space-between">
                     <Grid item>
-                      <Typography style={{color: '#ccf'}}>Daily Grape</Typography>
+                      <Typography style={{color: '#ccf'}}>Daily</Typography>
                     </Grid>
                     <Grid item>{(Number(daily) / 1e18).toFixed(2)}</Grid>
                   </Grid>
