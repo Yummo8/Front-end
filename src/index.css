@@ -108,6 +108,12 @@ h6 {
   color: #000;
 }
 
+.MuiSvgIcon-root:hover,
+.MuiTypography-root:hover,
+.MuiListItemIcon-root:hover {
+  transform: scale(1.1);
+}
+
 .MuiButton-containedPrimary,
 .MuiButton-containedPrimary:hover,
 .MuiListItem-button:hover,

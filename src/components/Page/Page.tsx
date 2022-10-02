@@ -290,6 +290,14 @@ const Page: React.FC = ({children}) => {
   //   }
   // }, [screenSM]);
 
+  const changeBackground = (c: any) => {
+    c.target.style.transform = 'scale(1.035)';
+  };
+
+  const resetBackground = (r: any) => {
+    r.target.style.transform = 'scale(1,1)';
+  };
+
   return (
     <div style={{position: 'relative', minHeight: '100vh'}}>
       <Box sx={{display: 'flex'}}>
@@ -519,6 +527,8 @@ const Page: React.FC = ({children}) => {
                 src={grapeLogo}
                 width={drawerWidth}
                 style={{paddingLeft: '9px', paddingRight: '10px'}}
+                onMouseOver={changeBackground}
+                onMouseOut={resetBackground}
               />
             </Tooltip>
           </Link>
