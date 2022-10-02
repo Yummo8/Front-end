@@ -292,11 +292,13 @@ const Page: React.FC = ({children}) => {
 
   const changeBackground = (c: any) => {
     c.target.style.transform = 'scale(1.035)';
+    c.target.style.transition = 'transform 0.9s'
   };
 
   const resetBackground = (r: any) => {
-    r.target.style.transform = 'scale(1,1)';
+    r.target.style.transform = 'scale(1)';
   };
+
 
   return (
     <div style={{position: 'relative', minHeight: '100vh'}}>
@@ -546,7 +548,7 @@ const Page: React.FC = ({children}) => {
                 >
                   <AppsIcon style={{fill: '#e647e6'}} />
                 </ListItemIcon>
-                <ListItemText primary="Apps" sx={{opacity: open ? 1 : 0}} />
+                <ListItemText primary="Apps" sx={{opacity: open ? 1 : 0}}/>
                 {open ? appsOpen ? <ExpandLess /> : <ExpandMore /> : null}
               </ListItemButton>
             </Tooltip>
