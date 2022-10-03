@@ -109,7 +109,6 @@ h6 {
 }
 
 .MuiListItemButton-root:not(:hover) {
-  transform: scale(1);
   transition: transform 0.3s;
 }
 
