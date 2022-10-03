@@ -54,17 +54,10 @@ const useStyles = makeStyles(({palette}) => ({
 
 const CustomCard = ({item, styles, title, subTitle, subItems}) => {
   return (
-    <Stack
-      direction="column"
-      className={cx(styles.root, styles.color)}
-      // style={{
-      //   backgroundImage:
-      //     item.backgroundImage != null ? 'url(' + require('../../assets/img/' + item.backgroundImage) + ')' : '',
-      // }}
-      justifyContent="space-between"
-      spacing={0}
-    >
-      <Row p={2}>
+    <Stack direction="column" className={cx(styles.root, styles.color)} justifyContent="space-between" spacing={0}>
+      {item.isNew && <img alt="New" className="new-ribbon" src={require('../../assets/img/new-ribbon.png')}></img>}
+
+      <Row p={2} style={{marginTop: item.isNew ? '-55px' : null}}>
         <Grid container justifyContent="space-between" style={{textAlign: 'center'}}>
           <Grid item xs={12}>
             <h1 className={styles.title} style={{color: item.color}}>
@@ -140,8 +133,15 @@ const CustomCard = ({item, styles, title, subTitle, subItems}) => {
 export const HomeCard = ({item}) => {
   const styles1 = useStyles({color: item.color});
   return (
-    <Grid item xs={12} sm={12} md={6} lg={4}>
-      <CustomCard item={item} styles={styles1} subItems={item.items} title={item.label} subTitle={item.subLabel} />
+    <Grid key={item.label} item xs={12} sm={12} md={6} lg={4}>
+      <CustomCard
+        key={item.label}
+        item={item}
+        styles={styles1}
+        subItems={item.items}
+        title={item.label}
+        subTitle={item.subLabel}
+      />
     </Grid>
   );
 };
