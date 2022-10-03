@@ -284,22 +284,6 @@ const Page: React.FC = ({children}) => {
 
   const screenSM = useMediaQuery('(min-width:1050px)');
 
-  // useEffect(() => {
-  //   if (screenSM) {
-  //     setOpen(true);
-  //   }
-  // }, [screenSM]);
-
-  const changeBackground = (c: any) => {
-    c.target.style.transform = 'scale(1.035)';
-    c.target.style.transition = 'transform 0.3s'
-  };
-
-  const resetBackground = (r: any) => {
-    r.target.style.transform = 'scale(1)';
-  };
-
-
   return (
     <div style={{position: 'relative', minHeight: '100vh'}}>
       <Box sx={{display: 'flex'}}>
@@ -526,11 +510,10 @@ const Page: React.FC = ({children}) => {
             <Tooltip arrow followCursor title={open ? '' : 'Home'} placement="top-start">
               <img
                 alt="Grape Finance"
+                className="nav-logo"
                 src={grapeLogo}
                 width={drawerWidth}
                 style={{paddingLeft: '9px', paddingRight: '10px'}}
-                onMouseOver={changeBackground}
-                onMouseOut={resetBackground}
               />
             </Tooltip>
           </Link>
