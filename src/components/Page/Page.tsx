@@ -292,7 +292,7 @@ const Page: React.FC = ({children}) => {
 
   const changeBackground = (c: any) => {
     c.target.style.transform = 'scale(1.035)';
-    c.target.style.transition = 'transform 0.9s'
+    c.target.style.transition = 'transform 0.3s'
   };
 
   const resetBackground = (r: any) => {
