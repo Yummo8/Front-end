@@ -108,6 +108,23 @@ h6 {
   color: #000;
 }
 
+.nav-logo {
+  transition: transform 0.3s;
+}
+
+.nav-logo:hover {
+  transform: scale(1.025);
+}
+
+.MuiListItemButton-root:not(:hover) {
+  transition: transform 0.3s;
+}
+
+.MuiListItemButton-root:hover {
+  transform: scale(1.045);
+  transition: transform 0.3s;
+} 
+
 .MuiButton-containedPrimary,
 .MuiButton-containedPrimary:hover,
 .MuiListItem-button:hover,

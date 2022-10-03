@@ -284,12 +284,6 @@ const Page: React.FC = ({children}) => {
 
   const screenSM = useMediaQuery('(min-width:1050px)');
 
-  // useEffect(() => {
-  //   if (screenSM) {
-  //     setOpen(true);
-  //   }
-  // }, [screenSM]);
-
   return (
     <div style={{position: 'relative', minHeight: '100vh'}}>
       <Box sx={{display: 'flex'}}>
@@ -516,6 +510,7 @@ const Page: React.FC = ({children}) => {
             <Tooltip arrow followCursor title={open ? '' : 'Home'} placement="top-start">
               <img
                 alt="Grape Finance"
+                className="nav-logo"
                 src={grapeLogo}
                 width={drawerWidth}
                 style={{paddingLeft: '9px', paddingRight: '10px'}}
@@ -536,7 +531,7 @@ const Page: React.FC = ({children}) => {
                 >
                   <AppsIcon style={{fill: '#e647e6'}} />
                 </ListItemIcon>
-                <ListItemText primary="Apps" sx={{opacity: open ? 1 : 0}} />
+                <ListItemText primary="Apps" sx={{opacity: open ? 1 : 0}}/>
                 {open ? appsOpen ? <ExpandLess /> : <ExpandMore /> : null}
               </ListItemButton>
             </Tooltip>
