@@ -19,7 +19,8 @@ import {
   PegPool,
   PegPoolToken,
   PegPoolUserInfo,
-  WinepressUserInfo
+  WinepressUserInfo,
+  SodapressUserInfo
 } from './types';
 import {BigNumber, BigNumberish, Contract, ethers, EventFilter} from 'ethers';
 import {decimalToBalance} from './ether-utils';
@@ -102,7 +103,7 @@ export class GrapeFinance {
     this.DAI = this.externalTokens['DAI'];
     this.HSHARE = this.externalTokens['HSHARE'];
     this.VINTAGELP = this.externalTokens['sVintageLP'];
-    // this.XGRAPELP = this.externalTokens['xGrapeLP'];
+    this.XGRAPELP = this.externalTokens['xGrapeLP'];
     this.VINTAGE = this.externalTokens['Vintage'];
     this.SVINTAGE = this.externalTokens['sVintage'];
     // Uniswap V2 Pair
@@ -147,6 +148,29 @@ export class GrapeFinance {
   //=========================IN HOME PAGE==============================
   //===================================================================
 
+  async getGrapeXGrapeLPPrice(): Promise<string> {
+    const { XGRAPEGRAPE, xGrapeOracle } = this.contracts;
+    const grapeXGrapeSupply = Number(await XGRAPEGRAPE.totalSupply()) / 1e18
+    const xGrapePrice = Number(await xGrapeOracle.xGrapePrice()) / 1e18
+    const xGrapeBalance = Number(await this.XGRAPE.balanceOf(this.XGRAPELP.address)) / 1e18
+    const fixedLPPrice = (
+      (xGrapeBalance * xGrapePrice * 2) /
+      grapeXGrapeSupply
+    ).toFixed(3);
+    return fixedLPPrice;
+  }
+
+  async getSodapressUserInfo(): Promise<SodapressUserInfo> {
+    const {SODAMINER} = this.contracts;
+    const userInfo = await SODAMINER.userInfo(this.myAccount);
+    const pendingRewards = await SODAMINER.pendingRewards(this.myAccount);
+    return {
+      totalBalance: Number(userInfo.trackedTokenBalance / 1e18),
+      totalClaimable: Number(pendingRewards / 1e18),
+      xGrapeGrapeLPPrice: await this.getGrapeXGrapeLPPrice(),
+    };
+  }
+
   async getWinepressUserInfo(): Promise<WinepressUserInfo> {
     const {MINER} = this.contracts;
     const userInfo = await MINER.userInfo(this.myAccount);
@@ -163,12 +187,6 @@ export class GrapeFinance {
     const {xGrapeOracle} = this.contracts;
     const xGrapePrice = Number(await xGrapeOracle.xGrapePrice()) / 1e18
     return (xGrapePrice).toFixed(3)
-  }
-
-  async getGrapeXGrapePrice(): Promise<string> {
-    const grapeBalance = await this.GRAPE.balanceOf(this.XGRAPELP.address);
-    const xGrapeBalance = await this.XGRAPE.balanceOf(this.XGRAPELP.address);
-    return (+grapeBalance / +xGrapeBalance).toFixed(3);
   }
 
   async getGrapeStat(): Promise<TokenStat> {
@@ -410,13 +428,30 @@ export class GrapeFinance {
       (bank) => !bank.finished && (bank.sectionInUI === 2 || bank.sectionInUI === 6 || bank.sectionInUI === 7),
     );
     const nodeBanks = banks.filter((bank) => !bank.finished && bank.sectionInUI === 3);
+
     let totalInVineyard = 0,
       totalInNodes = 0,
       totalInWinery = 0,
-      totalRewards = 0;
+      totalInWinePress = 0,
+      totalInSodaPress = 0,
+      rewardsInVineyard = 0, 
+      rewardsInWinery = 0, 
+      rewardsInNodes = 0,
+      rewardsInWinePress = 0, 
+      rewardsInSodaPress = 0;
 
     const winePriceInDollars = Number(await this.getDepositTokenPriceInDollars('WINE', this.WINE));
     const grapePriceInDollars = Number(await this.getDepositTokenPriceInDollars('GRAPE', this.GRAPE));
+
+    // WinePress
+    const winepressUserInfo = await this.getWinepressUserInfo();
+    rewardsInWinePress = winepressUserInfo.totalClaimable * Number(winepressUserInfo.wineMIMLPPrice)
+    totalInWinePress = winepressUserInfo.totalBalance * Number(winepressUserInfo.wineMIMLPPrice) + rewardsInWinePress
+
+    // SodaPress
+    const sodapressUserInfo = await this.getSodapressUserInfo();
+    rewardsInSodaPress = sodapressUserInfo.totalClaimable * Number(sodapressUserInfo.xGrapeGrapeLPPrice)
+    totalInSodaPress = sodapressUserInfo.totalBalance * Number(sodapressUserInfo.xGrapeGrapeLPPrice) + rewardsInSodaPress
 
     // Vineyard
     for (let i = 0; i < vineyardBanks.length; i++) {
@@ -432,7 +467,7 @@ export class GrapeFinance {
       // bank Earnings
       const bankEarnings = await this.earnedFromBank(bank.contract, bank.earnTokenName, bank.poolId, this.myAccount);
       const earningInDollars = winePriceInDollars * Number(getDisplayBalance(bankEarnings, bank.depositToken.decimal));
-      totalRewards += earningInDollars;
+      rewardsInVineyard += earningInDollars;
       totalInVineyard += earningInDollars;
     }
 
@@ -443,28 +478,24 @@ export class GrapeFinance {
       const nodes = await this.getNodes(bank.contract, this.myAccount);
       let nodesCount;
       try {
-
-        nodesCount = nodes[0].toNumber();
-
-      } catch (e) {}
+        nodesCount = nodes[0];
+      } catch (e) {
+      }
       if (!nodesCount) {
         nodesCount = Number(nodes);
       }
-
       const nodePrice = await this.getNodePrice(bank.contract, bank.poolId);
       const stakedTokenPriceInDollars = Number(
         await this.getDepositTokenPriceInDollars(bank.depositTokenName, bank.depositToken),
       );
       totalInNodes +=
-
         Number(nodesCount) * (stakedTokenPriceInDollars * Number(getDisplayBalance(nodePrice, bank.depositToken.decimal)));
-
 
       // Node earnings
       const nodeEarnings = await this.earnedFromBank(bank.contract, bank.earnTokenName, bank.poolId, this.myAccount);
       const earningInDollars =
         stakedTokenPriceInDollars * Number(getDisplayBalance(nodeEarnings, bank.depositToken.decimal));
-      totalRewards += earningInDollars;
+      rewardsInNodes += earningInDollars;
       totalInNodes += earningInDollars;
     }
 
@@ -474,16 +505,20 @@ export class GrapeFinance {
     // Winery earnings
     const earnings = await this.getEarningsOnBoardroom();
     const wineryEarnings = Number(getDisplayBalance(earnings));
-    totalRewards += grapePriceInDollars * wineryEarnings;
-
+    rewardsInWinery += grapePriceInDollars * wineryEarnings;
     totalInWinery = winePriceInDollars * wineryStakedInToken + grapePriceInDollars * wineryEarnings;
 
     return {
-      total: totalInVineyard + totalInNodes + totalInWinery,
-      totalRewards: totalRewards,
+      rewardsInVineyard: rewardsInVineyard,
+      rewardsInWinery: rewardsInWinery,
+      rewardsInNodes: rewardsInNodes,
+      rewardsInSodaPress: rewardsInSodaPress,
+      rewardsInWinePress: rewardsInWinePress,
       totalInVineyard: totalInVineyard,
       totalInWinery: totalInWinery,
       totalInNodes: totalInNodes,
+      totalInWinePress: totalInWinePress,
+      totalInSodaPress: totalInSodaPress
     };
   }
 

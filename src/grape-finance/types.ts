@@ -111,6 +111,12 @@ export type TokenStat = {
   treasuryGrapes?: string;
 };
 
+export type SodapressUserInfo = {
+  totalBalance: number;
+  totalClaimable: number;
+  xGrapeGrapeLPPrice: string;
+}
+
 export type WinepressUserInfo = {
   totalBalance: number;
   totalClaimable: number;
@@ -128,11 +134,16 @@ export type WalletNodesAndNFTs = {
 }
 
 export type WalletStats = {
-  total: number;
-  totalRewards: number;
+  rewardsInVineyard: number;
+  rewardsInWinery: number;
+  rewardsInNodes: number;
+  rewardsInWinePress: number;
+  rewardsInSodaPress: number;
   totalInVineyard: number;
   totalInWinery: number;
   totalInNodes: number;
+  totalInWinePress: number;
+  totalInSodaPress: number;
 }
 
 export type LPStat = {

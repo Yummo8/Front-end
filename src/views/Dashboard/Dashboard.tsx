@@ -4,14 +4,13 @@ import styled from 'styled-components';
 import {createGlobalStyle} from 'styled-components';
 import moment from 'moment';
 import Label from '../../components/Label';
-import {Box, Grid, Button, Typography, Card, CircularProgress, CardContent, Paper} from '@material-ui/core';
+import {Box, Grid, Button, Typography, Card, CardContent, Paper, Tooltip} from '@material-ui/core';
 import ProgressCountdown from './ProgressCountdown';
 import UnlockWallet from '../../components/UnlockWallet';
 import TokenSymbol from '../../components/TokenSymbol';
 import Page from '../../components/Page';
 import DashboardInfoCard from '../../components/DashboardInfoCard';
 import DashboardInfoCardNodes from './DashboardInfoCardNodes';
-import HomeImage from '../../assets/img/background.jpg';
 import useTreasuryAllocationTimes from '../../hooks/useTreasuryAllocationTimes';
 import useBanks from '../../hooks/useBanks';
 import useBank from '../../hooks/useBank';
@@ -29,12 +28,12 @@ import grapeImg from '../../assets/img/grape.png';
 import nodesImg from '../../assets/img/gnode.png';
 import wineImg from '../../assets/img/gshare.png';
 import wineMimLP from '../../assets/img/gshare-mim.png';
+import soda from '../../assets/img/soda.png';
 import DashboardBoardroomCard from './DashboardBoardroomCard';
-import useWinepressUserInfo from '../../hooks/useWinepressUserInfo';
 import {SyncLoader} from 'react-spinners';
 import useXGrapePrice from '../../hooks/useXGrapePrice';
 import useVintagePrice from '../../hooks/useVintagePrice';
-
+import InfoIcon from '@mui/icons-material/Info';
 const Dashboard = () => {
   const {account} = useWallet();
   const grapeFinance = useGrapeFinance();
@@ -79,31 +78,37 @@ const Dashboard = () => {
 
   const matches = useMediaQuery('(min-width:900px)');
   const matches960 = useMediaQuery('(max-width:960px)');
-  const winepressUserInfo = useWinepressUserInfo();
 
-  const [totalInvested, totalRewards, totalInVineyard, totalInNodes, totalInWinery] = useMemo(
-    () =>
-      walletStats
-        ? [
-            walletStats.total,
-            winepressUserInfo
-              ? walletStats.totalRewards + winepressUserInfo.totalClaimable * Number(winepressUserInfo.wineMIMLPPrice)
-              : walletStats.totalRewards,
-            walletStats.totalInVineyard.toFixed(2),
-            walletStats.totalInNodes.toFixed(2),
-            walletStats.totalInWinery.toFixed(2),
-          ]
-        : [null, null, null, null],
-    [walletStats, winepressUserInfo],
-  );
+  const totalInvested = useMemo(() => {
+    if (walletStats) {
+      return (
+        walletStats.totalInNodes +
+        walletStats.totalInSodaPress +
+        walletStats.totalInVineyard +
+        walletStats.totalInWinePress +
+        walletStats.totalInWinery +
+        Number(displayGrapeBalance) * Number(grapePriceInDollars) +
+        Number(displayWineBalance) * Number(winePriceInDollars) +
+        Number(displayXGrapeBalance) * Number(xGrapePrice) +
+        Number(displayVintageBalance) * Number(vintagePrice)
+      );
+    }
+    return -1;
+  }, [walletStats]);
 
-  const getTotalInvested = () => {
-    return (
-      totalInvested +
-      Number(displayGrapeBalance) * Number(grapePriceInDollars) +
-      Number(displayWineBalance) * Number(winePriceInDollars)
-    );
-  };
+  const totalRewards = useMemo(() => {
+    if (walletStats) {
+      // include individual tokens as well
+      return (
+        walletStats.rewardsInNodes +
+        walletStats.rewardsInSodaPress +
+        walletStats.rewardsInVineyard +
+        walletStats.rewardsInWinePress +
+        walletStats.rewardsInWinery
+      );
+    }
+    return -1;
+  }, [walletStats]);
 
   return (
     <Page>
@@ -121,13 +126,39 @@ const Dashboard = () => {
                 <Grid item xs={6} sm={6} md={4} lg={2}>
                   <Card>
                     <CardContent>
-                      <Typography color="textPrimary" align="center" variant="h6" gutterBottom>
-                        MY TOTAL
-                      </Typography>
+                      <Grid container justifyContent="center" spacing={1} alignContent="center" alignItems="center">
+                        <Grid item>
+                          <Typography color="textPrimary" align="center" variant="h6" gutterBottom>
+                            MY TOTAL
+                          </Typography>
+                        </Grid>
+                        <Grid item>
+                          <Tooltip
+                            arrow
+                            placement="top"
+                            enterDelay={0}
+                            title="Sum of all pools, rewards and individual tokens"
+                          >
+                            <InfoIcon fontSize="small" />
+                          </Tooltip>
+                        </Grid>
+                      </Grid>
 
                       <Typography color="textPrimary" align="center" variant="h5" style={{fontWeight: 700}}>
-                        {totalInvested != null ? (
-                          <CountUp end={getTotalInvested()} separator="," prefix="≈$" />
+                        {totalInvested !== -1 ? (
+                          <CountUp end={totalInvested} separator="," prefix="≈$" />
+                        ) : (
+                          <SyncLoader color="white" size={8} />
+                        )}
+                      </Typography>
+
+                      <Typography style={{color: '#f9b857', marginTop: '10px'}} align="center">
+                        Rewards
+                      </Typography>
+
+                      <Typography style={{color: '#f9b857', fontWeight: 700}} align="center">
+                        {totalRewards !== -1 ? (
+                          <CountUp end={Number(totalRewards)} separator="," prefix="≈$" />
                         ) : (
                           <SyncLoader color="white" size={8} />
                         )}
@@ -149,31 +180,19 @@ const Dashboard = () => {
                       </Typography>
 
                       <Typography color="textPrimary" align="center" variant="h5" style={{fontWeight: 700}}>
-                        {totalInVineyard ? (
-                          <CountUp end={totalInVineyard} separator="," prefix="≈$" />
+                        {walletStats ? (
+                          <CountUp end={walletStats.totalInVineyard} separator="," prefix="≈$" />
                         ) : (
                           <SyncLoader color="white" size={8} />
                         )}
                       </Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
-                <Grid item xs={6} sm={6} md={4} lg={2}>
-                  <Card>
-                    <CardContent>
-                      <Typography color="textSecondary" align="center" variant="h6" gutterBottom>
-                        <img
-                          src={nodesImg}
-                          alt="Nodes"
-                          height={25}
-                          style={{verticalAlign: 'text-bottom', marginRight: '10px'}}
-                        />
-                        Nodes
+                      <Typography style={{color: '#f9b857', marginTop: '10px'}} align="center">
+                        Rewards
                       </Typography>
 
-                      <Typography color="textPrimary" align="center" variant="h5" style={{fontWeight: 700}}>
-                        {totalInNodes != null ? (
-                          <CountUp end={totalInNodes} separator="," prefix="≈$" />
+                      <Typography style={{color: '#f9b857', fontWeight: 700}} align="center">
+                        {walletStats != null ? (
+                          <CountUp end={Number(walletStats.rewardsInVineyard)} separator="," prefix="≈$" />
                         ) : (
                           <SyncLoader color="white" size={8} />
                         )}
@@ -195,8 +214,20 @@ const Dashboard = () => {
                       </Typography>
 
                       <Typography color="textPrimary" align="center" variant="h5" style={{fontWeight: 700}}>
-                        {totalInWinery != null ? (
-                          <CountUp end={Number(totalInWinery)} separator="," prefix="≈$" />
+                        {walletStats != null ? (
+                          <CountUp end={Number(walletStats.totalInWinery)} separator="," prefix="≈$" />
+                        ) : (
+                          <SyncLoader color="white" size={8} />
+                        )}
+                      </Typography>
+
+                      <Typography style={{color: '#f9b857', marginTop: '10px'}} align="center">
+                        Rewards
+                      </Typography>
+
+                      <Typography style={{color: '#f9b857', fontWeight: 700}} align="center">
+                        {walletStats != null ? (
+                          <CountUp end={Number(walletStats.rewardsInWinery)} separator="," prefix="≈$" />
                         ) : (
                           <SyncLoader color="white" size={8} />
                         )}
@@ -204,6 +235,42 @@ const Dashboard = () => {
                     </CardContent>
                   </Card>
                 </Grid>
+                <Grid item xs={6} sm={6} md={4} lg={2}>
+                  <Card>
+                    <CardContent>
+                      <Typography color="textSecondary" align="center" variant="h6" gutterBottom>
+                        <img
+                          src={nodesImg}
+                          alt="Nodes"
+                          height={25}
+                          style={{verticalAlign: 'text-bottom', marginRight: '10px'}}
+                        />
+                        Nodes
+                      </Typography>
+
+                      <Typography color="textPrimary" align="center" variant="h5" style={{fontWeight: 700}}>
+                        {walletStats != null ? (
+                          <CountUp end={walletStats.totalInNodes} separator="," prefix="≈$" />
+                        ) : (
+                          <SyncLoader color="white" size={8} />
+                        )}
+                      </Typography>
+
+                      <Typography style={{color: '#f9b857', marginTop: '10px'}} align="center">
+                        Rewards
+                      </Typography>
+
+                      <Typography style={{color: '#f9b857', fontWeight: 700}} align="center">
+                        {walletStats != null ? (
+                          <CountUp end={Number(walletStats.rewardsInNodes)} separator="," prefix="≈$" />
+                        ) : (
+                          <SyncLoader color="white" size={8} />
+                        )}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+
                 <Grid item xs={6} sm={6} md={4} lg={2}>
                   <Card>
                     <CardContent>
@@ -218,12 +285,20 @@ const Dashboard = () => {
                       </Typography>
 
                       <Typography color="textPrimary" align="center" variant="h5" style={{fontWeight: 700}}>
-                        {winepressUserInfo ? (
-                          <CountUp
-                            end={Number(winepressUserInfo.totalBalance * Number(winepressUserInfo.wineMIMLPPrice))}
-                            separator=","
-                            prefix="≈$"
-                          />
+                        {walletStats ? (
+                          <CountUp end={walletStats.totalInWinePress} separator="," prefix="≈$" />
+                        ) : (
+                          <SyncLoader color="white" size={8} />
+                        )}
+                      </Typography>
+
+                      <Typography style={{color: '#f9b857', marginTop: '10px'}} align="center">
+                        Rewards
+                      </Typography>
+
+                      <Typography style={{color: '#f9b857', fontWeight: 700}} align="center">
+                        {walletStats != null ? (
+                          <CountUp end={Number(walletStats.rewardsInWinePress)} separator="," prefix="≈$" />
                         ) : (
                           <SyncLoader color="white" size={8} />
                         )}
@@ -231,16 +306,35 @@ const Dashboard = () => {
                     </CardContent>
                   </Card>
                 </Grid>
+
                 <Grid item xs={6} sm={6} md={4} lg={2}>
                   <Card>
                     <CardContent>
-                      <Typography color="textPrimary" align="center" variant="h6" gutterBottom>
-                        MY REWARDS
+                      <Typography color="textSecondary" align="center" variant="h6" gutterBottom>
+                        <img
+                          src={soda}
+                          alt="Wine MIM"
+                          height={25}
+                          style={{verticalAlign: 'text-bottom', marginRight: '10px'}}
+                        />
+                        Sodapress
                       </Typography>
 
                       <Typography color="textPrimary" align="center" variant="h5" style={{fontWeight: 700}}>
-                        {totalRewards != null ? (
-                          <CountUp end={Number(totalRewards)} separator="," prefix="≈$" />
+                        {walletStats ? (
+                          <CountUp end={walletStats.totalInSodaPress} separator="," prefix="≈$" />
+                        ) : (
+                          <SyncLoader color="white" size={8} />
+                        )}
+                      </Typography>
+
+                      <Typography style={{color: '#f9b857', marginTop: '10px'}} align="center">
+                        Rewards
+                      </Typography>
+
+                      <Typography style={{color: '#f9b857', fontWeight: 700}} align="center">
+                        {walletStats != null ? (
+                          <CountUp end={Number(walletStats.rewardsInSodaPress)} separator="," prefix="≈$" />
                         ) : (
                           <SyncLoader color="white" size={8} />
                         )}

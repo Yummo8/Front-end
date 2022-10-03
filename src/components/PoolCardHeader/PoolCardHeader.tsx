@@ -37,7 +37,6 @@ const PoolCardHeader: React.FC<PoolCardHeaderProps> = ({
   const handleOpenModal = () => {
     setModalOpen(true);
   };
-  console.log((userDetails))
   return (
     <Grid container style={{position: 'relative'}} spacing={1}>
       <AprModal
