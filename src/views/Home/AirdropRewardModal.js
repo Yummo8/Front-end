@@ -93,11 +93,8 @@ const style = {
 const AirdropRewardModal = ({
   open,
   handleClose,
-  grapes,
   grapePrice,
-  wines,
   winePrice,
-  grapeMimSW,
   grapeMimSWPrice,
   totalGrapes,
   totalWine,
@@ -130,12 +127,14 @@ const AirdropRewardModal = ({
   const classes = useStyles();
 
   const getNumberOfNodes = (coin) => {
-    if (coin === 'GRAPE') {
-      return Number(grapes);
-    } else if (coin === 'WINE') {
-      return Number(wines);
-    } else if (coin === 'GRAPE-MIM SW') {
-      return Number(grapeMimSW);
+    if (useWalletsNodesAndNFTs) {
+      if (coin === 'GRAPE') {
+        return Number(useWalletsNodesAndNFTs.grapes);
+      } else if (coin === 'WINE') {
+        return Number(useWalletsNodesAndNFTs.wines);
+      } else if (coin === 'GRAPE-MIM SW') {
+        return Number(useWalletsNodesAndNFTs.grapeMimSWs);
+      }
     }
   };
 

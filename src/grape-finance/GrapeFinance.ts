@@ -649,9 +649,9 @@ export class GrapeFinance {
     return await this.contracts[contract].getTotalNodes();
   }
 
-  async getGrapeNodes(): Promise<BigNumber[]> {
-    const {GrapeNode} = this.contracts;
-    return await GrapeNode.getTotalNodes();
+  async getGrapeNodes(): Promise<Number> {
+    const {GrapeNodeV2} = this.contracts;
+    return await Number(GrapeNodeV2.getTotalNodes());
   }
 
   async getWineNodes(): Promise<BigNumber[]> {

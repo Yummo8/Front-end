@@ -7,9 +7,6 @@ import GrapeNode from '../GrapeNode';
 import useBank from '../../hooks/useBank';
 import NodesInfoCard from '../../components/NodesInfoCard';
 import AirdropRewardModal from '../../views/Home/AirdropRewardModal';
-import useGrapeTotalNode from '../../hooks/useGrapeTotalNodes';
-import useWineTotalNode from '../../hooks/useWineTotalNodes';
-import useGrapeMimSWTotalNode from '../../hooks/useGrapeMimSWTotalNode';
 import useGrapeStats from '../../hooks/useGrapeStats';
 import useWineStats from '../../hooks/useWineStats';
 import useLpStats from '../../hooks/useLpStats';
@@ -19,9 +16,6 @@ import {Grid, Typography, Button, Card, CardContent, CircularProgress} from '@ma
 
 const GrapeNodes = () => {
   const {path} = useRouteMatch();
-  const useGrapeTotal = useGrapeTotalNode();
-  const useWineTotal = useWineTotalNode();
-  const useGrapeMimSWTotal = useGrapeMimSWTotalNode();
 
   //const grapeNodeBank = useBank('GrapeNode');
   const grapeNodeV2Bank = useBank('GrapeNodeV2');
@@ -63,11 +57,8 @@ const GrapeNodes = () => {
       <AirdropRewardModal
         open={rewardModelOpen}
         handleClose={handleCloseModal}
-        grapes={useGrapeTotal[0]}
         grapePrice={grapePriceInDollars}
-        wines={useWineTotal[0]}
         winePrice={winePriceInDollars}
-        grapeMimSW={useGrapeMimSWTotal[0]}
         grapeMimSWPrice={grapeMimSWPriceInDollars}
         totalGrapes={nodeRewardPoolStats?.grapes}
         totalWine={nodeRewardPoolStats?.wines}
