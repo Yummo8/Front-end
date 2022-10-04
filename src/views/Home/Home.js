@@ -106,7 +106,7 @@ const Home = () => {
                 variant="contained"
                 className="winepress get-started"
               >
-                Get Started
+                Read the Docs
               </Button>
             </Grid>
           </Grid>
