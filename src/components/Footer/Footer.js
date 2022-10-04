@@ -49,7 +49,7 @@ const Footer = () => {
                 </a>
               </Grid>
               <Grid item>
-                <a href="https://discord.gg/grapefinance" rel="noopener noreferrer" target="_blank">
+                <a href="https://www.youtube.com/channel/UCaArraLhGOOzR1vZKr4y4Tw" rel="noopener noreferrer" target="_blank">
                   <YouTubeIcon style={{fill: 'white', width: '50px', transform: 'scale(1.5)'}} />
                 </a>
               </Grid>
