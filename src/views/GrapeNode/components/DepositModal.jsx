@@ -63,7 +63,7 @@ const DepositModal = ({nodePrice, bank, max, decimals, onConfirm, onDismiss, tok
       />
       {bank.contract === 'GrapeNodeV2' && (
         <p style={{fontSize: '0.7rem'}}>
-          If you have unclaimed earned Grape, it is recommended to compound (if possible) before creating new nodes
+          When creating new Nodes, any pending rewards will be automatically claimed and taxed if a Claim Tax is active. Compound before creating new Nodes is recommended. 
         </p>
       )}
       <ModalActions>
