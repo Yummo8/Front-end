@@ -1093,13 +1093,13 @@ const Page: React.FC = ({children}) => {
                   </a>
                   <a
                     className="menu-item"
-                    href="https://snowtrace.io/address/0x567971069EdCe50235c33FAb133e1EcdF838d3b3"
+                    href="https://snowtrace.io/address/0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6"
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{padding: 0, display: 'block'}}
                   >
                     <ListItemButton sx={{pl: 4}}>
-                      <ListItemText primary="WinePress (Lotto)" />
+                      <ListItemText primary="SodaPress" />
                     </ListItemButton>
                   </a>
                 </List>
@@ -1147,6 +1147,39 @@ const Page: React.FC = ({children}) => {
                   >
                     <ListItemButton sx={{pl: 4}}>
                       <ListItemText primary="Grape" />
+                    </ListItemButton>
+                  </a>
+                  <a
+                    className="menu-item"
+                    href="https://snowtrace.io/address/0x95CED7c63eA990588F3fd01cdDe25247D04b8D98"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{padding: 0, display: 'block'}}
+                  >
+                    <ListItemButton sx={{pl: 4}}>
+                      <ListItemText primary="xGrape" />
+                    </ListItemButton>
+                  </a>
+                  <a
+                    className="menu-item"
+                    href="https://snowtrace.io/address/0x7801dc126F56ffeFbc7947B7d21ce8358265a886"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{padding: 0, display: 'block'}}
+                  >
+                    <ListItemButton sx={{pl: 4}}>
+                      <ListItemText primary="xGrape Price" />
+                    </ListItemButton>
+                  </a>
+                  <a
+                    className="menu-item"
+                    href="https://snowtrace.io/address/0xe00b91f35924832d1a7d081d4dced55f3b80fb5c"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{padding: 0, display: 'block'}}
+                  >
+                    <ListItemButton sx={{pl: 4}}>
+                      <ListItemText primary="xGrape-Grape LP" />
                     </ListItemButton>
                   </a>
                   <a
