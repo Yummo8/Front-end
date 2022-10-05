@@ -1093,7 +1093,7 @@ const Page: React.FC = ({children}) => {
                   </a>
                   <a
                     className="menu-item"
-                    href="https://snowtrace.io/address/0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6"
+                    href="https://snowtrace.io/address/0x369E556F0e7A08E781527D161DaC867bb05fA597"
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{padding: 0, display: 'block'}}
