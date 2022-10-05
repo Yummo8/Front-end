@@ -25,7 +25,6 @@ const Dashboard = lazy(() => import('./views/Dashboard'));
 const Vineyard = lazy(() => import('./views/Vineyard'));
 const Winery = lazy(() => import('./views/Winery'));
 const Bond = lazy(() => import('./views/Bond'));
-const Stats = lazy(() => import('./views/Stats'));
 const Launchpad = lazy(() => import('./views/Launchpad'));
 const Roadmap = lazy(() => import('./views/Roadmap'));
 const Raffle = lazy(() => import('./views/Raffle'));
@@ -33,6 +32,7 @@ const Strategies = lazy(() => import('./views/Strategies'));
 const Help = lazy(() => import('./views/Help'));
 const Nodes = lazy(() => import('./views/Nodes'));
 const Leaderboard = lazy(() => import('./views/Leaderboard'));
+//const Stats = lazy(() => import('./views/Stats'));
 const NFTRaffle = lazy(() => import('./views/NFTRaffle'));
 const Rebates = lazy(() => import('./views/Rebates'));
 const Peg = lazy(() => import('./views/Extinction'));
@@ -93,9 +93,9 @@ const App: React.FC = () => {
             <Route path="/strategies">
               <Strategies />
             </Route>
-            <Route path="/stats">
+            {/*<Route path="/stats">
               <Stats />
-              </Route>
+              </Route>*/}
             <Route path="/raffle">
               <Raffle />
             </Route>
