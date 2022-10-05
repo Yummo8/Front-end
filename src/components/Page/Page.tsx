@@ -531,7 +531,7 @@ const Page: React.FC = ({children}) => {
                 >
                   <AppsIcon style={{fill: '#e647e6'}} />
                 </ListItemIcon>
-                <ListItemText primary="Apps" sx={{opacity: open ? 1 : 0}}/>
+                <ListItemText primary="Apps" sx={{opacity: open ? 1 : 0}} />
                 {open ? appsOpen ? <ExpandLess /> : <ExpandMore /> : null}
               </ListItemButton>
             </Tooltip>
@@ -1457,30 +1457,8 @@ const Page: React.FC = ({children}) => {
                       </ListItemButton>
                     </ListItem>
                   </Tooltip>
-                  {/*<Tooltip arrow followCursor title={open ? '' : 'Dashboard'} placement="top-start">
-                    <a
-                      className="menu-item"
-                      href="https://stats.grapefinance.app/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{padding: 0, display: 'block'}}
-                    >
-                      <ListItemButton sx={{pl: 4}}>
-                        <ListItemIcon
-                          sx={{
-                            color: 'white',
-                            minWidth: 0,
-                            mr: open ? 3 : 'auto',
-                            justifyContent: 'center',
-                          }}
-                        >
-                          <QueryStatsIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Dashboard" />
-                      </ListItemButton>
-                    </a>
-                    </Tooltip>
-                  <Tooltip arrow followCursor title={open ? '' : 'Node Rewards'} placement="top-start">
+
+                  <Tooltip arrow followCursor title={open ? '' : 'Stats'} placement="top-start">
                     <ListItem
                       className="menu-item"
                       button
@@ -1503,7 +1481,7 @@ const Page: React.FC = ({children}) => {
                         <ListItemText primary="Stats" />
                       </ListItemButton>
                     </ListItem>
-                  </Tooltip>*/}
+                  </Tooltip>
                   <Tooltip arrow followCursor title={open ? '' : 'Roadmap'} placement="top-start">
                     <ListItem
                       className="menu-item"
