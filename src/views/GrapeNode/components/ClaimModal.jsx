@@ -19,9 +19,9 @@ const ClaimModal = ({bank, tokenName = ''}) => {
     <Modal class ="modal fade">
       <ReactTooltip effect="solid" clickable type="dark" place="bottom" />
       <ModalTitle
-        text={`Claim ${getDisplayBalance(earnings) * (claimFee === 0 ? 1 : claimFee / 100)} ${tokenName} after the ${claimFee}% Fee?`}
+        text={`Confirm claiming`}
       /> 
-      <center>With your GRAPE rewards, you can:<br /><br />1. Compound into more Nodes,<br />2. Single-stake GRAPE in the Vineyard to earn WINE,<br />3. Pair GRAPE with MIM and stake it in the Vineyard to earn WINE.</center>
+      <center><h3>Claim {getDisplayBalance(earnings) * (claimFee === 0 ? 1 : claimFee / 100)} {tokenName} after the {claimFee}% Fee?</h3><br /><br />With your GRAPE rewards, you can:<br /><br />1. Compound into more Nodes,<br />2. Single-stake GRAPE in the Vineyard to earn WINE,<br />3. Pair GRAPE with MIM and stake it in the Vineyard to earn WINE.</center>
       <ModalActions>
         <Button className="shinyButton" style={{marginTop: '10px', width: '100%'}} onClick={onReward}>
           Confirm

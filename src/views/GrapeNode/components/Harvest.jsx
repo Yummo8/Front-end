@@ -20,6 +20,7 @@ import useModal from '../../../hooks/useModal';
 import useStake from '../../../hooks/useStake';
 import ClaimModal from './ClaimModal';
 import useTokenBalance from '../../../hooks/useTokenBalance';
+import useHarvest from '../../../hooks/useHarvest';
 
 const Harvest = ({bank}) => {
   const earnings = useEarnings(bank.contract, bank.earnTokenName, bank.poolId);
@@ -55,7 +56,7 @@ const Harvest = ({bank}) => {
   
   const {onCompound} = useCompound(bank);
   const {onStake} = useStake(bank);
-
+  const {onReward} = useHarvest(bank);
 
   const [onPresentClaim, onDismissClaim] = useModal(
     <ClaimModal
@@ -70,6 +71,8 @@ const Harvest = ({bank}) => {
       tokenName={bank.depositTokenName}
     />,
   );
+
+  
   return (
     <Card>
       <CardContent>
@@ -94,7 +97,7 @@ const Harvest = ({bank}) => {
             <Grid container spacing={1}>
               <Grid item xs={10}>
                 <Button
-                  onClick={onPresentClaim}
+                  onClick={claimFee > 0 ? onPresentClaim : onReward}
                   style={{width: '100%'}}
                   disabled={earnings.eq(0)}
                   className={earnings.eq(0) ? 'shinyButtonDisabled' : 'shinyButton'}
