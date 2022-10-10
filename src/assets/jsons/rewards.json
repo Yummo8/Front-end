@@ -1,6 +1,6 @@
 {
-    "GRAPE": "With your Grape rewards, you can:<br />1. Compound into more Nodes<br />2. Single stake Grape in the Vineyard to earn Wine<br />3. Pair Grape with MIM and stake it in the Vineyard to earn Wine", 
-    "WINE": "With your Wine rewards, you can:<br />1. Stake Wine in Winery to earn Grape (when above 1.01 TWAP)<br />2. Pair with MIM or Grape and stake in the Vineyard to earn more Wine<br />3. Pair with MIM and stake in the Winepress to earn more Wine-MIM LP",
-    "GRAPE-MIM-SW": "With your GRAPE-MIM-SW rewards, you can:<br />1. Compound into more Nodes<br />2. Stake Grape-MIM SW LP in the Vineyard to earn Wine<br />3. Break the LP, and buy more Grape with the MIM",
-    "GRAPE-WLRS-LP": "With your GRAPE-WLRS-LP rewards, you can:<br />1. Compound into more Nodes<br />2. Break the LP and single stake Grape in the Vineyard to earn Wine"
+    "GRAPE": "With your GRAPE rewards, you can:<br />1. Compound into more Nodes,<br />2. Single-stake GRAPE in the Vineyard to earn WINE,<br />3. Pair GRAPE with MIM and stake it in the Vineyard to earn WINE.", 
+    "WINE": "With your WINE rewards, you can:<br />1. Stake WINE in Winery to earn GRAPE (when above 1.01 TWAP),<br />2. Pair with MIM or GRAPE and stake in the Vineyard to earn more WINE,<br />3. Pair with MIM and stake in the Winepress to earn more WINE-MIM LP.",
+    "GRAPE-MIM-SW": "With your GRAPE-MIM-SW rewards, you can:<br />1. Compound into more Nodes,<br />2. Stake GRAPE-MIM SW LP in the Vineyard to earn WINE,<br />3. Break the LP, and buy more GRAPE with the MIM.",
+    "GRAPE-WLRS-LP": "With your GRAPE-WLRS-LP rewards, you can:<br />1. Compound into more Nodes,<br />2. Break the LP and single-stake GRAPE in the Vineyard to earn WINE."
 }
