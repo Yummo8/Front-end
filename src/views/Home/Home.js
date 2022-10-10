@@ -11,7 +11,7 @@ import useBondStats from '../../hooks/useBondStats';
 import useWineStats from '../../hooks/useWineStats';
 
 import useTotalValueLocked from '../../hooks/useTotalValueLocked';
-import {Button, Card, Grid, Paper, CircularProgress, Typography} from '@material-ui/core';
+import {Button, Grid, Paper, CircularProgress, Typography} from '@material-ui/core';
 import kyc from '../../assets/img/kyc.png';
 import audit from '../../assets/img/audit1.png';
 
@@ -22,12 +22,8 @@ import HomeCard from './HomeCard';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
-import {ReactComponent as IconDiscord} from '../../assets/img/discord-plain.svg';
-import YouTubeIcon from '@mui/icons-material/YouTube';
-import {ReactComponent as IconTwitter} from '../../assets/img/twitter.svg';
-
 const Home = () => {
-  const TVL = useTotalValueLocked();
+  const totalTVL = useTotalValueLocked();
   const grapemimLpStats = useLpStatsBTC('GRAPE-MIM-LP');
   const bSharemimLpStats = useLpStats('WINE-MIM-LP');
   const [seeMoreInfo, setSeeMoreInfo] = useState(false);
@@ -115,8 +111,8 @@ const Home = () => {
         <Grid item xs={12}>
           <div className="front-text-top">TOTAL VALUE LOCKED</div>
           <div className="front-text-tvl">
-            {TVL ? (
-              <CountUp end={TVL} separator="," prefix="$" />
+            {totalTVL ? (
+              <CountUp end={totalTVL} separator="," prefix="$" />
             ) : (
               <span className="loading-tvl">
                 <SyncLoader color="#E647E6" size={30} />
@@ -144,8 +140,6 @@ const Home = () => {
             ))}
           </Grid>
         </Grid>
-
-        
 
         <Grid item sm={12} style={{textAlign: 'center', marginTop: '30px'}}>
           <Button

@@ -20,7 +20,7 @@ import {
   PegPoolToken,
   PegPoolUserInfo,
   WinepressUserInfo,
-  SodapressUserInfo
+  SodapressUserInfo,
 } from './types';
 import {BigNumber, BigNumberish, Contract, ethers, EventFilter} from 'ethers';
 import {decimalToBalance} from './ether-utils';
@@ -149,14 +149,11 @@ export class GrapeFinance {
   //===================================================================
 
   async getGrapeXGrapeLPPrice(): Promise<string> {
-    const { XGRAPEGRAPE, xGrapeOracle } = this.contracts;
-    const grapeXGrapeSupply = Number(await XGRAPEGRAPE.totalSupply()) / 1e18
-    const xGrapePrice = Number(await xGrapeOracle.xGrapePrice()) / 1e18
-    const xGrapeBalance = Number(await this.XGRAPE.balanceOf(this.XGRAPELP.address)) / 1e18
-    const fixedLPPrice = (
-      (xGrapeBalance * xGrapePrice * 2) /
-      grapeXGrapeSupply
-    ).toFixed(3);
+    const {XGRAPEGRAPE, xGrapeOracle} = this.contracts;
+    const grapeXGrapeSupply = Number(await XGRAPEGRAPE.totalSupply()) / 1e18;
+    const xGrapePrice = Number(await xGrapeOracle.xGrapePrice()) / 1e18;
+    const xGrapeBalance = Number(await this.XGRAPE.balanceOf(this.XGRAPELP.address)) / 1e18;
+    const fixedLPPrice = ((xGrapeBalance * xGrapePrice * 2) / grapeXGrapeSupply).toFixed(3);
     return fixedLPPrice;
   }
 
@@ -185,8 +182,8 @@ export class GrapeFinance {
 
   async getXGrapePrice(): Promise<string> {
     const {xGrapeOracle} = this.contracts;
-    const xGrapePrice = Number(await xGrapeOracle.xGrapePrice()) / 1e18
-    return (xGrapePrice).toFixed(3)
+    const xGrapePrice = Number(await xGrapeOracle.xGrapePrice()) / 1e18;
+    return xGrapePrice.toFixed(3);
   }
 
   async getGrapeStat(): Promise<TokenStat> {
@@ -397,7 +394,7 @@ export class GrapeFinance {
    * CirculatingSupply (always equal to total supply for bonds)
    */
   async getShareStat(): Promise<TokenStat> {
-    const {WineRewardPool} = this.contracts;
+    const {WineRewardPool, priceOracle} = this.contracts;
 
     const supply = await this.WINE.totalSupply();
 
@@ -409,18 +406,19 @@ export class GrapeFinance {
 
     const priceOfSharesInDollars = Number(priceInBNB).toFixed(2);
 
+    const winePrice = ((await priceOracle.winePrice()) / 1e18).toString();
     return {
-      tokenInFtm: priceOfSharesInDollars,
-      priceInDollars: priceOfSharesInDollars,
+      tokenInFtm: winePrice,
+      priceInDollars: winePrice,
       totalSupply: getDisplayBalance(supply, this.WINE.decimal, 0),
       circulatingSupply: getDisplayBalance(tShareCirculatingSupply, this.WINE.decimal, 0),
     };
   }
 
   async getVintagePrice(): Promise<string> {
-    const mimBalance = await this.MIM.balanceOf(this.VINTAGELP.address);
-    const vintageBalance = await this.VINTAGE.balanceOf(this.VINTAGELP.address);
-    return (+mimBalance / +vintageBalance).toFixed(3);
+    const {priceOracle} = this.contracts;
+    const vintagePrice = (await priceOracle.vintagePrice()) / 1e18;
+    return vintagePrice.toFixed(4)
   }
 
   async getWalletStats(banks: Bank[]): Promise<WalletStats> {
@@ -434,10 +432,10 @@ export class GrapeFinance {
       totalInWinery = 0,
       totalInWinePress = 0,
       totalInSodaPress = 0,
-      rewardsInVineyard = 0, 
-      rewardsInWinery = 0, 
+      rewardsInVineyard = 0,
+      rewardsInWinery = 0,
       rewardsInNodes = 0,
-      rewardsInWinePress = 0, 
+      rewardsInWinePress = 0,
       rewardsInSodaPress = 0;
 
     const winePriceInDollars = Number(await this.getDepositTokenPriceInDollars('WINE', this.WINE));
@@ -445,13 +443,14 @@ export class GrapeFinance {
 
     // WinePress
     const winepressUserInfo = await this.getWinepressUserInfo();
-    rewardsInWinePress = winepressUserInfo.totalClaimable * Number(winepressUserInfo.wineMIMLPPrice)
-    totalInWinePress = winepressUserInfo.totalBalance * Number(winepressUserInfo.wineMIMLPPrice) + rewardsInWinePress
+    rewardsInWinePress = winepressUserInfo.totalClaimable * Number(winepressUserInfo.wineMIMLPPrice);
+    totalInWinePress = winepressUserInfo.totalBalance * Number(winepressUserInfo.wineMIMLPPrice) + rewardsInWinePress;
 
     // SodaPress
     const sodapressUserInfo = await this.getSodapressUserInfo();
-    rewardsInSodaPress = sodapressUserInfo.totalClaimable * Number(sodapressUserInfo.xGrapeGrapeLPPrice)
-    totalInSodaPress = sodapressUserInfo.totalBalance * Number(sodapressUserInfo.xGrapeGrapeLPPrice) + rewardsInSodaPress
+    rewardsInSodaPress = sodapressUserInfo.totalClaimable * Number(sodapressUserInfo.xGrapeGrapeLPPrice);
+    totalInSodaPress =
+      sodapressUserInfo.totalBalance * Number(sodapressUserInfo.xGrapeGrapeLPPrice) + rewardsInSodaPress;
 
     // Vineyard
     for (let i = 0; i < vineyardBanks.length; i++) {
@@ -479,8 +478,7 @@ export class GrapeFinance {
       let nodesCount;
       try {
         nodesCount = nodes[0];
-      } catch (e) {
-      }
+      } catch (e) {}
       if (!nodesCount) {
         nodesCount = Number(nodes);
       }
@@ -489,7 +487,8 @@ export class GrapeFinance {
         await this.getDepositTokenPriceInDollars(bank.depositTokenName, bank.depositToken),
       );
       totalInNodes +=
-        Number(nodesCount) * (stakedTokenPriceInDollars * Number(getDisplayBalance(nodePrice, bank.depositToken.decimal)));
+        Number(nodesCount) *
+        (stakedTokenPriceInDollars * Number(getDisplayBalance(nodePrice, bank.depositToken.decimal)));
 
       // Node earnings
       const nodeEarnings = await this.earnedFromBank(bank.contract, bank.earnTokenName, bank.poolId, this.myAccount);
@@ -518,7 +517,7 @@ export class GrapeFinance {
       totalInWinery: totalInWinery,
       totalInNodes: totalInNodes,
       totalInWinePress: totalInWinePress,
-      totalInSodaPress: totalInSodaPress
+      totalInSodaPress: totalInSodaPress,
     };
   }
 
@@ -587,7 +586,7 @@ export class GrapeFinance {
   }
 
   async getGrapeNodeClaimFee(): Promise<Number> {
-    const claimFee = await this.contracts['GrapeNodeV2'].pegFee()
+    const claimFee = await this.contracts['GrapeNodeV2'].pegFee();
     return await Number(claimFee);
   }
 
@@ -955,29 +954,9 @@ export class GrapeFinance {
   }
 
   async getTotalValueLocked(): Promise<Number> {
-    let totalValue = 0;
-    for (const bankInfo of Object.values(bankDefinitions)) {
-      const pool = this.contracts[bankInfo.contract];
-      // Since we have the NFT Contract, pool can be null
-      if (!pool) {
-        continue;
-      }
-      const token = this.externalTokens[bankInfo.depositTokenName];
-      const tokenPrice = await this.getDepositTokenPriceInDollars(bankInfo.depositTokenName, token);
-
-      const tokenAmountInPool = await token.balanceOf(pool.address);
-
-      const value = Number(getDisplayBalance(tokenAmountInPool, token.decimal)) * Number(tokenPrice);
-
-      const poolValue = Number.isNaN(value) ? 0 : value;
-      totalValue += poolValue;
-    }
-
-    const BSHAREPrice = (await this.getShareStat()).priceInDollars;
-    const boardroomtShareBalanceOf = await this.WINE.balanceOf(this.currentBoardroom().address);
-    const boardroomTVL = Number(getDisplayBalance(boardroomtShareBalanceOf, this.WINE.decimal)) * Number(BSHAREPrice);
-
-    return totalValue + boardroomTVL;
+    const {priceOracle} = this.contracts;
+    const totalTVL = (await priceOracle.totalTVL()) / 1e18;
+    return totalTVL;
   }
 
   /**
