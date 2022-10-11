@@ -16,7 +16,7 @@ const ClaimModal = ({bank, tokenName = ''}) => {
   const {onReward} = useHarvest(bank);
 
   return (
-    <Modal class ="modal fade">
+    <Modal>
       <ReactTooltip effect="solid" clickable type="dark" place="bottom" />
       <ModalTitle
         text={`Confirm claiming`}
