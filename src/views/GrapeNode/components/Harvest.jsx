@@ -7,7 +7,6 @@ import Label from '../../../components/Label';
 import Value from '../../../components/Value';
 import useEarnings from '../../../hooks/useEarnings';
 import useGrapeNodeClaimFee from '../../../hooks/useGrapeNodeClaimFee';
-import useHarvest from '../../../hooks/useHarvest';
 import useCompound from '../../../hooks/useCompound';
 import {getDisplayBalance} from '../../../utils/formatBalance';
 import TokenSymbol from '../../../components/TokenSymbol';
@@ -17,6 +16,11 @@ import useNodePrice from '../../../hooks/useNodePrice';
 import useLpStatsBTC from '../../../hooks/useLpStatsBTC';
 import ReactTooltip from 'react-tooltip';
 import rewards from '../../../assets/jsons/rewards.json';
+import useModal from '../../../hooks/useModal';
+import useStake from '../../../hooks/useStake';
+import ClaimModal from './ClaimModal';
+import useTokenBalance from '../../../hooks/useTokenBalance';
+import useHarvest from '../../../hooks/useHarvest';
 
 const Harvest = ({bank}) => {
   const earnings = useEarnings(bank.contract, bank.earnTokenName, bank.poolId);
@@ -25,6 +29,7 @@ const Harvest = ({bank}) => {
   const grapemimLpStats = useLpStatsBTC('GRAPE-MIM-SW');
   const grapeWLRSLpStats = useLpStatsBTC('GRAPE-WLRS-LP');
   const claimFee = useGrapeNodeClaimFee();
+  const tokenBalance = useTokenBalance(bank.depositToken);
 
   let tokenStats = 0;
   if (bank.earnTokenName === 'WINE') {
@@ -48,9 +53,26 @@ const Harvest = ({bank}) => {
   );
   const earnedInDollars = (Number(tokenPriceInDollars) * Number(getDisplayBalance(earnings))).toFixed(2);
   const earnedInDollarsLP = (Number(tokenPriceInDollarsLP) * Number(getDisplayBalance(earnings))).toFixed(2);
-  const {onReward} = useHarvest(bank);
+  
   const {onCompound} = useCompound(bank);
+  const {onStake} = useStake(bank);
+  const {onReward} = useHarvest(bank);
 
+  const [onPresentClaim, onDismissClaim] = useModal(
+    <ClaimModal
+      bank={bank}
+      max={tokenBalance}
+      decimals={bank.depositToken.decimal}
+      onConfirm={(amount) => {
+        if (Number(amount) <= 0 || isNaN(Number(amount))) return;
+        onStake(amount);
+        onDismissClaim();
+      }}
+      tokenName={bank.depositTokenName}
+    />,
+  );
+
+  
   return (
     <Card>
       <CardContent>
@@ -75,7 +97,7 @@ const Harvest = ({bank}) => {
             <Grid container spacing={1}>
               <Grid item xs={10}>
                 <Button
-                  onClick={onReward}
+                  onClick={(bank.contract === 'GrapeNodeV2' && claimFee != null && claimFee > 0) ? onPresentClaim : onReward}
                   style={{width: '100%'}}
                   disabled={earnings.eq(0)}
                   className={earnings.eq(0) ? 'shinyButtonDisabled' : 'shinyButton'}

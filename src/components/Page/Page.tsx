@@ -472,14 +472,6 @@ const Page: React.FC = ({children}) => {
                 </div>
               )}
               <AccountButton text="Connect" />
-              <a
-                href="https://discord.gg/grapefinance"
-                rel="noopener noreferrer"
-                target="_blank"
-                style={{color: '#fff'}}
-              >
-                <IconDiscord width={30} style={{fill: '#fff', height: '42px'}} />
-              </a>{' '}
             </Box>
           </Toolbar>
         </AppBar>
@@ -519,7 +511,7 @@ const Page: React.FC = ({children}) => {
           </Link>
 
           <List>
-            <Tooltip arrow followCursor title={open ? '' : 'Apps'} placement="top-start">
+            <Tooltip arrow followCursor title={open ? '' : 'DeFi Products'} placement="top-start">
               <ListItemButton onClick={handleAppsClick}>
                 <ListItemIcon
                   sx={{
@@ -531,7 +523,7 @@ const Page: React.FC = ({children}) => {
                 >
                   <AppsIcon style={{fill: '#e647e6'}} />
                 </ListItemIcon>
-                <ListItemText primary="Apps" sx={{opacity: open ? 1 : 0}} />
+                <ListItemText primary="DeFi Products" sx={{opacity: open ? 1 : 0}} />
                 {open ? appsOpen ? <ExpandLess /> : <ExpandMore /> : null}
               </ListItemButton>
             </Tooltip>
