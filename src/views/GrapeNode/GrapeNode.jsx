@@ -239,7 +239,7 @@ const GrapeNode = () => {
           >
             Node Docs & Strategy
           </a>{' '}
-          in order to fully understand how our node pools work before purchasing, by partaking you accept the risks
+          in order to fully understand how our node pools work before purchasing, by partaking you accept the risks & terms
           outlined in the docs & disclaimer.
         </Alert>
       </Box>
