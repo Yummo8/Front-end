@@ -97,7 +97,7 @@ const Harvest = ({bank}) => {
             <Grid container spacing={1}>
               <Grid item xs={10}>
                 <Button
-                  onClick={(bank.contract === 'GrapeNodeV2' && claimFee) ? onPresentClaim : onReward}
+                  onClick={(bank.contract === 'GrapeNodeV2' && claimFee != null && claimFee > 0) ? onPresentClaim : onReward}
                   style={{width: '100%'}}
                   disabled={earnings.eq(0)}
                   className={earnings.eq(0) ? 'shinyButtonDisabled' : 'shinyButton'}
