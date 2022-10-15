@@ -1,5 +1,14 @@
 [
   {
+    "label": "Solera Press",
+    "subLabel": "Locked sVintage Staking",
+    "description": "Lock sVintage and earn up to ~2% daily + bonus. Assassinate players for more returns.",
+    "linkTo": "https://solera.grapefinance.app/",
+    "isInternalLink": false,
+    "image": "solera.png", 
+    "isNew": true
+  },
+  {
     "label": "xGrape",
     "subLabel": "Always Up Token",
     "color": "#e647e6",
