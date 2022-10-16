@@ -17,6 +17,7 @@ import {Link} from 'react-router-dom';
 import AccountButton from '../Nav/AccountButton';
 import useCashPriceInEstimatedTWAP from '../../hooks/useCashPriceInEstimatedTWAP';
 
+import soleraIcon from '../../assets/img/solera.png';
 import grapeLogo from '../../assets/img/logo1.png';
 import coinsImg from '../../assets/img/casinocoins.png';
 import fantomHouseImg from '../../assets/img/houseflip.png';
@@ -711,6 +712,28 @@ const Page: React.FC = ({children}) => {
                       <ListItemText primary="Peg Health Campaign" sx={{opacity: open ? 1 : 0}} />
                     </ListItemButton>
                   </ListItem>
+
+                  <a
+                    className="menu-item"
+                    href="https://solera.grapefinance.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{display: 'block'}}
+                  >
+                    <ListItemButton sx={{pl: 4}}>
+                      <ListItemIcon
+                        sx={{
+                          color: 'white',
+                          minWidth: 0,
+                          mr: open ? 3 : 'auto',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <img src={soleraIcon} alt="solera" height={30} />{' '}
+                      </ListItemIcon>
+                      <ListItemText primary="Solera Press" />
+                    </ListItemButton>
+                  </a>
 
                   <a
                     className="menu-item"
