@@ -5,7 +5,7 @@
     "description": "Lock sVintage and earn up to ~2% daily + bonus. Assassinate players for more returns.",
     "linkTo": "https://solera.grapefinance.app/",
     "isInternalLink": false,
-    "image": "solera.png", 
+    "image": "solera.png",
     "isNew": true
   },
   {
@@ -72,15 +72,6 @@
     "image": "barrel.png"
   },
   {
-    "label": "Peg Health Campaign",
-    "subLabel": "Discount Rebates",
-    "description": "Bond Grape, MIM, or Grape-MIM LP, and receive discounted Wine over a vesting period of 72 hours.",
-    "isNew": false,
-    "linkTo": "/rebates",
-    "isInternalLink": true,
-    "image": "rebates.png"
-  },
-  {
     "label": "Wine Maker",
     "subLabel": "NFT Staking RPG",
     "description": "Stake Vinters, equip & train them to become a Master Winemaker. Earn $Vintage and get up to ~1.5% daily.",
@@ -88,6 +79,15 @@
     "linkTo": "https://winemaker.grapefinance.app/",
     "isInternalLink": false,
     "image": "Winemaker.png"
+  },
+  {
+    "label": "Peg Health Campaign",
+    "subLabel": "Discount Rebates",
+    "description": "Bond Grape, MIM, or Grape-MIM LP, and receive discounted Wine over a vesting period of 72 hours.",
+    "isNew": false,
+    "linkTo": "/rebates",
+    "isInternalLink": true,
+    "image": "rebates.png"
   },
   {
     "label": "Casino",
