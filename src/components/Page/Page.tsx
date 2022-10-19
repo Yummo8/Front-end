@@ -533,6 +533,27 @@ const Page: React.FC = ({children}) => {
                 <List component="div" disablePadding>
                   <a
                     className="menu-item"
+                    href="https://solera.grapefinance.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{display: 'block'}}
+                  >
+                    <ListItemButton sx={{pl: 4}}>
+                      <ListItemIcon
+                        sx={{
+                          color: 'white',
+                          minWidth: 0,
+                          mr: open ? 3 : 'auto',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <img src={soleraIcon} alt="solera" height={30} />{' '}
+                      </ListItemIcon>
+                      <ListItemText primary="Solera Press" />
+                    </ListItemButton>
+                  </a>
+                  <a
+                    className="menu-item"
                     href="https://xgrape.grapefinance.app/"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -625,28 +646,6 @@ const Page: React.FC = ({children}) => {
                     </ListItemButton>
                   </ListItem>
 
-                  <ListItem className="menu-item" component={Link} to="/bond" disablePadding sx={{display: 'block'}}>
-                    <ListItemButton
-                      sx={{
-                        pl: 4,
-                        minHeight: 48,
-                        justifyContent: open ? 'initial' : 'center',
-                      }}
-                    >
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <img alt="bonds" height={30} src={bondImg} />
-                      </ListItemIcon>
-                      <ListItemText primary="Bonds" sx={{opacity: open ? 1 : 0}} />
-                    </ListItemButton>
-                  </ListItem>
-
                   <ListItem className="menu-item" component={Link} to="/nodes" disablePadding sx={{display: 'block'}}>
                     <ListItemButton
                       sx={{
@@ -691,50 +690,6 @@ const Page: React.FC = ({children}) => {
                     </ListItemButton>
                   </a>
 
-                  <ListItem className="menu-item" component={Link} to="/rebates" disablePadding sx={{display: 'block'}}>
-                    <ListItemButton
-                      sx={{
-                        pl: 4,
-                        minHeight: 48,
-                        justifyContent: open ? 'initial' : 'center',
-                      }}
-                    >
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <img alt="Rebates" height={30} src={rebatesImg} />
-                      </ListItemIcon>
-                      <ListItemText primary="Peg Health Campaign" sx={{opacity: open ? 1 : 0}} />
-                    </ListItemButton>
-                  </ListItem>
-
-                  <a
-                    className="menu-item"
-                    href="https://solera.grapefinance.app/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <img src={soleraIcon} alt="solera" height={30} />{' '}
-                      </ListItemIcon>
-                      <ListItemText primary="Solera Press" />
-                    </ListItemButton>
-                  </a>
-
                   <a
                     className="menu-item"
                     href="https://winemaker.grapefinance.app/"
@@ -757,6 +712,27 @@ const Page: React.FC = ({children}) => {
                     </ListItemButton>
                   </a>
 
+                  <ListItem className="menu-item" component={Link} to="/rebates" disablePadding sx={{display: 'block'}}>
+                    <ListItemButton
+                      sx={{
+                        pl: 4,
+                        minHeight: 48,
+                        justifyContent: open ? 'initial' : 'center',
+                      }}
+                    >
+                      <ListItemIcon
+                        sx={{
+                          color: 'white',
+                          minWidth: 0,
+                          mr: open ? 3 : 'auto',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <img alt="Rebates" height={30} src={rebatesImg} />
+                      </ListItemIcon>
+                      <ListItemText primary="Peg Health Campaign" sx={{opacity: open ? 1 : 0}} />
+                    </ListItemButton>
+                  </ListItem>
                   <a
                     className="menu-item"
                     href="https://casino.grapefinance.app/"
@@ -800,6 +776,27 @@ const Page: React.FC = ({children}) => {
                       <ListItemText primary="Fantom House" />
                     </ListItemButton>
                   </a>
+                  <ListItem className="menu-item" component={Link} to="/bond" disablePadding sx={{display: 'block'}}>
+                    <ListItemButton
+                      sx={{
+                        pl: 4,
+                        minHeight: 48,
+                        justifyContent: open ? 'initial' : 'center',
+                      }}
+                    >
+                      <ListItemIcon
+                        sx={{
+                          color: 'white',
+                          minWidth: 0,
+                          mr: open ? 3 : 'auto',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <img alt="bonds" height={30} src={bondImg} />
+                      </ListItemIcon>
+                      <ListItemText primary="Bonds" sx={{opacity: open ? 1 : 0}} />
+                    </ListItemButton>
+                  </ListItem>
                 </List>
               </Collapse>
             )}
