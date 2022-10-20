@@ -521,6 +521,12 @@ export class GrapeFinance {
     };
   }
 
+  async getBurntGrape() : Promise<Number> {
+    const {furnace} = this.contracts
+    const burnt = await furnace.grapeBurnt()
+    return Number(burnt)
+  }
+
   async getBoardroomPrintRate(): Promise<number> {
     const {Boardroom} = this.contracts;
     const snapshotIndex = await Boardroom.latestSnapshotIndex();
