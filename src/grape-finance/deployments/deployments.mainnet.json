@@ -17654,7 +17654,7 @@
     ]
   },
   "furnace": {
-    "address": "0x7f7d439d13ca7e8c4672471279dc24e6fe263fb5",
+    "address": "0x7734879b9d25451673f57f0207f5245d9d557268",
     "abi": [
       {
         "anonymous": false,

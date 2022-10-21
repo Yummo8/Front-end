@@ -18,7 +18,7 @@ const useGetBurntGrape = () => {
     fetchSharePrice();
   }, [setStat, grapeFinance, slowRefresh]);
 
-  return stat;
+  return Number(stat) / 1e18;
 };
 
 export default useGetBurntGrape;
