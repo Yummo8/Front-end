@@ -54,7 +54,7 @@ import useXGrapePrice from '../../hooks/useXGrapePrice';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import AppsIcon from '@mui/icons-material/Apps';
-import DashboardSharpIcon from '@mui/icons-material/DashboardSharp';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import FeedIcon from '@mui/icons-material/Feed';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
@@ -799,7 +799,7 @@ const Page: React.FC = ({children}) => {
               </Collapse>
             )}
 
-            <Tooltip arrow followCursor title={open ? '' : 'Dashboard'} placement="top-start">
+            <Tooltip arrow followCursor title={open ? '' : 'Earn'} placement="top-start">
               <ListItem className="menu-item" component={Link} to="/dashboard" disablePadding sx={{display: 'block'}}>
                 <ListItemButton
                   sx={{
@@ -815,9 +815,9 @@ const Page: React.FC = ({children}) => {
                       justifyContent: 'center',
                     }}
                   >
-                    <DashboardSharpIcon style={{fill: '#e647e6'}} />
+                    <AttachMoneyIcon style={{fill: '#e647e6'}} />
                   </ListItemIcon>
-                  <ListItemText primary="Dashboard" sx={{opacity: open ? 1 : 0}} />
+                  <ListItemText primary="Earn" sx={{opacity: open ? 1 : 0}} />
                 </ListItemButton>
               </ListItem>
             </Tooltip>

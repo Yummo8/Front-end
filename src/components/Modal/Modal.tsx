@@ -23,6 +23,7 @@ const Modal: React.FC = ({children}) => {
 
 const StyledModal = styled.div`
   border-radius: 12px;
+  background-color: #000;
   position: relative;
   max-height: 500px;
   overflow-y: auto;

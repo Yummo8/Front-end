@@ -1,10 +1,22 @@
-import React, {useMemo} from 'react';
+import React, {useMemo, useState} from 'react';
 import {useWallet} from 'use-wallet';
 import styled from 'styled-components';
 import {createGlobalStyle} from 'styled-components';
 import moment from 'moment';
 import Label from '../../components/Label';
-import {Box, Grid, Button, Typography, Card, CardContent, Paper, Tooltip} from '@material-ui/core';
+import {
+  Box,
+  Grid,
+  Button,
+  Typography,
+  Card,
+  CardContent,
+  Paper,
+  Tooltip,
+  Switch,
+  FormGroup,
+  FormControlLabel,
+} from '@material-ui/core';
 import ProgressCountdown from './ProgressCountdown';
 import UnlockWallet from '../../components/UnlockWallet';
 import TokenSymbol from '../../components/TokenSymbol';
@@ -34,6 +46,11 @@ import {SyncLoader} from 'react-spinners';
 import useXGrapePrice from '../../hooks/useXGrapePrice';
 import useVintagePrice from '../../hooks/useVintagePrice';
 import InfoIcon from '@mui/icons-material/Info';
+import Farms from './Farms';
+import Nodes from './Nodes';
+import BoardroomCard from './BoardroomCard';
+import Presses from './Presses';
+
 const Dashboard = () => {
   const {account} = useWallet();
   const grapeFinance = useGrapeFinance();
@@ -47,9 +64,13 @@ const Dashboard = () => {
     (bank) => (!bank.finished && bank.sectionInUI === 2) || bank.sectionInUI === 6 || bank.sectionInUI === 7,
   );
   const nodePools = [useBank('GrapeNodeV2'), useBank('LPNode'), useBank('LPWlrsNode')];
+  const pressPools = banks.filter((bank) => !bank.finished && bank.sectionInUI === 8);
   const onReward = useHarvestAll(vineyardPools);
   const harvestNodes = useHarvestAll(nodePools);
   const compoundNodes = useCompoundAll(nodePools);
+
+  // const harvestPresses = useHarvestPresses(pressPools)
+  // const compoundPresses = useCompoundPresses(pressPools)
 
   const grapeBalance = useTokenBalance(grapeFinance.GRAPE);
   const displayGrapeBalance = useMemo(() => getDisplayBalance(grapeBalance), [grapeBalance]);
@@ -78,6 +99,8 @@ const Dashboard = () => {
 
   const matches = useMediaQuery('(min-width:900px)');
   const matches960 = useMediaQuery('(max-width:960px)');
+
+  const [activeTab, setActiveTab] = useState('Presses');
 
   const totalInvested = useMemo(() => {
     if (walletStats) {
@@ -109,6 +132,11 @@ const Dashboard = () => {
     }
     return -1;
   }, [walletStats]);
+
+  const [activesOnly, setActivesOnly] = React.useState(false);
+  const handleSwitchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setActivesOnly(event.target.checked);
+  };
 
   return (
     <Page>
@@ -421,109 +449,137 @@ const Dashboard = () => {
               </Card>
             </Grid>
           </Grid>
-          <Paper style={{marginTop: '30px', marginBottom: '10px', height: '3px'}}></Paper>
-          <Grid container alignItems="center" style={{marginTop: '30px'}}>
-            <Grid item xs={12} md={6} lg={6}>
-              <Typography color="textPrimary" style={{textAlign: matches ? 'left' : 'center'}} variant="h4">
-                Vineyard
-              </Typography>
-            </Grid>
-            <Grid item xs={12} md={6} lg={6} style={{textAlign: matches ? 'right' : 'center'}}>
-              <Button style={{marginTop: matches ? '0' : '10px'}} className="shinyButton" onClick={onReward}>
-                Claim All From Vineyard
-              </Button>
-            </Grid>
-          </Grid>
-          <Typography color="textPrimary" style={{marginTop: '30px'}} variant="h5">
-            Swapsicle pools
-          </Typography>{' '}
-          <Box mt={2}>
-            <Grid container spacing={3}>
-              {vineyardPools
-                .filter((bank) => bank.sectionInUI === 6)
-                .map((bank) => (
-                  <React.Fragment key={bank.name}>
-                    <DashboardInfoCard bank={bank} />
-                  </React.Fragment>
-                ))}
-            </Grid>
-          </Box>
-          <Typography color="textPrimary" style={{marginTop: '30px'}} variant="h5">
-            Trader Joe pools
-          </Typography>{' '}
-          <Box mt={2}>
-            <Grid container spacing={3}>
-              {vineyardPools
-                .filter((bank) => bank.sectionInUI === 2)
-                .map((bank) => (
-                  <React.Fragment key={bank.name}>
-                    <DashboardInfoCard bank={bank} />
-                  </React.Fragment>
-                ))}
-            </Grid>
-          </Box>
-          <Typography color="textPrimary" style={{marginTop: '30px'}} variant="h5">
-            Single Stake pools
-          </Typography>{' '}
-          <Box mt={3}>
-            <Grid container spacing={3}>
-              {vineyardPools
-                .filter((bank) => bank.sectionInUI === 7)
-                .map((bank) => (
-                  <React.Fragment key={bank.name}>
-                    <DashboardInfoCard bank={bank} />
-                  </React.Fragment>
-                ))}
-            </Grid>
-          </Box>
-          <Paper style={{marginTop: '40px', marginBottom: '10px', height: '3px'}}></Paper>
-          <Grid container alignItems="center" style={{marginTop: '30px'}}>
-            <Grid item xs={12} md={6} lg={6}>
-              <Typography color="textPrimary" style={{textAlign: matches ? 'left' : 'center'}} variant="h4">
-                Nodes
-              </Typography>{' '}
-            </Grid>
-            <Grid item xs={12} md={6} lg={6} style={{textAlign: matches ? 'right' : 'center'}}>
-              <Button style={{marginTop: matches ? '0' : '10px'}} className="shinyButton" onClick={compoundNodes}>
-                Compound All From Nodes
-              </Button>
-              <Button
-                style={{marginTop: matches ? '0' : '10px', marginLeft: '10px'}}
-                className="shinyButton"
-                onClick={harvestNodes}
-              >
-                Claim All From Nodes
-              </Button>
-            </Grid>
-          </Grid>
-          <Box mt={3}>
-            <Grid container spacing={3}>
-              {nodePools.map((bank) => (
-                <React.Fragment key={bank.name}>
-                  <DashboardInfoCardNodes bank={bank} />
-                </React.Fragment>
-              ))}
+          <Box mt={7}>
+            <Grid
+              container
+              justifyContent={!matches ? 'space-evenly' : 'center'}
+              spacing={3}
+              className="dashboard-tabs"
+            >
+              <Grid item>
+                <div
+                  onClick={() => setActiveTab('Farms')}
+                  className={activeTab === 'Farms' ? 'dashboard-tab-item-active' : 'dashboard-tab-item'}
+                >
+                  <Grid container justifyContent="center" spacing={1} alignItems="center">
+                    <Grid item>
+                      <img src={grapeImg} alt="Grape" height={25} />
+                    </Grid>
+                    <Grid item>VINEYARD</Grid>
+                  </Grid>
+                </div>
+              </Grid>
+              <Grid item>
+                <div
+                  onClick={() => setActiveTab('Winery')}
+                  className={activeTab === 'Winery' ? 'dashboard-tab-item-active' : 'dashboard-tab-item'}
+                >
+                  <Grid container justifyContent="center" spacing={1} alignItems="center">
+                    <Grid item>
+                      <img src={wineImg} alt="Wine" height={25} />
+                    </Grid>
+                    <Grid item>WINERY</Grid>
+                  </Grid>
+                </div>
+              </Grid>
+              <Grid item>
+                <div
+                  onClick={() => setActiveTab('Nodes')}
+                  className={activeTab === 'Nodes' ? 'dashboard-tab-item-active' : 'dashboard-tab-item'}
+                >
+                  <Grid container justifyContent="center" spacing={1} alignItems="center">
+                    <Grid item>
+                      <img src={nodesImg} alt="Node" height={25} />
+                    </Grid>
+                    <Grid item>NODES</Grid>
+                  </Grid>
+                </div>
+              </Grid>
+              <Grid item>
+                <div
+                  onClick={() => setActiveTab('Presses')}
+                  className={activeTab === 'Presses' ? 'dashboard-tab-item-active' : 'dashboard-tab-item'}
+                >
+                  <Grid container justifyContent="center" spacing={1} alignItems="center">
+                    <Grid item>
+                      <img src={soda} alt="Press" height={25} />
+                    </Grid>
+                    <Grid item>PRESSES</Grid>
+                  </Grid>
+                </div>
+              </Grid>
             </Grid>
           </Box>
-          <Paper style={{marginTop: '40px', marginBottom: '40px', height: '3px'}}></Paper>
-          <Typography color="textPrimary" style={{textAlign: matches ? 'left' : 'center'}} variant="h4">
-            Winery
-          </Typography>{' '}
-          <Typography
-            style={{
-              marginTop: '20px',
-              textTransform: 'uppercase',
-              color: '#fff',
-              textAlign: matches ? 'left' : 'center',
-            }}
-          >
-            <b>Next Epoch: </b>
-            <ProgressCountdown base={moment().toDate()} hideBar={true} deadline={to} description="Next Epoch" />
-          </Typography>
-          <Box mt={3}>
-            <Grid container spacing={3}>
-              <DashboardBoardroomCard />
+          <Box hidden={activeTab !== 'Farms'} mt={4}>
+            <Grid container justifyContent="space-between">
+              <Grid item>
+                <FormGroup style={{color: 'white'}}>
+                  <FormControlLabel
+                    control={<Switch color="secondary" checked={activesOnly} onChange={handleSwitchChange} />}
+                    label="Active(s) only"
+                  />
+                </FormGroup>{' '}
+              </Grid>
+              <Grid item>
+                <Button style={{marginTop: matches ? '0' : '10px'}} className="shinyButton" onClick={onReward}>
+                  Claim All From Vineyard
+                </Button>
+              </Grid>
             </Grid>
+
+            <Farms pools={vineyardPools} activesOnly={activesOnly} />
+          </Box>
+          <Box hidden={activeTab !== 'Winery'} mt={4}>
+            <BoardroomCard />
+          </Box>
+          <Box hidden={activeTab !== 'Nodes'} mt={4}>
+            <Grid container justifyContent="space-between">
+              <Grid item>
+                <FormGroup style={{color: 'white'}}>
+                  <FormControlLabel
+                    control={<Switch color="secondary" checked={activesOnly} onChange={handleSwitchChange} />}
+                    label="Active(s) only"
+                  />
+                </FormGroup>{' '}
+              </Grid>
+
+              <Grid item>
+                <Button style={{marginTop: matches ? '0' : '10px'}} className="shinyButton" onClick={compoundNodes}>
+                  Compound All From Nodes
+                </Button>
+                <Button
+                  style={{marginTop: matches ? '0' : '10px', marginLeft: '10px'}}
+                  className="shinyButton"
+                  onClick={harvestNodes}
+                >
+                  Claim All From Nodes
+                </Button>
+              </Grid>
+            </Grid>
+            <Nodes pools={nodePools} />
+          </Box>
+
+          <Box hidden={activeTab !== 'Presses'} mt={4}>
+            <Grid container justifyContent="space-between">
+              <Grid item>
+                <FormGroup style={{color: 'white'}}>
+                  <FormControlLabel
+                    control={<Switch color="secondary" checked={activesOnly} onChange={handleSwitchChange} />}
+                    label="Active(s) only"
+                  />
+                </FormGroup>{' '}
+              </Grid>
+
+              <Grid item>
+                <Button style={{marginTop: matches ? '0' : '10px'}} className="shinyButton">
+                  Compound All From Presses
+                </Button>
+                <Button style={{marginTop: matches ? '0' : '10px', marginLeft: '10px'}} className="shinyButton">
+                  Claim All From Presses
+                </Button>
+              </Grid>
+            </Grid>
+            <Presses pools={pressPools} />
           </Box>
         </div>
       ) : (

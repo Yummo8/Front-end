@@ -1,10 +1,10 @@
 import {useEffect, useState} from 'react';
 import useGrapeFinance from './useGrapeFinance';
-import {SodapressUserInfo} from '../grape-finance/types';
+import {PressUserInfo} from '../grape-finance/types';
 import useRefresh from './useRefresh';
 
 const useSodapressUserInfo = () => {
-  const [userInfo, setUserInfo] = useState<SodapressUserInfo>();
+  const [userInfo, setUserInfo] = useState<PressUserInfo>();
   const {slowRefresh} = useRefresh();
   const grapeFinance = useGrapeFinance();
 
@@ -12,7 +12,7 @@ const useSodapressUserInfo = () => {
     async function fetchUserInfo() {
       try {
         if (grapeFinance.myAccount) {
-          setUserInfo(await grapeFinance.getSodapressUserInfo());
+          setUserInfo(await grapeFinance.getSodapressData());
         }
       } catch (err) {
         console.error(err);
