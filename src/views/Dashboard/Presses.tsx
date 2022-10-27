@@ -5,12 +5,13 @@ import WinepressCard from './WinepressCard';
 
 interface PressesProps {
   pools: Bank[];
+  activesOnly: boolean;
 }
 
-const Presses: React.FC<PressesProps> = ({pools}) => {
+const Presses: React.FC<PressesProps> = ({pools, activesOnly}) => {
   return (
     <>
-      <WinepressCard bank={pools.find((p) => p.name === 'Winepress')} />
+    <WinepressCard bank={pools.find((p) => p.name === 'Winepress')} activesOnly={activesOnly}/>
     </>
   );
 };

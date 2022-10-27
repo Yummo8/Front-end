@@ -29,6 +29,7 @@ const GRAPE_PER_BATCH = 10;
 
 interface WinepressCardProps {
   bank: Bank;
+  activesOnly: boolean;
 }
 
 const LightTooltip = styled(({className, ...props}: TooltipProps) => (
@@ -40,7 +41,7 @@ const LightTooltip = styled(({className, ...props}: TooltipProps) => (
   },
 }));
 
-const WinepressCard: React.FC<WinepressCardProps> = ({bank}) => {
+const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
   const widthUnder960 = useMediaQuery('(max-width:960px)');
 
   const grapeFinance = useGrapeFinance();
@@ -111,9 +112,8 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank}) => {
   const claim = () => {
     if (pressUserInfo.pendingShares >= pressUserInfo.currentShares) {
       alert('You are about to claim more shares than you have. This will kick you out of the Winepress. Confirm?');
-    }
-    else {
-      onClaim()
+    } else {
+      onClaim();
     }
   };
 
@@ -163,581 +163,597 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank}) => {
 
   return (
     <>
-      <Accordion expanded={expanded} onChange={expand} className="accordion">
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon style={{color: 'white'}} />}
-          aria-controls="panel1bh-content"
-          id="panel1bh-header"
-        >
-          <Grid container justifyContent={'space-between'} alignItems="center" className="lineItemInner">
-            <Grid item className="lineName" xs={12} sm={12} md={4}>
-              <Grid container justifyContent="flex-start" alignItems="center" spacing={2} wrap="nowrap">
-                <Grid item>
-                  <TokenSymbol symbol={bank.depositTokenName} height={30} width={30} />
+      {(activesOnly === false || (activesOnly === true && pressUserInfo && pressUserInfo.totalTracked > 0)) && (
+        <Accordion expanded={expanded} onChange={expand} className="accordion">
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon style={{color: 'white'}} />}
+            aria-controls="panel1bh-content"
+            id="panel1bh-header"
+          >
+            <Grid container justifyContent={'space-between'} alignItems="center" className="lineItemInner">
+              <Grid item className="lineName" xs={12} sm={12} md={4}>
+                <Grid container justifyContent="flex-start" alignItems="center" spacing={2} wrap="nowrap">
+                  <Grid item>
+                    <TokenSymbol symbol={bank.depositTokenName} height={30} width={30} />
+                  </Grid>
+                  <Grid item>
+                    {bank.name}
+                    <br />
+                    <span className="lineDescription">
+                      Lock {bank.depositTokenName} and earn up to 350% back in {bank.depositTokenName}
+                    </span>
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  {bank.name}
-                  <br />
-                  <span className="lineDescription">
-                    Lock {bank.depositTokenName} and earn up to 350% back in {bank.depositTokenName}
+              </Grid>
+              <Grid
+                item
+                xs={6}
+                sm={3}
+                md={2}
+                style={{marginTop: widthUnder960 ? '15px' : '0', textAlign: widthUnder960 ? 'center' : 'left'}}
+              >
+                <div className="lineLabel">
+                  Total Tracked
+                  <LightTooltip arrow placement="top" enterDelay={0} title="Deposited + Compounded">
+                    <InfoIcon style={{verticalAlign: 'text-bottom', fontSize: '17px'}} />
+                  </LightTooltip>
+                </div>
+                <div className="lineValueDeposited">
+                  <span style={{color: '#fcfcfc'}}>
+                    {pressUserInfo ? pressUserInfo.totalTracked.toFixed(2) : '0.00'} LP
                   </span>
-                </Grid>
+                  <span style={{marginLeft: '5px', fontSize: '14px'}}>
+                    ($
+                    {pressUserInfo
+                      ? (pressUserInfo.totalTracked * Number(pressUserInfo.depositTokenPrice)).toFixed(2)
+                      : '0.00'}
+                    )
+                  </span>
+                </div>
+              </Grid>
+              <Grid
+                item
+                xs={6}
+                sm={3}
+                md={2}
+                style={{marginTop: widthUnder960 ? '15px' : '0', textAlign: widthUnder960 ? 'center' : 'left'}}
+              >
+                <div className="lineLabel">Rewards</div>
+                <div className="lineValueDeposited">
+                  <span style={{color: '#fcfcfc'}}>
+                    {pressUserInfo ? pressUserInfo.totalClaimable.toFixed(2) : '0.00'} LP
+                  </span>
+                  <span style={{marginLeft: '5px', fontSize: '14px'}}>
+                    ($
+                    {pressUserInfo
+                      ? (pressUserInfo.totalClaimable * Number(pressUserInfo.depositTokenPrice)).toFixed(2)
+                      : '0.00'}
+                    )
+                  </span>
+                </div>
+              </Grid>
+              <Grid
+                item
+                xs={6}
+                sm={3}
+                md={2}
+                style={{marginTop: widthUnder960 ? '15px' : '0', textAlign: widthUnder960 ? 'center' : 'left'}}
+              >
+                <div className="lineLabel">Daily APR</div>
+                <div className="lineValue">{displayDailyAPR ? displayDailyAPR.toFixed(2) : '0.00'}%</div>
+              </Grid>
+              <Grid
+                item
+                xs={6}
+                sm={3}
+                md={2}
+                style={{marginTop: widthUnder960 ? '15px' : '0', textAlign: widthUnder960 ? 'center' : 'left'}}
+              >
+                <div className="lineLabel">Total Deposited</div>
+                <div className="lineValue">
+                  ${pressUserInfo ? pressUserInfo.tvl.toLocaleString('en-US', {maximumFractionDigits: 2}) : '0.00'}
+                </div>
               </Grid>
             </Grid>
-            <Grid
-              item
-              xs={6}
-              sm={3}
-              md={2}
-              style={{marginTop: widthUnder960 ? '15px' : '0', textAlign: widthUnder960 ? 'center' : 'left'}}
-            >
-              <div className="lineLabel">Total Tracked</div>
-              <div className="lineValueDeposited">
-                <span style={{color: '#fcfcfc'}}>
-                  {pressUserInfo ? pressUserInfo.totalTracked.toFixed(2) : '0.00'} LP
-                </span>
-                <span style={{marginLeft: '5px', fontSize: '14px'}}>
-                  ($
-                  {pressUserInfo
-                    ? (pressUserInfo.totalTracked * Number(pressUserInfo.depositTokenPrice)).toFixed(2)
-                    : '0.00'}
-                  )
-                </span>
-              </div>
-            </Grid>
-            <Grid
-              item
-              xs={6}
-              sm={3}
-              md={2}
-              style={{marginTop: widthUnder960 ? '15px' : '0', textAlign: widthUnder960 ? 'center' : 'left'}}
-            >
-              <div className="lineLabel">Rewards</div>
-              <div className="lineValueDeposited">
-                <span style={{color: '#fcfcfc'}}>
-                  {pressUserInfo ? pressUserInfo.totalClaimable.toFixed(2) : '0.00'} LP
-                </span>
-                <span style={{marginLeft: '5px', fontSize: '14px'}}>
-                  ($
-                  {pressUserInfo
-                    ? (pressUserInfo.totalClaimable * Number(pressUserInfo.depositTokenPrice)).toFixed(2)
-                    : '0.00'}
-                  )
-                </span>
-              </div>
-            </Grid>
-            <Grid
-              item
-              xs={6}
-              sm={3}
-              md={2}
-              style={{marginTop: widthUnder960 ? '15px' : '0', textAlign: widthUnder960 ? 'center' : 'left'}}
-            >
-              <div className="lineLabel">Daily APR</div>
-              <div className="lineValue">{displayDailyAPR ? displayDailyAPR.toFixed(2) : '0.00'}%</div>
-            </Grid>
-            <Grid
-              item
-              xs={6}
-              sm={3}
-              md={2}
-              style={{marginTop: widthUnder960 ? '15px' : '0', textAlign: widthUnder960 ? 'center' : 'left'}}
-            >
-              <div className="lineLabel">Total Deposited</div>
-              <div className="lineValue">
-                ${pressUserInfo ? pressUserInfo.tvl.toLocaleString('en-US', {maximumFractionDigits: 2}) : '0.00'}
-              </div>
-            </Grid>
-          </Grid>
-        </AccordionSummary>
-        <AccordionDetails style={{overflow: 'hidden'}}>
-          <Grid container direction="column" spacing={2}>
-            <Grid item>
-              <Grid container spacing={2} justifyContent="space-between" alignItems="center">
-                <Grid item xs={6} md={3}>
-                  <div className="statBox">
-                    <div className="statBoxInner">
-                      <div className="lineLabel">Est. Reward /day</div>
-                      <div className="lineValue">
-                        {pressUserInfo ? pressUserInfo.rewardsPerDay.toFixed(2) : '0.00'}
-                        <span className="wallet-token-value">
-                          {' '}
-                          $
-                          {pressUserInfo
-                            ? (pressUserInfo.rewardsPerDay * Number(pressUserInfo.depositTokenPrice)).toFixed(2)
-                            : '0.00'}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </Grid>
-                <Grid item xs={6} md={3}>
-                  <div className="statBox">
-                    <div className="statBoxInner">
-                      <div className="lineLabel">
-                        Your Deposits{' '}
-                        <LightTooltip arrow placement="top" enterDelay={0} title="Sum of all your deposits">
-                          <InfoIcon style={{verticalAlign: 'text-bottom', fontSize: '17px'}} />
-                        </LightTooltip>
-                      </div>
-                      <div className="lineValue">
-                        {pressUserInfo ? pressUserInfo.totalDeposited.toFixed(2) : '0.00'}{' '}
-                        <span className="wallet-token-value">
-                          {' '}
-                          $
-                          {pressUserInfo
-                            ? (pressUserInfo.totalDeposited * Number(pressUserInfo.depositTokenPrice)).toFixed(2)
-                            : '0.00'}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </Grid>
-                <Grid item xs={6} md={3}>
-                  <div className="statBox">
-                    <div className="statBoxInner">
-                      <div className="lineLabel">
-                        Your Compounds{' '}
-                        <LightTooltip arrow placement="top" enterDelay={0} title="Sum of all your compounds">
-                          <InfoIcon style={{verticalAlign: 'text-bottom', fontSize: '17px'}} />
-                        </LightTooltip>
-                      </div>
-                      <div className="lineValue">
-                        {pressUserInfo
-                          ? (pressUserInfo.totalTracked - pressUserInfo.totalDeposited).toFixed(2)
-                          : '0.00'}{' '}
-                        <span className="wallet-token-value">
-                          {' '}
-                          $
-                          {pressUserInfo
-                            ? (
-                                (pressUserInfo.totalTracked - pressUserInfo.totalDeposited) *
-                                Number(pressUserInfo.depositTokenPrice)
-                              ).toFixed(2)
-                            : '0.00'}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </Grid>
-                <Grid item xs={6} md={3}>
-                  <div className="statBox">
-                    <div className="statBoxInner">
-                      <div className="lineLabel">
-                        Assassination Tracker{' '}
-                        <LightTooltip arrow placement="top" enterDelay={0} title="You don't want to reach 100%...">
-                          <InfoIcon style={{verticalAlign: 'text-bottom', fontSize: '17px'}} />
-                        </LightTooltip>
-                      </div>
-                      <div className="lineValue">
-                        {pressUserInfo ? (pressUserInfo.profitRatio * 100).toFixed(2) : '0'}% / 100%
-                      </div>
-                    </div>
-                  </div>
-                </Grid>
-
-                <Grid item xs={6} md={3}>
-                  <div className="statBox">
-                    <div className="statBoxInner">
-                      <div className="lineLabel">
-                        Contract Balance{' '}
-                        <LightTooltip arrow placement="top" enterDelay={0} title="Amount of LP left in the Contract">
-                          <InfoIcon style={{verticalAlign: 'text-bottom', fontSize: '17px'}} />
-                        </LightTooltip>
-                      </div>
-                      <div className="lineValue">
-                        {pressBalance
-                          ? (Number(pressBalance) / 1e18).toLocaleString('en-US', {maximumFractionDigits: 2})
-                          : '0.00'}{' '}
-                        <span className="wallet-token-value">
-                          {' '}
-                          $
-                          {pressBalance && pressUserInfo
-                            ? ((Number(pressBalance) / 1e18) * Number(pressUserInfo.depositTokenPrice)).toLocaleString(
-                                'en-US',
-                                {maximumFractionDigits: 2},
-                              )
-                            : '0.00'}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </Grid>
-                <Grid item xs={6} md={3}>
-                  <div className="statBox">
-                    <div className="statBoxInner">
-                      <div className="lineLabel">
-                        Your Shares{' '}
-                        <LightTooltip
-                          arrow
-                          placement="top"
-                          enterDelay={0}
-                          title="Your shares in the pool. Reaching 0 kicks you out of the Press"
-                        >
-                          <InfoIcon style={{verticalAlign: 'text-bottom', fontSize: '17px'}} />
-                        </LightTooltip>
-                      </div>
-                      <div className="lineValue">
-                        {pressUserInfo ? pressUserInfo.currentShares.toFixed(2) : '0.00'}{' '}
-                      </div>
-                    </div>
-                  </div>
-                </Grid>
-                <Grid item xs={6} md={3}>
-                  <div className="statBox">
-                    <div className="statBoxInner">
-                      <div className="lineLabel">
-                        Your Pending Shares{' '}
-                        <LightTooltip
-                          arrow
-                          placement="top"
-                          enterDelay={0}
-                          title="Pending shares you get if you compound all your rewards."
-                        >
-                          <InfoIcon style={{verticalAlign: 'text-bottom', fontSize: '17px'}} />
-                        </LightTooltip>
-                      </div>
-                      <div className="lineValue">
-                        {pressUserInfo ? pressUserInfo.pendingShares.toFixed(2) : '0.00'}{' '}
-                      </div>
-                    </div>
-                  </div>
-                </Grid>
-                <Grid item xs={6} md={3}>
-                  <div className="statBox">
-                    <div className="statBoxInner">
-                      <div className="lineLabel">
-                        Current Profit{' '}
-                        <LightTooltip arrow placement="top" enterDelay={0} title="Your current profit tracker">
-                          <InfoIcon style={{verticalAlign: 'text-bottom', fontSize: '17px'}} />
-                        </LightTooltip>
-                      </div>
-                      <div className="lineValue">{pressUserInfo ? pressUserInfo.profit.toFixed(2) : '0.00'} </div>
-                    </div>
-                  </div>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item>
-              <Grid container spacing={5}>
-                <Grid item xs={12} sm={12} md={6}>
-                  <Box className="lineDetailsBox">
-                    <div className="node-line-details-inner">
-                      <Box>
-                        <div className="pending-rewards">DEPOSIT IN {bank.name}</div>
-                      </Box>
-                      <Box mt={2}>
-                        <FormControl>
-                          <RadioGroup
-                            row
-                            aria-labelledby="row-radio-buttons-group-label"
-                            name="row-radio-buttons-group"
-                            value={payWith}
-                            onChange={handlePayWithChange}
-                          >
-                            <FormControlLabel
-                              value={bank.depositTokenName}
-                              control={<Radio />}
-                              label={bank.depositTokenName}
-                            />
-
-                            <FormControlLabel value="MIM" control={<Radio />} label="MIM" />
-                          </RadioGroup>
-                        </FormControl>
-                      </Box>
-                      <div className="node-inputDetailsBox">
-                        <div className="balance">
-                          <span>
-                            Balance:{' '}
-                            {getFullDisplayBalance(payWith === 'MIM' ? mimTokenBalance : depositTokenBalance, 18)}
-                            {payWith}
-                          </span>
-                        </div>
-                        <div className="inputDetailsBoxInner">
-                          <Grid container justifyContent="space-between" alignItems="center" wrap="nowrap">
-                            <Grid item xs={10} md={11}>
-                              <input
-                                type="number"
-                                placeholder="Enter amount"
-                                className="amount-input"
-                                value={inputValue}
-                                onChange={updateInput}
-                              />
-                            </Grid>
-                            <Grid item xs={2} md={1} className="color-secondary">
-                              <div onClick={maxClicked} className="max-button">
-                                MAX
-                              </div>
-                            </Grid>
-                          </Grid>
-                        </div>
-                      </div>
-                      <Box mt={2}>
-                        {getLiquidityLink() != null && (
-                          <a
-                            style={{textDecoration: 'none'}}
-                            rel="noopener noreferrer"
-                            target="_blank"
-                            href={getLiquidityLink()}
-                          >
-                            <div className="addRemoveLiquidity color-secondary">Add / Remove Liquidity</div>
-                          </a>
-                        )}
-                      </Box>
-                    </div>
-                    <Box mt={2}>
-                      <Grid container justifyContent="center">
-                        <Grid item xs={12}>
-                          {showApprove() ? (
-                            <button
-                              disabled={Number(inputValue) === 0}
-                              onClick={getApprove()}
-                              className="primary-button"
-                              title="Approve"
-                              style={{borderTopLeftRadius: '0', borderTopRightRadius: '0'}}
-                            >
-                              Approve
-                            </button>
-                          ) : (
-                            <button
-                              disabled={Number(inputValue) === 0}
-                              onClick={stake}
-                              className="primary-button"
-                              title="Create Nodes"
-                              style={{borderTopLeftRadius: '0', borderTopRightRadius: '0'}}
-                            >
-                              Deposit
-                            </button>
-                          )}
-                        </Grid>
-                      </Grid>
-                    </Box>
-                  </Box>
-                </Grid>
-                <Grid item xs={12} sm={12} md={6}>
-                  <Box className="lineDetailsBox">
-                    <div className="node-line-details-inner">
-                      <Box>
-                        <div className="pending-rewards">PENDING {bank.earnTokenName} REWARDS</div>
-                      </Box>
-                      <Box style={{textAlign: 'center'}} mt={2}>
-                        <TokenSymbol symbol={bank.earnTokenName} width={59} height={59} />
-                      </Box>
-                      <Box mt={2}>
-                        <Grid
-                          container
-                          direction="column"
-                          spacing={0}
-                          justifyContent="center"
-                          alignContent="center"
-                          alignItems="center"
-                        >
-                          <Grid item className="rewardTokenAmount">
-                            {pressUserInfo ? pressUserInfo.totalClaimable.toFixed(2) : '0.00'} {bank.earnTokenName}
-                          </Grid>
-                          <Grid item className="rewardTokenValue">
+          </AccordionSummary>
+          <AccordionDetails style={{overflow: 'hidden'}}>
+            <Grid container direction="column" spacing={2}>
+              <Grid item>
+                <Grid container spacing={2} justifyContent="space-between" alignItems="center">
+                  <Grid item xs={6} md={3}>
+                    <div className="statBox">
+                      <div className="statBoxInner">
+                        <div className="lineLabel">Est. Reward /day</div>
+                        <div className="lineValue">
+                          {pressUserInfo ? pressUserInfo.rewardsPerDay.toFixed(2) : '0.00'}
+                          <span className="wallet-token-value">
+                            {' '}
                             $
                             {pressUserInfo
-                              ? (pressUserInfo.totalClaimable * Number(pressUserInfo.depositTokenPrice)).toFixed(2)
+                              ? (pressUserInfo.rewardsPerDay * Number(pressUserInfo.depositTokenPrice)).toFixed(2)
                               : '0.00'}
-                          </Grid>
-                        </Grid>
-                      </Box>
+                          </span>
+                        </div>
+                      </div>
                     </div>
-                    <Box mt={2}>
-                      <Grid container justifyContent="center">
-                        <Grid item xs={6}>
-                          <button
-                            className="primary-button"
-                            title="Compound"
-                            onClick={onCompound}
-                            disabled={!pressUserInfo || (pressUserInfo && pressUserInfo.totalClaimable <= 0)}
-                            style={{borderTopLeftRadius: '0', borderTopRightRadius: '0', borderBottomRightRadius: '0'}}
+                  </Grid>
+                  <Grid item xs={6} md={3}>
+                    <div className="statBox">
+                      <div className="statBoxInner">
+                        <div className="lineLabel">
+                          Your Deposits{' '}
+                          <LightTooltip
+                            arrow
+                            placement="top"
+                            enterDelay={0}
+                            title="Shows 90% of the sum of all your deposits"
                           >
-                            COMPOUND
-                          </button>
-                        </Grid>
-                        <Grid item xs={6}>
-                          <button
-                            style={{borderTopLeftRadius: '0', borderTopRightRadius: '0', borderBottomLeftRadius: '0'}}
-                            className="secondary-button"
-                            title="Claim"
-                            onClick={claim}
-                            disabled={!pressUserInfo || (pressUserInfo && pressUserInfo.totalClaimable <= 0)}
+                            <InfoIcon style={{verticalAlign: 'text-bottom', fontSize: '17px'}} />
+                          </LightTooltip>
+                        </div>
+                        <div className="lineValue">
+                          {pressUserInfo ? pressUserInfo.totalDeposited.toFixed(2) : '0.00'}{' '}
+                          <span className="wallet-token-value">
+                            {' '}
+                            $
+                            {pressUserInfo
+                              ? (pressUserInfo.totalDeposited * Number(pressUserInfo.depositTokenPrice)).toFixed(2)
+                              : '0.00'}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </Grid>
+                  <Grid item xs={6} md={3}>
+                    <div className="statBox">
+                      <div className="statBoxInner">
+                        <div className="lineLabel">
+                          Your Compounds{' '}
+                          <LightTooltip arrow placement="top" enterDelay={0} title="Sum of all your compounds">
+                            <InfoIcon style={{verticalAlign: 'text-bottom', fontSize: '17px'}} />
+                          </LightTooltip>
+                        </div>
+                        <div className="lineValue">
+                          {pressUserInfo
+                            ? (pressUserInfo.totalTracked - pressUserInfo.totalDeposited).toFixed(2)
+                            : '0.00'}{' '}
+                          <span className="wallet-token-value">
+                            {' '}
+                            $
+                            {pressUserInfo
+                              ? (
+                                  (pressUserInfo.totalTracked - pressUserInfo.totalDeposited) *
+                                  Number(pressUserInfo.depositTokenPrice)
+                                ).toFixed(2)
+                              : '0.00'}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </Grid>
+                  <Grid item xs={6} md={3}>
+                    <div className="statBox">
+                      <div className="statBoxInner">
+                        <div className="lineLabel">
+                          Assassination Tracker{' '}
+                          <LightTooltip arrow placement="top" enterDelay={0} title="You don't want to reach 100%...">
+                            <InfoIcon style={{verticalAlign: 'text-bottom', fontSize: '17px'}} />
+                          </LightTooltip>
+                        </div>
+                        <div className="lineValue">
+                          {pressUserInfo ? (pressUserInfo.profitRatio * 100 * 3.5).toFixed(2) : '0'}% / 100%
+                        </div>
+                      </div>
+                    </div>
+                  </Grid>
+
+                  <Grid item xs={6} md={3}>
+                    <div className="statBox">
+                      <div className="statBoxInner">
+                        <div className="lineLabel">
+                          Contract Balance{' '}
+                          <LightTooltip arrow placement="top" enterDelay={0} title="Amount of LP left in the Contract">
+                            <InfoIcon style={{verticalAlign: 'text-bottom', fontSize: '17px'}} />
+                          </LightTooltip>
+                        </div>
+                        <div className="lineValue">
+                          {pressBalance
+                            ? (Number(pressBalance) / 1e18).toLocaleString('en-US', {maximumFractionDigits: 2})
+                            : '0.00'}{' '}
+                          <span className="wallet-token-value">
+                            {' '}
+                            $
+                            {pressBalance && pressUserInfo
+                              ? (
+                                  (Number(pressBalance) / 1e18) *
+                                  Number(pressUserInfo.depositTokenPrice)
+                                ).toLocaleString('en-US', {maximumFractionDigits: 2})
+                              : '0.00'}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </Grid>
+                  <Grid item xs={6} md={3}>
+                    <div className="statBox">
+                      <div className="statBoxInner">
+                        <div className="lineLabel">
+                          Your Shares{' '}
+                          <LightTooltip
+                            arrow
+                            placement="top"
+                            enterDelay={0}
+                            title="Your shares in the pool. Reaching 0 kicks you out of the Press"
                           >
-                            CLAIM
-                          </button>
-                        </Grid>
-                      </Grid>
-                    </Box>
-                  </Box>
+                            <InfoIcon style={{verticalAlign: 'text-bottom', fontSize: '17px'}} />
+                          </LightTooltip>
+                        </div>
+                        <div className="lineValue">
+                          {pressUserInfo ? pressUserInfo.currentShares.toFixed(2) : '0.00'}{' '}
+                        </div>
+                      </div>
+                    </div>
+                  </Grid>
+                  <Grid item xs={6} md={3}>
+                    <div className="statBox">
+                      <div className="statBoxInner">
+                        <div className="lineLabel">
+                          Your Pending Shares{' '}
+                          <LightTooltip
+                            arrow
+                            placement="top"
+                            enterDelay={0}
+                            title="Pending shares you get if you compound all your rewards."
+                          >
+                            <InfoIcon style={{verticalAlign: 'text-bottom', fontSize: '17px'}} />
+                          </LightTooltip>
+                        </div>
+                        <div className="lineValue">
+                          {pressUserInfo ? pressUserInfo.pendingShares.toFixed(2) : '0.00'}{' '}
+                        </div>
+                      </div>
+                    </div>
+                  </Grid>
+                  <Grid item xs={6} md={3}>
+                    <div className="statBox">
+                      <div className="statBoxInner">
+                        <div className="lineLabel">
+                          Current Profit{' '}
+                          <LightTooltip arrow placement="top" enterDelay={0} title="Your current profit tracker">
+                            <InfoIcon style={{verticalAlign: 'text-bottom', fontSize: '17px'}} />
+                          </LightTooltip>
+                        </div>
+                        <div className="lineValue">{pressUserInfo ? pressUserInfo.profit.toFixed(2) : '0.00'} LP</div>
+                      </div>
+                    </div>
+                  </Grid>
                 </Grid>
-                <Grid item xs={12} md={6}>
-                  <Box className="lineDetailsBox">
-                    <div className="node-line-details-inner">
-                      <Box>
-                        <div className="pending-rewards">{bank.name} LOTTERY</div>
-                      </Box>
+              </Grid>
+              <Grid item>
+                <Grid container spacing={5}>
+                  <Grid item xs={12} sm={12} md={6}>
+                    <Box className="lineDetailsBox">
+                      <div className="node-line-details-inner">
+                        <Box>
+                          <div className="pending-rewards">DEPOSIT IN {bank.name}</div>
+                        </Box>
+                        <Box mt={2}>
+                          <FormControl>
+                            <RadioGroup
+                              row
+                              aria-labelledby="row-radio-buttons-group-label"
+                              name="row-radio-buttons-group"
+                              value={payWith}
+                              onChange={handlePayWithChange}
+                            >
+                              <FormControlLabel
+                                value={bank.depositTokenName}
+                                control={<Radio />}
+                                label={bank.depositTokenName}
+                              />
+
+                              <FormControlLabel value="MIM" control={<Radio />} label="MIM" />
+                            </RadioGroup>
+                          </FormControl>
+                        </Box>
+                        <div className="node-inputDetailsBox">
+                          <div className="balance">
+                            <span>
+                              Balance:{' '}
+                              {getFullDisplayBalance(payWith === 'MIM' ? mimTokenBalance : depositTokenBalance, 18)}
+                              {payWith}
+                            </span>
+                          </div>
+                          <div className="inputDetailsBoxInner">
+                            <Grid container justifyContent="space-between" alignItems="center" wrap="nowrap">
+                              <Grid item xs={10} md={11}>
+                                <input
+                                  type="number"
+                                  placeholder="Enter amount"
+                                  className="amount-input"
+                                  value={inputValue}
+                                  onChange={updateInput}
+                                />
+                              </Grid>
+                              <Grid item xs={2} md={1} className="color-secondary">
+                                <div onClick={maxClicked} className="max-button">
+                                  MAX
+                                </div>
+                              </Grid>
+                            </Grid>
+                          </div>
+                        </div>
+                        <Box mt={2}>
+                          {getLiquidityLink() != null && (
+                            <a
+                              style={{textDecoration: 'none'}}
+                              rel="noopener noreferrer"
+                              target="_blank"
+                              href={getLiquidityLink()}
+                            >
+                              <div className="addRemoveLiquidity color-secondary">Add / Remove Liquidity</div>
+                            </a>
+                          )}
+                        </Box>
+                      </div>
                       <Box mt={2}>
-                        <Grid container direction="column" spacing={1}>
+                        <Grid container justifyContent="center">
                           <Grid item xs={12}>
-                            <Grid container justifyContent="space-between">
-                              <Grid item>Daily Deposit Pot</Grid>
-                              <Grid item>
-                                {pressLottoInfo ? pressLottoInfo.dailyDepositPot.toFixed(2) : '0.00'}{' '}
-                                <span className="wallet-token-value">
-                                  {' '}
-                                  $
-                                  {pressLottoInfo && pressUserInfo
-                                    ? (
-                                        pressLottoInfo.dailyDepositPot * Number(pressUserInfo.depositTokenPrice)
-                                      ).toFixed(2)
-                                    : '0.00'}
-                                </span>
-                              </Grid>
-                            </Grid>
-                          </Grid>
-                          <Grid item xs={12}>
-                            <Grid container justifyContent="space-between">
-                              <Grid item>Largest Deposit Pot</Grid>
-                              <Grid item>
-                                {pressLottoInfo ? pressLottoInfo.largestDailyPot.toFixed(2) : '0.00'}{' '}
-                                <span className="wallet-token-value">
-                                  {' '}
-                                  $
-                                  {pressLottoInfo && pressUserInfo
-                                    ? (
-                                        pressLottoInfo.largestDailyPot * Number(pressUserInfo.depositTokenPrice)
-                                      ).toFixed(2)
-                                    : '0.00'}
-                                </span>
-                              </Grid>
-                            </Grid>
-                          </Grid>
-                          <Grid item xs={12}>
-                            <Grid container justifyContent="space-between">
-                              <Grid item> Next Winner Drawing</Grid>
-                              <Grid item>
-                                {displayRemainingTime && (
-                                  <ProgressCountdown
-                                    description="Next Drawing"
-                                    base={moment().toDate()}
-                                    hideBar={true}
-                                    deadline={displayRemainingTime}
-                                  />
-                                )}
-                              </Grid>
-                            </Grid>
-                          </Grid>
-                          <Grid item xs={12}>
-                            <Grid container justifyContent="space-between">
-                              <Grid item>Lotto Tickets</Grid>
-                              <Grid item>
-                                {pressLottoInfo
-                                  ? `${pressLottoInfo.lottoTickets} / ${pressLottoInfo.totalLottoTickets}`
-                                  : '0 / 0'}{' '}
-                              </Grid>
-                            </Grid>
-                          </Grid>
-                          <Grid item xs={12}>
-                            <Grid container justifyContent="space-between">
-                              <Grid item>
-                                Your Lotto Winnings
-                                <br />
-                                <span className="color-secondary" style={{fontSize: '12px'}}>
-                                  Your winnings are sent to you automatically
-                                </span>
-                              </Grid>
-                              <Grid item>{pressLottoInfo ? pressLottoInfo.lottoWinnings : '0'} </Grid>
-                            </Grid>
-                          </Grid>
-                        </Grid>
-                      </Box>
-                    </div>
-                    <Box mt={2}>
-                      <Grid container justifyContent="center">
-                        <Grid item xs={12}>
-                          {grapeTicketApprovalStatus !== ApprovalState.APPROVED ? (
-                            <>
-                              <span> Burn Grape for Tickets (1 Grape each)</span>
+                            {showApprove() ? (
                               <button
+                                disabled={Number(inputValue) === 0}
+                                onClick={getApprove()}
                                 className="primary-button"
                                 title="Approve"
-                                onClick={grapeTicketApprove}
-                                disabled={!pressUserInfo || (pressUserInfo && pressUserInfo.totalClaimable <= 0)}
-                                style={{
-                                  marginTop: '15px',
-                                  borderTopLeftRadius: '0',
-                                  borderTopRightRadius: '0',
-                                  borderBottomRightRadius: '0',
-                                }}
+                                style={{borderTopLeftRadius: '0', borderTopRightRadius: '0'}}
                               >
                                 Approve
                               </button>
-                            </>
-                          ) : (
-                            <>
-                              <Grid container style={{paddingLeft: '35px', paddingRight: '35px'}}>
-                                <Grid item xs={12}>
-                                  Burn batches of {GRAPE_PER_BATCH} Grape in exchange for 10 Lotto tickets
-                                </Grid>
-                                <Grid item xs={12}>
-                                  <div className="inputDetailsBoxInner">
-                                    <div className="balance">
-                                      <span>Balance: {getFullDisplayBalance(grapeTokenBalance, 18)} GRAPE</span>
-                                    </div>
-                                    <Grid container justifyContent="space-between" alignItems="center" wrap="nowrap">
-                                      <Grid item xs={10} md={11}>
-                                        <input
-                                          type="number"
-                                          placeholder="Number of batches"
-                                          className="amount-input"
-                                          value={batchAmount}
-                                          onChange={handleBatchAmountChanged}
-                                        />
-                                      </Grid>
-                                      <Grid item xs={2} md={1} className="color-secondary">
-                                        <div onClick={maxBatchClicked} className="max-button">
-                                          MAX
-                                        </div>
-                                      </Grid>
-                                    </Grid>
-                                  </div>
+                            ) : (
+                              <button
+                                disabled={Number(inputValue) === 0}
+                                onClick={stake}
+                                className="primary-button"
+                                title="Create Nodes"
+                                style={{borderTopLeftRadius: '0', borderTopRightRadius: '0'}}
+                              >
+                                Deposit
+                              </button>
+                            )}
+                          </Grid>
+                        </Grid>
+                      </Box>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={6}>
+                    <Box className="lineDetailsBox">
+                      <div className="node-line-details-inner">
+                        <Box>
+                          <div className="pending-rewards">PENDING {bank.earnTokenName} REWARDS</div>
+                        </Box>
+                        <Box style={{textAlign: 'center'}} mt={2}>
+                          <TokenSymbol symbol={bank.earnTokenName} width={59} height={59} />
+                        </Box>
+                        <Box mt={2}>
+                          <Grid
+                            container
+                            direction="column"
+                            spacing={0}
+                            justifyContent="center"
+                            alignContent="center"
+                            alignItems="center"
+                          >
+                            <Grid item className="rewardTokenAmount">
+                              {pressUserInfo ? pressUserInfo.totalClaimable.toFixed(2) : '0.00'} {bank.earnTokenName}
+                            </Grid>
+                            <Grid item className="rewardTokenValue">
+                              $
+                              {pressUserInfo
+                                ? (pressUserInfo.totalClaimable * Number(pressUserInfo.depositTokenPrice)).toFixed(2)
+                                : '0.00'}
+                            </Grid>
+                          </Grid>
+                        </Box>
+                      </div>
+                      <Box mt={2}>
+                        <Grid container justifyContent="center">
+                          <Grid item xs={6}>
+                            <button
+                              className="primary-button"
+                              title="Compound"
+                              onClick={onCompound}
+                              disabled={!pressUserInfo || (pressUserInfo && pressUserInfo.totalClaimable <= 0)}
+                              style={{
+                                borderTopLeftRadius: '0',
+                                borderTopRightRadius: '0',
+                                borderBottomRightRadius: '0',
+                              }}
+                            >
+                              COMPOUND
+                            </button>
+                          </Grid>
+                          <Grid item xs={6}>
+                            <button
+                              style={{borderTopLeftRadius: '0', borderTopRightRadius: '0', borderBottomLeftRadius: '0'}}
+                              className="secondary-button"
+                              title="Claim"
+                              onClick={claim}
+                              disabled={!pressUserInfo || (pressUserInfo && pressUserInfo.totalClaimable <= 0)}
+                            >
+                              CLAIM
+                            </button>
+                          </Grid>
+                        </Grid>
+                      </Box>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={12} md={6}>
+                    <Box className="lineDetailsBox">
+                      <div className="node-line-details-inner">
+                        <Box>
+                          <div className="pending-rewards">{bank.name} LOTTERY</div>
+                        </Box>
+                        <Box mt={2}>
+                          <Grid container direction="column" spacing={1}>
+                            <Grid item xs={12}>
+                              <Grid container justifyContent="space-between">
+                                <Grid item>Daily Deposit Pot</Grid>
+                                <Grid item>
+                                  {pressLottoInfo ? pressLottoInfo.dailyDepositPot.toFixed(2) : '0.00'}{' '}
+                                  <span className="wallet-token-value">
+                                    {' '}
+                                    $
+                                    {pressLottoInfo && pressUserInfo
+                                      ? (
+                                          pressLottoInfo.dailyDepositPot * Number(pressUserInfo.depositTokenPrice)
+                                        ).toFixed(2)
+                                      : '0.00'}
+                                  </span>
                                 </Grid>
                               </Grid>
-                              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2">
+                            </Grid>
+                            <Grid item xs={12}>
+                              <Grid container justifyContent="space-between">
+                                <Grid item>Largest Deposit Pot</Grid>
+                                <Grid item>
+                                  {pressLottoInfo ? pressLottoInfo.largestDailyPot.toFixed(2) : '0.00'}{' '}
+                                  <span className="wallet-token-value">
+                                    {' '}
+                                    $
+                                    {pressLottoInfo && pressUserInfo
+                                      ? (
+                                          pressLottoInfo.largestDailyPot * Number(pressUserInfo.depositTokenPrice)
+                                        ).toFixed(2)
+                                      : '0.00'}
+                                  </span>
+                                </Grid>
+                              </Grid>
+                            </Grid>
+                            <Grid item xs={12}>
+                              <Grid container justifyContent="space-between">
+                                <Grid item> Next Winner Drawing</Grid>
+                                <Grid item>
+                                  {displayRemainingTime && (
+                                    <ProgressCountdown
+                                      description="Next Drawing"
+                                      base={moment().toDate()}
+                                      hideBar={true}
+                                      deadline={displayRemainingTime}
+                                    />
+                                  )}
+                                </Grid>
+                              </Grid>
+                            </Grid>
+                            <Grid item xs={12}>
+                              <Grid container justifyContent="space-between">
+                                <Grid item>Lotto Tickets</Grid>
+                                <Grid item>
+                                  {pressLottoInfo
+                                    ? `${pressLottoInfo.lottoTickets} / ${pressLottoInfo.totalLottoTickets}`
+                                    : '0 / 0'}{' '}
+                                </Grid>
+                              </Grid>
+                            </Grid>
+                            <Grid item xs={12}>
+                              <Grid container justifyContent="space-between">
+                                <Grid item>
+                                  Your Lotto Winnings
+                                  <br />
+                                  <span className="color-secondary" style={{fontSize: '12px'}}>
+                                    Your winnings are sent to you automatically
+                                  </span>
+                                </Grid>
+                                <Grid item>{pressLottoInfo ? pressLottoInfo.lottoWinnings : '0'} </Grid>
+                              </Grid>
+                            </Grid>
+                          </Grid>
+                        </Box>
+                      </div>
+                      <Box mt={2}>
+                        <Grid container justifyContent="center">
+                          <Grid item xs={12}>
+                            {grapeTicketApprovalStatus !== ApprovalState.APPROVED ? (
+                              <>
+                                <span> Burn Grape for Tickets (1 Grape each)</span>
                                 <button
                                   className="primary-button"
-                                  title="Buy "
-                                  onClick={burn}
-                                  disabled={
-                                    Number(batchAmount) <= 0 ||
-                                    Number(batchAmount) >= Number(grapeTokenBalance) / 1e18 / 10
-                                  }
+                                  title="Approve"
+                                  onClick={grapeTicketApprove}
+                                  disabled={!pressUserInfo || (pressUserInfo && pressUserInfo.totalClaimable <= 0)}
                                   style={{
                                     marginTop: '15px',
                                     borderTopLeftRadius: '0',
                                     borderTopRightRadius: '0',
+                                    borderBottomRightRadius: '0',
                                   }}
                                 >
-                                  Burn {numGrapeToBurn} GRAPE
+                                  Approve
                                 </button>
-                              </div>
-                            </>
-                          )}
+                              </>
+                            ) : (
+                              <>
+                                <Grid container style={{paddingLeft: '35px', paddingRight: '35px'}}>
+                                  <Grid item xs={12}>
+                                    Burn batches of {GRAPE_PER_BATCH} Grape in exchange for 10 Lotto tickets
+                                  </Grid>
+                                  <Grid item xs={12}>
+                                    <div className="inputDetailsBoxInner">
+                                      <div className="balance">
+                                        <span>Balance: {getFullDisplayBalance(grapeTokenBalance, 18)} GRAPE</span>
+                                      </div>
+                                      <Grid container justifyContent="space-between" alignItems="center" wrap="nowrap">
+                                        <Grid item xs={10} md={11}>
+                                          <input
+                                            type="number"
+                                            placeholder="Number of batches"
+                                            className="amount-input"
+                                            value={batchAmount}
+                                            onChange={handleBatchAmountChanged}
+                                          />
+                                        </Grid>
+                                        <Grid item xs={2} md={1} className="color-secondary">
+                                          <div onClick={maxBatchClicked} className="max-button">
+                                            MAX
+                                          </div>
+                                        </Grid>
+                                      </Grid>
+                                    </div>
+                                  </Grid>
+                                </Grid>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2">
+                                  <button
+                                    className="primary-button"
+                                    title="Buy "
+                                    onClick={burn}
+                                    disabled={
+                                      Number(batchAmount) <= 0 ||
+                                      Number(batchAmount) >= Number(grapeTokenBalance) / 1e18 / 10
+                                    }
+                                    style={{
+                                      marginTop: '15px',
+                                      borderTopLeftRadius: '0',
+                                      borderTopRightRadius: '0',
+                                    }}
+                                  >
+                                    Burn {numGrapeToBurn} GRAPE
+                                  </button>
+                                </div>
+                              </>
+                            )}
+                          </Grid>
                         </Grid>
-                      </Grid>
+                      </Box>
                     </Box>
-                  </Box>
-                </Grid>
-                <Grid item xs={12} md={6}>
-                  Assassinate
+                  </Grid>
+                  <Grid item xs={12} md={6}>
+                    Assassinate
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
-          </Grid>
-        </AccordionDetails>
-      </Accordion>
+          </AccordionDetails>
+        </Accordion>
+      )}
     </>
   );
 };

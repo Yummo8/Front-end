@@ -556,7 +556,7 @@ const Dashboard = () => {
                 </Button>
               </Grid>
             </Grid>
-            <Nodes pools={nodePools} />
+            <Nodes pools={nodePools} activesOnly={activesOnly} />
           </Box>
 
           <Box hidden={activeTab !== 'Presses'} mt={4}>
@@ -579,7 +579,7 @@ const Dashboard = () => {
                 </Button>
               </Grid>
             </Grid>
-            <Presses pools={pressPools} />
+            <Presses pools={pressPools} activesOnly={activesOnly} />
           </Box>
         </div>
       ) : (

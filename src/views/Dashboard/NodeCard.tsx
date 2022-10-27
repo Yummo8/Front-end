@@ -33,9 +33,10 @@ import useGrapeNodeClaimFee from '../../hooks/useGrapeNodeClaimFee';
 
 interface FarmCardProps {
   bank: Bank;
+  activesOnly: boolean;
 }
 
-const NodeCard: React.FC<FarmCardProps> = ({bank}) => {
+const NodeCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
   const widthUnder960 = useMediaQuery('(max-width:960px)');
   const poolStats = useStatsForPool(bank);
 
@@ -155,280 +156,286 @@ const NodeCard: React.FC<FarmCardProps> = ({bank}) => {
 
   return (
     <>
-      <Accordion expanded={expanded} onChange={expand} className="accordion">
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon style={{color: 'white'}} />}
-          aria-controls="panel1bh-content"
-          id="panel1bh-header"
-        >
-          <Grid container justifyContent={'space-between'} alignItems="center" className="lineItemInner">
-            <Grid item className="lineName" xs={12} sm={12} md={4}>
-              <Grid container justifyContent="flex-start" alignItems="center" spacing={2} wrap="nowrap">
-                <Grid item>
-                  <TokenSymbol symbol={bank.depositTokenName} height={30} width={30} />
-                </Grid>
-                <Grid item>
-                  {bank.depositTokenName}
-                  <br />
-                  <span className="lineDescription">
-                    Lock {bank.depositTokenName} to earn {bank.earnTokenName}
-                  </span>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid
-              item
-              xs={6}
-              sm={3}
-              md={2}
-              style={{marginTop: widthUnder960 ? '15px' : '0', textAlign: widthUnder960 ? 'center' : 'left'}}
-            >
-              <div className="lineLabel">Your Nodes</div>
-              <div className="lineValueDeposited">
-                <span style={{color: '#fcfcfc'}}>{computedUserNode}</span>
-              </div>
-            </Grid>
-            <Grid
-              item
-              xs={6}
-              sm={3}
-              md={2}
-              style={{marginTop: widthUnder960 ? '15px' : '0', textAlign: widthUnder960 ? 'center' : 'left'}}
-            >
-              <div className="lineLabel">Rewards</div>
-              <div className="lineValueDeposited">
-                <span style={{color: '#fcfcfc'}}>{earnedInToken}</span>
-                <span style={{marginLeft: '5px', fontSize: '14px'}}>(${earnedInDollars})</span>
-              </div>
-            </Grid>
-            <Grid
-              item
-              xs={6}
-              sm={3}
-              md={2}
-              style={{marginTop: widthUnder960 ? '15px' : '0', textAlign: widthUnder960 ? 'center' : 'left'}}
-            >
-              <div className="lineLabel">Daily APR</div>
-              <div className="lineValue">{dailyAPR ? dailyAPR : '--.--'}%</div>
-            </Grid>
-            <Grid
-              item
-              xs={6}
-              sm={3}
-              md={2}
-              style={{marginTop: widthUnder960 ? '15px' : '0', textAlign: widthUnder960 ? 'center' : 'left'}}
-            >
-              <div className="lineLabel">TVL</div>
-              <div className="lineValue">
-                ${poolStats?.TVL ? Number(poolStats?.TVL).toLocaleString('en-US') : '--.--'}
-              </div>
-            </Grid>
-          </Grid>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Grid container direction="column" spacing={2}>
-            <Grid item>
-              <Grid container spacing={2} justifyContent="space-between" alignItems="center">
-                <Grid item xs={6} md={4}>
-                  <div className="statBox">
-                    <div className="statBoxInner">
-                      <div className="lineLabel">Est. $ /day</div>
-                      <div className="lineValue wallet-token-value">
-                        ${(parsedDailyRewards * Number(parsedRewardTokenPriceInDollars)).toFixed(2)}
-                      </div>
-                    </div>
-                  </div>
-                </Grid>
-                <Grid item xs={6} md={4}>
-                  <div className="statBox">
-                    <div className="statBoxInner">
-                      <div className="lineLabel">Est. Reward /day</div>
-                      <div className="lineValue">
-                        {parsedDailyRewards.toFixed(2)} {bank.depositTokenName}{' '}
-                      </div>
-                    </div>
-                  </div>
-                </Grid>{' '}
-                <Grid item xs={6} md={4}>
-                  <div className="statBox">
-                    <div className="statBoxInner">
-                      <div className="lineLabel">Airdrop Tickets</div>
-                      <div className="lineValue">
-                        {ticketRewards === 0 ? 'No tickets for this pool' : Number(computedUserNode) * ticketRewards}
-                      </div>
-                    </div>
-                  </div>
-                </Grid>
-                <Grid item xs={6} md={4}>
-                  <div className="statBox">
-                    <div className="statBoxInner">
-                      <div className="lineLabel">You Claimed</div>
-                      <div className="lineValue">{parsedTotalClaimed.toFixed(2)}</div>
-                    </div>
-                  </div>
-                </Grid>
-                <Grid item xs={6} md={4}>
-                  <div className="statBox">
-                    <div className="statBoxInner">
-                      <div className="lineLabel">
-                        {bank.contract === 'GrapeNodeV2' ? 'Remaining' : 'Max Possible Pay'}
-                      </div>
-                      <div className="lineValue">{parsedMaxPayout.toFixed(2)}</div>
-                    </div>
-                  </div>
-                </Grid>
-                <Grid item xs={6} md={4}>
-                  <div className="statBox">
-                    <div className="statBoxInner">
-                      <div className="lineLabel">Total Nodes</div>
-                      <div className="lineValue">{parsedTotalNodes}</div>
-                    </div>
-                  </div>
+      {(activesOnly === false || (activesOnly === true && computedUserNode > 0)) && (
+        <Accordion expanded={expanded} onChange={expand} className="accordion">
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon style={{color: 'white'}} />}
+            aria-controls="panel1bh-content"
+            id="panel1bh-header"
+          >
+            <Grid container justifyContent={'space-between'} alignItems="center" className="lineItemInner">
+              <Grid item className="lineName" xs={12} sm={12} md={4}>
+                <Grid container justifyContent="flex-start" alignItems="center" spacing={2} wrap="nowrap">
+                  <Grid item>
+                    <TokenSymbol symbol={bank.depositTokenName} height={30} width={30} />
+                  </Grid>
+                  <Grid item>
+                    {bank.depositTokenName}
+                    <br />
+                    <span className="lineDescription">
+                      Lock {bank.depositTokenName} to earn {bank.earnTokenName}
+                    </span>
+                  </Grid>
                 </Grid>
               </Grid>
+              <Grid
+                item
+                xs={6}
+                sm={3}
+                md={2}
+                style={{marginTop: widthUnder960 ? '15px' : '0', textAlign: widthUnder960 ? 'center' : 'left'}}
+              >
+                <div className="lineLabel">Your Nodes</div>
+                <div className="lineValueDeposited">
+                  <span style={{color: '#fcfcfc'}}>{computedUserNode}</span>
+                </div>
+              </Grid>
+              <Grid
+                item
+                xs={6}
+                sm={3}
+                md={2}
+                style={{marginTop: widthUnder960 ? '15px' : '0', textAlign: widthUnder960 ? 'center' : 'left'}}
+              >
+                <div className="lineLabel">Rewards</div>
+                <div className="lineValueDeposited">
+                  <span style={{color: '#fcfcfc'}}>{earnedInToken}</span>
+                  <span style={{marginLeft: '5px', fontSize: '14px'}}>(${earnedInDollars})</span>
+                </div>
+              </Grid>
+              <Grid
+                item
+                xs={6}
+                sm={3}
+                md={2}
+                style={{marginTop: widthUnder960 ? '15px' : '0', textAlign: widthUnder960 ? 'center' : 'left'}}
+              >
+                <div className="lineLabel">Daily APR</div>
+                <div className="lineValue">{dailyAPR ? dailyAPR : '--.--'}%</div>
+              </Grid>
+              <Grid
+                item
+                xs={6}
+                sm={3}
+                md={2}
+                style={{marginTop: widthUnder960 ? '15px' : '0', textAlign: widthUnder960 ? 'center' : 'left'}}
+              >
+                <div className="lineLabel">TVL</div>
+                <div className="lineValue">
+                  ${poolStats?.TVL ? Number(poolStats?.TVL).toLocaleString('en-US') : '--.--'}
+                </div>
+              </Grid>
             </Grid>
-            <Grid item>
-              <Grid container spacing={5}>
-                <Grid item xs={12} sm={12} md={6}>
-                  <Box className="lineDetailsBox">
-                    <div className="node-line-details-inner">
-                      <Box>
-                        <div className="pending-rewards">
-                          1 Node Costs {parsedNodePrice}&nbsp;
-                          {bank.depositTokenName}
-                        </div>
-                        <div className="rewardTokenValue">${nodeCost}</div>
-                      </Box>
-                      <div className="node-inputDetailsBox">
-                        <div className="balance">
-                          <span>
-                            Balance: {getFullDisplayBalance(tokenBalance, 18)} {bank.depositTokenName}
-                          </span>
-                        </div>
-                        <div className="inputDetailsBoxInner">
-                          <Grid container justifyContent="space-between" alignItems="center" wrap="nowrap">
-                            <Grid item xs={10} md={11}>
-                              <input
-                                type="number"
-                                placeholder="Enter amount"
-                                className="amount-input"
-                                value={inputValue}
-                                onChange={updateInput}
-                              />
-                            </Grid>
-                            <Grid item xs={2} md={1} className="color-secondary">
-                              <div onClick={maxClicked} className="max-button">
-                                MAX
-                              </div>
-                            </Grid>
-                          </Grid>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Grid container direction="column" spacing={2}>
+              <Grid item>
+                <Grid container spacing={2} justifyContent="space-between" alignItems="center">
+                  <Grid item xs={6} md={4}>
+                    <div className="statBox">
+                      <div className="statBoxInner">
+                        <div className="lineLabel">Est. $ /day</div>
+                        <div className="lineValue wallet-token-value">
+                          ${(parsedDailyRewards * Number(parsedRewardTokenPriceInDollars)).toFixed(2)}
                         </div>
                       </div>
-                      <Box mt={2}>
-                        {getLiquidityLink() != null && (
-                          <a
-                            style={{textDecoration: 'none'}}
-                            rel="noopener noreferrer"
-                            target="_blank"
-                            href={getLiquidityLink()}
-                          >
-                            <div className="addRemoveLiquidity color-secondary">Add / Remove Liquidity</div>
-                          </a>
-                        )}
-                      </Box>
                     </div>
-                    <Box mt={2}>
-                      <Grid container justifyContent="center">
-                        <Grid item xs={12}>
-                          {approveStatus !== ApprovalState.APPROVED ? (
-                            <button
-                              disabled={Number(inputValue) === 0}
-                              onClick={approve}
-                              className="primary-button"
-                              title="Approve"
-                              style={{borderTopLeftRadius: '0', borderTopRightRadius: '0'}}
+                  </Grid>
+                  <Grid item xs={6} md={4}>
+                    <div className="statBox">
+                      <div className="statBoxInner">
+                        <div className="lineLabel">Est. Reward /day</div>
+                        <div className="lineValue">
+                          {parsedDailyRewards.toFixed(2)} {bank.depositTokenName}{' '}
+                        </div>
+                      </div>
+                    </div>
+                  </Grid>{' '}
+                  <Grid item xs={6} md={4}>
+                    <div className="statBox">
+                      <div className="statBoxInner">
+                        <div className="lineLabel">Airdrop Tickets</div>
+                        <div className="lineValue">
+                          {ticketRewards === 0 ? 'No tickets for this pool' : Number(computedUserNode) * ticketRewards}
+                        </div>
+                      </div>
+                    </div>
+                  </Grid>
+                  <Grid item xs={6} md={4}>
+                    <div className="statBox">
+                      <div className="statBoxInner">
+                        <div className="lineLabel">You Claimed</div>
+                        <div className="lineValue">{parsedTotalClaimed.toFixed(2)}</div>
+                      </div>
+                    </div>
+                  </Grid>
+                  <Grid item xs={6} md={4}>
+                    <div className="statBox">
+                      <div className="statBoxInner">
+                        <div className="lineLabel">
+                          {bank.contract === 'GrapeNodeV2' ? 'Remaining' : 'Max Possible Pay'}
+                        </div>
+                        <div className="lineValue">{parsedMaxPayout.toFixed(2)}</div>
+                      </div>
+                    </div>
+                  </Grid>
+                  <Grid item xs={6} md={4}>
+                    <div className="statBox">
+                      <div className="statBoxInner">
+                        <div className="lineLabel">Total Nodes</div>
+                        <div className="lineValue">{parsedTotalNodes}</div>
+                      </div>
+                    </div>
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item>
+                <Grid container spacing={5}>
+                  <Grid item xs={12} sm={12} md={6}>
+                    <Box className="lineDetailsBox">
+                      <div className="node-line-details-inner">
+                        <Box>
+                          <div className="pending-rewards">
+                            1 Node Costs {parsedNodePrice}&nbsp;
+                            {bank.depositTokenName}
+                          </div>
+                          <div className="rewardTokenValue">${nodeCost}</div>
+                        </Box>
+                        <div className="node-inputDetailsBox">
+                          <div className="balance">
+                            <span>
+                              Balance: {getFullDisplayBalance(tokenBalance, 18)} {bank.depositTokenName}
+                            </span>
+                          </div>
+                          <div className="inputDetailsBoxInner">
+                            <Grid container justifyContent="space-between" alignItems="center" wrap="nowrap">
+                              <Grid item xs={10} md={11}>
+                                <input
+                                  type="number"
+                                  placeholder="Enter amount"
+                                  className="amount-input"
+                                  value={inputValue}
+                                  onChange={updateInput}
+                                />
+                              </Grid>
+                              <Grid item xs={2} md={1} className="color-secondary">
+                                <div onClick={maxClicked} className="max-button">
+                                  MAX
+                                </div>
+                              </Grid>
+                            </Grid>
+                          </div>
+                        </div>
+                        <Box mt={2}>
+                          {getLiquidityLink() != null && (
+                            <a
+                              style={{textDecoration: 'none'}}
+                              rel="noopener noreferrer"
+                              target="_blank"
+                              href={getLiquidityLink()}
                             >
-                              Approve
-                            </button>
-                          ) : (
-                            <button
-                              disabled={Number(inputValue) === 0}
-                              onClick={stake}
-                              className="primary-button"
-                              title="Create Nodes"
-                              style={{borderTopLeftRadius: '0', borderTopRightRadius: '0'}}
-                            >
-                              Create Nodes
-                            </button>
+                              <div className="addRemoveLiquidity color-secondary">Add / Remove Liquidity</div>
+                            </a>
                           )}
-                        </Grid>
-                      </Grid>
-                    </Box>
-                  </Box>
-                </Grid>
-                <Grid item xs={12} sm={12} md={6}>
-                  <Box className="lineDetailsBox">
-                    <div className="node-line-details-inner">
-                      <Box>
-                        <div className="pending-rewards">PENDING {bank.earnTokenName} REWARDS</div>
-                      </Box>
-                      <Box style={{textAlign: 'center'}} mt={2}>
-                        <TokenSymbol symbol={bank.earnTokenName} width={59} height={59} />
-                      </Box>
+                        </Box>
+                      </div>
                       <Box mt={2}>
-                        <Grid
-                          container
-                          direction="column"
-                          spacing={0}
-                          justifyContent="center"
-                          alignContent="center"
-                          alignItems="center"
-                        >
-                          <Grid item className="rewardTokenAmount">
-                            {earnedInToken} {bank.earnTokenName}
-                          </Grid>
-                          <Grid item className="rewardTokenValue">
-                            ${earnedInDollars}
+                        <Grid container justifyContent="center">
+                          <Grid item xs={12}>
+                            {approveStatus !== ApprovalState.APPROVED ? (
+                              <button
+                                disabled={Number(inputValue) === 0}
+                                onClick={approve}
+                                className="primary-button"
+                                title="Approve"
+                                style={{borderTopLeftRadius: '0', borderTopRightRadius: '0'}}
+                              >
+                                Approve
+                              </button>
+                            ) : (
+                              <button
+                                disabled={Number(inputValue) === 0}
+                                onClick={stake}
+                                className="primary-button"
+                                title="Create Nodes"
+                                style={{borderTopLeftRadius: '0', borderTopRightRadius: '0'}}
+                              >
+                                Create Nodes
+                              </button>
+                            )}
                           </Grid>
                         </Grid>
                       </Box>
-                    </div>
-                    <Box mt={2}>
-                      <Grid container justifyContent="center">
-                        <Grid item xs={6}>
-                          <button
-                            className="primary-button"
-                            title="Compound"
-                            onClick={onCompound}
-                            disabled={Number(earnings) < Number(nodePrice)}
-                            style={{borderTopLeftRadius: '0', borderTopRightRadius: '0', borderBottomRightRadius: '0'}}
-                          >
-                            COMPOUND {(Number(earnings) / Number(nodePrice)) | 0} Nodes
-                          </button>
-                        </Grid>
-                        <Grid item xs={6}>
-                          <button
-                            style={{borderTopLeftRadius: '0', borderTopRightRadius: '0', borderBottomLeftRadius: '0'}}
-                            className="secondary-button"
-                            title="Claim"
-                            onClick={onReward}
-                            disabled={earnings.eq(0)}
-                          >
-                            CLAIM{' '}
-                            {bank.contract === 'GrapeNodeV2' && claimFee && (
-                              <span style={{marginLeft: '5px'}}>({claimFee}% fee)</span>
-                            )}
-                          </button>
-                        </Grid>
-                      </Grid>
                     </Box>
-                  </Box>
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={6}>
+                    <Box className="lineDetailsBox">
+                      <div className="node-line-details-inner">
+                        <Box>
+                          <div className="pending-rewards">PENDING {bank.earnTokenName} REWARDS</div>
+                        </Box>
+                        <Box style={{textAlign: 'center'}} mt={2}>
+                          <TokenSymbol symbol={bank.earnTokenName} width={59} height={59} />
+                        </Box>
+                        <Box mt={2}>
+                          <Grid
+                            container
+                            direction="column"
+                            spacing={0}
+                            justifyContent="center"
+                            alignContent="center"
+                            alignItems="center"
+                          >
+                            <Grid item className="rewardTokenAmount">
+                              {earnedInToken} {bank.earnTokenName}
+                            </Grid>
+                            <Grid item className="rewardTokenValue">
+                              ${earnedInDollars}
+                            </Grid>
+                          </Grid>
+                        </Box>
+                      </div>
+                      <Box mt={2}>
+                        <Grid container justifyContent="center">
+                          <Grid item xs={6}>
+                            <button
+                              className="primary-button"
+                              title="Compound"
+                              onClick={onCompound}
+                              disabled={Number(earnings) < Number(nodePrice)}
+                              style={{
+                                borderTopLeftRadius: '0',
+                                borderTopRightRadius: '0',
+                                borderBottomRightRadius: '0',
+                              }}
+                            >
+                              COMPOUND {(Number(earnings) / Number(nodePrice)) | 0} Nodes
+                            </button>
+                          </Grid>
+                          <Grid item xs={6}>
+                            <button
+                              style={{borderTopLeftRadius: '0', borderTopRightRadius: '0', borderBottomLeftRadius: '0'}}
+                              className="secondary-button"
+                              title="Claim"
+                              onClick={onReward}
+                              disabled={earnings.eq(0)}
+                            >
+                              CLAIM{' '}
+                              {bank.contract === 'GrapeNodeV2' && claimFee && (
+                                <span style={{marginLeft: '5px'}}>({claimFee}% fee)</span>
+                              )}
+                            </button>
+                          </Grid>
+                        </Grid>
+                      </Box>
+                    </Box>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
-          </Grid>
-        </AccordionDetails>
-      </Accordion>
+          </AccordionDetails>
+        </Accordion>
+      )}
     </>
   );
 };
