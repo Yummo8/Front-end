@@ -108,8 +108,16 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank}) => {
     console.log({batchAmount});
   };
 
+  const claim = () => {
+    if (pressUserInfo.pendingShares >= pressUserInfo.currentShares) {
+      alert('You are about to claim more shares than you have. This will kick you out of the Winepress. Confirm?');
+    }
+    else {
+      onClaim()
+    }
+  };
+
   const handleBatchAmountChanged = (e: any) => {
-    console.log(Number(e.target.value));
     if (isNaN(Number(e.target.value))) return;
     setBatchAmount(e.target.value);
   };
@@ -185,7 +193,9 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank}) => {
             >
               <div className="lineLabel">Total Tracked</div>
               <div className="lineValueDeposited">
-                <span style={{color: '#fcfcfc'}}>{pressUserInfo ? pressUserInfo.totalTracked.toFixed(2) : '0.00'}</span>
+                <span style={{color: '#fcfcfc'}}>
+                  {pressUserInfo ? pressUserInfo.totalTracked.toFixed(2) : '0.00'} LP
+                </span>
                 <span style={{marginLeft: '5px', fontSize: '14px'}}>
                   ($
                   {pressUserInfo
@@ -205,7 +215,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank}) => {
               <div className="lineLabel">Rewards</div>
               <div className="lineValueDeposited">
                 <span style={{color: '#fcfcfc'}}>
-                  {pressUserInfo ? pressUserInfo.totalClaimable.toFixed(2) : '0.00'}
+                  {pressUserInfo ? pressUserInfo.totalClaimable.toFixed(2) : '0.00'} LP
                 </span>
                 <span style={{marginLeft: '5px', fontSize: '14px'}}>
                   ($
@@ -266,7 +276,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank}) => {
                     <div className="statBoxInner">
                       <div className="lineLabel">
                         Your Deposits{' '}
-                        <LightTooltip arrow placement="right" enterDelay={0} title="Sum of all your deposits">
+                        <LightTooltip arrow placement="top" enterDelay={0} title="Sum of all your deposits">
                           <InfoIcon style={{verticalAlign: 'text-bottom', fontSize: '17px'}} />
                         </LightTooltip>
                       </div>
@@ -288,7 +298,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank}) => {
                     <div className="statBoxInner">
                       <div className="lineLabel">
                         Your Compounds{' '}
-                        <LightTooltip arrow placement="right" enterDelay={0} title="Sum of all your compounds">
+                        <LightTooltip arrow placement="top" enterDelay={0} title="Sum of all your compounds">
                           <InfoIcon style={{verticalAlign: 'text-bottom', fontSize: '17px'}} />
                         </LightTooltip>
                       </div>
@@ -300,7 +310,10 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank}) => {
                           {' '}
                           $
                           {pressUserInfo
-                            ? (pressUserInfo.rewardsPerDay * Number(pressUserInfo.depositTokenPrice)).toFixed(2)
+                            ? (
+                                (pressUserInfo.totalTracked - pressUserInfo.totalDeposited) *
+                                Number(pressUserInfo.depositTokenPrice)
+                              ).toFixed(2)
                             : '0.00'}
                         </span>
                       </div>
@@ -312,12 +325,12 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank}) => {
                     <div className="statBoxInner">
                       <div className="lineLabel">
                         Assassination Tracker{' '}
-                        <LightTooltip arrow placement="right" enterDelay={0} title="100% being Assassination threshold">
+                        <LightTooltip arrow placement="top" enterDelay={0} title="You don't want to reach 100%...">
                           <InfoIcon style={{verticalAlign: 'text-bottom', fontSize: '17px'}} />
                         </LightTooltip>
                       </div>
                       <div className="lineValue">
-                        {pressUserInfo ? (pressUserInfo.profitRatio * 100).toFixed(2) : '0'}%
+                        {pressUserInfo ? (pressUserInfo.profitRatio * 100).toFixed(2) : '0'}% / 100%
                       </div>
                     </div>
                   </div>
@@ -328,7 +341,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank}) => {
                     <div className="statBoxInner">
                       <div className="lineLabel">
                         Contract Balance{' '}
-                        <LightTooltip arrow placement="right" enterDelay={0} title="Amount of LP left in the Contract">
+                        <LightTooltip arrow placement="top" enterDelay={0} title="Amount of LP left in the Contract">
                           <InfoIcon style={{verticalAlign: 'text-bottom', fontSize: '17px'}} />
                         </LightTooltip>
                       </div>
@@ -357,7 +370,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank}) => {
                         Your Shares{' '}
                         <LightTooltip
                           arrow
-                          placement="right"
+                          placement="top"
                           enterDelay={0}
                           title="Your shares in the pool. Reaching 0 kicks you out of the Press"
                         >
@@ -377,7 +390,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank}) => {
                         Your Pending Shares{' '}
                         <LightTooltip
                           arrow
-                          placement="right"
+                          placement="top"
                           enterDelay={0}
                           title="Pending shares you get if you compound all your rewards."
                         >
@@ -395,7 +408,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank}) => {
                     <div className="statBoxInner">
                       <div className="lineLabel">
                         Current Profit{' '}
-                        <LightTooltip arrow placement="right" enterDelay={0} title="Your current profit tracker">
+                        <LightTooltip arrow placement="top" enterDelay={0} title="Your current profit tracker">
                           <InfoIcon style={{verticalAlign: 'text-bottom', fontSize: '17px'}} />
                         </LightTooltip>
                       </div>
@@ -549,7 +562,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank}) => {
                             style={{borderTopLeftRadius: '0', borderTopRightRadius: '0', borderBottomLeftRadius: '0'}}
                             className="secondary-button"
                             title="Claim"
-                            onClick={onClaim}
+                            onClick={claim}
                             disabled={!pressUserInfo || (pressUserInfo && pressUserInfo.totalClaimable <= 0)}
                           >
                             CLAIM

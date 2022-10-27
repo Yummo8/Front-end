@@ -799,7 +799,7 @@ const Page: React.FC = ({children}) => {
               </Collapse>
             )}
 
-            <Tooltip arrow followCursor title={open ? '' : 'Earn'} placement="top-start">
+            <Tooltip arrow followCursor title={open ? '' : 'Dashboard'} placement="top-start">
               <ListItem className="menu-item" component={Link} to="/dashboard" disablePadding sx={{display: 'block'}}>
                 <ListItemButton
                   sx={{
@@ -817,7 +817,7 @@ const Page: React.FC = ({children}) => {
                   >
                     <AttachMoneyIcon style={{fill: '#e647e6'}} />
                   </ListItemIcon>
-                  <ListItemText primary="Earn" sx={{opacity: open ? 1 : 0}} />
+                  <ListItemText primary="Dashboard" sx={{opacity: open ? 1 : 0}} />
                 </ListItemButton>
               </ListItem>
             </Tooltip>
