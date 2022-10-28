@@ -16,7 +16,6 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import useApprove, {ApprovalState} from '../../hooks/useApprove';
-import useWinepressUserInfo from '../../hooks/useWinepressUserInfo';
 import usePressLottoInfo from '../../hooks/usePressLottoInfo';
 import useGrapeFinance from '../../hooks/useGrapeFinance';
 import useTokenBalance from '../../hooks/useTokenBalance';
@@ -26,10 +25,11 @@ import {styled} from '@mui/material/styles';
 import Tooltip, {TooltipProps, tooltipClasses} from '@mui/material/Tooltip';
 import useGetPressUsersNearAssassination from '../../hooks/useGetPressUsersNearAssassination';
 import useAssassinatePress from '../../hooks/useAssassinatePress';
+import useSodapressUserInfo from '../../hooks/useSodapressUserInfo';
 
 const GRAPE_PER_BATCH = 10;
 
-interface WinepressCardProps {
+interface SodapressCardProps {
   bank: Bank;
   activesOnly: boolean;
 }
@@ -43,11 +43,11 @@ const LightTooltip = styled(({className, ...props}: TooltipProps) => (
   },
 }));
 
-const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
+const SodapressCard: React.FC<SodapressCardProps> = ({bank, activesOnly}) => {
   const widthUnder960 = useMediaQuery('(max-width:960px)');
 
   const grapeFinance = useGrapeFinance();
-  const pressUserInfo = useWinepressUserInfo();
+  const pressUserInfo = useSodapressUserInfo();
   const pressLottoInfo = usePressLottoInfo(bank.name);
   const usersNearAssassination = useGetPressUsersNearAssassination(bank.name);
 
@@ -117,7 +117,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
 
   const claim = () => {
     if (pressUserInfo.pendingShares >= pressUserInfo.currentShares) {
-      alert('You are about to claim more shares than you have. This will kick you out of the Winepress. Confirm?');
+      alert('You are about to claim more shares than you have. This will kick you out of the Sodapress. Confirm?');
     } else {
       onClaim();
     }
@@ -143,7 +143,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
 
   const getLiquidityLink = () => {
     if (payWith === bank.depositTokenName) {
-      return 'https://traderjoexyz.com/pool/0x130966628846bfd36ff31a822705796e8cb8c18d/0xc55036b5348cfb45a932481744645985010d3a44';
+      return 'https://xgrape.grapefinance.app/';
     }
   };
 
@@ -876,4 +876,4 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
   );
 };
 
-export default WinepressCard;
+export default SodapressCard;

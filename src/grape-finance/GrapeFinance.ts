@@ -63,7 +63,7 @@ export class GrapeFinance {
   DAI: ERC20;
   HSHARE: ERC20;
   VINTAGELP: ERC20;
-  XGRAPELP: ERC20;
+  GRAPEXGRAPELP: ERC20;
   VINTAGE: ERC20;
   SVINTAGE: ERC20;
 
@@ -103,7 +103,7 @@ export class GrapeFinance {
     this.DAI = this.externalTokens['DAI'];
     this.HSHARE = this.externalTokens['HSHARE'];
     this.VINTAGELP = this.externalTokens['sVintageLP'];
-    this.XGRAPELP = this.externalTokens['xGrapeLP'];
+    this.GRAPEXGRAPELP = this.externalTokens['GRAPE-XGRAPE-LP'];
     this.VINTAGE = this.externalTokens['Vintage'];
     this.SVINTAGE = this.externalTokens['sVintage'];
     // Uniswap V2 Pair
@@ -149,10 +149,10 @@ export class GrapeFinance {
   //===================================================================
 
   async getGrapeXGrapeLPPrice(): Promise<string> {
-    const {XGRAPEGRAPE, xGrapeOracle} = this.contracts;
-    const grapeXGrapeSupply = Number(await XGRAPEGRAPE.totalSupply()) / 1e18;
+    const {GRAPEXGRAPE, xGrapeOracle} = this.contracts;
+    const grapeXGrapeSupply = Number(await GRAPEXGRAPE.totalSupply()) / 1e18;
     const xGrapePrice = Number(await xGrapeOracle.xGrapePrice()) / 1e18;
-    const xGrapeBalance = Number(await this.XGRAPE.balanceOf(this.XGRAPELP.address)) / 1e18;
+    const xGrapeBalance = Number(await this.XGRAPE.balanceOf(this.GRAPEXGRAPELP.address)) / 1e18;
     const fixedLPPrice = ((xGrapeBalance * xGrapePrice * 2) / grapeXGrapeSupply).toFixed(3);
     return fixedLPPrice;
   }
@@ -289,7 +289,7 @@ export class GrapeFinance {
 
   async getAllUsersNearAssassination(press: string): Promise<string[]> {
     const pressContract = this.contracts[press];
-    const usersNearAssassination = await pressContract.fetchAllUsersNearAssassination(90);
+    const usersNearAssassination = await pressContract.fetchAllUsersNearAssassination(950);
     return usersNearAssassination;
   }
 

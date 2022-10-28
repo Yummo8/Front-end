@@ -17,6 +17,7 @@ import grapewlrs from '../../assets/img/grape-wlrs.png';
 import winePops from '../../assets/img/wine-pops.png';
 import vintage from '../../assets/img/vintage-token.png';
 import solera from '../../assets/img/solera.png';
+import xGrapeGrape from '../../assets/img/xGrapeGrape.png';
 
 const logosBySymbol: {[title: string]: string} = {
   //Real tokens
@@ -39,6 +40,7 @@ const logosBySymbol: {[title: string]: string} = {
   'WINE-MIM-LP': wineMimLpLogo,
   'HSHARE-WINE-LP': hsharewine,
   'WINE-POPS-LP': winePops,
+  'GRAPE-XGRAPE-LP': xGrapeGrape,
 };
 
 type LogoProps = {
