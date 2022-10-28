@@ -282,7 +282,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                       <div className="statBoxInner">
                         <div className="lineLabel">Est. Reward /day</div>
                         <div className="lineValue">
-                          {pressUserInfo ? pressUserInfo.rewardsPerDay.toFixed(2) : '0.00'}
+                          {pressUserInfo ? pressUserInfo.rewardsPerDay.toFixed(2) : '0.00'}{' '}LP
                           <span className="wallet-token-value">
                             {' '}
                             ($
