@@ -208,7 +208,7 @@ const SolerapressCard: React.FC<SolerapressCardProps> = ({bank, activesOnly}) =>
                 </div>
                 <div className="lineValueDeposited">
                   <span style={{color: '#fcfcfc'}}>
-                    {pressUserInfo ? pressUserInfo.totalTracked.toFixed(2) : '0.00'} LP
+                    {pressUserInfo ? pressUserInfo.totalTracked.toFixed(2) : '0.00'} 
                   </span>
                   <span style={{marginLeft: '5px', fontSize: '14px'}}>
                     ($
@@ -229,7 +229,7 @@ const SolerapressCard: React.FC<SolerapressCardProps> = ({bank, activesOnly}) =>
                 <div className="lineLabel">Rewards</div>
                 <div className="lineValueDeposited">
                   <span style={{color: '#fcfcfc'}}>
-                    {pressUserInfo ? pressUserInfo.totalClaimable.toFixed(2) : '0.00'} LP
+                    {pressUserInfo ? pressUserInfo.totalClaimable.toFixed(2) : '0.00'} 
                   </span>
                   <span style={{marginLeft: '5px', fontSize: '14px'}}>
                     ($
