@@ -2,7 +2,7 @@ import React from 'react';
 
 //Graveyard ecosystem logos
 import grapeLogo from '../../assets/img/grape.png';
-import xGrape from '../../assets/img/xGrape.png';
+import xGrape from '../../assets/img/xgrape-small.png';
 import wine from '../../assets/img/gshare.png';
 import gbondLogo from '../../assets/img/gbond.png';
 import mimLogo from '../../assets/img/mim.png';
@@ -16,6 +16,7 @@ import gnode from '../../assets/img/gnode.png';
 import grapewlrs from '../../assets/img/grape-wlrs.png';
 import winePops from '../../assets/img/wine-pops.png';
 import vintage from '../../assets/img/vintage-token.png';
+import solera from '../../assets/img/solera.png';
 
 const logosBySymbol: {[title: string]: string} = {
   //Real tokens
@@ -30,6 +31,7 @@ const logosBySymbol: {[title: string]: string} = {
   HSHARE: wamp,
   GNODE: gnode,
   sVintage: vintage,
+  SOLERA: solera,
   'GRAPE-MIM-LP': grapeMimLpLogo,
   'GRAPE-MIM-SW': grapeMimLpLogo,
   'GRAPE-WLRS-LP': grapewlrs,

@@ -1,6 +1,6 @@
 import ERC20 from './ERC20';
-import { BigNumber } from 'ethers';
-import { ApprovalState } from '../hooks/useApprove';
+import {BigNumber} from 'ethers';
+import {ApprovalState} from '../hooks/useApprove';
 export type ContractName = string;
 
 export interface BankInfo {
@@ -102,7 +102,7 @@ export type NodesRewardWalletBalance = {
   grapes: string;
   wines: string;
   grapeMimSWs: string;
-}
+};
 
 export type TokenStat = {
   tokenInFtm: string;
@@ -125,7 +125,10 @@ export type PressUserInfo = {
   profitRatio: number;
   currentShares: number;
   pendingShares: number;
-}
+  pendingSharesInToken: number;
+  currentSharesInToken: number;
+  claimedInShares: number;
+};
 
 export type PressLottoInfo = {
   largestDaily: number;
@@ -137,7 +140,7 @@ export type PressLottoInfo = {
   lottoTickets: number;
   totalLottoTickets: number;
   lottoWinnings: number;
-}
+};
 
 export type WalletNodesAndNFTs = {
   grapes: number;
@@ -147,7 +150,7 @@ export type WalletNodesAndNFTs = {
   glasses: number;
   decanters: number;
   goblets: number;
-}
+};
 
 export type WalletStats = {
   rewardsInVineyard: number;
@@ -155,12 +158,14 @@ export type WalletStats = {
   rewardsInNodes: number;
   rewardsInWinePress: number;
   rewardsInSodaPress: number;
+  rewardsInSoleraPress: number;
   totalInVineyard: number;
   totalInWinery: number;
   totalInNodes: number;
   totalInWinePress: number;
   totalInSodaPress: number;
-}
+  totalInSoleraPress: number;
+};
 
 export type LPStat = {
   tokenAmount: string;

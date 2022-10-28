@@ -161,6 +161,18 @@
 .lineName {
   font-size: 18px;
 }
+
+.dashboard-token-box {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  border-radius: 10px;
+  min-height: 80px;
+}
+
+.dashboard-token-box-inner {
+  padding: 10px;
+  text-align: center;
+}
+
 .node-lineDetailsBox {
   min-height: 320px;
   background-color: #1d1f2c;
@@ -415,6 +427,7 @@ h6 {
 
 .wallet-token-value {
   color: #e646e6;
+  font-size: 14px;
 }
 
 .wallet-token-balance {

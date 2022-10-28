@@ -50,6 +50,7 @@ import Farms from './Farms';
 import Nodes from './Nodes';
 import BoardroomCard from './BoardroomCard';
 import Presses from './Presses';
+import useSVintagePrice from '../../hooks/useSVintagePrice';
 
 const Dashboard = () => {
   const {account} = useWallet();
@@ -73,17 +74,17 @@ const Dashboard = () => {
   // const compoundPresses = useCompoundPresses(pressPools)
 
   const grapeBalance = useTokenBalance(grapeFinance.GRAPE);
-  const displayGrapeBalance = useMemo(() => getDisplayBalance(grapeBalance), [grapeBalance]);
+  const displayGrapeBalance = useMemo(() => getDisplayBalance(grapeBalance, 18, 2), [grapeBalance]);
   const wineBalance = useTokenBalance(grapeFinance.WINE);
-  const displayWineBalance = useMemo(() => getDisplayBalance(wineBalance), [wineBalance]);
+  const displayWineBalance = useMemo(() => getDisplayBalance(wineBalance, 18, 2), [wineBalance]);
   const gbondBalance = useTokenBalance(grapeFinance.GBOND);
-  const displayGbondBalance = useMemo(() => getDisplayBalance(gbondBalance), [gbondBalance]);
+  const displayGbondBalance = useMemo(() => getDisplayBalance(gbondBalance, 18, 2), [gbondBalance]);
   const xGrapeBalance = useTokenBalance(grapeFinance.XGRAPE);
   const vintageBalance = useTokenBalance(grapeFinance.VINTAGE);
   const svintageBalance = useTokenBalance(grapeFinance.SVINTAGE);
-  const displayXGrapeBalance = useMemo(() => getDisplayBalance(xGrapeBalance), [xGrapeBalance]);
-  const displayVintageBalance = useMemo(() => getDisplayBalance(vintageBalance), [vintageBalance]);
-  const displaySVintageBalance = useMemo(() => getDisplayBalance(svintageBalance), [svintageBalance]);
+  const displayXGrapeBalance = useMemo(() => getDisplayBalance(xGrapeBalance, 18, 2), [xGrapeBalance]);
+  const displayVintageBalance = useMemo(() => getDisplayBalance(vintageBalance, 18, 2), [vintageBalance]);
+  const displaySVintageBalance = useMemo(() => getDisplayBalance(svintageBalance, 18, 2), [svintageBalance]);
 
   const grapePriceInDollars = useMemo(
     () => (grapeStats ? Number(grapeStats.priceInDollars).toFixed(2) : null),
@@ -96,6 +97,7 @@ const Dashboard = () => {
 
   const xGrapePrice = useXGrapePrice();
   const vintagePrice = useVintagePrice();
+  const sVintagePrice = useSVintagePrice();
 
   const matches = useMediaQuery('(min-width:900px)');
   const matches960 = useMediaQuery('(max-width:960px)');
@@ -109,6 +111,7 @@ const Dashboard = () => {
         walletStats.totalInSodaPress +
         walletStats.totalInVineyard +
         walletStats.totalInWinePress +
+        walletStats.totalInSoleraPress +
         walletStats.totalInWinery +
         Number(displayGrapeBalance) * Number(grapePriceInDollars) +
         Number(displayWineBalance) * Number(winePriceInDollars) +
@@ -125,6 +128,7 @@ const Dashboard = () => {
       return (
         walletStats.rewardsInNodes +
         walletStats.rewardsInSodaPress +
+        walletStats.rewardsInSoleraPress +
         walletStats.rewardsInVineyard +
         walletStats.rewardsInWinePress +
         walletStats.rewardsInWinery
@@ -151,7 +155,7 @@ const Dashboard = () => {
           <Grid container spacing={1}>
             <Grid item xs={12}>
               <Grid container spacing={1}>
-                <Grid item xs={6} sm={6} md={4} lg={2}>
+                <Grid item xs={12} lg={4}>
                   <Card>
                     <CardContent>
                       <Grid container justifyContent="center" spacing={1} alignContent="center" alignItems="center">
@@ -194,7 +198,7 @@ const Dashboard = () => {
                     </CardContent>
                   </Card>
                 </Grid>
-                <Grid item xs={6} sm={6} md={4} lg={2}>
+                <Grid item xs={6} sm={6} md={3} lg={2}>
                   <Card>
                     <CardContent>
                       <Typography color="textSecondary" align="center" variant="h6" gutterBottom>
@@ -228,7 +232,7 @@ const Dashboard = () => {
                     </CardContent>
                   </Card>
                 </Grid>
-                <Grid item xs={6} sm={6} md={4} lg={2}>
+                <Grid item xs={6} sm={6} md={3} lg={2}>
                   <Card>
                     <CardContent>
                       <Typography color="textSecondary" align="center" variant="h6" gutterBottom>
@@ -263,7 +267,7 @@ const Dashboard = () => {
                     </CardContent>
                   </Card>
                 </Grid>
-                <Grid item xs={6} sm={6} md={4} lg={2}>
+                <Grid item xs={6} sm={6} md={3} lg={2}>
                   <Card>
                     <CardContent>
                       <Typography color="textSecondary" align="center" variant="h6" gutterBottom>
@@ -299,43 +303,7 @@ const Dashboard = () => {
                   </Card>
                 </Grid>
 
-                <Grid item xs={6} sm={6} md={4} lg={2}>
-                  <Card>
-                    <CardContent>
-                      <Typography color="textSecondary" align="center" variant="h6" gutterBottom>
-                        <img
-                          src={wineMimLP}
-                          alt="Wine MIM"
-                          height={25}
-                          style={{verticalAlign: 'text-bottom', marginRight: '10px'}}
-                        />
-                        Winepress
-                      </Typography>
-
-                      <Typography color="textPrimary" align="center" variant="h5" style={{fontWeight: 700}}>
-                        {walletStats ? (
-                          <CountUp end={walletStats.totalInWinePress} separator="," prefix="≈$" />
-                        ) : (
-                          <SyncLoader color="white" size={8} />
-                        )}
-                      </Typography>
-
-                      <Typography style={{color: '#f9b857', marginTop: '10px'}} align="center">
-                        Rewards
-                      </Typography>
-
-                      <Typography style={{color: '#f9b857', fontWeight: 700}} align="center">
-                        {walletStats != null ? (
-                          <CountUp end={Number(walletStats.rewardsInWinePress)} separator="," prefix="≈$" />
-                        ) : (
-                          <SyncLoader color="white" size={8} />
-                        )}
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
-
-                <Grid item xs={6} sm={6} md={4} lg={2}>
+                <Grid item xs={6} sm={6} md={3} lg={2}>
                   <Card>
                     <CardContent>
                       <Typography color="textSecondary" align="center" variant="h6" gutterBottom>
@@ -345,12 +313,20 @@ const Dashboard = () => {
                           height={25}
                           style={{verticalAlign: 'text-bottom', marginRight: '10px'}}
                         />
-                        Sodapress
+                        Presses
                       </Typography>
 
                       <Typography color="textPrimary" align="center" variant="h5" style={{fontWeight: 700}}>
                         {walletStats ? (
-                          <CountUp end={walletStats.totalInSodaPress} separator="," prefix="≈$" />
+                          <CountUp
+                            end={
+                              walletStats.totalInWinePress +
+                              walletStats.totalInSodaPress +
+                              walletStats.totalInSoleraPress
+                            }
+                            separator=","
+                            prefix="≈$"
+                          />
                         ) : (
                           <SyncLoader color="white" size={8} />
                         )}
@@ -362,7 +338,15 @@ const Dashboard = () => {
 
                       <Typography style={{color: '#f9b857', fontWeight: 700}} align="center">
                         {walletStats != null ? (
-                          <CountUp end={Number(walletStats.rewardsInSodaPress)} separator="," prefix="≈$" />
+                          <CountUp
+                            end={Number(
+                              walletStats.rewardsInWinePress +
+                                walletStats.rewardsInSodaPress +
+                                walletStats.rewardsInSoleraPress,
+                            )}
+                            separator=","
+                            prefix="≈$"
+                          />
                         ) : (
                           <SyncLoader color="white" size={8} />
                         )}
@@ -373,80 +357,120 @@ const Dashboard = () => {
               </Grid>
             </Grid>
             <Grid item xs={12}>
-              <Card>
-                <CardContent>
-                  <Balances
-                    style={{display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap', marginBottom: '0'}}
-                  >
-                    <StyledBalanceWrapper>
-                      <TokenSymbol width={35} height={35} symbol="GRAPE" />
-                      <StyledBalance>
-                        <span className="wallet-token-balance">{displayGrapeBalance}</span>
-                        <Label text="GRAPE" />
+              <Grid container spacing={1} justifyContent="space-between" alignItems="center">
+                <Grid item xs={4} sm={4} md={2}>
+                  <div className="dashboard-token-box">
+                    <div className="dashboard-token-box-inner">
+                      <div className="lineLabel">
+                        <TokenSymbol width={32} height={32} symbol="GRAPE" />
+                      </div>
+                      <div className="lineValue">
+                        <span>{displayGrapeBalance}</span>{' '}
                         <span className="wallet-token-value">
-                          ~${(Number(displayGrapeBalance) * Number(grapePriceInDollars)).toFixed(2)}
+                          ($
+                          {grapePriceInDollars && displayGrapeBalance
+                            ? (Number(displayGrapeBalance) * Number(grapePriceInDollars)).toFixed(2)
+                            : '0.00'}
+                          )
                         </span>
-                      </StyledBalance>
-                    </StyledBalanceWrapper>
+                      </div>
+                    </div>
+                  </div>
+                </Grid>
 
-                    <StyledBalanceWrapper>
-                      <TokenSymbol width={35} height={35} symbol="WINE" />
-                      <StyledBalance>
-                        <span className="wallet-token-balance">{displayWineBalance}</span>
-
-                        <Label text="WINE" />
+                <Grid item xs={4} sm={4} md={2}>
+                  <div className="dashboard-token-box">
+                    <div className="dashboard-token-box-inner">
+                      <div className="lineLabel">
+                        <TokenSymbol width={32} height={32} symbol="WINE" />
+                      </div>
+                      <div className="lineValue">
+                        <span>{displayWineBalance}</span>{' '}
                         <span className="wallet-token-value">
-                          ~${(Number(displayWineBalance) * Number(winePriceInDollars)).toFixed(2)}
+                          ($
+                          {winePriceInDollars && displayWineBalance
+                            ? (Number(displayWineBalance) * Number(winePriceInDollars)).toFixed(2)
+                            : '0.00'}
+                          )
                         </span>
-                      </StyledBalance>
-                    </StyledBalanceWrapper>
+                      </div>
+                    </div>
+                  </div>
+                </Grid>
 
-                    <StyledBalanceWrapper>
-                      <TokenSymbol width={35} height={35} symbol="XGRAPE" />
-                      <StyledBalance>
-                        <span className="wallet-token-balance">{displayXGrapeBalance}</span>
-                        <Label text="xGRAPE" />
+                <Grid item xs={4} sm={4} md={2}>
+                  <div className="dashboard-token-box">
+                    <div className="dashboard-token-box-inner">
+                      <div className="lineLabel">
+                        <TokenSymbol width={32} height={32} symbol="XGRAPE" />
+                      </div>
+                      <div className="lineValue">
+                        <span>{displayXGrapeBalance}</span>{' '}
                         <span className="wallet-token-value">
-                          ~$
-                          {xGrapePrice && displayXGrapeBalance && (
-                            <span>{(Number(displayXGrapeBalance) * Number(xGrapePrice)).toFixed(2)}</span>
-                          )}
+                          ($
+                          {xGrapePrice && displayXGrapeBalance
+                            ? (Number(displayXGrapeBalance) * Number(xGrapePrice)).toFixed(2)
+                            : '0.00'}
+                          )
                         </span>
-                      </StyledBalance>
-                    </StyledBalanceWrapper>
+                      </div>
+                    </div>
+                  </div>
+                </Grid>
 
-                    <StyledBalanceWrapper>
-                      <TokenSymbol width={35} height={35} symbol="GBOND" />
-                      <StyledBalance>
-                        <span className="wallet-token-balance">{displayGbondBalance}</span>
-                        <Label text="GBOND" />
-                      </StyledBalance>
-                    </StyledBalanceWrapper>
-
-                    <StyledBalanceWrapper>
-                      <TokenSymbol width={35} height={35} symbol="sVintage" />
-                      <StyledBalance>
-                        <span className="wallet-token-balance">{displayVintageBalance}</span>
-                        <Label text="VINTAGE" />
+                <Grid item xs={4} sm={4} md={2}>
+                  <div className="dashboard-token-box">
+                    <div className="dashboard-token-box-inner">
+                      <div className="lineLabel">
+                        <TokenSymbol width={32} height={32} symbol="sVintage" />
+                      </div>
+                      <div className="lineValue">
+                        <span>{displayVintageBalance}</span>{' '}
                         <span className="wallet-token-value">
-                          ~$
-                          {vintagePrice && displayVintageBalance && (
-                            <span>{(Number(displayVintageBalance) * Number(vintagePrice)).toFixed(2)}</span>
-                          )}
+                          ($
+                          {vintagePrice && displayVintageBalance
+                            ? (Number(displayVintageBalance) * Number(vintagePrice)).toFixed(2)
+                            : '0.00'}
+                          )
                         </span>
-                      </StyledBalance>
-                    </StyledBalanceWrapper>
+                      </div>
+                    </div>
+                  </div>
+                </Grid>
 
-                    <StyledBalanceWrapper>
-                      <TokenSymbol width={35} height={35} symbol="sVintage" />
-                      <StyledBalance>
-                        <span className="wallet-token-balance">{displaySVintageBalance}</span>
-                        <Label text="sVINTAGE" />
-                      </StyledBalance>
-                    </StyledBalanceWrapper>
-                  </Balances>
-                </CardContent>
-              </Card>
+                <Grid item xs={4} sm={4} md={2}>
+                  <div className="dashboard-token-box">
+                    <div className="dashboard-token-box-inner">
+                      <div className="lineLabel">
+                        <TokenSymbol width={32} height={32} symbol="SOLERA" />
+                      </div>
+                      <div className="lineValue">
+                        <span>{displaySVintageBalance}</span>{' '}
+                        <span className="wallet-token-value">
+                          ($
+                          {sVintagePrice && displaySVintageBalance
+                            ? (Number(displaySVintageBalance) * Number(sVintagePrice)).toFixed(2)
+                            : '0.00'}
+                          )
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </Grid>
+
+                <Grid item xs={4} sm={4} md={2}>
+                  <div className="dashboard-token-box">
+                    <div className="dashboard-token-box-inner">
+                      <div className="lineLabel">
+                        <TokenSymbol width={32} height={32} symbol="GBOND" />
+                      </div>
+                      <div className="lineValue">
+                        <span>{displayGbondBalance}</span>{' '}
+                      </div>
+                    </div>
+                  </div>
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
           <Box mt={7}>

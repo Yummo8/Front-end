@@ -157,6 +157,41 @@ export class GrapeFinance {
     return fixedLPPrice;
   }
 
+  async getWinepressData(): Promise<PressUserInfo> {
+    const {Winepress} = this.contracts;
+    const userInfo = await Winepress.userInfo(this.myAccount);
+    const pendingRewards = await Winepress.pendingRewards(this.myAccount);
+    const wineStats = await this.getLPStat('WINE-MIM-LP');
+    const totalDeposited = await Winepress.totalDeposited();
+    const rewardsPerDay = await Winepress.rewardsPerDay(this.myAccount);
+    const profitRatio = await Winepress.calculateTrackedProfitRatio(this.myAccount);
+    const pendingShares = await Winepress.pendingShares(this.myAccount);
+    const profit = await Winepress.calculateProfit(this.myAccount);
+
+    const price = Number(await Winepress.calculatePrice()) / 1e18;
+    const currentSharesWorthInToken = (userInfo.balance / 1e18) * price;
+    const pendingSharesWorthInToken = (pendingShares / 1e18) * price;
+    const sharesClaimed = userInfo.totalShareBalance / 1e18 - userInfo.balance / 1e18;
+
+    return {
+      totalTracked: Number(userInfo.trackedTokenBalance / 1e18),
+      totalDeposited: Number(userInfo.totalTokenBalance / 1e18),
+      totalClaimable: Number(pendingRewards / 1e18),
+      profitsAssassinated: Number(userInfo.profitsAssassinated) / 1e18,
+      depositTokenPrice: wineStats.priceOfOne,
+      pressTotalDeposited: Number(totalDeposited) / 1e18,
+      tvl: (Number(totalDeposited) / 1e18) * Number(wineStats.priceOfOne),
+      rewardsPerDay: Number(rewardsPerDay) / 1e18,
+      profit: Number(profit) / 1e18,
+      profitRatio: Number(profitRatio) / 1e18,
+      pendingShares: Number(pendingShares) / 1e18,
+      pendingSharesInToken: pendingSharesWorthInToken,
+      currentSharesInToken: currentSharesWorthInToken,
+      currentShares: Number(userInfo.balance) / 1e18,
+      claimedInShares: sharesClaimed,
+    };
+  }
+
   async getSodapressData(): Promise<PressUserInfo> {
     const {Sodapress} = this.contracts;
     const userInfo = await Sodapress.userInfo(this.myAccount);
@@ -167,6 +202,10 @@ export class GrapeFinance {
     const profitRatio = await Sodapress.calculateTrackedProfitRatio(this.myAccount);
     const profit = await Sodapress.calculateProfit(this.myAccount);
     const pendingShares = await Sodapress.pendingShares(this.myAccount);
+    const price = Number(await Sodapress.calculatePrice()) / 1e18;
+    const currentSharesWorthInToken = (userInfo.balance / 1e18) * price;
+    const pendingSharesWorthInToken = (pendingShares / 1e18) * price;
+    const sharesClaimed = userInfo.totalShareBalance / 1e18 - userInfo.balance / 1e18;
 
     return {
       totalTracked: Number(userInfo.trackedTokenBalance / 1e18),
@@ -181,6 +220,43 @@ export class GrapeFinance {
       profit: Number(profit) / 1e18,
       currentShares: Number(userInfo.balance) / 1e18,
       pendingShares: Number(pendingShares) / 1e18,
+      pendingSharesInToken: pendingSharesWorthInToken,
+      currentSharesInToken: currentSharesWorthInToken,
+      claimedInShares: sharesClaimed,
+    };
+  }
+
+  async getSolerapressData(): Promise<PressUserInfo> {
+    const {Solerapress} = this.contracts;
+    const userInfo = await Solerapress.userInfo(this.myAccount);
+    const pendingRewards = await Solerapress.pendingRewards(this.myAccount);
+    const totalDeposited = await Solerapress.totalDeposited();
+    const depositTokenprice = await this.getSVintagePrice();
+    const rewardsPerDay = await Solerapress.rewardsPerDay(this.myAccount);
+    const profitRatio = await Solerapress.calculateTrackedProfitRatio(this.myAccount);
+    const profit = await Solerapress.calculateProfit(this.myAccount);
+    const pendingShares = await Solerapress.pendingShares(this.myAccount);
+    const price = Number(await Solerapress.calculatePrice()) / 1e18;
+    const currentSharesWorthInToken = (userInfo.balance / 1e18) * price;
+    const pendingSharesWorthInToken = (pendingShares / 1e18) * price;
+    const sharesClaimed = userInfo.totalShareBalance / 1e18 - userInfo.balance / 1e18;
+
+    return {
+      totalTracked: Number(userInfo.trackedTokenBalance / 1e18),
+      totalDeposited: Number(userInfo.totalTokenBalance / 1e18),
+      totalClaimable: Number(pendingRewards / 1e18),
+      pressTotalDeposited: Number(totalDeposited) / 1e18,
+      profitsAssassinated: Number(userInfo.profitsAssassinated) / 1e18,
+      depositTokenPrice: depositTokenprice,
+      tvl: (Number(totalDeposited) / 1e18) * Number(depositTokenprice),
+      rewardsPerDay: Number(rewardsPerDay) / 1e18,
+      profitRatio: Number(profitRatio) / 1e18,
+      profit: Number(profit) / 1e18,
+      currentShares: Number(userInfo.balance) / 1e18,
+      pendingShares: Number(pendingShares) / 1e18,
+      pendingSharesInToken: pendingSharesWorthInToken,
+      currentSharesInToken: currentSharesWorthInToken,
+      claimedInShares: sharesClaimed,
     };
   }
 
@@ -211,37 +287,10 @@ export class GrapeFinance {
     return await press.assassinate(user);
   }
 
-  async getAllUsersNearAssassination(press: string) : Promise<string[]> {
-    const pressContract = this.contracts[press]
-    const usersNearAssassination = await pressContract.fetchAllUsersNearAssassination(90)
-    return usersNearAssassination
-  }
-
-  async getWinepressData(): Promise<PressUserInfo> {
-    const {Winepress} = this.contracts;
-    const userInfo = await Winepress.userInfo(this.myAccount);
-    const pendingRewards = await Winepress.pendingRewards(this.myAccount);
-    const wineStats = await this.getLPStat('WINE-MIM-LP');
-    const totalDeposited = await Winepress.totalDeposited();
-    const rewardsPerDay = await Winepress.rewardsPerDay(this.myAccount);
-    const profitRatio = await Winepress.calculateTrackedProfitRatio(this.myAccount);
-    const pendingShares = await Winepress.pendingShares(this.myAccount);
-    const profit = await Winepress.calculateProfit(this.myAccount);
-
-    return {
-      totalTracked: Number(userInfo.trackedTokenBalance / 1e18),
-      totalDeposited: Number(userInfo.totalTokenBalance / 1e18),
-      totalClaimable: Number(pendingRewards / 1e18),
-      profitsAssassinated: Number(userInfo.profitsAssassinated) / 1e18,
-      depositTokenPrice: wineStats.priceOfOne,
-      pressTotalDeposited: Number(totalDeposited) / 1e18,
-      tvl: (Number(totalDeposited) / 1e18) * Number(wineStats.priceOfOne),
-      rewardsPerDay: Number(rewardsPerDay) / 1e18,
-      profit: Number(profit) / 1e18,
-      profitRatio: Number(profitRatio) / 1e18,
-      pendingShares: Number(pendingShares) / 1e18,
-      currentShares: Number(userInfo.balance) / 1e18,
-    };
+  async getAllUsersNearAssassination(press: string): Promise<string[]> {
+    const pressContract = this.contracts[press];
+    const usersNearAssassination = await pressContract.fetchAllUsersNearAssassination(90);
+    return usersNearAssassination;
   }
 
   async getXGrapePrice(): Promise<string> {
@@ -485,6 +534,12 @@ export class GrapeFinance {
     return vintagePrice.toFixed(4);
   }
 
+  async getSVintagePrice(): Promise<string> {
+    const {priceOracle} = this.contracts;
+    const sVintagePrice = (await priceOracle.sVintagePrice()) / 1e18;
+    return sVintagePrice.toFixed(4);
+  }
+
   async getWalletStats(banks: Bank[]): Promise<WalletStats> {
     const vineyardBanks = banks.filter(
       (bank) => !bank.finished && (bank.sectionInUI === 2 || bank.sectionInUI === 6 || bank.sectionInUI === 7),
@@ -496,11 +551,13 @@ export class GrapeFinance {
       totalInWinery = 0,
       totalInWinePress = 0,
       totalInSodaPress = 0,
+      totalInSoleraPress = 0,
       rewardsInVineyard = 0,
       rewardsInWinery = 0,
       rewardsInNodes = 0,
       rewardsInWinePress = 0,
-      rewardsInSodaPress = 0;
+      rewardsInSodaPress = 0,
+      rewardsInSoleraPress = 0;
 
     const winePriceInDollars = Number(await this.getDepositTokenPriceInDollars('WINE', this.WINE));
     const grapePriceInDollars = Number(await this.getDepositTokenPriceInDollars('GRAPE', this.GRAPE));
@@ -516,6 +573,12 @@ export class GrapeFinance {
     rewardsInSodaPress = sodapressUserInfo.totalClaimable * Number(sodapressUserInfo.depositTokenPrice);
     totalInSodaPress =
       sodapressUserInfo.totalTracked * Number(sodapressUserInfo.depositTokenPrice) + rewardsInSodaPress;
+
+    // SoleraPress
+    const solerapressUserInfo = await this.getSolerapressData();
+    rewardsInSoleraPress = solerapressUserInfo.totalClaimable * Number(solerapressUserInfo.depositTokenPrice);
+    totalInSoleraPress =
+      solerapressUserInfo.totalTracked * Number(solerapressUserInfo.depositTokenPrice) + rewardsInSoleraPress;
 
     // Vineyard
     for (let i = 0; i < vineyardBanks.length; i++) {
@@ -578,11 +641,13 @@ export class GrapeFinance {
       rewardsInNodes: rewardsInNodes,
       rewardsInSodaPress: rewardsInSodaPress,
       rewardsInWinePress: rewardsInWinePress,
+      rewardsInSoleraPress: rewardsInSoleraPress,
       totalInVineyard: totalInVineyard,
       totalInWinery: totalInWinery,
       totalInNodes: totalInNodes,
       totalInWinePress: totalInWinePress,
       totalInSodaPress: totalInSodaPress,
+      totalInSoleraPress: totalInSoleraPress,
     };
   }
 
