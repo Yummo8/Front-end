@@ -195,7 +195,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                 <div className="lineLabel">
                   Total Tracked
                   <LightTooltip arrow placement="top" enterDelay={0} title="Deposited + Compounded">
-                    <InfoIcon style={{verticalAlign: 'text-bottom', fontSize: '17px'}} />
+                    <InfoIcon style={{verticalAlign: 'text-bottom', fontSize: '17px', marginLeft: '15px'}} />
                   </LightTooltip>
                 </div>
                 <div className="lineValueDeposited">
@@ -341,7 +341,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                           </LightTooltip>
                         </div>
                         <div className="lineValue">
-                          {pressUserInfo ? (pressUserInfo.profitRatio * 100 * 3.5).toFixed(2) : '0'}% / 100%
+                          {pressUserInfo ? (pressUserInfo.profitRatio * 100 * 3).toFixed(2) : '0'} / 100
                         </div>
                       </div>
                     </div>
@@ -745,8 +745,62 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                       </Box>
                     </Box>
                   </Grid>
-                  <Grid item xs={12} md={6}>
-                    Assassinate
+                  <Grid item xs={12} sm={12} md={6}>
+                    <Box className="lineDetailsBox">
+                      <div className="node-line-details-inner">
+                        <Box>
+                          <div className="pending-rewards">{bank.earnTokenName} ASSASSINATION</div>
+                        </Box>
+
+                        <Box mt={2}>
+                          <Grid container justifyContent="space-between">
+                            <Grid item>Assassination Profits</Grid>
+                            <Grid item>
+                              {pressUserInfo ? pressUserInfo.profitsAssassinated.toFixed(2) : '0.00'}{' '}{bank.depositTokenName}
+                              <span className="wallet-token-value">
+                                {' '}
+                                $
+                                {pressUserInfo
+                                  ? (
+                                      pressUserInfo.profitsAssassinated * Number(pressUserInfo.depositTokenPrice)
+                                    ).toFixed(2)
+                                  : '0.00'}
+                              </span>
+                            </Grid>
+                          </Grid>
+                        </Box>
+                      </div>
+                      <Box mt={2}>
+                        <Grid container justifyContent="center">
+                          <Grid item xs={6}>
+                            <button
+                              className="primary-button"
+                              title="Compound"
+                              onClick={onCompound}
+                              disabled={!pressUserInfo || (pressUserInfo && pressUserInfo.totalClaimable <= 0)}
+                              style={{
+                                borderTopLeftRadius: '0',
+                                borderTopRightRadius: '0',
+                                borderBottomRightRadius: '0',
+                              }}
+                            >
+                              COMPOUND
+                            </button>
+                          </Grid>
+                          <Grid item xs={6}>
+                            <button
+                              style={{borderTopLeftRadius: '0', borderTopRightRadius: '0', borderBottomLeftRadius: '0'}}
+                              className="secondary-button"
+                              title="Claim"
+                              onClick={claim}
+                              disabled={!pressUserInfo || (pressUserInfo && pressUserInfo.totalClaimable <= 0)}
+                            >
+                              CLAIM
+                            </button>
+                          </Grid>
+                        </Grid>
+                      </Box>
+                    </Box>
                   </Grid>
                 </Grid>
               </Grid>

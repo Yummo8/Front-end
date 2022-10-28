@@ -115,6 +115,7 @@ export type TokenStat = {
 export type PressUserInfo = {
   totalTracked: number;
   totalDeposited: number;
+  profitsAssassinated: number;
   totalClaimable: number;
   depositTokenPrice: string;
   pressTotalDeposited: number;
