@@ -422,7 +422,7 @@ const Dashboard = () => {
                   <div className="dashboard-token-box">
                     <div className="dashboard-token-box-inner">
                       <div className="lineLabel">
-                        <TokenSymbol width={32} height={32} symbol="sVintage" />
+                        <TokenSymbol width={32} height={32} symbol="VINTAGE" />
                       </div>
                       <div className="lineValue">
                         <span>{displayVintageBalance}</span>{' '}
