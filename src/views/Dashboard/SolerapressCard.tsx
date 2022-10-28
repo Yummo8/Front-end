@@ -16,7 +16,6 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import useApprove, {ApprovalState} from '../../hooks/useApprove';
-import useWinepressUserInfo from '../../hooks/useWinepressUserInfo';
 import usePressLottoInfo from '../../hooks/usePressLottoInfo';
 import useGrapeFinance from '../../hooks/useGrapeFinance';
 import useTokenBalance from '../../hooks/useTokenBalance';
@@ -26,10 +25,12 @@ import {styled} from '@mui/material/styles';
 import Tooltip, {TooltipProps, tooltipClasses} from '@mui/material/Tooltip';
 import useGetPressUsersNearAssassination from '../../hooks/useGetPressUsersNearAssassination';
 import useAssassinatePress from '../../hooks/useAssassinatePress';
+import useSodapressUserInfo from '../../hooks/useSodapressUserInfo';
+import useSolerapressUserInfo from '../../hooks/useSolerapressUserInfo';
 
 const GRAPE_PER_BATCH = 10;
 
-interface WinepressCardProps {
+interface SolerapressCardProps {
   bank: Bank;
   activesOnly: boolean;
 }
@@ -43,11 +44,11 @@ const LightTooltip = styled(({className, ...props}: TooltipProps) => (
   },
 }));
 
-const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
+const SolerapressCard: React.FC<SolerapressCardProps> = ({bank, activesOnly}) => {
   const widthUnder960 = useMediaQuery('(max-width:960px)');
 
   const grapeFinance = useGrapeFinance();
-  const pressUserInfo = useWinepressUserInfo();
+  const pressUserInfo = useSolerapressUserInfo();
   const pressLottoInfo = usePressLottoInfo(bank.name);
   const usersNearAssassination = useGetPressUsersNearAssassination(bank.name);
 
@@ -117,7 +118,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
 
   const claim = () => {
     if (pressUserInfo.pendingShares >= pressUserInfo.currentShares) {
-      alert('You are about to claim more shares than you have. This will kick you out of the Winepress. Confirm?');
+      alert('You are about to claim more shares than you have. This will kick you out of the Solera Press. Confirm?');
     } else {
       onClaim();
     }
@@ -139,12 +140,6 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
 
   const updateInput = (event: any) => {
     setInputValue(event.target.value);
-  };
-
-  const getLiquidityLink = () => {
-    if (payWith === bank.depositTokenName) {
-      return 'https://traderjoexyz.com/pool/0x130966628846bfd36ff31a822705796e8cb8c18d/0xc55036b5348cfb45a932481744645985010d3a44';
-    }
   };
 
   const handlePayWithChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -252,7 +247,17 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                 md={2}
                 style={{marginTop: widthUnder960 ? '15px' : '0', textAlign: widthUnder960 ? 'center' : 'left'}}
               >
-                <div className="lineLabel">Daily APR</div>
+                <div className="lineLabel">
+                  Daily APR{' '}
+                  <LightTooltip
+                    arrow
+                    placement="top"
+                    enterDelay={0}
+                    title="Base APR is 1.25%, then changes based on your deposits, compounds and claims"
+                  >
+                    <InfoIcon style={{verticalAlign: 'text-bottom', fontSize: '17px'}} />
+                  </LightTooltip>
+                </div>
                 <div className="lineValue">{displayDailyAPR ? displayDailyAPR.toFixed(2) : '1.25'}%</div>
               </Grid>
               <Grid
@@ -541,16 +546,14 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                           </div>
                         </div>
                         <Box mt={2}>
-                          {getLiquidityLink() != null && (
-                            <a
-                              style={{textDecoration: 'none'}}
-                              rel="noopener noreferrer"
-                              target="_blank"
-                              href={getLiquidityLink()}
-                            >
-                              <div className="addRemoveLiquidity color-secondary">Add / Remove Liquidity</div>
-                            </a>
-                          )}
+                          <a
+                            style={{textDecoration: 'none'}}
+                            rel="noopener noreferrer"
+                            target="_blank"
+                            href="https://winemaker.grapefinance.app/"
+                          >
+                            <div className="addRemoveLiquidity color-secondary">Farm Vintage for sVintage</div>
+                          </a>
                         </Box>
                       </div>
                       <Box mt={2}>
@@ -875,4 +878,4 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
   );
 };
 
-export default WinepressCard;
+export default SolerapressCard;
