@@ -206,6 +206,17 @@ export class GrapeFinance {
     };
   }
 
+  async assassinatePress(poolName: ContractName, user: string): Promise<TransactionResponse> {
+    const press = this.contracts[poolName];
+    return await press.assassinate(user);
+  }
+
+  async getAllUsersNearAssassination(press: string) : Promise<string[]> {
+    const pressContract = this.contracts[press]
+    const usersNearAssassination = await pressContract.fetchAllUsersNearAssassination(90)
+    return usersNearAssassination
+  }
+
   async getWinepressData(): Promise<PressUserInfo> {
     const {Winepress} = this.contracts;
     const userInfo = await Winepress.userInfo(this.myAccount);

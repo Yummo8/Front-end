@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from 'react';
+import React, {useMemo, useState, useEffect} from 'react';
 import {Box, Grid, Accordion, AccordionDetails, AccordionSummary, useMediaQuery} from '@material-ui/core';
 import InfoIcon from '@mui/icons-material/Info';
 
@@ -24,6 +24,8 @@ import useZapStakePress from '../../hooks/useZapStakePress';
 import usePoolBalance from '../../hooks/usePoolBalance';
 import {styled} from '@mui/material/styles';
 import Tooltip, {TooltipProps, tooltipClasses} from '@mui/material/Tooltip';
+import useGetPressUsersNearAssassination from '../../hooks/useGetPressUsersNearAssassination';
+import useAssassinatePress from '../../hooks/useAssassinatePress';
 
 const GRAPE_PER_BATCH = 10;
 
@@ -46,7 +48,8 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
 
   const grapeFinance = useGrapeFinance();
   const pressUserInfo = useWinepressUserInfo();
-  const pressLottoInfo = usePressLottoInfo('Winepress');
+  const pressLottoInfo = usePressLottoInfo(bank.name);
+  const usersNearAssassination = useGetPressUsersNearAssassination(bank.name);
 
   const depositTokenBalance = useTokenBalance(bank.depositToken);
   const mimTokenBalance = useTokenBalance(grapeFinance.MIM);
@@ -61,10 +64,15 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
     grapeFinance.contracts[bank.name + 'Lotto'].address,
   );
 
+  useEffect(() => {
+    console.log('Uers = ' + JSON.stringify(usersNearAssassination, null, 2));
+  }, [usersNearAssassination]);
+
   const {onClaim} = useClaimPress(bank);
   const {onCompound} = useCompoundPress(bank);
   const {onStake} = useStakePress(bank);
   const {onZapAndStake} = useZapStakePress(bank);
+  const {onAssassinate} = useAssassinatePress(bank);
 
   const [expanded, setExpanded] = useState(false);
   const [inputValue, setInputValue] = useState<string>();
@@ -159,6 +167,15 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
       (payWith === 'MIM' && mimApprovalStatus !== ApprovalState.APPROVED) ||
       (payWith === 'WINE-MIM-LP' && depositApprovalStatus !== ApprovalState.APPROVED)
     );
+  };
+
+  const shortenAddress = (addr: string) => {
+    if (!addr) return '';
+    return addr.slice(0, 6) + '...' + addr.slice(addr.length - 4, addr.length);
+  };
+
+  const assassinate = (user: string) => {
+    onAssassinate(user);
   };
 
   return (
@@ -754,9 +771,10 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
 
                         <Box mt={2}>
                           <Grid container justifyContent="space-between">
-                            <Grid item>Assassination Profits</Grid>
+                            <Grid item>Your Assassination Profits</Grid>
                             <Grid item>
-                              {pressUserInfo ? pressUserInfo.profitsAssassinated.toFixed(2) : '0.00'}{' '}{bank.depositTokenName}
+                              {pressUserInfo ? pressUserInfo.profitsAssassinated.toFixed(2) : '0.00'}{' '}
+                              {bank.depositTokenName}
                               <span className="wallet-token-value">
                                 {' '}
                                 $
@@ -769,37 +787,33 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                             </Grid>
                           </Grid>
                         </Box>
+
+                        <Box mt={3}>
+                          <div className="pending-rewards">USERS NEAR ASSASSINATION (95%) (harcoded 90 for now)</div>
+                          {usersNearAssassination && usersNearAssassination.length > 0 ? (
+                            <Grid container direction="column" spacing={1} style={{marginTop: '20px', paddingBottom: '20px'}}>
+                              {usersNearAssassination.map((user) => (
+                                <Grid item xs={12}>
+                                  <Grid container justifyContent="space-between" alignItems="center">
+                                    <Grid item>{shortenAddress(user)}</Grid>
+                                    <Grid item>
+                                      <button
+                                        onClick={() => assassinate(user)}
+                                        className="primary-button"
+                                        style={{height: '35px'}}
+                                      >
+                                        Assassinate
+                                      </button>
+                                    </Grid>
+                                  </Grid>
+                                </Grid>
+                              ))}
+                            </Grid>
+                          ) : (
+                            <div className="color-secondary" style={{marginTop: '20px'}}>No users near assassination</div>
+                          )}
+                        </Box>
                       </div>
-                      <Box mt={2}>
-                        <Grid container justifyContent="center">
-                          <Grid item xs={6}>
-                            <button
-                              className="primary-button"
-                              title="Compound"
-                              onClick={onCompound}
-                              disabled={!pressUserInfo || (pressUserInfo && pressUserInfo.totalClaimable <= 0)}
-                              style={{
-                                borderTopLeftRadius: '0',
-                                borderTopRightRadius: '0',
-                                borderBottomRightRadius: '0',
-                              }}
-                            >
-                              COMPOUND
-                            </button>
-                          </Grid>
-                          <Grid item xs={6}>
-                            <button
-                              style={{borderTopLeftRadius: '0', borderTopRightRadius: '0', borderBottomLeftRadius: '0'}}
-                              className="secondary-button"
-                              title="Claim"
-                              onClick={claim}
-                              disabled={!pressUserInfo || (pressUserInfo && pressUserInfo.totalClaimable <= 0)}
-                            >
-                              CLAIM
-                            </button>
-                          </Grid>
-                        </Grid>
-                      </Box>
                     </Box>
                   </Grid>
                 </Grid>
