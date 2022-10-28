@@ -217,12 +217,12 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                 </div>
                 <div className="lineValueDeposited">
                   <span style={{color: '#fcfcfc'}}>
-                    {pressUserInfo ? pressUserInfo.totalTracked.toFixed(2) : '0.00'} LP
+                    {pressUserInfo ? pressUserInfo.totalTracked.toFixed(3) : '0.00'} LP
                   </span>
                   <span style={{marginLeft: '5px', fontSize: '14px'}}>
                     ($
                     {pressUserInfo
-                      ? (pressUserInfo.totalTracked * Number(pressUserInfo.depositTokenPrice)).toFixed(2)
+                      ? (pressUserInfo.totalTracked * Number(pressUserInfo.depositTokenPrice)).toFixed(3)
                       : '0.00'}
                     )
                   </span>
@@ -238,12 +238,12 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                 <div className="lineLabel">Rewards</div>
                 <div className="lineValueDeposited">
                   <span style={{color: '#fcfcfc'}}>
-                    {pressUserInfo ? pressUserInfo.totalClaimable.toFixed(2) : '0.00'} LP
+                    {pressUserInfo ? pressUserInfo.totalClaimable.toFixed(3) : '0.00'} LP
                   </span>
                   <span style={{marginLeft: '5px', fontSize: '14px'}}>
                     ($
                     {pressUserInfo
-                      ? (pressUserInfo.totalClaimable * Number(pressUserInfo.depositTokenPrice)).toFixed(2)
+                      ? (pressUserInfo.totalClaimable * Number(pressUserInfo.depositTokenPrice)).toFixed(3)
                       : '0.00'}
                     )
                   </span>
@@ -257,7 +257,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                 style={{marginTop: widthUnder960 ? '15px' : '0', textAlign: widthUnder960 ? 'center' : 'left'}}
               >
                 <div className="lineLabel">Daily APR</div>
-                <div className="lineValue">{displayDailyAPR ? displayDailyAPR.toFixed(2) : '0.00'}%</div>
+                <div className="lineValue">{displayDailyAPR ? displayDailyAPR.toFixed(3) : '0.00'}%</div>
               </Grid>
               <Grid
                 item
@@ -282,12 +282,12 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                       <div className="statBoxInner">
                         <div className="lineLabel">Est. Reward /day</div>
                         <div className="lineValue">
-                          {pressUserInfo ? pressUserInfo.rewardsPerDay.toFixed(2) : '0.00'}{' '}LP
+                          {pressUserInfo ? pressUserInfo.rewardsPerDay.toFixed(3) : '0.00'}{' '}LP
                           <span className="wallet-token-value">
                             {' '}
                             ($
                             {pressUserInfo
-                              ? (pressUserInfo.rewardsPerDay * Number(pressUserInfo.depositTokenPrice)).toFixed(2)
+                              ? (pressUserInfo.rewardsPerDay * Number(pressUserInfo.depositTokenPrice)).toFixed(3)
                               : '0.00'}
                             )
                           </span>
@@ -310,11 +310,11 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                           </LightTooltip>
                         </div>
                         <div className="lineValue">
-                          {pressUserInfo ? pressUserInfo.totalDeposited.toFixed(2) : '0.00'} LP{' '}
+                          {pressUserInfo ? pressUserInfo.totalDeposited.toFixed(3) : '0.00'} LP{' '}
                           <span className="wallet-token-value">
                             ($
                             {pressUserInfo
-                              ? (pressUserInfo.totalDeposited * Number(pressUserInfo.depositTokenPrice)).toFixed(2)
+                              ? (pressUserInfo.totalDeposited * Number(pressUserInfo.depositTokenPrice)).toFixed(3)
                               : '0.00'}
                             )
                           </span>
@@ -333,7 +333,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                         </div>
                         <div className="lineValue">
                           {pressUserInfo
-                            ? (pressUserInfo.totalTracked - pressUserInfo.totalDeposited).toFixed(2)
+                            ? (pressUserInfo.totalTracked - pressUserInfo.totalDeposited).toFixed(3)
                             : '0.00'}{' '}
                           LP
                           <span className="wallet-token-value">
@@ -343,7 +343,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                               ? (
                                   (pressUserInfo.totalTracked - pressUserInfo.totalDeposited) *
                                   Number(pressUserInfo.depositTokenPrice)
-                                ).toFixed(2)
+                                ).toFixed(3)
                               : '0.00'}
                             )
                           </span>
@@ -416,7 +416,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                         </div>
                         <div className="lineValue">
                           {pressUserInfo
-                            ? `${pressUserInfo.currentShares.toFixed(2)} | ${pressUserInfo.currentSharesInToken.toFixed(
+                            ? `${pressUserInfo.currentShares.toFixed(3)} | ${pressUserInfo.currentSharesInToken.toFixed(
                                 2,
                               )} LP`
                             : '0.00'}{' '}
@@ -450,7 +450,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                         </div>
                         <div className="lineValue">
                           {pressUserInfo
-                            ? `${pressUserInfo.pendingShares.toFixed(2)} | ${pressUserInfo.pendingSharesInToken.toFixed(
+                            ? `${pressUserInfo.pendingShares.toFixed(3)} | ${pressUserInfo.pendingSharesInToken.toFixed(
                                 2,
                               )} LP`
                             : '0.00'}{' '}
@@ -483,7 +483,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                           </LightTooltip>
                         </div>
                         <div className="lineValue">
-                          {pressUserInfo ? pressUserInfo.claimedInShares.toFixed(2) : '0.00'}
+                          {pressUserInfo ? pressUserInfo.claimedInShares.toFixed(3) : '0.00'}
                         </div>
                       </div>
                     </div>
@@ -605,12 +605,12 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                             alignItems="center"
                           >
                             <Grid item className="rewardTokenAmount">
-                              {pressUserInfo ? pressUserInfo.totalClaimable.toFixed(2) : '0.00'} {bank.earnTokenName}
+                              {pressUserInfo ? pressUserInfo.totalClaimable.toFixed(3) : '0.00'} {bank.earnTokenName}
                             </Grid>
                             <Grid item className="rewardTokenValue">
                               $
                               {pressUserInfo
-                                ? (pressUserInfo.totalClaimable * Number(pressUserInfo.depositTokenPrice)).toFixed(2)
+                                ? (pressUserInfo.totalClaimable * Number(pressUserInfo.depositTokenPrice)).toFixed(3)
                                 : '0.00'}
                             </Grid>
                           </Grid>
@@ -660,14 +660,14 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                               <Grid container justifyContent="space-between">
                                 <Grid item>Daily Deposit Pot</Grid>
                                 <Grid item>
-                                  {pressLottoInfo ? pressLottoInfo.dailyDepositPot.toFixed(2) : '0.00'}{' '}
+                                  {pressLottoInfo ? pressLottoInfo.dailyDepositPot.toFixed(3) : '0.00'}{' '}
                                   <span className="wallet-token-value">
                                     {' '}
                                     $
                                     {pressLottoInfo && pressUserInfo
                                       ? (
                                           pressLottoInfo.dailyDepositPot * Number(pressUserInfo.depositTokenPrice)
-                                        ).toFixed(2)
+                                        ).toFixed(3)
                                       : '0.00'}
                                   </span>
                                 </Grid>
@@ -677,14 +677,14 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                               <Grid container justifyContent="space-between">
                                 <Grid item>Largest Deposit Pot</Grid>
                                 <Grid item>
-                                  {pressLottoInfo ? pressLottoInfo.largestDailyPot.toFixed(2) : '0.00'}{' '}
+                                  {pressLottoInfo ? pressLottoInfo.largestDailyPot.toFixed(3) : '0.00'}{' '}
                                   <span className="wallet-token-value">
                                     {' '}
                                     $
                                     {pressLottoInfo && pressUserInfo
                                       ? (
                                           pressLottoInfo.largestDailyPot * Number(pressUserInfo.depositTokenPrice)
-                                        ).toFixed(2)
+                                        ).toFixed(3)
                                       : '0.00'}
                                   </span>
                                 </Grid>
@@ -817,7 +817,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                           <Grid container justifyContent="space-between">
                             <Grid item>Your Assassination Profits</Grid>
                             <Grid item>
-                              {pressUserInfo ? pressUserInfo.profitsAssassinated.toFixed(2) : '0.00'}{' '}
+                              {pressUserInfo ? pressUserInfo.profitsAssassinated.toFixed(3) : '0.00'}{' '}
                               {bank.depositTokenName}
                               <span className="wallet-token-value">
                                 {' '}
@@ -825,7 +825,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                                 {pressUserInfo
                                   ? (
                                       pressUserInfo.profitsAssassinated * Number(pressUserInfo.depositTokenPrice)
-                                    ).toFixed(2)
+                                    ).toFixed(3)
                                   : '0.00'}
                               </span>
                             </Grid>
