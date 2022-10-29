@@ -52,15 +52,17 @@ import BoardroomCard from './BoardroomCard';
 import Presses from './Presses';
 import useSVintagePrice from '../../hooks/useSVintagePrice';
 import {useLocation} from 'react-router-dom';
+// import {FormControl, InputLabel, MenuItem, Select, SelectChangeEvent} from '@mui/material';
+// import useBanksWithFilters from '../../hooks/useBanksWithFilters';
+// import Vineyard from '../Vineyard';
 
 const Dashboard = () => {
   const {account} = useWallet();
   const grapeFinance = useGrapeFinance();
-  const widthUnder600 = useMediaQuery('(max-width:600px)');
+  const [banks] = useBanks();
+
   const location = useLocation();
 
-  const {to} = useTreasuryAllocationTimes();
-  const [banks] = useBanks();
   const walletStats = useWalletStats(banks);
   const grapeStats = useGrapeStats();
   const wineStats = useWineStats();
@@ -69,6 +71,8 @@ const Dashboard = () => {
   );
   const nodePools = [useBank('GrapeNodeV2'), useBank('LPNode'), useBank('LPWlrsNode')];
   const pressPools = banks.filter((bank) => !bank.finished && bank.sectionInUI === 8);
+
+  // const vineyardPoolsWithFilters = useBanksWithFilters(vineyardPools);
 
   const grapeBalance = useTokenBalance(grapeFinance.GRAPE);
   const displayGrapeBalance = useMemo(() => getDisplayBalance(grapeBalance, 18, 2), [grapeBalance]);
@@ -99,6 +103,26 @@ const Dashboard = () => {
   const matches = useMediaQuery('(min-width:900px)');
 
   const [activeTab, setActiveTab] = useState('Farms');
+  const [sortBy, setSortBy] = React.useState('');
+
+  // const handleSortByChange = (event: SelectChangeEvent) => {
+  //   setSortBy(event.target.value as string);
+  //   sortPools(event.target.value);
+  // };
+
+  // const sortPools = (sortBy: string) => {
+  //   if (activeTab === 'Farms') {
+  //     if (sortBy === 'depositedInDollars') {
+  //       vineyardPoolsWithFilters.sort((a, b) => (Number(a.depositedInDollars) > Number(b.depositedInDollars) ? -1 : 1));
+  //     } else if (sortBy === 'rewardsInDollars') {
+  //       vineyardPoolsWithFilters.sort((a, b) => (Number(a.rewardsInDollars) > Number(b.rewardsInDollars) ? -1 : 1));
+  //     } else if (sortBy === 'dailyAPR') {
+  //       vineyardPoolsWithFilters.sort((a, b) => (Number(a.dailyAPR) > Number(b.dailyAPR) ? -1 : 1));
+  //     } else if (sortBy === 'tvl') {
+  //       vineyardPoolsWithFilters.sort((a, b) => (Number(a.tvl) > Number(b.tvl) ? -1 : 1));
+  //     }
+  //   }
+  // };
 
   useEffect(() => {
     const hash = location.hash;
@@ -542,48 +566,59 @@ const Dashboard = () => {
               </Grid>
             </Grid>
           </Box>
-          <Box hidden={activeTab !== 'Farms'} mt={4}>
-            <Grid container justifyContent="space-between">
-              <Grid item>
-                <FormGroup style={{color: 'white'}}>
-                  <FormControlLabel
-                    control={<Switch color="secondary" checked={activesOnly} onChange={handleSwitchChange} />}
-                    label="Active(s) only"
-                  />
-                </FormGroup>{' '}
-              </Grid>
-            </Grid>
 
+          <Grid container justifyContent="space-between" alignItems="center">
+            <Grid item>
+              <FormGroup style={{color: 'white'}}>
+                <FormControlLabel
+                  control={<Switch color="secondary" checked={activesOnly} onChange={handleSwitchChange} />}
+                  label="Active(s) only"
+                />
+              </FormGroup>{' '}
+            </Grid>
+            {/* <Grid item>
+              {vineyardPoolsWithFilters.length > 0 ? (
+                <FormControl variant="outlined" sx={{m: 1, minWidth: 150}} color="secondary">
+                  <InputLabel style={{color: '#fcfcfc'}} id="demo-simple-select-label">
+                    Sort By
+                  </InputLabel>
+                  <Select
+                    sx={{
+                      backgroundColor: 'rgba(0, 0, 0, 0.5) !important',
+
+                      color: 'secondary',
+                      '& .MuiInputBase-root': {
+                        color: '#fcfcfc',
+                      },
+                    }}
+                    id="demo-simple-select"
+                    value={sortBy}
+                    label="Sort By"
+                    onChange={handleSortByChange}
+                  >
+                     <MenuItem value="depositedInDollars">Deposited</MenuItem>
+                    <MenuItem value="rewardsInDollars">Rewards</MenuItem> 
+                    <MenuItem value="dailyAPR">Daily APR</MenuItem>
+                    <MenuItem value="tvl">TVL</MenuItem>
+                  </Select>
+                </FormControl>
+              ) : (
+                <span className="secondary-color">Loading filters</span>
+              )}
+            </Grid> */}
+          </Grid>
+
+          <Box hidden={activeTab !== 'Farms'} mt={2}>
             <Farms pools={vineyardPools} activesOnly={activesOnly} />
           </Box>
-          <Box hidden={activeTab !== 'Winery'} mt={4}>
+          <Box hidden={activeTab !== 'Winery'} mt={2}>
             <BoardroomCard />
           </Box>
-          <Box hidden={activeTab !== 'Nodes'} mt={4}>
-            <Grid container justifyContent="space-between">
-              <Grid item>
-                <FormGroup style={{color: 'white'}}>
-                  <FormControlLabel
-                    control={<Switch color="secondary" checked={activesOnly} onChange={handleSwitchChange} />}
-                    label="Active(s) only"
-                  />
-                </FormGroup>{' '}
-              </Grid>
-            </Grid>
+          <Box hidden={activeTab !== 'Nodes'} mt={2}>
             <Nodes pools={nodePools} activesOnly={activesOnly} />
           </Box>
 
-          <Box hidden={activeTab !== 'Presses'} mt={4}>
-            <Grid container justifyContent="space-between">
-              <Grid item>
-                <FormGroup style={{color: 'white'}}>
-                  <FormControlLabel
-                    control={<Switch color="secondary" checked={activesOnly} onChange={handleSwitchChange} />}
-                    label="Active(s) only"
-                  />
-                </FormGroup>{' '}
-              </Grid>
-            </Grid>
+          <Box hidden={activeTab !== 'Presses'} mt={2}>
             <Presses pools={pressPools} activesOnly={activesOnly} />
           </Box>
         </div>

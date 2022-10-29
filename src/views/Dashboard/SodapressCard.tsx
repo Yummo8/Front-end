@@ -210,11 +210,10 @@ const SodapressCard: React.FC<SodapressCardProps> = ({bank, activesOnly}) => {
                     <TokenSymbol symbol={bank.depositTokenName} height={30} width={30} />
                   </Grid>
                   <Grid item>
-                    {bank.name}
-                    <br />
-                    <span className="lineDescription">
+                    <div>{bank.name}</div>
+                    <div className="lineDescription">
                       Lock {bank.depositTokenName} and earn up to 350% back in {bank.depositTokenName}
-                    </span>
+                    </div>
                   </Grid>
                 </Grid>
               </Grid>
@@ -553,7 +552,7 @@ const SodapressCard: React.FC<SodapressCardProps> = ({bank, activesOnly}) => {
                           </FormControl>
                         </Box>
                         <div className="node-inputDetailsBox">
-                        <Box className="box-price-of-one color-secondary">
+                          <Box className="box-price-of-one color-secondary">
                             1 share = {pressUserInfo ? pressUserInfo.priceOfOneShare.toFixed(2) : '0.00'}{' '}
                             {bank.depositTokenName} = $
                             {pressUserInfo
@@ -796,11 +795,10 @@ const SodapressCard: React.FC<SodapressCardProps> = ({bank, activesOnly}) => {
                             <Grid item xs={12}>
                               <Grid container justifyContent="space-between">
                                 <Grid item>
-                                  Your Lotto Winnings
-                                  <br />
-                                  <span className="color-secondary" style={{fontSize: '12px'}}>
+                                  <div>Your Lotto Winnings</div>
+                                  <div className="color-secondary" style={{fontSize: '12px'}}>
                                     Your winnings are sent to you automatically
-                                  </span>
+                                  </div>
                                 </Grid>
                                 <Grid item>{pressLottoInfo ? pressLottoInfo.lottoWinnings : '0'} LP</Grid>
                               </Grid>

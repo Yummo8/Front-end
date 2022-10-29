@@ -162,12 +162,12 @@ const BoardroomCard = () => {
                 <TokenSymbol symbol={'WINE'} height={30} width={30} />
               </Grid>
               <Grid item>
-                Winery (earn GRAPE)
-                <br />
+                <div>Winery (earn GRAPE)</div>
+
                 {Number(scalingFactor) >= 1.01 ? (
-                  <span className="lineLabel printing">Status: Printing</span>
+                  <div className="lineLabel printing">Status: Printing</div>
                 ) : (
-                  <span className="lineLabel not-printing">Status: Not Printing</span>
+                  <div className="lineLabel not-printing">Status: Not Printing</div>
                 )}
               </Grid>
             </Grid>

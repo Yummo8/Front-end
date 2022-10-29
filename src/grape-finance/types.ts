@@ -15,6 +15,10 @@ export interface BankInfo {
   closedForStaking: boolean;
   multi: string;
   buyLink: string;
+  tvl?: string;
+  dailyAPR?: string;
+  depositedInDollars?: number;
+  rewardsInDollars?: number;
 }
 
 export interface Bank extends BankInfo {
@@ -28,6 +32,11 @@ export type PoolStats = {
   userYearlyBurst?: string;
   dailyAPR: string;
   yearlyAPR: string;
+  TVL: string;
+};
+
+export type LightPoolStats = {
+  dailyAPR: string;
   TVL: string;
 };
 

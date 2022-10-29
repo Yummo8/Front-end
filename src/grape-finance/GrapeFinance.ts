@@ -21,6 +21,7 @@ import {
   PegPoolUserInfo,
   PressUserInfo,
   PressLottoInfo,
+  LightPoolStats,
 } from './types';
 import {BigNumber, BigNumberish, Contract, ethers, EventFilter} from 'ethers';
 import {decimalToBalance} from './ether-utils';

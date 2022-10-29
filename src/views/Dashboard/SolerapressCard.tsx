@@ -202,11 +202,10 @@ const SolerapressCard: React.FC<SolerapressCardProps> = ({bank, activesOnly}) =>
                     <TokenSymbol symbol={bank.depositTokenName} height={30} width={30} />
                   </Grid>
                   <Grid item>
-                    {bank.name}
-                    <br />
-                    <span className="lineDescription">
+                    <div>{bank.name}</div>
+                    <div className="lineDescription">
                       Lock {bank.depositTokenName} and earn up to 350% back in {bank.depositTokenName}
-                    </span>
+                    </div>
                   </Grid>
                 </Grid>
               </Grid>
@@ -785,11 +784,10 @@ const SolerapressCard: React.FC<SolerapressCardProps> = ({bank, activesOnly}) =>
                             <Grid item xs={12}>
                               <Grid container justifyContent="space-between">
                                 <Grid item>
-                                  Your Lotto Winnings
-                                  <br />
-                                  <span className="color-secondary" style={{fontSize: '12px'}}>
+                                  <div>Your Lotto Winnings</div>
+                                  <div className="color-secondary" style={{fontSize: '12px'}}>
                                     Your winnings are sent to you automatically
-                                  </span>
+                                  </div>
                                 </Grid>
                                 <Grid item>{pressLottoInfo ? pressLottoInfo.lottoWinnings : '0'} LP</Grid>
                               </Grid>

@@ -171,11 +171,10 @@ const FarmCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
                     <TokenSymbol symbol={bank.depositTokenName} height={30} width={30} />
                   </Grid>
                   <Grid item>
-                    {bank.depositTokenName}
-                    <br />
-                    <span className="lineDescription">
+                    <div>{bank.depositTokenName}</div>
+                    <div className="lineDescription">
                       Deposit {bank.depositTokenName} and earn {bank.earnTokenName}
-                    </span>
+                    </div>
                   </Grid>
                 </Grid>
               </Grid>
