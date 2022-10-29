@@ -4,13 +4,14 @@ import {useActivePopups} from '../../state/application/hooks';
 import PopupItem from './PopupItem';
 
 const MobilePopupWrapper = styled.div<{height: string | number}>`
-  position: relative;
+  position: fixed;
+  top: 84px;
+  right: 30px;
   max-width: 100%;
   height: ${({height}) => height};
-  margin: ${({height}) => (height ? '0 auto;' : 0)};
-  margin-bottom: ${({height}) => (height ? '20px' : 0)}};
-
+  margin: auto;
   display: none;
+  z-index: 1;
   @media (max-width: 768px) {
     display: block;
   };
@@ -31,7 +32,6 @@ const MobilePopupInner = styled.div`
 const FixedPopupColumn = styled.div`
   position: fixed;
   top: 84px;
-  margin-right: 10px;
   right: 3rem;
   max-width: 355px !important;
   width: 100%;

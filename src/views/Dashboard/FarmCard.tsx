@@ -248,7 +248,10 @@ const FarmCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
                     </Grid>
 
                     <div className="inputDetailsBox">
-                      <Box className="box-price-of-one color-secondary">1 {bank.depositTokenName} = ${stakedTokenPriceInDollars ? Number(stakedTokenPriceInDollars).toFixed(3) : '0.000'}</Box>
+                      <Box className="box-price-of-one color-secondary">
+                        1 {bank.depositTokenName} = $
+                        {stakedTokenPriceInDollars ? Number(stakedTokenPriceInDollars).toFixed(3) : '0.000'}
+                      </Box>
                       <div className="inputDetailsBoxInner">
                         <div className="balance">
                           {activeDetailsBoxTab === 'Deposit' && (
@@ -328,6 +331,10 @@ const FarmCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
                                   style={{
                                     borderTopLeftRadius: '0',
                                     borderTopRightRadius: '0',
+                                    borderBottomLeftRadius:
+                                      bank.depositTokenName.includes('LP') || bank.depositTokenName === 'GRAPE-MIM-SW'
+                                        ? '0'
+                                        : '5px',
                                   }}
                                   onClick={() => {
                                     setApproveLoading(true);
