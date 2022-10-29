@@ -17,7 +17,6 @@ import {Link} from 'react-router-dom';
 import AccountButton from '../Nav/AccountButton';
 import useCashPriceInEstimatedTWAP from '../../hooks/useCashPriceInEstimatedTWAP';
 
-
 import burningGrapeIcon from '../../assets/img/burninggrape.png';
 import soleraIcon from '../../assets/img/solera.png';
 import grapeLogo from '../../assets/img/logo1.png';
@@ -54,7 +53,7 @@ import useXGrapePrice from '../../hooks/useXGrapePrice';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import AppsIcon from '@mui/icons-material/Apps';
-import DashboardSharpIcon from '@mui/icons-material/DashboardSharp';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import FeedIcon from '@mui/icons-material/Feed';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
@@ -203,7 +202,7 @@ const Page: React.FC = ({children}) => {
   const bShareStats = useWineStats();
   const vintagePrice = useVintagePrice();
   const xGrapePrice = useXGrapePrice();
-  const grapeBurnt = useGetBurntGrape()
+  const grapeBurnt = useGetBurntGrape();
 
   const grapePrice = useMemo(() => (grapeStats ? Number(grapeStats.tokenInFtm).toFixed(3) : null), [grapeStats]);
   const winePrice = useMemo(() => (bShareStats ? Number(bShareStats.priceInDollars).toFixed(2) : null), [bShareStats]);
@@ -353,13 +352,14 @@ const Page: React.FC = ({children}) => {
                   href="https://www.swapsicle.io/swap?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0x01Af64EF39AEB5612202AA07B3A3829f20c395fd#/"
                 >
                   <img src={vintageImg} alt="Wine" width={24} height={24} />
-                  <span className="token-price">{vintagePrice ? '$' + vintagePrice : '--'}</span>
+                  <span className="token-price">{vintagePrice ? '$' + vintagePrice.toFixed(4) : '--'}</span>
                 </a>
               </div>
               <div className="price-item">
-               
-                  <img src={burningGrapeIcon} alt="xGrape" width={24} height={24} />
-                  <span className="token-price" style={{marginLeft: '5px'}}>{grapeBurnt != null ? grapeBurnt.toLocaleString('en-US') : '--'}</span>
+                <img src={burningGrapeIcon} alt="xGrape" width={24} height={24} />
+                <span className="token-price" style={{marginLeft: '5px'}}>
+                  {grapeBurnt ? grapeBurnt.toLocaleString('en-US') : '--'}
+                </span>
               </div>
               {/* <div className="price-item">
                 <img src={grapeMimImg} alt="TWAP" height={35} />
@@ -529,13 +529,7 @@ const Page: React.FC = ({children}) => {
             {open && (
               <Collapse in={appsOpen} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
-                  <a
-                    className="menu-item"
-                    href="https://solera.grapefinance.app/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{display: 'block'}}
-                  >
+                  <Link className="menu-item" to="/dashboard#presses" style={{display: 'block'}}>
                     <ListItemButton sx={{pl: 4}}>
                       <ListItemIcon
                         sx={{
@@ -549,7 +543,7 @@ const Page: React.FC = ({children}) => {
                       </ListItemIcon>
                       <ListItemText primary="Solera Press" />
                     </ListItemButton>
-                  </a>
+                  </Link>
                   <a
                     className="menu-item"
                     href="https://xgrape.grapefinance.app/"
@@ -572,13 +566,7 @@ const Page: React.FC = ({children}) => {
                     </ListItemButton>
                   </a>
 
-                  <a
-                    className="menu-item"
-                    href="https://soda.grapefinance.app/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
+                  <Link className="menu-item" to="/dashboard#presses" style={{padding: 0, display: 'block'}}>
                     <ListItemButton sx={{pl: 4}}>
                       <ListItemIcon
                         sx={{
@@ -592,12 +580,12 @@ const Page: React.FC = ({children}) => {
                       </ListItemIcon>
                       <ListItemText primary="Grape Soda" />
                     </ListItemButton>
-                  </a>
+                  </Link>
 
                   <ListItem
                     className="menu-item"
                     component={Link}
-                    to="/vineyard"
+                    to="/dashboard#farms"
                     disablePadding
                     sx={{display: 'block'}}
                   >
@@ -622,7 +610,13 @@ const Page: React.FC = ({children}) => {
                     </ListItemButton>
                   </ListItem>
 
-                  <ListItem className="menu-item" component={Link} to="/winery" disablePadding sx={{display: 'block'}}>
+                  <ListItem
+                    className="menu-item"
+                    component={Link}
+                    to="/dashboard#winery"
+                    disablePadding
+                    sx={{display: 'block'}}
+                  >
                     <ListItemButton
                       sx={{
                         pl: 4,
@@ -644,7 +638,13 @@ const Page: React.FC = ({children}) => {
                     </ListItemButton>
                   </ListItem>
 
-                  <ListItem className="menu-item" component={Link} to="/nodes" disablePadding sx={{display: 'block'}}>
+                  <ListItem
+                    className="menu-item"
+                    component={Link}
+                    to="/dashboard#nodes"
+                    disablePadding
+                    sx={{display: 'block'}}
+                  >
                     <ListItemButton
                       sx={{
                         pl: 4,
@@ -666,13 +666,7 @@ const Page: React.FC = ({children}) => {
                     </ListItemButton>
                   </ListItem>
 
-                  <a
-                    className="menu-item"
-                    href="https://winepress.grapefinance.app/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
+                  <Link className="menu-item" to="dashboard#presses" style={{padding: 0, display: 'block'}}>
                     <ListItemButton sx={{pl: 4}}>
                       <ListItemIcon
                         sx={{
@@ -686,7 +680,7 @@ const Page: React.FC = ({children}) => {
                       </ListItemIcon>
                       <ListItemText primary="Wine Press" />
                     </ListItemButton>
-                  </a>
+                  </Link>
 
                   <a
                     className="menu-item"
@@ -815,7 +809,7 @@ const Page: React.FC = ({children}) => {
                       justifyContent: 'center',
                     }}
                   >
-                    <DashboardSharpIcon style={{fill: '#e647e6'}} />
+                    <AttachMoneyIcon style={{fill: '#e647e6'}} />
                   </ListItemIcon>
                   <ListItemText primary="Dashboard" sx={{opacity: open ? 1 : 0}} />
                 </ListItemButton>

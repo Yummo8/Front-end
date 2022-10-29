@@ -9,7 +9,7 @@ const ModalTitle: React.FC<ModalTitleProps> = ({text}) => <StyledModalTitle>{tex
 
 const StyledModalTitle = styled.div`
   align-items: center;
-  color: #930993;
+  color: #e946e9;
   display: flex;
   font-size: 1.5rem;
   font-weight: 700;

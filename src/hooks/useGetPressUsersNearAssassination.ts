@@ -3,25 +3,25 @@ import useGrapeFinance from './useGrapeFinance';
 import {PressUserInfo} from '../grape-finance/types';
 import useRefresh from './useRefresh';
 
-const useSodapressUserInfo = () => {
-  const [userInfo, setUserInfo] = useState<PressUserInfo>();
+const useGetPressUsersNearAssassination = (press: string) => {
+  const [users, setUsers] = useState<string[]>();
   const {slowRefresh} = useRefresh();
   const grapeFinance = useGrapeFinance();
 
   useEffect(() => {
-    async function fetchUserInfo() {
+    async function fetchUsers() {
       try {
         if (grapeFinance.myAccount) {
-          setUserInfo(await grapeFinance.getSodapressData());
+          setUsers(await grapeFinance.getAllUsersNearAssassination(press));
         }
       } catch (err) {
         console.error(err);
       }
     }
-    fetchUserInfo();
-  }, [setUserInfo, grapeFinance, slowRefresh, grapeFinance.myAccount]);
+    fetchUsers();
+  }, [setUsers, grapeFinance, slowRefresh, grapeFinance.myAccount]);
 
-  return userInfo;
+  return users;
 };
 
-export default useSodapressUserInfo;
+export default useGetPressUsersNearAssassination;

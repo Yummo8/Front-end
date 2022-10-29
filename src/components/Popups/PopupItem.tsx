@@ -12,7 +12,7 @@ export const StyledClose = styled(X)`
   position: absolute;
   right: 10px;
   top: 10px;
-
+  color: white;
   :hover {
     cursor: pointer;
   }
@@ -21,7 +21,7 @@ export const Popup = styled.div`
   display: inline-block;
   width: 100%;
   padding: 1em;
-  background-color: ${({theme}) => theme.color.grey[700]};
+  background-color: #930993;
   position: relative;
   border-radius: 10px;
   padding: 20px;
@@ -38,7 +38,7 @@ const Fader = styled.div`
   left: 0px;
   width: 100%;
   height: 2px;
-  background-color: ${({theme}) => theme.color.grey[400]};
+  background-color: #fff;
 `;
 
 const AnimatedFader = animated(Fader);

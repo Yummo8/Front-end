@@ -23,6 +23,288 @@
   src: local('TOMMY-O'), url('./fonts/tommy-o.otf') format('opentype');
 }
 
+.amount-input {
+  color: #fcfcfc;
+  width: 100%;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 27px;
+
+  background-color: inherit;
+  border-width: 0px;
+  border-radius: 0;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.secondary-button {
+  font-family: 'TOMMY-R';
+  cursor: pointer;
+  border: 0;
+  font-weight: 900;
+  font-size: 16px;
+  text-align: center;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #fcfcfc;
+  height: 50px;
+  background: #930993;
+  width: 100%;
+  border-radius: 5px;
+}
+
+.secondary-button:hover {
+  background: #6f076f;
+}
+
+.primary-button {
+  font-family: 'TOMMY-R';
+  cursor: pointer;
+  border: 0;
+  font-weight: 900;
+  font-size: 16px;
+  text-align: center;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #fcfcfc;
+  height: 50px;
+  width: 100%;
+  background: #e646e6;
+  border-radius: 5px;
+}
+
+.primary-button:hover {
+  background: #c03bc0;
+}
+
+.primary-button:disabled {
+  background: #cfd5f3;
+  cursor: not-allowed;
+}
+
+.secondary-button:disabled {
+  background: #d7d7d7;
+  cursor: not-allowed;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+.tabs {
+  font-weight: 700;
+  font-size: 18px;
+}
+.tabItem {
+  cursor: pointer;
+  color: #9aa4da;
+  font-weight: 700;
+  font-size: 18px;
+}
+.tabItemActive {
+  text-decoration: underline;
+  text-underline-offset: 10px;
+  color: #fcfcfc;
+}
+.tabDetailsItem {
+  cursor: pointer;
+  color: #d8d8d8;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.tabDetailsItemActive {
+  font-weight: 700;
+  color: #e646e6;
+  border-radius: 5px;
+  border-bottom: 2px solid #e646e6;
+}
+
+.accordion {
+  border-bottom: 3px solid transparent;
+  border-radius: 10px !important;
+  margin-top: 20px !important;
+}
+.accordion:hover {
+  transition: border-bottom 0.35s;
+  border-bottom: 3px solid #e646e6;
+}
+
+.lineLogo {
+  vertical-align: middle;
+  margin-right: 20px;
+}
+.lineLabel {
+  color: #d8d8d8;
+  font-size: 14px;
+}
+.lineDescription {
+  color: #d8d8d8;
+  font-size: 12px;
+}
+.lineValue {
+  color: #fcfcfc;
+  font-size: 16px;
+}
+.printing {
+  font-weight: 700;
+  color: rgb(19, 175, 19);
+}
+.not-printing {
+  color: rgb(174, 20, 20);
+}
+
+.dropdown {
+  cursor: pointer;
+}
+.lineName {
+  font-size: 18px;
+}
+
+.dashboard-token-box {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  border-radius: 10px;
+  min-height: 80px;
+}
+
+.dashboard-token-box-inner {
+  padding: 10px;
+  text-align: center;
+}
+
+.node-lineDetailsBox {
+  min-height: 320px;
+  background-color: #e9e9e921;
+  border-radius: 10px;
+}
+.lineDetailsBox {
+  background-color: #e9e9e921;
+  border-radius: 10px;
+}
+.node-inputDetailsBox {
+  margin-top: 25px;
+}
+.inputDetailsBox {
+  margin-top: 50px;
+}
+.inputDetailsBoxInner {
+  padding: 16px;
+  background-color: #2b2d3c66;
+  border-radius: 10px;
+}
+.lineValueDeposited {
+  color: #e646e6;
+  font-size: 16px;
+}
+.rewardTokenAmount {
+  font-weight: 700;
+  font-size: 21px;
+  line-height: 28px;
+  text-align: center;
+  color: #fcfcfc;
+}
+.rewardTokenValue {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 28px;
+  text-align: center;
+  color: #e646e6;
+}
+.addRemoveLiquidity {
+  text-decoration: underline;
+  text-underline-offset: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+.max-button {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.rewards-per-day {
+  font-weight: 700;
+  color: #fcfcfc;
+  font-size: 16px;
+  line-height: 22px;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+.pending-rewards {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+  text-align: center;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #fcfcfc;
+}
+.color-secondary {
+  color: #d8d8d8;
+}
+.line-details-inner {
+  padding: 35px 35px 0 35px;
+  min-height: 285px;
+}
+
+.box-price-of-one {
+  font-size: 14px;
+  text-align: right;
+}
+
+.node-line-details-inner {
+  padding: 35px 35px 0 35px;
+  min-height: 280px;
+}
+.balance {
+  padding-left: 3px;
+  font-size: 14px;
+}
+.slider-value {
+  color: #fcfcfc;
+  font-weight: 900;
+  font-size: 16px;
+  line-height: 22px;
+}
+.slider-box {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.time-left {
+  color: #aa0faa;
+}
+.withdraw-time-left {
+  color: #930993;
+}
+
+.MuiSelect-icon {
+  color: white !important;
+}
+.MuiSelect-select {
+  color: #fcfcfc !important;
+}
+
+.MuiMenu-list {
+  background-color:rgba(0, 0, 0, 0.9) !important;
+}
+
+.statBox {
+  min-height: 60px;
+  background-color: #e9e9e921;
+  border-radius: 10px;
+}
+
+.statBoxInner {
+  padding: 15px;
+  text-align: center;
+  font-size: 14px;
+}
+
 .MuiTypography-h4 {
   font-size: 2.425rem !important;
 }
@@ -134,7 +416,7 @@ h6 {
 .MuiListItemButton-root:hover {
   transform: scale(1.045);
   transition: transform 0.3s;
-} 
+}
 
 .MuiButton-containedPrimary,
 .MuiButton-containedPrimary:hover,
@@ -161,7 +443,8 @@ h6 {
 }
 
 .wallet-token-value {
-  color:#e646e6;
+  color: #e646e6;
+  font-size: 14px;
 }
 
 .wallet-token-balance {
@@ -265,6 +548,23 @@ code {
   margin-bottom: 0;
 }
 
+.dashboard-tabs {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.dashboard-tab-item {
+  cursor: pointer;
+  color: #e646e6;
+  font-weight: 700;
+  font-size: 18px;
+}
+.dashboard-tab-item-active {
+  border-bottom: 3px solid #e646e6;
+  border-radius: 5px;
+  color: #fcfcfc;
+}
+
 .text-decoration-none {
   text-decoration: none;
 }
@@ -292,15 +592,14 @@ code {
 .shinyButton {
   font-family: 'TOMMY-R' !important;
   padding: 7px !important;
-  background: rgb(147, 9, 147);
-  background-image: linear-gradient(150deg, #930993, #781278 50%, #e647e6);
+  background-color: rgb(147, 9, 147) !important;
   font-size: 1rem !important;
   color: #fff !important;
   border-radius: 5px !important;
-} 
+}
 
 .shinyButton:hover {
-  background-image: linear-gradient(150deg, #930993, #781278 45%, #c43cc4);
+  background: rgb(130, 8, 130);
 }
 
 .button-63:active,

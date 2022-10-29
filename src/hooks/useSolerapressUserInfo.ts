@@ -3,7 +3,7 @@ import useGrapeFinance from './useGrapeFinance';
 import {PressUserInfo} from '../grape-finance/types';
 import useRefresh from './useRefresh';
 
-const useSodapressUserInfo = () => {
+const useSolerapressUserInfo = () => {
   const [userInfo, setUserInfo] = useState<PressUserInfo>();
   const {slowRefresh} = useRefresh();
   const grapeFinance = useGrapeFinance();
@@ -12,7 +12,7 @@ const useSodapressUserInfo = () => {
     async function fetchUserInfo() {
       try {
         if (grapeFinance.myAccount) {
-          setUserInfo(await grapeFinance.getSodapressData());
+          setUserInfo(await grapeFinance.getSolerapressData());
         }
       } catch (err) {
         console.error(err);
@@ -24,4 +24,4 @@ const useSodapressUserInfo = () => {
   return userInfo;
 };
 
-export default useSodapressUserInfo;
+export default useSolerapressUserInfo;

@@ -1,5 +1,6 @@
 import ERC20 from './ERC20';
-import { BigNumber } from 'ethers';
+import {BigNumber} from 'ethers';
+import {ApprovalState} from '../hooks/useApprove';
 export type ContractName = string;
 
 export interface BankInfo {
@@ -14,6 +15,10 @@ export interface BankInfo {
   closedForStaking: boolean;
   multi: string;
   buyLink: string;
+  tvl?: string;
+  dailyAPR?: string;
+  depositedInDollars?: number;
+  rewardsInDollars?: number;
 }
 
 export interface Bank extends BankInfo {
@@ -27,6 +32,11 @@ export type PoolStats = {
   userYearlyBurst?: string;
   dailyAPR: string;
   yearlyAPR: string;
+  TVL: string;
+};
+
+export type LightPoolStats = {
+  dailyAPR: string;
   TVL: string;
 };
 
@@ -101,7 +111,7 @@ export type NodesRewardWalletBalance = {
   grapes: string;
   wines: string;
   grapeMimSWs: string;
-}
+};
 
 export type TokenStat = {
   tokenInFtm: string;
@@ -111,17 +121,36 @@ export type TokenStat = {
   treasuryGrapes?: string;
 };
 
-export type SodapressUserInfo = {
-  totalBalance: number;
+export type PressUserInfo = {
+  totalTracked: number;
+  totalDeposited: number;
+  profitsAssassinated: number;
   totalClaimable: number;
-  xGrapeGrapeLPPrice: string;
-}
+  priceOfOneShare: number;
+  depositTokenPrice: number;
+  pressTotalDeposited: number;
+  tvl: number;
+  rewardsPerDay: number;
+  profit: number;
+  profitRatio: number;
+  currentShares: number;
+  pendingShares: number;
+  pendingSharesInToken: number;
+  currentSharesInToken: number;
+  claimedInShares: number;
+};
 
-export type WinepressUserInfo = {
-  totalBalance: number;
-  totalClaimable: number;
-  wineMIMLPPrice: string;
-}
+export type PressLottoInfo = {
+  largestDaily: number;
+  largestDailyAddress: string;
+  largestDailyPot: number;
+  dailyDepositPot: number;
+  monthlyWinnersPot: number;
+  timeLeftUntilNewDay: number;
+  lottoTickets: number;
+  totalLottoTickets: number;
+  lottoWinnings: number;
+};
 
 export type WalletNodesAndNFTs = {
   grapes: number;
@@ -131,7 +160,7 @@ export type WalletNodesAndNFTs = {
   glasses: number;
   decanters: number;
   goblets: number;
-}
+};
 
 export type WalletStats = {
   rewardsInVineyard: number;
@@ -139,12 +168,14 @@ export type WalletStats = {
   rewardsInNodes: number;
   rewardsInWinePress: number;
   rewardsInSodaPress: number;
+  rewardsInSoleraPress: number;
   totalInVineyard: number;
   totalInWinery: number;
   totalInNodes: number;
   totalInWinePress: number;
   totalInSodaPress: number;
-}
+  totalInSoleraPress: number;
+};
 
 export type LPStat = {
   tokenAmount: string;
@@ -152,6 +183,11 @@ export type LPStat = {
   priceOfOne: string;
   totalLiquidity: string;
   totalSupply: string;
+};
+
+export type ApproveWrapper = {
+  approvalState: ApprovalState;
+  approve: () => Promise<void>;
 };
 
 export type AllocationTime = {

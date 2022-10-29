@@ -25,7 +25,7 @@ const PegPoolInfo: React.FC<{
   const tokenBalance = useTokenBalance(pegPool.depositToken);
   const {onDeposit} = usePegPoolDeposit(pegPool);
   const {onWithdraw} = usePegPoolWithdraw(pegPool);
-  const [approveStatus, approve] = useApprove(pegPool.depositToken, '0x6Cc4D2653aaaCD005E076300796d4981339C5fAF');
+  const {approveStatus, approve} = useApprove(pegPool.depositToken, '0x6Cc4D2653aaaCD005E076300796d4981339C5fAF');
   const {withdrawFeePercent} = usePegPoolWithdrawFee();
   const cashStat = useCashPriceInEstimatedTWAP();
   const twap = useMemo(() => (cashStat ? Number(cashStat.priceInDollars).toFixed(4) : null), [cashStat]);

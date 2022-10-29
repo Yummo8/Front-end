@@ -32,7 +32,7 @@ import useWithdrawFromBoardroom from '../../../hooks/useWithdrawFromBoardroom';
 
 const Stake: React.FC = () => {
   const grapeFinance = useGrapeFinance();
-  const [approveStatus, approve] = useApprove(grapeFinance.WINE, grapeFinance.contracts.Boardroom.address);
+  const {approveStatus, approve} = useApprove(grapeFinance.WINE, grapeFinance.contracts.Boardroom.address);
 
   const tokenBalance = useTokenBalance(grapeFinance.WINE);
   const stakedBalance = useStakedBalanceOnBoardroom();
