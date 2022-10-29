@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from 'react';
+import React, {useMemo, useState, useEffect} from 'react';
 import {useWallet} from 'use-wallet';
 import styled from 'styled-components';
 import {createGlobalStyle} from 'styled-components';
@@ -51,11 +51,13 @@ import Nodes from './Nodes';
 import BoardroomCard from './BoardroomCard';
 import Presses from './Presses';
 import useSVintagePrice from '../../hooks/useSVintagePrice';
+import {useLocation} from 'react-router-dom';
 
 const Dashboard = () => {
   const {account} = useWallet();
   const grapeFinance = useGrapeFinance();
   const widthUnder600 = useMediaQuery('(max-width:600px)');
+  const location = useLocation();
 
   const {to} = useTreasuryAllocationTimes();
   const [banks] = useBanks();
@@ -95,9 +97,21 @@ const Dashboard = () => {
   const sVintagePrice = useSVintagePrice();
 
   const matches = useMediaQuery('(min-width:900px)');
-  const matches960 = useMediaQuery('(max-width:960px)');
 
   const [activeTab, setActiveTab] = useState('Farms');
+
+  useEffect(() => {
+    const hash = location.hash;
+    if (hash === '#farms') {
+      setActiveTab('Farms');
+    } else if (hash === '#winery') {
+      setActiveTab('Winery');
+    } else if (hash === '#nodes') {
+      setActiveTab('Nodes');
+    } else if (hash === '#presses') {
+      setActiveTab('Presses');
+    }
+  }, [location]);
 
   const totalInvested = useMemo(() => {
     if (walletStats) {

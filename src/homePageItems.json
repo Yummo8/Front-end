@@ -3,8 +3,8 @@
     "label": "Solera Press",
     "subLabel": "Locked sVintage Staking",
     "description": "Lock sVintage and earn up to ~2% daily + bonus. Assassinate players for more returns.",
-    "linkTo": "https://solera.grapefinance.app/",
-    "isInternalLink": false,
+    "linkTo": "/dashboard#presses",
+    "isInternalLink": true,
     "image": "solera.png",
     "isNew": true
   },
@@ -23,8 +23,8 @@
       },
       {
         "label": "Grape Soda Press",
-        "linkTo": "https://soda.grapefinance.app/",
-        "isInternalLink": false
+        "linkTo": "/dashboard#presses",
+        "isInternalLink": true
       }
     ]
   },
@@ -38,12 +38,12 @@
     "items": [
       {
         "label": "Vineyard",
-        "linkTo": "/vineyard",
+        "linkTo": "/dashboard#farms",
         "isInternalLink": true
       },
       {
         "label": "Winery",
-        "linkTo": "/winery",
+        "linkTo": "/dashboard#winery",
         "isInternalLink": true
       },
       {
@@ -58,7 +58,7 @@
     "subLabel": "Locked Staking",
     "description": "Use your Grape to purchase nodes and get up to 1.5% daily. Node holders receive additional monthly airdrops.",
     "isNew": false,
-    "linkTo": "/nodes",
+    "linkTo": "/dashboard#nodes",
     "isInternalLink": true,
     "image": "gnode.png"
   },
@@ -67,8 +67,8 @@
     "subLabel": "Locked LP Staking",
     "description": "Lock Wine-MIM LP and earn up to ~1.25% daily + bonus. Assassinate players for more returns.",
     "isNew": false,
-    "linkTo": "https://winepress.grapefinance.app/",
-    "isInternalLink": false,
+    "linkTo": "/dashboard#presses",
+    "isInternalLink": true,
     "image": "barrel.png"
   },
   {
