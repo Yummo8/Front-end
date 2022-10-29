@@ -30,8 +30,8 @@ const MobilePopupInner = styled.div`
 
 const FixedPopupColumn = styled.div`
   position: fixed;
-  top: 64px;
-  margin-right: 24px;
+  top: 84px;
+  margin-right: 10px;
   right: 3rem;
   max-width: 355px !important;
   width: 100%;

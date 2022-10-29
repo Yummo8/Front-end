@@ -1265,8 +1265,8 @@ export class GrapeFinance {
    */
   async harvest(poolName: ContractName, poolId: Number, sectionInUI: Number): Promise<TransactionResponse> {
     const pool = this.contracts[poolName];
-    //By passing 0 as the amount, we are asking the contract to only redeem the reward and not the currently staked token
-    return sectionInUI !== 3 ? await pool.withdraw(poolId, 0) : await pool.claim();
+    const tx = sectionInUI !== 3 ? await pool.withdraw(poolId, 0) : await pool.claim();
+    return tx
   }
 
   async claimPress(poolName: ContractName): Promise<TransactionResponse> {

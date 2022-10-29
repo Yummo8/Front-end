@@ -26,7 +26,7 @@ import useGrapeFinance from '../../../hooks/useGrapeFinance';
 import ZapModal from './ZapModal';
 
 const Stake = ({bank}) => {
-  const [approveStatus, approve] = useApprove(bank.depositToken, bank.address);
+  const {approveStatus, approve} = useApprove(bank.depositToken, bank.address);
   const {color: themeColor} = useContext(ThemeContext);
   const grapeFinance = useGrapeFinance();
   const tokenBalance = useTokenBalance(bank.depositToken);

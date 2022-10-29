@@ -30,6 +30,8 @@ import useLpStatsBTC from '../../hooks/useLpStatsBTC';
 import useNodePrice from '../../hooks/useNodePrice';
 import useCompound from '../../hooks/useCompound';
 import useGrapeNodeClaimFee from '../../hooks/useGrapeNodeClaimFee';
+import {subscribe, unsubscribe} from '../../state/txEvent';
+import {SyncLoader} from 'react-spinners';
 
 interface FarmCardProps {
   bank: Bank;
@@ -37,11 +39,37 @@ interface FarmCardProps {
 }
 
 const NodeCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
+  useEffect(() => {
+    subscribe('failedTx', () => {
+      setClaimLoading(false);
+      setCompoundLoading(false);
+      setDepositingLoading(false);
+      setApproveLoading(false);
+    });
+
+    subscribe('successTx', () => {
+      setCompoundLoading(false);
+      setClaimLoading(false);
+      setDepositingLoading(false);
+      setApproveLoading(false);
+    });
+
+    return () => {
+      unsubscribe('failedTx');
+      unsubscribe('successTx');
+    };
+  }, []);
+
+  const widthUnder600 = useMediaQuery('(max-width:600px)');
   const widthUnder960 = useMediaQuery('(max-width:960px)');
   const poolStats = useStatsForPool(bank);
 
   const [expanded, setExpanded] = useState(false);
   const [inputValue, setInputValue] = useState<string>();
+  const [claimLoading, setClaimLoading] = useState(false);
+  const [depositingLoading, setDepositingLoading] = useState(false);
+  const [approveLoading, setApproveLoading] = useState(false);
+  const [compoundLoading, setCompoundLoading] = useState(false);
 
   const {account} = useWallet();
   const dailyRewards = useDailyDrip(bank.contract, bank.sectionInUI, account);
@@ -57,7 +85,8 @@ const NodeCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
   const claimFee = useGrapeNodeClaimFee();
 
   const rewardTokenpriceInDollars = useStakedTokenPriceInDollars(bank.earnTokenName, bank.earnToken);
-  const [approveStatus, approve] = useApprove(bank.depositToken, bank.address);
+  const {approveStatus, approve} = useApprove(bank.depositToken, bank.address);
+
   const ticketRewards = useGetMultiplierForNode(bank.earnTokenName);
 
   const parsedDailyRewards = useMemo(() => (dailyRewards ? Number(dailyRewards) / 1e18 : null), [dailyRewards]);
@@ -133,6 +162,7 @@ const NodeCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
   };
   const stake = () => {
     if (Number(inputValue) > 0) {
+      setDepositingLoading(true);
       onStake(inputValue.toString());
     }
   };
@@ -163,7 +193,7 @@ const NodeCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
             aria-controls="panel1bh-content"
             id="panel1bh-header"
           >
-            <Grid container justifyContent={'space-between'} alignItems="center" className="lineItemInner">
+            <Grid container justifyContent={'space-between'} alignItems="center" className="lineItemInner" spacing={1}>
               <Grid item className="lineName" xs={12} sm={12} md={4}>
                 <Grid container justifyContent="flex-start" alignItems="center" spacing={2} wrap="nowrap">
                   <Grid item>
@@ -178,56 +208,55 @@ const NodeCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid
-                item
-                xs={6}
-                sm={3}
-                md={2}
-                style={{marginTop: widthUnder960 ? '15px' : '0', textAlign: widthUnder960 ? 'center' : 'left'}}
-              >
-                <div className="lineLabel">Your Nodes</div>
-                <div className="lineValueDeposited">
-                  <span style={{color: '#fcfcfc'}}>{computedUserNode}</span>
-                </div>
+              <Grid item xs={12} sm={6} md={2}>
+                <Grid container direction={widthUnder600 ? 'row' : 'column'} justifyContent="space-between">
+                  <Grid item>
+                    <div className="lineLabel">Your Nodes</div>
+                  </Grid>
+                  <Grid item>
+                    <div className="lineValueDeposited">
+                      <span style={{color: '#fcfcfc'}}>{computedUserNode}</span>
+                    </div>{' '}
+                  </Grid>
+                </Grid>
               </Grid>
-              <Grid
-                item
-                xs={6}
-                sm={3}
-                md={2}
-                style={{marginTop: widthUnder960 ? '15px' : '0', textAlign: widthUnder960 ? 'center' : 'left'}}
-              >
-                <div className="lineLabel">Rewards</div>
-                <div className="lineValueDeposited">
-                  <span style={{color: '#fcfcfc'}}>{earnedInToken}</span>
-                  <span style={{marginLeft: '5px', fontSize: '14px'}}>(${earnedInDollars})</span>
-                </div>
+
+              <Grid item xs={12} sm={6} md={2}>
+                <Grid container direction={widthUnder600 ? 'row' : 'column'} justifyContent="space-between">
+                  <Grid item>
+                    <div className="lineLabel">Rewards</div>
+                  </Grid>
+                  <Grid item>
+                    <div className="lineValueDeposited">
+                      <span style={{color: '#fcfcfc'}}>{earnedInToken}</span>
+                      <span style={{marginLeft: '5px', fontSize: '14px'}}>(${earnedInDollars})</span>
+                    </div>
+                  </Grid>
+                </Grid>
               </Grid>
-              <Grid
-                item
-                xs={6}
-                sm={3}
-                md={2}
-                style={{marginTop: widthUnder960 ? '15px' : '0', textAlign: widthUnder960 ? 'center' : 'left'}}
-              >
-                <div className="lineLabel">Daily APR</div>
-                <div className="lineValue">{dailyAPR ? dailyAPR : '--.--'}%</div>
+
+              <Grid item xs={12} sm={6} md={2}>
+                <Grid container direction={widthUnder600 ? 'row' : 'column'} justifyContent="space-between">
+                  <Grid item>
+                    <div className="lineLabel">Daily APR</div>
+                  </Grid>
+                  <Grid item>
+                    <div className="lineValue">{dailyAPR ? dailyAPR : '--.--'}%</div>
+                  </Grid>
+                </Grid>
               </Grid>
-              <Grid
-                item
-                xs={6}
-                sm={3}
-                md={2}
-                style={{marginTop: widthUnder960 ? '15px' : '0', textAlign: widthUnder960 ? 'center' : 'left'}}
-              >
-                <div className="lineLabel">TVL</div>
-                <div className="lineValue">
-                  ${poolStats?.TVL ? Number(poolStats?.TVL).toLocaleString('en-US') : '--.--'}
-                </div>
+
+              <Grid item xs={12} sm={6} md={2}>
+                <Grid container direction={widthUnder600 ? 'row' : 'column'} justifyContent="space-between">
+                  <Grid item>
+                    <div className="lineLabel">TVL</div>
+                  </Grid>
+                  <Grid item>${poolStats?.TVL ? Number(poolStats?.TVL).toLocaleString('en-US') : '--.--'}</Grid>
+                </Grid>
               </Grid>
             </Grid>
           </AccordionSummary>
-          <AccordionDetails>
+          <AccordionDetails style={{overflow: 'hidden'}}>
             <Grid container direction="column" spacing={2}>
               <Grid item>
                 <Grid container spacing={2} justifyContent="space-between" alignItems="center">
@@ -344,13 +373,22 @@ const NodeCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
                           <Grid item xs={12}>
                             {approveStatus !== ApprovalState.APPROVED ? (
                               <button
-                                disabled={Number(inputValue) === 0}
-                                onClick={approve}
+                                onClick={() => {
+                                  setApproveLoading(true);
+                                  approve();
+                                }}
                                 className="primary-button"
                                 title="Approve"
                                 style={{borderTopLeftRadius: '0', borderTopRightRadius: '0'}}
                               >
-                                Approve
+                                {approveLoading ? (
+                                  <span>
+                                    <SyncLoader color="white" size={4} style={{marginRight: '10px'}} />
+                                    APPROVING
+                                  </span>
+                                ) : (
+                                  <span>APPROVE</span>
+                                )}
                               </button>
                             ) : (
                               <button
@@ -360,7 +398,14 @@ const NodeCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
                                 title="Create Nodes"
                                 style={{borderTopLeftRadius: '0', borderTopRightRadius: '0'}}
                               >
-                                Create Nodes
+                                {depositingLoading ? (
+                                  <span>
+                                    <SyncLoader color="white" size={4} style={{marginRight: '10px'}} />
+                                    CREATING NODES
+                                  </span>
+                                ) : (
+                                  <span>CREATE NODES</span>
+                                )}
                               </button>
                             )}
                           </Grid>
@@ -401,7 +446,10 @@ const NodeCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
                             <button
                               className="primary-button"
                               title="Compound"
-                              onClick={onCompound}
+                              onClick={() => {
+                                setCompoundLoading(true);
+                                onCompound();
+                              }}
                               disabled={Number(earnings) < Number(nodePrice)}
                               style={{
                                 borderTopLeftRadius: '0',
@@ -409,7 +457,14 @@ const NodeCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
                                 borderBottomRightRadius: '0',
                               }}
                             >
-                              COMPOUND {(Number(earnings) / Number(nodePrice)) | 0} Nodes
+                              {compoundLoading ? (
+                                <span>
+                                  <SyncLoader color="white" size={4} style={{marginRight: '10px'}} />
+                                  COMPOUNDING
+                                </span>
+                              ) : (
+                                <span>COMPOUND {(Number(earnings) / Number(nodePrice)) | 0} Nodes</span>
+                              )}
                             </button>
                           </Grid>
                           <Grid item xs={6}>
@@ -417,12 +472,25 @@ const NodeCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
                               style={{borderTopLeftRadius: '0', borderTopRightRadius: '0', borderBottomLeftRadius: '0'}}
                               className="secondary-button"
                               title="Claim"
-                              onClick={onReward}
+                              onClick={() => {
+                                setClaimLoading(true);
+                                onReward();
+                              }}
                               disabled={earnings.eq(0)}
                             >
-                              CLAIM{' '}
-                              {bank.contract === 'GrapeNodeV2' && claimFee && (
-                                <span style={{marginLeft: '5px'}}>({claimFee}% fee)</span>
+                              {claimLoading ? (
+                                <span>
+                                  <SyncLoader color="white" size={4} style={{marginRight: '10px'}} />
+                                  CLAIMING
+                                </span>
+                              ) : (
+                                <span>
+                                  {' '}
+                                  CLAIM{' '}
+                                  {bank.contract === 'GrapeNodeV2' && claimFee && (
+                                    <span style={{marginLeft: '5px'}}>({claimFee}% fee)</span>
+                                  )}
+                                </span>
                               )}
                             </button>
                           </Grid>

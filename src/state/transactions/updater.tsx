@@ -5,6 +5,7 @@ import {useAddPopup, useBlockNumber} from '../application/hooks';
 import {AppDispatch, AppState} from '../index';
 import {checkedTransaction, finalizeTransaction} from './actions';
 import {getDefaultProvider} from '../../utils/provider';
+import {publish} from '../txEvent';
 
 export function shouldCheck(
   lastBlockNumber: number,
@@ -80,8 +81,10 @@ export default function Updater(): null {
                 },
                 hash,
               );
+              publish('successTx');
             } else {
               dispatch(checkedTransaction({chainId, hash, blockNumber: lastBlockNumber}));
+              publish('successTx');
             }
           })
           .catch((error) => {

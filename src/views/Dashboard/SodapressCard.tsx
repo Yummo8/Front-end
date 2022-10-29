@@ -26,6 +26,8 @@ import Tooltip, {TooltipProps, tooltipClasses} from '@mui/material/Tooltip';
 import useGetPressUsersNearAssassination from '../../hooks/useGetPressUsersNearAssassination';
 import useAssassinatePress from '../../hooks/useAssassinatePress';
 import useSodapressUserInfo from '../../hooks/useSodapressUserInfo';
+import {subscribe, unsubscribe} from '../../state/txEvent';
+import {SyncLoader} from 'react-spinners';
 
 const GRAPE_PER_BATCH = 10;
 
@@ -44,7 +46,7 @@ const LightTooltip = styled(({className, ...props}: TooltipProps) => (
 }));
 
 const SodapressCard: React.FC<SodapressCardProps> = ({bank, activesOnly}) => {
-  const widthUnder960 = useMediaQuery('(max-width:960px)');
+  const widthUnder600 = useMediaQuery('(max-width:600px)');
 
   const grapeFinance = useGrapeFinance();
   const pressUserInfo = useSodapressUserInfo();
@@ -57,14 +59,30 @@ const SodapressCard: React.FC<SodapressCardProps> = ({bank, activesOnly}) => {
 
   const pressBalance = usePoolBalance(grapeFinance.externalTokens[bank.depositTokenName], bank.address);
 
-  const [depositApprovalStatus, depositApprove] = useApprove(bank.depositToken, bank.address);
-  const [mimApprovalStatus, mimDepositApprove] = useApprove(grapeFinance.MIM, bank.address);
-  const [grapeTicketApprovalStatus, grapeTicketApprove] = useApprove(
-    grapeFinance.GRAPE,
-    grapeFinance.contracts[bank.name + 'Lotto'].address,
-  );
+  const depositTokenApprove = useApprove(bank.depositToken, bank.address);
+  const mimTokenApprove = useApprove(grapeFinance.MIM, bank.address);
+  const grapeTokenApprove = useApprove(grapeFinance.GRAPE, grapeFinance.contracts[bank.name + 'Lotto'].address);
 
-  useEffect(() => {}, [usersNearAssassination]);
+  useEffect(() => {
+    subscribe('failedTx', () => {
+      setClaimLoading(false);
+      setCompoundLoading(false);
+      setDepositingLoading(false);
+      setApproveLoading(false);
+    });
+
+    subscribe('successTx', () => {
+      setClaimLoading(false);
+      setCompoundLoading(false);
+      setDepositingLoading(false);
+      setApproveLoading(false);
+    });
+
+    return () => {
+      unsubscribe('failedTx');
+      unsubscribe('successTx');
+    };
+  }, []);
 
   const {onClaim} = useClaimPress(bank);
   const {onCompound} = useCompoundPress(bank);
@@ -76,6 +94,10 @@ const SodapressCard: React.FC<SodapressCardProps> = ({bank, activesOnly}) => {
   const [inputValue, setInputValue] = useState<string>();
   const [payWith, setPayWith] = useState(bank.depositTokenName);
   const [batchAmount, setBatchAmount] = useState('');
+  const [claimLoading, setClaimLoading] = useState(false);
+  const [depositingLoading, setDepositingLoading] = useState(false);
+  const [approveLoading, setApproveLoading] = useState(false);
+  const [compoundLoading, setCompoundLoading] = useState(false);
 
   const displayDailyAPR = useMemo(
     () => (pressUserInfo ? (Number(pressUserInfo.rewardsPerDay) * 100) / pressUserInfo.totalDeposited : null),
@@ -103,6 +125,7 @@ const SodapressCard: React.FC<SodapressCardProps> = ({bank, activesOnly}) => {
 
   const stake = () => {
     if (Number(inputValue) > 0) {
+      setDepositingLoading(true);
       if (payWith === bank.depositTokenName) {
         onStake(inputValue);
       } else {
@@ -113,14 +136,6 @@ const SodapressCard: React.FC<SodapressCardProps> = ({bank, activesOnly}) => {
 
   const burn = () => {
     console.log({batchAmount});
-  };
-
-  const claim = () => {
-    if (pressUserInfo.pendingShares >= pressUserInfo.currentShares) {
-      alert('You are about to claim more shares than you have. This will kick you out of the Sodapress. Confirm?');
-    } else {
-      onClaim();
-    }
   };
 
   const handleBatchAmountChanged = (e: any) => {
@@ -151,17 +166,18 @@ const SodapressCard: React.FC<SodapressCardProps> = ({bank, activesOnly}) => {
     setPayWith(event.target.value);
   };
 
-  const getApprove = () => {
+  const approve = () => {
     if (payWith === 'MIM') {
-      return mimDepositApprove;
+      mimTokenApprove.approve();
+      return;
     }
-    return depositApprove;
+    depositTokenApprove.approve();
   };
 
   const showApprove = () => {
     return (
-      (payWith === 'MIM' && mimApprovalStatus !== ApprovalState.APPROVED) ||
-      (payWith === bank.depositTokenName && depositApprovalStatus !== ApprovalState.APPROVED)
+      (payWith === 'MIM' && mimTokenApprove.approveStatus !== ApprovalState.APPROVED) ||
+      (payWith === bank.depositTokenName && depositTokenApprove.approveStatus !== ApprovalState.APPROVED)
     );
   };
 
@@ -183,7 +199,7 @@ const SodapressCard: React.FC<SodapressCardProps> = ({bank, activesOnly}) => {
             aria-controls="panel1bh-content"
             id="panel1bh-header"
           >
-            <Grid container justifyContent={'space-between'} alignItems="center" className="lineItemInner">
+            <Grid container justifyContent={'space-between'} alignItems="center" className="lineItemInner" spacing={1}>
               <Grid item className="lineName" xs={12} sm={12} md={4}>
                 <Grid container justifyContent="flex-start" alignItems="center" spacing={2} wrap="nowrap">
                   <Grid item>
@@ -198,84 +214,88 @@ const SodapressCard: React.FC<SodapressCardProps> = ({bank, activesOnly}) => {
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid
-                item
-                xs={6}
-                sm={3}
-                md={2}
-                style={{marginTop: widthUnder960 ? '15px' : '0', textAlign: widthUnder960 ? 'center' : 'left'}}
-              >
-                <div className="lineLabel">
-                  Total Tracked{' '}
-                  <LightTooltip arrow placement="top" enterDelay={0} title="Deposited + Compounded">
-                    <InfoIcon style={{verticalAlign: 'text-bottom', fontSize: '17px'}} />
-                  </LightTooltip>
-                </div>
-                <div className="lineValueDeposited">
-                  <span style={{color: '#fcfcfc'}}>
-                    {pressUserInfo ? pressUserInfo.totalTracked.toFixed(2) : '0.00'} LP
-                  </span>
-                  <span style={{marginLeft: '5px', fontSize: '14px'}}>
-                    ($
-                    {pressUserInfo
-                      ? (pressUserInfo.totalTracked * Number(pressUserInfo.depositTokenPrice)).toFixed(2)
-                      : '0.00'}
-                    )
-                  </span>
-                </div>
+
+              <Grid item xs={12} sm={6} md={2}>
+                <Grid container direction={widthUnder600 ? 'row' : 'column'} justifyContent="space-between">
+                  <Grid item>
+                    <div className="lineLabel">
+                      {' '}
+                      Total Tracked{' '}
+                      <LightTooltip arrow placement="top" enterDelay={0} title="Token Deposited + Compounded">
+                        <InfoIcon style={{verticalAlign: 'text-bottom', fontSize: '17px'}} />
+                      </LightTooltip>
+                    </div>
+                  </Grid>
+                  <Grid item>
+                    {' '}
+                    <div className="lineValueDeposited">
+                      <span style={{color: '#fcfcfc'}}>
+                        {pressUserInfo ? pressUserInfo.totalTracked.toFixed(2) : '0.00'} LP
+                      </span>
+                      <span style={{marginLeft: '5px', fontSize: '14px'}}>
+                        ($
+                        {pressUserInfo
+                          ? (pressUserInfo.totalTracked * Number(pressUserInfo.depositTokenPrice)).toFixed(2)
+                          : '0.00'}
+                        )
+                      </span>
+                    </div>
+                  </Grid>
+                </Grid>
               </Grid>
-              <Grid
-                item
-                xs={6}
-                sm={3}
-                md={2}
-                style={{marginTop: widthUnder960 ? '15px' : '0', textAlign: widthUnder960 ? 'center' : 'left'}}
-              >
-                <div className="lineLabel">Rewards</div>
-                <div className="lineValueDeposited">
-                  <span style={{color: '#fcfcfc'}}>
-                    {pressUserInfo ? pressUserInfo.totalClaimable.toFixed(2) : '0.00'} LP
-                  </span>
-                  <span style={{marginLeft: '5px', fontSize: '14px'}}>
-                    ($
-                    {pressUserInfo
-                      ? (pressUserInfo.totalClaimable * Number(pressUserInfo.depositTokenPrice)).toFixed(2)
-                      : '0.00'}
-                    )
-                  </span>
-                </div>
+
+              <Grid item xs={12} sm={6} md={2}>
+                <Grid container direction={widthUnder600 ? 'row' : 'column'} justifyContent="space-between">
+                  <Grid item>
+                    <div className="lineLabel">Rewards</div>
+                  </Grid>
+                  <Grid item>
+                    <div className="lineValueDeposited">
+                      <span style={{color: '#fcfcfc'}}>
+                        {pressUserInfo ? pressUserInfo.totalClaimable.toFixed(2) : '0.00'} LP
+                      </span>
+                      <span style={{marginLeft: '5px', fontSize: '14px'}}>
+                        ($
+                        {pressUserInfo
+                          ? (pressUserInfo.totalClaimable * Number(pressUserInfo.depositTokenPrice)).toFixed(2)
+                          : '0.00'}
+                        )
+                      </span>
+                    </div>
+                  </Grid>
+                </Grid>
               </Grid>
-              <Grid
-                item
-                xs={6}
-                sm={3}
-                md={2}
-                style={{marginTop: widthUnder960 ? '15px' : '0', textAlign: widthUnder960 ? 'center' : 'left'}}
-              >
-                <div className="lineLabel">
-                  Daily APR{' '}
-                  <LightTooltip
-                    arrow
-                    placement="top"
-                    enterDelay={0}
-                    title="Base APR is 1.25%, then changes based on your deposits, compounds and claims"
-                  >
-                    <InfoIcon style={{verticalAlign: 'text-bottom', fontSize: '17px'}} />
-                  </LightTooltip>
-                </div>
-                <div className="lineValue">{displayDailyAPR ? displayDailyAPR.toFixed(2) : '1.25'}%</div>
+
+              <Grid item xs={12} sm={6} md={2}>
+                <Grid container direction={widthUnder600 ? 'row' : 'column'} justifyContent="space-between">
+                  <Grid item>
+                    <div className="lineLabel">
+                      Daily APR{' '}
+                      <LightTooltip
+                        arrow
+                        placement="top"
+                        enterDelay={0}
+                        title="Base APR is 1.25%, then changes based on your deposits, compounds and claims"
+                      >
+                        <InfoIcon style={{verticalAlign: 'text-bottom', fontSize: '17px'}} />
+                      </LightTooltip>
+                    </div>{' '}
+                  </Grid>
+                  <Grid item>
+                    <div className="lineValue">{displayDailyAPR ? displayDailyAPR.toFixed(2) : '1.25'}%</div>
+                  </Grid>
+                </Grid>
               </Grid>
-              <Grid
-                item
-                xs={6}
-                sm={3}
-                md={2}
-                style={{marginTop: widthUnder960 ? '15px' : '0', textAlign: widthUnder960 ? 'center' : 'left'}}
-              >
-                <div className="lineLabel">Total Deposited</div>
-                <div className="lineValue">
-                  ${pressUserInfo ? pressUserInfo.tvl.toLocaleString('en-US', {maximumFractionDigits: 2}) : '0.00'}
-                </div>
+
+              <Grid item xs={12} sm={6} md={2}>
+                <Grid container direction={widthUnder600 ? 'row' : 'column'} justifyContent="space-between">
+                  <Grid item>
+                    <div className="lineLabel">Total Deposited</div>
+                  </Grid>
+                  <Grid item>
+                    ${pressUserInfo ? pressUserInfo.tvl.toLocaleString('en-US', {maximumFractionDigits: 2}) : '0.00'}
+                  </Grid>
+                </Grid>
               </Grid>
             </Grid>
           </AccordionSummary>
@@ -383,7 +403,12 @@ const SodapressCard: React.FC<SodapressCardProps> = ({bank, activesOnly}) => {
                       <div className="statBoxInner">
                         <div className="lineLabel">
                           Contract Balance{' '}
-                          <LightTooltip arrow placement="top" enterDelay={0} title="Amount of LP left in the Contract">
+                          <LightTooltip
+                            arrow
+                            placement="top"
+                            enterDelay={0}
+                            title="Amount of Token left in the Contract"
+                          >
                             <InfoIcon style={{verticalAlign: 'text-bottom', fontSize: '17px'}} />
                           </LightTooltip>
                         </div>
@@ -527,7 +552,7 @@ const SodapressCard: React.FC<SodapressCardProps> = ({bank, activesOnly}) => {
                           <div className="balance">
                             <span>
                               Balance:{' '}
-                              {getFullDisplayBalance(payWith === 'MIM' ? mimTokenBalance : depositTokenBalance, 18)}
+                              {getFullDisplayBalance(payWith === 'MIM' ? mimTokenBalance : depositTokenBalance, 18)}{' '}
                               {payWith}
                             </span>
                           </div>
@@ -568,13 +593,22 @@ const SodapressCard: React.FC<SodapressCardProps> = ({bank, activesOnly}) => {
                           <Grid item xs={12}>
                             {showApprove() ? (
                               <button
-                                disabled={Number(inputValue) === 0}
-                                onClick={getApprove()}
+                                onClick={() => {
+                                  setApproveLoading(true);
+                                  approve();
+                                }}
                                 className="primary-button"
                                 title="Approve"
                                 style={{borderTopLeftRadius: '0', borderTopRightRadius: '0'}}
                               >
-                                Approve
+                                {approveLoading ? (
+                                  <span>
+                                    <SyncLoader color="white" size={4} style={{marginRight: '10px'}} />
+                                    APPROVING
+                                  </span>
+                                ) : (
+                                  <span>APPROVE</span>
+                                )}
                               </button>
                             ) : (
                               <button
@@ -584,7 +618,14 @@ const SodapressCard: React.FC<SodapressCardProps> = ({bank, activesOnly}) => {
                                 title="Create Nodes"
                                 style={{borderTopLeftRadius: '0', borderTopRightRadius: '0'}}
                               >
-                                Deposit
+                                {depositingLoading ? (
+                                  <span>
+                                    <SyncLoader color="white" size={4} style={{marginRight: '10px'}} />
+                                    DEPOSITING
+                                  </span>
+                                ) : (
+                                  <span>DEPOSIT</span>
+                                )}
                               </button>
                             )}
                           </Grid>
@@ -628,7 +669,10 @@ const SodapressCard: React.FC<SodapressCardProps> = ({bank, activesOnly}) => {
                             <button
                               className="primary-button"
                               title="Compound"
-                              onClick={onCompound}
+                              onClick={() => {
+                                setCompoundLoading(true);
+                                onCompound();
+                              }}
                               disabled={!pressUserInfo || (pressUserInfo && pressUserInfo.totalClaimable <= 0)}
                               style={{
                                 borderTopLeftRadius: '0',
@@ -636,7 +680,14 @@ const SodapressCard: React.FC<SodapressCardProps> = ({bank, activesOnly}) => {
                                 borderBottomRightRadius: '0',
                               }}
                             >
-                              COMPOUND
+                              {compoundLoading ? (
+                                <span>
+                                  <SyncLoader color="white" size={4} style={{marginRight: '10px'}} />
+                                  COMPOUNDING
+                                </span>
+                              ) : (
+                                <span>COMPOUND</span>
+                              )}
                             </button>
                           </Grid>
                           <Grid item xs={6}>
@@ -644,10 +695,20 @@ const SodapressCard: React.FC<SodapressCardProps> = ({bank, activesOnly}) => {
                               style={{borderTopLeftRadius: '0', borderTopRightRadius: '0', borderBottomLeftRadius: '0'}}
                               className="secondary-button"
                               title="Claim"
-                              onClick={claim}
+                              onClick={() => {
+                                setClaimLoading(true);
+                                onClaim();
+                              }}
                               disabled={!pressUserInfo || (pressUserInfo && pressUserInfo.totalClaimable <= 0)}
                             >
-                              CLAIM
+                              {claimLoading ? (
+                                <span>
+                                  <SyncLoader color="white" size={4} style={{marginRight: '10px'}} />
+                                  CLAIMING
+                                </span>
+                              ) : (
+                                <span>CLAIM</span>
+                              )}
                             </button>
                           </Grid>
                         </Grid>
@@ -739,7 +800,7 @@ const SodapressCard: React.FC<SodapressCardProps> = ({bank, activesOnly}) => {
                       <Box mt={2}>
                         <Grid container justifyContent="center">
                           <Grid item xs={12}>
-                            {grapeTicketApprovalStatus !== ApprovalState.APPROVED ? (
+                            {grapeTokenApprove.approveStatus !== ApprovalState.APPROVED ? (
                               <>
                                 <span style={{paddingLeft: '35px', paddingRight: '35px'}}>
                                   {' '}
@@ -748,7 +809,7 @@ const SodapressCard: React.FC<SodapressCardProps> = ({bank, activesOnly}) => {
                                 <button
                                   className="primary-button"
                                   title="Approve"
-                                  onClick={grapeTicketApprove}
+                                  onClick={grapeTokenApprove.approve}
                                   style={{
                                     marginTop: '15px',
                                     borderTopLeftRadius: '0',

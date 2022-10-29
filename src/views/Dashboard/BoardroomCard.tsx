@@ -1,5 +1,5 @@
 import moment from 'moment';
-import React, {useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {Box, Grid, Accordion, AccordionDetails, AccordionSummary, useMediaQuery} from '@material-ui/core';
 import useApprove, {ApprovalState} from '../../hooks/useApprove';
 import ProgressCountdown from '../Winery/components/ProgressCountdown';
@@ -28,10 +28,43 @@ import useHarvestFromBoardroom from '../../hooks/useHarvestFromBoardroom';
 import useEarningsOnBoardroom from '../../hooks/useEarningsOnBoardroom';
 import useGrapeStats from '../../hooks/useGrapeStats';
 import useClaimRewardTimerBoardroom from '../../hooks/boardroom/useClaimRewardTimerBoardroom';
+import {subscribe, unsubscribe} from '../../state/txEvent';
+import {SyncLoader} from 'react-spinners';
 
 const BoardroomCard = () => {
+  useEffect(() => {
+    subscribe('failedTx', () => {
+      setClaimLoading(false);
+      setWithdrawLoading(false);
+      setRedeemLoading(false);
+      setDepositingLoading(false);
+      setApproveLoading(false);
+    });
+
+    subscribe('successTx', () => {
+      setWithdrawLoading(false);
+      setClaimLoading(false);
+      setRedeemLoading(false);
+      setDepositingLoading(false);
+      setApproveLoading(false);
+    });
+
+    return () => {
+      unsubscribe('failedTx');
+      unsubscribe('successTx');
+    };
+  }, []);
+
+  const widthUnder600 = useMediaQuery('(max-width:600px)');
   const widthUnder960 = useMediaQuery('(max-width:960px)');
   const [inputValue, setInputValue] = useState<string>();
+
+  const [claimLoading, setClaimLoading] = useState(false);
+  const [depositingLoading, setDepositingLoading] = useState(false);
+  const [approveLoading, setApproveLoading] = useState(false);
+  const [redeemLoading, setRedeemLoading] = useState(false);
+  const [withdrawLoading, setWithdrawLoading] = useState(false);
+
   const [activeDetailsBoxTab, setActiveDetailsBoxTab] = useState('Deposit');
   const [expanded, setExpanded] = useState(false);
   const expand = () => {
@@ -83,7 +116,7 @@ const BoardroomCard = () => {
   const earnedInDollars =
     parsedEarnings && grapePriceInDollars ? (Number(grapePriceInDollars) * parsedEarnings).toFixed(2) : null;
 
-  const [approveStatus, approve] = useApprove(grapeFinance.WINE, grapeFinance.contracts.Boardroom.address);
+  const {approveStatus, approve} = useApprove(grapeFinance.WINE, grapeFinance.contracts.Boardroom.address);
   const {onRedeem} = useRedeemOnBoardroom();
   const {onStake} = useStakeToBoardroom();
   const {onWithdraw} = useWithdrawFromBoardroom();
@@ -99,12 +132,14 @@ const BoardroomCard = () => {
 
   const stake = () => {
     if (Number(inputValue) > 0) {
+      setDepositingLoading(true);
       onStake(inputValue.toString());
     }
   };
 
   const withdraw = () => {
     if (Number(inputValue) > 0) {
+      setWithdrawLoading(true);
       onWithdraw(inputValue.toString());
     }
   };
@@ -120,7 +155,7 @@ const BoardroomCard = () => {
         aria-controls="panel1bh-content"
         id="panel1bh-header"
       >
-        <Grid container justifyContent="space-between" className="lineItemInner">
+        <Grid container justifyContent="space-between" className="lineItemInner" spacing={1}>
           <Grid item className="lineName" xs={12} sm={12} md={4}>
             <Grid container justifyContent="flex-start" alignItems="center" spacing={2}>
               <Grid item>
@@ -137,43 +172,73 @@ const BoardroomCard = () => {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={6} sm={3} md={2}>
-            <div className="lineLabel">Deposited</div>
-            <div className="lineValueDeposited">
-              <span style={{color: '#fcfcfc'}}>{stakedBalance ? getDisplayBalance(stakedBalance, 18, 2) : '0'}</span>
-              <span style={{marginLeft: '5px', fontSize: '14px'}}>(${tokenPriceInDollars})</span>
-            </div>
+          <Grid item xs={12} sm={6} md={2}>
+            <Grid container direction={widthUnder600 ? 'row' : 'column'} justifyContent="space-between">
+              <Grid item>
+                <div className="lineLabel">Deposited</div>
+              </Grid>
+              <Grid item>
+                <div className="lineValueDeposited">
+                  <span style={{color: '#fcfcfc'}}>
+                    {stakedBalance ? getDisplayBalance(stakedBalance, 18, 2) : '0'}
+                  </span>
+                  <span style={{marginLeft: '5px', fontSize: '14px'}}>(${tokenPriceInDollars})</span>
+                </div>{' '}
+              </Grid>
+            </Grid>
           </Grid>
-          <Grid item xs={6} sm={3} md={2}>
-            <div className="lineLabel">Rewards</div>
-            <div className="lineValueDeposited">
-              <span style={{color: '#fcfcfc'}}>{parsedEarnings ? parsedEarnings : '0'}</span>
-              <span style={{marginLeft: '5px', fontSize: '14px'}}>(${earnedInDollars ? earnedInDollars : '0'})</span>
-            </div>
+          <Grid item xs={12} sm={6} md={2}>
+            <Grid container direction={widthUnder600 ? 'row' : 'column'} justifyContent="space-between">
+              <Grid item>
+                <div className="lineLabel">Rewards</div>
+              </Grid>
+              <Grid item>
+                <div className="lineValueDeposited">
+                  <span style={{color: '#fcfcfc'}}>{parsedEarnings ? parsedEarnings : '0'}</span>
+                  <span style={{marginLeft: '5px', fontSize: '14px'}}>
+                    (${earnedInDollars ? earnedInDollars : '0'})
+                  </span>
+                </div>
+              </Grid>
+            </Grid>
           </Grid>
           <Grid
             item
-            xs={6}
-            sm={3}
+            xs={12}
+            sm={6}
             md={2}
             style={{marginTop: widthUnder960 ? '15px' : '0', textAlign: widthUnder960 ? 'center' : 'left'}}
           >
-            <div className="lineLabel">Daily APR</div>
-            <div className="lineValue">{(boardroomAPR / 365).toFixed(2)}%</div>
+            <Grid container direction={widthUnder600 ? 'row' : 'column'} justifyContent="space-between">
+              <Grid item>
+                <div className="lineLabel">Daily APR</div>
+              </Grid>
+              <Grid item>
+                <div className="lineValue">{(boardroomAPR / 365).toFixed(2)}%</div>
+              </Grid>
+            </Grid>
           </Grid>
           <Grid
             item
-            xs={6}
-            sm={3}
+            xs={12}
+            sm={6}
             md={2}
             style={{marginTop: widthUnder960 ? '15px' : '0', textAlign: widthUnder960 ? 'center' : 'left'}}
           >
-            <div className="lineLabel">TVL</div>
-            <div className="lineValue">${tvl ? Number(Number(tvl).toFixed(0)).toLocaleString('en-US') : '-.--'}</div>
+            <Grid container direction={widthUnder600 ? 'row' : 'column'} justifyContent="space-between">
+              <Grid item>
+                <div className="lineLabel">TVL</div>
+              </Grid>
+              <Grid item>
+                <div className="lineValue">
+                  ${tvl ? Number(Number(tvl).toFixed(0)).toLocaleString('en-US') : '-.--'}
+                </div>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </AccordionSummary>
-      <AccordionDetails>
+      <AccordionDetails style={{overflow: 'hidden'}}>
         <Grid container direction="column" spacing={2}>
           <Grid item>
             <Grid container spacing={2} justifyContent="space-between" alignItems="center">
@@ -329,7 +394,10 @@ const BoardroomCard = () => {
                             <>
                               <Grid item xs={12}>
                                 <button
-                                  onClick={approve}
+                                  onClick={() => {
+                                    setApproveLoading(true);
+                                    approve();
+                                  }}
                                   style={{
                                     borderTopLeftRadius: '0',
                                     borderTopRightRadius: '0',
@@ -337,7 +405,14 @@ const BoardroomCard = () => {
                                   className="primary-button"
                                   title="Approve"
                                 >
-                                  Approve
+                                  {approveLoading ? (
+                                    <span>
+                                      <SyncLoader color="white" size={4} style={{marginRight: '10px'}} />
+                                      APPROVING
+                                    </span>
+                                  ) : (
+                                    <span>APPROVE</span>
+                                  )}
                                 </button>
                               </Grid>
                             </>
@@ -354,7 +429,14 @@ const BoardroomCard = () => {
                                   }}
                                   title="Deposit"
                                 >
-                                  Deposit
+                                  {depositingLoading ? (
+                                    <span>
+                                      <SyncLoader color="white" size={4} style={{marginRight: '10px'}} />
+                                      DEPOSITING
+                                    </span>
+                                  ) : (
+                                    <span>DEPOSIT</span>
+                                  )}
                                 </button>
                               </Grid>
                             </>
@@ -375,7 +457,14 @@ const BoardroomCard = () => {
                                 className="secondary-button"
                                 title="Withdraw"
                               >
-                                Withdraw
+                                {withdrawLoading ? (
+                                  <span>
+                                    <SyncLoader color="white" size={4} style={{marginRight: '10px'}} />
+                                    WITHDRAWING
+                                  </span>
+                                ) : (
+                                  <span>WITHDRAW</span>
+                                )}
                               </button>
                             )}
                           </Grid>
@@ -438,9 +527,19 @@ const BoardroomCard = () => {
                           style={{borderTopLeftRadius: '0', borderTopRightRadius: '0', borderBottomRightRadius: '0'}}
                           className="secondary-button"
                           title="Claim & Withdraw"
-                          onClick={onRedeem}
+                          onClick={() => {
+                            setRedeemLoading(true);
+                            onRedeem();
+                          }}
                         >
-                          CLAIM & WITHDRAW
+                          {redeemLoading ? (
+                            <span>
+                              <SyncLoader color="white" size={4} style={{marginRight: '10px'}} />
+                              CLAIMING & WITHDRAWING
+                            </span>
+                          ) : (
+                            <span>CLAIM & WITHDRAW</span>
+                          )}
                         </button>
                       </Grid>
                       <Grid item xs={6}>
@@ -449,9 +548,19 @@ const BoardroomCard = () => {
                           disabled={earnings.eq(0) || !canClaim}
                           className="primary-button"
                           title="Claim"
-                          onClick={onReward}
+                          onClick={() => {
+                            setClaimLoading(true);
+                            onReward();
+                          }}
                         >
-                          CLAIM
+                          {claimLoading ? (
+                            <span>
+                              <SyncLoader color="white" size={4} style={{marginRight: '10px'}} />
+                              CLAIMING
+                            </span>
+                          ) : (
+                            <span>CLAIM</span>
+                          )}
                         </button>
                       </Grid>
                     </Grid>

@@ -55,6 +55,7 @@ import useSVintagePrice from '../../hooks/useSVintagePrice';
 const Dashboard = () => {
   const {account} = useWallet();
   const grapeFinance = useGrapeFinance();
+  const widthUnder600 = useMediaQuery('(max-width:600px)');
 
   const {to} = useTreasuryAllocationTimes();
   const [banks] = useBanks();
@@ -66,12 +67,6 @@ const Dashboard = () => {
   );
   const nodePools = [useBank('GrapeNodeV2'), useBank('LPNode'), useBank('LPWlrsNode')];
   const pressPools = banks.filter((bank) => !bank.finished && bank.sectionInUI === 8);
-  const onReward = useHarvestAll(vineyardPools);
-  const harvestNodes = useHarvestAll(nodePools);
-  const compoundNodes = useCompoundAll(nodePools);
-
-  // const harvestPresses = useHarvestPresses(pressPools)
-  // const compoundPresses = useCompoundPresses(pressPools)
 
   const grapeBalance = useTokenBalance(grapeFinance.GRAPE);
   const displayGrapeBalance = useMemo(() => getDisplayBalance(grapeBalance, 18, 2), [grapeBalance]);
@@ -102,7 +97,7 @@ const Dashboard = () => {
   const matches = useMediaQuery('(min-width:900px)');
   const matches960 = useMediaQuery('(max-width:960px)');
 
-  const [activeTab, setActiveTab] = useState('Presses');
+  const [activeTab, setActiveTab] = useState('Farms');
 
   const totalInvested = useMemo(() => {
     if (walletStats) {
@@ -149,9 +144,7 @@ const Dashboard = () => {
           <Typography color="textPrimary" align="center" variant="h3" gutterBottom>
             Dashboard
           </Typography>
-          <Typography color="textPrimary" align="center" variant="h6" gutterBottom style={{marginBottom: '40px'}}>
-            Manage all your funds, from one page.
-          </Typography>
+
           <Grid container spacing={1}>
             <Grid item xs={12}>
               <Grid container spacing={1}>
@@ -544,11 +537,6 @@ const Dashboard = () => {
                   />
                 </FormGroup>{' '}
               </Grid>
-              <Grid item>
-                <Button style={{marginTop: matches ? '0' : '10px'}} className="shinyButton" onClick={onReward}>
-                  Claim All From Vineyard
-                </Button>
-              </Grid>
             </Grid>
 
             <Farms pools={vineyardPools} activesOnly={activesOnly} />
@@ -566,19 +554,6 @@ const Dashboard = () => {
                   />
                 </FormGroup>{' '}
               </Grid>
-
-              <Grid item>
-                <Button style={{marginTop: matches ? '0' : '10px'}} className="shinyButton" onClick={compoundNodes}>
-                  Compound All From Nodes
-                </Button>
-                <Button
-                  style={{marginTop: matches ? '0' : '10px', marginLeft: '10px'}}
-                  className="shinyButton"
-                  onClick={harvestNodes}
-                >
-                  Claim All From Nodes
-                </Button>
-              </Grid>
             </Grid>
             <Nodes pools={nodePools} activesOnly={activesOnly} />
           </Box>
@@ -592,15 +567,6 @@ const Dashboard = () => {
                     label="Active(s) only"
                   />
                 </FormGroup>{' '}
-              </Grid>
-
-              <Grid item>
-                <Button style={{marginTop: matches ? '0' : '10px'}} className="shinyButton">
-                  Compound All From Presses
-                </Button>
-                <Button style={{marginTop: matches ? '0' : '10px', marginLeft: '10px'}} className="shinyButton">
-                  Claim All From Presses
-                </Button>
               </Grid>
             </Grid>
             <Presses pools={pressPools} activesOnly={activesOnly} />

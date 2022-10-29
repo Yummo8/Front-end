@@ -45,7 +45,7 @@ const ExchangeCard: React.FC<ExchangeCardProps> = ({
   const {
     contracts: {Treasury},
   } = useGrapeFinance();
-  const [approveStatus, approve] = useApprove(fromToken, Treasury.address);
+  const {approveStatus, approve} = useApprove(fromToken, Treasury.address);
 
   const balance = useTokenBalance(fromToken);
   const [onPresent, onDismiss] = useModal(

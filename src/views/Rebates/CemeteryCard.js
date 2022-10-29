@@ -17,7 +17,7 @@ const CemeteryCard = ({bank}) => {
 
   const rebateStats = useRebateTreasury();
 
-  const [approveStatus, approve] = useApprove(
+  const {approveStatus, approve} = useApprove(
     tombFinance.externalTokens[bank.depositTokenName],
     '0xde18bD8EC77692dC29608DFe962D65eC6B84161d',
   );

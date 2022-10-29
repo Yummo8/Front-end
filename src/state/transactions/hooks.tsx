@@ -24,6 +24,8 @@ export function useTransactionAdder(): (
       if (!chainId) return;
 
       const {hash} = response;
+      console.log(' HASH = ' + hash);
+
       if (!hash) {
         throw Error('No transaction hash found.');
       }
@@ -46,6 +48,7 @@ export function useIsTransactionPending(transactionHash?: string): boolean {
   if (!transactionHash || !transactions[transactionHash]) {
     return false;
   }
+
   return !transactions[transactionHash].receipt;
 }
 

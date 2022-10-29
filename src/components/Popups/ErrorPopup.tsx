@@ -13,14 +13,8 @@ export default function ErrorPopup({message, stack}: {message: string; stack: st
 
   return (
     <RowNoFlex>
-      <div style={{paddingRight: 16}}>
-        <AlertCircle color="#FF6871" size={24} />
-      </div>
       <div>
-        <StyledPopupDesc>{message}</StyledPopupDesc>
-        <StyledLink onClick={copyErrorDetails} href="#">
-          Copy error details
-        </StyledLink>
+        <AlertCircle color="#FF6871" size={24} /> <StyledPopupDesc>{message}</StyledPopupDesc>
       </div>
     </RowNoFlex>
   );
