@@ -282,6 +282,11 @@ export class GrapeFinance {
     };
   }
 
+  async burnGrapePress(poolName: ContractName, batches: number): Promise<TransactionResponse> {
+    const press = this.contracts[poolName + 'Lotto'];
+    return await press.burnGRAPE(batches);
+  }
+
   async assassinatePress(poolName: ContractName, user: string): Promise<TransactionResponse> {
     const press = this.contracts[poolName];
     return await press.assassinate(user);
@@ -1266,7 +1271,7 @@ export class GrapeFinance {
   async harvest(poolName: ContractName, poolId: Number, sectionInUI: Number): Promise<TransactionResponse> {
     const pool = this.contracts[poolName];
     const tx = sectionInUI !== 3 ? await pool.withdraw(poolId, 0) : await pool.claim();
-    return tx
+    return tx;
   }
 
   async claimPress(poolName: ContractName): Promise<TransactionResponse> {

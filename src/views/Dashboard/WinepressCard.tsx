@@ -28,6 +28,8 @@ import useGetPressUsersNearAssassination from '../../hooks/useGetPressUsersNearA
 import useAssassinatePress from '../../hooks/useAssassinatePress';
 import {subscribe, unsubscribe} from '../../state/txEvent';
 import {SyncLoader} from 'react-spinners';
+import useBurnGrapePress from '../../hooks/useBurnGrapePress';
+import {batch} from 'react-redux';
 
 const GRAPE_PER_BATCH = 10;
 
@@ -89,6 +91,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
   const {onStake} = useStakePress(bank);
   const {onZapAndStake} = useZapStakePress(bank);
   const {onAssassinate} = useAssassinatePress(bank);
+  const {onBurnGrape} = useBurnGrapePress(bank);
 
   const [expanded, setExpanded] = useState(false);
   const [inputValue, setInputValue] = useState<string>();
@@ -135,7 +138,11 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
     }
   };
 
-  const burn = () => {};
+  const burn = () => {
+    if (Number(batchAmount) > 0) {
+      onBurnGrape(Number(batchAmount));
+    }
+  };
 
   const handleBatchAmountChanged = (e: any) => {
     if (isNaN(Number(e.target.value))) return;

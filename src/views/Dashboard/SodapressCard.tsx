@@ -28,6 +28,7 @@ import useAssassinatePress from '../../hooks/useAssassinatePress';
 import useSodapressUserInfo from '../../hooks/useSodapressUserInfo';
 import {subscribe, unsubscribe} from '../../state/txEvent';
 import {SyncLoader} from 'react-spinners';
+import useBurnGrapePress from '../../hooks/useBurnGrapePress';
 
 const GRAPE_PER_BATCH = 10;
 
@@ -89,6 +90,7 @@ const SodapressCard: React.FC<SodapressCardProps> = ({bank, activesOnly}) => {
   const {onStake} = useStakePress(bank);
   const {onZapAndStake} = useZapStakePress(bank);
   const {onAssassinate} = useAssassinatePress(bank);
+  const {onBurnGrape} = useBurnGrapePress(bank);
 
   const [expanded, setExpanded] = useState(false);
   const [inputValue, setInputValue] = useState<string>();
@@ -135,7 +137,9 @@ const SodapressCard: React.FC<SodapressCardProps> = ({bank, activesOnly}) => {
   };
 
   const burn = () => {
-    console.log({batchAmount});
+    if (Number(batchAmount) > 0) {
+      onBurnGrape(Number(batchAmount));
+    }
   };
 
   const handleBatchAmountChanged = (e: any) => {
