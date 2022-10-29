@@ -117,7 +117,8 @@ export type PressUserInfo = {
   totalDeposited: number;
   profitsAssassinated: number;
   totalClaimable: number;
-  depositTokenPrice: string;
+  priceOfOneShare: number;
+  depositTokenPrice: number;
   pressTotalDeposited: number;
   tvl: number;
   rewardsPerDay: number;

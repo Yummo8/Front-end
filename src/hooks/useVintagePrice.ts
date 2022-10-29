@@ -3,7 +3,7 @@ import useGrapeFinance from './useGrapeFinance';
 import useRefresh from './useRefresh';
 
 const useVintagePrice = () => {
-  const [price, setPrice] = useState<string>();
+  const [price, setPrice] = useState<number>();
   const {slowRefresh} = useRefresh();
   const grapeFinance = useGrapeFinance();
 

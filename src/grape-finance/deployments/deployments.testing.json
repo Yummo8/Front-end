@@ -4103,7 +4103,7 @@
     ]
   },
   "priceOracle": {
-    "address": "0xf11762ad331cf019a8d9a2dff9c931721fc03e85",
+    "address": "0x2cb6ecF54397b309cB3C1DAe80b302B63706B959",
     "abi": [
       {
         "inputs": [],

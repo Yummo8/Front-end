@@ -352,7 +352,7 @@ const Page: React.FC = ({children}) => {
                   href="https://www.swapsicle.io/swap?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0x01Af64EF39AEB5612202AA07B3A3829f20c395fd#/"
                 >
                   <img src={vintageImg} alt="Wine" width={24} height={24} />
-                  <span className="token-price">{vintagePrice ? '$' + vintagePrice : '--'}</span>
+                  <span className="token-price">{vintagePrice ? '$' + vintagePrice.toFixed(4) : '--'}</span>
                 </a>
               </div>
               <div className="price-item">

@@ -553,14 +553,21 @@ const SodapressCard: React.FC<SodapressCardProps> = ({bank, activesOnly}) => {
                           </FormControl>
                         </Box>
                         <div className="node-inputDetailsBox">
-                          <div className="balance">
-                            <span>
-                              Balance:{' '}
-                              {getFullDisplayBalance(payWith === 'MIM' ? mimTokenBalance : depositTokenBalance, 18)}{' '}
-                              {payWith}
-                            </span>
-                          </div>
+                        <Box className="box-price-of-one color-secondary">
+                            1 share = {pressUserInfo ? pressUserInfo.priceOfOneShare.toFixed(2) : '0.00'}{' '}
+                            {bank.depositTokenName} = $
+                            {pressUserInfo
+                              ? (pressUserInfo.priceOfOneShare * pressUserInfo.depositTokenPrice).toFixed(3)
+                              : '0.000'}
+                          </Box>
                           <div className="inputDetailsBoxInner">
+                            <div className="balance">
+                              <span>
+                                Wallet:{' '}
+                                {getFullDisplayBalance(payWith === 'MIM' ? mimTokenBalance : depositTokenBalance, 18)}{' '}
+                                {payWith}
+                              </span>
+                            </div>
                             <Grid container justifyContent="space-between" alignItems="center" wrap="nowrap">
                               <Grid item xs={10} md={11}>
                                 <input
@@ -833,7 +840,7 @@ const SodapressCard: React.FC<SodapressCardProps> = ({bank, activesOnly}) => {
                                   <Grid item xs={12}>
                                     <div className="inputDetailsBoxInner">
                                       <div className="balance">
-                                        <span>Balance: {getFullDisplayBalance(grapeTokenBalance, 18)} GRAPE</span>
+                                        <span>Wallet: {getFullDisplayBalance(grapeTokenBalance, 18)} GRAPE</span>
                                       </div>
                                       <Grid container justifyContent="space-between" alignItems="center" wrap="nowrap">
                                         <Grid item xs={10} md={11}>

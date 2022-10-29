@@ -148,20 +148,20 @@ export class GrapeFinance {
   //=========================IN HOME PAGE==============================
   //===================================================================
 
-  async getGrapeXGrapeLPPrice(): Promise<string> {
+  async getGrapeXGrapeLPPrice(): Promise<number> {
     const {GRAPEXGRAPE, xGrapeOracle} = this.contracts;
     const grapeXGrapeSupply = Number(await GRAPEXGRAPE.totalSupply()) / 1e18;
     const xGrapePrice = Number(await xGrapeOracle.xGrapePrice()) / 1e18;
     const xGrapeBalance = Number(await this.XGRAPE.balanceOf(this.GRAPEXGRAPELP.address)) / 1e18;
-    const fixedLPPrice = ((xGrapeBalance * xGrapePrice * 2) / grapeXGrapeSupply).toFixed(3);
+    const fixedLPPrice = (xGrapeBalance * xGrapePrice * 2) / grapeXGrapeSupply;
     return fixedLPPrice;
   }
 
   async getWinepressData(): Promise<PressUserInfo> {
-    const {Winepress} = this.contracts;
+    const {Winepress, priceOracle} = this.contracts;
     const userInfo = await Winepress.userInfo(this.myAccount);
     const pendingRewards = await Winepress.pendingRewards(this.myAccount);
-    const wineStats = await this.getLPStat('WINE-MIM-LP');
+    const wineMIMPrice = await priceOracle.wineMimLPVal();
     const totalDeposited = await Winepress.totalDeposited();
     const rewardsPerDay = await Winepress.rewardsPerDay(this.myAccount);
     const profitRatio = await Winepress.calculateTrackedProfitRatio(this.myAccount);
@@ -178,9 +178,10 @@ export class GrapeFinance {
       totalDeposited: Number(userInfo.totalTokenBalance / 1e18),
       totalClaimable: Number(pendingRewards / 1e18),
       profitsAssassinated: Number(userInfo.profitsAssassinated) / 1e18,
-      depositTokenPrice: wineStats.priceOfOne,
+      priceOfOneShare: price,
+      depositTokenPrice: Number(wineMIMPrice) / 1e18,
       pressTotalDeposited: Number(totalDeposited) / 1e18,
-      tvl: (Number(totalDeposited) / 1e18) * Number(wineStats.priceOfOne),
+      tvl: (Number(totalDeposited) / 1e18) * (Number(wineMIMPrice) / 1e18),
       rewardsPerDay: Number(rewardsPerDay) / 1e18,
       profit: Number(profit) / 1e18,
       profitRatio: Number(profitRatio) / 1e18,
@@ -211,9 +212,10 @@ export class GrapeFinance {
       totalTracked: Number(userInfo.trackedTokenBalance / 1e18),
       totalDeposited: Number(userInfo.totalTokenBalance / 1e18),
       totalClaimable: Number(pendingRewards / 1e18),
+      priceOfOneShare: price,
       pressTotalDeposited: Number(totalDeposited) / 1e18,
       profitsAssassinated: Number(userInfo.profitsAssassinated) / 1e18,
-      depositTokenPrice: depositTokenprice,
+      depositTokenPrice: Number(depositTokenprice),
       tvl: (Number(totalDeposited) / 1e18) * Number(depositTokenprice),
       rewardsPerDay: Number(rewardsPerDay) / 1e18,
       profitRatio: Number(profitRatio) / 1e18,
@@ -246,6 +248,7 @@ export class GrapeFinance {
       totalDeposited: Number(userInfo.totalTokenBalance / 1e18),
       totalClaimable: Number(pendingRewards / 1e18),
       pressTotalDeposited: Number(totalDeposited) / 1e18,
+      priceOfOneShare: price,
       profitsAssassinated: Number(userInfo.profitsAssassinated) / 1e18,
       depositTokenPrice: depositTokenprice,
       tvl: (Number(totalDeposited) / 1e18) * Number(depositTokenprice),
@@ -533,16 +536,16 @@ export class GrapeFinance {
     };
   }
 
-  async getVintagePrice(): Promise<string> {
+  async getVintagePrice(): Promise<number> {
     const {priceOracle} = this.contracts;
     const vintagePrice = (await priceOracle.vintagePrice()) / 1e18;
-    return vintagePrice.toFixed(4);
+    return vintagePrice;
   }
 
-  async getSVintagePrice(): Promise<string> {
+  async getSVintagePrice(): Promise<number> {
     const {priceOracle} = this.contracts;
     const sVintagePrice = (await priceOracle.sVintagePrice()) / 1e18;
-    return sVintagePrice.toFixed(4);
+    return sVintagePrice;
   }
 
   async getWalletStats(banks: Bank[]): Promise<WalletStats> {

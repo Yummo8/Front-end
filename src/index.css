@@ -175,11 +175,11 @@
 
 .node-lineDetailsBox {
   min-height: 320px;
-  background-color: #1d1f2c;
+  background-color: #e9e9e921;
   border-radius: 10px;
 }
 .lineDetailsBox {
-  background-color: #1d1f2c;
+  background-color: #e9e9e921;
   border-radius: 10px;
 }
 .node-inputDetailsBox {
@@ -251,12 +251,18 @@
   min-height: 285px;
 }
 
+.box-price-of-one {
+  font-size: 14px;
+  text-align: right;
+}
+
 .node-line-details-inner {
   padding: 35px 35px 0 35px;
   min-height: 280px;
 }
 .balance {
   padding-left: 3px;
+  font-size: 14px;
 }
 .slider-value {
   color: #fcfcfc;
@@ -278,7 +284,7 @@
 
 .statBox {
   min-height: 60px;
-  background-color: #1d1f2c;
+  background-color: #e9e9e921;
   border-radius: 10px;
 }
 

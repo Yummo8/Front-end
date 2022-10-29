@@ -324,19 +324,22 @@ const NodeCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
                     <Box className="lineDetailsBox">
                       <div className="node-line-details-inner">
                         <Box>
-                          <div className="pending-rewards">
-                            1 Node Costs {parsedNodePrice}&nbsp;
-                            {bank.depositTokenName}
-                          </div>
-                          <div className="rewardTokenValue">${nodeCost}</div>
+                          <div className="pending-rewards">{bank.depositTokenName} NODE</div>
                         </Box>
                         <div className="node-inputDetailsBox">
-                          <div className="balance">
-                            <span>
-                              Balance: {getFullDisplayBalance(tokenBalance, 18)} {bank.depositTokenName}
-                            </span>
-                          </div>
+                          <Box>
+                            <div className="box-price-of-one color-secondary">
+                              1 Node Costs {parsedNodePrice}&nbsp;
+                              {bank.depositTokenName}, ${nodeCost}
+                            </div>
+                          </Box>
+
                           <div className="inputDetailsBoxInner">
+                            <div className="balance">
+                              <span>
+                                Wallet: {getFullDisplayBalance(tokenBalance, 18)} {bank.depositTokenName}
+                              </span>
+                            </div>
                             <Grid container justifyContent="space-between" alignItems="center" wrap="nowrap">
                               <Grid item xs={10} md={11}>
                                 <input

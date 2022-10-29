@@ -456,7 +456,7 @@ const Dashboard = () => {
                         <span className="wallet-token-value">
                           ($
                           {sVintagePrice && displaySVintageBalance
-                            ? (Number(displaySVintageBalance) * Number(sVintagePrice)).toFixed(2)
+                            ? (Number(displaySVintageBalance) * sVintagePrice).toFixed(2)
                             : '0.00'}
                           )
                         </span>
@@ -480,7 +480,8 @@ const Dashboard = () => {
               </Grid>
             </Grid>
           </Grid>
-          <Box mt={7}>
+          <div style={{height: '3px', backgroundColor: '#930993', borderRadius: '5px', marginTop: '40px'}}></div>
+          <Box mt={4}>
             <Grid
               container
               justifyContent={!matches ? 'space-evenly' : 'center'}

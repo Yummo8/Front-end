@@ -248,19 +248,20 @@ const FarmCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
                     </Grid>
 
                     <div className="inputDetailsBox">
-                      <div className="balance">
-                        {activeDetailsBoxTab === 'Deposit' && (
-                          <span>
-                            Balance: {getFullDisplayBalance(tokenBalance, 18)} {bank.depositTokenName}
-                          </span>
-                        )}
-                        {activeDetailsBoxTab === 'Withdraw' && (
-                          <span>
-                            Staked: {stakedInToken} {bank.depositTokenName}
-                          </span>
-                        )}
-                      </div>
+                      <Box className="box-price-of-one color-secondary">1 {bank.depositTokenName} = ${stakedTokenPriceInDollars ? Number(stakedTokenPriceInDollars).toFixed(3) : '0.000'}</Box>
                       <div className="inputDetailsBoxInner">
+                        <div className="balance">
+                          {activeDetailsBoxTab === 'Deposit' && (
+                            <span>
+                              Wallet: {getFullDisplayBalance(tokenBalance, 18)} {bank.depositTokenName}
+                            </span>
+                          )}
+                          {activeDetailsBoxTab === 'Withdraw' && (
+                            <span>
+                              Staked: {stakedInToken} {bank.depositTokenName}
+                            </span>
+                          )}
+                        </div>
                         <Grid container justifyContent="space-between" alignItems="center" wrap="nowrap">
                           <Grid item xs={10} md={11}>
                             <input

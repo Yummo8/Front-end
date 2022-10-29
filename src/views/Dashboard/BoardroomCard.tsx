@@ -348,11 +348,15 @@ const BoardroomCard = () => {
                     </Grid>
 
                     <div className="inputDetailsBox">
-                      <div className="balance">
-                        {activeDetailsBoxTab === 'Deposit' && <span>Balance: {parsedWineBalance} WINE</span>}
-                        {activeDetailsBoxTab === 'Withdraw' && <span>Staked: {parsedStakedBalance} WINE</span>}
-                      </div>
+                      <Box className="box-price-of-one color-secondary">
+                        1 WINE = ${stakedTokenPriceInDollars ? Number(stakedTokenPriceInDollars).toFixed(3) : '0.000'}
+                      </Box>
                       <div className="inputDetailsBoxInner">
+                        {' '}
+                        <div className="balance">
+                          {activeDetailsBoxTab === 'Deposit' && <span>Wallet: {parsedWineBalance} WINE</span>}
+                          {activeDetailsBoxTab === 'Withdraw' && <span>Staked: {parsedStakedBalance} WINE</span>}
+                        </div>
                         <Grid container justifyContent="space-between" alignItems="center" wrap="nowrap">
                           <Grid item xs={10} md={11}>
                             <input
