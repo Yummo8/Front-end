@@ -94,7 +94,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
   const {onBurnGrape} = useBurnGrapePress(bank);
 
   const [expanded, setExpanded] = useState(false);
-  const [inputValue, setInputValue] = useState<string>();
+  const [inputValue, setInputValue] = useState<string>('');
   const [payWith, setPayWith] = useState(bank.depositTokenName);
   const [batchAmount, setBatchAmount] = useState('');
 
@@ -551,13 +551,6 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                               : '0.000'}
                           </Box>
                           <div className="inputDetailsBoxInner">
-                            <div className="balance">
-                              <span>
-                                Wallet:{' '}
-                                {getFullDisplayBalance(payWith === 'MIM' ? mimTokenBalance : depositTokenBalance, 18)}{' '}
-                                {payWith}
-                              </span>
-                            </div>
                             <Grid container justifyContent="space-between" alignItems="center" wrap="nowrap">
                               <Grid item xs={10} md={11}>
                                 <input
@@ -574,6 +567,13 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                                 </div>
                               </Grid>
                             </Grid>
+                            <div className="balance">
+                              <span>
+                                Wallet:{' '}
+                                {getFullDisplayBalance(payWith === 'MIM' ? mimTokenBalance : depositTokenBalance, 18)}{' '}
+                                {payWith}
+                              </span>
+                            </div>
                           </div>
                         </div>
                         <Box mt={2}>
@@ -838,9 +838,6 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                                   </Grid>
                                   <Grid item xs={12}>
                                     <div className="inputDetailsBoxInner">
-                                      <div className="balance">
-                                        <span>Wallet: {getFullDisplayBalance(grapeTokenBalance, 18)} GRAPE</span>
-                                      </div>
                                       <Grid container justifyContent="space-between" alignItems="center" wrap="nowrap">
                                         <Grid item xs={10} md={11}>
                                           <input
@@ -857,6 +854,9 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                                           </div>
                                         </Grid>
                                       </Grid>
+                                      <div className="balance">
+                                        <span>Wallet: {getFullDisplayBalance(grapeTokenBalance, 18)} GRAPE</span>
+                                      </div>
                                     </div>
                                   </Grid>
                                 </Grid>

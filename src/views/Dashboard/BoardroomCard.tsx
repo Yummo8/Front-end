@@ -57,7 +57,7 @@ const BoardroomCard = () => {
 
   const widthUnder600 = useMediaQuery('(max-width:600px)');
   const widthUnder960 = useMediaQuery('(max-width:960px)');
-  const [inputValue, setInputValue] = useState<string>();
+  const [inputValue, setInputValue] = useState<string>('');
 
   const [claimLoading, setClaimLoading] = useState(false);
   const [depositingLoading, setDepositingLoading] = useState(false);
@@ -353,10 +353,6 @@ const BoardroomCard = () => {
                       </Box>
                       <div className="inputDetailsBoxInner">
                         {' '}
-                        <div className="balance">
-                          {activeDetailsBoxTab === 'Deposit' && <span>Wallet: {parsedWineBalance} WINE</span>}
-                          {activeDetailsBoxTab === 'Withdraw' && <span>Staked: {parsedStakedBalance} WINE</span>}
-                        </div>
                         <Grid container justifyContent="space-between" alignItems="center" wrap="nowrap">
                           <Grid item xs={10} md={11}>
                             <input
@@ -372,6 +368,10 @@ const BoardroomCard = () => {
                             </div>
                           </Grid>
                         </Grid>
+                        <div className="balance">
+                          {activeDetailsBoxTab === 'Deposit' && <span>Wallet: {parsedWineBalance} WINE</span>}
+                          {activeDetailsBoxTab === 'Withdraw' && <span>Staked: {parsedStakedBalance} WINE</span>}
+                        </div>
                       </div>
                       {!canWithdraw && withdrawTimer && withdrawTimer.from && withdrawTimer.to && (
                         <Box mt={2}>
@@ -424,7 +424,7 @@ const BoardroomCard = () => {
                             <>
                               <Grid item xs={12}>
                                 <button
-                                  disabled={Number(inputValue) === 0}
+                                  disabled={Number(inputValue) === 0 || inputValue === ''}
                                   onClick={stake}
                                   className="primary-button"
                                   style={{

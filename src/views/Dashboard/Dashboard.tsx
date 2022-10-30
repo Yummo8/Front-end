@@ -51,7 +51,7 @@ import Nodes from './Nodes';
 import BoardroomCard from './BoardroomCard';
 import Presses from './Presses';
 import useSVintagePrice from '../../hooks/useSVintagePrice';
-import {useLocation} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 // import {FormControl, InputLabel, MenuItem, Select, SelectChangeEvent} from '@mui/material';
 // import useBanksWithFilters from '../../hooks/useBanksWithFilters';
 // import Vineyard from '../Vineyard';
@@ -390,116 +390,153 @@ const Dashboard = () => {
             <Grid item xs={12}>
               <Grid container spacing={1} justifyContent="space-between" alignItems="center">
                 <Grid item xs={4} sm={4} md={2}>
-                  <div className="dashboard-token-box">
-                    <div className="dashboard-token-box-inner">
-                      <div className="lineLabel">
-                        <TokenSymbol width={32} height={32} symbol="GRAPE" />
-                      </div>
-                      <div className="lineValue">
-                        <span>{displayGrapeBalance}</span>{' '}
-                        <span className="wallet-token-value">
-                          ($
-                          {grapePriceInDollars && displayGrapeBalance
-                            ? (Number(displayGrapeBalance) * Number(grapePriceInDollars)).toFixed(2)
-                            : '0.00'}
-                          )
-                        </span>
+                  <a
+                    target="_blank"
+                    style={{textDecoration: 'none'}}
+                    rel="noopener noreferrer"
+                    href="https://app.bogged.finance/avax/swap?tokenIn=0x130966628846BFd36ff31a822705796e8cb8C18D&tokenOut=0x5541D83EFaD1f281571B343977648B75d95cdAC2"
+                  >
+                    <div className="dashboard-token-box">
+                      <div className="dashboard-token-box-inner">
+                        <div className="lineLabel">
+                          <TokenSymbol width={32} height={32} symbol="GRAPE" />
+                        </div>
+                        <div className="lineValue">
+                          <span>{displayGrapeBalance}</span>{' '}
+                          <span className="wallet-token-value">
+                            ($
+                            {grapePriceInDollars && displayGrapeBalance
+                              ? (Number(displayGrapeBalance) * Number(grapePriceInDollars)).toFixed(2)
+                              : '0.00'}
+                            )
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </a>
                 </Grid>
 
                 <Grid item xs={4} sm={4} md={2}>
-                  <div className="dashboard-token-box">
-                    <div className="dashboard-token-box-inner">
-                      <div className="lineLabel">
-                        <TokenSymbol width={32} height={32} symbol="WINE" />
-                      </div>
-                      <div className="lineValue">
-                        <span>{displayWineBalance}</span>{' '}
-                        <span className="wallet-token-value">
-                          ($
-                          {winePriceInDollars && displayWineBalance
-                            ? (Number(displayWineBalance) * Number(winePriceInDollars)).toFixed(2)
-                            : '0.00'}
-                          )
-                        </span>
+                  <a
+                    target="_blank"
+                    style={{textDecoration: 'none'}}
+                    rel="noopener noreferrer"
+                    href="https://app.bogged.finance/avax/swap?tokenIn=0x130966628846BFd36ff31a822705796e8cb8C18D&tokenOut=0xC55036B5348CfB45a932481744645985010d3A44"
+                  >
+                    <div className="dashboard-token-box">
+                      <div className="dashboard-token-box-inner">
+                        <div className="lineLabel">
+                          <TokenSymbol width={32} height={32} symbol="WINE" />
+                        </div>
+                        <div className="lineValue">
+                          <span>{displayWineBalance}</span>{' '}
+                          <span className="wallet-token-value">
+                            ($
+                            {winePriceInDollars && displayWineBalance
+                              ? (Number(displayWineBalance) * Number(winePriceInDollars)).toFixed(2)
+                              : '0.00'}
+                            )
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </a>
                 </Grid>
 
                 <Grid item xs={4} sm={4} md={2}>
-                  <div className="dashboard-token-box">
-                    <div className="dashboard-token-box-inner">
-                      <div className="lineLabel">
-                        <TokenSymbol width={32} height={32} symbol="XGRAPE" />
-                      </div>
-                      <div className="lineValue">
-                        <span>{displayXGrapeBalance}</span>{' '}
-                        <span className="wallet-token-value">
-                          ($
-                          {xGrapePrice && displayXGrapeBalance
-                            ? (Number(displayXGrapeBalance) * Number(xGrapePrice)).toFixed(2)
-                            : '0.00'}
-                          )
-                        </span>
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://xgrape.grapefinance.app/"
+                    style={{textDecoration: 'none'}}
+                  >
+                    <div className="dashboard-token-box">
+                      <div className="dashboard-token-box-inner">
+                        <div className="lineLabel">
+                          <TokenSymbol width={32} height={32} symbol="XGRAPE" />
+                        </div>
+                        <div className="lineValue">
+                          <span>{displayXGrapeBalance}</span>{' '}
+                          <span className="wallet-token-value">
+                            ($
+                            {xGrapePrice && displayXGrapeBalance
+                              ? (Number(displayXGrapeBalance) * Number(xGrapePrice)).toFixed(2)
+                              : '0.00'}
+                            )
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </a>
                 </Grid>
 
                 <Grid item xs={4} sm={4} md={2}>
-                  <div className="dashboard-token-box">
-                    <div className="dashboard-token-box-inner">
-                      <div className="lineLabel">
-                        <TokenSymbol width={32} height={32} symbol="VINTAGE" />
-                      </div>
-                      <div className="lineValue">
-                        <span>{displayVintageBalance}</span>{' '}
-                        <span className="wallet-token-value">
-                          ($
-                          {vintagePrice && displayVintageBalance
-                            ? (Number(displayVintageBalance) * Number(vintagePrice)).toFixed(2)
-                            : '0.00'}
-                          )
-                        </span>
+                  <a
+                    style={{textDecoration: 'none'}}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://www.swapsicle.io/swap?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0x01Af64EF39AEB5612202AA07B3A3829f20c395fd#/"
+                  >
+                    <div className="dashboard-token-box">
+                      <div className="dashboard-token-box-inner">
+                        <div className="lineLabel">
+                          <TokenSymbol width={32} height={32} symbol="VINTAGE" />
+                        </div>
+                        <div className="lineValue">
+                          <span>{displayVintageBalance}</span>{' '}
+                          <span className="wallet-token-value">
+                            ($
+                            {vintagePrice && displayVintageBalance
+                              ? (Number(displayVintageBalance) * Number(vintagePrice)).toFixed(2)
+                              : '0.00'}
+                            )
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </a>
                 </Grid>
 
                 <Grid item xs={4} sm={4} md={2}>
-                  <div className="dashboard-token-box">
-                    <div className="dashboard-token-box-inner">
-                      <div className="lineLabel">
-                        <TokenSymbol width={32} height={32} symbol="SOLERA" />
-                      </div>
-                      <div className="lineValue">
-                        <span>{displaySVintageBalance}</span>{' '}
-                        <span className="wallet-token-value">
-                          ($
-                          {sVintagePrice && displaySVintageBalance
-                            ? (Number(displaySVintageBalance) * sVintagePrice).toFixed(2)
-                            : '0.00'}
-                          )
-                        </span>
+                  <a
+                    style={{textDecoration: 'none'}}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://www.swapsicle.io/swap?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0x01Af64EF39AEB5612202AA07B3A3829f20c395fd#/"
+                  >
+                    <div className="dashboard-token-box">
+                      <div className="dashboard-token-box-inner">
+                        <div className="lineLabel">
+                          <TokenSymbol width={32} height={32} symbol="SOLERA" />
+                        </div>
+                        <div className="lineValue">
+                          <span>{displaySVintageBalance}</span>{' '}
+                          <span className="wallet-token-value">
+                            ($
+                            {sVintagePrice && displaySVintageBalance
+                              ? (Number(displaySVintageBalance) * sVintagePrice).toFixed(2)
+                              : '0.00'}
+                            )
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </a>
                 </Grid>
 
                 <Grid item xs={4} sm={4} md={2}>
-                  <div className="dashboard-token-box">
-                    <div className="dashboard-token-box-inner">
-                      <div className="lineLabel">
-                        <TokenSymbol width={32} height={32} symbol="GBOND" />
-                      </div>
-                      <div className="lineValue">
-                        <span>{displayGbondBalance}</span>{' '}
+                  <Link to="/bond" style={{textDecoration: 'none'}}>
+                    <div className="dashboard-token-box">
+                      <div className="dashboard-token-box-inner">
+                        <div className="lineLabel">
+                          <TokenSymbol width={32} height={32} symbol="GBOND" />
+                        </div>
+                        <div className="lineValue">
+                          <span>{displayGbondBalance}</span>{' '}
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 </Grid>
               </Grid>
             </Grid>

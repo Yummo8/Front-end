@@ -65,7 +65,7 @@ const NodeCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
   const poolStats = useStatsForPool(bank);
 
   const [expanded, setExpanded] = useState(false);
-  const [inputValue, setInputValue] = useState<string>();
+  const [inputValue, setInputValue] = useState<string>('');
   const [claimLoading, setClaimLoading] = useState(false);
   const [depositingLoading, setDepositingLoading] = useState(false);
   const [approveLoading, setApproveLoading] = useState(false);
@@ -334,11 +334,6 @@ const NodeCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
                           </Box>
 
                           <div className="inputDetailsBoxInner">
-                            <div className="balance">
-                              <span>
-                                Wallet: {getFullDisplayBalance(tokenBalance, 18)} {bank.depositTokenName}
-                              </span>
-                            </div>
                             <Grid container justifyContent="space-between" alignItems="center" wrap="nowrap">
                               <Grid item xs={10} md={11}>
                                 <input
@@ -355,6 +350,11 @@ const NodeCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
                                 </div>
                               </Grid>
                             </Grid>
+                            <div className="balance">
+                              <span>
+                                Wallet: {getFullDisplayBalance(tokenBalance, 18)} {bank.depositTokenName}
+                              </span>
+                            </div>
                           </div>
                         </div>
                         <Box mt={2}>
@@ -394,7 +394,7 @@ const NodeCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
                               </button>
                             ) : (
                               <button
-                                disabled={Number(inputValue) === 0}
+                                disabled={Number(inputValue) === 0 || inputValue === ''}
                                 onClick={stake}
                                 className="primary-button"
                                 title="Create Nodes"

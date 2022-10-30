@@ -33,7 +33,7 @@ const FarmCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
 
   const [activeDetailsBoxTab, setActiveDetailsBoxTab] = useState('Deposit');
   const [expanded, setExpanded] = useState(false);
-  const [inputValue, setInputValue] = useState<string>();
+  const [inputValue, setInputValue] = useState<string>('');
   const [claimLoading, setClaimLoading] = useState(false);
   const [depositingLoading, setDepositingLoading] = useState(false);
   const [approveLoading, setApproveLoading] = useState(false);
@@ -110,6 +110,7 @@ const FarmCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
     if (Number(inputValue) > 0) {
       setDepositingLoading(true);
       onStake(inputValue.toString());
+    } else {
     }
   };
 
@@ -252,18 +253,6 @@ const FarmCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
                         {stakedTokenPriceInDollars ? Number(stakedTokenPriceInDollars).toFixed(3) : '0.000'}
                       </Box>
                       <div className="inputDetailsBoxInner">
-                        <div className="balance">
-                          {activeDetailsBoxTab === 'Deposit' && (
-                            <span>
-                              Wallet: {getFullDisplayBalance(tokenBalance, 18)} {bank.depositTokenName}
-                            </span>
-                          )}
-                          {activeDetailsBoxTab === 'Withdraw' && (
-                            <span>
-                              Staked: {stakedInToken} {bank.depositTokenName}
-                            </span>
-                          )}
-                        </div>
                         <Grid container justifyContent="space-between" alignItems="center" wrap="nowrap">
                           <Grid item xs={10} md={11}>
                             <input
@@ -280,6 +269,18 @@ const FarmCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
                             </div>
                           </Grid>
                         </Grid>
+                        <div className="balance">
+                          {activeDetailsBoxTab === 'Deposit' && (
+                            <span>
+                              Wallet: {getFullDisplayBalance(tokenBalance, 18)} {bank.depositTokenName}
+                            </span>
+                          )}
+                          {activeDetailsBoxTab === 'Withdraw' && (
+                            <span>
+                              Staked: {stakedInToken} {bank.depositTokenName}
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </div>
                     <Box mt={3}>
@@ -361,7 +362,7 @@ const FarmCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
                                         ? '0'
                                         : '5px',
                                   }}
-                                  disabled={Number(inputValue) === 0}
+                                  disabled={Number(inputValue) === 0 || inputValue === ''}
                                   onClick={stake}
                                   className="primary-button"
                                   title="Deposit"
