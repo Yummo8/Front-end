@@ -609,73 +609,56 @@ const Dashboard = () => {
                 </Grid>
 
                 <Grid item xs={4} sm={4} md={2}>
-                  <a
-                    style={{textDecoration: 'none'}}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href="https://nftrade.com/collection/the-winery-collection?traitIds=4a6117cf-14ec-4905-afc3-f4d56c1c3151&search=&sort=min_listed_desc&contractAddress=0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df&chainName="
-                  >
-                    <div className="dashboard-token-box">
-                      <div className="dashboard-token-box-inner">
-                        <Grid container justifyContent="center" alignItems="flex-start" spacing={1}>
-                          <Grid item>
-                            <TokenSymbol width={35} height={35} symbol={'NODE'} />
-                          </Grid>
-                          <Grid item>
-                            <Grid
-                              container
-                              direction={'column'}
-                              justifyContent="flex-start"
-                              alignItems="flex-start"
-                              spacing={0}
-                            >
-                              <Grid item className="lineValue">
-                                Node Tickets
-                              </Grid>
-                              <Grid item className="wallet-token-value">
-                                {userNodeTickets != null ? userNodeTickets : 'Loading'}
-                              </Grid>
+                  <div className="dashboard-token-box">
+                    <div className="dashboard-token-box-inner">
+                      <Grid container justifyContent="center" alignItems="flex-start" spacing={1}>
+                        <Grid item>
+                          <TokenSymbol width={35} height={35} symbol={'NODE'} />
+                        </Grid>
+                        <Grid item>
+                          <Grid
+                            container
+                            direction={'column'}
+                            justifyContent="flex-start"
+                            alignItems="flex-start"
+                            spacing={0}
+                          >
+                            <Grid item className="lineValue">
+                              Node Tickets
+                            </Grid>
+                            <Grid item className="wallet-token-value">
+                              {userNodeTickets != null ? userNodeTickets : 'Loading'}
                             </Grid>
                           </Grid>
                         </Grid>
-                      </div>
+                      </Grid>
                     </div>
-                  </a>
+                  </div>
                 </Grid>
 
                 <Grid item xs={4} sm={4} md={2}>
-                  <a
-                    style={{textDecoration: 'none'}}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href="https://nftrade.com/collection/the-winery-collection?traitIds=4a6117cf-14ec-4905-afc3-f4d56c1c3151&search=&sort=min_listed_desc&contractAddress=0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df&chainName="
-                  >
-                    <div className="dashboard-token-box">
-                      <div className="dashboard-token-box-inner">
-                        <Grid container justifyContent="center" alignItems="flex-start" spacing={1}>
-                          <Grid item>
-                            <TokenSymbol width={35} height={35} symbol={'NODE'} />
-                          </Grid>
-                          <Grid item>
-                            <Grid
-                              container
-                              direction={'column'}
-                              justifyContent="flex-start"
-                              alignItems="flex-start"
-                              spacing={0}
-                            >
-                              <Grid item className="lineValue">
-                                Est. Next Airdrop
-                              </Grid>
-                              <Grid item className="wallet-token-value">
-                                {totalTicketsWorth ? `~ $${totalTicketsWorth.toFixed(0)}` : 'Loading'}
-                              </Grid>
+                  <div className="dashboard-token-box">
+                    <div className="dashboard-token-box-inner">
+                      <Grid container justifyContent="center" alignItems="flex-start" spacing={1}>
+                        <Grid item>
+                          <Grid
+                            container
+                            direction={'column'}
+                            justifyContent="flex-start"
+                            alignItems="flex-start"
+                            spacing={0}
+                          >
+                            <Grid item className="lineValue">
+                              Est. Next Airdrop
+                            </Grid>
+                            <Grid item className="wallet-token-value">
+                              {totalTicketsWorth ? `~ $${totalTicketsWorth.toFixed(0)}` : 'Loading'}
                             </Grid>
                           </Grid>
                         </Grid>
-                      </div>
+                      </Grid>
                     </div>
-                  </a>
+                  </div>
                 </Grid>
               </Grid>
             </Grid>
