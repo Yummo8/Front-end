@@ -108,9 +108,9 @@ export interface PegPoolUserInfo {
 }
 
 export type NodesRewardWalletBalance = {
-  grapes: string;
-  wines: string;
-  grapeMimSWs: string;
+  grapes: number;
+  wines: number;
+  grapeMimSWs: number;
 };
 
 export type TokenStat = {

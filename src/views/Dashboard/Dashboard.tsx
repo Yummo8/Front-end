@@ -52,19 +52,41 @@ import BoardroomCard from './BoardroomCard';
 import Presses from './Presses';
 import useSVintagePrice from '../../hooks/useSVintagePrice';
 import {Link, useLocation} from 'react-router-dom';
+import DashboardTokenBox from './DashboardTokenBox';
+import useWalletNodesAndNFTs from '../../hooks/useWalletNodesAndNFTs';
+import useNodeRewardPoolStats from '../../hooks/useNodesRewardBalance';
+import useGrapeTotalNode from '../../hooks/useGrapeTotalNodes';
+import useWineTotalNode from '../../hooks/useWineTotalNodes';
+import useGrapeMimSWTotalNode from '../../hooks/useGrapeMimSWTotalNode';
 // import {FormControl, InputLabel, MenuItem, Select, SelectChangeEvent} from '@mui/material';
 // import useBanksWithFilters from '../../hooks/useBanksWithFilters';
 // import Vineyard from '../Vineyard';
 
+import {
+  NFT_TICKET_COUNT,
+  GRAPE_NODE_MULTIPLIER,
+  WINE_NODE_MULTIPLIER,
+  GRAPEMIMSW_NODE_MULTIPLIER,
+  GOON_MULTIPLIER,
+  GLASS_MULTIPLIER,
+  DECANTER_MULTIPLIER,
+  GOBLET_MULTIPLIER,
+} from '../../utils/constants';
+import DashboardNFTBox from './DashboardNFTBox';
+import useLpStats from '../../hooks/useLpStats';
+
 const Dashboard = () => {
+  const matches = useMediaQuery('(min-width:900px)');
+
+  const [activeTab, setActiveTab] = useState('Farms');
+
   const {account} = useWallet();
   const grapeFinance = useGrapeFinance();
   const [banks] = useBanks();
-
   const location = useLocation();
-
   const walletStats = useWalletStats(banks);
   const grapeStats = useGrapeStats();
+  const grapeMimSWStats = useLpStats('GRAPE-MIM-SW');
   const wineStats = useWineStats();
   const vineyardPools = banks.filter(
     (bank) => (!bank.finished && bank.sectionInUI === 2) || bank.sectionInUI === 6 || bank.sectionInUI === 7,
@@ -95,34 +117,86 @@ const Dashboard = () => {
     () => (wineStats ? Number(wineStats.priceInDollars).toFixed(2) : null),
     [wineStats],
   );
+  const grapeMimSWPriceInDollars = useMemo(
+    () => (grapeMimSWStats ? Number(grapeMimSWStats.priceOfOne).toFixed(2) : null),
+    [grapeMimSWStats],
+  );
 
   const xGrapePrice = useXGrapePrice();
   const vintagePrice = useVintagePrice();
   const sVintagePrice = useSVintagePrice();
 
-  const matches = useMediaQuery('(min-width:900px)');
+  const [userNftTickets, setUserNftTickets] = useState<number>();
+  const [userNodeTickets, setUserNodeTickets] = useState<number>();
+  const walletsNodesAndNFTs = useWalletNodesAndNFTs();
+  const nodeRewardPoolStats = useNodeRewardPoolStats();
+  const totalGrapeNodes = useGrapeTotalNode();
+  const totalWineNodes = useWineTotalNode();
+  const totalGrapeMIMSWNodes = useGrapeMimSWTotalNode();
 
-  const [activeTab, setActiveTab] = useState('Farms');
-  const [sortBy, setSortBy] = React.useState('');
+  useEffect(() => {
+    if (walletsNodesAndNFTs) {
+      setUserNodeTickets(
+        walletsNodesAndNFTs.grapes * GRAPE_NODE_MULTIPLIER +
+          walletsNodesAndNFTs.wines * WINE_NODE_MULTIPLIER +
+          walletsNodesAndNFTs.grapeMimSWs * GRAPEMIMSW_NODE_MULTIPLIER,
+      );
 
-  // const handleSortByChange = (event: SelectChangeEvent) => {
-  //   setSortBy(event.target.value as string);
-  //   sortPools(event.target.value);
-  // };
+      setUserNftTickets(
+        walletsNodesAndNFTs.goonBags * GOON_MULTIPLIER +
+          walletsNodesAndNFTs.glasses * GLASS_MULTIPLIER +
+          walletsNodesAndNFTs.decanters * DECANTER_MULTIPLIER +
+          walletsNodesAndNFTs.goblets * GOBLET_MULTIPLIER,
+      );
+    }
+  }, [walletsNodesAndNFTs, grapeFinance.myAccount]);
 
-  // const sortPools = (sortBy: string) => {
-  //   if (activeTab === 'Farms') {
-  //     if (sortBy === 'depositedInDollars') {
-  //       vineyardPoolsWithFilters.sort((a, b) => (Number(a.depositedInDollars) > Number(b.depositedInDollars) ? -1 : 1));
-  //     } else if (sortBy === 'rewardsInDollars') {
-  //       vineyardPoolsWithFilters.sort((a, b) => (Number(a.rewardsInDollars) > Number(b.rewardsInDollars) ? -1 : 1));
-  //     } else if (sortBy === 'dailyAPR') {
-  //       vineyardPoolsWithFilters.sort((a, b) => (Number(a.dailyAPR) > Number(b.dailyAPR) ? -1 : 1));
-  //     } else if (sortBy === 'tvl') {
-  //       vineyardPoolsWithFilters.sort((a, b) => (Number(a.tvl) > Number(b.tvl) ? -1 : 1));
-  //     }
-  //   }
-  // };
+  const getPriceForNodes = (coin: string) => {
+    if (coin === 'GRAPE') {
+      return Number((nodeRewardPoolStats.grapes * Number(grapePriceInDollars)).toFixed(0));
+    } else if (coin === 'WINE') {
+      return Number((nodeRewardPoolStats.wines * Number(winePriceInDollars)).toFixed(0));
+    } else if (coin === 'GRAPE-MIM SW') {
+      return Number((nodeRewardPoolStats.grapeMimSWs * Number(grapeMimSWPriceInDollars)).toFixed(0));
+    }
+  };
+
+  const getTotalPriceForNodes = () => {
+    return getPriceForNodes('GRAPE') + getPriceForNodes('WINE') + getPriceForNodes('GRAPE-MIM SW');
+  };
+
+  const allTicketsFromNFTs = 9600;
+  const allTicketsFromNodes = useMemo(() => {
+    if (totalGrapeNodes && totalWineNodes && totalGrapeMIMSWNodes) {
+      return Number(totalGrapeNodes) + Number(totalWineNodes[0]) + Number(totalGrapeMIMSWNodes[0]);
+    }
+    return null;
+  }, [totalGrapeNodes, totalWineNodes, totalGrapeMIMSWNodes]);
+
+  const totalTicketsWorth = useMemo(() => {
+    if (
+      nodeRewardPoolStats &&
+      grapePriceInDollars &&
+      allTicketsFromNodes &&
+      winePriceInDollars &&
+      grapeMimSWPriceInDollars &&
+      userNftTickets &&
+      userNodeTickets
+    ) {
+      return (
+        ((userNftTickets + userNodeTickets) * getTotalPriceForNodes()) / (allTicketsFromNodes + allTicketsFromNFTs)
+      );
+    }
+    return 0;
+  }, [
+    nodeRewardPoolStats,
+    allTicketsFromNodes,
+    grapePriceInDollars,
+    winePriceInDollars,
+    grapeMimSWPriceInDollars,
+    userNftTickets,
+    userNodeTickets,
+  ]);
 
   useEffect(() => {
     const hash = location.hash;
@@ -396,23 +470,11 @@ const Dashboard = () => {
                     rel="noopener noreferrer"
                     href="https://app.bogged.finance/avax/swap?tokenIn=0x130966628846BFd36ff31a822705796e8cb8C18D&tokenOut=0x5541D83EFaD1f281571B343977648B75d95cdAC2"
                   >
-                    <div className="dashboard-token-box">
-                      <div className="dashboard-token-box-inner">
-                        <div className="lineLabel">
-                          <TokenSymbol width={32} height={32} symbol="GRAPE" />
-                        </div>
-                        <div className="lineValue">
-                          <span>{displayGrapeBalance}</span>{' '}
-                          <span className="wallet-token-value">
-                            ($
-                            {grapePriceInDollars && displayGrapeBalance
-                              ? (Number(displayGrapeBalance) * Number(grapePriceInDollars)).toFixed(2)
-                              : '0.00'}
-                            )
-                          </span>
-                        </div>
-                      </div>
-                    </div>
+                    <DashboardTokenBox
+                      displayBalance={displayGrapeBalance}
+                      tokenPrice={Number(grapePriceInDollars)}
+                      tokenSymbol="GRAPE"
+                    />
                   </a>
                 </Grid>
 
@@ -423,23 +485,11 @@ const Dashboard = () => {
                     rel="noopener noreferrer"
                     href="https://app.bogged.finance/avax/swap?tokenIn=0x130966628846BFd36ff31a822705796e8cb8C18D&tokenOut=0xC55036B5348CfB45a932481744645985010d3A44"
                   >
-                    <div className="dashboard-token-box">
-                      <div className="dashboard-token-box-inner">
-                        <div className="lineLabel">
-                          <TokenSymbol width={32} height={32} symbol="WINE" />
-                        </div>
-                        <div className="lineValue">
-                          <span>{displayWineBalance}</span>{' '}
-                          <span className="wallet-token-value">
-                            ($
-                            {winePriceInDollars && displayWineBalance
-                              ? (Number(displayWineBalance) * Number(winePriceInDollars)).toFixed(2)
-                              : '0.00'}
-                            )
-                          </span>
-                        </div>
-                      </div>
-                    </div>
+                    <DashboardTokenBox
+                      displayBalance={displayWineBalance}
+                      tokenPrice={Number(winePriceInDollars)}
+                      tokenSymbol="WINE"
+                    />
                   </a>
                 </Grid>
 
@@ -450,23 +500,11 @@ const Dashboard = () => {
                     href="https://xgrape.grapefinance.app/"
                     style={{textDecoration: 'none'}}
                   >
-                    <div className="dashboard-token-box">
-                      <div className="dashboard-token-box-inner">
-                        <div className="lineLabel">
-                          <TokenSymbol width={32} height={32} symbol="XGRAPE" />
-                        </div>
-                        <div className="lineValue">
-                          <span>{displayXGrapeBalance}</span>{' '}
-                          <span className="wallet-token-value">
-                            ($
-                            {xGrapePrice && displayXGrapeBalance
-                              ? (Number(displayXGrapeBalance) * Number(xGrapePrice)).toFixed(2)
-                              : '0.00'}
-                            )
-                          </span>
-                        </div>
-                      </div>
-                    </div>
+                    <DashboardTokenBox
+                      displayBalance={displayXGrapeBalance}
+                      tokenPrice={Number(xGrapePrice)}
+                      tokenSymbol="XGRAPE"
+                    />
                   </a>
                 </Grid>
 
@@ -477,23 +515,11 @@ const Dashboard = () => {
                     rel="noopener noreferrer"
                     href="https://www.swapsicle.io/swap?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0x01Af64EF39AEB5612202AA07B3A3829f20c395fd#/"
                   >
-                    <div className="dashboard-token-box">
-                      <div className="dashboard-token-box-inner">
-                        <div className="lineLabel">
-                          <TokenSymbol width={32} height={32} symbol="VINTAGE" />
-                        </div>
-                        <div className="lineValue">
-                          <span>{displayVintageBalance}</span>{' '}
-                          <span className="wallet-token-value">
-                            ($
-                            {vintagePrice && displayVintageBalance
-                              ? (Number(displayVintageBalance) * Number(vintagePrice)).toFixed(2)
-                              : '0.00'}
-                            )
-                          </span>
-                        </div>
-                      </div>
-                    </div>
+                    <DashboardTokenBox
+                      displayBalance={displayVintageBalance}
+                      tokenPrice={vintagePrice}
+                      tokenSymbol="VINTAGE"
+                    />
                   </a>
                 </Grid>
 
@@ -504,39 +530,152 @@ const Dashboard = () => {
                     rel="noopener noreferrer"
                     href="https://www.swapsicle.io/swap?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0x01Af64EF39AEB5612202AA07B3A3829f20c395fd#/"
                   >
-                    <div className="dashboard-token-box">
-                      <div className="dashboard-token-box-inner">
-                        <div className="lineLabel">
-                          <TokenSymbol width={32} height={32} symbol="SOLERA" />
-                        </div>
-                        <div className="lineValue">
-                          <span>{displaySVintageBalance}</span>{' '}
-                          <span className="wallet-token-value">
-                            ($
-                            {sVintagePrice && displaySVintageBalance
-                              ? (Number(displaySVintageBalance) * sVintagePrice).toFixed(2)
-                              : '0.00'}
-                            )
-                          </span>
-                        </div>
-                      </div>
-                    </div>
+                    <DashboardTokenBox
+                      displayBalance={displaySVintageBalance}
+                      tokenPrice={sVintagePrice}
+                      tokenSymbol="SOLERA"
+                    />
                   </a>
                 </Grid>
 
                 <Grid item xs={4} sm={4} md={2}>
                   <Link to="/bond" style={{textDecoration: 'none'}}>
+                    <DashboardTokenBox displayBalance={displayGbondBalance} tokenPrice={null} tokenSymbol="GBOND" />
+                  </Link>
+                </Grid>
+              </Grid>
+            </Grid>
+
+            <Grid item xs={12}>
+              <Grid container spacing={1} justifyContent="space-between" alignItems="center">
+                <Grid item xs={4} sm={4} md={2}>
+                  <a
+                    target="_blank"
+                    style={{textDecoration: 'none'}}
+                    rel="noopener noreferrer"
+                    href="https://nftrade.com/collection/the-winery-collection?traitIds=db35524c-4e6a-4866-8b2f-cfd744414d5a&search=&sort=min_listed_desc&contractAddress=0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df&chainName="
+                  >
+                    <DashboardNFTBox
+                      count={walletsNodesAndNFTs?.goonBags}
+                      multiplier={GOON_MULTIPLIER}
+                      nftSymbol="GOONBAG"
+                    />
+                  </a>
+                </Grid>
+
+                <Grid item xs={4} sm={4} md={2}>
+                  <a
+                    target="_blank"
+                    style={{textDecoration: 'none'}}
+                    rel="noopener noreferrer"
+                    href="https://nftrade.com/collection/the-winery-collection?traitIds=b7c9d938-0a64-486b-abbd-d337077ae642&search=&sort=min_listed_desc&contractAddress=0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df&chainName="
+                  >
+                    <DashboardNFTBox
+                      count={walletsNodesAndNFTs?.glasses}
+                      multiplier={GLASS_MULTIPLIER}
+                      nftSymbol="GLASS"
+                    />
+                  </a>
+                </Grid>
+
+                <Grid item xs={4} sm={4} md={2}>
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://nftrade.com/collection/the-winery-collection?traitIds=503dbfba-488e-473a-b9bf-6d20c19e2446&search=&sort=min_listed_desc&contractAddress=0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df&chainName="
+                    style={{textDecoration: 'none'}}
+                  >
+                    <DashboardNFTBox
+                      count={walletsNodesAndNFTs?.decanters}
+                      multiplier={DECANTER_MULTIPLIER}
+                      nftSymbol="DECANTER"
+                    />
+                  </a>
+                </Grid>
+
+                <Grid item xs={4} sm={4} md={2}>
+                  <a
+                    style={{textDecoration: 'none'}}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://nftrade.com/collection/the-winery-collection?traitIds=4a6117cf-14ec-4905-afc3-f4d56c1c3151&search=&sort=min_listed_desc&contractAddress=0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df&chainName="
+                  >
+                    <DashboardNFTBox
+                      count={walletsNodesAndNFTs?.goblets}
+                      multiplier={GOBLET_MULTIPLIER}
+                      nftSymbol="GOBLET"
+                    />
+                  </a>
+                </Grid>
+
+                <Grid item xs={4} sm={4} md={2}>
+                  <a
+                    style={{textDecoration: 'none'}}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://nftrade.com/collection/the-winery-collection?traitIds=4a6117cf-14ec-4905-afc3-f4d56c1c3151&search=&sort=min_listed_desc&contractAddress=0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df&chainName="
+                  >
                     <div className="dashboard-token-box">
                       <div className="dashboard-token-box-inner">
-                        <div className="lineLabel">
-                          <TokenSymbol width={32} height={32} symbol="GBOND" />
-                        </div>
-                        <div className="lineValue">
-                          <span>{displayGbondBalance}</span>{' '}
-                        </div>
+                        <Grid container justifyContent="center" alignItems="flex-start" spacing={1}>
+                          <Grid item>
+                            <TokenSymbol width={35} height={35} symbol={'NODE'} />
+                          </Grid>
+                          <Grid item>
+                            <Grid
+                              container
+                              direction={'column'}
+                              justifyContent="flex-start"
+                              alignItems="flex-start"
+                              spacing={0}
+                            >
+                              <Grid item className="lineValue">
+                                Node Tickets
+                              </Grid>
+                              <Grid item className="wallet-token-value">
+                                {userNodeTickets != null ? userNodeTickets : 'Loading'}
+                              </Grid>
+                            </Grid>
+                          </Grid>
+                        </Grid>
                       </div>
                     </div>
-                  </Link>
+                  </a>
+                </Grid>
+
+                <Grid item xs={4} sm={4} md={2}>
+                  <a
+                    style={{textDecoration: 'none'}}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://nftrade.com/collection/the-winery-collection?traitIds=4a6117cf-14ec-4905-afc3-f4d56c1c3151&search=&sort=min_listed_desc&contractAddress=0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df&chainName="
+                  >
+                    <div className="dashboard-token-box">
+                      <div className="dashboard-token-box-inner">
+                        <Grid container justifyContent="center" alignItems="flex-start" spacing={1}>
+                          <Grid item>
+                            <TokenSymbol width={35} height={35} symbol={'NODE'} />
+                          </Grid>
+                          <Grid item>
+                            <Grid
+                              container
+                              direction={'column'}
+                              justifyContent="flex-start"
+                              alignItems="flex-start"
+                              spacing={0}
+                            >
+                              <Grid item className="lineValue">
+                                Est. Next Airdrop
+                              </Grid>
+                              <Grid item className="wallet-token-value">
+                                {totalTicketsWorth ? `~ $${totalTicketsWorth.toFixed(0)}` : 'Loading'}
+                              </Grid>
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                      </div>
+                    </div>
+                  </a>
                 </Grid>
               </Grid>
             </Grid>
@@ -551,7 +690,14 @@ const Dashboard = () => {
             >
               <Grid item>
                 <div
-                  onClick={() => setActiveTab('Farms')}
+                  onClick={() => {
+                    window.history.replaceState(
+                      {additionalInformation: '/dashboard#farms'},
+                      'Dashboard: Farms',
+                      '/dashboard#farms',
+                    );
+                    setActiveTab('Farms');
+                  }}
                   className={activeTab === 'Farms' ? 'dashboard-tab-item-active' : 'dashboard-tab-item'}
                 >
                   <Grid container justifyContent="center" spacing={1} alignItems="center">
@@ -564,7 +710,14 @@ const Dashboard = () => {
               </Grid>
               <Grid item>
                 <div
-                  onClick={() => setActiveTab('Winery')}
+                  onClick={() => {
+                    window.history.replaceState(
+                      {additionalInformation: '/dashboard#winery'},
+                      'Dashboard: Winery',
+                      '/dashboard#winery',
+                    );
+                    setActiveTab('Winery');
+                  }}
                   className={activeTab === 'Winery' ? 'dashboard-tab-item-active' : 'dashboard-tab-item'}
                 >
                   <Grid container justifyContent="center" spacing={1} alignItems="center">
@@ -577,7 +730,14 @@ const Dashboard = () => {
               </Grid>
               <Grid item>
                 <div
-                  onClick={() => setActiveTab('Nodes')}
+                  onClick={() => {
+                    window.history.replaceState(
+                      {additionalInformation: '/dashboard#nodes'},
+                      'Dashboard: Nodes',
+                      '/dashboard#nodes',
+                    );
+                    setActiveTab('Nodes');
+                  }}
                   className={activeTab === 'Nodes' ? 'dashboard-tab-item-active' : 'dashboard-tab-item'}
                 >
                   <Grid container justifyContent="center" spacing={1} alignItems="center">
@@ -590,7 +750,14 @@ const Dashboard = () => {
               </Grid>
               <Grid item>
                 <div
-                  onClick={() => setActiveTab('Presses')}
+                  onClick={() => {
+                    window.history.replaceState(
+                      {additionalInformation: '/dashboard#presses'},
+                      'Dashboard: Presses',
+                      '/dashboard#presses',
+                    );
+                    setActiveTab('Presses');
+                  }}
                   className={activeTab === 'Presses' ? 'dashboard-tab-item-active' : 'dashboard-tab-item'}
                 >
                   <Grid container justifyContent="center" spacing={1} alignItems="center">
@@ -604,7 +771,7 @@ const Dashboard = () => {
             </Grid>
           </Box>
 
-          <Grid container justifyContent="space-between" alignItems="center">
+          <Grid container justifyContent="space-between" alignItems="center" style={{marginTop: '20px'}}>
             <Grid item>
               <FormGroup style={{color: 'white'}}>
                 <FormControlLabel

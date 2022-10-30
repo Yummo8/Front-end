@@ -165,7 +165,6 @@
 .dashboard-token-box {
   background-color: rgba(0, 0, 0, 0.5) !important;
   border-radius: 10px;
-  min-height: 80px;
 }
 
 .dashboard-token-box-inner {
@@ -217,7 +216,6 @@
   cursor: pointer;
   font-weight: 700;
   font-size: 16px;
-  line-height: 22px;
   text-align: center;
   letter-spacing: 0.05em;
 }
@@ -248,7 +246,7 @@
 }
 .line-details-inner {
   padding: 35px 35px 0 35px;
-  min-height: 285px;
+  min-height: 300px;
 }
 
 .box-price-of-one {
@@ -258,7 +256,20 @@
 
 .node-line-details-inner {
   padding: 35px 35px 0 35px;
-  min-height: 280px;
+  min-height: 235px;
+}
+
+.press-line-details-inner {
+  padding: 35px 35px 0 35px;
+  min-height: 300px;
+}
+
+@media screen and (max-width: 600px) {
+  .press-line-details-inner,
+  .node-line-details-inner,
+  .line-details-inner {
+    padding: 17px 17px 0 17px;
+  }
 }
 .balance {
   padding-left: 3px;
@@ -290,7 +301,7 @@
 }
 
 .MuiMenu-list {
-  background-color:rgba(0, 0, 0, 0.9) !important;
+  background-color: rgba(0, 0, 0, 0.9) !important;
 }
 
 .statBox {

@@ -1590,7 +1590,7 @@ const Page: React.FC = ({children}) => {
             </Tooltip>
           </List>
         </Drawer>
-        <Box component="main" sx={{flexGrow: 1, p: 3}}>
+        <Box component="main" sx={{flexGrow: 1}}>
           <DrawerHeader />
           <Container maxWidth="lg" style={{paddingBottom: '5rem'}}>
             {children}

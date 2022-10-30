@@ -519,7 +519,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                 <Grid container spacing={5}>
                   <Grid item xs={12} sm={12} md={6}>
                     <Box className="lineDetailsBox">
-                      <div className="node-line-details-inner">
+                      <div className="press-line-details-inner">
                         <Box>
                           <div className="pending-rewards">DEPOSIT IN {bank.name}</div>
                         </Box>
@@ -636,7 +636,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                   </Grid>
                   <Grid item xs={12} sm={12} md={6}>
                     <Box className="lineDetailsBox">
-                      <div className="node-line-details-inner">
+                      <div className="press-line-details-inner">
                         <Box>
                           <div className="pending-rewards">PENDING {bank.earnTokenName} REWARDS</div>
                         </Box>
@@ -718,17 +718,34 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                   </Grid>
                   <Grid item xs={12} md={6}>
                     <Box className="lineDetailsBox">
-                      <div className="node-line-details-inner">
+                      <div className="press-line-details-inner">
                         <Box>
                           <div className="pending-rewards">{bank.name} LOTTERY</div>
                         </Box>
                         <Box mt={2}>
                           <Grid container direction="column" spacing={1}>
+                          <Grid item xs={12}>
+                              <Grid container justifyContent="space-between">
+                                <Grid item>Daily Top Deposit</Grid>
+                                <Grid item>
+                                  {pressLottoInfo ? pressLottoInfo.largestDaily.toFixed(2) : '0.00'}{' '}LP
+                                  <span className="wallet-token-value">
+                                    {' '}
+                                    $
+                                    {pressLottoInfo && pressUserInfo
+                                      ? (pressLottoInfo.largestDaily * Number(pressUserInfo.depositTokenPrice)).toFixed(
+                                          2,
+                                        )
+                                      : '0.00'}
+                                  </span>
+                                </Grid>
+                              </Grid>
+                            </Grid>
                             <Grid item xs={12}>
                               <Grid container justifyContent="space-between">
                                 <Grid item>Daily Deposit Pot</Grid>
                                 <Grid item>
-                                  {pressLottoInfo ? pressLottoInfo.dailyDepositPot.toFixed(2) : '0.00'}{' '}
+                                  {pressLottoInfo ? pressLottoInfo.dailyDepositPot.toFixed(2) : '0.00'}{' '}LP
                                   <span className="wallet-token-value">
                                     {' '}
                                     $
@@ -745,7 +762,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                               <Grid container justifyContent="space-between">
                                 <Grid item>Largest Deposit Pot</Grid>
                                 <Grid item>
-                                  {pressLottoInfo ? pressLottoInfo.largestDailyPot.toFixed(2) : '0.00'}{' '}
+                                  {pressLottoInfo ? pressLottoInfo.largestDailyPot.toFixed(2) : '0.00'}{' '}LP
                                   <span className="wallet-token-value">
                                     {' '}
                                     $
@@ -755,21 +772,6 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                                         ).toFixed(2)
                                       : '0.00'}
                                   </span>
-                                </Grid>
-                              </Grid>
-                            </Grid>
-                            <Grid item xs={12}>
-                              <Grid container justifyContent="space-between">
-                                <Grid item> Next Winner Drawing</Grid>
-                                <Grid item>
-                                  {displayRemainingTime && (
-                                    <ProgressCountdown
-                                      description="Next Drawing"
-                                      base={moment().toDate()}
-                                      hideBar={true}
-                                      deadline={displayRemainingTime}
-                                    />
-                                  )}
                                 </Grid>
                               </Grid>
                             </Grid>
@@ -817,7 +819,6 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                                     marginTop: '15px',
                                     borderTopLeftRadius: '0',
                                     borderTopRightRadius: '0',
-                                    borderBottomRightRadius: '0',
                                   }}
                                 >
                                   {approveLoading ? (
@@ -887,7 +888,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                   </Grid>
                   <Grid item xs={12} sm={12} md={6}>
                     <Box className="lineDetailsBox">
-                      <div className="node-line-details-inner">
+                      <div className="press-line-details-inner">
                         <Box>
                           <div className="pending-rewards">{bank.earnTokenName} ASSASSINATION</div>
                         </Box>

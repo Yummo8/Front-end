@@ -6,7 +6,7 @@ import config from '../config';
 const useGrapeTotalNodes = () => {
   const grapeFinance = useGrapeFinance();
 
-  const [poolAPRs, setPoolAPRs] = useState<Number>();
+  const [poolAPRs, setPoolAPRs] = useState<BigNumber[]>([]);
 
   const fetchNodes = useCallback(async () => {
     setPoolAPRs(await grapeFinance.getGrapeNodes());

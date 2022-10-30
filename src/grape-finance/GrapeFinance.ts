@@ -366,9 +366,9 @@ export class GrapeFinance {
     const wines = await this.WINE.balanceOf(nodesRewardWallet);
     const grapeMimSWs = await this.SW.balanceOf(nodesRewardWallet);
     return {
-      grapes: getDisplayBalance(grapes, 18, 2),
-      wines: getDisplayBalance(wines, 18, 2),
-      grapeMimSWs: getDisplayBalance(grapeMimSWs, 18, 2),
+      grapes: Number(grapes) / 1e18,
+      wines: Number(wines) / 1e18,
+      grapeMimSWs: Number(grapeMimSWs) / 1e18,
     };
   }
 
@@ -793,9 +793,9 @@ export class GrapeFinance {
     return await this.contracts[contract].getTotalNodes();
   }
 
-  async getGrapeNodes(): Promise<Number> {
+  async getGrapeNodes(): Promise<BigNumber[]> {
     const {GrapeNodeV2} = this.contracts;
-    return await Number(GrapeNodeV2.getTotalNodes());
+    return await GrapeNodeV2.getTotalNodes();
   }
 
   async getWineNodes(): Promise<BigNumber[]> {

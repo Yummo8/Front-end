@@ -283,7 +283,7 @@ const FarmCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
                         </div>
                       </div>
                     </div>
-                    <Box mt={3}>
+                    <Box mt={2}>
                       {getLiquidityLink() != null && (
                         <a
                           style={{textDecoration: 'none'}}

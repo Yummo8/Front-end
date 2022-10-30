@@ -18,6 +18,11 @@ import winePops from '../../assets/img/wine-pops.png';
 import vintage from '../../assets/img/vintage-token.png';
 import solera from '../../assets/img/solera.png';
 import xGrapeGrape from '../../assets/img/xGrapeGrape.png';
+import goonbag from '../../assets/img/goonbag.png';
+import glass from '../../assets/img/glass.png';
+import decanter from '../../assets/img/decanter.png';
+import goblet from '../../assets/img/goblet.png';
+import nodes from '../../assets/img/gnode.png';
 
 const logosBySymbol: {[title: string]: string} = {
   //Real tokens
@@ -42,6 +47,12 @@ const logosBySymbol: {[title: string]: string} = {
   'HSHARE-WINE-LP': hsharewine,
   'WINE-POPS-LP': winePops,
   'GRAPE-XGRAPE-LP': xGrapeGrape,
+  // NFTS
+  GOONBAG: goonbag,
+  GLASS: glass,
+  DECANTER: decanter,
+  GOBLET: goblet,
+  NODE: nodes,
 };
 
 type LogoProps = {
