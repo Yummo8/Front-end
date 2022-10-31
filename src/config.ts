@@ -383,7 +383,7 @@ export const bankDefinitions: {[contractName: string]: BankInfo} = {
     buyLink: null,
   },
   LPWlrsNode: {
-    name: 'Generate LP with Nodes',
+    name: 'Generate Grape-WLRS LP with Nodes',
     poolId: 0,
     sectionInUI: 3,
     contract: 'LPWlrsNode',

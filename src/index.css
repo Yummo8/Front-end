@@ -561,18 +561,34 @@ code {
 
 .dashboard-tabs {
   font-weight: 700;
-  font-size: 18px;
+}
+
+.p2 {
+  padding: 10px 15px 10px 15px;
+}
+
+.button-first {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.button-last {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 .dashboard-tab-item {
   cursor: pointer;
   color: #e646e6;
+  background-color: rgba(0, 0, 0, 0.87);
   font-weight: 700;
   font-size: 18px;
 }
 .dashboard-tab-item-active {
-  border-bottom: 3px solid #e646e6;
-  border-radius: 5px;
+  cursor: pointer;
+  background-color: #930993;
+  font-weight: 700;
+  font-size: 18px;
   color: #fcfcfc;
 }
 

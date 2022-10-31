@@ -652,7 +652,7 @@ const Dashboard = () => {
                               Est. Next Airdrop
                             </Grid>
                             <Grid item className="wallet-token-value">
-                              {totalTicketsWorth ? `~ $${totalTicketsWorth.toFixed(0)}` : 'Loading'}
+                              {totalTicketsWorth != null ? `~ $${totalTicketsWorth.toFixed(0)}` : 'Loading'}
                             </Grid>
                           </Grid>
                         </Grid>
@@ -665,12 +665,7 @@ const Dashboard = () => {
           </Grid>
           <div style={{height: '3px', backgroundColor: '#930993', borderRadius: '5px', marginTop: '40px'}}></div>
           <Box mt={4}>
-            <Grid
-              container
-              justifyContent={!matches ? 'space-evenly' : 'center'}
-              spacing={3}
-              className="dashboard-tabs"
-            >
+            <Grid container justifyContent={'center'} spacing={0} className="dashboard-tabs">
               <Grid item>
                 <div
                   onClick={() => {
@@ -681,13 +676,13 @@ const Dashboard = () => {
                     );
                     setActiveTab('Farms');
                   }}
-                  className={activeTab === 'Farms' ? 'dashboard-tab-item-active' : 'dashboard-tab-item'}
+                  className={activeTab === 'Farms' ? 'button-first dashboard-tab-item-active' : 'button-first dashboard-tab-item'}
                 >
-                  <Grid container justifyContent="center" spacing={1} alignItems="center">
+                  <Grid container justifyContent="center" alignItems="center" className="p2">
                     <Grid item>
-                      <img src={grapeImg} alt="Grape" height={25} />
+                      <img src={grapeImg} alt="Grape" height={25} width={25} style={{verticalAlign: 'text-bottom'}} />
                     </Grid>
-                    <Grid item>VINEYARD</Grid>
+                    <Grid item style={{paddingLeft: '5px'}}>VINEYARD</Grid>
                   </Grid>
                 </div>
               </Grid>
@@ -703,11 +698,11 @@ const Dashboard = () => {
                   }}
                   className={activeTab === 'Winery' ? 'dashboard-tab-item-active' : 'dashboard-tab-item'}
                 >
-                  <Grid container justifyContent="center" spacing={1} alignItems="center">
+                  <Grid container justifyContent="center" alignItems="center" className="p2">
                     <Grid item>
-                      <img src={wineImg} alt="Wine" height={25} />
+                      <img src={wineImg} alt="Wine" height={25} width={25} style={{verticalAlign: 'text-bottom'}}/>
                     </Grid>
-                    <Grid item>WINERY</Grid>
+                    <Grid item style={{paddingLeft: '5px'}}>WINERY</Grid>
                   </Grid>
                 </div>
               </Grid>
@@ -723,11 +718,11 @@ const Dashboard = () => {
                   }}
                   className={activeTab === 'Nodes' ? 'dashboard-tab-item-active' : 'dashboard-tab-item'}
                 >
-                  <Grid container justifyContent="center" spacing={1} alignItems="center">
+                  <Grid container justifyContent="center" alignItems="center" className="p2">
                     <Grid item>
-                      <img src={nodesImg} alt="Node" height={25} />
+                      <img src={nodesImg} alt="Node" height={25} width={25} style={{verticalAlign: 'text-bottom'}}/>
                     </Grid>
-                    <Grid item>NODES</Grid>
+                    <Grid item style={{paddingLeft: '7px'}}>NODES</Grid>
                   </Grid>
                 </div>
               </Grid>
@@ -741,13 +736,13 @@ const Dashboard = () => {
                     );
                     setActiveTab('Presses');
                   }}
-                  className={activeTab === 'Presses' ? 'dashboard-tab-item-active' : 'dashboard-tab-item'}
+                  className={activeTab === 'Presses' ? 'button-last dashboard-tab-item-active' : 'button-last dashboard-tab-item'}
                 >
-                  <Grid container justifyContent="center" spacing={1} alignItems="center">
+                  <Grid container justifyContent="center" alignItems="center" className="p2">
                     <Grid item>
-                      <img src={soda} alt="Press" height={25} />
+                      <img src={soda} alt="Press" height={25} width={25} style={{verticalAlign: 'text-bottom'}}/>
                     </Grid>
-                    <Grid item>PRESSES</Grid>
+                    <Grid item style={{paddingLeft: '5px'}}>PRESSES</Grid>
                   </Grid>
                 </div>
               </Grid>
