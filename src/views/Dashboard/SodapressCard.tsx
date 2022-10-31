@@ -438,12 +438,12 @@ const SodapressCard: React.FC<SodapressCardProps> = ({bank, activesOnly}) => {
                     <div className="statBox">
                       <div className="statBoxInner">
                         <div className="lineLabel">
-                          Current Shares | Tokens{' '}
+                          Remaining Shares | Tokens{' '}
                           <LightTooltip
                             arrow
                             placement="top"
                             enterDelay={0}
-                            title="Your shares in the pool. Reaching 0 kicks you out of the Press"
+                            title="Your remaining shares in the pool. Reaching 0 kicks you out of the Press"
                           >
                             <InfoIcon style={{verticalAlign: 'text-bottom', fontSize: '17px'}} />
                           </LightTooltip>
@@ -477,7 +477,7 @@ const SodapressCard: React.FC<SodapressCardProps> = ({bank, activesOnly}) => {
                             arrow
                             placement="top"
                             enterDelay={0}
-                            title="Pending shares from your rewards. Compounding adds those pending shares to your current shares"
+                            title="Pending shares from your rewards. Compounding adds those pending shares to your remaining shares"
                           >
                             <InfoIcon style={{verticalAlign: 'text-bottom', fontSize: '17px'}} />
                           </LightTooltip>
