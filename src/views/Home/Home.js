@@ -120,9 +120,9 @@ const Home = () => {
               </span>
             )}
           </div>
-          <div className="burnt-grape">TOTAL BURNT GRAPE</div>
+          <div style={{marginTop:'15px'}} className="burnt-grape">TOTAL BURNT GRAPE</div>
           <div className="burnt-grape-value">
-            {grapeBurnt ? grapeBurnt.toLocaleString('en-US') : <SyncLoader color="#E647E6" size={10} />}
+            {grapeBurnt ? grapeBurnt.toLocaleString('en-US') : <SyncLoader color="#e67f47" size={10} />}
           </div>
         </Grid>
         <Grid item xs={12} style={{textAlign: 'center'}} id="apps">
