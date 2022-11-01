@@ -21,6 +21,7 @@ import homeItems from '../../homePageItems.json';
 import HomeCard from './HomeCard';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import useGetBurntGrape from '../../hooks/useGetBurntGrape';
 
 const Home = () => {
   const totalTVL = useTotalValueLocked();
@@ -77,7 +78,7 @@ const Home = () => {
   // const cashStat = useCashPriceInEstimatedTWAP();
   // const twap = useMemo(() => (cashStat ? Number(cashStat.priceInDollars).toFixed(4) : null), [cashStat]);
 
-  const printRate = useGetBoardroomPrintRate();
+  const grapeBurnt = useGetBurntGrape();
 
   const scrollDown = () => {
     document.getElementById('apps').scrollIntoView();
@@ -118,6 +119,10 @@ const Home = () => {
                 <SyncLoader color="#E647E6" size={30} />
               </span>
             )}
+          </div>
+          <div className="burnt-grape">TOTAL BURNT GRAPE</div>
+          <div className="burnt-grape-value">
+            {grapeBurnt ? grapeBurnt.toLocaleString('en-US') : <SyncLoader color="#E647E6" size={10} />}
           </div>
         </Grid>
         <Grid item xs={12} style={{textAlign: 'center'}} id="apps">

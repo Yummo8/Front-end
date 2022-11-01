@@ -674,6 +674,23 @@ code {
   color: #fff;
 }
 
+.burnt-grape {
+  font-size: 1.5rem;
+  font-family: 'TOMMY-R';
+  /* text-shadow: 0 0 2vw #fff, 0 0 3vw #ffd, 0 0 20vw #ffa, 0 0 10vw #ffe, 0 0 0.4vw #e647e6, 0vw 0vw 0vw #ffc; */
+  color: #fff;
+}
+
+.burnt-grape-value {
+  font-family: 'TOMMY';
+  font-size: 2rem;
+  text-shadow: 0 0 1vw #9f562e, 0 0 3vw #dd6727, 0 0 20vw #7d3711, 0 0 10vw #732d07, 0 0 0.4vw #463024,
+    0vw 0vw 0vw #853910;
+  color: #e67f47;
+  overflow: visible;
+}
+
+
 @media screen and (max-width: 1488px) {
   .front-text-tvl {
     font-size: 8rem;
