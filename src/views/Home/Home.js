@@ -138,13 +138,9 @@ const Home = () => {
       </Grid>
 
       <Grid container spacing={3} style={{marginTop: '50px'}}>
-        <Grid item xs={12}>
-          <Grid container spacing={5}>
-            {homeItems.map((item) => (
-              <HomeCard item={item} />
-            ))}
-          </Grid>
-        </Grid>
+        {homeItems.map((item) => (
+          <HomeCard item={item} />
+        ))}
 
         <Grid item sm={12} style={{textAlign: 'center', marginTop: '30px'}}>
           <Button
