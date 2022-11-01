@@ -775,6 +775,21 @@ const SolerapressCard: React.FC<SolerapressCardProps> = ({bank, activesOnly}) =>
                             </Grid>
                             <Grid item xs={12}>
                               <Grid container justifyContent="space-between">
+                                <Grid item>Next Winner Drawing</Grid>
+                                <Grid item>
+                                  {displayRemainingTime && (
+                                    <ProgressCountdown
+                                      description="Next Drawing"
+                                      base={moment().toDate()}
+                                      hideBar={true}
+                                      deadline={displayRemainingTime}
+                                    />
+                                  )}
+                                </Grid>
+                              </Grid>
+                            </Grid>
+                            <Grid item xs={12}>
+                              <Grid container justifyContent="space-between">
                                 <Grid item>Lotto Tickets</Grid>
                                 <Grid item>
                                   {pressLottoInfo

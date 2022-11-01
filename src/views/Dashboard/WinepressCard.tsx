@@ -429,7 +429,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                     <div className="statBox">
                       <div className="statBoxInner">
                         <div className="lineLabel">
-                        Remaining Shares | Tokens{' '}
+                          Remaining Shares | Tokens{' '}
                           <LightTooltip
                             arrow
                             placement="top"
@@ -724,11 +724,11 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                         </Box>
                         <Box mt={2}>
                           <Grid container direction="column" spacing={1}>
-                          <Grid item xs={12}>
+                            <Grid item xs={12}>
                               <Grid container justifyContent="space-between">
                                 <Grid item>Daily Top Deposit</Grid>
                                 <Grid item>
-                                  {pressLottoInfo ? pressLottoInfo.largestDaily.toFixed(2) : '0.00'}{' '}LP
+                                  {pressLottoInfo ? pressLottoInfo.largestDaily.toFixed(2) : '0.00'} LP
                                   <span className="wallet-token-value">
                                     {' '}
                                     $
@@ -745,7 +745,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                               <Grid container justifyContent="space-between">
                                 <Grid item>Daily Deposit Pot</Grid>
                                 <Grid item>
-                                  {pressLottoInfo ? pressLottoInfo.dailyDepositPot.toFixed(2) : '0.00'}{' '}LP
+                                  {pressLottoInfo ? pressLottoInfo.dailyDepositPot.toFixed(2) : '0.00'} LP
                                   <span className="wallet-token-value">
                                     {' '}
                                     $
@@ -762,7 +762,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                               <Grid container justifyContent="space-between">
                                 <Grid item>Largest Deposit Pot</Grid>
                                 <Grid item>
-                                  {pressLottoInfo ? pressLottoInfo.largestDailyPot.toFixed(2) : '0.00'}{' '}LP
+                                  {pressLottoInfo ? pressLottoInfo.largestDailyPot.toFixed(2) : '0.00'} LP
                                   <span className="wallet-token-value">
                                     {' '}
                                     $
@@ -772,6 +772,21 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                                         ).toFixed(2)
                                       : '0.00'}
                                   </span>
+                                </Grid>
+                              </Grid>
+                            </Grid>
+                            <Grid item xs={12}>
+                              <Grid container justifyContent="space-between">
+                                <Grid item>Next Winner Drawing</Grid>
+                                <Grid item>
+                                  {displayRemainingTime && (
+                                    <ProgressCountdown
+                                      description="Next Drawing"
+                                      base={moment().toDate()}
+                                      hideBar={true}
+                                      deadline={displayRemainingTime}
+                                    />
+                                  )}
                                 </Grid>
                               </Grid>
                             </Grid>
