@@ -625,6 +625,15 @@ code {
   border-radius: 5px !important;
 }
 
+.shinyButton-secondary {
+  font-family: 'TOMMY-R' !important;
+  padding: 7px !important;
+  background-color: rgb(98, 98, 98) !important;
+  font-size: 1rem !important;
+  color: #fff !important;
+  border-radius: 5px !important;
+}
+
 .shinyButton:hover {
   background: rgb(130, 8, 130);
 }

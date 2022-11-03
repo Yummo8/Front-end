@@ -29,6 +29,8 @@ import {SyncLoader} from 'react-spinners';
 import Tooltip, {TooltipProps, tooltipClasses} from '@mui/material/Tooltip';
 import {styled} from '@mui/material/styles';
 import InfoIcon from '@mui/icons-material/Info';
+import useModal from '../../hooks/useModal';
+import ClaimModal from '../GrapeNode/components/ClaimModal';
 
 interface FarmCardProps {
   bank: Bank;
@@ -196,6 +198,30 @@ const NodeCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
       return 'https://www.swapsicle.io/add/0x130966628846BFd36ff31a822705796e8cb8C18D/0x5541D83EFaD1f281571B343977648B75d95cdAC2';
     } else if (bank.depositTokenName === 'GRAPE-WLRS-LP') {
       return 'https://traderjoexyz.com/pool/0x395908aeb53d33a9b8ac35e148e9805d34a555d3/0x5541d83efad1f281571b343977648b75d95cdac2#/';
+    }
+  };
+
+  const claimCallback = (action: string) => {
+    if (action === 'Cancel') {
+      onDismissClaim();
+    }
+    if (action === 'Claim') {
+      setClaimLoading(true);
+      onReward();
+      onDismissClaim();
+    }
+  };
+
+  const [onPresentClaim, onDismissClaim] = useModal(
+    <ClaimModal bank={bank} tokenName={bank.earnTokenName} callback={claimCallback} />,
+  );
+
+  const claim = () => {
+    if (claimFee) {
+      onPresentClaim();
+    } else {
+      setClaimLoading(true);
+      onReward();
     }
   };
 
@@ -504,8 +530,7 @@ const NodeCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
                               className="secondary-button"
                               title="Claim"
                               onClick={() => {
-                                setClaimLoading(true);
-                                onReward();
+                                claim();
                               }}
                               disabled={earnings.eq(0)}
                             >
