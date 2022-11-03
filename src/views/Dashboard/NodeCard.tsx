@@ -217,7 +217,7 @@ const NodeCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
   );
 
   const claim = () => {
-    if (claimFee) {
+    if (bank.contract === 'GrapeNodeV2' && claimFee != null && claimFee > 0) {
       onPresentClaim();
     } else {
       setClaimLoading(true);
