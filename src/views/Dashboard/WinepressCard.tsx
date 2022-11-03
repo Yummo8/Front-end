@@ -468,7 +468,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                             arrow
                             placement="top"
                             enterDelay={0}
-                            title="Pending shares from your rewards. Compounding adds those pending shares to your Remaining shares"
+                            title="Compounding allows you to have a greater return than your initial."
                           >
                             <InfoIcon style={{verticalAlign: 'text-bottom', fontSize: '17px'}} />
                           </LightTooltip>
