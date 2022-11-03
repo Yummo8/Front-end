@@ -1,23 +1,17 @@
-import chevronDown from '../../assets/img/chevrondown.png';
 import React, {useEffect, useMemo, useState} from 'react';
-import {Box, Grid, Accordion, AccordionDetails, AccordionSummary, Slider, useMediaQuery} from '@material-ui/core';
+import {Box, Grid, Accordion, AccordionDetails, AccordionSummary, useMediaQuery} from '@material-ui/core';
 import useEarnings from '../../hooks/useEarnings';
 import useHarvest from '../../hooks/useHarvest';
 import {getDisplayBalance, getFullDisplayBalance} from '../../utils/formatBalance';
 import useTokenBalance from '../../hooks/useTokenBalance';
-import useStakedBalance from '../../hooks/useStakedBalance';
 import useStakedTokenPriceInDollars from '../../hooks/useStakedTokenPriceInDollars';
 import useStake from '../../hooks/useStake';
-import useZap from '../../hooks/useZap';
 import useWithdraw from '../../hooks/useWithdraw';
-import ZapModal from '../Bank/components/ZapModal';
 import grapeFinance, {Bank} from '../../grape-finance';
 import useStatsForPool from '../../hooks/useStatsForPool';
 import TokenSymbol from '../../components/TokenSymbol';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import useGrapeStats from '../../hooks/useGrapeStats';
-import useShareStats from '../../hooks/useWineStats';
-import useModal from '../../hooks/useModal';
 import useApprove, {ApprovalState} from '../../hooks/useApprove';
 import useDailyDrip from '../../hooks/useDailyDrip';
 import useNodes from '../../hooks/useNodes';
@@ -32,11 +26,23 @@ import useCompound from '../../hooks/useCompound';
 import useGrapeNodeClaimFee from '../../hooks/useGrapeNodeClaimFee';
 import {subscribe, unsubscribe} from '../../state/txEvent';
 import {SyncLoader} from 'react-spinners';
+import Tooltip, {TooltipProps, tooltipClasses} from '@mui/material/Tooltip';
+import {styled} from '@mui/material/styles';
+import InfoIcon from '@mui/icons-material/Info';
 
 interface FarmCardProps {
   bank: Bank;
   activesOnly: boolean;
 }
+
+const LightTooltip = styled(({className, ...props}: TooltipProps) => (
+  <Tooltip {...props} classes={{popper: className}} />
+))(({theme}) => ({
+  [`& .${tooltipClasses.tooltip}`]: {
+    boxShadow: theme.shadows[1],
+    fontSize: 11,
+  },
+}));
 
 const NodeCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
   useEffect(() => {
@@ -95,28 +101,34 @@ const NodeCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
     [userDetails],
   );
   const parsedMaxPayout = useMemo(() => (maxPayout ? Number(maxPayout) / 1e18 : null), [maxPayout]);
+
+  const parsedNodePrice = useMemo(() => (nodePrice ? Number(nodePrice) / 1e18 : null), [nodePrice]);
+  const computedUserNode = useMemo(() => {
+    if (nodes.length > 0) {
+      return Number(nodes[0]);
+    } else {
+      return Number(nodes);
+    }
+  }, [nodes]);
+
   const dailyAPR = useMemo(() => {
-    if (bank.contract === 'GrapeNodeV2' && dailyRewards != null && userDetails != null && userDetails.length > 0) {
-      return ((Number(dailyRewards) / (Number(userDetails[0]) - Number(userDetails[4]) * 50e18)) * 100).toFixed(2);
+    if (
+      bank.contract === 'GrapeNodeV2' &&
+      dailyRewards != null &&
+      userDetails != null &&
+      userDetails.length > 0 &&
+      computedUserNode != null
+    ) {
+      if (computedUserNode > 0) {
+        return ((Number(dailyRewards) / (Number(userDetails[0]) - Number(userDetails[4]) * 50e18)) * 100).toFixed(2);
+      }
+      return poolStats?.dailyAPR;
     } else if (bank.contract !== 'GrapeNodeV2' && poolStats) {
       return poolStats.dailyAPR;
     }
     return null;
-  }, [poolStats, dailyRewards]);
+  }, [poolStats, dailyRewards, computedUserNode]);
 
-  const parsedNodePrice = useMemo(() => (nodePrice ? Number(nodePrice) / 1e18 : null), [nodePrice]);
-  const computedUserNode = useMemo(() => {
-    if (nodes) {
-      let nodeTotal;
-      try {
-        nodeTotal = Number(nodes[0]);
-      } catch (e) {}
-      if (!nodeTotal) {
-        nodeTotal = Number(nodes);
-      }
-      return nodeTotal;
-    }
-  }, [nodes]);
   const parsedTotalNodes = useMemo(() => {
     if (total) {
       let nodeTotal;
@@ -140,13 +152,16 @@ const NodeCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
 
   // Used in UI
   const earnedInToken = Number(getDisplayBalance(earnings));
-  const earnedInDollars = (Number(parsedRewardTokenPriceInDollars) * earnedInToken).toFixed(2);
+  const earnedInDollars = useMemo(() => {
+    return parsedRewardTokenPriceInDollars && earnedInToken
+      ? (Number(parsedRewardTokenPriceInDollars) * earnedInToken).toFixed(2)
+      : null;
+  }, [parsedRewardTokenPriceInDollars, earnedInToken]);
   const nodeCost = (Number(parsedRewardTokenPriceInDollars) * parsedNodePrice).toFixed(2);
 
   // Custom Hooks functinos
   const {onReward} = useHarvest(bank);
   const {onStake} = useStake(bank);
-  const {onZap} = useZap(bank);
   const {onWithdraw} = useWithdraw(bank);
   const {onCompound} = useCompound(bank);
 
@@ -228,7 +243,9 @@ const NodeCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
                   <Grid item>
                     <div className="lineValueDeposited">
                       <span style={{color: '#fcfcfc'}}>{earnedInToken}</span>
-                      <span style={{marginLeft: '5px', fontSize: '14px'}}>(${earnedInDollars})</span>
+                      <span style={{marginLeft: '5px', fontSize: '14px'}}>
+                        (${earnedInDollars ? earnedInDollars : '0.00'})
+                      </span>
                     </div>
                   </Grid>
                 </Grid>
@@ -237,7 +254,19 @@ const NodeCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
               <Grid item xs={12} sm={6} md={2}>
                 <Grid container direction={widthUnder600 ? 'row' : 'column'} justifyContent="space-between">
                   <Grid item>
-                    <div className="lineLabel">Daily APR</div>
+                    <div className="lineLabel">
+                      Daily APR
+                      {bank.contract === 'GrapeNodeV2' && (
+                        <LightTooltip
+                          arrow
+                          placement="top"
+                          enterDelay={0}
+                          title="APR is dynamic in this Node. Deposits, compounds, claims impact your daily APR"
+                        >
+                          <InfoIcon style={{marginLeft: '3px', verticalAlign: 'text-bottom', fontSize: '17px'}} />
+                        </LightTooltip>
+                      )}
+                    </div>
                   </Grid>
                   <Grid item>
                     <div className="lineValue">{dailyAPR ? dailyAPR : '--.--'}%</div>
