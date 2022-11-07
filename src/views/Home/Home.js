@@ -11,7 +11,7 @@ import useBondStats from '../../hooks/useBondStats';
 import useWineStats from '../../hooks/useWineStats';
 
 import useTotalValueLocked from '../../hooks/useTotalValueLocked';
-import {Button, Grid, Paper, CircularProgress, Typography} from '@material-ui/core';
+import {Button, Grid, Paper, CircularProgress, Typography, useMediaQuery} from '@material-ui/core';
 import kyc from '../../assets/img/kyc.png';
 import audit from '../../assets/img/audit1.png';
 
@@ -27,6 +27,7 @@ import burnImage from '../../assets/img/burninggrape.png';
 import downGif from '../../assets/img/arrow-down-animated.gif';
 
 const Home = () => {
+  const screen800 = useMediaQuery('(min-width:800px)');
   const totalTVL = useTotalValueLocked();
   const grapemimLpStats = useLpStatsBTC('GRAPE-MIM-LP');
   const bSharemimLpStats = useLpStats('WINE-MIM-LP');
@@ -92,9 +93,11 @@ const Home = () => {
       <Grid container direction="column" justifyContent="space-between" style={{minHeight: '75vh'}}>
         <Grid item xs={12} style={{textAlign: 'center'}}>
           <Grid container justifyContent="center" spacing={2} alignItems="center">
-            <Grid item>
-              <img alt="burning grape" src={burnImage} className="burning-grape" />
-            </Grid>
+            {screen800 && (
+              <Grid item>
+                <img alt="burning grape" src={burnImage} className="burning-grape" />
+              </Grid>
+            )}
             <Grid item>
               <span className="welcome-text">Welcome to Grape Finance</span>
             </Grid>
