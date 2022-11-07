@@ -23,6 +23,9 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import useGetBurntGrape from '../../hooks/useGetBurntGrape';
 
+import burnImage from '../../assets/img/burninggrape.png';
+import downGif from '../../assets/img/arrow-down-animated.gif';
+
 const Home = () => {
   const totalTVL = useTotalValueLocked();
   const grapemimLpStats = useLpStatsBTC('GRAPE-MIM-LP');
@@ -90,7 +93,7 @@ const Home = () => {
         <Grid item xs={12} style={{textAlign: 'center'}}>
           <Grid container justifyContent="center" spacing={2} alignItems="center">
             <Grid item>
-              <img alt="burning grape" src={require('../../assets/img/burninggrape.png')} className="burning-grape" />
+              <img alt="burning grape" src={burnImage} className="burning-grape" />
             </Grid>
             <Grid item>
               <span className="welcome-text">Welcome to Grape Finance</span>
@@ -120,20 +123,15 @@ const Home = () => {
               </span>
             )}
           </div>
-          <div style={{marginTop:'15px'}} className="burnt-grape">TOTAL BURNT GRAPE</div>
+          <div style={{marginTop: '15px'}} className="burnt-grape">
+            TOTAL BURNT GRAPE
+          </div>
           <div className="burnt-grape-value">
             {grapeBurnt ? grapeBurnt.toLocaleString('en-US') : <SyncLoader color="#e67f47" size={10} />}
           </div>
         </Grid>
         <Grid item xs={12} style={{textAlign: 'center'}} id="apps">
-          <img
-            style={{cursor: 'pointer'}}
-            onClick={scrollDown}
-            alt="down arrow"
-            src={require('../../assets/img/arrow-down-animated.gif')}
-            width={55}
-            height={35}
-          />
+          <img style={{cursor: 'pointer'}} onClick={scrollDown} alt="down arrow" src={downGif} width={55} height={35} />
         </Grid>
       </Grid>
 
