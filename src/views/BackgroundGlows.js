@@ -1,5 +1,5 @@
-import React, {useEffect, useCallback, useState, useRef} from 'react';
 import heroImg from '../assets/img/grape-glass-bg.png';
+import backgroundBlur from '../assets/img/backgroundblur.png';
 
 function BackgroundGlows() {
   return (
@@ -15,7 +15,7 @@ function BackgroundGlows() {
       >
         <img src={heroImg} alt={'GRAPE Logo'} style={{width: 'auto', height: '100%'}} />
       </div>
-      <img alt="" src={require('../assets/img/backgroundblur.png')} className="background-blur" />
+      <img alt="" src={backgroundBlur} className="background-blur" />
     </div>
   );
 }
