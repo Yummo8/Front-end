@@ -7,31 +7,7 @@ import Button from '@material-ui/core/Button';
 import {Row, Item} from '@mui-treasury/components/flex';
 import {Paper} from '@material-ui/core';
 import {Link} from 'react-router-dom';
-import ribbonImg from '../../assets/img/new-ribbon.png';
 
-import soleraImg from '../../assets/img/solera.png';
-import xGrapeImg from '../../assets/img/xGrape.png';
-import grapeWineImg from '../../assets/img/grape-wine.png';
-import gnodeImg from '../../assets/img/gnode.png';
-import barrelImg from '../../assets/img/barrel.png';
-import WinemakerImg from '../../assets/img/Winemaker.png';
-import rebatesImg from '../../assets/img/rebates.png';
-import casinocoinsImg from '../../assets/img/casinocoins.png';
-import burninggrapeImg from '../../assets/img/burninggrape.png';
-import gobletImg from '../../assets/img/goblet.png';
-
-const imageMap = {
-  solera: soleraImg,
-  xGrape: xGrapeImg,
-  grapeWine: grapeWineImg,
-  gnode: gnodeImg,
-  barrel: barrelImg,
-  Winemaker: WinemakerImg,
-  rebates: rebatesImg,
-  casinocoins: casinocoinsImg,
-  burninggrape: burninggrapeImg,
-  goblet: gobletImg,
-};
 const useStyles = makeStyles(({palette}) => ({
   root: ({color}) => ({
     borderRadius: '5px !important',
@@ -79,7 +55,7 @@ const useStyles = makeStyles(({palette}) => ({
 const CustomCard = ({item, styles, title, subTitle, subItems}) => {
   return (
     <Stack direction="column" className={cx(styles.root, styles.color)} justifyContent="space-between" spacing={0}>
-      {item.isNew && <img alt="New" className="new-ribbon" src={ribbonImg}></img>}
+      {item.isNew && <img alt="New" className="new-ribbon" src={require('../../assets/img/new-ribbon.png')}></img>}
 
       <Row p={2} style={{marginTop: item.isNew ? '-55px' : null}}>
         <Grid container justifyContent="space-between" style={{textAlign: 'center'}}>
@@ -90,7 +66,7 @@ const CustomCard = ({item, styles, title, subTitle, subItems}) => {
             <h3 className={styles.subtitle}>{subTitle}</h3>
           </Grid>
           <Grid item xs={12}>
-            <img alt={item.image} className={styles.logo} src={imageMap[item.image]} />
+            <img alt={item.image} className={styles.logo} src={require(`../../assets/img/${item.image}`)} />
           </Grid>
         </Grid>
       </Row>

@@ -11,7 +11,7 @@ import useBondStats from '../../hooks/useBondStats';
 import useWineStats from '../../hooks/useWineStats';
 
 import useTotalValueLocked from '../../hooks/useTotalValueLocked';
-import {Button, Grid, Paper, CircularProgress, Typography, useMediaQuery} from '@material-ui/core';
+import {Button, Grid, Paper, CircularProgress, Typography} from '@material-ui/core';
 import kyc from '../../assets/img/kyc.png';
 import audit from '../../assets/img/audit1.png';
 
@@ -23,11 +23,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import useGetBurntGrape from '../../hooks/useGetBurntGrape';
 
-import burnImage from '../../assets/img/burninggrape.png';
-import downGif from '../../assets/img/arrow-down-animated.gif';
-
 const Home = () => {
-  const screen800 = useMediaQuery('(min-width:800px)');
   const totalTVL = useTotalValueLocked();
   const grapemimLpStats = useLpStatsBTC('GRAPE-MIM-LP');
   const bSharemimLpStats = useLpStats('WINE-MIM-LP');
@@ -93,11 +89,9 @@ const Home = () => {
       <Grid container direction="column" justifyContent="space-between" style={{minHeight: '75vh'}}>
         <Grid item xs={12} style={{textAlign: 'center'}}>
           <Grid container justifyContent="center" spacing={2} alignItems="center">
-            {screen800 && (
-              <Grid item>
-                <img alt="burning grape" src={burnImage} className="burning-grape" />
-              </Grid>
-            )}
+            <Grid item>
+              <img alt="burning grape" src={require('../../assets/img/burninggrape.png')} className="burning-grape" />
+            </Grid>
             <Grid item>
               <span className="welcome-text">Welcome to Grape Finance</span>
             </Grid>
@@ -126,15 +120,20 @@ const Home = () => {
               </span>
             )}
           </div>
-          <div style={{marginTop: '15px'}} className="burnt-grape">
-            TOTAL BURNT GRAPE
-          </div>
+          <div style={{marginTop:'15px'}} className="burnt-grape">TOTAL BURNT GRAPE</div>
           <div className="burnt-grape-value">
             {grapeBurnt ? grapeBurnt.toLocaleString('en-US') : <SyncLoader color="#e67f47" size={10} />}
           </div>
         </Grid>
         <Grid item xs={12} style={{textAlign: 'center'}} id="apps">
-          <img style={{cursor: 'pointer'}} onClick={scrollDown} alt="down arrow" src={downGif} width={55} height={35} />
+          <img
+            style={{cursor: 'pointer'}}
+            onClick={scrollDown}
+            alt="down arrow"
+            src={require('../../assets/img/arrow-down-animated.gif')}
+            width={55}
+            height={35}
+          />
         </Grid>
       </Grid>
 

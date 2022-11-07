@@ -5,7 +5,7 @@
     "description": "Lock sVintage and earn up to ~2% daily + bonus. Assassinate players for more returns.",
     "linkTo": "https://solera.grapefinance.app/",
     "isInternalLink": false,
-    "image": "solera",
+    "image": "solera.png",
     "isNew": true
   },
   {
@@ -14,7 +14,7 @@
     "color": "#e647e6",
     "description": "Holding xGrape gives you a dual yield, while its backing per token increases on every sell, buy and transfer.",
     "isNew": true,
-    "image": "xGrape",
+    "image": "xGrape.png",
     "items": [
       {
         "label": "Mint xGrape",
@@ -34,7 +34,7 @@
     "color": "#e647e6",
     "description": "Stake Grape, Wine, or provide liquidity to earn daily rewards. No lock period. ",
     "isNew": false,
-    "image": "grapeWine",
+    "image": "grape-wine.png",
     "items": [
       {
         "label": "Vineyard",
@@ -60,7 +60,7 @@
     "isNew": false,
     "linkTo": "/dashboard#nodes",
     "isInternalLink": true,
-    "image": "gnode"
+    "image": "gnode.png"
   },
   {
     "label": "Wine Press",
@@ -69,7 +69,7 @@
     "isNew": false,
     "linkTo": "https://winepress.grapefinance.app/",
     "isInternalLink": false,
-    "image": "barrel"
+    "image": "barrel.png"
   },
   {
     "label": "Wine Maker",
@@ -78,7 +78,7 @@
     "isNew": false,
     "linkTo": "https://winemaker.grapefinance.app/",
     "isInternalLink": false,
-    "image": "Winemaker"
+    "image": "Winemaker.png"
   },
   {
     "label": "Peg Health Campaign",
@@ -87,7 +87,7 @@
     "isNew": false,
     "linkTo": "/rebates",
     "isInternalLink": true,
-    "image": "rebates"
+    "image": "rebates.png"
   },
   {
     "label": "Casino",
@@ -95,7 +95,7 @@
     "color": "#e647e6",
     "description": "Buy tickets with Grape and play games with a chance to win BIG! Read our docs and play responsibly.",
     "isNew": false,
-    "image": "casinocoins",
+    "image": "casinocoins.png",
     "items": [
       {
         "label": "Grape Casino",
@@ -117,7 +117,7 @@
     "color": "#e647e6",
     "description": "Buy tickets with Grape to play a variety of classic & new arcade games. Top players earn prizes!",
     "isNew": false,
-    "image": "burninggrape",
+    "image": "burninggrape.png",
     "items": [
       {
         "label": "Space Shooter",
@@ -133,7 +133,7 @@
     "color": "#e647e6",
     "description": "NFTs provide bonuses for holders and grant premier access to Grape Finance.",
     "isNew": false,
-    "image": "goblet",
+    "image": "goblet.png",
     "items": [
       {
         "label": "Winery NFT",
