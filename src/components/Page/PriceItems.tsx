@@ -24,15 +24,15 @@ export default function PriceItems() {
   );
   return (
     <div className="price-flex">
-      <div className="price-item ">
+      <div className="price-item">
         <a
-          className="text-decoration-none"
+          className="text-decoration-none "
           target="_blank"
           rel="noopener noreferrer"
           href="https://app.bogged.finance/avax/swap?tokenIn=0x130966628846BFd36ff31a822705796e8cb8C18D&tokenOut=0x5541D83EFaD1f281571B343977648B75d95cdAC2"
         >
           <img src={grapeImg} alt="Grape" width={24} height={24} />
-          <span className="token-price">${grapePrice ? grapePrice : '0.000'}</span>
+          <span className="token-price ">${grapePrice ? grapePrice : '0.000'}</span>
         </a>
       </div>
       <div className="price-item">

@@ -6,11 +6,13 @@ export function AnimatedButton({
   backgroundColor,
   icon,
   onClick,
+  fullWidth,
 }: {
   title: string;
   backgroundColor: string;
   icon: unknown;
   onClick: (() => void) | undefined;
+  fullWidth?: boolean;
 }) {
   return (
     <button
@@ -18,6 +20,9 @@ export function AnimatedButton({
       className="button-hover animated-button"
       style={{
         backgroundColor: backgroundColor,
+        border: '1px solid rgba(255, 255, 255, 0.2)',
+        backdropFilter: 'blur(4px)',
+        width: fullWidth ? '100%' : 'inherit',
       }}
     >
       {icon && <div style={{marginRight: '7px'}}>{icon}</div>}

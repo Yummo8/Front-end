@@ -19,6 +19,7 @@ import casinocoins from '../../assets/img/casinocoins.png';
 import burninggrape from '../../assets/img/burninggrape.png';
 import goblet from '../../assets/img/goblet.png';
 import ribbonImg from '../../assets/img/new-ribbon.png';
+import AnimatedButton from '../../components/Button/AnimatedButton';
 
 const nameToImage = {
   solera: solera,
@@ -114,7 +115,7 @@ const CustomCard = ({item, styles, title, subTitle, subItems}) => {
             <Grid item style={{width: '100%'}}>
               {item.isInternalLink === true ? (
                 <Link to={item.linkTo} style={{textDecoration: 'none'}}>
-                  <Button className="shinyButton full-width">Go to {item.label}</Button>
+                  <AnimatedButton backgroundColor="#9309937c" icon={null} title={`Go to ${item.label}`} fullWidth />
                 </Link>
               ) : (
                 <a
@@ -122,9 +123,7 @@ const CustomCard = ({item, styles, title, subTitle, subItems}) => {
                   target={item.isInternalLink === false ? '_blank' : ''}
                   href={item.linkTo}
                 >
-                  <Button className="shinyButton full-width" target="_blank" href={item.linkTo}>
-                    Go to {item.label}
-                  </Button>
+                  <AnimatedButton backgroundColor="#9309937c" icon={null} title={`Go to ${item.label}`} fullWidth />
                 </a>
               )}
             </Grid>
@@ -135,7 +134,7 @@ const CustomCard = ({item, styles, title, subTitle, subItems}) => {
                 <Grid item xs={subItems.length === 1 ? 12 : subItems.length % 2 ? 4 : 6}>
                   {subItem.isInternalLink === true ? (
                     <Link to={subItem.linkTo} style={{textDecoration: 'none'}}>
-                      <Button className="shinyButton full-width">{subItem.label}</Button>{' '}
+                      <AnimatedButton backgroundColor="#9309937c" icon={null} title={subItem.label} fullWidth />
                     </Link>
                   ) : (
                     <a
@@ -143,7 +142,7 @@ const CustomCard = ({item, styles, title, subTitle, subItems}) => {
                       target={subItem.isInternalLink === false ? '_blank' : ''}
                       href={subItem.linkTo}
                     >
-                      <Button className="shinyButton full-width">{subItem.label}</Button>
+                      <AnimatedButton backgroundColor="#9309937c" icon={null} title={subItem.label} fullWidth />
                     </a>
                   )}
                 </Grid>

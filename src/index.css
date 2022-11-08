@@ -39,8 +39,9 @@
   appearance: none;
 }
 
-
 .animated-underline {
+  cursor: pointer;
+  color: #fcfcfc;
   background-image: linear-gradient(#00000000, #00000000), linear-gradient(to right, #e646e6, #930993);
   background-size: 100% 2px, 0 2px;
   background-position: 100% 100%, 0 100%;
@@ -75,6 +76,8 @@
 
 .animated-button {
   font-family: 'TOMMY-R';
+  text-align: center;
+  justify-content: center;
   font-size: 14px;
   height: 40px;
   display: flex;
@@ -122,7 +125,6 @@
   transform: rotate(22deg);
   background-color: #e646e659;
 }
-
 
 .button-hover:hover .animated-hover-1 {
   left: 82%;
@@ -654,6 +656,10 @@ code {
   margin-bottom: 0;
 }
 
+.token-price:hover {
+  color: #e646e6;
+}
+
 .dashboard-tabs {
   font-weight: 700;
 }
@@ -750,11 +756,6 @@ code {
   width: 100% !important;
 }
 
-.burning-grape {
-  width: 70px;
-  height: 70px;
-}
-
 .welcome-text {
   font-size: 3.8rem;
   font-family: 'superstar';
@@ -766,7 +767,6 @@ code {
 
 .front-text-tvl {
   font-family: 'TOMMY';
-  font-size: 9rem;
   text-shadow: 0 0 1vw #6e256c, 0 0 3vw #6e256c, 0 0 20vw #6e256c, 0 0 10vw #6e256c, 0 0 0.4vw #e647e6,
     0vw 0vw 0vw #5b2959;
   color: #e647e6;
@@ -787,8 +787,6 @@ code {
 }
 
 .burnt-grape-value {
-  font-family: 'TOMMY';
-  font-size: 2.5rem;
   text-shadow: 0 0 1vw #9f562e, 0 0 3vw #dd6727, 0 0 20vw #7d3711, 0 0 10vw #732d07, 0 0 0.4vw #463024,
     0vw 0vw 0vw #853910;
   color: #e67f47;
@@ -797,24 +795,21 @@ code {
 
 @media screen and (max-width: 1488px) {
   .front-text-tvl {
-    font-size: 8rem;
+    font-size: 5rem;
   }
   .front-text-top {
-    font-size: 2.2rem;
+    font-size: 1.5rem;
   }
   .welcome-text {
-    font-size: 3.4rem;
+    font-size: 3rem;
   }
 }
 
 @media screen and (max-width: 1080px) {
   .front-text-tvl {
-    font-size: 7rem;
+    font-size: 4.2rem;
   }
 
-  .front-text-top {
-    font-size: 2rem;
-  }
   .welcome-text {
     font-size: 2.7rem;
   }
@@ -826,12 +821,9 @@ code {
 
 @media screen and (max-width: 900px) {
   .front-text-tvl {
-    font-size: 6rem;
+    font-size: 3rem;
   }
 
-  .front-text-top {
-    font-size: 1.8rem;
-  }
   .welcome-text {
     font-size: 2.5rem;
   }
@@ -843,14 +835,11 @@ code {
 
 @media screen and (max-width: 720px) {
   .front-text-tvl {
-    font-size: 5rem;
+    font-size: 2.2rem;
   }
 
-  .front-text-top {
-    font-size: 1.6rem;
-  }
   .welcome-text {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 }
 
@@ -858,9 +847,7 @@ code {
   .front-text-tvl {
     font-size: 3.8rem;
   }
-  .front-text-top {
-    font-size: 1.4rem;
-  }
+
   .welcome-text {
     font-size: 2.2rem;
   }
@@ -871,9 +858,7 @@ code {
     font-size: 3.3rem;
   }
 
-  .front-text-top {
-    font-size: 1.2rem;
-  }
+
 }
 
 @media screen and (max-width: 399px) {
@@ -881,9 +866,7 @@ code {
     font-size: 3.2rem;
   }
 
-  .front-text-top {
-    font-size: 1.2rem;
-  }
+
 }
 
 @media screen and (max-width: 359px) {

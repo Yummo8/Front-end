@@ -37,10 +37,10 @@ const AccountButton: React.FC<AccountButtonProps> = ({text}) => {
   return (
     <div>
       {!account ? (
-        <AnimatedButton backgroundColor="#930993" onClick={handleWalletProviderOpen} icon={null} title={buttonText} />
+        <AnimatedButton backgroundColor="#e647e61c" onClick={handleWalletProviderOpen} icon={null} title={buttonText} />
       ) : (
         <AnimatedButton
-          backgroundColor="#930993"
+          backgroundColor="#e647e61c"
           onClick={onPresentAccountModal}
           icon={<Davatar size={20} address={account} />}
           title={ensName || shorten(account)}

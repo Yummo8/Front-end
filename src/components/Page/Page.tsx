@@ -77,7 +77,7 @@ import {ReactComponent as IconDiscord} from '../../assets/img/discord-plain.svg'
 import ledgerIcon from '../../assets/img/ledger.png';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import useGetBurntGrape from '../../hooks/useGetBurntGrape';
-
+import ImportContactsIcon from '@mui/icons-material/ImportContacts';
 import PriceItems from './PriceItems';
 
 const drawerWidth = 280;
@@ -256,21 +256,21 @@ const Page: React.FC = ({children}) => {
     setWalletsOpen(!walletsOpen);
   };
 
-  const [contractsOpen, setContractsOpen] = React.useState(false);
-  const handleContractsClick = () => {
-    if (!open) {
-      handleDrawerOpen();
-    }
-    setContractsOpen(!contractsOpen);
-  };
+  // const [contractsOpen, setContractsOpen] = React.useState(false);
+  // const handleContractsClick = () => {
+  //   if (!open) {
+  //     handleDrawerOpen();
+  //   }
+  //   setContractsOpen(!contractsOpen);
+  // };
 
-  const [tokensOpen, setTokensOpen] = React.useState(false);
-  const handleTokensClick = () => {
-    if (!open) {
-      handleDrawerOpen();
-    }
-    setTokensOpen(!tokensOpen);
-  };
+  // const [tokensOpen, setTokensOpen] = React.useState(false);
+  // const handleTokensClick = () => {
+  //   if (!open) {
+  //     handleDrawerOpen();
+  //   }
+  //   setTokensOpen(!tokensOpen);
+  // };
 
   const [usefullLinksOpen, setUsefulllinksOpen] = React.useState(false);
   const handleUsefullLinksClick = () => {
@@ -333,7 +333,23 @@ const Page: React.FC = ({children}) => {
             >
               {screenMD && (
                 <div>
-                  <Button
+                  <div className="animated-underline" style={{height: '40px', lineHeight: '40px'}}>
+                    <a
+                      href="https://grape-finance.gitbook.io/grape-finance-docs/"
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      style={{textDecoration: 'none', color: 'inherit'}}
+                    >
+                      <Grid container alignItems="center" justifyContent="center" spacing={1}>
+                        <Grid item>
+                          <ImportContactsIcon style={{verticalAlign: 'text-bottom'}} />
+                        </Grid>
+                        <Grid item>Docs</Grid>
+                      </Grid>
+                    </a>
+                  </div>
+
+                  {/* <Button
                     className="shinyButton"
                     aria-haspopup="true"
                     aria-expanded={buyOpen ? 'true' : undefined}
@@ -419,7 +435,7 @@ const Page: React.FC = ({children}) => {
                         Buy NFTs with Grape
                       </MenuItem>
                     </a>
-                  </StyledMenu>
+                  </StyledMenu> */}
                 </div>
               )}
               <AccountButton text="Connect" />
@@ -979,7 +995,7 @@ const Page: React.FC = ({children}) => {
                 </ListItemButton>
               </a>
             </Tooltip>
-            <Tooltip arrow followCursor title={open ? '' : 'Contracts'} placement="top-start">
+            {/* <Tooltip arrow followCursor title={open ? '' : 'Contracts'} placement="top-start">
               <ListItemButton onClick={handleContractsClick}>
                 <ListItemIcon
                   sx={{
@@ -1077,10 +1093,10 @@ const Page: React.FC = ({children}) => {
                   </a>
                 </List>
               </Collapse>
-            )}
+            )} */}
           </List>
 
-          <List>
+          {/* <List>
             <Tooltip arrow followCursor title={open ? '' : 'Tokens / LPs'} placement="top-start">
               <ListItemButton onClick={handleTokensClick}>
                 <ListItemIcon
@@ -1257,7 +1273,7 @@ const Page: React.FC = ({children}) => {
                 </List>
               </Collapse>
             )}
-          </List>
+          </List> */}
 
           <List>
             <Tooltip arrow followCursor title={open ? '' : 'Useful Links'} placement="top-start">
