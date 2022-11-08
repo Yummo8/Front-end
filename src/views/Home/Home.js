@@ -22,6 +22,8 @@ import HomeCard from './HomeCard';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import useGetBurntGrape from '../../hooks/useGetBurntGrape';
+import burningGrape from '../../assets/img/burninggrape.png';
+import downArrowGif from '../../assets/img/arrow-down-animated.gif';
 
 const Home = () => {
   const totalTVL = useTotalValueLocked();
@@ -90,7 +92,7 @@ const Home = () => {
         <Grid item xs={12} style={{textAlign: 'center'}}>
           <Grid container justifyContent="center" spacing={2} alignItems="center">
             <Grid item>
-              <img alt="burning grape" src={require('../../assets/img/burninggrape.png')} className="burning-grape" />
+              <img alt="burning grape" src={burningGrape} className="burning-grape" />
             </Grid>
             <Grid item>
               <span className="welcome-text">Welcome to Grape Finance</span>
@@ -130,7 +132,7 @@ const Home = () => {
             style={{cursor: 'pointer'}}
             onClick={scrollDown}
             alt="down arrow"
-            src={require('../../assets/img/arrow-down-animated.gif')}
+            src={downArrowGif}
             width={55}
             height={35}
           />

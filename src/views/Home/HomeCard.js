@@ -8,6 +8,31 @@ import {Row, Item} from '@mui-treasury/components/flex';
 import {Paper} from '@material-ui/core';
 import {Link} from 'react-router-dom';
 
+import solera from '../../assets/img/solera.png';
+import xGrape from '../../assets/img/xGrape.png';
+import grapeWine from '../../assets/img/grape-wine.png';
+import gnode from '../../assets/img/gnode.png';
+import barrel from '../../assets/img/barrel.png';
+import winemaker from '../../assets/img/Winemaker.png';
+import rebates from '../../assets/img/rebates.png';
+import casinocoins from '../../assets/img/casinocoins.png';
+import burninggrape from '../../assets/img/burninggrape.png';
+import goblet from '../../assets/img/goblet.png';
+import ribbonImg from '../../assets/img/new-ribbon.png';
+
+const nameToImage = {
+  solera: solera,
+  xGrape: xGrape,
+  grapeWine: grapeWine,
+  gnode: gnode,
+  barrel: barrel,
+  winemaker: winemaker,
+  rebates: rebates,
+  casinocoins: casinocoins,
+  burninggrape: burninggrape,
+  goblet: goblet,
+};
+
 const useStyles = makeStyles(({palette}) => ({
   root: ({color}) => ({
     borderRadius: '5px !important',
@@ -55,7 +80,7 @@ const useStyles = makeStyles(({palette}) => ({
 const CustomCard = ({item, styles, title, subTitle, subItems}) => {
   return (
     <Stack direction="column" className={cx(styles.root, styles.color)} justifyContent="space-between" spacing={0}>
-      {item.isNew && <img alt="New" className="new-ribbon" src={require('../../assets/img/new-ribbon.png')}></img>}
+      {item.isNew && <img alt="New" className="new-ribbon" src={ribbonImg}></img>}
 
       <Row p={2} style={{marginTop: item.isNew ? '-55px' : null}}>
         <Grid container justifyContent="space-between" style={{textAlign: 'center'}}>
@@ -66,7 +91,7 @@ const CustomCard = ({item, styles, title, subTitle, subItems}) => {
             <h3 className={styles.subtitle}>{subTitle}</h3>
           </Grid>
           <Grid item xs={12}>
-            <img alt={item.image} className={styles.logo} src={require(`../../assets/img/${item.image}`)} />
+            <img alt={item.image} className={styles.logo} src={nameToImage[item.image]} />
           </Grid>
         </Grid>
       </Row>
