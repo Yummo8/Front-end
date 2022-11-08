@@ -12,9 +12,21 @@ interface PressesProps {
 const Presses: React.FC<PressesProps> = ({pools, activesOnly}) => {
   return (
     <>
-      <WinepressCard bank={pools.find((p) => p.name === 'Winepress')} activesOnly={activesOnly} />
-      <SodapressCard bank={pools.find((p) => p.name === 'Sodapress')} activesOnly={activesOnly} />
-      <SolerapressCard bank={pools.find((p) => p.name === 'Solerapress')} activesOnly={activesOnly} />
+      <WinepressCard
+        displayName="Wine Press"
+        bank={pools.find((p) => p.name === 'Winepress')}
+        activesOnly={activesOnly}
+      />
+      <SodapressCard
+        displayName="Grape Soda"
+        bank={pools.find((p) => p.name === 'Sodapress')}
+        activesOnly={activesOnly}
+      />
+      <SolerapressCard
+        displayName="Solera Press"
+        bank={pools.find((p) => p.name === 'Solerapress')}
+        activesOnly={activesOnly}
+      />
     </>
   );
 };

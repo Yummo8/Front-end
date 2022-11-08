@@ -1,4 +1,4 @@
-import {Container, useMediaQuery} from '@material-ui/core';
+import {Container, useMediaQuery, Grid} from '@material-ui/core';
 import useEagerConnect from '../../hooks/useEagerConnect';
 import Menu, {MenuProps} from '@mui/material/Menu';
 import Tooltip from '@mui/material/Tooltip';
@@ -77,6 +77,9 @@ import {ReactComponent as IconDiscord} from '../../assets/img/discord-plain.svg'
 import ledgerIcon from '../../assets/img/ledger.png';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import useGetBurntGrape from '../../hooks/useGetBurntGrape';
+
+import PriceItems from './PriceItems';
+
 const drawerWidth = 280;
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -286,7 +289,8 @@ const Page: React.FC = ({children}) => {
     setAnchorEl(null);
   };
 
-  const screenSM = useMediaQuery('(min-width:1050px)');
+  const screenMD = useMediaQuery('(min-width:1050px)');
+  const screen800 = useMediaQuery('(min-width:800px)');
 
   return (
     <div style={{position: 'relative', minHeight: '100vh'}}>
@@ -299,7 +303,7 @@ const Page: React.FC = ({children}) => {
               onClick={handleDrawerOpen}
               edge="start"
               sx={{
-                marginRight: !open ? '24px !important' : '0 !important',
+                marginRight: '0 !important',
                 ...(open && {display: 'none'}),
               }}
             >
@@ -310,62 +314,10 @@ const Page: React.FC = ({children}) => {
                 }}
               />
             </IconButton>
-            <div className="price-flex">
-              <div className="price-item">
-                <a
-                  className="text-decoration-none"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href="https://app.bogged.finance/avax/swap?tokenIn=0x130966628846BFd36ff31a822705796e8cb8C18D&tokenOut=0x5541D83EFaD1f281571B343977648B75d95cdAC2"
-                >
-                  <img src={grapeImg} alt="Grape" width={24} height={24} />
-                  <span className="token-price">{grapePrice ? '$' + grapePrice : '--'}</span>
-                </a>
-              </div>
-              <div className="price-item">
-                <a
-                  className="text-decoration-none"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href="https://app.bogged.finance/avax/swap?tokenIn=0x130966628846BFd36ff31a822705796e8cb8C18D&tokenOut=0xC55036B5348CfB45a932481744645985010d3A44"
-                >
-                  <img src={wineImg} alt="Wine" width={24} height={24} />
-                  <span className="token-price">{winePrice ? '$' + winePrice : '--'}</span>
-                </a>
-              </div>
-              <div className="price-item">
-                <a
-                  className="text-decoration-none"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href="https://xgrape.grapefinance.app/"
-                >
-                  <img src={xGrapeImg} alt="xGrape" width={21} height={21} />
-                  <span className="token-price">{xGrapePrice ? '$' + xGrapePrice : '--'}</span>
-                </a>
-              </div>
-              <div className="price-item">
-                <a
-                  className="text-decoration-none"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href="https://www.swapsicle.io/swap?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0x01Af64EF39AEB5612202AA07B3A3829f20c395fd#/"
-                >
-                  <img src={vintageImg} alt="Wine" width={24} height={24} />
-                  <span className="token-price">{vintagePrice ? '$' + vintagePrice.toFixed(4) : '--'}</span>
-                </a>
-              </div>
-              <div className="price-item">
-                <img src={burningGrapeIcon} alt="xGrape" width={24} height={24} />
-                <span className="token-price" style={{marginLeft: '5px'}}>
-                  {grapeBurnt ? grapeBurnt.toLocaleString('en-US') : '--'}
-                </span>
-              </div>
-              {/* <div className="price-item">
-                <img src={grapeMimImg} alt="TWAP" height={35} />
-                <span className="token-price">{twap ? twap : '--'}/1.01</span>
-              </div> */}
-            </div>
+            <Link to="/" color="inherit">
+              <img alt="Grape Finance" src={grapeLogo} width={!screen800 ? 150 : 220} style={{paddingTop: '5px'}} />
+            </Link>
+            {screen800 && <PriceItems />}
             <Box
               style={{
                 flexGrow: '1',
@@ -379,7 +331,7 @@ const Page: React.FC = ({children}) => {
                 gridGap: '20px',
               }}
             >
-              {screenSM && (
+              {screenMD && (
                 <div>
                   <Button
                     className="shinyButton"
@@ -473,6 +425,7 @@ const Page: React.FC = ({children}) => {
               <AccountButton text="Connect" />
             </Box>
           </Toolbar>
+          {!screen800 && <PriceItems />}
         </AppBar>
         <Drawer
           variant="permanent"
@@ -497,18 +450,6 @@ const Page: React.FC = ({children}) => {
               {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
             </IconButton>
           </DrawerHeader>
-          <Link to="/" color="inherit">
-            <Tooltip arrow followCursor title={open ? '' : 'Home'} placement="top-start">
-              <img
-                alt="Grape Finance"
-                className="nav-logo"
-                src={grapeLogo}
-                width={drawerWidth}
-                style={{paddingLeft: '9px', paddingRight: '10px'}}
-              />
-            </Tooltip>
-          </Link>
-
           <List>
             <Tooltip arrow followCursor title={open ? '' : 'DeFi Products'} placement="top-start">
               <ListItemButton onClick={handleAppsClick}>
@@ -1010,6 +951,34 @@ const Page: React.FC = ({children}) => {
 
           <Divider color="#aaa" />
           <List>
+            <Tooltip arrow followCursor title={open ? '' : 'Docs'} placement="top-start">
+              <a
+                className="menu-item"
+                href="https://grapefinance.gitbook.io/grape-finance-docs/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{padding: 0, display: 'block'}}
+              >
+                <ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: open ? 'initial' : 'center',
+                  }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      color: 'white',
+                      minWidth: 0,
+                      mr: open ? 3 : 'auto',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <MenuBookIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Docs" sx={{opacity: open ? 1 : 0}} />
+                </ListItemButton>
+              </a>
+            </Tooltip>
             <Tooltip arrow followCursor title={open ? '' : 'Contracts'} placement="top-start">
               <ListItemButton onClick={handleContractsClick}>
                 <ListItemIcon
@@ -1310,29 +1279,6 @@ const Page: React.FC = ({children}) => {
             {open && (
               <Collapse in={usefullLinksOpen} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
-                  <Tooltip arrow followCursor title={open ? '' : 'Docs'} placement="top-start">
-                    <a
-                      className="menu-item"
-                      href="https://grapefinance.gitbook.io/grape-finance-docs/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{padding: 0, display: 'block'}}
-                    >
-                      <ListItemButton sx={{pl: 4}}>
-                        <ListItemIcon
-                          sx={{
-                            color: 'white',
-                            minWidth: 0,
-                            mr: open ? 3 : 'auto',
-                            justifyContent: 'center',
-                          }}
-                        >
-                          <MenuBookIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Docs" />
-                      </ListItemButton>
-                    </a>
-                  </Tooltip>
                   <Tooltip arrow followCursor title={open ? '' : 'Leaderboard'} placement="top-start">
                     <ListItem
                       className="menu-item"
@@ -1592,8 +1538,14 @@ const Page: React.FC = ({children}) => {
         </Drawer>
         <Box component="main" sx={{flexGrow: 1}}>
           <DrawerHeader />
-          <Container maxWidth="lg" style={{paddingBottom: '5rem'}}>
-            {children}
+          <Container maxWidth="lg" style={{paddingBottom: '70px'}}>
+            <div
+              style={{
+                marginTop: screenMD ? '20px' : '40px',
+              }}
+            >
+              {children}
+            </div>
           </Container>
         </Box>
       </Box>

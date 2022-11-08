@@ -39,12 +39,107 @@
   appearance: none;
 }
 
+
+.animated-underline {
+  background-image: linear-gradient(#00000000, #00000000), linear-gradient(to right, #e646e6, #930993);
+  background-size: 100% 2px, 0 2px;
+  background-position: 100% 100%, 0 100%;
+  background-repeat: no-repeat;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .animated-underline {
+    transition: 0.3s ease;
+    transition-property: background-size, color, background-color, border-color;
+  }
+}
+.animated-underline:hover,
+.animated-underline:focus-visible {
+  background-size: 0 2px, 100% 2px;
+}
+
+.nav-menu-item {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  background: transparent;
+  border: none;
+  padding-top: 4px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #fcfcfc;
+}
+
+.nav-menu-item:hover {
+  color: #e646e6;
+}
+
+.animated-button {
+  font-family: 'TOMMY-R';
+  font-size: 14px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 6px;
+  border: 0;
+  color: #fcfcfc;
+  padding: 8px 12px 8px 12px;
+  text-transform: uppercase;
+}
+
+.animated-hover-1 {
+  position: absolute;
+  transition: left 200ms;
+  transform: rotate(5deg);
+  left: -42%;
+  opacity: 0.2;
+  z-index: 10;
+  height: 120%;
+}
+
+.animated-hover-2 {
+  position: absolute;
+  transition: left 200ms;
+  left: -42%;
+  top: -5px;
+  z-index: 10;
+  height: 120%;
+  width: 5px;
+  transform: rotate(22deg);
+  background-color: #e646e659;
+}
+
+.animated-hover-3 {
+  position: absolute;
+  transition: left 200ms;
+  left: -42%;
+  top: -5px;
+  z-index: 10;
+  height: 120%;
+  width: 8px;
+  transform: rotate(22deg);
+  background-color: #e646e659;
+}
+
+
+.button-hover:hover .animated-hover-1 {
+  left: 82%;
+}
+.button-hover:hover .animated-hover-2 {
+  left: 60%;
+}
+.button-hover:hover .animated-hover-3 {
+  left: 68%;
+}
+
 .secondary-button {
   font-family: 'TOMMY-R';
   cursor: pointer;
   border: 0;
   font-weight: 900;
-  font-size: 16px;
+  font-size: 14px !important;
   text-align: center;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -64,7 +159,7 @@
   cursor: pointer;
   border: 0;
   font-weight: 900;
-  font-size: 16px;
+  font-size: 14px;
   text-align: center;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -617,19 +712,21 @@ code {
 }
 
 .shinyButton {
+  height: 40px;
   font-family: 'TOMMY-R' !important;
   padding: 7px !important;
   background-color: rgb(147, 9, 147) !important;
-  font-size: 1rem !important;
+  font-size: 14px !important;
   color: #fff !important;
   border-radius: 5px !important;
 }
 
 .shinyButton-secondary {
+  height: 40px;
   font-family: 'TOMMY-R' !important;
   padding: 7px !important;
   background-color: rgb(98, 98, 98) !important;
-  font-size: 1rem !important;
+  font-size: 14px !important;
   color: #fff !important;
   border-radius: 5px !important;
 }

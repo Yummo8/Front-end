@@ -33,6 +33,7 @@ import useBurnGrapePress from '../../hooks/useBurnGrapePress';
 const GRAPE_PER_BATCH = 10;
 
 interface SodapressCardProps {
+  displayName: string;
   bank: Bank;
   activesOnly: boolean;
 }
@@ -46,7 +47,7 @@ const LightTooltip = styled(({className, ...props}: TooltipProps) => (
   },
 }));
 
-const SodapressCard: React.FC<SodapressCardProps> = ({bank, activesOnly}) => {
+const SodapressCard: React.FC<SodapressCardProps> = ({displayName, bank, activesOnly}) => {
   const widthUnder600 = useMediaQuery('(max-width:600px)');
 
   const grapeFinance = useGrapeFinance();
@@ -210,7 +211,7 @@ const SodapressCard: React.FC<SodapressCardProps> = ({bank, activesOnly}) => {
                     <TokenSymbol symbol={bank.depositTokenName} height={30} width={30} />
                   </Grid>
                   <Grid item>
-                    <div>{bank.name}</div>
+                    <div>{displayName}</div>
                     <div className="lineDescription">
                       Lock {bank.depositTokenName} and earn up to 350% back in {bank.depositTokenName}
                     </div>
@@ -737,7 +738,7 @@ const SodapressCard: React.FC<SodapressCardProps> = ({bank, activesOnly}) => {
                               <Grid container justifyContent="space-between">
                                 <Grid item>Daily Top Deposit</Grid>
                                 <Grid item>
-                                  {pressLottoInfo ? pressLottoInfo.largestDaily.toFixed(2) : '0.00'}{' '}LP
+                                  {pressLottoInfo ? pressLottoInfo.largestDaily.toFixed(2) : '0.00'} LP
                                   <span className="wallet-token-value">
                                     {' '}
                                     $
@@ -754,7 +755,7 @@ const SodapressCard: React.FC<SodapressCardProps> = ({bank, activesOnly}) => {
                               <Grid container justifyContent="space-between">
                                 <Grid item>Daily Deposit Pot</Grid>
                                 <Grid item>
-                                  {pressLottoInfo ? pressLottoInfo.dailyDepositPot.toFixed(2) : '0.00'}{' '}LP
+                                  {pressLottoInfo ? pressLottoInfo.dailyDepositPot.toFixed(2) : '0.00'} LP
                                   <span className="wallet-token-value">
                                     {' '}
                                     $
@@ -771,7 +772,7 @@ const SodapressCard: React.FC<SodapressCardProps> = ({bank, activesOnly}) => {
                               <Grid container justifyContent="space-between">
                                 <Grid item>Largest Deposit Pot</Grid>
                                 <Grid item>
-                                  {pressLottoInfo ? pressLottoInfo.largestDailyPot.toFixed(2) : '0.00'}{' '}LP
+                                  {pressLottoInfo ? pressLottoInfo.largestDailyPot.toFixed(2) : '0.00'} LP
                                   <span className="wallet-token-value">
                                     {' '}
                                     $
