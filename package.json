@@ -60,8 +60,8 @@
     "web3": "^1.2.11"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "set \"GENERATE_SOURCEMAP=false\" && react-scripts build",
+    "start": "TSC_COMPILE_ON_ERROR=true react-scripts start",
+    "build": "set \"GENERATE_SOURCEMAP=false\" && TSC_COMPILE_ON_ERROR=true react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
