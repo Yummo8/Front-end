@@ -6,6 +6,7 @@ import WalletProviderModal from '../WalletProviderModal';
 import AccountModal from './AccountModal';
 import {useENS} from '../../hooks/useENS';
 import Davatar from '@davatar/react';
+import AnimatedButton from '../Button/AnimatedButton';
 
 function shorten(str: string) {
   if (str.length < 10) return str;
@@ -36,16 +37,14 @@ const AccountButton: React.FC<AccountButtonProps> = ({text}) => {
   return (
     <div>
       {!account ? (
-        <Button onClick={handleWalletProviderOpen} className="shinyButton">
-          {buttonText}
-        </Button>
+        <AnimatedButton backgroundColor="#e647e61c" onClick={handleWalletProviderOpen} icon={null} title={buttonText} />
       ) : (
-        <Button onClick={onPresentAccountModal} className="shinyButton">
-          <div className="account">
-            <Davatar size={20} address={account} />
-            <span>{ensName || shorten(account)}</span>
-          </div>
-        </Button>
+        <AnimatedButton
+          backgroundColor="#e647e61c"
+          onClick={onPresentAccountModal}
+          icon={<Davatar size={20} address={account} />}
+          title={ensName || shorten(account)}
+        />
       )}
 
       <WalletProviderModal open={isWalletProviderOpen} handleClose={handleWalletProviderClose} />

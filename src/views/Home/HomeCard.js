@@ -8,14 +8,38 @@ import {Row, Item} from '@mui-treasury/components/flex';
 import {Paper} from '@material-ui/core';
 import {Link} from 'react-router-dom';
 
+import solera from '../../assets/img/solera.png';
+import xGrape from '../../assets/img/xGrape.png';
+import grapeWine from '../../assets/img/grape-wine.png';
+import gnode from '../../assets/img/gnode.png';
+import barrel from '../../assets/img/barrel.png';
+import winemaker from '../../assets/img/Winemaker.png';
+import rebates from '../../assets/img/rebates.png';
+import casinocoins from '../../assets/img/casinocoins.png';
+import burninggrape from '../../assets/img/burninggrape.png';
+import goblet from '../../assets/img/goblet.png';
+import ribbonImg from '../../assets/img/new-ribbon.png';
+import AnimatedButton from '../../components/Button/AnimatedButton';
+
+const nameToImage = {
+  solera: solera,
+  xGrape: xGrape,
+  grapeWine: grapeWine,
+  gnode: gnode,
+  barrel: barrel,
+  winemaker: winemaker,
+  rebates: rebates,
+  casinocoins: casinocoins,
+  burninggrape: burninggrape,
+  goblet: goblet,
+};
+
 const useStyles = makeStyles(({palette}) => ({
   root: ({color}) => ({
     borderRadius: '5px !important',
-    border: 'solid',
-    borderWidth: '3px',
-    borderColor: '#000',
-    // background: `rgba(0, 0, 0, 0.5) !important;`,
-    background: `linear-gradient(to bottom, #1a1a1a, #333333)`,
+    border: '1px solid rgba(255, 255, 255, 0.2)',
+    background: `rgba(0, 0, 0, 0.3)`,
+    backdropFilter: 'blur(6px)',
   }),
 
   content: ({color}) => ({
@@ -55,7 +79,7 @@ const useStyles = makeStyles(({palette}) => ({
 const CustomCard = ({item, styles, title, subTitle, subItems}) => {
   return (
     <Stack direction="column" className={cx(styles.root, styles.color)} justifyContent="space-between" spacing={0}>
-      {item.isNew && <img alt="New" className="new-ribbon" src={require('../../assets/img/new-ribbon.png')}></img>}
+      {item.isNew && <img alt="New" className="new-ribbon" src={ribbonImg}></img>}
 
       <Row p={2} style={{marginTop: item.isNew ? '-55px' : null}}>
         <Grid container justifyContent="space-between" style={{textAlign: 'center'}}>
@@ -66,7 +90,7 @@ const CustomCard = ({item, styles, title, subTitle, subItems}) => {
             <h3 className={styles.subtitle}>{subTitle}</h3>
           </Grid>
           <Grid item xs={12}>
-            <img alt={item.image} className={styles.logo} src={require(`../../assets/img/${item.image}`)} />
+            <img alt={item.image} className={styles.logo} src={nameToImage[item.image]} />
           </Grid>
         </Grid>
       </Row>
@@ -89,7 +113,7 @@ const CustomCard = ({item, styles, title, subTitle, subItems}) => {
             <Grid item style={{width: '100%'}}>
               {item.isInternalLink === true ? (
                 <Link to={item.linkTo} style={{textDecoration: 'none'}}>
-                  <Button className="shinyButton full-width">Go to {item.label}</Button>
+                  <AnimatedButton backgroundColor="#9309937c" icon={null} title={`Go to ${item.label}`} fullWidth />
                 </Link>
               ) : (
                 <a
@@ -97,9 +121,7 @@ const CustomCard = ({item, styles, title, subTitle, subItems}) => {
                   target={item.isInternalLink === false ? '_blank' : ''}
                   href={item.linkTo}
                 >
-                  <Button className="shinyButton full-width" target="_blank" href={item.linkTo}>
-                    Go to {item.label}
-                  </Button>
+                  <AnimatedButton backgroundColor="#9309937c" icon={null} title={`Go to ${item.label}`} fullWidth />
                 </a>
               )}
             </Grid>
@@ -110,7 +132,7 @@ const CustomCard = ({item, styles, title, subTitle, subItems}) => {
                 <Grid item xs={subItems.length === 1 ? 12 : subItems.length % 2 ? 4 : 6}>
                   {subItem.isInternalLink === true ? (
                     <Link to={subItem.linkTo} style={{textDecoration: 'none'}}>
-                      <Button className="shinyButton full-width">{subItem.label}</Button>{' '}
+                      <AnimatedButton backgroundColor="#9309937c" icon={null} title={subItem.label} fullWidth />
                     </Link>
                   ) : (
                     <a
@@ -118,7 +140,7 @@ const CustomCard = ({item, styles, title, subTitle, subItems}) => {
                       target={subItem.isInternalLink === false ? '_blank' : ''}
                       href={subItem.linkTo}
                     >
-                      <Button className="shinyButton full-width">{subItem.label}</Button>
+                      <AnimatedButton backgroundColor="#9309937c" icon={null} title={subItem.label} fullWidth />
                     </a>
                   )}
                 </Grid>

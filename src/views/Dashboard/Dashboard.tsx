@@ -76,8 +76,6 @@ import DashboardNFTBox from './DashboardNFTBox';
 import useLpStats from '../../hooks/useLpStats';
 
 const Dashboard = () => {
-  const matches = useMediaQuery('(min-width:900px)');
-
   const [activeTab, setActiveTab] = useState('Farms');
 
   const {account} = useWallet();
@@ -93,8 +91,6 @@ const Dashboard = () => {
   );
   const nodePools = [useBank('GrapeNodeV2'), useBank('LPNode'), useBank('LPWlrsNode')];
   const pressPools = banks.filter((bank) => !bank.finished && bank.sectionInUI === 8);
-
-  // const vineyardPoolsWithFilters = useBanksWithFilters(vineyardPools);
 
   const grapeBalance = useTokenBalance(grapeFinance.GRAPE);
   const displayGrapeBalance = useMemo(() => getDisplayBalance(grapeBalance, 18, 2), [grapeBalance]);
@@ -135,7 +131,7 @@ const Dashboard = () => {
   const totalGrapeMIMSWNodes = useGrapeMimSWTotalNode();
 
   useEffect(() => {
-    if (walletsNodesAndNFTs) {
+    if (walletsNodesAndNFTs && account) {
       setUserNodeTickets(
         walletsNodesAndNFTs.grapes * GRAPE_NODE_MULTIPLIER +
           walletsNodesAndNFTs.wines * WINE_NODE_MULTIPLIER +
@@ -149,7 +145,7 @@ const Dashboard = () => {
           walletsNodesAndNFTs.goblets * GOBLET_MULTIPLIER,
       );
     }
-  }, [walletsNodesAndNFTs, grapeFinance.myAccount]);
+  }, [walletsNodesAndNFTs, account]);
 
   const getPriceForNodes = (coin: string) => {
     if (coin === 'GRAPE') {
@@ -167,11 +163,11 @@ const Dashboard = () => {
 
   const allTicketsFromNFTs = 9600;
   const allTicketsFromNodes = useMemo(() => {
-    if (totalGrapeNodes && totalWineNodes && totalGrapeMIMSWNodes) {
+    if (totalGrapeNodes && totalWineNodes && totalGrapeMIMSWNodes && account) {
       return Number(totalGrapeNodes) + Number(totalWineNodes[0]) + Number(totalGrapeMIMSWNodes[0]);
     }
     return null;
-  }, [totalGrapeNodes, totalWineNodes, totalGrapeMIMSWNodes]);
+  }, [totalGrapeNodes, totalWineNodes, totalGrapeMIMSWNodes, account]);
 
   const totalTicketsWorth = useMemo(() => {
     if (
@@ -181,7 +177,8 @@ const Dashboard = () => {
       winePriceInDollars &&
       grapeMimSWPriceInDollars &&
       userNftTickets &&
-      userNodeTickets
+      userNodeTickets &&
+      account
     ) {
       return (
         ((userNftTickets + userNodeTickets) * getTotalPriceForNodes()) / (allTicketsFromNodes + allTicketsFromNFTs)
@@ -196,6 +193,7 @@ const Dashboard = () => {
     grapeMimSWPriceInDollars,
     userNftTickets,
     userNodeTickets,
+    account,
   ]);
 
   useEffect(() => {
@@ -212,7 +210,7 @@ const Dashboard = () => {
   }, [location]);
 
   const totalInvested = useMemo(() => {
-    if (walletStats) {
+    if (walletStats && account) {
       return (
         walletStats.totalInNodes +
         walletStats.totalInSodaPress +
@@ -227,10 +225,10 @@ const Dashboard = () => {
       );
     }
     return -1;
-  }, [walletStats]);
+  }, [walletStats, account]);
 
   const totalRewards = useMemo(() => {
-    if (walletStats) {
+    if (walletStats && account) {
       // include individual tokens as well
       return (
         walletStats.rewardsInNodes +
@@ -242,7 +240,7 @@ const Dashboard = () => {
       );
     }
     return -1;
-  }, [walletStats]);
+  }, [walletStats, account]);
 
   const [activesOnly, setActivesOnly] = React.useState(false);
   const handleSwitchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -251,12 +249,11 @@ const Dashboard = () => {
 
   return (
     <Page>
+      <Typography color="textPrimary" align="center" variant="h3" gutterBottom>
+        Dashboard
+      </Typography>
       {!!account ? (
         <div>
-          <Typography color="textPrimary" align="center" variant="h3" gutterBottom>
-            Dashboard
-          </Typography>
-
           <Grid container spacing={1}>
             <Grid item xs={12}>
               <Grid container spacing={1}>
@@ -461,6 +458,7 @@ const Dashboard = () => {
                 </Grid>
               </Grid>
             </Grid>
+
             <Grid item xs={12}>
               <Grid container spacing={1} justifyContent="space-between" alignItems="center">
                 <Grid item xs={4} sm={4} md={2}>
@@ -663,6 +661,7 @@ const Dashboard = () => {
               </Grid>
             </Grid>
           </Grid>
+
           <div style={{height: '3px', backgroundColor: '#930993', borderRadius: '5px', marginTop: '40px'}}></div>
           <Box mt={4}>
             <Grid container justifyContent={'center'} spacing={0} className="dashboard-tabs">
@@ -676,13 +675,17 @@ const Dashboard = () => {
                     );
                     setActiveTab('Farms');
                   }}
-                  className={activeTab === 'Farms' ? 'button-first dashboard-tab-item-active' : 'button-first dashboard-tab-item'}
+                  className={
+                    activeTab === 'Farms' ? 'button-first dashboard-tab-item-active' : 'button-first dashboard-tab-item'
+                  }
                 >
                   <Grid container justifyContent="center" alignItems="center" className="p2">
                     <Grid item>
                       <img src={grapeImg} alt="Grape" height={25} width={25} style={{verticalAlign: 'text-bottom'}} />
                     </Grid>
-                    <Grid item style={{paddingLeft: '5px'}}>VINEYARD</Grid>
+                    <Grid item style={{paddingLeft: '5px'}}>
+                      VINEYARD
+                    </Grid>
                   </Grid>
                 </div>
               </Grid>
@@ -700,9 +703,11 @@ const Dashboard = () => {
                 >
                   <Grid container justifyContent="center" alignItems="center" className="p2">
                     <Grid item>
-                      <img src={wineImg} alt="Wine" height={25} width={25} style={{verticalAlign: 'text-bottom'}}/>
+                      <img src={wineImg} alt="Wine" height={25} width={25} style={{verticalAlign: 'text-bottom'}} />
                     </Grid>
-                    <Grid item style={{paddingLeft: '5px'}}>WINERY</Grid>
+                    <Grid item style={{paddingLeft: '5px'}}>
+                      WINERY
+                    </Grid>
                   </Grid>
                 </div>
               </Grid>
@@ -720,9 +725,11 @@ const Dashboard = () => {
                 >
                   <Grid container justifyContent="center" alignItems="center" className="p2">
                     <Grid item>
-                      <img src={nodesImg} alt="Node" height={25} width={25} style={{verticalAlign: 'text-bottom'}}/>
+                      <img src={nodesImg} alt="Node" height={25} width={25} style={{verticalAlign: 'text-bottom'}} />
                     </Grid>
-                    <Grid item style={{paddingLeft: '7px'}}>NODES</Grid>
+                    <Grid item style={{paddingLeft: '7px'}}>
+                      NODES
+                    </Grid>
                   </Grid>
                 </div>
               </Grid>
@@ -736,13 +743,17 @@ const Dashboard = () => {
                     );
                     setActiveTab('Presses');
                   }}
-                  className={activeTab === 'Presses' ? 'button-last dashboard-tab-item-active' : 'button-last dashboard-tab-item'}
+                  className={
+                    activeTab === 'Presses' ? 'button-last dashboard-tab-item-active' : 'button-last dashboard-tab-item'
+                  }
                 >
                   <Grid container justifyContent="center" alignItems="center" className="p2">
                     <Grid item>
-                      <img src={soda} alt="Press" height={25} width={25} style={{verticalAlign: 'text-bottom'}}/>
+                      <img src={soda} alt="Press" height={25} width={25} style={{verticalAlign: 'text-bottom'}} />
                     </Grid>
-                    <Grid item style={{paddingLeft: '5px'}}>PRESSES</Grid>
+                    <Grid item style={{paddingLeft: '5px'}}>
+                      PRESSES
+                    </Grid>
                   </Grid>
                 </div>
               </Grid>
@@ -805,7 +816,9 @@ const Dashboard = () => {
           </Box>
         </div>
       ) : (
-        <UnlockWallet />
+        <>
+          <UnlockWallet />
+        </>
       )}
     </Page>
   );

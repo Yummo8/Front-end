@@ -4,9 +4,8 @@ import AccountButton from '../Nav/AccountButton';
 
 const UnlockWallet = () => {
   return (
-    <Box style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>
+    <Box display={'flex'} alignItems={'center'} justifyContent="center">
       <AccountButton />
-      {/* <Button color="primary" variant="contained" onClick={() => connect('injected')}>Unlock Wallet</Button> */}
     </Box>
   );
 };

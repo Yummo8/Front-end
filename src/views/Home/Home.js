@@ -11,7 +11,7 @@ import useBondStats from '../../hooks/useBondStats';
 import useWineStats from '../../hooks/useWineStats';
 
 import useTotalValueLocked from '../../hooks/useTotalValueLocked';
-import {Button, Grid, Paper, CircularProgress, Typography} from '@material-ui/core';
+import {Button, Grid, Paper, CircularProgress, Typography, useMediaQuery} from '@material-ui/core';
 import kyc from '../../assets/img/kyc.png';
 import audit from '../../assets/img/audit1.png';
 
@@ -22,8 +22,13 @@ import HomeCard from './HomeCard';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import useGetBurntGrape from '../../hooks/useGetBurntGrape';
+import burningGrape from '../../assets/img/burninggrape.png';
+import downArrowGif from '../../assets/img/arrow-down-animated.gif';
+import AnimatedButton from '../../components/Button/AnimatedButton';
+import ImportContactsIcon from '@mui/icons-material/ImportContacts';
 
 const Home = () => {
+  const screen800 = useMediaQuery('(min-width:800px)');
   const totalTVL = useTotalValueLocked();
   const grapemimLpStats = useLpStatsBTC('GRAPE-MIM-LP');
   const bSharemimLpStats = useLpStats('WINE-MIM-LP');
@@ -86,51 +91,80 @@ const Home = () => {
 
   return (
     <Page>
-      <Grid container direction="column" justifyContent="space-between" style={{minHeight: '75vh'}}>
-        <Grid item xs={12} style={{textAlign: 'center'}}>
-          <Grid container justifyContent="center" spacing={2} alignItems="center">
-            <Grid item>
-              <img alt="burning grape" src={require('../../assets/img/burninggrape.png')} className="burning-grape" />
-            </Grid>
+      <Grid container direction="column" justifyContent="space-between" style={{minHeight: '80vh'}} spacing={3}>
+        <Grid item xs={12} style={{marginLeft: '20px'}}>
+          <Grid container direction="column" justifyContent="center" spacing={2} alignItems="flex-start">
             <Grid item>
               <span className="welcome-text">Welcome to Grape Finance</span>
             </Grid>
+            <Grid item style={{color: '#fcfcfc'}}>
+              An Ecosystem of Innovative on-chain DeFi products providing <span style={{color: '#e646e6', fontWeight: '700'}}>real yields</span>, <br />built off a Seigniorage
+              foundation, <br />
+              that truly allows the investors to tailor their strategies to their investing style.
+            </Grid>
             <Grid item>
-              {' '}
-              <Button
+              <a
+                style={{textDecoration: 'none'}}
                 href="https://grape-finance.gitbook.io/grape-finance-docs/"
                 target="_blank"
-                variant="contained"
-                className="winepress get-started"
+                rel="noreferrer noopener"
               >
-                Read the Docs
-              </Button>
+                <AnimatedButton backgroundColor="#e647e62c" icon={<ImportContactsIcon />} title="Read the Docs" />
+              </a>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item xs={12}>
+          <Grid
+            container
+            direction={screen800 ? 'row' : 'column'}
+            justifyContent="center"
+            alignItems="center"
+            spacing={3}
+          >
+            <Grid item xs={12} md={6} style={{width: '100%'}}>
+              <div
+                style={{
+                  backdropFilter: 'blur(4px)',
+                  backgroundColor: 'rgba(0, 0, 0, 0.2)',
+                  border: '1px solid hsla(0,0%,100%,.0784313725490196)',
+                  borderRadius: '6px',
+                }}
+              >
+                <div style={{padding: '15px 30px'}}>
+                  <div className="front-text-top animated-underline no-cursor">TOTAL VALUE LOCKED</div>
+                  <div className="front-text-tvl">
+                    {totalTVL ? <CountUp end={totalTVL} separator="," prefix="$" /> : '$0,000,000'}
+                  </div>
+                </div>
+              </div>
+            </Grid>
+            <Grid item xs={12} md={6} style={{width: '100%'}}>
+              <div
+                style={{
+                  backdropFilter: 'blur(4px)',
+                  backgroundColor: 'rgba(0, 0, 0, 0.2)',
+                  border: '1px solid hsla(0,0%,100%,.0784313725490196)',
+                  borderRadius: '6px',
+                }}
+              >
+                <div style={{padding: '15px 30px'}}>
+                  <div className="front-text-top animated-underline-burn no-cursor">TOTAL BURNT GRAPE</div>
+                  <div className="front-text-tvl burnt-grape-value">
+                    {grapeBurnt ? <CountUp end={grapeBurnt} separator="," /> : '000,000'}
+                  </div>
+                </div>
+              </div>
             </Grid>
           </Grid>
         </Grid>
 
-        <Grid item xs={12}>
-          <div className="front-text-top">TOTAL VALUE LOCKED</div>
-          <div className="front-text-tvl">
-            {totalTVL ? (
-              <CountUp end={totalTVL} separator="," prefix="$" />
-            ) : (
-              <span className="loading-tvl">
-                <SyncLoader color="#E647E6" size={30} />
-              </span>
-            )}
-          </div>
-          <div style={{marginTop:'15px'}} className="burnt-grape">TOTAL BURNT GRAPE</div>
-          <div className="burnt-grape-value">
-            {grapeBurnt ? grapeBurnt.toLocaleString('en-US') : <SyncLoader color="#e67f47" size={10} />}
-          </div>
-        </Grid>
         <Grid item xs={12} style={{textAlign: 'center'}} id="apps">
           <img
             style={{cursor: 'pointer'}}
             onClick={scrollDown}
             alt="down arrow"
-            src={require('../../assets/img/arrow-down-animated.gif')}
+            src={downArrowGif}
             width={55}
             height={35}
           />
@@ -143,15 +177,15 @@ const Home = () => {
         ))}
 
         <Grid item sm={12} style={{textAlign: 'center', marginTop: '30px'}}>
-          <Button
-            className="shinyButton"
+          <AnimatedButton
             onClick={() => {
               setSeeMoreInfo(!seeMoreInfo);
             }}
-          >
-            See More Info
-            {!seeMoreInfo ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
-          </Button>
+            backgroundColor="#9309937c"
+            icon={!seeMoreInfo ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
+            title={!seeMoreInfo ? 'See More Info' : 'Hide'}
+            fullWidth
+          />
         </Grid>
 
         {seeMoreInfo && (

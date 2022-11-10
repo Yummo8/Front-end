@@ -34,6 +34,7 @@ import {batch} from 'react-redux';
 const GRAPE_PER_BATCH = 10;
 
 interface WinepressCardProps {
+  displayName: string;
   bank: Bank;
   activesOnly: boolean;
 }
@@ -47,7 +48,7 @@ const LightTooltip = styled(({className, ...props}: TooltipProps) => (
   },
 }));
 
-const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
+const WinepressCard: React.FC<WinepressCardProps> = ({displayName, bank, activesOnly}) => {
   const widthUnder600 = useMediaQuery('(max-width:600px)');
 
   const grapeFinance = useGrapeFinance();
@@ -212,7 +213,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({bank, activesOnly}) => {
                     <TokenSymbol symbol={bank.depositTokenName} height={30} width={30} />
                   </Grid>
                   <Grid item>
-                    <div>{bank.name}</div>
+                    <div>{displayName}</div>
                     <div className="lineDescription">
                       Lock {bank.depositTokenName} and earn up to 350% back in {bank.depositTokenName}
                     </div>
