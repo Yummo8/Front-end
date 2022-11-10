@@ -784,6 +784,7 @@ code {
 
 .front-text-tvl {
   font-family: 'TOMMY';
+  font-size: 5.5rem;
   text-shadow: 0 0 1vw #6e256c, 0 0 3vw #6e256c, 0 0 20vw #6e256c, 0 0 10vw #6e256c, 0 0 0.4vw #e647e6,
     0vw 0vw 0vw #5b2959;
   color: #e647e6;
