@@ -3,9 +3,7 @@ import cx from 'clsx';
 import {makeStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import {Stack} from '@mui/material';
-import Button from '@material-ui/core/Button';
 import {Row, Item} from '@mui-treasury/components/flex';
-import {Paper} from '@material-ui/core';
 import {Link} from 'react-router-dom';
 
 import solera from '../../assets/img/solera.png';

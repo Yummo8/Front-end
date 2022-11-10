@@ -1,12 +1,11 @@
 import {Container, useMediaQuery, Grid} from '@material-ui/core';
 import useEagerConnect from '../../hooks/useEagerConnect';
-import Menu, {MenuProps} from '@mui/material/Menu';
 import Tooltip from '@mui/material/Tooltip';
 
 import Footer from '../Footer';
 
-import React, {useEffect, useMemo} from 'react';
-import {styled, alpha, useTheme, Theme, CSSObject} from '@mui/material/styles';
+import React from 'react';
+import {styled, useTheme, Theme, CSSObject} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar, {AppBarProps as MuiAppBarProps} from '@mui/material/AppBar';
@@ -15,9 +14,7 @@ import List from '@mui/material/List';
 import CssBaseline from '@mui/material/CssBaseline';
 import {Link} from 'react-router-dom';
 import AccountButton from '../Nav/AccountButton';
-import useCashPriceInEstimatedTWAP from '../../hooks/useCashPriceInEstimatedTWAP';
 
-import burningGrapeIcon from '../../assets/img/burninggrape.png';
 import soleraIcon from '../../assets/img/solera.png';
 import grapeLogo from '../../assets/img/logo1.png';
 import coinsImg from '../../assets/img/casinocoins.png';
@@ -30,7 +27,6 @@ import bondImg from '../../assets/img/gbond.png';
 import wineImg from '../../assets/img/gshare.png';
 import vintageImg from '../../assets/img/vintage-token.png';
 import magikImg from '../../assets/img/magik.png';
-import creamImg from '../../assets/img/cream.png';
 import beefyImg from '../../assets/img/beefy.png';
 import yieldwolfImg from '../../assets/img/yieldwolf.png';
 import debankImg from '../../assets/img/debank.png';
@@ -45,11 +41,6 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
 import Collapse from '@mui/material/Collapse';
-import StarBorder from '@mui/icons-material/StarBorder';
-import useGrapeStats from '../../hooks/useGrapeStats';
-import useWineStats from '../../hooks/useWineStats';
-import useVintagePrice from '../../hooks/useVintagePrice';
-import useXGrapePrice from '../../hooks/useXGrapePrice';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import AppsIcon from '@mui/icons-material/Apps';
@@ -63,24 +54,17 @@ import SavingsIcon from '@mui/icons-material/Savings';
 import AccountBalanceWalletSharpIcon from '@mui/icons-material/AccountBalanceWalletSharp';
 import LinkIcon from '@mui/icons-material/Link';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
-import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import MapIcon from '@mui/icons-material/Map';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import YouTubeIcon from '@mui/icons-material/YouTube';
-import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 import pressIcon from '../../assets/img/barrel.png';
-import Button from '@mui/material/Button';
-import MenuItem from '@mui/material/MenuItem';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import {ReactComponent as IconDiscord} from '../../assets/img/discord-plain.svg';
 import ledgerIcon from '../../assets/img/ledger.png';
-import AddBoxIcon from '@mui/icons-material/AddBox';
-import useGetBurntGrape from '../../hooks/useGetBurntGrape';
 import ImportContactsIcon from '@mui/icons-material/ImportContacts';
 import PriceItems from './PriceItems';
 import TokenSymbol from '../TokenSymbol';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ImageSearchIcon from '@mui/icons-material/ImageSearch';
+
 const drawerWidth = 280;
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -159,61 +143,9 @@ const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})
   }),
 }));
 
-const StyledMenu = styled((props: MenuProps) => (
-  <Menu
-    elevation={0}
-    anchorOrigin={{
-      vertical: 'bottom',
-      horizontal: 'right',
-    }}
-    transformOrigin={{
-      vertical: 'top',
-      horizontal: 'right',
-    }}
-    {...props}
-  />
-))(({theme}) => ({
-  '& .MuiPaper-root': {
-    [theme.breakpoints.down('sm')]: {
-      display: 'none',
-    },
-    borderRadius: 6,
-    backgroundColor: 'rgba(147, 9, 147, 0.9) !important',
-    marginTop: theme.spacing(1),
-    minWidth: 190,
-    color: 'rgb(55, 65, 81)',
-    boxShadow:
-      'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
-    '& .MuiMenu-list': {
-      padding: '4px 0',
-    },
-    '& .MuiMenuItem-root': {
-      '& .MuiSvgIcon-root': {
-        fontSize: 18,
-        color: theme.palette.text.secondary,
-        marginRight: theme.spacing(1.5),
-      },
-      '&:active': {
-        backgroundColor: alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity),
-      },
-    },
-  },
-}));
 
 const Page: React.FC = ({children}) => {
   useEagerConnect();
-
-  const grapeStats = useGrapeStats();
-  const bShareStats = useWineStats();
-  const vintagePrice = useVintagePrice();
-  const xGrapePrice = useXGrapePrice();
-  const grapeBurnt = useGetBurntGrape();
-
-  const grapePrice = useMemo(() => (grapeStats ? Number(grapeStats.tokenInFtm).toFixed(3) : null), [grapeStats]);
-  const winePrice = useMemo(() => (bShareStats ? Number(bShareStats.priceInDollars).toFixed(2) : null), [bShareStats]);
-
-  const cashStat = useCashPriceInEstimatedTWAP();
-  // const twap = useMemo(() => (cashStat ? Number(cashStat.priceInDollars).toFixed(4) : null), [cashStat]);
 
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -224,14 +156,6 @@ const Page: React.FC = ({children}) => {
 
   const handleDrawerClose = () => {
     setOpen(false);
-  };
-
-  const [gamesOpen, setGamesOpen] = React.useState(false);
-  const handleGamesClick = () => {
-    if (!open) {
-      handleDrawerOpen();
-    }
-    setGamesOpen(!gamesOpen);
   };
 
   const [appsOpen, setAppsOpen] = React.useState(false);

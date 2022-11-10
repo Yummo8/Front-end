@@ -1,4 +1,3 @@
-import React from 'react';
 import {Box, Button, Card, CardActions, CardContent, Typography, Grid} from '@material-ui/core';
 import useRebateTreasury from '../../hooks/useRebateTreasury';
 import useApprove, {ApprovalState} from '../../hooks/useApprove';
@@ -24,17 +23,10 @@ const CemeteryCard = ({bank}) => {
 
   const tokenBalance = useTokenBalance(tombFinance.externalTokens[bank.depositTokenName]);
 
-  const [onPresentDeposit, onDismissDeposit] = useModal(
+  const [onPresentDeposit] = useModal(
     <DepositModal
       max={tokenBalance}
       onConfirm={async (value) => {
-        console.log('running my on confirm');
-        console.log('doing the bond');
-        console.log(
-          BN(Math.floor(value * 10000))
-            .mul(BN(10).pow(BN(14)))
-            .toString(),
-        );
         if (!window.ethereum) return;
         const account = (await window.ethereum.request({method: 'eth_accounts'}))[0];
         if (!account) return;
@@ -93,11 +85,23 @@ const CemeteryCard = ({bank}) => {
         </CardContent>
         <CardActions style={{justifyContent: 'flex-end'}}>
           {approveStatus !== ApprovalState.APPROVED ? (
-            <Button style={{width: '100%'}} disabled={approveStatus !== ApprovalState.NOT_APPROVED} className="shinyButton" onClick={approve}>
+            <Button
+              style={{width: '100%'}}
+              disabled={approveStatus !== ApprovalState.NOT_APPROVED}
+              className="shinyButton"
+              onClick={approve}
+            >
               Approve {bank.depositTokenName}
             </Button>
           ) : (
-            <Button style={{width: '100%'}} className="shinyButton" color="primary" size="small" variant="contained" onClick={onPresentDeposit}>
+            <Button
+              style={{width: '100%'}}
+              className="shinyButton"
+              color="primary"
+              size="small"
+              variant="contained"
+              onClick={onPresentDeposit}
+            >
               Bond
             </Button>
           )}

@@ -1,6 +1,5 @@
 import React, {useCallback, useMemo} from 'react';
 import Page from '../../components/Page';
-import {createGlobalStyle} from 'styled-components';
 import {Switch} from 'react-router-dom';
 import {useWallet} from 'use-wallet';
 import UnlockWallet from '../../components/UnlockWallet';
@@ -10,7 +9,6 @@ import styled from 'styled-components';
 import useRaffleStats from '../../hooks/useRaffleBalance';
 import useGrapeFinance from '../../hooks/useGrapeFinance';
 import {useTransactionAdder} from '../../state/transactions/hooks';
-import HomeImage from '../../assets/img/background.jpg';
 import {Card, Grid, CircularProgress} from '@material-ui/core';
 
 import LaunchCountdown from '../../components/LaunchCountdown';

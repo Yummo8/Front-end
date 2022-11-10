@@ -1,4 +1,3 @@
-import React from 'react';
 import {Button} from '@material-ui/core';
 import ReactTooltip from 'react-tooltip';
 import Modal from '../../../components/Modal';
@@ -7,7 +6,6 @@ import ModalTitle from '../../../components/ModalTitle';
 import {getDisplayBalance} from '../../../utils/formatBalance';
 import useEarnings from '../../../hooks/useEarnings';
 import useGrapeNodeClaimFee from '../../../hooks/useGrapeNodeClaimFee';
-import useHarvest from '../../../hooks/useHarvest';
 import {Grid} from '@mui/material';
 
 const ClaimModal = ({bank, tokenName = '', callback}) => {

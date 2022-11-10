@@ -1,8 +1,7 @@
-import React, {useMemo, useState} from 'react';
+import {useMemo, useState} from 'react';
 import Page from '../../components/Page';
 import InfoCard from '../../components/InfoCard';
 import LPInfoCard from '../../components/LPInfoCard';
-import {SyncLoader} from 'react-spinners';
 import CountUp from 'react-countup';
 import useGrapeStats from '../../hooks/useGrapeStats';
 import useLpStats from '../../hooks/useLpStats';
@@ -11,18 +10,16 @@ import useBondStats from '../../hooks/useBondStats';
 import useWineStats from '../../hooks/useWineStats';
 
 import useTotalValueLocked from '../../hooks/useTotalValueLocked';
-import {Button, Grid, Paper, CircularProgress, Typography, useMediaQuery} from '@material-ui/core';
+import {Grid, Paper, CircularProgress, Typography, useMediaQuery} from '@material-ui/core';
 import kyc from '../../assets/img/kyc.png';
 import audit from '../../assets/img/audit1.png';
 
 import useCurrentEpoch from '../../hooks/useCurrentEpoch';
-import useGetBoardroomPrintRate from '../../hooks/useGetBoardroomPrintRate';
 import homeItems from '../../homePageItems.json';
 import HomeCard from './HomeCard';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import useGetBurntGrape from '../../hooks/useGetBurntGrape';
-import burningGrape from '../../assets/img/burninggrape.png';
 import downArrowGif from '../../assets/img/arrow-down-animated.gif';
 import AnimatedButton from '../../components/Button/AnimatedButton';
 import ImportContactsIcon from '@mui/icons-material/ImportContacts';
@@ -98,8 +95,9 @@ const Home = () => {
               <span className="welcome-text">Welcome to Grape Finance</span>
             </Grid>
             <Grid item style={{color: '#fcfcfc'}}>
-              An Ecosystem of Innovative on-chain DeFi products providing <span style={{color: '#e646e6', fontWeight: '700'}}>real yields</span>, <br />built off a Seigniorage
-              foundation, <br />
+              An Ecosystem of Innovative on-chain DeFi products providing{' '}
+              <span style={{color: '#e646e6', fontWeight: '700'}}>real yields</span>, <br />
+              built off a Seigniorage foundation, <br />
               that truly allows the investors to tailor their strategies to their investing style.
             </Grid>
             <Grid item>

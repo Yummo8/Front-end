@@ -1,47 +1,33 @@
 import React, {useMemo, useState, useEffect} from 'react';
 import {useWallet} from 'use-wallet';
 import styled from 'styled-components';
-import {createGlobalStyle} from 'styled-components';
-import moment from 'moment';
-import Label from '../../components/Label';
 import {
   Box,
   Grid,
-  Button,
   Typography,
   Card,
   CardContent,
-  Paper,
   Tooltip,
   Switch,
   FormGroup,
   FormControlLabel,
 } from '@material-ui/core';
-import ProgressCountdown from './ProgressCountdown';
 import UnlockWallet from '../../components/UnlockWallet';
 import TokenSymbol from '../../components/TokenSymbol';
 import Page from '../../components/Page';
-import DashboardInfoCard from '../../components/DashboardInfoCard';
-import DashboardInfoCardNodes from './DashboardInfoCardNodes';
-import useTreasuryAllocationTimes from '../../hooks/useTreasuryAllocationTimes';
 import useBanks from '../../hooks/useBanks';
 import useBank from '../../hooks/useBank';
-import useHarvestAll from '../../hooks/useHarvestAll';
-import useCompoundAll from '../../hooks/useCompoundAll';
 import useGrapeStats from '../../hooks/useGrapeStats';
 import useWineStats from '../../hooks/useWineStats';
 import useWalletStats from '../../hooks/useWalletStats';
 import CountUp from 'react-countup';
-import {useMediaQuery} from '@material-ui/core';
 import useTokenBalance from '../../hooks/useTokenBalance';
 import {getDisplayBalance} from '../../utils/formatBalance';
 import useGrapeFinance from '../../hooks/useGrapeFinance';
 import grapeImg from '../../assets/img/grape.png';
 import nodesImg from '../../assets/img/gnode.png';
 import wineImg from '../../assets/img/gshare.png';
-import wineMimLP from '../../assets/img/gshare-mim.png';
 import soda from '../../assets/img/soda.png';
-import DashboardBoardroomCard from './DashboardBoardroomCard';
 import {SyncLoader} from 'react-spinners';
 import useXGrapePrice from '../../hooks/useXGrapePrice';
 import useVintagePrice from '../../hooks/useVintagePrice';
@@ -58,12 +44,8 @@ import useNodeRewardPoolStats from '../../hooks/useNodesRewardBalance';
 import useGrapeTotalNode from '../../hooks/useGrapeTotalNodes';
 import useWineTotalNode from '../../hooks/useWineTotalNodes';
 import useGrapeMimSWTotalNode from '../../hooks/useGrapeMimSWTotalNode';
-// import {FormControl, InputLabel, MenuItem, Select, SelectChangeEvent} from '@mui/material';
-// import useBanksWithFilters from '../../hooks/useBanksWithFilters';
-// import Vineyard from '../Vineyard';
 
 import {
-  NFT_TICKET_COUNT,
   GRAPE_NODE_MULTIPLIER,
   WINE_NODE_MULTIPLIER,
   GRAPEMIMSW_NODE_MULTIPLIER,

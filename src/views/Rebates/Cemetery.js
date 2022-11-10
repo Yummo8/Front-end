@@ -4,20 +4,16 @@ import {Route, Switch, useRouteMatch} from 'react-router-dom';
 import {makeStyles} from '@material-ui/core/styles';
 import Web3 from 'web3';
 
-import {Box, Card, CardContent, Button, Typography, Grid, Tooltip} from '@material-ui/core';
-
-import {Alert} from '@material-ui/lab';
+import {Box, Card, CardContent, Button, Typography, Grid} from '@material-ui/core';
 
 import UnlockWallet from '../../components/UnlockWallet';
 import Page from '../../components/Page';
 import CemeteryCard from './CemeteryCard';
-import {createGlobalStyle} from 'styled-components';
 
 import useBanks from '../../hooks/useBanks';
 import useRebateTreasury from '../../hooks/useRebateTreasury';
 import useTombStats from '../../hooks/useWineStats';
 import serGrape from '../../assets/img/ser_grape.png';
-import daoImg from '../../assets/img/1.jpg';
 import TokenSymbol from '../../components/TokenSymbol';
 
 const web3 = new Web3();
@@ -85,11 +81,11 @@ const Cemetery = () => {
           {!!account ? (
             <>
               <Typography color="textPrimary" align="center" variant="h3" gutterBottom>
-                🔥Peg Health Campaign <img src={serGrape} width={50} height={50} />
+                🔥Peg Health Campaign <img src={serGrape} alt="Ser Grape" width={50} height={50} />
               </Typography>
               <Typography color="textPrimary" align="center" variant="h6" gutterBottom style={{marginBottom: '40px'}}>
-                Bond GRAPE, GRAPE-MIM LP or MIM and receive discounted WINE vested linearly over 3 days. <br/>All GRAPE will
-                be burnt, MIM will be used to buy and burn GRAPE.
+                Bond GRAPE, GRAPE-MIM LP or MIM and receive discounted WINE vested linearly over 3 days. <br />
+                All GRAPE will be burnt, MIM will be used to buy and burn GRAPE.
               </Typography>
 
               <Box mt={2}>
