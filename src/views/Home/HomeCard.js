@@ -37,11 +37,9 @@ const nameToImage = {
 const useStyles = makeStyles(({palette}) => ({
   root: ({color}) => ({
     borderRadius: '5px !important',
-    border: 'solid',
-    borderWidth: '3px',
-    borderColor: '#000',
-    // background: `rgba(0, 0, 0, 0.5) !important;`,
-    background: `linear-gradient(to bottom, #1a1a1a, #333333)`,
+    border: '1px solid rgba(255, 255, 255, 0.2)',
+    background: `rgba(0, 0, 0, 0.3)`,
+    backdropFilter: 'blur(6px)',
   }),
 
   content: ({color}) => ({

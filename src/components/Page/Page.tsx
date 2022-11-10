@@ -67,7 +67,6 @@ import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import MapIcon from '@mui/icons-material/Map';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import YouTubeIcon from '@mui/icons-material/YouTube';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 import pressIcon from '../../assets/img/barrel.png';
 import Button from '@mui/material/Button';
@@ -79,7 +78,9 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import useGetBurntGrape from '../../hooks/useGetBurntGrape';
 import ImportContactsIcon from '@mui/icons-material/ImportContacts';
 import PriceItems from './PriceItems';
-
+import TokenSymbol from '../TokenSymbol';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ImageSearchIcon from '@mui/icons-material/ImageSearch';
 const drawerWidth = 280;
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -122,8 +123,9 @@ const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })<AppBarProps>(({theme, open}) => ({
   color: '#322f32 !important',
-  background: 'linear-gradient(144deg, rgb(0, 0, 0) 10%, rgba(120, 19, 120, 0.9) 50%, rgba(50, 50, 50, 0.8))',
+  background: 'linear-gradient(144deg, rgb(59,17, 59) 10%, rgba(120, 19, 120, 0.9) 50%, rgba(50, 50, 50, 0.8))',
   boxShadow: '50px 4px 26px -18px rgba(0,0,0,0.99) !important',
+  backdropFilter: 'blur(4px)',
   borderRadius: '0 !important',
   zIndex: theme.zIndex.drawer + 1,
   transition: theme.transitions.create(['width', 'margin'], {
@@ -256,14 +258,6 @@ const Page: React.FC = ({children}) => {
     setWalletsOpen(!walletsOpen);
   };
 
-  // const [contractsOpen, setContractsOpen] = React.useState(false);
-  // const handleContractsClick = () => {
-  //   if (!open) {
-  //     handleDrawerOpen();
-  //   }
-  //   setContractsOpen(!contractsOpen);
-  // };
-
   // const [tokensOpen, setTokensOpen] = React.useState(false);
   // const handleTokensClick = () => {
   //   if (!open) {
@@ -280,13 +274,20 @@ const Page: React.FC = ({children}) => {
     setUsefulllinksOpen(!usefullLinksOpen);
   };
 
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const buyOpen = Boolean(anchorEl);
-  const handleBuyClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
+  const [buyOpen, setBuyOpen] = React.useState(false);
+  const handleBuyClick = () => {
+    if (!open) {
+      handleDrawerOpen();
+    }
+    setBuyOpen(!buyOpen);
   };
-  const handleBuyClose = () => {
-    setAnchorEl(null);
+
+  const [buyNFTsOpen, setBuyNFTsOpen] = React.useState(false);
+  const handleBuyNFTsClick = () => {
+    if (!open) {
+      handleDrawerOpen();
+    }
+    setBuyNFTsOpen(!buyNFTsOpen);
   };
 
   const screenMD = useMediaQuery('(min-width:1050px)');
@@ -348,94 +349,6 @@ const Page: React.FC = ({children}) => {
                       </Grid>
                     </a>
                   </div>
-
-                  {/* <Button
-                    className="shinyButton"
-                    aria-haspopup="true"
-                    aria-expanded={buyOpen ? 'true' : undefined}
-                    disableElevation
-                    onClick={handleBuyClick}
-                    endIcon={<KeyboardArrowDownIcon />}
-                  >
-                    Buy
-                  </Button>
-                  <StyledMenu
-                    id="customized-menu"
-                    MenuListProps={{
-                      'aria-labelledby': 'customized-button',
-                    }}
-                    anchorEl={anchorEl}
-                    open={buyOpen}
-                    onClose={handleBuyClose}
-                  >
-                    <a
-                      className="menu-item"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      href="https://app.bogged.finance/avax/swap?tokenIn=0x130966628846BFd36ff31a822705796e8cb8C18D&tokenOut=0x5541D83EFaD1f281571B343977648B75d95cdAC2"
-                    >
-                      <MenuItem onClick={handleBuyClose} disableRipple>
-                        Buy Grape
-                      </MenuItem>
-                    </a>
-                    <a
-                      className="menu-item"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      href="https://app.bogged.finance/avax/swap?tokenIn=0x130966628846BFd36ff31a822705796e8cb8C18D&tokenOut=0xC55036B5348CfB45a932481744645985010d3A44"
-                    >
-                      <MenuItem onClick={handleBuyClose} disableRipple>
-                        Buy Wine
-                      </MenuItem>
-                    </a>
-                    <a className="menu-item" href="/bond">
-                      <MenuItem onClick={handleBuyClose} disableRipple>
-                        Buy Gbond
-                      </MenuItem>
-                    </a>
-                    <a
-                      className="menu-item"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      href="https://www.swapsicle.io/swap?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0x01Af64EF39AEB5612202AA07B3A3829f20c395fd#/"
-                    >
-                      <MenuItem onClick={handleBuyClose} disableRipple>
-                        Buy Vintage
-                      </MenuItem>
-                    </a>
-                    <a
-                      className="menu-item"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      href="https://nftrade.com/assets/avalanche/0xe26168f45030e1eb7477fa5f9a4a28d93c0658b4"
-                    >
-                      <MenuItem onClick={handleBuyClose} disableRipple>
-                        Buy Vintners
-                      </MenuItem>
-                    </a>
-                    <Divider sx={{my: 0.5}} />
-
-                    <a
-                      className="menu-item"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      href="https://nftrade.com/assets/avalanche/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df"
-                    >
-                      <MenuItem onClick={handleBuyClose} disableRipple>
-                        Buy NFTs with Avax
-                      </MenuItem>
-                    </a>
-                    <a
-                      className="menu-item"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      href="https://hexagon.market/collections/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df?sort=-highestPrice"
-                    >
-                      <MenuItem onClick={handleBuyClose} disableRipple>
-                        Buy NFTs with Grape
-                      </MenuItem>
-                    </a>
-                  </StyledMenu> */}
                 </div>
               )}
               <AccountButton text="Connect" />
@@ -777,7 +690,289 @@ const Page: React.FC = ({children}) => {
           <Divider color="#aaa" />
 
           <List>
-            <Tooltip arrow followCursor title={open ? '' : 'Vaults'} placement="top-start">
+            <Tooltip arrow followCursor title={open ? '' : 'Buy Tokens'} placement="top-start">
+              <ListItemButton onClick={handleBuyClick}>
+                <ListItemIcon
+                  sx={{
+                    color: 'white',
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <ShoppingCartIcon style={{fill: '#cd72f6'}} />
+                </ListItemIcon>
+                <ListItemText primary="Buy Tokens" sx={{opacity: open ? 1 : 0}} />
+                {open ? buyOpen ? <ExpandLess /> : <ExpandMore /> : null}
+              </ListItemButton>
+            </Tooltip>
+            {open && (
+              <Collapse in={buyOpen} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                  <a
+                    className="menu-item"
+                    href="https://app.bogged.finance/avax/swap?tokenIn=0x130966628846BFd36ff31a822705796e8cb8C18D&tokenOut=0x5541D83EFaD1f281571B343977648B75d95cdAC2"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{padding: 0, display: 'block'}}
+                  >
+                    <ListItemButton sx={{pl: 4}}>
+                      <ListItemIcon
+                        sx={{
+                          color: 'white',
+                          minWidth: 0,
+                          mr: open ? 3 : 'auto',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <img src={grapeImg} alt="Grape" height={22} />{' '}
+                      </ListItemIcon>
+                      <ListItemText primary="GRAPE" />
+                    </ListItemButton>
+                  </a>
+                  <a
+                    className="menu-item"
+                    href="https://app.bogged.finance/avax/swap?tokenIn=0x130966628846BFd36ff31a822705796e8cb8C18D&tokenOut=0xC55036B5348CfB45a932481744645985010d3A44"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{padding: 0, display: 'block'}}
+                  >
+                    <ListItemButton sx={{pl: 4}}>
+                      <ListItemIcon
+                        sx={{
+                          color: 'white',
+                          minWidth: 0,
+                          mr: open ? 3 : 'auto',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <img src={wineImg} alt="Wine" height={22} />{' '}
+                      </ListItemIcon>
+                      <ListItemText primary="WINE" />
+                    </ListItemButton>
+                  </a>
+                  <a
+                    className="menu-item"
+                    href="https://xgrape.grapefinance.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{padding: 0, display: 'block'}}
+                  >
+                    <ListItemButton sx={{pl: 4}}>
+                      <ListItemIcon
+                        sx={{
+                          color: 'white',
+                          minWidth: 0,
+                          mr: open ? 3 : 'auto',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <img src={xGrapeImg} alt="xGRAPE" height={22} />{' '}
+                      </ListItemIcon>
+                      <ListItemText primary="xGRAPE" />
+                    </ListItemButton>
+                  </a>
+                  <a
+                    className="menu-item"
+                    href="https://www.swapsicle.io/swap?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0x01Af64EF39AEB5612202AA07B3A3829f20c395fd#/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{padding: 0, display: 'block'}}
+                  >
+                    <ListItemButton sx={{pl: 4}}>
+                      <ListItemIcon
+                        sx={{
+                          color: 'white',
+                          minWidth: 0,
+                          mr: open ? 3 : 'auto',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <img src={vintageImg} alt="Vintage" height={22} />{' '}
+                      </ListItemIcon>
+                      <ListItemText primary="VINTAGE" />
+                    </ListItemButton>
+                  </a>
+                  <a
+                    className="menu-item"
+                    href="https://winemaker.grapefinance.app/app/Cellar"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{padding: 0, display: 'block'}}
+                  >
+                    <ListItemButton sx={{pl: 4}}>
+                      <ListItemIcon
+                        sx={{
+                          color: 'white',
+                          minWidth: 0,
+                          mr: open ? 3 : 'auto',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <img src={soleraIcon} alt="sVintage" height={22} />{' '}
+                      </ListItemIcon>
+                      <ListItemText primary="sVINTAGE (in Cellar)" />
+                    </ListItemButton>
+                  </a>
+                </List>
+              </Collapse>
+            )}
+          </List>
+
+          <List>
+            <Tooltip arrow followCursor title={open ? '' : 'Buy NFTs'} placement="top-start">
+              <ListItemButton onClick={handleBuyNFTsClick}>
+                <ListItemIcon
+                  sx={{
+                    color: 'white',
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <ImageSearchIcon style={{fill: '#cd72f6'}} />
+                </ListItemIcon>
+                <ListItemText primary="Buy NFTs" sx={{opacity: open ? 1 : 0}} />
+                {open ? buyNFTsOpen ? <ExpandLess /> : <ExpandMore /> : null}
+              </ListItemButton>
+            </Tooltip>
+            {open && (
+              <Collapse in={buyNFTsOpen} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                  <a
+                    className="menu-item"
+                    href="https://hexagon.market/collections/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df?sort=-highestPrice"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{padding: 0, display: 'block'}}
+                  >
+                    <ListItemButton sx={{pl: 4}}>
+                      <ListItemIcon
+                        sx={{
+                          color: 'white',
+                          minWidth: 0,
+                          mr: open ? 3 : 'auto',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <TokenSymbol symbol="GOBLET" height={25} width={25} />
+                      </ListItemIcon>
+                      <ListItemText primary="Winery (Grape)" />
+                    </ListItemButton>
+                  </a>
+                  <a
+                    className="menu-item"
+                    href="https://hexagon.market/collections/0xe26168f45030e1eb7477fa5f9a4a28d93c0658b4"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{padding: 0, display: 'block'}}
+                  >
+                    <ListItemButton sx={{pl: 4}}>
+                      <ListItemIcon
+                        sx={{
+                          color: 'white',
+                          minWidth: 0,
+                          mr: open ? 3 : 'auto',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <TokenSymbol symbol="VINTNERS" height={25} width={25} />
+                      </ListItemIcon>
+                      <ListItemText primary="Vintners (Grape)" />
+                    </ListItemButton>
+                  </a>
+
+                  <a
+                    className="menu-item"
+                    href="https://nftrade.com/assets/avalanche/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{padding: 0, display: 'block'}}
+                  >
+                    <ListItemButton sx={{pl: 4}}>
+                      <ListItemIcon
+                        sx={{
+                          color: 'white',
+                          minWidth: 0,
+                          mr: open ? 3 : 'auto',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <TokenSymbol symbol="GOBLET" height={25} width={25} />
+                      </ListItemIcon>
+                      <ListItemText primary="Winery (NFTrade)" />
+                    </ListItemButton>
+                  </a>
+                  <a
+                    className="menu-item"
+                    href="https://nftrade.com/collection/the-vintners-v1?search=&sort=min_listed_desc&contractAddress=0xe26168f45030e1eb7477fa5f9a4a28d93c0658b4&chainName="
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{padding: 0, display: 'block'}}
+                  >
+                    <ListItemButton sx={{pl: 4}}>
+                      <ListItemIcon
+                        sx={{
+                          color: 'white',
+                          minWidth: 0,
+                          mr: open ? 3 : 'auto',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <TokenSymbol symbol="VINTNERS" height={25} width={25} />
+                      </ListItemIcon>
+                      <ListItemText primary="Vintners (NFTrade)" />
+                    </ListItemButton>
+                  </a>
+                  <a
+                    className="menu-item"
+                    href="https://www.alphashares.io/explore/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{padding: 0, display: 'block'}}
+                  >
+                    <ListItemButton sx={{pl: 4}}>
+                      <ListItemIcon
+                        sx={{
+                          color: 'white',
+                          minWidth: 0,
+                          mr: open ? 3 : 'auto',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <TokenSymbol symbol="GOBLET" height={25} width={25} />
+                      </ListItemIcon>
+                      <ListItemText primary="Winery (AlphaShares)" />
+                    </ListItemButton>
+                  </a>
+                  <a
+                    className="menu-item"
+                    href="https://www.alphashares.io/explore/0xe26168f45030e1eb7477fa5f9a4a28d93c0658b4"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{padding: 0, display: 'block'}}
+                  >
+                    <ListItemButton sx={{pl: 4}}>
+                      <ListItemIcon
+                        sx={{
+                          color: 'white',
+                          minWidth: 0,
+                          mr: open ? 3 : 'auto',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <TokenSymbol symbol="VINTNERS" height={25} width={25} />
+                      </ListItemIcon>
+                      <ListItemText primary="Vintners (AlphaShares)" />
+                    </ListItemButton>
+                  </a>
+                </List>
+              </Collapse>
+            )}
+          </List>
+
+          <List>
+            <Tooltip arrow followCursor title={open ? '' : 'AC Vaults'} placement="top-start">
               <ListItemButton onClick={handleVaultsClick}>
                 <ListItemIcon
                   sx={{
@@ -789,7 +984,7 @@ const Page: React.FC = ({children}) => {
                 >
                   <SavingsIcon style={{fill: '#cd72f6'}} />
                 </ListItemIcon>
-                <ListItemText primary="Vaults" sx={{opacity: open ? 1 : 0}} />
+                <ListItemText primary="AC Vaults" sx={{opacity: open ? 1 : 0}} />
                 {open ? vaultsOpen ? <ExpandLess /> : <ExpandMore /> : null}
               </ListItemButton>
             </Tooltip>
@@ -966,317 +1161,9 @@ const Page: React.FC = ({children}) => {
           </List>
 
           <Divider color="#aaa" />
-          <List>
-            <Tooltip arrow followCursor title={open ? '' : 'Docs'} placement="top-start">
-              <a
-                className="menu-item"
-                href="https://grapefinance.gitbook.io/grape-finance-docs/"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{padding: 0, display: 'block'}}
-              >
-                <ListItemButton
-                  sx={{
-                    minHeight: 48,
-                    justifyContent: open ? 'initial' : 'center',
-                  }}
-                >
-                  <ListItemIcon
-                    sx={{
-                      color: 'white',
-                      minWidth: 0,
-                      mr: open ? 3 : 'auto',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <MenuBookIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Docs" sx={{opacity: open ? 1 : 0}} />
-                </ListItemButton>
-              </a>
-            </Tooltip>
-            {/* <Tooltip arrow followCursor title={open ? '' : 'Contracts'} placement="top-start">
-              <ListItemButton onClick={handleContractsClick}>
-                <ListItemIcon
-                  sx={{
-                    color: 'white',
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <FeedIcon style={{fill: '#f1d1ff'}} />
-                </ListItemIcon>
-                <ListItemText primary="Contracts" sx={{opacity: open ? 1 : 0}} />
-                {open ? contractsOpen ? <ExpandLess /> : <ExpandMore /> : null}
-              </ListItemButton>
-            </Tooltip>
-            {open && (
-              <Collapse in={contractsOpen} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
-                  <a
-                    className="menu-item"
-                    href="https://snowtrace.io/address/0x3ce7bC78a7392197C569504970017B6Eb0d7A972"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemText primary="Winery (Boardroom)" />
-                    </ListItemButton>
-                  </a>
-                  <a
-                    className="menu-item"
-                    href="https://snowtrace.io/address/0xb260547c37bC80fBD1a0D742Af71C2324151640c"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemText primary="Treasury" />
-                    </ListItemButton>
-                  </a>
-                  <a
-                    className="menu-item"
-                    href="https://snowtrace.io/address/0x4cDE1deb1FD11FeC61b6e2d322c1520527992196"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemText primary="Grape Node" />
-                    </ListItemButton>
-                  </a>
-                  <a
-                    className="menu-item"
-                    href="https://snowtrace.io/address/0xfCbD88AD9a9f33a227c307EC1478bCDeB0412EdB"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemText primary="Grape-MIM SW Node" />
-                    </ListItemButton>
-                  </a>
-                  <a
-                    className="menu-item"
-                    href="https://snowtrace.io/address/0x153d78155d1d579F8CC56dD110aBf6343184cA55"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemText primary="Grape-Wlrs Node" />
-                    </ListItemButton>
-                  </a>
-                  <a
-                    className="menu-item"
-                    href="https://snowtrace.io/address/0x2707ccc10D6C1ce49f72867aB5b85dE11e64979f"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemText primary="WinePress" />
-                    </ListItemButton>
-                  </a>
-                  <a
-                    className="menu-item"
-                    href="https://snowtrace.io/address/0x369E556F0e7A08E781527D161DaC867bb05fA597"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemText primary="SodaPress" />
-                    </ListItemButton>
-                  </a>
-                </List>
-              </Collapse>
-            )} */}
-          </List>
-
-          {/* <List>
-            <Tooltip arrow followCursor title={open ? '' : 'Tokens / LPs'} placement="top-start">
-              <ListItemButton onClick={handleTokensClick}>
-                <ListItemIcon
-                  sx={{
-                    color: 'white',
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <AddBoxIcon style={{fill: '#f1d1ff'}} />
-                </ListItemIcon>
-                <ListItemText primary="Tokens / LPs" sx={{opacity: open ? 1 : 0}} />
-                {open ? tokensOpen ? <ExpandLess /> : <ExpandMore /> : null}
-              </ListItemButton>
-            </Tooltip>
-            {open && (
-              <Collapse in={tokensOpen} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
-                  <a
-                    className="menu-item"
-                    href="https://snowtrace.io/address/0x130966628846BFd36ff31a822705796e8cb8C18D"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemText primary="MIM" />
-                    </ListItemButton>
-                  </a>
-                  <a
-                    className="menu-item"
-                    href="https://snowtrace.io/address/0x5541D83EFaD1f281571B343977648B75d95cdAC2"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemText primary="Grape" />
-                    </ListItemButton>
-                  </a>
-                  <a
-                    className="menu-item"
-                    href="https://snowtrace.io/address/0x95CED7c63eA990588F3fd01cdDe25247D04b8D98"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemText primary="xGrape" />
-                    </ListItemButton>
-                  </a>
-                  <a
-                    className="menu-item"
-                    href="https://snowtrace.io/address/0x7801dc126F56ffeFbc7947B7d21ce8358265a886"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemText primary="xGrape Price" />
-                    </ListItemButton>
-                  </a>
-                  <a
-                    className="menu-item"
-                    href="https://snowtrace.io/address/0xe00b91f35924832d1a7d081d4dced55f3b80fb5c"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemText primary="xGrape-Grape LP" />
-                    </ListItemButton>
-                  </a>
-                  <a
-                    className="menu-item"
-                    href="https://snowtrace.io/address/0xC55036B5348CfB45a932481744645985010d3A44"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemText primary="Wine" />
-                    </ListItemButton>
-                  </a>
-                  <a
-                    className="menu-item"
-                    href="https://snowtrace.io/address/0x01Af64EF39AEB5612202AA07B3A3829f20c395fd"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemText primary="Vintage" />
-                    </ListItemButton>
-                  </a>
-                  <a
-                    className="menu-item"
-                    href="https://snowtrace.io/address/0xf016e69F2c08a0b743a7d815d1059318DCa8Fc0e"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemText primary="sVintage" />
-                    </ListItemButton>
-                  </a>
-                  <a
-                    className="menu-item"
-                    href="https://snowtrace.io/address/0x9076C15D7b2297723ecEAC17419D506AE320CbF1"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemText primary="Grape-MIM SW" />
-                    </ListItemButton>
-                  </a>
-                  <a
-                    className="menu-item"
-                    href="https://snowtrace.io/address/0xb382247667fe8ca5327ca1fa4835ae77a9907bc8"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemText primary="Grape-MIM TJ" />
-                    </ListItemButton>
-                  </a>
-                  <a
-                    className="menu-item"
-                    href="https://snowtrace.io/address/0xA3F24b18608606079a0317Cbe6Cda54CED931420"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemText primary="Grape-Wlrs LP" />
-                    </ListItemButton>
-                  </a>
-                  <a
-                    className="menu-item"
-                    href="https://snowtrace.io/address/0xd3d477Df7f63A2623464Ff5Be6746981FdeD026F"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemText primary="Grape-Wine LP" />
-                    </ListItemButton>
-                  </a>
-                  <a
-                    className="menu-item"
-                    href="https://snowtrace.io/address/0x00cB5b42684DA62909665d8151fF80D1567722c3"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemText primary="Wine-MIM LP" />
-                    </ListItemButton>
-                  </a>
-                  <a
-                    className="menu-item"
-                    href="https://snowtrace.io/address/0xE9b9FA7f3A047d77655A9Ff8df5055f1d7826A6e"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemText primary="Wine-POPs LP" />
-                    </ListItemButton>
-                  </a>
-                </List>
-              </Collapse>
-            )}
-          </List> */}
 
           <List>
-            <Tooltip arrow followCursor title={open ? '' : 'Useful Links'} placement="top-start">
+            <Tooltip arrow followCursor title={open ? '' : 'Other Links'} placement="top-start">
               <ListItemButton onClick={handleUsefullLinksClick}>
                 <ListItemIcon
                   sx={{
@@ -1288,46 +1175,28 @@ const Page: React.FC = ({children}) => {
                 >
                   <LinkIcon style={{fill: '#f1d1ff'}} />
                 </ListItemIcon>
-                <ListItemText primary="Useful Links" sx={{opacity: open ? 1 : 0}} />
+                <ListItemText primary="Other Links" sx={{opacity: open ? 1 : 0}} />
                 {open ? usefullLinksOpen ? <ExpandLess /> : <ExpandMore /> : null}
               </ListItemButton>
             </Tooltip>
             {open && (
               <Collapse in={usefullLinksOpen} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
-                  <Tooltip arrow followCursor title={open ? '' : 'Leaderboard'} placement="top-start">
-                    <ListItem
-                      className="menu-item"
-                      button
-                      component={Link}
-                      to="/leaderboard"
-                      disablePadding
-                      sx={{display: 'block'}}
-                    >
-                      <ListItemButton sx={{pl: 4}}>
-                        <ListItemIcon
-                          sx={{
-                            color: 'white',
-                            minWidth: 0,
-                            mr: open ? 3 : 'auto',
-                            justifyContent: 'center',
-                          }}
-                        >
-                          <LeaderboardIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Leaderboard" />
-                      </ListItemButton>
-                    </ListItem>
-                  </Tooltip>
-                  <Tooltip arrow followCursor title={open ? '' : 'Buy NFTs with Grape'} placement="top-start">
+                  <Tooltip arrow followCursor title={open ? '' : 'Docs'} placement="top-start">
                     <a
                       className="menu-item"
-                      href="https://hexagon.market/collections/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df?sort=-highestPrice"
+                      href="https://grapefinance.gitbook.io/grape-finance-docs/"
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{padding: 0, display: 'block'}}
                     >
-                      <ListItemButton sx={{pl: 4}}>
+                      <ListItemButton
+                        sx={{
+                          minHeight: 48,
+                          justifyContent: open ? 'initial' : 'center',
+                          pl: 4,
+                        }}
+                      >
                         <ListItemIcon
                           sx={{
                             color: 'white',
@@ -1336,26 +1205,27 @@ const Page: React.FC = ({children}) => {
                             justifyContent: 'center',
                           }}
                         >
-                          <ShoppingCartIcon />
+                          <MenuBookIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Buy NFTs with Grape" />
+                        <ListItemText primary="Docs" sx={{opacity: open ? 1 : 0}} />
                       </ListItemButton>
                     </a>
                   </Tooltip>
-                  <Tooltip
-                    arrow
-                    followCursor
-                    title={open ? '' : 'Buy NFTs with Avax (NFT Trade)'}
-                    placement="top-start"
-                  >
+                  <Tooltip arrow followCursor title={open ? '' : 'Contracts'} placement="top-start">
                     <a
                       className="menu-item"
-                      href="https://nftrade.com/assets/avalanche/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df"
+                      href="https://app.gitbook.com/s/NUqRuqfjnQX78cGRsBTc/protocol/contracts"
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{padding: 0, display: 'block'}}
                     >
-                      <ListItemButton sx={{pl: 4}}>
+                      <ListItemButton
+                        sx={{
+                          minHeight: 48,
+                          justifyContent: open ? 'initial' : 'center',
+                          pl: 4,
+                        }}
+                      >
                         <ListItemIcon
                           sx={{
                             color: 'white',
@@ -1364,26 +1234,27 @@ const Page: React.FC = ({children}) => {
                             justifyContent: 'center',
                           }}
                         >
-                          <ShoppingCartIcon />
+                          <FeedIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Buy NFTs on NFT Trade" />
+                        <ListItemText primary="Contracts" sx={{opacity: open ? 1 : 0}} />
                       </ListItemButton>
                     </a>
                   </Tooltip>
-                  <Tooltip
-                    arrow
-                    followCursor
-                    title={open ? '' : 'Buy NFTs with Avax (NFT Trade)'}
-                    placement="top-start"
-                  >
+                  <Tooltip arrow followCursor title={open ? '' : 'Education'} placement="top-start">
                     <a
                       className="menu-item"
-                      href="https://www.alphashares.io/explore/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df"
+                      href="https://www.youtube.com/channel/UCaArraLhGOOzR1vZKr4y4Tw"
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{padding: 0, display: 'block'}}
                     >
-                      <ListItemButton sx={{pl: 4}}>
+                      <ListItemButton
+                        sx={{
+                          minHeight: 48,
+                          justifyContent: open ? 'initial' : 'center',
+                          pl: 4,
+                        }}
+                      >
                         <ListItemIcon
                           sx={{
                             color: 'white',
@@ -1392,62 +1263,42 @@ const Page: React.FC = ({children}) => {
                             justifyContent: 'center',
                           }}
                         >
-                          <ShoppingCartIcon />
+                          <YouTubeIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Buy NFTs on Alpha Shares" />
+                        <ListItemText primary="Education" sx={{opacity: open ? 1 : 0}} />
+                      </ListItemButton>
+                    </a>
+                  </Tooltip>
+                  <Tooltip arrow followCursor title={open ? '' : 'Buy Ledger'} placement="top-start">
+                    <a
+                      className="menu-item"
+                      href="https://shop.ledger.com/?r=ba80c2f11e62"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{padding: 0, display: 'block'}}
+                    >
+                      <ListItemButton
+                        sx={{
+                          minHeight: 48,
+                          justifyContent: open ? 'initial' : 'center',
+                          pl: 4,
+                        }}
+                      >
+                        <ListItemIcon
+                          sx={{
+                            color: 'white',
+                            minWidth: 0,
+                            mr: open ? 3 : 'auto',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          <img src={ledgerIcon} alt="Buy Ledger" width={24} height={24} />
+                        </ListItemIcon>
+                        <ListItemText primary="Buy Ledger" sx={{opacity: open ? 1 : 0}} />
                       </ListItemButton>
                     </a>
                   </Tooltip>
 
-                  <Tooltip arrow followCursor title={open ? '' : 'Strategies'} placement="top-start">
-                    <ListItem
-                      className="menu-item"
-                      button
-                      component={Link}
-                      to="/strategies"
-                      disablePadding
-                      sx={{display: 'block'}}
-                    >
-                      <ListItemButton sx={{pl: 4}}>
-                        <ListItemIcon
-                          sx={{
-                            color: 'white',
-                            minWidth: 0,
-                            mr: open ? 3 : 'auto',
-                            justifyContent: 'center',
-                          }}
-                        >
-                          <StarBorder />
-                        </ListItemIcon>
-                        <ListItemText primary="Strategies" />
-                      </ListItemButton>
-                    </ListItem>
-                  </Tooltip>
-
-                  <Tooltip arrow followCursor title={open ? '' : 'Stats'} placement="top-start">
-                    <ListItem
-                      className="menu-item"
-                      button
-                      component={Link}
-                      to="/stats"
-                      disablePadding
-                      sx={{display: 'block'}}
-                    >
-                      <ListItemButton sx={{pl: 4}}>
-                        <ListItemIcon
-                          sx={{
-                            color: 'white',
-                            minWidth: 0,
-                            mr: open ? 3 : 'auto',
-                            justifyContent: 'center',
-                          }}
-                        >
-                          <QueryStatsIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Stats" />
-                      </ListItemButton>
-                    </ListItem>
-                  </Tooltip>
                   <Tooltip arrow followCursor title={open ? '' : 'Roadmap'} placement="top-start">
                     <ListItem
                       className="menu-item"
@@ -1495,66 +1346,14 @@ const Page: React.FC = ({children}) => {
                       </ListItemButton>
                     </a>
                   </Tooltip>
-                  <Tooltip arrow followCursor title={open ? '' : 'Beginner Videos'} placement="top-start">
-                    <ListItem
-                      className="menu-item"
-                      button
-                      component={Link}
-                      to="/help"
-                      disablePadding
-                      sx={{display: 'block'}}
-                    >
-                      <ListItemButton sx={{pl: 4}}>
-                        <ListItemIcon
-                          sx={{
-                            color: 'white',
-                            minWidth: 0,
-                            mr: open ? 3 : 'auto',
-                            justifyContent: 'center',
-                          }}
-                        >
-                          <YouTubeIcon sx={{color: 'red'}} />
-                        </ListItemIcon>
-                        <ListItemText primary="Beginner Videos" />
-                      </ListItemButton>
-                    </ListItem>
-                  </Tooltip>
                 </List>
               </Collapse>
             )}
-            <Tooltip arrow followCursor title={open ? '' : 'Buy Ledger'} placement="top-start">
-              <a
-                className="menu-item"
-                href="https://shop.ledger.com/?r=ba80c2f11e62"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{padding: 0, display: 'block'}}
-              >
-                <ListItemButton
-                  sx={{
-                    minHeight: 48,
-                    justifyContent: open ? 'initial' : 'center',
-                  }}
-                >
-                  <ListItemIcon
-                    sx={{
-                      color: 'white',
-                      minWidth: 0,
-                      mr: open ? 3 : 'auto',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <img src={ledgerIcon} alt="Buy Ledger" width={24} height={24} />
-                  </ListItemIcon>
-                  <ListItemText primary="Buy Ledger" sx={{opacity: open ? 1 : 0}} />
-                </ListItemButton>
-              </a>
-            </Tooltip>
           </List>
         </Drawer>
         <Box component="main" sx={{flexGrow: 1}}>
           <DrawerHeader />
-          <Container maxWidth="lg" style={{paddingBottom: '70px'}}>
+          <Container maxWidth="lg" style={{paddingBottom: '30px'}}>
             <div
               style={{
                 marginTop: screenMD ? '20px' : '40px',
@@ -1562,10 +1361,12 @@ const Page: React.FC = ({children}) => {
             >
               {children}
             </div>
+            <div style={{marginTop: '50px'}}>
+              <Footer />
+            </div>
           </Container>
         </Box>
       </Box>
-      <Footer />
     </div>
   );
 };

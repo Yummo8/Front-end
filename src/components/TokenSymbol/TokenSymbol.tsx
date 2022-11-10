@@ -22,6 +22,7 @@ import goonbag from '../../assets/img/goonbag.png';
 import glass from '../../assets/img/glass.png';
 import decanter from '../../assets/img/decanter.png';
 import goblet from '../../assets/img/goblet.png';
+import vintners from '../../assets/img/vintners.png';
 import nodes from '../../assets/img/gnode.png';
 
 const logosBySymbol: {[title: string]: string} = {
@@ -53,6 +54,7 @@ const logosBySymbol: {[title: string]: string} = {
   DECANTER: decanter,
   GOBLET: goblet,
   NODE: nodes,
+  VINTNERS: vintners,
 };
 
 type LogoProps = {

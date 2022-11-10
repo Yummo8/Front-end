@@ -91,14 +91,16 @@ const Home = () => {
 
   return (
     <Page>
-      <Grid container direction="column" justifyContent="space-between" style={{minHeight: '75vh'}}>
-        <Grid item xs={12}>
-          <Grid container direction="column" justifyContent="center" spacing={2} alignItems="center">
+      <Grid container direction="column" justifyContent="space-between" style={{minHeight: '80vh'}} spacing={3}>
+        <Grid item xs={12} style={{marginLeft: '20px'}}>
+          <Grid container direction="column" justifyContent="center" spacing={2} alignItems="flex-start">
             <Grid item>
               <span className="welcome-text">Welcome to Grape Finance</span>
             </Grid>
             <Grid item style={{color: '#fcfcfc'}}>
-              A DeFi Ecosystem that makes you rich. Stressed first, and then rich.{' '}
+              An Ecosystem of Innovative on-chain DeFi products providing <span style={{color: '#e646e6', fontWeight: '700'}}>real yields</span>, <br />built off a Seigniorage
+              foundation, <br />
+              that truly allows the investors to tailor their strategies to their investing style.
             </Grid>
             <Grid item>
               <a
@@ -116,46 +118,40 @@ const Home = () => {
           <Grid
             container
             direction={screen800 ? 'row' : 'column'}
-            justifyContent="space-evenly"
+            justifyContent="center"
             alignItems="center"
             spacing={3}
           >
-            <Grid item>
+            <Grid item xs={12} md={6} style={{width: '100%'}}>
               <div
                 style={{
                   backdropFilter: 'blur(4px)',
-                  backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                  backgroundColor: 'rgba(0, 0, 0, 0.2)',
                   border: '1px solid hsla(0,0%,100%,.0784313725490196)',
-                  borderRadius: '4px',
+                  borderRadius: '6px',
                 }}
               >
                 <div style={{padding: '15px 30px'}}>
-                  <div className="front-text-top">TOTAL VALUE LOCKED</div>
+                  <div className="front-text-top animated-underline no-cursor">TOTAL VALUE LOCKED</div>
                   <div className="front-text-tvl">
-                    {totalTVL ? (
-                      <CountUp end={totalTVL} separator="," prefix="$" />
-                    ) : (
-                      <span className="loading-tvl">
-                        <SyncLoader color="#E647E6" size={30} />
-                      </span>
-                    )}
+                    {totalTVL ? <CountUp end={totalTVL} separator="," prefix="$" /> : '$0,000,000'}
                   </div>
                 </div>
               </div>
             </Grid>
-            <Grid item>
+            <Grid item xs={12} md={6} style={{width: '100%'}}>
               <div
                 style={{
                   backdropFilter: 'blur(4px)',
-                  backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                  backgroundColor: 'rgba(0, 0, 0, 0.2)',
                   border: '1px solid hsla(0,0%,100%,.0784313725490196)',
-                  borderRadius: '4px',
+                  borderRadius: '6px',
                 }}
               >
                 <div style={{padding: '15px 30px'}}>
-                  <div className="front-text-top">TOTAL BURNT GRAPE</div>
+                  <div className="front-text-top animated-underline-burn no-cursor">TOTAL BURNT GRAPE</div>
                   <div className="front-text-tvl burnt-grape-value">
-                    {grapeBurnt ? <CountUp end={grapeBurnt} separator="," /> : <SyncLoader color="#e67f47" size={30} />}
+                    {grapeBurnt ? <CountUp end={grapeBurnt} separator="," /> : '000,000'}
                   </div>
                 </div>
               </div>
