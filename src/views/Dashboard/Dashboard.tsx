@@ -1,4 +1,4 @@
-import React, {useMemo, useState, useEffect} from 'react';
+import React, {useMemo, useState, useEffect, useRef} from 'react';
 import {useWallet} from 'use-wallet';
 import styled from 'styled-components';
 import {
@@ -178,15 +178,21 @@ const Dashboard = () => {
     account,
   ]);
 
+  const tabsRef = useRef(null);
+
   useEffect(() => {
     const hash = location.hash;
     if (hash === '#farms') {
+      tabsRef.current.scrollIntoView();
       setActiveTab('Farms');
     } else if (hash === '#winery') {
+      tabsRef.current.scrollIntoView();
       setActiveTab('Winery');
     } else if (hash === '#nodes') {
+      tabsRef.current.scrollIntoView();
       setActiveTab('Nodes');
     } else if (hash === '#presses') {
+      tabsRef.current.scrollIntoView();
       setActiveTab('Presses');
     }
   }, [location]);
@@ -644,7 +650,10 @@ const Dashboard = () => {
             </Grid>
           </Grid>
 
-          <div style={{height: '3px', backgroundColor: '#930993', borderRadius: '5px', marginTop: '40px'}}></div>
+          <div
+            ref={tabsRef}
+            style={{height: '3px', backgroundColor: '#930993', borderRadius: '5px', marginTop: '40px'}}
+          ></div>
           <Box mt={4}>
             <Grid container justifyContent={'center'} spacing={0} className="dashboard-tabs">
               <Grid item>

@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {Button} from '@material-ui/core';
 import {useWallet} from 'use-wallet';
 import useModal from '../../hooks/useModal';
 import WalletProviderModal from '../WalletProviderModal';

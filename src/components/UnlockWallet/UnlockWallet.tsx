@@ -1,6 +1,6 @@
 import React from 'react';
 import {Box} from '@material-ui/core';
-import AccountButton from '../Nav/AccountButton';
+import AccountButton from '../Page/AccountButton';
 
 const UnlockWallet = () => {
   return (

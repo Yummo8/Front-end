@@ -13,7 +13,7 @@ import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import CssBaseline from '@mui/material/CssBaseline';
 import {Link} from 'react-router-dom';
-import AccountButton from '../Nav/AccountButton';
+import AccountButton from './AccountButton';
 
 import soleraIcon from '../../assets/img/solera.png';
 import grapeLogo from '../../assets/img/logo1.png';
@@ -142,7 +142,6 @@ const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})
     '& .MuiDrawer-paper': closedMixin(theme),
   }),
 }));
-
 
 const Page: React.FC = ({children}) => {
   useEagerConnect();
@@ -323,7 +322,13 @@ const Page: React.FC = ({children}) => {
             {open && (
               <Collapse in={appsOpen} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
-                  <Link className="menu-item" to="/dashboard#presses" style={{display: 'block'}}>
+                  <a
+                    className="menu-item"
+                    href="https://solera.grapefinance.app/"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    style={{display: 'block'}}
+                  >
                     <ListItemButton sx={{pl: 4}}>
                       <ListItemIcon
                         sx={{
@@ -337,7 +342,7 @@ const Page: React.FC = ({children}) => {
                       </ListItemIcon>
                       <ListItemText primary="Solera Press" />
                     </ListItemButton>
-                  </Link>
+                  </a>
                   <a
                     className="menu-item"
                     href="https://xgrape.grapefinance.app/"
@@ -360,7 +365,14 @@ const Page: React.FC = ({children}) => {
                     </ListItemButton>
                   </a>
 
-                  <Link className="menu-item" to="/dashboard#presses" style={{padding: 0, display: 'block'}}>
+                  <a
+                    className="menu-item"
+                    href="https://soda.grapefinance.app/"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    style={{display: 'block'}}
+                  >
+                    {' '}
                     <ListItemButton sx={{pl: 4}}>
                       <ListItemIcon
                         sx={{
@@ -374,7 +386,7 @@ const Page: React.FC = ({children}) => {
                       </ListItemIcon>
                       <ListItemText primary="Grape Soda" />
                     </ListItemButton>
-                  </Link>
+                  </a>
 
                   <ListItem
                     className="menu-item"
@@ -460,7 +472,13 @@ const Page: React.FC = ({children}) => {
                     </ListItemButton>
                   </ListItem>
 
-                  <Link className="menu-item" to="dashboard#presses" style={{padding: 0, display: 'block'}}>
+                  <a
+                    className="menu-item"
+                    href="https://winepress.grapefinance.app/"
+                    rel="noreferrer noopener"
+                    target="_blank"
+                    style={{padding: 0, display: 'block'}}
+                  >
                     <ListItemButton sx={{pl: 4}}>
                       <ListItemIcon
                         sx={{
@@ -474,7 +492,7 @@ const Page: React.FC = ({children}) => {
                       </ListItemIcon>
                       <ListItemText primary="Wine Press" />
                     </ListItemButton>
-                  </Link>
+                  </a>
 
                   <a
                     className="menu-item"
