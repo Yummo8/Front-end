@@ -183,16 +183,16 @@ const Dashboard = () => {
   useEffect(() => {
     const hash = location.hash;
     if (hash === '#farms') {
-      tabsRef.current.scrollIntoView();
+      tabsRef?.current?.scrollIntoView();
       setActiveTab('Farms');
     } else if (hash === '#winery') {
-      tabsRef.current.scrollIntoView();
+      tabsRef?.current?.scrollIntoView();
       setActiveTab('Winery');
     } else if (hash === '#nodes') {
-      tabsRef.current.scrollIntoView();
+      tabsRef?.current?.scrollIntoView();
       setActiveTab('Nodes');
     } else if (hash === '#presses') {
-      tabsRef.current.scrollIntoView();
+      tabsRef?.current?.scrollIntoView();
       setActiveTab('Presses');
     }
   }, [location]);
