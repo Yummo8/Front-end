@@ -411,6 +411,14 @@ const NodeCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
                               </span>
                             </div>
                           </div>
+                          <Box mt={2}>
+                            {bank.contract === 'GrapeNodeV2' && earnedInToken ? (
+                              <div style={{fontSize: '12px'}}>
+                                Creating new nodes will claim/tax your pending rewards. It is recommended to compound
+                                before creating new Grape Nodes.
+                              </div>
+                            ) : null}
+                          </Box>
                         </div>
                         <Box mt={2}>
                           {getLiquidityLink() != null && (
@@ -492,7 +500,7 @@ const NodeCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
                               {earnedInToken} {bank.earnTokenName}
                             </Grid>
                             <Grid item className="rewardTokenValue">
-                              ${earnedInDollars}
+                              ${earnedInDollars ? earnedInDollars : '0.00'}
                             </Grid>
                           </Grid>
                         </Box>
