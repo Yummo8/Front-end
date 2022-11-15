@@ -655,6 +655,9 @@ code {
   align-items: center;
   justify-content: center;
   text-align: center;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  border: 1px solid rgba(156, 156, 156, 0.18);
 }
 
 .price-item {

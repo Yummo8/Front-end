@@ -265,7 +265,7 @@ const SolerapressCard: React.FC<SolerapressCardProps> = ({displayName, bank, act
                 <Grid container direction={widthUnder600 ? 'row' : 'column'} justifyContent="space-between">
                   <Grid item>
                     <div className="lineLabel">
-                      Daily APR{' '}
+                      APR Yearly | Daily{' '}
                       <LightTooltip
                         arrow
                         placement="top"
@@ -277,7 +277,10 @@ const SolerapressCard: React.FC<SolerapressCardProps> = ({displayName, bank, act
                     </div>{' '}
                   </Grid>
                   <Grid item>
-                    <div className="lineValue">{displayDailyAPR ? displayDailyAPR.toFixed(2) : '1.25'}%</div>
+                    <div className="lineValue">
+                      {displayDailyAPR ? (displayDailyAPR * 365).toFixed(0) : '456'}% |{' '}
+                      {displayDailyAPR ? displayDailyAPR.toFixed(2) : '1.25'}%
+                    </div>
                   </Grid>
                 </Grid>
               </Grid>

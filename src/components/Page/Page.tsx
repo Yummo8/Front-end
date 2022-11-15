@@ -241,7 +241,7 @@ const Page: React.FC = ({children}) => {
             <Link to="/" color="inherit">
               <img alt="Grape Finance" src={grapeLogo} width={!screen800 ? 150 : 220} style={{paddingTop: '5px'}} />
             </Link>
-            {screen800 && <PriceItems />}
+            {screen800 && <div style={{paddingLeft: '15px'}}><PriceItems /></div>}
             <Box
               style={{
                 flexGrow: '1',
@@ -277,7 +277,7 @@ const Page: React.FC = ({children}) => {
               <AccountButton text="Connect" />
             </Box>
           </Toolbar>
-          {!screen800 && <PriceItems />}
+          {!screen800 && <div style={{paddingLeft: '15px', paddingRight: '15px', paddingBottom: '5px'}}><PriceItems /></div>}
         </AppBar>
         <Drawer
           variant="permanent"

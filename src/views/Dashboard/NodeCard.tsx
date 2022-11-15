@@ -281,7 +281,7 @@ const NodeCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
                 <Grid container direction={widthUnder600 ? 'row' : 'column'} justifyContent="space-between">
                   <Grid item>
                     <div className="lineLabel">
-                      Daily APR
+                      APR Yearly | Daily
                       {bank.contract === 'GrapeNodeV2' && (
                         <LightTooltip
                           arrow
@@ -295,7 +295,7 @@ const NodeCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
                     </div>
                   </Grid>
                   <Grid item>
-                    <div className="lineValue">{dailyAPR ? dailyAPR : '--.--'}%</div>
+                    <div className="lineValue">{dailyAPR ? (Number(dailyAPR) * 365).toFixed(0) : '---'}% | {dailyAPR ? dailyAPR : '-.--'}%</div>
                   </Grid>
                 </Grid>
               </Grid>

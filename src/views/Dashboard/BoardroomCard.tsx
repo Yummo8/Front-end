@@ -211,10 +211,12 @@ const BoardroomCard = () => {
           >
             <Grid container direction={widthUnder600 ? 'row' : 'column'} justifyContent="space-between">
               <Grid item>
-                <div className="lineLabel">Daily APR</div>
+                <div className="lineLabel">APR Yearly | Daily</div>
               </Grid>
               <Grid item>
-                <div className="lineValue">{(boardroomAPR / 365).toFixed(2)}%</div>
+                <div className="lineValue">
+                  {boardroomAPR.toFixed(0)}% | {(boardroomAPR / 365).toFixed(2)}%
+                </div>
               </Grid>
             </Grid>
           </Grid>

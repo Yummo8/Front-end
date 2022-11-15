@@ -208,10 +208,10 @@ const FarmCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
               <Grid item xs={12} sm={6} md={2}>
                 <Grid container direction={widthUnder600 ? 'row' : 'column'} justifyContent="space-between">
                   <Grid item>
-                    <div className="lineLabel">Daily APR</div>
+                    <div className="lineLabel">APR Yearly | Daily</div>
                   </Grid>
                   <Grid item>
-                    <div className="lineValue">{poolStats?.dailyAPR ? poolStats?.dailyAPR : '--.--'}%</div>
+                    <div className="lineValue">{poolStats?.yearlyAPR ? (Number(poolStats.yearlyAPR)).toFixed(0) : '---'}% | {poolStats?.dailyAPR ? poolStats?.dailyAPR : '-.--'}%</div>
                   </Grid>
                 </Grid>
               </Grid>
