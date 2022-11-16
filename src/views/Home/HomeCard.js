@@ -35,7 +35,7 @@ const nameToImage = {
 const useStyles = makeStyles(({palette}) => ({
   root: ({color}) => ({
     borderRadius: '5px !important',
-    border: '1px solid rgba(255, 255, 255, 0.2)',
+    border: '1px solid rgba(230, 230, 230, 0.1)',
     background: `rgba(0, 0, 0, 0.3)`,
     backdropFilter: 'blur(6px)',
   }),
@@ -97,7 +97,7 @@ const CustomCard = ({item, styles, title, subTitle, subItems}) => {
         style={{
           borderBottomLeftRadius: '5px',
           borderBottomRightRadius: '5px',
-          backgroundColor: 'rgba(200,200,200, 0.1)',
+          backgroundColor: 'rgba(230, 230, 230, 0.1)',
         }}
       >
         <Row px={2} pt={2}>
@@ -115,6 +115,7 @@ const CustomCard = ({item, styles, title, subTitle, subItems}) => {
                 </Link>
               ) : (
                 <a
+                  rel="noreferrer"
                   style={{textDecoration: 'none'}}
                   target={item.isInternalLink === false ? '_blank' : ''}
                   href={item.linkTo}

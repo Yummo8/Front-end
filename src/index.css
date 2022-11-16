@@ -278,7 +278,7 @@
 
 .dashboard-token-box {
   background-color: rgba(0, 0, 0, 0.5) !important;
-  border-radius: 10px;
+  border-radius: 4px;
 }
 
 .dashboard-token-box-inner {
@@ -680,9 +680,6 @@ code {
   color: #e646e6;
 }
 
-.dashboard-tabs {
-  font-weight: 700;
-}
 
 .p2 {
   padding: 10px 15px 10px 15px;
@@ -701,15 +698,13 @@ code {
 .dashboard-tab-item {
   cursor: pointer;
   color: #e646e6;
-  background-color: rgba(0, 0, 0, 0.87);
-  font-weight: 700;
-  font-size: 18px;
+  background-color: rgba(0, 0, 0, 0.37);
+  font-weight: 500;
+  font-size: 16px;
 }
 .dashboard-tab-item-active {
   cursor: pointer;
   background-color: #930993;
-  font-weight: 700;
-  font-size: 18px;
   color: #fcfcfc;
 }
 
@@ -778,9 +773,8 @@ code {
 
 .welcome-text {
   font-size: 3.8rem;
-  font-family: 'superstar';
-  /* text-shadow: 0 0 1vw #6e256c, 0 0 3vw #6e256c, 0 0 20vw #6e256c, 0 0 10vw #6e256c, 0 0 0.4vw #e647e6,
-    0vw 0vw 0vw #5b2959 !important; */
+  font-family: 'Tommy';
+
   color: #fff !important;
   overflow: visible !important;
 }
