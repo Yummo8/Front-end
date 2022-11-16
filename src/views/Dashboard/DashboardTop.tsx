@@ -211,7 +211,7 @@ const DashboardTop = () => {
                     {totalInvested !== -1 ? (
                       <CountUp end={totalInvested} separator="," prefix="≈$" />
                     ) : (
-                      <SyncLoader color="white" size={8} />
+                      <SyncLoader color="white" size={4} />
                     )}
                   </Grid>
                 </Grid>
@@ -224,7 +224,7 @@ const DashboardTop = () => {
                     {totalRewards !== -1 ? (
                       <CountUp end={Number(totalRewards)} separator="," prefix="≈$" />
                     ) : (
-                      <SyncLoader color="white" size={8} />
+                      <SyncLoader color="white" size={4} />
                     )}
                   </Grid>
                 </Grid>
@@ -243,7 +243,7 @@ const DashboardTop = () => {
                       {walletStats ? (
                         <CountUp end={walletStats.totalInVineyard} separator="," prefix="≈$" />
                       ) : (
-                        <SyncLoader color="white" size={8} />
+                        <SyncLoader color="white" size={4} />
                       )}
                     </span>
                   </Grid>
@@ -258,7 +258,7 @@ const DashboardTop = () => {
                       {walletStats != null ? (
                         <CountUp end={Number(walletStats.rewardsInVineyard)} separator="," prefix="≈$" />
                       ) : (
-                        <SyncLoader color="white" size={8} />
+                        <SyncLoader color="white" size={4} />
                       )}
                     </span>
                   </Grid>
@@ -278,7 +278,7 @@ const DashboardTop = () => {
                       {walletStats ? (
                         <CountUp end={walletStats.totalInWinery} separator="," prefix="≈$" />
                       ) : (
-                        <SyncLoader color="white" size={8} />
+                        <SyncLoader color="white" size={4} />
                       )}
                     </span>
                   </Grid>
@@ -292,7 +292,7 @@ const DashboardTop = () => {
                     {walletStats != null ? (
                       <CountUp end={Number(walletStats.rewardsInWinery)} separator="," prefix="≈$" />
                     ) : (
-                      <SyncLoader color="white" size={8} />
+                      <SyncLoader color="white" size={4} />
                     )}
                   </Grid>
                 </Grid>
@@ -311,7 +311,7 @@ const DashboardTop = () => {
                       {walletStats ? (
                         <CountUp end={walletStats.totalInNodes} separator="," prefix="≈$" />
                       ) : (
-                        <SyncLoader color="white" size={8} />
+                        <SyncLoader color="white" size={4} />
                       )}
                     </span>
                   </Grid>
@@ -325,7 +325,7 @@ const DashboardTop = () => {
                     {walletStats != null ? (
                       <CountUp end={Number(walletStats.rewardsInNodes)} separator="," prefix="≈$" />
                     ) : (
-                      <SyncLoader color="white" size={8} />
+                      <SyncLoader color="white" size={4} />
                     )}
                   </Grid>
                 </Grid>
@@ -351,7 +351,7 @@ const DashboardTop = () => {
                           prefix="≈$"
                         />
                       ) : (
-                        <SyncLoader color="white" size={8} />
+                        <SyncLoader color="white" size={4} />
                       )}
                     </span>
                   </Grid>
@@ -373,7 +373,7 @@ const DashboardTop = () => {
                         prefix="≈$"
                       />
                     ) : (
-                      <SyncLoader color="white" size={8} />
+                      <SyncLoader color="white" size={4} />
                     )}
                   </Grid>
                 </Grid>
