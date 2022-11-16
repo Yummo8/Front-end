@@ -59,6 +59,7 @@ const BoardroomCard = () => {
   const widthUnder960 = useMediaQuery('(max-width:960px)');
   const [inputValue, setInputValue] = useState<string>('');
 
+  const [loading, setLoading] = useState(true);
   const [claimLoading, setClaimLoading] = useState(false);
   const [depositingLoading, setDepositingLoading] = useState(false);
   const [approveLoading, setApproveLoading] = useState(false);
@@ -148,10 +149,16 @@ const BoardroomCard = () => {
     setInputValue(event.target.value);
   };
 
+  useEffect(() => {
+    if (stakedBalance != null && parsedEarnings != null && tvl) {
+      setLoading(false);
+    }
+  }, [stakedBalance, parsedEarnings, tvl]);
+
   return (
     <Accordion expanded={expanded} onChange={expand} className="accordion">
       <AccordionSummary
-        expandIcon={<ExpandMoreIcon style={{color: 'white'}} />}
+        expandIcon={loading ? <SyncLoader color="white" size={4} /> : <ExpandMoreIcon style={{color: 'white'}} />}
         aria-controls="panel1bh-content"
         id="panel1bh-header"
       >

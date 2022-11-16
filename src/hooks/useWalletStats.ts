@@ -5,7 +5,7 @@ import useRefresh from './useRefresh';
 
 const useWalletStats = (banks: Bank[]) => {
   const [stat, setStat] = useState<WalletStats>();
-  const {fastRefresh} = useRefresh();
+  const {slowRefresh} = useRefresh();
   const grapeFinance = useGrapeFinance();
 
   useEffect(() => {
@@ -17,7 +17,7 @@ const useWalletStats = (banks: Bank[]) => {
       }
     }
     fetchWalletStats();
-  }, [setStat, grapeFinance, fastRefresh]);
+  }, [setStat, grapeFinance, slowRefresh]);
 
   return stat;
 };

@@ -50,6 +50,8 @@ const LightTooltip = styled(({className, ...props}: TooltipProps) => (
 const SodapressCard: React.FC<SodapressCardProps> = ({displayName, bank, activesOnly}) => {
   const widthUnder600 = useMediaQuery('(max-width:600px)');
 
+  const [loading, setLoading] = useState(true);
+
   const grapeFinance = useGrapeFinance();
   const pressUserInfo = useSodapressUserInfo();
   const pressLottoInfo = usePressLottoInfo(bank.name);
@@ -120,6 +122,12 @@ const SodapressCard: React.FC<SodapressCardProps> = ({displayName, bank, actives
     if (!batchAmount) return '';
     return Number(batchAmount) * GRAPE_PER_BATCH;
   }, [batchAmount]);
+
+  useEffect(() => {
+    if (pressUserInfo != null && displayDailyAPR != null) {
+      setLoading(false);
+    }
+  }, [pressUserInfo, displayDailyAPR]);
 
   // Custom functions
   const expand = () => {
@@ -200,7 +208,7 @@ const SodapressCard: React.FC<SodapressCardProps> = ({displayName, bank, actives
       {(activesOnly === false || (activesOnly === true && pressUserInfo && pressUserInfo.totalTracked > 0)) && (
         <Accordion expanded={expanded} onChange={expand} className="accordion">
           <AccordionSummary
-            expandIcon={<ExpandMoreIcon style={{color: 'white'}} />}
+            expandIcon={loading ? <SyncLoader color="white" size={4} /> : <ExpandMoreIcon style={{color: 'white'}} />}
             aria-controls="panel1bh-content"
             id="panel1bh-header"
           >
@@ -886,7 +894,7 @@ const SodapressCard: React.FC<SodapressCardProps> = ({displayName, bank, actives
                                     onClick={burn}
                                     disabled={
                                       Number(batchAmount) <= 0 ||
-                                      Number(batchAmount) >= Number(grapeTokenBalance) / 1e18 / 10
+                                      Number(batchAmount) > Number(grapeTokenBalance) / 1e18 / 10
                                     }
                                     style={{
                                       marginTop: '15px',

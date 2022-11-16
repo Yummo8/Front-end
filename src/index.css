@@ -680,6 +680,24 @@ code {
   color: #e646e6;
 }
 
+.dashboard-top-pool-category {
+  color: #e646e6;
+}
+
+.dashboard-top-pool-value {
+  color: #fcfcfc;
+  font-weight: 700;
+}
+
+.dashboard-top-reward-label {
+  color: #f9b857;
+  font-size: 14px;
+}
+
+.dashboard-top-reward-value {
+  color: #fcfcfc;
+  font-size: 14px;
+}
 
 .p2 {
   padding: 10px 15px 10px 15px;

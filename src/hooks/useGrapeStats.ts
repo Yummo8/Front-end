@@ -5,7 +5,7 @@ import useRefresh from './useRefresh';
 
 const useGrapeStats = () => {
   const [stat, setStat] = useState<TokenStat>();
-  const {fastRefresh} = useRefresh();
+  const {slowRefresh} = useRefresh();
   const grapeFinance = useGrapeFinance();
 
   useEffect(() => {
@@ -17,7 +17,7 @@ const useGrapeStats = () => {
       }
     }
     fetchGrapePrice();
-  }, [setStat, grapeFinance, fastRefresh]);
+  }, [setStat, grapeFinance, slowRefresh]);
 
   return stat;
 };

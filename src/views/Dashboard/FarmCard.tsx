@@ -1,6 +1,5 @@
-import chevronDown from '../../assets/img/chevrondown.png';
 import React, {useEffect, useMemo, useState} from 'react';
-import {Box, Grid, Accordion, AccordionDetails, AccordionSummary, Slider, useMediaQuery} from '@material-ui/core';
+import {Box, Grid, Accordion, AccordionDetails, AccordionSummary, useMediaQuery} from '@material-ui/core';
 import useEarnings from '../../hooks/useEarnings';
 import useHarvest from '../../hooks/useHarvest';
 import {getDisplayBalance, getFullDisplayBalance} from '../../utils/formatBalance';
@@ -11,26 +10,28 @@ import useStake from '../../hooks/useStake';
 import useZap from '../../hooks/useZap';
 import useWithdraw from '../../hooks/useWithdraw';
 import ZapModal from '../Bank/components/ZapModal';
-import grapeFinance, {Bank} from '../../grape-finance';
+import {Bank} from '../../grape-finance';
 import useStatsForPool from '../../hooks/useStatsForPool';
 import TokenSymbol from '../../components/TokenSymbol';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import useGrapeStats from '../../hooks/useGrapeStats';
-import useShareStats from '../../hooks/useWineStats';
 import useModal from '../../hooks/useModal';
 import useApprove, {ApprovalState} from '../../hooks/useApprove';
 import {SyncLoader} from 'react-spinners';
 import {subscribe, unsubscribe} from '../../state/txEvent';
+import {TokenStat} from '../../grape-finance/types';
 
 interface FarmCardProps {
   bank: Bank;
+  grapeStats: TokenStat;
+  tShareStats: TokenStat;
   activesOnly: boolean;
 }
 
-const FarmCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
+const FarmCard: React.FC<FarmCardProps> = ({bank, grapeStats, tShareStats, activesOnly}) => {
   const widthUnder600 = useMediaQuery('(max-width:600px)');
   const poolStats = useStatsForPool(bank);
 
+  const [loading, setLoading] = useState(true);
   const [activeDetailsBoxTab, setActiveDetailsBoxTab] = useState('Deposit');
   const [expanded, setExpanded] = useState(false);
   const [inputValue, setInputValue] = useState<string>('');
@@ -39,8 +40,6 @@ const FarmCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
   const [approveLoading, setApproveLoading] = useState(false);
   const [withdrawLoading, setWithdrawLoading] = useState(false);
 
-  const grapeStats = useGrapeStats();
-  const tShareStats = useShareStats();
   const tokenBalance = useTokenBalance(bank.depositToken);
   const earnings = useEarnings(bank.contract, bank.earnTokenName, bank.poolId);
   const tokenStats = bank.earnTokenName === 'WINE' ? tShareStats : grapeStats;
@@ -66,6 +65,12 @@ const FarmCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
         : null,
     [stakedInDollars, poolStats, rewardTokenpriceInDollars],
   );
+
+  useEffect(() => {
+    if (stakedInToken != null && earnedInToken != null && poolStats) {
+      setLoading(false);
+    }
+  }, [stakedInToken, earnedInToken, poolStats]);
 
   useEffect(() => {
     subscribe('failedTx', () => {
@@ -161,7 +166,7 @@ const FarmCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
       {(activesOnly === false || (activesOnly === true && stakedInToken > 0)) && (
         <Accordion expanded={expanded} onChange={expand} className="accordion">
           <AccordionSummary
-            expandIcon={<ExpandMoreIcon style={{color: 'white'}} />}
+            expandIcon={loading ? <SyncLoader color="white" size={4} /> : <ExpandMoreIcon style={{color: 'white'}} />}
             aria-controls="panel1bh-content"
             id="panel1bh-header"
           >
@@ -211,7 +216,10 @@ const FarmCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
                     <div className="lineLabel">APR Yearly | Daily</div>
                   </Grid>
                   <Grid item>
-                    <div className="lineValue">{poolStats?.yearlyAPR ? (Number(poolStats.yearlyAPR)).toFixed(0) : '---'}% | {poolStats?.dailyAPR ? poolStats?.dailyAPR : '-.--'}%</div>
+                    <div className="lineValue">
+                      {poolStats?.yearlyAPR ? Number(poolStats.yearlyAPR).toFixed(0) : '---'}% |{' '}
+                      {poolStats?.dailyAPR ? poolStats?.dailyAPR : '-.--'}%
+                    </div>
                   </Grid>
                 </Grid>
               </Grid>

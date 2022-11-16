@@ -1,6 +1,9 @@
 import {Container, useMediaQuery, Grid} from '@material-ui/core';
 import useEagerConnect from '../../hooks/useEagerConnect';
 import Tooltip from '@mui/material/Tooltip';
+import {ReactComponent as IconDiscord} from '../../assets/img/discord-plain.svg';
+
+import {ReactComponent as IconTwitter} from '../../assets/img/twitter.svg';
 
 import Footer from '../Footer';
 
@@ -222,26 +225,32 @@ const Page: React.FC = ({children}) => {
         <CssBaseline />
         <AppBar position="fixed" open={open}>
           <Toolbar>
-            <IconButton
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              edge="start"
-              sx={{
-                marginRight: '0 !important',
-                ...(open && {display: 'none'}),
-              }}
-            >
-              <MenuIcon
+            {!screen800 && (
+              <IconButton
+                aria-label="open drawer"
+                onClick={handleDrawerOpen}
+                edge="start"
                 sx={{
-                  color: 'white',
-                  fill: 'white',
+                  marginRight: '0 !important',
+                  ...(open && {display: 'none'}),
                 }}
-              />
-            </IconButton>
+              >
+                <MenuIcon
+                  sx={{
+                    color: 'white',
+                    fill: 'white',
+                  }}
+                />
+              </IconButton>
+            )}
             <Link to="/" color="inherit">
               <img alt="Grape Finance" src={grapeLogo} width={!screen800 ? 150 : 220} style={{paddingTop: '5px'}} />
             </Link>
-            {screen800 && <div style={{paddingLeft: '15px'}}><PriceItems /></div>}
+            {screen800 && (
+              <div style={{paddingLeft: '15px'}}>
+                <PriceItems />
+              </div>
+            )}
             <Box
               style={{
                 flexGrow: '1',
@@ -277,9 +286,15 @@ const Page: React.FC = ({children}) => {
               <AccountButton text="Connect" />
             </Box>
           </Toolbar>
-          {!screen800 && <div style={{paddingLeft: '15px', paddingRight: '15px', paddingBottom: '5px'}}><PriceItems /></div>}
+          {!screen800 && (
+            <div style={{paddingLeft: '15px', paddingRight: '15px', paddingBottom: '5px'}}>
+              <PriceItems />
+            </div>
+          )}
         </AppBar>
         <Drawer
+          onMouseEnter={handleDrawerOpen}
+          onMouseLeave={handleDrawerClose}
           variant="permanent"
           open={open}
           style={{
@@ -302,102 +317,333 @@ const Page: React.FC = ({children}) => {
               {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
             </IconButton>
           </DrawerHeader>
-          <List>
-            <Tooltip arrow followCursor title={open ? '' : 'DeFi Products'} placement="top-start">
-              <ListItemButton onClick={handleAppsClick}>
-                <ListItemIcon
-                  sx={{
-                    color: 'white',
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <AppsIcon style={{fill: '#e647e6'}} />
-                </ListItemIcon>
-                <ListItemText primary="DeFi Products" sx={{opacity: open ? 1 : 0}} />
-                {open ? appsOpen ? <ExpandLess /> : <ExpandMore /> : null}
-              </ListItemButton>
-            </Tooltip>
-            {open && (
-              <Collapse in={appsOpen} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
-                  <a
-                    className="menu-item"
-                    href="https://solera.grapefinance.app/"
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    style={{display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
+          <Grid container direction="column" justifyContent="space-between">
+            <Grid item>
+              <List>
+                <Tooltip arrow followCursor title={open ? '' : 'DeFi Products'} placement="top-start">
+                  <ListItemButton onClick={handleAppsClick}>
+                    <ListItemIcon
+                      sx={{
+                        color: 'white',
+                        minWidth: 0,
+                        mr: open ? 3 : 'auto',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      <AppsIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="DeFi Products" sx={{opacity: open ? 1 : 0}} />
+                    {open ? appsOpen ? <ExpandLess /> : <ExpandMore /> : null}
+                  </ListItemButton>
+                </Tooltip>
+                {open && (
+                  <Collapse in={appsOpen} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                      <a
+                        className="menu-item"
+                        href="https://solera.grapefinance.app/"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        style={{display: 'block'}}
                       >
-                        <img src={soleraIcon} alt="solera" height={30} />{' '}
-                      </ListItemIcon>
-                      <ListItemText primary="Solera Press" />
-                    </ListItemButton>
-                  </a>
-                  <a
-                    className="menu-item"
-                    href="https://xgrape.grapefinance.app/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
+                        <ListItemButton sx={{pl: 4}}>
+                          <ListItemIcon
+                            sx={{
+                              color: 'white',
+                              minWidth: 0,
+                              mr: open ? 3 : 'auto',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <img src={soleraIcon} alt="solera" height={30} />{' '}
+                          </ListItemIcon>
+                          <ListItemText primary="Solera Press" />
+                        </ListItemButton>
+                      </a>
+                      <a
+                        className="menu-item"
+                        href="https://xgrape.grapefinance.app/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{padding: 0, display: 'block'}}
                       >
-                        <img src={xGrapeImg} alt="xGrape" width={30} />{' '}
-                      </ListItemIcon>
-                      <ListItemText primary="Mint xGrape" />
-                    </ListItemButton>
-                  </a>
+                        <ListItemButton sx={{pl: 4}}>
+                          <ListItemIcon
+                            sx={{
+                              color: 'white',
+                              minWidth: 0,
+                              mr: open ? 3 : 'auto',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <img src={xGrapeImg} alt="xGrape" width={30} />{' '}
+                          </ListItemIcon>
+                          <ListItemText primary="Mint xGrape" />
+                        </ListItemButton>
+                      </a>
 
-                  <a
-                    className="menu-item"
-                    href="https://soda.grapefinance.app/"
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    style={{display: 'block'}}
-                  >
-                    {' '}
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
+                      <a
+                        className="menu-item"
+                        href="https://soda.grapefinance.app/"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        style={{display: 'block'}}
                       >
-                        <img src={sodaImg} alt="Grape Soda Press" height={30} />{' '}
-                      </ListItemIcon>
-                      <ListItemText primary="Grape Soda" />
-                    </ListItemButton>
-                  </a>
+                        {' '}
+                        <ListItemButton sx={{pl: 4}}>
+                          <ListItemIcon
+                            sx={{
+                              color: 'white',
+                              minWidth: 0,
+                              mr: open ? 3 : 'auto',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <img src={sodaImg} alt="Grape Soda Press" height={30} />{' '}
+                          </ListItemIcon>
+                          <ListItemText primary="Grape Soda" />
+                        </ListItemButton>
+                      </a>
 
+                      <ListItem
+                        className="menu-item"
+                        component={Link}
+                        to="/dashboard#farms"
+                        disablePadding
+                        sx={{display: 'block'}}
+                      >
+                        <ListItemButton
+                          sx={{
+                            pl: 4,
+                            minHeight: 48,
+                            justifyContent: open ? 'initial' : 'center',
+                          }}
+                        >
+                          <ListItemIcon
+                            sx={{
+                              color: 'white',
+                              minWidth: 0,
+                              mr: open ? 3 : 'auto',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <img alt="grape" height={30} src={grapeImg} />
+                          </ListItemIcon>
+                          <ListItemText primary="Vineyard" sx={{opacity: open ? 1 : 0}} />
+                        </ListItemButton>
+                      </ListItem>
+
+                      <ListItem
+                        className="menu-item"
+                        component={Link}
+                        to="/dashboard#winery"
+                        disablePadding
+                        sx={{display: 'block'}}
+                      >
+                        <ListItemButton
+                          sx={{
+                            pl: 4,
+                            minHeight: 48,
+                            justifyContent: open ? 'initial' : 'center',
+                          }}
+                        >
+                          <ListItemIcon
+                            sx={{
+                              color: 'white',
+                              minWidth: 0,
+                              mr: open ? 3 : 'auto',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <img alt="Wine" height={30} src={wineImg} />
+                          </ListItemIcon>
+                          <ListItemText primary="Winery" sx={{opacity: open ? 1 : 0}} />
+                        </ListItemButton>
+                      </ListItem>
+
+                      <ListItem
+                        className="menu-item"
+                        component={Link}
+                        to="/dashboard#nodes"
+                        disablePadding
+                        sx={{display: 'block'}}
+                      >
+                        <ListItemButton
+                          sx={{
+                            pl: 4,
+                            minHeight: 48,
+                            justifyContent: open ? 'initial' : 'center',
+                          }}
+                        >
+                          <ListItemIcon
+                            sx={{
+                              color: 'white',
+                              minWidth: 0,
+                              mr: open ? 3 : 'auto',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <img alt="Nodes" height={30} src={nodesImg} />
+                          </ListItemIcon>
+                          <ListItemText primary="Nodes" sx={{opacity: open ? 1 : 0}} />
+                        </ListItemButton>
+                      </ListItem>
+
+                      <a
+                        className="menu-item"
+                        href="https://winepress.grapefinance.app/"
+                        rel="noreferrer noopener"
+                        target="_blank"
+                        style={{padding: 0, display: 'block'}}
+                      >
+                        <ListItemButton sx={{pl: 4}}>
+                          <ListItemIcon
+                            sx={{
+                              color: 'white',
+                              minWidth: 0,
+                              mr: open ? 3 : 'auto',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <img src={pressIcon} alt="WinePress" width={30} />{' '}
+                          </ListItemIcon>
+                          <ListItemText primary="Wine Press" />
+                        </ListItemButton>
+                      </a>
+
+                      <a
+                        className="menu-item"
+                        href="https://winemaker.grapefinance.app/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{display: 'block'}}
+                      >
+                        <ListItemButton sx={{pl: 4}}>
+                          <ListItemIcon
+                            sx={{
+                              color: 'white',
+                              minWidth: 0,
+                              mr: open ? 3 : 'auto',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <img src={winemaker} alt="winemaker" height={30} />{' '}
+                          </ListItemIcon>
+                          <ListItemText primary="Wine Maker" />
+                        </ListItemButton>
+                      </a>
+
+                      <ListItem
+                        className="menu-item"
+                        component={Link}
+                        to="/rebates"
+                        disablePadding
+                        sx={{display: 'block'}}
+                      >
+                        <ListItemButton
+                          sx={{
+                            pl: 4,
+                            minHeight: 48,
+                            justifyContent: open ? 'initial' : 'center',
+                          }}
+                        >
+                          <ListItemIcon
+                            sx={{
+                              color: 'white',
+                              minWidth: 0,
+                              mr: open ? 3 : 'auto',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <img alt="Rebates" height={30} src={rebatesImg} />
+                          </ListItemIcon>
+                          <ListItemText primary="Peg Health Campaign" sx={{opacity: open ? 1 : 0}} />
+                        </ListItemButton>
+                      </ListItem>
+                      <a
+                        className="menu-item"
+                        href="https://casino.grapefinance.app/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{display: 'block'}}
+                      >
+                        <ListItemButton sx={{pl: 4}}>
+                          <ListItemIcon
+                            sx={{
+                              color: 'white',
+                              minWidth: 0,
+                              mr: open ? 3 : 'auto',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <img src={coinsImg} alt="Grape Casino" height={30} />{' '}
+                          </ListItemIcon>
+                          <ListItemText primary="Grape Casino" />
+                        </ListItemButton>
+                      </a>
+
+                      <a
+                        className="menu-item"
+                        href="https://avax.fantom.house/grapeflip"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{display: 'block'}}
+                      >
+                        <ListItemButton sx={{pl: 4}}>
+                          <ListItemIcon
+                            sx={{
+                              color: 'white',
+                              minWidth: 0,
+                              mr: open ? 3 : 'auto',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <img src={fantomHouseImg} alt="Fantom House" height={30} />{' '}
+                          </ListItemIcon>
+                          <ListItemText primary="Fantom House" />
+                        </ListItemButton>
+                      </a>
+                      <ListItem
+                        className="menu-item"
+                        component={Link}
+                        to="/bond"
+                        disablePadding
+                        sx={{display: 'block'}}
+                      >
+                        <ListItemButton
+                          sx={{
+                            pl: 4,
+                            minHeight: 48,
+                            justifyContent: open ? 'initial' : 'center',
+                          }}
+                        >
+                          <ListItemIcon
+                            sx={{
+                              color: 'white',
+                              minWidth: 0,
+                              mr: open ? 3 : 'auto',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <img alt="bonds" height={30} src={bondImg} />
+                          </ListItemIcon>
+                          <ListItemText primary="Bonds" sx={{opacity: open ? 1 : 0}} />
+                        </ListItemButton>
+                      </ListItem>
+                    </List>
+                  </Collapse>
+                )}
+
+                <Tooltip arrow followCursor title={open ? '' : 'Dashboard'} placement="top-start">
                   <ListItem
                     className="menu-item"
                     component={Link}
-                    to="/dashboard#farms"
+                    to="/dashboard"
                     disablePadding
                     sx={{display: 'block'}}
                   >
                     <ListItemButton
                       sx={{
-                        pl: 4,
                         minHeight: 48,
                         justifyContent: open ? 'initial' : 'center',
                       }}
@@ -410,888 +656,705 @@ const Page: React.FC = ({children}) => {
                           justifyContent: 'center',
                         }}
                       >
-                        <img alt="grape" height={30} src={grapeImg} />
+                        <AttachMoneyIcon />
                       </ListItemIcon>
-                      <ListItemText primary="Vineyard" sx={{opacity: open ? 1 : 0}} />
+                      <ListItemText primary="Dashboard" sx={{opacity: open ? 1 : 0}} />
                     </ListItemButton>
                   </ListItem>
+                </Tooltip>
+              </List>
 
-                  <ListItem
-                    className="menu-item"
-                    component={Link}
-                    to="/dashboard#winery"
-                    disablePadding
-                    sx={{display: 'block'}}
-                  >
-                    <ListItemButton
+              <Divider color="#aaa" />
+
+              <List>
+                <Tooltip arrow followCursor title={open ? '' : 'Buy Tokens'} placement="top-start">
+                  <ListItemButton onClick={handleBuyClick}>
+                    <ListItemIcon
                       sx={{
-                        pl: 4,
-                        minHeight: 48,
-                        justifyContent: open ? 'initial' : 'center',
+                        color: 'white',
+                        minWidth: 0,
+                        mr: open ? 3 : 'auto',
+                        justifyContent: 'center',
                       }}
                     >
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
+                      <ShoppingCartIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Buy Tokens" sx={{opacity: open ? 1 : 0}} />
+                    {open ? buyOpen ? <ExpandLess /> : <ExpandMore /> : null}
+                  </ListItemButton>
+                </Tooltip>
+                {open && (
+                  <Collapse in={buyOpen} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                      <a
+                        className="menu-item"
+                        href="https://app.bogged.finance/avax/swap?tokenIn=0x130966628846BFd36ff31a822705796e8cb8C18D&tokenOut=0x5541D83EFaD1f281571B343977648B75d95cdAC2"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{padding: 0, display: 'block'}}
                       >
-                        <img alt="Wine" height={30} src={wineImg} />
-                      </ListItemIcon>
-                      <ListItemText primary="Winery" sx={{opacity: open ? 1 : 0}} />
-                    </ListItemButton>
-                  </ListItem>
+                        <ListItemButton sx={{pl: 4}}>
+                          <ListItemIcon
+                            sx={{
+                              color: 'white',
+                              minWidth: 0,
+                              mr: open ? 3 : 'auto',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <img src={grapeImg} alt="Grape" height={22} />{' '}
+                          </ListItemIcon>
+                          <ListItemText primary="GRAPE" />
+                        </ListItemButton>
+                      </a>
+                      <a
+                        className="menu-item"
+                        href="https://app.bogged.finance/avax/swap?tokenIn=0x130966628846BFd36ff31a822705796e8cb8C18D&tokenOut=0xC55036B5348CfB45a932481744645985010d3A44"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{padding: 0, display: 'block'}}
+                      >
+                        <ListItemButton sx={{pl: 4}}>
+                          <ListItemIcon
+                            sx={{
+                              color: 'white',
+                              minWidth: 0,
+                              mr: open ? 3 : 'auto',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <img src={wineImg} alt="Wine" height={22} />{' '}
+                          </ListItemIcon>
+                          <ListItemText primary="WINE" />
+                        </ListItemButton>
+                      </a>
+                      <a
+                        className="menu-item"
+                        href="https://xgrape.grapefinance.app/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{padding: 0, display: 'block'}}
+                      >
+                        <ListItemButton sx={{pl: 4}}>
+                          <ListItemIcon
+                            sx={{
+                              color: 'white',
+                              minWidth: 0,
+                              mr: open ? 3 : 'auto',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <img src={xGrapeImg} alt="xGRAPE" height={22} />{' '}
+                          </ListItemIcon>
+                          <ListItemText primary="xGRAPE" />
+                        </ListItemButton>
+                      </a>
+                      <a
+                        className="menu-item"
+                        href="https://www.swapsicle.io/swap?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0x01Af64EF39AEB5612202AA07B3A3829f20c395fd#/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{padding: 0, display: 'block'}}
+                      >
+                        <ListItemButton sx={{pl: 4}}>
+                          <ListItemIcon
+                            sx={{
+                              color: 'white',
+                              minWidth: 0,
+                              mr: open ? 3 : 'auto',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <img src={vintageImg} alt="Vintage" height={22} />{' '}
+                          </ListItemIcon>
+                          <ListItemText primary="VINTAGE" />
+                        </ListItemButton>
+                      </a>
+                      <a
+                        className="menu-item"
+                        href="https://winemaker.grapefinance.app/app/Cellar"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{padding: 0, display: 'block'}}
+                      >
+                        <ListItemButton sx={{pl: 4}}>
+                          <ListItemIcon
+                            sx={{
+                              color: 'white',
+                              minWidth: 0,
+                              mr: open ? 3 : 'auto',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <img src={soleraIcon} alt="sVintage" height={22} />{' '}
+                          </ListItemIcon>
+                          <ListItemText primary="sVINTAGE (in Cellar)" />
+                        </ListItemButton>
+                      </a>
+                    </List>
+                  </Collapse>
+                )}
+              </List>
 
-                  <ListItem
-                    className="menu-item"
-                    component={Link}
-                    to="/dashboard#nodes"
-                    disablePadding
-                    sx={{display: 'block'}}
-                  >
-                    <ListItemButton
+              <List>
+                <Tooltip arrow followCursor title={open ? '' : 'Buy NFTs'} placement="top-start">
+                  <ListItemButton onClick={handleBuyNFTsClick}>
+                    <ListItemIcon
                       sx={{
-                        pl: 4,
-                        minHeight: 48,
-                        justifyContent: open ? 'initial' : 'center',
+                        color: 'white',
+                        minWidth: 0,
+                        mr: open ? 3 : 'auto',
+                        justifyContent: 'center',
                       }}
                     >
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
+                      <ImageSearchIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Buy NFTs" sx={{opacity: open ? 1 : 0}} />
+                    {open ? buyNFTsOpen ? <ExpandLess /> : <ExpandMore /> : null}
+                  </ListItemButton>
+                </Tooltip>
+                {open && (
+                  <Collapse in={buyNFTsOpen} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                      <a
+                        className="menu-item"
+                        href="https://hexagon.market/collections/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df?sort=-highestPrice"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{padding: 0, display: 'block'}}
                       >
-                        <img alt="Nodes" height={30} src={nodesImg} />
-                      </ListItemIcon>
-                      <ListItemText primary="Nodes" sx={{opacity: open ? 1 : 0}} />
-                    </ListItemButton>
-                  </ListItem>
-
-                  <a
-                    className="menu-item"
-                    href="https://winepress.grapefinance.app/"
-                    rel="noreferrer noopener"
-                    target="_blank"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
+                        <ListItemButton sx={{pl: 4}}>
+                          <ListItemIcon
+                            sx={{
+                              color: 'white',
+                              minWidth: 0,
+                              mr: open ? 3 : 'auto',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <TokenSymbol symbol="GOBLET" height={25} width={25} />
+                          </ListItemIcon>
+                          <ListItemText primary="Winery (Grape)" />
+                        </ListItemButton>
+                      </a>
+                      <a
+                        className="menu-item"
+                        href="https://hexagon.market/collections/0xe26168f45030e1eb7477fa5f9a4a28d93c0658b4"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{padding: 0, display: 'block'}}
                       >
-                        <img src={pressIcon} alt="WinePress" width={30} />{' '}
-                      </ListItemIcon>
-                      <ListItemText primary="Wine Press" />
-                    </ListItemButton>
-                  </a>
+                        <ListItemButton sx={{pl: 4}}>
+                          <ListItemIcon
+                            sx={{
+                              color: 'white',
+                              minWidth: 0,
+                              mr: open ? 3 : 'auto',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <TokenSymbol symbol="VINTNERS" height={25} width={25} />
+                          </ListItemIcon>
+                          <ListItemText primary="Vintners (Grape)" />
+                        </ListItemButton>
+                      </a>
 
-                  <a
-                    className="menu-item"
-                    href="https://winemaker.grapefinance.app/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
+                      <a
+                        className="menu-item"
+                        href="https://nftrade.com/assets/avalanche/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{padding: 0, display: 'block'}}
                       >
-                        <img src={winemaker} alt="winemaker" height={30} />{' '}
-                      </ListItemIcon>
-                      <ListItemText primary="Wine Maker" />
-                    </ListItemButton>
-                  </a>
+                        <ListItemButton sx={{pl: 4}}>
+                          <ListItemIcon
+                            sx={{
+                              color: 'white',
+                              minWidth: 0,
+                              mr: open ? 3 : 'auto',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <TokenSymbol symbol="GOBLET" height={25} width={25} />
+                          </ListItemIcon>
+                          <ListItemText primary="Winery (NFTrade)" />
+                        </ListItemButton>
+                      </a>
+                      <a
+                        className="menu-item"
+                        href="https://nftrade.com/collection/the-vintners-v1?search=&sort=min_listed_desc&contractAddress=0xe26168f45030e1eb7477fa5f9a4a28d93c0658b4&chainName="
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{padding: 0, display: 'block'}}
+                      >
+                        <ListItemButton sx={{pl: 4}}>
+                          <ListItemIcon
+                            sx={{
+                              color: 'white',
+                              minWidth: 0,
+                              mr: open ? 3 : 'auto',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <TokenSymbol symbol="VINTNERS" height={25} width={25} />
+                          </ListItemIcon>
+                          <ListItemText primary="Vintners (NFTrade)" />
+                        </ListItemButton>
+                      </a>
+                      <a
+                        className="menu-item"
+                        href="https://www.alphashares.io/explore/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{padding: 0, display: 'block'}}
+                      >
+                        <ListItemButton sx={{pl: 4}}>
+                          <ListItemIcon
+                            sx={{
+                              color: 'white',
+                              minWidth: 0,
+                              mr: open ? 3 : 'auto',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <TokenSymbol symbol="GOBLET" height={25} width={25} />
+                          </ListItemIcon>
+                          <ListItemText primary="Winery (AlphaShares)" />
+                        </ListItemButton>
+                      </a>
+                      <a
+                        className="menu-item"
+                        href="https://www.alphashares.io/explore/0xe26168f45030e1eb7477fa5f9a4a28d93c0658b4"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{padding: 0, display: 'block'}}
+                      >
+                        <ListItemButton sx={{pl: 4}}>
+                          <ListItemIcon
+                            sx={{
+                              color: 'white',
+                              minWidth: 0,
+                              mr: open ? 3 : 'auto',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <TokenSymbol symbol="VINTNERS" height={25} width={25} />
+                          </ListItemIcon>
+                          <ListItemText primary="Vintners (AlphaShares)" />
+                        </ListItemButton>
+                      </a>
+                    </List>
+                  </Collapse>
+                )}
+              </List>
 
-                  <ListItem className="menu-item" component={Link} to="/rebates" disablePadding sx={{display: 'block'}}>
-                    <ListItemButton
+              <List>
+                <Tooltip arrow followCursor title={open ? '' : 'AC Vaults'} placement="top-start">
+                  <ListItemButton onClick={handleVaultsClick}>
+                    <ListItemIcon
                       sx={{
-                        pl: 4,
-                        minHeight: 48,
-                        justifyContent: open ? 'initial' : 'center',
+                        color: 'white',
+                        minWidth: 0,
+                        mr: open ? 3 : 'auto',
+                        justifyContent: 'center',
                       }}
                     >
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <img alt="Rebates" height={30} src={rebatesImg} />
-                      </ListItemIcon>
-                      <ListItemText primary="Peg Health Campaign" sx={{opacity: open ? 1 : 0}} />
-                    </ListItemButton>
-                  </ListItem>
-                  <a
-                    className="menu-item"
-                    href="https://casino.grapefinance.app/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <img src={coinsImg} alt="Grape Casino" height={30} />{' '}
-                      </ListItemIcon>
-                      <ListItemText primary="Grape Casino" />
-                    </ListItemButton>
-                  </a>
+                      <SavingsIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="AC Vaults" sx={{opacity: open ? 1 : 0}} />
+                    {open ? vaultsOpen ? <ExpandLess /> : <ExpandMore /> : null}
+                  </ListItemButton>
+                </Tooltip>
+                {open && (
+                  <Collapse in={vaultsOpen} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                      <Tooltip arrow followCursor title={open ? '' : 'Magik'} placement="top-start">
+                        <a
+                          className="menu-item"
+                          href="https://magik.farm/#/avax"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{padding: 0, display: 'block'}}
+                        >
+                          <ListItemButton sx={{pl: 4}}>
+                            <ListItemIcon
+                              sx={{
+                                color: 'white',
+                                minWidth: 0,
+                                mr: open ? 3 : 'auto',
+                                justifyContent: 'center',
+                              }}
+                            >
+                              <img src={magikImg} alt="Magik" height={30} />{' '}
+                            </ListItemIcon>
+                            <ListItemText primary="Magik" />
+                          </ListItemButton>
+                        </a>
+                      </Tooltip>
 
-                  <a
-                    className="menu-item"
-                    href="https://avax.fantom.house/grapeflip"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <img src={fantomHouseImg} alt="Fantom House" height={30} />{' '}
-                      </ListItemIcon>
-                      <ListItemText primary="Fantom House" />
-                    </ListItemButton>
-                  </a>
-                  <ListItem className="menu-item" component={Link} to="/bond" disablePadding sx={{display: 'block'}}>
-                    <ListItemButton
+                      <Tooltip arrow followCursor title={open ? '' : 'Beefy'} placement="top-start">
+                        <a
+                          className="menu-item"
+                          href="https://app.beefy.finance/#/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{padding: 0, display: 'block'}}
+                        >
+                          <ListItemButton sx={{pl: 4}}>
+                            <ListItemIcon
+                              sx={{
+                                color: 'white',
+                                minWidth: 0,
+                                mr: open ? 3 : 'auto',
+                                justifyContent: 'center',
+                              }}
+                            >
+                              <img src={beefyImg} alt="Beefy" height={30} />{' '}
+                            </ListItemIcon>
+                            <ListItemText primary="Beefy" />
+                          </ListItemButton>
+                        </a>
+                      </Tooltip>
+                      <Tooltip arrow followCursor title={open ? '' : 'Yield Wolf'} placement="top-start">
+                        <a
+                          className="menu-item"
+                          href="https://yieldwolf.finance/avalanche"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{padding: 0, display: 'block'}}
+                        >
+                          <ListItemButton sx={{pl: 4}}>
+                            <ListItemIcon
+                              sx={{
+                                color: 'white',
+                                minWidth: 0,
+                                mr: open ? 3 : 'auto',
+                                justifyContent: 'center',
+                              }}
+                            >
+                              <img src={yieldwolfImg} alt="YieldWolf" height={30} />{' '}
+                            </ListItemIcon>
+                            <ListItemText primary="Yield Wolf" />
+                          </ListItemButton>
+                        </a>
+                      </Tooltip>
+                    </List>
+                  </Collapse>
+                )}
+              </List>
+
+              <List>
+                <Tooltip arrow followCursor title={open ? '' : 'Grape Wallets'} placement="top-start">
+                  <ListItemButton onClick={handleWalletsClick}>
+                    <ListItemIcon
                       sx={{
-                        pl: 4,
-                        minHeight: 48,
-                        justifyContent: open ? 'initial' : 'center',
+                        color: 'white',
+                        minWidth: 0,
+                        mr: open ? 3 : 'auto',
+                        justifyContent: 'center',
                       }}
                     >
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <img alt="bonds" height={30} src={bondImg} />
-                      </ListItemIcon>
-                      <ListItemText primary="Bonds" sx={{opacity: open ? 1 : 0}} />
-                    </ListItemButton>
-                  </ListItem>
-                </List>
-              </Collapse>
-            )}
+                      <AccountBalanceWalletSharpIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Grape Wallets" sx={{opacity: open ? 1 : 0}} />
+                    {open ? walletsOpen ? <ExpandLess /> : <ExpandMore /> : null}
+                  </ListItemButton>
+                </Tooltip>
+                {open && (
+                  <Collapse in={walletsOpen} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                      <Tooltip arrow followCursor title={open ? '' : 'Treasury'} placement="top-start">
+                        <a
+                          className="menu-item"
+                          href="https://debank.com/profile/0xEB755b81A786832705a3c0658127216eD36fE898"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{padding: 0, display: 'block'}}
+                        >
+                          <ListItemButton sx={{pl: 4}}>
+                            <ListItemIcon
+                              sx={{
+                                color: 'white',
+                                minWidth: 0,
+                                mr: open ? 3 : 'auto',
+                                justifyContent: 'center',
+                              }}
+                            >
+                              <img src={debankImg} alt="Debank" height={22} />{' '}
+                            </ListItemIcon>
+                            <ListItemText primary="Treasury" />
+                          </ListItemButton>
+                        </a>
+                      </Tooltip>
+                      <Tooltip arrow followCursor title={open ? '' : 'DAO'} placement="top-start">
+                        <a
+                          className="menu-item"
+                          href="https://debank.com/profile/0xf29fD03Df2Cb7F81d8Ae4d10A76f8b1C898786BD"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{padding: 0, display: 'block'}}
+                        >
+                          <ListItemButton sx={{pl: 4}}>
+                            <ListItemIcon
+                              sx={{
+                                color: 'white',
+                                minWidth: 0,
+                                mr: open ? 3 : 'auto',
+                                justifyContent: 'center',
+                              }}
+                            >
+                              <img src={debankImg} alt="Debank" height={22} />{' '}
+                            </ListItemIcon>
+                            <ListItemText primary="DAO" />
+                          </ListItemButton>
+                        </a>
+                      </Tooltip>
+                      <Tooltip arrow followCursor title={open ? '' : 'Node Rewards'} placement="top-start">
+                        <a
+                          className="menu-item"
+                          href="https://debank.com/profile/0xa3C4C965BA6aA9382a8Edd965D13CB495F8da6F5"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{padding: 0, display: 'block'}}
+                        >
+                          <ListItemButton sx={{pl: 4}}>
+                            <ListItemIcon
+                              sx={{
+                                color: 'white',
+                                minWidth: 0,
+                                mr: open ? 3 : 'auto',
+                                justifyContent: 'center',
+                              }}
+                            >
+                              <img src={debankImg} alt="Debank" height={22} />{' '}
+                            </ListItemIcon>
+                            <ListItemText primary="Node Rewards" />
+                          </ListItemButton>
+                        </a>
+                      </Tooltip>
+                    </List>
+                  </Collapse>
+                )}
+              </List>
 
-            <Tooltip arrow followCursor title={open ? '' : 'Dashboard'} placement="top-start">
-              <ListItem className="menu-item" component={Link} to="/dashboard" disablePadding sx={{display: 'block'}}>
-                <ListItemButton
-                  sx={{
-                    minHeight: 48,
-                    justifyContent: open ? 'initial' : 'center',
-                  }}
-                >
-                  <ListItemIcon
-                    sx={{
-                      color: 'white',
-                      minWidth: 0,
-                      mr: open ? 3 : 'auto',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <AttachMoneyIcon style={{fill: '#e647e6'}} />
-                  </ListItemIcon>
-                  <ListItemText primary="Dashboard" sx={{opacity: open ? 1 : 0}} />
-                </ListItemButton>
-              </ListItem>
-            </Tooltip>
-          </List>
+              <Divider color="#aaa" />
 
-          <Divider color="#aaa" />
+              <List>
+                <Tooltip arrow followCursor title={open ? '' : 'Other Links'} placement="top-start">
+                  <ListItemButton onClick={handleUsefullLinksClick}>
+                    <ListItemIcon
+                      sx={{
+                        color: 'white',
+                        minWidth: 0,
+                        mr: open ? 3 : 'auto',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      <LinkIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Other Links" sx={{opacity: open ? 1 : 0}} />
+                    {open ? usefullLinksOpen ? <ExpandLess /> : <ExpandMore /> : null}
+                  </ListItemButton>
+                </Tooltip>
+                {open && (
+                  <Collapse in={usefullLinksOpen} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                      <Tooltip arrow followCursor title={open ? '' : 'Docs'} placement="top-start">
+                        <a
+                          className="menu-item"
+                          href="https://grapefinance.gitbook.io/grape-finance-docs/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{padding: 0, display: 'block'}}
+                        >
+                          <ListItemButton
+                            sx={{
+                              minHeight: 48,
+                              justifyContent: open ? 'initial' : 'center',
+                              pl: 4,
+                            }}
+                          >
+                            <ListItemIcon
+                              sx={{
+                                color: 'white',
+                                minWidth: 0,
+                                mr: open ? 3 : 'auto',
+                                justifyContent: 'center',
+                              }}
+                            >
+                              <MenuBookIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Docs" sx={{opacity: open ? 1 : 0}} />
+                          </ListItemButton>
+                        </a>
+                      </Tooltip>
+                      <Tooltip arrow followCursor title={open ? '' : 'Contracts'} placement="top-start">
+                        <a
+                          className="menu-item"
+                          href="https://app.gitbook.com/s/NUqRuqfjnQX78cGRsBTc/protocol/contracts"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{padding: 0, display: 'block'}}
+                        >
+                          <ListItemButton
+                            sx={{
+                              minHeight: 48,
+                              justifyContent: open ? 'initial' : 'center',
+                              pl: 4,
+                            }}
+                          >
+                            <ListItemIcon
+                              sx={{
+                                color: 'white',
+                                minWidth: 0,
+                                mr: open ? 3 : 'auto',
+                                justifyContent: 'center',
+                              }}
+                            >
+                              <FeedIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Contracts" sx={{opacity: open ? 1 : 0}} />
+                          </ListItemButton>
+                        </a>
+                      </Tooltip>
+                      <Tooltip arrow followCursor title={open ? '' : 'Education'} placement="top-start">
+                        <a
+                          className="menu-item"
+                          href="https://www.youtube.com/channel/UCaArraLhGOOzR1vZKr4y4Tw"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{padding: 0, display: 'block'}}
+                        >
+                          <ListItemButton
+                            sx={{
+                              minHeight: 48,
+                              justifyContent: open ? 'initial' : 'center',
+                              pl: 4,
+                            }}
+                          >
+                            <ListItemIcon
+                              sx={{
+                                color: 'white',
+                                minWidth: 0,
+                                mr: open ? 3 : 'auto',
+                                justifyContent: 'center',
+                              }}
+                            >
+                              <YouTubeIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Education" sx={{opacity: open ? 1 : 0}} />
+                          </ListItemButton>
+                        </a>
+                      </Tooltip>
+                      <Tooltip arrow followCursor title={open ? '' : 'Buy Ledger'} placement="top-start">
+                        <a
+                          className="menu-item"
+                          href="https://shop.ledger.com/?r=ba80c2f11e62"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{padding: 0, display: 'block'}}
+                        >
+                          <ListItemButton
+                            sx={{
+                              minHeight: 48,
+                              justifyContent: open ? 'initial' : 'center',
+                              pl: 4,
+                            }}
+                          >
+                            <ListItemIcon
+                              sx={{
+                                color: 'white',
+                                minWidth: 0,
+                                mr: open ? 3 : 'auto',
+                                justifyContent: 'center',
+                              }}
+                            >
+                              <img src={ledgerIcon} alt="Buy Ledger" width={24} height={24} />
+                            </ListItemIcon>
+                            <ListItemText primary="Buy Ledger" sx={{opacity: open ? 1 : 0}} />
+                          </ListItemButton>
+                        </a>
+                      </Tooltip>
 
-          <List>
-            <Tooltip arrow followCursor title={open ? '' : 'Buy Tokens'} placement="top-start">
-              <ListItemButton onClick={handleBuyClick}>
-                <ListItemIcon
-                  sx={{
-                    color: 'white',
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <ShoppingCartIcon style={{fill: '#cd72f6'}} />
-                </ListItemIcon>
-                <ListItemText primary="Buy Tokens" sx={{opacity: open ? 1 : 0}} />
-                {open ? buyOpen ? <ExpandLess /> : <ExpandMore /> : null}
-              </ListItemButton>
-            </Tooltip>
+                      <Tooltip arrow followCursor title={open ? '' : 'Roadmap'} placement="top-start">
+                        <ListItem
+                          className="menu-item"
+                          button
+                          component={Link}
+                          to="/roadmap"
+                          disablePadding
+                          sx={{display: 'block'}}
+                        >
+                          <ListItemButton sx={{pl: 4}}>
+                            <ListItemIcon
+                              sx={{
+                                color: 'white',
+                                minWidth: 0,
+                                mr: open ? 3 : 'auto',
+                                justifyContent: 'center',
+                              }}
+                            >
+                              <MapIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Roadmap" />
+                          </ListItemButton>
+                        </ListItem>
+                      </Tooltip>
+                      <Tooltip arrow followCursor title={open ? '' : 'Merch'} placement="top-start">
+                        <a
+                          className="menu-item"
+                          href="https://shop.grapefinance.app/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{padding: 0, display: 'block'}}
+                        >
+                          <ListItemButton sx={{pl: 4}}>
+                            <ListItemIcon
+                              sx={{
+                                color: 'white',
+                                minWidth: 0,
+                                mr: open ? 3 : 'auto',
+                                justifyContent: 'center',
+                              }}
+                            >
+                              <StorefrontIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Merch" />
+                          </ListItemButton>
+                        </a>
+                      </Tooltip>
+                    </List>
+                  </Collapse>
+                )}
+              </List>
+            </Grid>
             {open && (
-              <Collapse in={buyOpen} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
-                  <a
-                    className="menu-item"
-                    href="https://app.bogged.finance/avax/swap?tokenIn=0x130966628846BFd36ff31a822705796e8cb8C18D&tokenOut=0x5541D83EFaD1f281571B343977648B75d95cdAC2"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <img src={grapeImg} alt="Grape" height={22} />{' '}
-                      </ListItemIcon>
-                      <ListItemText primary="GRAPE" />
-                    </ListItemButton>
-                  </a>
-                  <a
-                    className="menu-item"
-                    href="https://app.bogged.finance/avax/swap?tokenIn=0x130966628846BFd36ff31a822705796e8cb8C18D&tokenOut=0xC55036B5348CfB45a932481744645985010d3A44"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <img src={wineImg} alt="Wine" height={22} />{' '}
-                      </ListItemIcon>
-                      <ListItemText primary="WINE" />
-                    </ListItemButton>
-                  </a>
-                  <a
-                    className="menu-item"
-                    href="https://xgrape.grapefinance.app/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <img src={xGrapeImg} alt="xGRAPE" height={22} />{' '}
-                      </ListItemIcon>
-                      <ListItemText primary="xGRAPE" />
-                    </ListItemButton>
-                  </a>
-                  <a
-                    className="menu-item"
-                    href="https://www.swapsicle.io/swap?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0x01Af64EF39AEB5612202AA07B3A3829f20c395fd#/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <img src={vintageImg} alt="Vintage" height={22} />{' '}
-                      </ListItemIcon>
-                      <ListItemText primary="VINTAGE" />
-                    </ListItemButton>
-                  </a>
-                  <a
-                    className="menu-item"
-                    href="https://winemaker.grapefinance.app/app/Cellar"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <img src={soleraIcon} alt="sVintage" height={22} />{' '}
-                      </ListItemIcon>
-                      <ListItemText primary="sVINTAGE (in Cellar)" />
-                    </ListItemButton>
-                  </a>
-                </List>
-              </Collapse>
-            )}
-          </List>
-
-          <List>
-            <Tooltip arrow followCursor title={open ? '' : 'Buy NFTs'} placement="top-start">
-              <ListItemButton onClick={handleBuyNFTsClick}>
-                <ListItemIcon
-                  sx={{
-                    color: 'white',
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <ImageSearchIcon style={{fill: '#cd72f6'}} />
-                </ListItemIcon>
-                <ListItemText primary="Buy NFTs" sx={{opacity: open ? 1 : 0}} />
-                {open ? buyNFTsOpen ? <ExpandLess /> : <ExpandMore /> : null}
-              </ListItemButton>
-            </Tooltip>
-            {open && (
-              <Collapse in={buyNFTsOpen} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
-                  <a
-                    className="menu-item"
-                    href="https://hexagon.market/collections/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df?sort=-highestPrice"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <TokenSymbol symbol="GOBLET" height={25} width={25} />
-                      </ListItemIcon>
-                      <ListItemText primary="Winery (Grape)" />
-                    </ListItemButton>
-                  </a>
-                  <a
-                    className="menu-item"
-                    href="https://hexagon.market/collections/0xe26168f45030e1eb7477fa5f9a4a28d93c0658b4"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <TokenSymbol symbol="VINTNERS" height={25} width={25} />
-                      </ListItemIcon>
-                      <ListItemText primary="Vintners (Grape)" />
-                    </ListItemButton>
-                  </a>
-
-                  <a
-                    className="menu-item"
-                    href="https://nftrade.com/assets/avalanche/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <TokenSymbol symbol="GOBLET" height={25} width={25} />
-                      </ListItemIcon>
-                      <ListItemText primary="Winery (NFTrade)" />
-                    </ListItemButton>
-                  </a>
-                  <a
-                    className="menu-item"
-                    href="https://nftrade.com/collection/the-vintners-v1?search=&sort=min_listed_desc&contractAddress=0xe26168f45030e1eb7477fa5f9a4a28d93c0658b4&chainName="
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <TokenSymbol symbol="VINTNERS" height={25} width={25} />
-                      </ListItemIcon>
-                      <ListItemText primary="Vintners (NFTrade)" />
-                    </ListItemButton>
-                  </a>
-                  <a
-                    className="menu-item"
-                    href="https://www.alphashares.io/explore/0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <TokenSymbol symbol="GOBLET" height={25} width={25} />
-                      </ListItemIcon>
-                      <ListItemText primary="Winery (AlphaShares)" />
-                    </ListItemButton>
-                  </a>
-                  <a
-                    className="menu-item"
-                    href="https://www.alphashares.io/explore/0xe26168f45030e1eb7477fa5f9a4a28d93c0658b4"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{padding: 0, display: 'block'}}
-                  >
-                    <ListItemButton sx={{pl: 4}}>
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <TokenSymbol symbol="VINTNERS" height={25} width={25} />
-                      </ListItemIcon>
-                      <ListItemText primary="Vintners (AlphaShares)" />
-                    </ListItemButton>
-                  </a>
-                </List>
-              </Collapse>
-            )}
-          </List>
-
-          <List>
-            <Tooltip arrow followCursor title={open ? '' : 'AC Vaults'} placement="top-start">
-              <ListItemButton onClick={handleVaultsClick}>
-                <ListItemIcon
-                  sx={{
-                    color: 'white',
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <SavingsIcon style={{fill: '#cd72f6'}} />
-                </ListItemIcon>
-                <ListItemText primary="AC Vaults" sx={{opacity: open ? 1 : 0}} />
-                {open ? vaultsOpen ? <ExpandLess /> : <ExpandMore /> : null}
-              </ListItemButton>
-            </Tooltip>
-            {open && (
-              <Collapse in={vaultsOpen} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
-                  <Tooltip arrow followCursor title={open ? '' : 'Magik'} placement="top-start">
-                    <a
-                      className="menu-item"
-                      href="https://magik.farm/#/avax"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{padding: 0, display: 'block'}}
-                    >
-                      <ListItemButton sx={{pl: 4}}>
-                        <ListItemIcon
-                          sx={{
-                            color: 'white',
-                            minWidth: 0,
-                            mr: open ? 3 : 'auto',
-                            justifyContent: 'center',
-                          }}
-                        >
-                          <img src={magikImg} alt="Magik" height={30} />{' '}
-                        </ListItemIcon>
-                        <ListItemText primary="Magik" />
-                      </ListItemButton>
+              <Grid item style={{marginTop: '50px'}}>
+                <Grid container spacing={2} justifyContent={'center'} alignItems="center">
+                  <Grid item>
+                    <a href="https://discord.gg/grapefinance" rel="noopener noreferrer" target="_blank">
+                      <IconDiscord style={{fill: '#fff', width: '50px', transform: 'scale(0.6)'}} />
                     </a>
-                  </Tooltip>
-
-                  <Tooltip arrow followCursor title={open ? '' : 'Beefy'} placement="top-start">
+                  </Grid>
+                  <Grid item>
                     <a
-                      className="menu-item"
-                      href="https://app.beefy.finance/#/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{padding: 0, display: 'block'}}
-                    >
-                      <ListItemButton sx={{pl: 4}}>
-                        <ListItemIcon
-                          sx={{
-                            color: 'white',
-                            minWidth: 0,
-                            mr: open ? 3 : 'auto',
-                            justifyContent: 'center',
-                          }}
-                        >
-                          <img src={beefyImg} alt="Beefy" height={30} />{' '}
-                        </ListItemIcon>
-                        <ListItemText primary="Beefy" />
-                      </ListItemButton>
-                    </a>
-                  </Tooltip>
-                  <Tooltip arrow followCursor title={open ? '' : 'Yield Wolf'} placement="top-start">
-                    <a
-                      className="menu-item"
-                      href="https://yieldwolf.finance/avalanche"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{padding: 0, display: 'block'}}
-                    >
-                      <ListItemButton sx={{pl: 4}}>
-                        <ListItemIcon
-                          sx={{
-                            color: 'white',
-                            minWidth: 0,
-                            mr: open ? 3 : 'auto',
-                            justifyContent: 'center',
-                          }}
-                        >
-                          <img src={yieldwolfImg} alt="YieldWolf" height={30} />{' '}
-                        </ListItemIcon>
-                        <ListItemText primary="Yield Wolf" />
-                      </ListItemButton>
-                    </a>
-                  </Tooltip>
-                </List>
-              </Collapse>
-            )}
-          </List>
-
-          <List>
-            <Tooltip arrow followCursor title={open ? '' : 'Grape Wallets'} placement="top-start">
-              <ListItemButton onClick={handleWalletsClick}>
-                <ListItemIcon
-                  sx={{
-                    color: 'white',
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <AccountBalanceWalletSharpIcon style={{fill: '#cd72f6'}} />
-                </ListItemIcon>
-                <ListItemText primary="Grape Wallets" sx={{opacity: open ? 1 : 0}} />
-                {open ? walletsOpen ? <ExpandLess /> : <ExpandMore /> : null}
-              </ListItemButton>
-            </Tooltip>
-            {open && (
-              <Collapse in={walletsOpen} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
-                  <Tooltip arrow followCursor title={open ? '' : 'Treasury'} placement="top-start">
-                    <a
-                      className="menu-item"
-                      href="https://debank.com/profile/0xEB755b81A786832705a3c0658127216eD36fE898"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{padding: 0, display: 'block'}}
-                    >
-                      <ListItemButton sx={{pl: 4}}>
-                        <ListItemIcon
-                          sx={{
-                            color: 'white',
-                            minWidth: 0,
-                            mr: open ? 3 : 'auto',
-                            justifyContent: 'center',
-                          }}
-                        >
-                          <img src={debankImg} alt="Debank" height={22} />{' '}
-                        </ListItemIcon>
-                        <ListItemText primary="Treasury" />
-                      </ListItemButton>
-                    </a>
-                  </Tooltip>
-                  <Tooltip arrow followCursor title={open ? '' : 'DAO'} placement="top-start">
-                    <a
-                      className="menu-item"
-                      href="https://debank.com/profile/0xf29fD03Df2Cb7F81d8Ae4d10A76f8b1C898786BD"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{padding: 0, display: 'block'}}
-                    >
-                      <ListItemButton sx={{pl: 4}}>
-                        <ListItemIcon
-                          sx={{
-                            color: 'white',
-                            minWidth: 0,
-                            mr: open ? 3 : 'auto',
-                            justifyContent: 'center',
-                          }}
-                        >
-                          <img src={debankImg} alt="Debank" height={22} />{' '}
-                        </ListItemIcon>
-                        <ListItemText primary="DAO" />
-                      </ListItemButton>
-                    </a>
-                  </Tooltip>
-                  <Tooltip arrow followCursor title={open ? '' : 'Node Rewards'} placement="top-start">
-                    <a
-                      className="menu-item"
-                      href="https://debank.com/profile/0xa3C4C965BA6aA9382a8Edd965D13CB495F8da6F5"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{padding: 0, display: 'block'}}
-                    >
-                      <ListItemButton sx={{pl: 4}}>
-                        <ListItemIcon
-                          sx={{
-                            color: 'white',
-                            minWidth: 0,
-                            mr: open ? 3 : 'auto',
-                            justifyContent: 'center',
-                          }}
-                        >
-                          <img src={debankImg} alt="Debank" height={22} />{' '}
-                        </ListItemIcon>
-                        <ListItemText primary="Node Rewards" />
-                      </ListItemButton>
-                    </a>
-                  </Tooltip>
-                </List>
-              </Collapse>
-            )}
-          </List>
-
-          <Divider color="#aaa" />
-
-          <List>
-            <Tooltip arrow followCursor title={open ? '' : 'Other Links'} placement="top-start">
-              <ListItemButton onClick={handleUsefullLinksClick}>
-                <ListItemIcon
-                  sx={{
-                    color: 'white',
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <LinkIcon style={{fill: '#f1d1ff'}} />
-                </ListItemIcon>
-                <ListItemText primary="Other Links" sx={{opacity: open ? 1 : 0}} />
-                {open ? usefullLinksOpen ? <ExpandLess /> : <ExpandMore /> : null}
-              </ListItemButton>
-            </Tooltip>
-            {open && (
-              <Collapse in={usefullLinksOpen} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
-                  <Tooltip arrow followCursor title={open ? '' : 'Docs'} placement="top-start">
-                    <a
-                      className="menu-item"
-                      href="https://grapefinance.gitbook.io/grape-finance-docs/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{padding: 0, display: 'block'}}
-                    >
-                      <ListItemButton
-                        sx={{
-                          minHeight: 48,
-                          justifyContent: open ? 'initial' : 'center',
-                          pl: 4,
-                        }}
-                      >
-                        <ListItemIcon
-                          sx={{
-                            color: 'white',
-                            minWidth: 0,
-                            mr: open ? 3 : 'auto',
-                            justifyContent: 'center',
-                          }}
-                        >
-                          <MenuBookIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Docs" sx={{opacity: open ? 1 : 0}} />
-                      </ListItemButton>
-                    </a>
-                  </Tooltip>
-                  <Tooltip arrow followCursor title={open ? '' : 'Contracts'} placement="top-start">
-                    <a
-                      className="menu-item"
-                      href="https://app.gitbook.com/s/NUqRuqfjnQX78cGRsBTc/protocol/contracts"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{padding: 0, display: 'block'}}
-                    >
-                      <ListItemButton
-                        sx={{
-                          minHeight: 48,
-                          justifyContent: open ? 'initial' : 'center',
-                          pl: 4,
-                        }}
-                      >
-                        <ListItemIcon
-                          sx={{
-                            color: 'white',
-                            minWidth: 0,
-                            mr: open ? 3 : 'auto',
-                            justifyContent: 'center',
-                          }}
-                        >
-                          <FeedIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Contracts" sx={{opacity: open ? 1 : 0}} />
-                      </ListItemButton>
-                    </a>
-                  </Tooltip>
-                  <Tooltip arrow followCursor title={open ? '' : 'Education'} placement="top-start">
-                    <a
-                      className="menu-item"
                       href="https://www.youtube.com/channel/UCaArraLhGOOzR1vZKr4y4Tw"
-                      target="_blank"
                       rel="noopener noreferrer"
-                      style={{padding: 0, display: 'block'}}
-                    >
-                      <ListItemButton
-                        sx={{
-                          minHeight: 48,
-                          justifyContent: open ? 'initial' : 'center',
-                          pl: 4,
-                        }}
-                      >
-                        <ListItemIcon
-                          sx={{
-                            color: 'white',
-                            minWidth: 0,
-                            mr: open ? 3 : 'auto',
-                            justifyContent: 'center',
-                          }}
-                        >
-                          <YouTubeIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Education" sx={{opacity: open ? 1 : 0}} />
-                      </ListItemButton>
-                    </a>
-                  </Tooltip>
-                  <Tooltip arrow followCursor title={open ? '' : 'Buy Ledger'} placement="top-start">
-                    <a
-                      className="menu-item"
-                      href="https://shop.ledger.com/?r=ba80c2f11e62"
                       target="_blank"
-                      rel="noopener noreferrer"
-                      style={{padding: 0, display: 'block'}}
                     >
-                      <ListItemButton
-                        sx={{
-                          minHeight: 48,
-                          justifyContent: open ? 'initial' : 'center',
-                          pl: 4,
-                        }}
-                      >
-                        <ListItemIcon
-                          sx={{
-                            color: 'white',
-                            minWidth: 0,
-                            mr: open ? 3 : 'auto',
-                            justifyContent: 'center',
-                          }}
-                        >
-                          <img src={ledgerIcon} alt="Buy Ledger" width={24} height={24} />
-                        </ListItemIcon>
-                        <ListItemText primary="Buy Ledger" sx={{opacity: open ? 1 : 0}} />
-                      </ListItemButton>
+                      <YouTubeIcon style={{fill: 'white', width: '50px', transform: 'scale(1.5)'}} />
                     </a>
-                  </Tooltip>
-
-                  <Tooltip arrow followCursor title={open ? '' : 'Roadmap'} placement="top-start">
-                    <ListItem
-                      className="menu-item"
-                      button
-                      component={Link}
-                      to="/roadmap"
-                      disablePadding
-                      sx={{display: 'block'}}
-                    >
-                      <ListItemButton sx={{pl: 4}}>
-                        <ListItemIcon
-                          sx={{
-                            color: 'white',
-                            minWidth: 0,
-                            mr: open ? 3 : 'auto',
-                            justifyContent: 'center',
-                          }}
-                        >
-                          <MapIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Roadmap" />
-                      </ListItemButton>
-                    </ListItem>
-                  </Tooltip>
-                  <Tooltip arrow followCursor title={open ? '' : 'Merch'} placement="top-start">
-                    <a
-                      className="menu-item"
-                      href="https://shop.grapefinance.app/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{padding: 0, display: 'block'}}
-                    >
-                      <ListItemButton sx={{pl: 4}}>
-                        <ListItemIcon
-                          sx={{
-                            color: 'white',
-                            minWidth: 0,
-                            mr: open ? 3 : 'auto',
-                            justifyContent: 'center',
-                          }}
-                        >
-                          <StorefrontIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Merch" />
-                      </ListItemButton>
+                  </Grid>
+                  <Grid item>
+                    {' '}
+                    <a href="https://twitter.com/grape_finance" rel="noopener noreferrer" target="_blank">
+                      <IconTwitter style={{fill: '#fff', width: '50px', transform: 'scale(1.0)'}} />
                     </a>
-                  </Tooltip>
-                </List>
-              </Collapse>
+                  </Grid>
+                </Grid>
+              </Grid>
             )}
-          </List>
+          </Grid>
         </Drawer>
         <Box component="main" sx={{flexGrow: 1}}>
           <DrawerHeader />

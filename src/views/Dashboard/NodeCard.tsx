@@ -4,10 +4,9 @@ import useEarnings from '../../hooks/useEarnings';
 import useHarvest from '../../hooks/useHarvest';
 import {getDisplayBalance, getFullDisplayBalance} from '../../utils/formatBalance';
 import useTokenBalance from '../../hooks/useTokenBalance';
-import useStakedTokenPriceInDollars from '../../hooks/useStakedTokenPriceInDollars';
 import useStake from '../../hooks/useStake';
 import useWithdraw from '../../hooks/useWithdraw';
-import grapeFinance, {Bank} from '../../grape-finance';
+import {Bank} from '../../grape-finance';
 import useStatsForPool from '../../hooks/useStatsForPool';
 import TokenSymbol from '../../components/TokenSymbol';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -31,9 +30,12 @@ import {styled} from '@mui/material/styles';
 import InfoIcon from '@mui/icons-material/Info';
 import useModal from '../../hooks/useModal';
 import ClaimModal from '../GrapeNode/components/ClaimModal';
+import { TokenStat } from '../../grape-finance/types';
 
 interface FarmCardProps {
   bank: Bank;
+  grapeStats: TokenStat;
+  account: string;
   activesOnly: boolean;
 }
 
@@ -46,7 +48,7 @@ const LightTooltip = styled(({className, ...props}: TooltipProps) => (
   },
 }));
 
-const NodeCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
+const NodeCard: React.FC<FarmCardProps> = ({bank, grapeStats, account, activesOnly}) => {
   useEffect(() => {
     subscribe('failedTx', () => {
       setClaimLoading(false);
@@ -69,9 +71,9 @@ const NodeCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
   }, []);
 
   const widthUnder600 = useMediaQuery('(max-width:600px)');
-  const widthUnder960 = useMediaQuery('(max-width:960px)');
   const poolStats = useStatsForPool(bank);
 
+  const [loading, setLoading] = useState(true);
   const [expanded, setExpanded] = useState(false);
   const [inputValue, setInputValue] = useState<string>('');
   const [claimLoading, setClaimLoading] = useState(false);
@@ -79,20 +81,17 @@ const NodeCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
   const [approveLoading, setApproveLoading] = useState(false);
   const [compoundLoading, setCompoundLoading] = useState(false);
 
-  const {account} = useWallet();
   const dailyRewards = useDailyDrip(bank.contract, bank.sectionInUI, account);
   const nodes = useNodes(bank.contract, bank.sectionInUI, account);
   const userDetails = useUserDetails(bank.contract, bank.sectionInUI, account);
   const maxPayout = useMaxPayout(bank?.contract, bank?.sectionInUI, account);
   const total = useTotalNodes(bank?.contract, bank?.sectionInUI);
-  const grapeStats = useGrapeStats();
   const tokenBalance = useTokenBalance(bank.depositToken);
   const earnings = useEarnings(bank.contract, bank.earnTokenName, bank.poolId);
   const lpTokenStats = useLpStatsBTC(bank.depositTokenName);
   const nodePrice = useNodePrice(bank.contract, bank.poolId, bank.sectionInUI);
   const claimFee = useGrapeNodeClaimFee();
 
-  const rewardTokenpriceInDollars = useStakedTokenPriceInDollars(bank.earnTokenName, bank.earnToken);
   const {approveStatus, approve} = useApprove(bank.depositToken, bank.address);
 
   const ticketRewards = useGetMultiplierForNode(bank.earnTokenName);
@@ -161,10 +160,15 @@ const NodeCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
   }, [parsedRewardTokenPriceInDollars, earnedInToken]);
   const nodeCost = (Number(parsedRewardTokenPriceInDollars) * parsedNodePrice).toFixed(2);
 
+  useEffect(() => {
+    if (computedUserNode != null && earnedInToken != null && poolStats) {
+      setLoading(false);
+    }
+  }, [computedUserNode, earnedInToken, poolStats]);
+
   // Custom Hooks functinos
   const {onReward} = useHarvest(bank);
   const {onStake} = useStake(bank);
-  const {onWithdraw} = useWithdraw(bank);
   const {onCompound} = useCompound(bank);
 
   // Custom functions
@@ -172,11 +176,6 @@ const NodeCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
     setExpanded(!expanded);
   };
 
-  const withdraw = () => {
-    if (Number(inputValue) > 0) {
-      onWithdraw(inputValue.toString());
-    }
-  };
   const stake = () => {
     if (Number(inputValue) > 0) {
       setDepositingLoading(true);
@@ -230,7 +229,7 @@ const NodeCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
       {(activesOnly === false || (activesOnly === true && computedUserNode > 0)) && (
         <Accordion expanded={expanded} onChange={expand} className="accordion">
           <AccordionSummary
-            expandIcon={<ExpandMoreIcon style={{color: 'white'}} />}
+            expandIcon={loading ? <SyncLoader color="white" size={4} /> : <ExpandMoreIcon style={{color: 'white'}} />}
             aria-controls="panel1bh-content"
             id="panel1bh-header"
           >
@@ -295,7 +294,9 @@ const NodeCard: React.FC<FarmCardProps> = ({bank, activesOnly}) => {
                     </div>
                   </Grid>
                   <Grid item>
-                    <div className="lineValue">{dailyAPR ? (Number(dailyAPR) * 365).toFixed(0) : '---'}% | {dailyAPR ? dailyAPR : '-.--'}%</div>
+                    <div className="lineValue">
+                      {dailyAPR ? (Number(dailyAPR) * 365).toFixed(0) : '---'}% | {dailyAPR ? dailyAPR : '-.--'}%
+                    </div>
                   </Grid>
                 </Grid>
               </Grid>
