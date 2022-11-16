@@ -286,14 +286,16 @@ const DashboardTop = () => {
 
                 <Grid container justifyContent="space-between">
                   <Grid item>
-                    <span style={{color: '#f9b857', marginTop: '10px'}}>Rewards</span>
+                    <span className="dashboard-top-reward-label">Rewards</span>
                   </Grid>
                   <Grid item>
-                    {walletStats != null ? (
-                      <CountUp end={Number(walletStats.rewardsInWinery)} separator="," prefix="≈$" />
-                    ) : (
-                      <SyncLoader color="white" size={4} />
-                    )}
+                    <span className="dashboard-top-reward-value">
+                      {walletStats != null ? (
+                        <CountUp end={Number(walletStats.rewardsInWinery)} separator="," prefix="≈$" />
+                      ) : (
+                        <SyncLoader color="white" size={4} />
+                      )}
+                    </span>
                   </Grid>
                 </Grid>
               </CardContent>
@@ -319,14 +321,16 @@ const DashboardTop = () => {
 
                 <Grid container justifyContent="space-between">
                   <Grid item>
-                    <span style={{color: '#f9b857', marginTop: '10px'}}>Rewards</span>
+                    <span className="dashboard-top-reward-label">Rewards</span>
                   </Grid>
                   <Grid item>
-                    {walletStats != null ? (
-                      <CountUp end={Number(walletStats.rewardsInNodes)} separator="," prefix="≈$" />
-                    ) : (
-                      <SyncLoader color="white" size={4} />
-                    )}
+                    <span className="dashboard-top-reward-value">
+                      {walletStats != null ? (
+                        <CountUp end={Number(walletStats.rewardsInNodes)} separator="," prefix="≈$" />
+                      ) : (
+                        <SyncLoader color="white" size={4} />
+                      )}
+                    </span>
                   </Grid>
                 </Grid>
               </CardContent>
@@ -359,9 +363,11 @@ const DashboardTop = () => {
 
                 <Grid container justifyContent="space-between">
                   <Grid item>
-                    <span style={{color: '#f9b857', marginTop: '10px'}}>Rewards</span>
+                    <span className="dashboard-top-reward-label">Rewards</span>
                   </Grid>
                   <Grid item>
+                  <span className="dashboard-top-reward-value">
+
                     {walletStats != null ? (
                       <CountUp
                         end={Number(
@@ -375,6 +381,7 @@ const DashboardTop = () => {
                     ) : (
                       <SyncLoader color="white" size={4} />
                     )}
+                    </span>
                   </Grid>
                 </Grid>
               </CardContent>
