@@ -366,21 +366,20 @@ const DashboardTop = () => {
                     <span className="dashboard-top-reward-label">Rewards</span>
                   </Grid>
                   <Grid item>
-                  <span className="dashboard-top-reward-value">
-
-                    {walletStats != null ? (
-                      <CountUp
-                        end={Number(
-                          walletStats.rewardsInWinePress +
-                            walletStats.rewardsInSodaPress +
-                            walletStats.rewardsInSoleraPress,
-                        )}
-                        separator=","
-                        prefix="≈$"
-                      />
-                    ) : (
-                      <SyncLoader color="white" size={4} />
-                    )}
+                    <span className="dashboard-top-reward-value">
+                      {walletStats != null ? (
+                        <CountUp
+                          end={Number(
+                            walletStats.rewardsInWinePress +
+                              walletStats.rewardsInSodaPress +
+                              walletStats.rewardsInSoleraPress,
+                          )}
+                          separator=","
+                          prefix="≈$"
+                        />
+                      ) : (
+                        <SyncLoader color="white" size={4} />
+                      )}
                     </span>
                   </Grid>
                 </Grid>

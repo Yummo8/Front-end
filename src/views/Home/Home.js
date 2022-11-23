@@ -92,7 +92,7 @@ const Home = () => {
         <Grid item xs={12} style={{marginLeft: '20px'}}>
           <Grid container direction="column" justifyContent="center" spacing={2} alignItems="flex-start">
             <Grid item>
-              <span className="welcome-text">Welcome to Grape Finance</span>
+              <span className="welcome-text">Welcome to <span style={{color: '#e646e6'}}>Grape Finance</span></span>
             </Grid>
             <Grid item style={{color: '#fcfcfc'}}>
               An Ecosystem of Innovative on-chain DeFi products providing{' '}

@@ -50,7 +50,7 @@ const Footer = () => {
             <Grid item>
               <div className="animated-underline" style={{height: '40px', lineHeight: '40px'}}>
                 <a
-                  href="https://app.gitbook.com/s/NUqRuqfjnQX78cGRsBTc/protocol/contracts"
+                  href="https://grape-finance.gitbook.io/grape-finance-docs/protocol/contracts"
                   target="_blank"
                   rel="noreferrer noopener"
                   style={{textDecoration: 'none', color: 'inherit'}}
