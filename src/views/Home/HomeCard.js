@@ -8,6 +8,7 @@ import {Link} from 'react-router-dom';
 
 import solera from '../../assets/img/solera.png';
 import xGrape from '../../assets/img/xGrape.png';
+import vinium from '../../assets/img/vinium.png';
 import grapeWine from '../../assets/img/grape-wine.png';
 import gnode from '../../assets/img/gnode.png';
 import barrel from '../../assets/img/barrel.png';
@@ -30,6 +31,7 @@ const nameToImage = {
   casinocoins: casinocoins,
   burninggrape: burninggrape,
   goblet: goblet,
+  vinium: vinium,
 };
 
 const useStyles = makeStyles(({palette}) => ({

@@ -24,6 +24,7 @@ import decanter from '../../assets/img/decanter.png';
 import goblet from '../../assets/img/goblet.png';
 import vintners from '../../assets/img/vintners.png';
 import nodes from '../../assets/img/gnode.png';
+import vinium from '../../assets/img/vinium.png';
 
 const logosBySymbol: {[title: string]: string} = {
   //Real tokens
@@ -55,6 +56,7 @@ const logosBySymbol: {[title: string]: string} = {
   GOBLET: goblet,
   NODE: nodes,
   VINTNERS: vintners,
+  VINIUM: vinium,
 };
 
 type LogoProps = {

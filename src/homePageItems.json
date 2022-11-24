@@ -1,5 +1,14 @@
 [
   {
+    "label": "Vinium",
+    "subLabel": "Lending & Borrowing",
+    "description": "Maximise capital efficiency with permissionless loans, leveraged positions & automated strategies.",
+    "linkTo": "https://main.vinium.finance/#/markets",
+    "isInternalLink": false,
+    "image": "vinium",
+    "isNew": true
+  },
+  {
     "label": "Solera Press",
     "subLabel": "Locked sVintage Staking",
     "description": "Lock sVintage and earn up to ~2% daily + bonus. Assassinate players for more returns.",
@@ -13,7 +22,7 @@
     "subLabel": "Always Up Token",
     "color": "#e647e6",
     "description": "Holding xGrape gives you a dual yield, while its backing per token increases on every sell, buy and transfer.",
-    "isNew": true,
+    "isNew": false,
     "image": "xGrape",
     "items": [
       {

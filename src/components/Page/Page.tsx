@@ -37,6 +37,7 @@ import rebatesImg from '../../assets/img/rebates.png';
 import winemaker from '../../assets/img/vintage-token.png';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
+import vinium from '../../assets/img/vinium.png';
 
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -339,6 +340,27 @@ const Page: React.FC = ({children}) => {
                 {open && (
                   <Collapse in={appsOpen} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
+                      <a
+                        className="menu-item"
+                        href="https://main.vinium.finance/#/markets"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        style={{display: 'block'}}
+                      >
+                        <ListItemButton sx={{pl: 4}}>
+                          <ListItemIcon
+                            sx={{
+                              color: 'white',
+                              minWidth: 0,
+                              mr: open ? 3 : 'auto',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <img src={vinium} alt="Vinium" height={23} />{' '}
+                          </ListItemIcon>
+                          <ListItemText primary="Vinium" />
+                        </ListItemButton>
+                      </a>
                       <a
                         className="menu-item"
                         href="https://solera.grapefinance.app/"
