@@ -24,7 +24,6 @@ export function useTransactionAdder(): (
       if (!chainId) return;
 
       const {hash} = response;
-      console.log(' HASH = ' + hash);
 
       if (!hash) {
         throw Error('No transaction hash found.');

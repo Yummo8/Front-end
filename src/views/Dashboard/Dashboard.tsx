@@ -29,7 +29,7 @@ const Dashboard = () => {
   const vineyardPools = banks.filter(
     (bank) => (!bank.finished && bank.sectionInUI === 2) || bank.sectionInUI === 6 || bank.sectionInUI === 7,
   );
-  const nodePools = [useBank('GrapeNodeV2'), useBank('LPNode'), useBank('LPWlrsNode')];
+  const nodePools = [useBank('GrapeNodeV2'), useBank('LPNode')];
   const pressPools = banks.filter((bank) => !bank.finished && bank.sectionInUI === 8);
 
   const tabsRef = useRef(null);
