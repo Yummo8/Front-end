@@ -991,21 +991,21 @@ export class GrapeFinance {
     const rewardPerSecond = await poolContract.winePerSecond();
 
     if (depositTokenName.startsWith('WINE-MIM')) {
-      return rewardPerSecond.mul(4000).div(41000);
+      return rewardPerSecond.mul(0).div(41000);
     } else if (depositTokenName.startsWith('GRAPE-WINE')) {
-      return rewardPerSecond.mul(1500).div(41000);
+      return rewardPerSecond.mul(0).div(41000);
     } else if (depositTokenName === 'GRAPE') {
-      return rewardPerSecond.mul(4000).div(41000);
+      return rewardPerSecond.mul(0).div(41000);
     } else if (depositTokenName === 'WAMP') {
-      return rewardPerSecond.mul(100).div(41000);
+      return rewardPerSecond.mul(0).div(41000);
     } else if (depositTokenName === 'GRAPE-MIM-SW') {
-      return rewardPerSecond.mul(15500).div(41000);
+      return rewardPerSecond.mul(0).div(41000);
     } else if (depositTokenName === 'WINE-POPS-LP') {
-      return rewardPerSecond.mul(100).div(41000);
+      return rewardPerSecond.mul(0).div(41000);
     } else if (depositTokenName === 'sVintage') {
-      return rewardPerSecond.mul(5800).div(41000);
+      return rewardPerSecond.mul(0).div(41000);
     } else {
-      return rewardPerSecond.mul(10000).div(41000);
+      return rewardPerSecond.mul(0).div(41000);
     }
   }
 
