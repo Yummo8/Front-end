@@ -129,7 +129,7 @@ const Bank: React.FC = () => {
       ) : null}
       <Box>
         <Grid container justifyContent="center" spacing={2}>
-        <Grid item xs={6} sm={4} md={3}>
+          <Grid item xs={6} sm={4} md={3}>
             <Card>
               <CardContent>
                 <Grid container justifyContent="space-between">
@@ -228,7 +228,7 @@ const LPTokenHelpText: React.FC<{bank: BankEntity}> = ({bank}) => {
   if (bank.depositTokenName == 'GRAPE-MIM-LP') {
     pairName = 'GRAPE-MIM pair';
     uniswapUrl =
-      'https://traderjoexyz.com/pool/0x130966628846bfd36ff31a822705796e8cb8c18d/0x5541d83efad1f281571b343977648b75d95cdac2';
+      'https://traderjoexyz.com/avalanche/pool/v1/0x130966628846bfd36ff31a822705796e8cb8c18d/0x5541d83efad1f281571b343977648b75d95cdac2';
     exchange = 'joe';
   } else if (bank.depositTokenName == 'GRAPE-MIM-SW') {
     pairName = 'GRAPE-MIM-SW pair';
@@ -238,12 +238,12 @@ const LPTokenHelpText: React.FC<{bank: BankEntity}> = ({bank}) => {
   } else if (bank.depositTokenName.includes('WINE-MIM')) {
     pairName = 'WINE-MIM pair';
     uniswapUrl =
-      'https://traderjoexyz.com/pool/0x130966628846bfd36ff31a822705796e8cb8c18d/0xc55036b5348cfb45a932481744645985010d3a44';
+      'https://traderjoexyz.com/avalanche/pool/v1/0x130966628846bfd36ff31a822705796e8cb8c18d/0xc55036b5348cfb45a932481744645985010d3a44';
     exchange = 'joe';
   } else if (bank.depositTokenName.includes('GRAPE-WINE')) {
     pairName = 'GRAPE-WINE pair';
     uniswapUrl =
-      'https://traderjoexyz.com/pool/0x5541d83efad1f281571b343977648b75d95cdac2/0xc55036b5348cfb45a932481744645985010d3a44';
+      'https://traderjoexyz.com/avalanche/pool/v1/0x5541D83EFaD1f281571B343977648B75d95cdAC2/0xc55036b5348cfb45a932481744645985010d3a44';
     exchange = 'joe';
   } else if (bank.depositTokenName.includes('WINE-POPS')) {
     pairName = 'WINE-POPS pair';

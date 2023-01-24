@@ -133,13 +133,13 @@ const FarmCard: React.FC<FarmCardProps> = ({bank, grapeStats, tShareStats, activ
 
   const getLiquidityLink = () => {
     if (bank.depositTokenName === 'GRAPE-MIM-LP') {
-      return 'https://traderjoexyz.com/pool/0x130966628846bfd36ff31a822705796e8cb8c18d/0x5541d83efad1f281571b343977648b75d95cdac2';
+      return 'https://traderjoexyz.com/avalanche/pool/v1/0x130966628846bfd36ff31a822705796e8cb8c18d/0x5541d83efad1f281571b343977648b75d95cdac2';
     } else if (bank.depositTokenName === 'GRAPE-MIM-SW') {
       return 'https://www.swapsicle.io/add/0x130966628846BFd36ff31a822705796e8cb8C18D/0x5541D83EFaD1f281571B343977648B75d95cdAC2';
     } else if (bank.depositTokenName.includes('WINE-MIM')) {
-      return 'https://traderjoexyz.com/pool/0x130966628846bfd36ff31a822705796e8cb8c18d/0xc55036b5348cfb45a932481744645985010d3a44';
+      return 'https://traderjoexyz.com/avalanche/pool/v1/0x130966628846bfd36ff31a822705796e8cb8c18d/0xc55036b5348cfb45a932481744645985010d3a44';
     } else if (bank.depositTokenName.includes('GRAPE-WINE')) {
-      return 'https://traderjoexyz.com/pool/0x5541d83efad1f281571b343977648b75d95cdac2/0xc55036b5348cfb45a932481744645985010d3a44';
+      return 'https://traderjoexyz.com/avalanche/pool/v1/0x5541D83EFaD1f281571B343977648B75d95cdAC2/0xc55036b5348cfb45a932481744645985010d3a44';
     } else if (bank.depositTokenName.includes('WINE-POPS')) {
       return 'https://www.swapsicle.io/add/0xC55036B5348CfB45a932481744645985010d3A44/0x240248628B7B6850352764C5dFa50D1592A033A8';
     }

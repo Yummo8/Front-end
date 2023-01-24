@@ -173,7 +173,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({displayName, bank, actives
 
   const getLiquidityLink = () => {
     if (payWith === bank.depositTokenName) {
-      return 'https://traderjoexyz.com/pool/0x130966628846bfd36ff31a822705796e8cb8c18d/0xc55036b5348cfb45a932481744645985010d3a44';
+      return 'https://traderjoexyz.com/avalanche/pool/v1/0x130966628846bfd36ff31a822705796e8cb8c18d/0xc55036b5348cfb45a932481744645985010d3a44';
     }
   };
 
