@@ -550,7 +550,7 @@ const SolerapressCard: React.FC<SolerapressCardProps> = ({displayName, bank, act
                                 label={bank.depositTokenName}
                               />
 
-                              <FormControlLabel value="MIM" control={<Radio />} label="MIM" />
+                              {/*<FormControlLabel value="MIM" control={<Radio />} label="MIM" />*/}
                             </RadioGroup>
                           </FormControl>
                         </Box>
