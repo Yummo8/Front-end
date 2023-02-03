@@ -88,17 +88,17 @@ const Home = () => {
 
   return (
     <Page>
-      <Grid container direction="column" justifyContent="space-between" style={{minHeight: '80vh'}} spacing={3}>
+      <Grid container direction="column" justifyContent="space-between" style={{minHeight: '60vh'}} spacing={3}>
         <Grid item xs={12} style={{marginLeft: '20px'}}>
           <Grid container direction="column" justifyContent="center" spacing={2} alignItems="flex-start">
             <Grid item>
               <span className="welcome-text" style={{fontFamily: 'superstar'}}>Welcome to <span style={{color: '#e646e6'}}>Grape Finance</span></span>
             </Grid>
             <Grid item style={{color: '#fcfcfc'}}>
-              An ecosystem of innovative permissionless DeFi products providing{' '}
-              <span style={{color: '#e646e6', fontWeight: '700'}}>real yields</span>, <br />
-              & real opportunities, <br />
-              allowing users to tailor strategies to the specific goals.
+              An ecosystem of innovative DeFi products providing{' '}
+              <br />
+              <span style={{color: '#e646e6', fontWeight: '700'}}>real yields</span> & real opportunities, <br />
+              for all types of users and portfolios.
             </Grid>
             <Grid item>
               <a
