@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React, {useEffect, useMemo, useState} from 'react';
 import {Box, Grid, Accordion, AccordionDetails, AccordionSummary, useMediaQuery} from '@material-ui/core';
 import useEarnings from '../../hooks/useEarnings';
@@ -314,6 +315,7 @@ const FarmCard: React.FC<FarmCardProps> = ({bank, grapeStats, tShareStats, activ
                               <button
                                 onClick={zap}
                                 className="secondary-button"
+                                disabled={Number(inputValue) === 0 || inputValue === '' || bank.closedForStaking == true}
                                 title="Zap"
                                 style={{
                                   borderTopLeftRadius: '0',
@@ -370,7 +372,7 @@ const FarmCard: React.FC<FarmCardProps> = ({bank, grapeStats, tShareStats, activ
                                         ? '0'
                                         : '5px',
                                   }}
-                                  disabled={Number(inputValue) === 0 || inputValue === ''}
+                                  disabled={Number(inputValue) === 0 || inputValue === '' || bank.closedForStaking == true}
                                   onClick={stake}
                                   className="primary-button"
                                   title="Deposit"

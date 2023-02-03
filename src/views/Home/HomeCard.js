@@ -11,6 +11,7 @@ import xGrape from '../../assets/img/xGrape.png';
 import vinium from '../../assets/img/vinium.png';
 import grapeWine from '../../assets/img/grape-wine.png';
 import gnode from '../../assets/img/gnode.png';
+import soda from '../../assets/img/soda.png';
 import barrel from '../../assets/img/barrel.png';
 import winemaker from '../../assets/img/Winemaker.png';
 import rebates from '../../assets/img/rebates.png';
@@ -25,6 +26,7 @@ const nameToImage = {
   xGrape: xGrape,
   grapeWine: grapeWine,
   gnode: gnode,
+  soda: soda,
   barrel: barrel,
   winemaker: winemaker,
   rebates: rebates,

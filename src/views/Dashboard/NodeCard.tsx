@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React, {useEffect, useMemo, useState} from 'react';
 import {Box, Grid, Accordion, AccordionDetails, AccordionSummary, useMediaQuery} from '@material-ui/core';
 import useEarnings from '../../hooks/useEarnings';

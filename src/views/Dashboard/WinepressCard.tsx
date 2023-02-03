@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React, {useMemo, useState, useEffect} from 'react';
 import {Box, Grid, Accordion, AccordionDetails, AccordionSummary, useMediaQuery} from '@material-ui/core';
 import InfoIcon from '@mui/icons-material/Info';

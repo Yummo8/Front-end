@@ -92,13 +92,13 @@ const Home = () => {
         <Grid item xs={12} style={{marginLeft: '20px'}}>
           <Grid container direction="column" justifyContent="center" spacing={2} alignItems="flex-start">
             <Grid item>
-              <span className="welcome-text">Welcome to <span style={{color: '#e646e6'}}>Grape Finance</span></span>
+              <span className="welcome-text" style={{fontFamily: 'superstar'}}>Welcome to <span style={{color: '#e646e6'}}>Grape Finance</span></span>
             </Grid>
             <Grid item style={{color: '#fcfcfc'}}>
-              An Ecosystem of Innovative on-chain DeFi products providing{' '}
+              An ecosystem of innovative permissionless DeFi products providing{' '}
               <span style={{color: '#e646e6', fontWeight: '700'}}>real yields</span>, <br />
-              built off a Seigniorage foundation, <br />
-              that truly allows the investors to tailor their strategies to their investing style.
+              & real opportunities, <br />
+              allowing users to tailor strategies to the specific goals.
             </Grid>
             <Grid item>
               <a

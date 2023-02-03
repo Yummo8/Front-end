@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React, {createContext, useCallback, useState} from 'react';
 import styled from 'styled-components';
 

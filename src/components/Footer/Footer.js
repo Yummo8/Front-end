@@ -104,7 +104,7 @@ const Footer = () => {
                 </a>
               </div>
             </Grid>
-            <Grid item>
+            {/*<Grid item>
               <div className="animated-underline" style={{height: '40px', lineHeight: '40px'}}>
                 <a href="/roadmap" style={{textDecoration: 'none', color: 'inherit'}}>
                   <Grid container alignItems="center" justifyContent="center" spacing={1}>
@@ -133,7 +133,7 @@ const Footer = () => {
                   </Grid>
                 </a>
               </div>
-            </Grid>
+  </Grid>*/}
           </Grid>
         </Grid>
         <Grid item xs={12} sm={6} style={{textAlign: screenSM ? 'center' : 'left'}}>

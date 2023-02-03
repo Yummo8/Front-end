@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React, {useState, useMemo} from 'react';
 
 import {Button, Select, MenuItem, InputLabel, withStyles} from '@material-ui/core';

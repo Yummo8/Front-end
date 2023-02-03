@@ -1,3 +1,4 @@
+//@ts-nocheck
 import {useMemo, useState, useEffect} from 'react';
 import {useWallet} from 'use-wallet';
 import {Grid, Typography, Card, CardContent, Tooltip} from '@material-ui/core';
@@ -156,7 +157,7 @@ const DashboardTop = () => {
   const totalInvested = useMemo(() => {
     if (walletStats && account) {
       return (
-        walletStats.totalInNodes +
+        //walletStats.totalInNodes +
         walletStats.totalInSodaPress +
         walletStats.totalInVineyard +
         walletStats.totalInWinePress +
@@ -190,7 +191,7 @@ const DashboardTop = () => {
     <Grid container spacing={1}>
       <Grid item xs={12}>
         <Grid container spacing={1}>
-          <Grid item xs={12} lg={4}>
+          <Grid item xs={12} lg={6}>
             <Card>
               <CardContent>
                 <Grid container justifyContent="space-between" alignContent="center" alignItems="center">
@@ -231,7 +232,7 @@ const DashboardTop = () => {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={6} sm={6} md={3} lg={2}>
+          <Grid item xs={4} sm={4} md={4} lg={2}>
             <Card>
               <CardContent>
                 <Grid container justifyContent="space-between">
@@ -266,7 +267,7 @@ const DashboardTop = () => {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={6} sm={6} md={3} lg={2}>
+          <Grid item xs={4} sm={4} md={4} lg={2}>
             <Card>
               <CardContent>
                 <Grid container justifyContent="space-between">
@@ -301,7 +302,7 @@ const DashboardTop = () => {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={6} sm={6} md={3} lg={2}>
+          {/*<Grid item xs={6} sm={6} md={3} lg={2}>
             <Card>
               <CardContent>
                 <Grid container justifyContent="space-between">
@@ -335,9 +336,9 @@ const DashboardTop = () => {
                 </Grid>
               </CardContent>
             </Card>
-          </Grid>
+                      </Grid>*/}
 
-          <Grid item xs={6} sm={6} md={3} lg={2}>
+          <Grid item xs={4} sm={4} md={4} lg={2}>
             <Card>
               <CardContent>
                 <Grid container justifyContent="space-between">
@@ -476,7 +477,7 @@ const DashboardTop = () => {
 
       <Grid item xs={12}>
         <Grid container spacing={1} justifyContent="space-between" alignItems="center">
-          <Grid item xs={4} sm={4} md={2}>
+          <Grid item xs={3} sm={3} md={3}>
             <a
               target="_blank"
               style={{textDecoration: 'none'}}
@@ -487,7 +488,7 @@ const DashboardTop = () => {
             </a>
           </Grid>
 
-          <Grid item xs={4} sm={4} md={2}>
+          <Grid item xs={3} sm={3} md={3}>
             <a
               target="_blank"
               style={{textDecoration: 'none'}}
@@ -498,7 +499,7 @@ const DashboardTop = () => {
             </a>
           </Grid>
 
-          <Grid item xs={4} sm={4} md={2}>
+          <Grid item xs={3} sm={3} md={3}>
             <a
               target="_blank"
               rel="noopener noreferrer"
@@ -513,7 +514,7 @@ const DashboardTop = () => {
             </a>
           </Grid>
 
-          <Grid item xs={4} sm={4} md={2}>
+          <Grid item xs={3} sm={3} md={3}>
             <a
               style={{textDecoration: 'none'}}
               target="_blank"
@@ -524,7 +525,7 @@ const DashboardTop = () => {
             </a>
           </Grid>
 
-          <Grid item xs={4} sm={4} md={2}>
+          {/*<Grid item xs={4} sm={4} md={2}>
             <div className="dashboard-token-box">
               <div className="dashboard-token-box-inner">
                 <Grid container justifyContent="center" alignItems="flex-start" spacing={1}>
@@ -550,7 +551,7 @@ const DashboardTop = () => {
                 </Grid>
               </div>
             </div>
-          </Grid>
+                      </Grid>
 
           <Grid item xs={4} sm={4} md={2}>
             <div className="dashboard-token-box">
@@ -575,7 +576,8 @@ const DashboardTop = () => {
                 </Grid>
               </div>
             </div>
-          </Grid>
+          </Grid>*/}
+
         </Grid>
       </Grid>
     </Grid>

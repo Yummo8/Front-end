@@ -322,6 +322,34 @@ const Page: React.FC = ({children}) => {
           <Grid container direction="column" justifyContent="space-between">
             <Grid item>
               <List>
+              <Tooltip arrow followCursor title={open ? '' : 'Dashboard'} placement="top-start">
+                  <ListItem
+                    className="menu-item"
+                    component={Link}
+                    to="/dashboard"
+                    disablePadding
+                    sx={{display: 'block'}}
+                  >
+                    <ListItemButton
+                      sx={{
+                        minHeight: 48,
+                        justifyContent: open ? 'initial' : 'center',
+                      }}
+                    >
+                      <ListItemIcon
+                        sx={{
+                          color: 'white',
+                          minWidth: 0,
+                          mr: open ? 3 : 'auto',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <AttachMoneyIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Dashboard" sx={{opacity: open ? 1 : 0}} />
+                    </ListItemButton>
+                  </ListItem>
+                </Tooltip>
                 <Tooltip arrow followCursor title={open ? '' : 'DeFi Products'} placement="top-start">
                   <ListItemButton onClick={handleAppsClick}>
                     <ListItemIcon
@@ -337,7 +365,7 @@ const Page: React.FC = ({children}) => {
                     <ListItemText primary="DeFi Products" sx={{opacity: open ? 1 : 0}} />
                     {open ? appsOpen ? <ExpandLess /> : <ExpandMore /> : null}
                   </ListItemButton>
-                </Tooltip>
+                </Tooltip>     
                 {open && (
                   <Collapse in={appsOpen} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
@@ -381,92 +409,6 @@ const Page: React.FC = ({children}) => {
                             <img src={winemaker} alt="winemaker" height={30} />{' '}
                           </ListItemIcon>
                           <ListItemText primary="Wine Maker" />
-                        </ListItemButton>
-                      </a>
-                      <a
-                        className="menu-item"
-                        href="https://soda.grapefinance.app/"
-                        target="_blank"
-                        rel="noreferrer noopener"
-                        style={{display: 'block'}}
-                      >
-                        {' '}
-                        <ListItemButton sx={{pl: 4}}>
-                          <ListItemIcon
-                            sx={{
-                              color: 'white',
-                              minWidth: 0,
-                              mr: open ? 3 : 'auto',
-                              justifyContent: 'center',
-                            }}
-                          >
-                            <img src={sodaImg} alt="Grape Soda Press" height={30} />{' '}
-                          </ListItemIcon>
-                          <ListItemText primary="Grape Soda" />
-                        </ListItemButton>
-                      </a>
-                      <a
-                        className="menu-item"
-                        href="https://solera.grapefinance.app/"
-                        target="_blank"
-                        rel="noreferrer noopener"
-                        style={{display: 'block'}}
-                      >
-                        <ListItemButton sx={{pl: 4}}>
-                          <ListItemIcon
-                            sx={{
-                              color: 'white',
-                              minWidth: 0,
-                              mr: open ? 3 : 'auto',
-                              justifyContent: 'center',
-                            }}
-                          >
-                            <img src={soleraIcon} alt="solera" height={30} />{' '}
-                          </ListItemIcon>
-                          <ListItemText primary="Solera Press" />
-                        </ListItemButton>
-                      </a>
-                      
-                      <a
-                        className="menu-item"
-                        href="https://winepress.grapefinance.app/"
-                        rel="noreferrer noopener"
-                        target="_blank"
-                        style={{padding: 0, display: 'block'}}
-                      >
-                        <ListItemButton sx={{pl: 4}}>
-                          <ListItemIcon
-                            sx={{
-                              color: 'white',
-                              minWidth: 0,
-                              mr: open ? 3 : 'auto',
-                              justifyContent: 'center',
-                            }}
-                          >
-                            <img src={pressIcon} alt="WinePress" width={30} />{' '}
-                          </ListItemIcon>
-                          <ListItemText primary="Wine Press" />
-                        </ListItemButton>
-                      </a>
-                      <a
-                        className="menu-item"
-                        href="https://xgrape.grapefinance.app/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{padding: 0, display: 'block'}}
-                      >
-                        <ListItemButton sx={{pl: 4}}>
-                          <ListItemIcon
-                            sx={{
-                              color: 'white',
-                              minWidth: 0,
-                              mr: open ? 3 : 'auto',
-                              justifyContent: 'center',
-                            }}
-                          >
-                            <img src={xGrapeImg} alt="xGrape" width={30} />{' '}
-                          </ListItemIcon>
-                          <ListItemText primary="Mint xGrape" />
                         </ListItemButton>
                       </a>
                       <ListItem
@@ -551,6 +493,92 @@ const Page: React.FC = ({children}) => {
                           <ListItemText primary="Winery" sx={{opacity: open ? 1 : 0}} />
                         </ListItemButton>
                       </ListItem>
+                      <a
+                        className="menu-item"
+                        href="https://soda.grapefinance.app/"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        style={{display: 'block'}}
+                      >
+                        {' '}
+                        <ListItemButton sx={{pl: 4}}>
+                          <ListItemIcon
+                            sx={{
+                              color: 'white',
+                              minWidth: 0,
+                              mr: open ? 3 : 'auto',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <img src={sodaImg} alt="Grape Soda Press" height={30} />{' '}
+                          </ListItemIcon>
+                          <ListItemText primary="Soda Press" />
+                        </ListItemButton>
+                      </a>
+                      <a
+                        className="menu-item"
+                        href="https://solera.grapefinance.app/"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        style={{display: 'block'}}
+                      >
+                        <ListItemButton sx={{pl: 4}}>
+                          <ListItemIcon
+                            sx={{
+                              color: 'white',
+                              minWidth: 0,
+                              mr: open ? 3 : 'auto',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <img src={soleraIcon} alt="solera" height={30} />{' '}
+                          </ListItemIcon>
+                          <ListItemText primary="Solera Press" />
+                        </ListItemButton>
+                      </a>
+                      
+                      <a
+                        className="menu-item"
+                        href="https://winepress.grapefinance.app/"
+                        rel="noreferrer noopener"
+                        target="_blank"
+                        style={{padding: 0, display: 'block'}}
+                      >
+                        <ListItemButton sx={{pl: 4}}>
+                          <ListItemIcon
+                            sx={{
+                              color: 'white',
+                              minWidth: 0,
+                              mr: open ? 3 : 'auto',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <img src={pressIcon} alt="WinePress" width={30} />{' '}
+                          </ListItemIcon>
+                          <ListItemText primary="Wine Press" />
+                        </ListItemButton>
+                      </a>
+                      <a
+                        className="menu-item"
+                        href="https://xgrape.grapefinance.app/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{padding: 0, display: 'block'}}
+                      >
+                        <ListItemButton sx={{pl: 4}}>
+                          <ListItemIcon
+                            sx={{
+                              color: 'white',
+                              minWidth: 0,
+                              mr: open ? 3 : 'auto',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <img src={xGrapeImg} alt="xGrape" width={30} />{' '}
+                          </ListItemIcon>
+                          <ListItemText primary="Mint xGrape" />
+                        </ListItemButton>
+                      </a>
 
                       {/*<ListItem
                         className="menu-item"
@@ -680,35 +708,6 @@ const Page: React.FC = ({children}) => {
                     </List>
                   </Collapse>
                 )}
-
-                <Tooltip arrow followCursor title={open ? '' : 'Dashboard'} placement="top-start">
-                  <ListItem
-                    className="menu-item"
-                    component={Link}
-                    to="/dashboard"
-                    disablePadding
-                    sx={{display: 'block'}}
-                  >
-                    <ListItemButton
-                      sx={{
-                        minHeight: 48,
-                        justifyContent: open ? 'initial' : 'center',
-                      }}
-                    >
-                      <ListItemIcon
-                        sx={{
-                          color: 'white',
-                          minWidth: 0,
-                          mr: open ? 3 : 'auto',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <AttachMoneyIcon />
-                      </ListItemIcon>
-                      <ListItemText primary="Dashboard" sx={{opacity: open ? 1 : 0}} />
-                    </ListItemButton>
-                  </ListItem>
-                </Tooltip>
               </List>
 
               <Divider color="#aaa" />

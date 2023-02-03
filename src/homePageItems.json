@@ -9,13 +9,13 @@
     "isNew": true
   },
   {
-    "label": "Solera Press",
-    "subLabel": "Locked sVintage Staking",
-    "description": "Lock sVintage and earn up to ~2% daily + bonus. Assassinate players for more returns.",
-    "linkTo": "https://solera.grapefinance.app/",
+    "label": "Wine Maker",
+    "subLabel": "NFT Staking RPG",
+    "description": "Stake Vinters, equip & train them to become a Master Winemaker. Earn $Vintage and get up to ~1.5% daily.",
+    "isNew": false,
+    "linkTo": "https://winemaker.grapefinance.app/",
     "isInternalLink": false,
-    "image": "solera",
-    "isNew": true
+    "image": "winemaker"
   },
   {
     "label": "xGrape",
@@ -38,10 +38,37 @@
     ]
   },
   {
-    "label": "Seigniorage Protocol",
+    "label": "Soda Press",
+    "subLabel": "Locked Grape-xGrape Staking",
+    "description": "Lock Grape-xGrape LP and earn up to ~1.5% daily + bonus. Assassinate players for more returns.",
+    "isNew": false,
+    "linkTo": "https://soda.grapefinance.app/",
+    "isInternalLink": false,
+    "image": "soda"
+  },
+  {
+    "label": "Solera Press",
+    "subLabel": "Locked sVintage Staking",
+    "description": "Lock sVintage and earn up to ~2% daily + bonus. Assassinate players for more returns.",
+    "linkTo": "https://solera.grapefinance.app/",
+    "isInternalLink": false,
+    "image": "solera",
+    "isNew": false
+  },
+  {
+    "label": "Wine Press",
+    "subLabel": "Locked LP Staking",
+    "description": "Lock Wine-MIM LP and earn up to ~1.25% daily + bonus. Assassinate players for more returns.",
+    "isNew": false,
+    "linkTo": "https://winepress.grapefinance.app/",
+    "isInternalLink": false,
+    "image": "barrel"
+  },
+  {
+    "label": "Seigniorage Yields",
     "subLabel": "Liquidity Farming",
     "color": "#e647e6",
-    "description": "Stake Grape, Wine, or provide liquidity to earn daily rewards. No lock period. ",
+    "description": "Stake Grape, Wine, or provide liquidity to earn yield. No lock period. ",
     "isNew": false,
     "image": "grapeWine",
     "items": [
@@ -61,42 +88,6 @@
         "isInternalLink": true
       }
     ]
-  },
-  {
-    "label": "Nodes",
-    "subLabel": "Locked Staking",
-    "description": "Use your Grape to purchase nodes and get up to 1.5% daily. Node holders receive additional monthly airdrops.",
-    "isNew": false,
-    "linkTo": "/dashboard#nodes",
-    "isInternalLink": true,
-    "image": "gnode"
-  },
-  {
-    "label": "Wine Press",
-    "subLabel": "Locked LP Staking",
-    "description": "Lock Wine-MIM LP and earn up to ~1.25% daily + bonus. Assassinate players for more returns.",
-    "isNew": false,
-    "linkTo": "https://winepress.grapefinance.app/",
-    "isInternalLink": false,
-    "image": "barrel"
-  },
-  {
-    "label": "Wine Maker",
-    "subLabel": "NFT Staking RPG",
-    "description": "Stake Vinters, equip & train them to become a Master Winemaker. Earn $Vintage and get up to ~1.5% daily.",
-    "isNew": false,
-    "linkTo": "https://winemaker.grapefinance.app/",
-    "isInternalLink": false,
-    "image": "winemaker"
-  },
-  {
-    "label": "Peg Health Campaign",
-    "subLabel": "Discount Rebates",
-    "description": "Bond Grape, MIM, or Grape-MIM LP, and receive discounted Wine over a vesting period of 72 hours.",
-    "isNew": false,
-    "linkTo": "/rebates",
-    "isInternalLink": true,
-    "image": "rebates"
   },
   {
     "label": "Casino",

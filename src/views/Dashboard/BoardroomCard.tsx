@@ -1,3 +1,4 @@
+//@ts-nocheck
 import moment from 'moment';
 import React, {useEffect, useMemo, useState} from 'react';
 import {Box, Grid, Accordion, AccordionDetails, AccordionSummary, useMediaQuery} from '@material-ui/core';

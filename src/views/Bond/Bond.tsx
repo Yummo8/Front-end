@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React, {useCallback, useMemo, useState} from 'react';
 import Page from '../../components/Page';
 import {createGlobalStyle} from 'styled-components';
