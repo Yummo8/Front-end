@@ -118,7 +118,7 @@ const Dashboard = () => {
                   </Grid>
                 </div>
               </Grid>
-              {/*<Grid item>
+              <Grid item>
                 <div
                   onClick={() => {
                     window.history.replaceState(
@@ -139,7 +139,7 @@ const Dashboard = () => {
                     </Grid>
                   </Grid>
                 </div>
-                </Grid>*/}
+              </Grid>
               <Grid item>
                 <div
                   onClick={() => {
