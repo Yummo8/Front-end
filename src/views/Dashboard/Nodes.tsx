@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React from 'react';
 // import NodeCard from './NodeCard';
 import {Bank} from '../../grape-finance';
