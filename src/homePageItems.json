@@ -111,22 +111,22 @@
       }
     ]
   },
-  {
-    "label": "Burn Games",
-    "subLabel": "Burn Grape for Fun",
-    "color": "#e647e6",
-    "description": "Buy tickets with Grape to play a variety of classic & new arcade games. Top players earn prizes!",
-    "isNew": false,
-    "image": "burninggrape",
-    "items": [
-      {
-        "label": "Space Shooter",
-        "isNew": false,
-        "linkTo": "https://www.lianyou.io/burnforfun",
-        "isInternalLink": false
-      }
-    ]
-  },
+  // {
+  //   "label": "Burn Games",
+  //   "subLabel": "Burn Grape for Fun",
+  //   "color": "#e647e6",
+  //   "description": "Buy tickets with Grape to play a variety of classic & new arcade games. Top players earn prizes!",
+  //   "isNew": false,
+  //   "image": "burninggrape",
+  //   "items": [
+  //     {
+  //       "label": "Space Shooter",
+  //       "isNew": false,
+  //       "linkTo": "https://www.lianyou.io/burnforfun",
+  //       "isInternalLink": false
+  //     }
+  //   ]
+  // },
   {
     "label": "NFTs & Rewards",
     "subLabel": "VIP Access",
