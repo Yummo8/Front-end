@@ -30,6 +30,8 @@ import useSodapressUserInfo from '../../hooks/useSodapressUserInfo';
 import {subscribe, unsubscribe} from '../../state/txEvent';
 import {SyncLoader} from 'react-spinners';
 import useBurnGrapePress from '../../hooks/useBurnGrapePress';
+import PressClaimModal from './PressClaimModal';
+import useModal from '../../hooks/useModal';
 
 const GRAPE_PER_BATCH = 10;
 
@@ -203,6 +205,23 @@ const SodapressCard: React.FC<SodapressCardProps> = ({displayName, bank, actives
   const assassinate = (user: string) => {
     onAssassinate(user);
   };
+
+  
+  const modalCallback = (action: string) => {
+    if (action === 'Cancel') {
+      onDismissModal();
+    }
+    if (action === 'Claim') {
+      onDismissModal();
+      setClaimLoading(true);
+      onClaim();
+    }
+  };
+
+  const [onPresentModal, onDismissModal] = useModal(
+    <PressClaimModal shares={pressUserInfo?.pendingShares} callback={modalCallback} />,
+  );
+
 
   return (
     <>
@@ -456,7 +475,7 @@ const SodapressCard: React.FC<SodapressCardProps> = ({displayName, bank, actives
                             arrow
                             placement="top"
                             enterDelay={0}
-                            title="Your remaining shares in the pool. Reaching 0 kicks you out of the Press"
+                            title="Your remaining shares in the pool. Claiming while 'Remaining Shares' = 'Pending Shares' kicks out of the Press."
                           >
                             <InfoIcon style={{verticalAlign: 'text-bottom', fontSize: '17px'}} />
                           </LightTooltip>
@@ -660,7 +679,7 @@ const SodapressCard: React.FC<SodapressCardProps> = ({displayName, bank, actives
                     <Box className="lineDetailsBox">
                       <div className="press-line-details-inner">
                         <Box>
-                          <div className="pending-rewards">PENDING {bank.earnTokenName} REWARDS</div>
+                          <div className="pending-rewards">PENDING {bank.earnTokenName} SHARES</div>
                         </Box>
                         <Box style={{textAlign: 'center'}} mt={2}>
                           <TokenSymbol symbol={bank.earnTokenName} width={59} height={59} />
@@ -683,6 +702,15 @@ const SodapressCard: React.FC<SodapressCardProps> = ({displayName, bank, actives
                                 ? (pressUserInfo.totalClaimable * Number(pressUserInfo.depositTokenPrice)).toFixed(2)
                                 : '0.00'}
                             </Grid>
+                            {pressUserInfo && (
+                              <Grid item style={{marginTop: '20px'}} className="sharesLeftValue">
+                                After claiming, you will have{' '}
+                                {(pressUserInfo.currentShares - pressUserInfo.pendingShares).toFixed(2)} share(s) left.
+                                {pressUserInfo.currentShares - pressUserInfo.pendingShares == 0 && (
+                                  <div style={{color: 'red'}}>Claiming will kick you out of the Press.</div>
+                                )}
+                              </Grid>
+                            )}
                           </Grid>
                         </Box>
                       </div>
@@ -706,10 +734,10 @@ const SodapressCard: React.FC<SodapressCardProps> = ({displayName, bank, actives
                               {compoundLoading ? (
                                 <span>
                                   <SyncLoader color="white" size={4} style={{marginRight: '10px'}} />
-                                  COMPOUNDING
+                                  PRESSING
                                 </span>
                               ) : (
-                                <span>COMPOUND</span>
+                                <span>PRESS</span>
                               )}
                             </button>
                           </Grid>
@@ -719,18 +747,22 @@ const SodapressCard: React.FC<SodapressCardProps> = ({displayName, bank, actives
                               className="secondary-button"
                               title="Claim"
                               onClick={() => {
-                                setClaimLoading(true);
-                                onClaim();
+                                if (pressUserInfo.currentShares - pressUserInfo.pendingShares == 0) {
+                                  onPresentModal();
+                                } else {
+                                  setClaimLoading(true);
+                                  onClaim();
+                                }
                               }}
                               disabled={!pressUserInfo || (pressUserInfo && pressUserInfo.totalClaimable <= 0)}
                             >
                               {claimLoading ? (
                                 <span>
                                   <SyncLoader color="white" size={4} style={{marginRight: '10px'}} />
-                                  CLAIMING
+                                  CLAIMING SHARES
                                 </span>
                               ) : (
-                                <span>CLAIM</span>
+                                <span>CLAIM SHARES</span>
                               )}
                             </button>
                           </Grid>

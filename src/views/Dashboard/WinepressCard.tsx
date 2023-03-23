@@ -31,6 +31,8 @@ import {subscribe, unsubscribe} from '../../state/txEvent';
 import {SyncLoader} from 'react-spinners';
 import useBurnGrapePress from '../../hooks/useBurnGrapePress';
 import {batch} from 'react-redux';
+import PressClaimModal from './PressClaimModal';
+import useModal from '../../hooks/useModal';
 
 const GRAPE_PER_BATCH = 10;
 
@@ -103,6 +105,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({displayName, bank, actives
   const [batchAmount, setBatchAmount] = useState('');
 
   const [claimLoading, setClaimLoading] = useState(false);
+  const [showClaimingModal, setShowClaimingModal] = useState(true);
   const [depositingLoading, setDepositingLoading] = useState(false);
   const [approveLoading, setApproveLoading] = useState(false);
   const [compoundLoading, setCompoundLoading] = useState(false);
@@ -131,7 +134,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({displayName, bank, actives
       setLoading(false);
     }
   }, [pressUserInfo, displayDailyAPR]);
-  
+
   // Custom functions
   const expand = () => {
     setExpanded(!expanded);
@@ -205,6 +208,21 @@ const WinepressCard: React.FC<WinepressCardProps> = ({displayName, bank, actives
   const assassinate = (user: string) => {
     onAssassinate(user);
   };
+
+  const modalCallback = (action: string) => {
+    if (action === 'Cancel') {
+      onDismissModal();
+    }
+    if (action === 'Claim') {
+      onDismissModal();
+      setClaimLoading(true);
+      onClaim();
+    }
+  };
+
+  const [onPresentModal, onDismissModal] = useModal(
+    <PressClaimModal shares={pressUserInfo?.pendingShares} callback={modalCallback} />,
+  );
 
   return (
     <>
@@ -447,7 +465,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({displayName, bank, actives
                             arrow
                             placement="top"
                             enterDelay={0}
-                            title="Your Remaining shares in the pool. Reaching 0 kicks you out of the Press"
+                            title="Your Remaining shares in the pool. Claiming while 'Remaining Shares' = 'Pending Shares' kicks out of the Press."
                           >
                             <InfoIcon style={{verticalAlign: 'text-bottom', fontSize: '17px'}} />
                           </LightTooltip>
@@ -529,7 +547,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({displayName, bank, actives
                 </Grid>
               </Grid>
               <Grid item>
-                <Grid container spacing={5}>
+                <Grid container spacing={2}>
                   <Grid item xs={12} sm={12} md={6}>
                     <Box className="lineDetailsBox">
                       <div className="press-line-details-inner">
@@ -651,7 +669,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({displayName, bank, actives
                     <Box className="lineDetailsBox">
                       <div className="press-line-details-inner">
                         <Box>
-                          <div className="pending-rewards">PENDING {bank.earnTokenName} REWARDS</div>
+                          <div className="pending-rewards">PENDING {bank.earnTokenName} SHARES</div>
                         </Box>
                         <Box style={{textAlign: 'center'}} mt={2}>
                           <TokenSymbol symbol={bank.earnTokenName} width={59} height={59} />
@@ -674,6 +692,15 @@ const WinepressCard: React.FC<WinepressCardProps> = ({displayName, bank, actives
                                 ? (pressUserInfo.totalClaimable * Number(pressUserInfo.depositTokenPrice)).toFixed(2)
                                 : '0.00'}
                             </Grid>
+                            {pressUserInfo && (
+                              <Grid item style={{marginTop: '20px'}} className="sharesLeftValue">
+                                After claiming, you will have{' '}
+                                {(pressUserInfo.currentShares - pressUserInfo.pendingShares).toFixed(2)} share(s) left.
+                                {pressUserInfo.currentShares - pressUserInfo.pendingShares == 0 && (
+                                  <div style={{color: 'red'}}>Claiming will kick you out of the Press.</div>
+                                )}
+                              </Grid>
+                            )}
                           </Grid>
                         </Box>
                       </div>
@@ -697,10 +724,10 @@ const WinepressCard: React.FC<WinepressCardProps> = ({displayName, bank, actives
                               {compoundLoading ? (
                                 <span>
                                   <SyncLoader color="white" size={4} style={{marginRight: '10px'}} />
-                                  COMPOUNDING
+                                  PRESSING
                                 </span>
                               ) : (
-                                <span>COMPOUND</span>
+                                <span>PRESS</span>
                               )}
                             </button>
                           </Grid>
@@ -710,18 +737,22 @@ const WinepressCard: React.FC<WinepressCardProps> = ({displayName, bank, actives
                               className="secondary-button"
                               title="Claim"
                               onClick={() => {
-                                setClaimLoading(true);
-                                onClaim();
+                                if (pressUserInfo.currentShares - pressUserInfo.pendingShares == 0) {
+                                  onPresentModal();
+                                } else {
+                                  setClaimLoading(true);
+                                  onClaim();
+                                }
                               }}
                               disabled={!pressUserInfo || (pressUserInfo && pressUserInfo.totalClaimable <= 0)}
                             >
                               {claimLoading ? (
                                 <span>
                                   <SyncLoader color="white" size={4} style={{marginRight: '10px'}} />
-                                  CLAIMING
+                                  CLAIMING SHARES
                                 </span>
                               ) : (
-                                <span>CLAIM</span>
+                                <span>CLAIM SHARES</span>
                               )}
                             </button>
                           </Grid>

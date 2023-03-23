@@ -324,6 +324,11 @@
   text-align: center;
   color: #e646e6;
 }
+.sharesLeftValue {
+  font-size: 12px;
+  text-align: center;
+}
+
 .addRemoveLiquidity {
   text-decoration: underline;
   text-underline-offset: 10px;
