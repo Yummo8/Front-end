@@ -692,7 +692,7 @@ const WinepressCard: React.FC<WinepressCardProps> = ({displayName, bank, actives
                                 ? (pressUserInfo.totalClaimable * Number(pressUserInfo.depositTokenPrice)).toFixed(2)
                                 : '0.00'}
                             </Grid>
-                            {pressUserInfo && (
+                            {pressUserInfo && pressUserInfo.totalDeposited != 0 && (
                               <Grid item style={{marginTop: '20px'}} className="sharesLeftValue">
                                 After claiming, you will have{' '}
                                 {(pressUserInfo.currentShares - pressUserInfo.pendingShares).toFixed(2)} share(s) left.
