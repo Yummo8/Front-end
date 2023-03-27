@@ -8,12 +8,12 @@ import useBanks from '../../hooks/useBanks';
 import useBank from '../../hooks/useBank';
 
 import grapeImg from '../../assets/img/grape.png';
-import nodesImg from '../../assets/img/gnode.png';
+// import nodesImg from '../../assets/img/gnode.png';
 import wineImg from '../../assets/img/gshare.png';
 import soda from '../../assets/img/soda.png';
 
 import Farms from './Farms';
-import Nodes from './Nodes';
+// import Nodes from './Nodes';
 import BoardroomCard from './BoardroomCard';
 import Presses from './Presses';
 import {useLocation} from 'react-router-dom';
@@ -76,6 +76,30 @@ const Dashboard = () => {
                 <div
                   onClick={() => {
                     window.history.replaceState(
+                      {additionalInformation: '/dashboard#presses'},
+                      'Dashboard: Presses',
+                      '/dashboard#presses',
+                    );
+                    setActiveTab('Presses');
+                  }}
+                  className={
+                    activeTab === 'Presses' ? 'button-last dashboard-tab-item-active' : 'button-last dashboard-tab-item'
+                  }
+                >
+                  <Grid container justifyContent="center" alignItems="center" className="p2">
+                    <Grid item>
+                      <img src={soda} alt="Press" height={25} width={25} style={{verticalAlign: 'text-bottom'}} />
+                    </Grid>
+                    <Grid item style={{paddingLeft: '5px'}}>
+                      PRESSES
+                    </Grid>
+                  </Grid>
+                </div>
+              </Grid>
+              <Grid item>
+                <div
+                  onClick={() => {
+                    window.history.replaceState(
                       {additionalInformation: '/dashboard#farms'},
                       'Dashboard: Farms',
                       '/dashboard#farms',
@@ -118,7 +142,7 @@ const Dashboard = () => {
                   </Grid>
                 </div>
               </Grid>
-              <Grid item>
+              {/* <Grid item>
                 <div
                   onClick={() => {
                     window.history.replaceState(
@@ -139,31 +163,7 @@ const Dashboard = () => {
                     </Grid>
                   </Grid>
                 </div>
-              </Grid>
-              <Grid item>
-                <div
-                  onClick={() => {
-                    window.history.replaceState(
-                      {additionalInformation: '/dashboard#presses'},
-                      'Dashboard: Presses',
-                      '/dashboard#presses',
-                    );
-                    setActiveTab('Presses');
-                  }}
-                  className={
-                    activeTab === 'Presses' ? 'button-last dashboard-tab-item-active' : 'button-last dashboard-tab-item'
-                  }
-                >
-                  <Grid container justifyContent="center" alignItems="center" className="p2">
-                    <Grid item>
-                      <img src={soda} alt="Press" height={25} width={25} style={{verticalAlign: 'text-bottom'}} />
-                    </Grid>
-                    <Grid item style={{paddingLeft: '5px'}}>
-                      PRESSES
-                    </Grid>
-                  </Grid>
-                </div>
-              </Grid>
+              </Grid> */}
             </Grid>
           </Box>
 
@@ -214,9 +214,9 @@ const Dashboard = () => {
           <Box hidden={activeTab !== 'Winery'} mt={2}>
             <BoardroomCard />
           </Box>
-          <Box hidden={activeTab !== 'Nodes'} mt={2}>
+          {/* <Box hidden={activeTab !== 'Nodes'} mt={2}>
             <Nodes pools={nodePools} activesOnly={activesOnly} />
-          </Box>
+          </Box> */}
 
           <Box hidden={activeTab !== 'Presses'} mt={2}>
             <Presses pools={pressPools} activesOnly={activesOnly} />
