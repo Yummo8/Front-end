@@ -21,7 +21,7 @@ import {useLocation} from 'react-router-dom';
 import DashboardTop from './DashboardTop';
 
 const Dashboard = () => {
-  const [activeTab, setActiveTab] = useState('Farms');
+  const [activeTab, setActiveTab] = useState('Presses');
 
   const {account} = useWallet();
   // const grapeFinance = useGrapeFinance();
@@ -30,7 +30,6 @@ const Dashboard = () => {
   const vineyardPools = banks.filter(
     (bank) => (!bank.finished && bank.sectionInUI === 2) || bank.sectionInUI === 6 || bank.sectionInUI === 7,
   );
-  const nodePools = [useBank('GrapeNodeV2'), useBank('LPNode')];
   const pressPools = banks.filter((bank) => !bank.finished && bank.sectionInUI === 8);
 
   const tabsRef = useRef(null);
@@ -83,7 +82,7 @@ const Dashboard = () => {
                     setActiveTab('Presses');
                   }}
                   className={
-                    activeTab === 'Presses' ? 'button-last dashboard-tab-item-active' : 'button-last dashboard-tab-item'
+                    activeTab === 'Presses' ? 'button-first dashboard-tab-item-active' : 'button-first dashboard-tab-item'
                   }
                 >
                   <Grid container justifyContent="center" alignItems="center" className="p2">
@@ -107,7 +106,7 @@ const Dashboard = () => {
                     setActiveTab('Farms');
                   }}
                   className={
-                    activeTab === 'Farms' ? 'button-first dashboard-tab-item-active' : 'button-first dashboard-tab-item'
+                    activeTab === 'Farms' ? 'dashboard-tab-item-active' : 'dashboard-tab-item'
                   }
                 >
                   <Grid container justifyContent="center" alignItems="center" className="p2">
@@ -130,7 +129,7 @@ const Dashboard = () => {
                     );
                     setActiveTab('Winery');
                   }}
-                  className={activeTab === 'Winery' ? 'dashboard-tab-item-active' : 'dashboard-tab-item'}
+                  className={activeTab === 'Winery' ? 'button-last dashboard-tab-item-active' : 'button-last dashboard-tab-item'}
                 >
                   <Grid container justifyContent="center" alignItems="center" className="p2">
                     <Grid item>
