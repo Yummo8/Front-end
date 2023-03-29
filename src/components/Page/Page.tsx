@@ -411,33 +411,7 @@ const Page: React.FC = ({children}) => {
                           <ListItemText primary="Wine Maker" />
                         </ListItemButton>
                       </a>
-                      <ListItem
-                        className="menu-item"
-                        component={Link}
-                        to="/dashboard#presses"
-                        disablePadding
-                        sx={{display: 'block'}}
-                      >
-                        <ListItemButton
-                          sx={{
-                            pl: 4,
-                            minHeight: 48,
-                            justifyContent: open ? 'initial' : 'center',
-                          }}
-                        >
-                          <ListItemIcon
-                            sx={{
-                              color: 'white',
-                              minWidth: 0,
-                              mr: open ? 3 : 'auto',
-                              justifyContent: 'center',
-                            }}
-                          >
-                            <img alt="grape" height={30} src={pressimg} />
-                          </ListItemIcon>
-                          <ListItemText primary="Presses" sx={{opacity: open ? 1 : 0}} />
-                        </ListItemButton>
-                      </ListItem>
+            
                       <ListItem
                         className="menu-item"
                         component={Link}
@@ -493,15 +467,20 @@ const Page: React.FC = ({children}) => {
                           <ListItemText primary="Winery" sx={{opacity: open ? 1 : 0}} />
                         </ListItemButton>
                       </ListItem>
-                      <a
+                      <ListItem
                         className="menu-item"
-                        href="https://soda.grapefinance.app/"
-                        target="_blank"
-                        rel="noreferrer noopener"
-                        style={{display: 'block'}}
+                        component={Link}
+                        to="/dashboard#presses"
+                        disablePadding
+                        sx={{display: 'block'}}
                       >
-                        {' '}
-                        <ListItemButton sx={{pl: 4}}>
+                        <ListItemButton
+                          sx={{
+                            pl: 4,
+                            minHeight: 48,
+                            justifyContent: open ? 'initial' : 'center',
+                          }}
+                        >
                           <ListItemIcon
                             sx={{
                               color: 'white',
@@ -510,19 +489,25 @@ const Page: React.FC = ({children}) => {
                               justifyContent: 'center',
                             }}
                           >
-                            <img src={sodaImg} alt="Grape Soda Press" height={30} />{' '}
+                            <img alt="grape" height={30} src={sodaImg} />
                           </ListItemIcon>
-                          <ListItemText primary="Soda Press" />
+                          <ListItemText primary="Soda Press" sx={{opacity: open ? 1 : 0}} />
                         </ListItemButton>
-                      </a>
-                      <a
+                      </ListItem>
+                      <ListItem
                         className="menu-item"
-                        href="https://solera.grapefinance.app/"
-                        target="_blank"
-                        rel="noreferrer noopener"
-                        style={{display: 'block'}}
+                        component={Link}
+                        to="/dashboard#presses"
+                        disablePadding
+                        sx={{display: 'block'}}
                       >
-                        <ListItemButton sx={{pl: 4}}>
+                        <ListItemButton
+                          sx={{
+                            pl: 4,
+                            minHeight: 48,
+                            justifyContent: open ? 'initial' : 'center',
+                          }}
+                        >
                           <ListItemIcon
                             sx={{
                               color: 'white',
@@ -531,20 +516,26 @@ const Page: React.FC = ({children}) => {
                               justifyContent: 'center',
                             }}
                           >
-                            <img src={soleraIcon} alt="solera" height={30} />{' '}
+                            <img alt="grape" height={30} src={soleraIcon} />
                           </ListItemIcon>
-                          <ListItemText primary="Solera Press" />
+                          <ListItemText primary="Solera Press" sx={{opacity: open ? 1 : 0}} />
                         </ListItemButton>
-                      </a>
+                      </ListItem>
                       
-                      <a
+                      <ListItem
                         className="menu-item"
-                        href="https://winepress.grapefinance.app/"
-                        rel="noreferrer noopener"
-                        target="_blank"
-                        style={{padding: 0, display: 'block'}}
+                        component={Link}
+                        to="/dashboard#presses"
+                        disablePadding
+                        sx={{display: 'block'}}
                       >
-                        <ListItemButton sx={{pl: 4}}>
+                        <ListItemButton
+                          sx={{
+                            pl: 4,
+                            minHeight: 48,
+                            justifyContent: open ? 'initial' : 'center',
+                          }}
+                        >
                           <ListItemIcon
                             sx={{
                               color: 'white',
@@ -553,11 +544,11 @@ const Page: React.FC = ({children}) => {
                               justifyContent: 'center',
                             }}
                           >
-                            <img src={pressIcon} alt="WinePress" width={30} />{' '}
+                            <img alt="grape" height={30} src={pressIcon} />
                           </ListItemIcon>
-                          <ListItemText primary="Wine Press" />
+                          <ListItemText primary="WinePress" sx={{opacity: open ? 1 : 0}} />
                         </ListItemButton>
-                      </a>
+                      </ListItem>
                       <a
                         className="menu-item"
                         href="https://xgrape.grapefinance.app/"
