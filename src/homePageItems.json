@@ -32,7 +32,7 @@
       },
       {
         "label": "Grape Soda Press",
-        "linkTo": "https://soda.grapefinance.app/",
+        "linkTo": "https://grapefinance.app/dashboard#presses",
         "isInternalLink": false
       }
     ]
@@ -42,7 +42,7 @@
     "subLabel": "Locked Grape-xGrape Staking",
     "description": "Lock Grape-xGrape LP and earn up to ~1.5% daily + bonus. Assassinate players for more returns.",
     "isNew": false,
-    "linkTo": "https://soda.grapefinance.app/",
+    "linkTo": "https://grapefinance.app/dashboard#presses",
     "isInternalLink": false,
     "image": "soda"
   },
@@ -50,7 +50,7 @@
     "label": "Solera Press",
     "subLabel": "Locked sVintage Staking",
     "description": "Lock sVintage and earn up to ~2% daily + bonus. Assassinate players for more returns.",
-    "linkTo": "https://solera.grapefinance.app/",
+    "linkTo": "https://grapefinance.app/dashboard#presses",
     "isInternalLink": false,
     "image": "solera",
     "isNew": false
@@ -60,7 +60,7 @@
     "subLabel": "Locked LP Staking",
     "description": "Lock Wine-MIM LP and earn up to ~1.25% daily + bonus. Assassinate players for more returns.",
     "isNew": false,
-    "linkTo": "https://winepress.grapefinance.app/",
+    "linkTo": "https://grapefinance.app/dashboard#presses",
     "isInternalLink": false,
     "image": "barrel"
   },
